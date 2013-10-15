@@ -144,7 +144,7 @@ class OC{
          */
         return     array(
 
-                    'New Installation'=>array('message'   => 'Seems Open Classifieds it is already insalled',
+                    'New Installation'=>array('message'   => 'Seems Open eShop it is already insalled',
                                         'mandatory' => TRUE,
                                         'result'    => !file_exists('oc/config/database.php')
                                         ),
@@ -277,11 +277,11 @@ $succeed    = TRUE;
     <meta charset="utf8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>Open Classifieds Installation</title>
+    <title>Open eShop Installation</title>
     <meta name="keywords" content="" >
     <meta name="description" content="" >
-    <meta name="copyright" content="Open Classifieds <?php echo VERSION?>" >
-    <meta name="author" content="Open Classifieds">
+    <meta name="copyright" content="Open eShop <?php echo VERSION?>" >
+    <meta name="author" content="Open eShop">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link rel="shortcut icon" href="http://open-classifieds.com/wp-content/uploads/2012/04/favicon1.ico" />
@@ -329,7 +329,7 @@ $succeed    = TRUE;
 
     <div class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
-    <div class="container"><a class="brand">Open Classifieds Installation</a>
+    <div class="container"><a class="brand">Open eShop Installation</a>
     <div class="nav-collapse">
 
     <div class="btn-group pull-right">
@@ -369,7 +369,7 @@ $succeed    = TRUE;
                         <li><a href="#phpinfoModal" role="button" data-toggle="modal">PHP Info</a></li>
                         <li class="divider"></li>
                         
-                        <li class="nav-header">Open Classifieds</li>
+                        <li class="nav-header">Open eShop</li>
                         <li><a href="http://open-classifieds.com/market/">Market</a></li>
                         <li><a href="http://open-classifieds.com/">Support & More</a></li>
                         <li><a href="http://j.mp/thanksdonate" target="_blank">
@@ -423,7 +423,7 @@ $succeed    = TRUE;
 <?php elseif ($succeed):?>
 
 <div class="page-header">
-    <h1>Welcome to Open Classifieds installation</h1>
+    <h1>Welcome to Open eShop installation</h1>
     <p>
         Welcome to the super easy and fast installation. 
             <a href="http://open-classifieds.com/market/" target="_blank">
@@ -458,7 +458,7 @@ $succeed    = TRUE;
 
 <footer>
 <p>
-&copy;  <a href="http://open-classifieds.com" title="Open Source PHP Classifieds">Open Classifieds</a> 2009 - <?php echo date('Y')?>
+&copy;  <a href="http://open-classifieds.com" title="Open Source PHP Classifieds">Open eShop</a> 2009 - <?php echo date('Y')?>
 </p>
 </footer>    
 

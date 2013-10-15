@@ -81,7 +81,7 @@
 
 			<?if (Theme::get('premium')!=1):?>
 			<li class="divider"></li>
-			<li class="nav-header">Open Classifieds</li>
+			<li class="nav-header">Open eShop</li>
 			<li><a href="http://open-classifieds.com/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>"><?=__('Home')?></a></li>
 			<li><a href="http://open-classifieds.com/contact/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>"><?=__('Contact')?></a></li>
             <li class="divider"></li>

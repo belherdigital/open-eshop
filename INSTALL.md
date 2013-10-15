@@ -33,7 +33,7 @@ Be aware that 2.0.x uses different URL structure and that themes are not compati
 
 
 # Support
-If you have any doubts how to use different options of Open Classifieds please check how-tos listed below explaining some of the features. http://open-classifieds.com/faq/
+If you have any doubts how to use different options of Open eShop please check how-tos listed below explaining some of the features. http://open-classifieds.com/faq/
 
 If you still haven’t found an answer you can try to write in forums to get a help from community. http://forums.open-classifieds.com/
 

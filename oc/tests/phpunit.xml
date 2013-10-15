@@ -1,6 +1,6 @@
 <phpunit colors="true" bootstrap="../modules/unittest/bootstrap.php"> 
     <testsuites> 
-       <testsuite name="Open Classifieds Tests">
+       <testsuite name="Open eShop Tests">
             <file>../modules/unittest/tests.php</file>
         </testsuite>
     </testsuites> 

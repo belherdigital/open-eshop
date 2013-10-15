@@ -932,7 +932,7 @@ msgid "Sitemap Configuration updated"
 msgstr ""
 
 #: oc/classes/controller/panel/tools.php:202
-msgid "Open Classifieds migration"
+msgid "Open eShop migration"
 msgstr ""
 
 #: oc/classes/controller/panel/tools.php:203
@@ -2512,7 +2512,7 @@ msgid "Thanks for using our website."
 msgstr ""
 
 #: themes/default/views/oc-panel/home.php:4
-msgid "Thanks for using Open Classifieds."
+msgid "Thanks for using Open eShop."
 msgstr ""
 
 #: themes/default/views/oc-panel/home.php:5
@@ -3418,7 +3418,7 @@ msgid "Versions"
 msgstr ""
 
 #: themes/default/views/oc-panel/pages/tools/versions.php:5
-msgid "Open Classifieds release history information."
+msgid "Open eShop release history information."
 msgstr ""
 
 #: themes/default/views/oc-panel/pages/tools/versions.php:8

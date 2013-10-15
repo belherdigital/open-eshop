@@ -2,7 +2,7 @@
 
 <div class="page-header">
     <h1><?=__('Versions')?></h1>
-    <p><?=__('Open Classifieds release history information.')?> 
+    <p><?=__('Open eShop release history information.')?> 
         <?=__('Your installation version is')?> <span class="label label-info"><?=core::version?></span>
     </p>
     <p><?=__('Your Hash Key for this installation is')?> 

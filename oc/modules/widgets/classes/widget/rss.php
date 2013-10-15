@@ -40,7 +40,7 @@ class Widget_RSS extends Widget
 						 		'rss_title'  => array(	'type'		=> 'text',
 						 		  						'display'	=> 'text',
 						 		  						'label'		=> __('RSS title displayed'),
-						 		  						'default'   => 'Open Classifieds',
+						 		  						'default'   => 'Open eShop',
 														'required'	=> FALSE),
 						 		);
 	}

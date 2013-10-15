@@ -201,7 +201,7 @@ class Controller_Panel_Tools extends Auth_Controller {
             // save ids migration for maps in configs?
             // do migration using iframe this
 
-        $this->template->title   = __('Open Classifieds migration');
+        $this->template->title   = __('Open eShop migration');
         Breadcrumbs::add(Breadcrumb::factory()->set_title(ucfirst(__('Migration'))));
 
 

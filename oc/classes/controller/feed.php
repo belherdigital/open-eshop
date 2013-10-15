@@ -10,7 +10,7 @@ class Controller_Feed extends Controller {
 						'title' 	=> 'RSS '.Core::config('general.site_name'),
 						'pubDate' => date("D, d M Y H:i:s T"),
 						'description' => __('Latest published'),
-						'generator' 	=> 'Open Classifieds',
+						'generator' 	=> 'Open eShop',
 		); 
   		
   		$items = array();

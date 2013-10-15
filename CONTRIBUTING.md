@@ -1,6 +1,6 @@
-# Contributing to Open Classifieds Market
+# Contributing to Open eShop Market
 
-Looking to contribute something to Open Classifieds? **Here's how you can help.**
+Looking to contribute something to Open eShop? **Here's how you can help.**
 
 ## Environment
 Recommended PHP 5.4 , MySQL 5.5, Apache 2.2, Linux
@@ -40,10 +40,10 @@ git update-index --assume-unchanged oc/cache/.empty
 
 https://github.com/open-classifieds/market/issues
 
-We only accept issues that are bug reports or feature requests. Bugs must be isolated and reproducible problems that we can fix within the Open Classifieds core. Please read the following guidelines before opening any issue.
+We only accept issues that are bug reports or feature requests. Bugs must be isolated and reproducible problems that we can fix within the Open eShop core. Please read the following guidelines before opening any issue.
 
 1. **Search for existing issues.** We get a lot of duplicate issues, and you'd help us out a lot by first checking if someone else has reported the same issue. Moreover, the issue may have already been resolved with a fix available.
-2. **Create an isolated and reproducible test case.** Be sure the problem exists in Open Classifieds code.
+2. **Create an isolated and reproducible test case.** Be sure the problem exists in Open eShop code.
 3. **Include a live example.** Make use of screenshots if needed.
 4. **Share as much information as possible.** Include operating system and version, browser and version, version of OC, customized or vanilla build, etc. where appropriate. Also include steps to reproduce the bug.
 

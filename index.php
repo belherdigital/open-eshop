@@ -1,6 +1,6 @@
 <?php
 /**
- * Where the application for Open Classifieds is installed.
+ * Where the application for Open eShop is installed.
  */
 $application = '/oc';
 

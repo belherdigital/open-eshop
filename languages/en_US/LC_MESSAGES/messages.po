@@ -739,8 +739,8 @@ msgid "Sitemap Configuration updated"
 msgstr "Sitemap Configuration updated"
 
 #: String 185
-msgid "Open Classifieds migration"
-msgstr "Open Classifieds migration"
+msgid "Open eShop migration"
+msgstr "Open eShop migration"
 
 #: String 186
 msgid "Migration"
@@ -1283,8 +1283,8 @@ msgid "Versions"
 msgstr "Versions"
 
 #: String 321
-msgid "Open Classifieds release history information."
-msgstr "Open Classifieds release history information."
+msgid "Open eShop release history information."
+msgstr "Open eShop release history information."
 
 #: String 322
 msgid "Your installation version is"
@@ -2115,8 +2115,8 @@ msgid "Publish new"
 msgstr "Publish new"
 
 #: String 529
-msgid "Thanks for using Open Classifieds."
-msgstr "Thanks for using Open Classifieds."
+msgid "Thanks for using Open eShop."
+msgstr "Thanks for using Open eShop."
 
 #: String 530
 msgid "Latest News"

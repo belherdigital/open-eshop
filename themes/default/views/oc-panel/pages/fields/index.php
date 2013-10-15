@@ -6,7 +6,7 @@
 
     <?if (Theme::get('premium')!=1):?>
         <p class="well"><span class="label label-info"><?=__('Heads Up!')?></span> 
-            <?=__('Custom fields are only available with premium themes!').'<br/>'.__('Upgrade your Open Classifieds site to activate this feature.')?>
+            <?=__('Custom fields are only available with premium themes!').'<br/>'.__('Upgrade your Open eShop site to activate this feature.')?>
             <a class="btn btn-success pull-right" href="<?=Route::url('oc-panel',array('controller'=>'theme'))?>"><?=__('Browse Themes')?></a>
         </p>
     <?endif?>
