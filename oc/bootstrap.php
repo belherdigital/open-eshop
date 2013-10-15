@@ -30,7 +30,6 @@ elseif ($_SERVER['SERVER_NAME'] !== 'eshop.lo')
 else
     Kohana::$environment =  Kohana::DEVELOPMENT;
 
-//Kohana::$environment = ($_SERVER['SERVER_NAME'] !== 'reoc.lo') ? Kohana::PRODUCTION : Kohana::DEVELOPMENT;
 
 /**
  * Magic quotes enabled?

@@ -1,8 +1,8 @@
-#  Open Classifieds 2.0.8
+#  Open eShop 0.0.1
 
 
 # Description
-Open Classifieds is a powerful script that can transform any domain into a fully customizable classifieds site within a few seconds. Thousands of web developers trust OC to run their big classifieds website. OC can be used to create car/auto sales, job search board, buying & selling real estate and almost anything you can think of. And when you’re ready for more, there are themes and premium support available to transform your site into anything you can imagine.
+
 
 # License GPL v3
 Please read LICENSE.md
@@ -14,7 +14,7 @@ Please read INSTALL.md
 Please read CONTRIBUTING.md
 
 
-# OC works thanks to other GPL software
+# OE works thanks to other GPL software
 
 * Kohana 3.2.2. http://kohanaframework.org/
 * KO Formmanager https://github.com/colinbm/kohana-formmanager
