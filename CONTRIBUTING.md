@@ -1,4 +1,4 @@
-# Contributing to Open Classifieds
+# Contributing to Open Classifieds Market
 
 Looking to contribute something to Open Classifieds? **Here's how you can help.**
 
@@ -12,7 +12,7 @@ Host file:
 
 Vhost apache:
 <VirtualHost *:80>
-ServerName reoc.lo
+ServerName market.lo
 DocumentRoot /var/www/reoc/
 </VirtualHost>
 
@@ -38,7 +38,7 @@ git update-index --assume-unchanged oc/cache/.empty
 
 ## Reporting issues
 
-https://github.com/open-classifieds/openclassifieds2/issues
+https://github.com/open-classifieds/market/issues
 
 We only accept issues that are bug reports or feature requests. Bugs must be isolated and reproducible problems that we can fix within the Open Classifieds core. Please read the following guidelines before opening any issue.
 

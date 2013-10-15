@@ -303,23 +303,14 @@ include 'install.php';
 <div class="control-group">
 	<label class="control-label"><?php echo __("Table prefix")?>:</label>
 	<div class="controls">
-	<input type="text" name="TABLE_PREFIX" value="<?php echo cP('TABLE_PREFIX','oc2_')?>" class="text-medium" />
+	<input type="text" name="TABLE_PREFIX" value="<?php echo cP('TABLE_PREFIX','om_')?>" class="text-medium" />
 	<span class="help-block"><?php echo __("Allows multiple installations in one database if you give each one a unique prefix")?>. <?php echo __("Only numbers, letters, and underscores")?>.</span>
 	</div>
 </div>
 
 
 <div class="form-actions">
-
 	<input type="submit" name="action" id="submit" value="<?php echo __("Install")?>" class="btn btn-primary btn-large" />
-    <hr>
-    <div class="control-group">
-        <label class="checkbox">
-            <input type="checkbox" name="OCAKU" checked />
-            <?php echo __("Ocacu classifieds community registration")?> <a target="_blank" href="http://ocacu.com/en/terms.html">
-                <?php echo __('Terms')?></a>
-        </label>
-    </div>
 </div>
 
 </fieldset>

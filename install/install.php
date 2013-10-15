@@ -123,23 +123,6 @@ if ($_POST AND $succeed)
 
 
 ///////////////////////////////////////////////////////
-	//ocaku register
-	if ($install AND cP('OCAKU') !== NULL)
-	{
-		     	
-    	include DOCROOT.'install/ocaku.php';
-        //ocaku register new site!
-        $ocaku = new ocaku();
-        $ocaku->newSite(array(
-        					'siteName'=>$_POST['SITE_NAME'],
-        					'siteUrl' =>$_POST['SITE_URL'],
-        					'email'   =>$_POST['ADMIN_EMAIL'],
-        					'language'=>substr($_POST['LANGUAGE'],0,2)
-        ));
-	    
-	}
-
-///////////////////////////////////////////////////////
 	//all good!
 	if ($install) 
 		unlink(DOCROOT.'install/install.lock');//prevents from performing a new install
