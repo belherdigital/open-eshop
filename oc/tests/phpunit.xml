@@ -1,0 +1,24 @@
+<phpunit colors="true" bootstrap="../modules/unittest/bootstrap.php"> 
+    <testsuites> 
+       <testsuite name="Open Classifieds Tests">
+            <file>../modules/unittest/tests.php</file>
+        </testsuite>
+    </testsuites> 
+    <filter>
+        <whitelist>
+            <directory suffix=".php">/tests</directory>
+            <exclude>
+                <directory suffix="*">../../themes</directory>
+                <directory suffix="*">../../install</directory>
+                <directory suffix="*">../../languages</directory>
+                <directory suffix="*">../../images</directory>
+                <directory suffix="*">../ko322</directory>
+                <directory suffix="*">../cache</directory>
+                <directory suffix="*">../config</directory>
+                <directory suffix="*">../logs</directory>
+                <directory suffix=".php">../views</directory>
+                <file>../bootstrap.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit> 

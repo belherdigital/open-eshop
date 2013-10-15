@@ -1,0 +1,1 @@
+<label for="<?php echo $field['field_id']; ?>" class="control-label"><?php echo $field['label']; ?></label>

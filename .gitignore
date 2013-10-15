@@ -1,2 +1,5 @@
-application/cache/*
-application/logs/*
+oc/cache/*
+oc/logs/*
+images/*
+themes/*
+!themes/default/

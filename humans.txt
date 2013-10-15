@@ -1,0 +1,20 @@
+/* TEAM */                   
+Your title: Chema Garrido.                       
+Site: http://open-classifieds.com/.                         
+Twitter: openclassifieds.                  
+Location: Barcelona, Spain.
+         
+Your title: Slobodan Josifovics.                       
+Site: http://open-classifieds.com/.                         
+Twitter: openclassifieds.                  
+Location: Barcelona, Spain.
+						
+
+/* THANKS */						
+Name: Kohana Framework.
+                        
+/* SITE */                
+Last update: 2013/04/03.                         
+Standards: HTML5, CSS3.
+Components: Twitter Bootstrap, jQuery.
+Software: Kohana, PHP, MySQL, Ubuntu, SublimeText.
