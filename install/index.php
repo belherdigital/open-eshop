@@ -303,7 +303,7 @@ include 'install.php';
 <div class="control-group">
 	<label class="control-label"><?php echo __("Table prefix")?>:</label>
 	<div class="controls">
-	<input type="text" name="TABLE_PREFIX" value="<?php echo cP('TABLE_PREFIX','om_')?>" class="text-medium" />
+	<input type="text" name="TABLE_PREFIX" value="<?php echo cP('TABLE_PREFIX','oe_')?>" class="text-medium" />
 	<span class="help-block"><?php echo __("Allows multiple installations in one database if you give each one a unique prefix")?>. <?php echo __("Only numbers, letters, and underscores")?>.</span>
 	</div>
 </div>
