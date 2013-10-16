@@ -3,15 +3,8 @@
 	<div class="well sidebar-nav">
 		<ul class="nav nav-list">
                 <li class="divider"></li>
-				
-                <?Theme::admin_link(__('Advertisements'),'ad','index','oc-panel','icon-th-large')?>
-                <? if(core::config('general.moderation') == 1 OR // moderation on  
-                      core::config('general.moderation') == 4 OR // email confiramtion with moderation
-                      core::config('general.moderation') == 5):  // payment with moderation?>
-				<?Theme::admin_link(__('Moderation'),'ad','moderate','oc-panel','icon-ban-circle')?>
-                <? endif?>
+				<?Theme::admin_link(__('Products'), 'product','index','oc-panel','icon-shopping-cart')?>
 				<?Theme::admin_link(__('Categories'),'category','index','oc-panel','icon-tags')?>
-				<?Theme::admin_link(__('Locations'),'location','index','oc-panel','icon-map-marker')?>
 				<?Theme::admin_link(__('Orders'), 'order','index','oc-panel','icon-shopping-cart')?>
                 <? if($user->id_role==10):?><li class="divider"></li><?endif?>
 

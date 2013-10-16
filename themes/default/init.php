@@ -20,6 +20,7 @@ Widgets::$theme_placeholders	= array('footer', 'sidebar');
  */
 
 Theme::$styles = array( 'http://netdna.bootstrapcdn.com/bootswatch/2.3.2/cerulean/bootstrap.min.css' => 'screen',
+                        'http://cdn.jsdelivr.net/bootstrap/2.3.2/css/bootstrap-responsive.min.css' => 'screen',
                         'css/styles.css?v=1.6' => 'screen',
                         'css/slider.css' => 'screen',
                         'http://cdn.jsdelivr.net/chosen/0.9.12/chosen.css' => 'screen',

@@ -72,7 +72,6 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."categories` 
 ) ENGINE=InnoDB DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
 
 
-
 mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."visits` (
   `id_visit` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_product` int(10) unsigned DEFAULT NULL,
@@ -86,30 +85,14 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."visits` (
 ) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
 
 
+
+
 mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."config` ( 
   `group_name` VARCHAR(128)  NOT NULL, 
   `config_key` VARCHAR(128)  NOT NULL, 
   `config_value` TEXT,
    KEY `".$_POST['TABLE_PREFIX']."config_IK_group_name_AND_config_key` (`group_name`,`config_key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET']." ;");
-
-
-mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."orders` (
-  `id_order` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_user` int(10) unsigned NOT NULL,
-  `id_ad` int(10) unsigned NULL,
-  `id_product` int(10) unsigned NULL,
-  `paymethod` varchar(20) DEFAULT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `pay_date` DATETIME  NULL,
-  `currency` char(3) NOT NULL,
-  `amount` decimal(14,3) NOT NULL DEFAULT '0',
-  `status` tinyint(1) NOT NULL DEFAULT '0',
-  `description` varchar(145) DEFAULT NULL,
-  PRIMARY KEY (`id_order`),
-  KEY `".$_POST['TABLE_PREFIX']."orders_IK_id_user` (`id_user`),
-  KEY `".$_POST['TABLE_PREFIX']."orders_IK_status` (`status`)
-)ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
 
 
 mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."content` (
@@ -124,6 +107,91 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."content` (
   `type` enum('page','email','help') NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_content`)
+) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
+
+
+//////////////Tables for eShop
+
+mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."products` (
+  `id_product` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_user` int(10) unsigned DEFAULT NULL,
+  `id_category` int(10) unsigned DEFAULT NULL,
+  `type` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `title` varchar(145) NOT NULL,
+  `seotitle` varchar(145) NOT NULL,
+  `skins` varchar(245) NOT NULL,
+  `url_demo` varchar(145) NOT NULL,
+  `description` text NOT NULL,
+  `email_purchase_notes` text NOT NULL,
+  `version` varchar(10) NOT NULL,
+  `currency` char(3) NOT NULL,
+  `price` decimal(10,2) NOT NULL DEFAULT '0',
+  `price_offer` decimal(10,2) NOT NULL DEFAULT '0',
+  `offer_valid` DATETIME  NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `has_images` tinyint(1) NOT NULL DEFAULT '0',
+  `file_name` varchar(40) DEFAULT NULL,
+  `support_days` int(10)  NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_product`),
+  KEY `".$_POST['TABLE_PREFIX']."products_IK_id_user` (`id_user`),
+  KEY `".$_POST['TABLE_PREFIX']."products_IK_id_category` (`id_category`)
+) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
+
+
+
+mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."orders` (
+  `id_order` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_user` int(10) unsigned NOT NULL,
+  `id_product` int(10) unsigned NULL,
+  `paymethod` varchar(20) DEFAULT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `currency` char(3) NOT NULL,
+  `amount` decimal(14,3) NOT NULL DEFAULT '0',
+  `ip_address` float DEFAULT NULL,
+  `txn_id` varchar(255) DEFAULT NULL,
+  `license` varchar(40) DEFAULT NULL,
+  `domain` varchar(255) DEFAULT NULL,
+  `pay_date` DATETIME  NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_order`),
+  KEY `".$_POST['TABLE_PREFIX']."orders_IK_id_user` (`id_user`),
+  KEY `".$_POST['TABLE_PREFIX']."orders_IK_status` (`status`)
+)ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
+
+
+
+mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."downloads` (
+  `id_download` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_product` int(10) unsigned NOT NULL,
+  `id_user` int(10) unsigned NOT NULL,
+  `id_order` int(10) unsigned NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `domain` varchar(255) DEFAULT NULL,
+  `ip_address` float DEFAULT NULL,
+  PRIMARY KEY (`id_download`),
+  KEY `".$_POST['TABLE_PREFIX']."downloads_IK_id_user` (`id_user`),
+  KEY `".$_POST['TABLE_PREFIX']."downloads_IK_id_product` (`id_product`)
+) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
+
+
+
+mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."tickets` (
+  `id_ticket` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_ticket_PARENT` int(10) unsigned NULL,
+  `id_product` int(10) unsigned NOT NULL,
+  `id_order` int(10) unsigned NOT NULL,
+  `id_user` int(10) unsigned NOT NULL,
+  `id_user_support` int(10) unsigned NULL,
+  `title` varchar(145) NOT NULL,
+  `description` text NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `read_date` DATETIME  NULL,
+  `ip_address` float DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_ticket`),
+  KEY `".$_POST['TABLE_PREFIX']."tickets_IK_id_user` (`id_user`),
+  KEY `".$_POST['TABLE_PREFIX']."tickets_IK_id_product` (`id_product`)
 ) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
 
 

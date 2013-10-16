@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /images/*
+Sitemap: http://eshop.lo/sitemap.xml.gz
