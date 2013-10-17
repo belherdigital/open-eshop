@@ -196,11 +196,10 @@ class Model_Category extends ORM {
 	{
 
         $cats = DB::select('c.*')
-                ->select(array(DB::select('COUNT("id_ad")')
-                        ->from(array('ads','a'))
+                ->select(array(DB::select('COUNT("id_product")')
+                        ->from(array('products','a'))
                         ->where('a.id_category','=',DB::expr(core::config('database.default.table_prefix').'c.id_category'))
-                        ->where(DB::expr('DATE_ADD( published, INTERVAL '.core::config('advertisement.expire_date').' DAY)'), '>', DB::expr('NOW()'))
-                        ->where('a.status','=',Model_Ad::STATUS_PUBLISHED)
+                        ->where('a.status','=',Model_Product::STATUS_PUBLISHED)
                         ->group_by('id_category'), 'count'))
                 ->from(array('categories', 'c'))
                 ->order_by('order','asc')

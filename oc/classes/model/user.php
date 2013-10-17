@@ -433,15 +433,21 @@ class Model_User extends ORM {
 
         if (!$user->loaded())
         {
+            $password = Text::random('alnum', 8);
             $user->email        = $email;
             $user->name         = $name;
             $user->status       = self::STATUS_ACTIVE;
             $user->id_role      = 1;
             $user->seoname      = $user->gen_seo_title($user->name);
-            $user->password     = Text::random('alnum', 8);
+            $user->password     = $password;
             try
             {
                 $user->save();
+                //send welcome email
+                $user->email('auth.register',array('[USER.PWD]'=>$password,
+                                                    '[URL.QL]'=>$user->ql('default',NULL,TRUE))
+                                            );
+
             }
             catch (ORM_Validation_Exception $e)
             {
@@ -449,259 +455,7 @@ class Model_User extends ORM {
             }
         }
 
-        return $user->id_user;
+        return $user;
     }
 
-/* commented since now we use custom fields so this needs to be generated.
-    protected $_table_columns =  
-array (
-  'id_user' => 
-  array (
-    'type' => 'int',
-    'min' => '0',
-    'max' => '4294967295',
-    'column_name' => 'id_user',
-    'column_default' => NULL,
-    'data_type' => 'int unsigned',
-    'is_nullable' => false,
-    'ordinal_position' => 1,
-    'display' => '10',
-    'comment' => '',
-    'extra' => 'auto_increment',
-    'key' => 'PRI',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'name' => 
-  array (
-    'type' => 'string',
-    'column_name' => 'name',
-    'column_default' => NULL,
-    'data_type' => 'varchar',
-    'is_nullable' => true,
-    'ordinal_position' => 2,
-    'character_maximum_length' => '145',
-    'collation_name' => 'utf8_general_ci',
-    'comment' => '',
-    'extra' => '',
-    'key' => '',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'seoname' => 
-  array (
-    'type' => 'string',
-    'column_name' => 'seoname',
-    'column_default' => NULL,
-    'data_type' => 'varchar',
-    'is_nullable' => true,
-    'ordinal_position' => 3,
-    'character_maximum_length' => '145',
-    'collation_name' => 'utf8_general_ci',
-    'comment' => '',
-    'extra' => '',
-    'key' => 'UNI',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'email' => 
-  array (
-    'type' => 'string',
-    'column_name' => 'email',
-    'column_default' => NULL,
-    'data_type' => 'varchar',
-    'is_nullable' => false,
-    'ordinal_position' => 4,
-    'character_maximum_length' => '145',
-    'collation_name' => 'utf8_general_ci',
-    'comment' => '',
-    'extra' => '',
-    'key' => 'UNI',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'password' => 
-  array (
-    'type' => 'string',
-    'column_name' => 'password',
-    'column_default' => NULL,
-    'data_type' => 'varchar',
-    'is_nullable' => false,
-    'ordinal_position' => 5,
-    'character_maximum_length' => '64',
-    'collation_name' => 'utf8_general_ci',
-    'comment' => '',
-    'extra' => '',
-    'key' => '',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'status' => 
-  array (
-    'type' => 'int',
-    'min' => '-2147483648',
-    'max' => '2147483647',
-    'column_name' => 'status',
-    'column_default' => '0',
-    'data_type' => 'int',
-    'is_nullable' => false,
-    'ordinal_position' => 6,
-    'display' => '1',
-    'comment' => '',
-    'extra' => '',
-    'key' => '',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'id_role' => 
-  array (
-    'type' => 'int',
-    'min' => '0',
-    'max' => '4294967295',
-    'column_name' => 'id_role',
-    'column_default' => '1',
-    'data_type' => 'int unsigned',
-    'is_nullable' => true,
-    'ordinal_position' => 7,
-    'display' => '10',
-    'comment' => '',
-    'extra' => '',
-    'key' => '',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'id_location' => 
-  array (
-    'type' => 'int',
-    'min' => '0',
-    'max' => '4294967295',
-    'column_name' => 'id_location',
-    'column_default' => NULL,
-    'data_type' => 'int unsigned',
-    'is_nullable' => true,
-    'ordinal_position' => 8,
-    'display' => '10',
-    'comment' => '',
-    'extra' => '',
-    'key' => '',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'created' => 
-  array (
-    'type' => 'string',
-    'column_name' => 'created',
-    'column_default' => 'CURRENT_TIMESTAMP',
-    'data_type' => 'timestamp',
-    'is_nullable' => false,
-    'ordinal_position' => 9,
-    'comment' => '',
-    'extra' => '',
-    'key' => '',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'last_modified' => 
-  array (
-    'type' => 'string',
-    'column_name' => 'last_modified',
-    'column_default' => NULL,
-    'data_type' => 'datetime',
-    'is_nullable' => true,
-    'ordinal_position' => 10,
-    'comment' => '',
-    'extra' => '',
-    'key' => '',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'logins' => 
-  array (
-    'type' => 'int',
-    'min' => '0',
-    'max' => '4294967295',
-    'column_name' => 'logins',
-    'column_default' => '0',
-    'data_type' => 'int unsigned',
-    'is_nullable' => false,
-    'ordinal_position' => 11,
-    'display' => '10',
-    'comment' => '',
-    'extra' => '',
-    'key' => '',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'last_login' => 
-  array (
-    'type' => 'string',
-    'column_name' => 'last_login',
-    'column_default' => NULL,
-    'data_type' => 'datetime',
-    'is_nullable' => true,
-    'ordinal_position' => 12,
-    'comment' => '',
-    'extra' => '',
-    'key' => '',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'last_ip' => 
-  array (
-    'type' => 'float',
-    'column_name' => 'last_ip',
-    'column_default' => NULL,
-    'data_type' => 'float',
-    'is_nullable' => true,
-    'ordinal_position' => 13,
-    'comment' => '',
-    'extra' => '',
-    'key' => '',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'user_agent' => 
-  array (
-    'type' => 'string',
-    'column_name' => 'user_agent',
-    'column_default' => NULL,
-    'data_type' => 'varchar',
-    'is_nullable' => true,
-    'ordinal_position' => 14,
-    'character_maximum_length' => '40',
-    'collation_name' => 'utf8_general_ci',
-    'comment' => '',
-    'extra' => '',
-    'key' => '',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'token' => 
-  array (
-    'type' => 'string',
-    'column_name' => 'token',
-    'column_default' => NULL,
-    'data_type' => 'varchar',
-    'is_nullable' => true,
-    'ordinal_position' => 15,
-    'character_maximum_length' => '40',
-    'collation_name' => 'utf8_general_ci',
-    'comment' => '',
-    'extra' => '',
-    'key' => 'UNI',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'token_created' => 
-  array (
-    'type' => 'string',
-    'column_name' => 'token_created',
-    'column_default' => NULL,
-    'data_type' => 'datetime',
-    'is_nullable' => true,
-    'ordinal_position' => 16,
-    'comment' => '',
-    'extra' => '',
-    'key' => '',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'token_expires' => 
-  array (
-    'type' => 'string',
-    'column_name' => 'token_expires',
-    'column_default' => NULL,
-    'data_type' => 'datetime',
-    'is_nullable' => true,
-    'ordinal_position' => 17,
-    'comment' => '',
-    'extra' => '',
-    'key' => '',
-    'privileges' => 'select,insert,update,references',
-  ),
-);*/
 } // END Model_User
