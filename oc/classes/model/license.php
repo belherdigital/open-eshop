@@ -27,8 +27,22 @@ class Model_License extends ORM {
     protected $_primary_key = 'id_license';
 
 
+    /**
+     * @var  array  ORM Dependency/hirerachy
+     */
     protected $_belongs_to = array(
-        'user'       => array('foreign_key' => 'id_user'),
+        'product' => array(
+                'model'       => 'product',
+                'foreign_key' => 'id_product',
+            ),
+        'user' => array(
+                'model'       => 'user',
+                'foreign_key' => 'id_user',
+            ),
+        'order' => array(
+                'model'       => 'order',
+                'foreign_key' => 'id_order',
+            ),
     );
 
     public function form_setup($form)
@@ -71,7 +85,6 @@ class Model_License extends ORM {
     public static function generate(Model_User $user, Model_Order $order, Model_Product $product)
     {
         $license = date('Ymd').'-'.$order->id_order.'-';
-        $license.= strtoupper(Text::random('alnum', 40-strlen($license)));
 
         //we create a license for amount specified on product
         for ($i=0; $i < $product->licenses; $i++) 
@@ -80,11 +93,16 @@ class Model_License extends ORM {
             $l->id_user       = $user->id_user;
             $l->id_product    = $product->id_product;
             $l->id_order      = $order->id_order;
-            $l->license       = $license;
+            $l->license       = $license.strtoupper(Text::random('alnum', 40-strlen($license)));
             $l->save();
         }
 
-        return $license;
+        $licenses = new Model_License();
+        $licenses = $licenses->where('id_user','=',$user->id_user)
+                    >where('id_order','=',$user->id_order)
+                    ->find_all();
+
+        return $licenses;
     }
 
 

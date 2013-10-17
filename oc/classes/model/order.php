@@ -45,6 +45,26 @@ class Model_Order extends ORM {
         self::STATUS_REFUND       =>  'Refund',
     );
 
+    /**
+     * @var  array  ORM Dependency/hirerachy
+     */
+    protected $_belongs_to = array(
+        'product' => array(
+                'model'       => 'product',
+                'foreign_key' => 'id_product',
+            ),
+        'user' => array(
+                'model'       => 'user',
+                'foreign_key' => 'id_user',
+            ),
+    );
+
+    protected $_has_many = array(
+        'licenses' => array(
+            'model'   => 'license',
+            'foreign_key' => 'id_order',
+        ),
+    );
 
     public function exclude_fields()
     {
@@ -66,7 +86,7 @@ class Model_Order extends ORM {
 
         //retrieve info for the item in DB
         $order = $order->where('id_order', '=', $id_order)
-                       ->where('status', '=', Model_Product::STATUS_ACTIVE)
+                       ->where('status', '=', Model_Order::STATUS_PAID)
                        ->limit(1)->find();
 
         //order didnt exists probably cuz is paypal and we generate the order only once paid
@@ -88,7 +108,9 @@ class Model_Order extends ORM {
             $order->save();
 
             //generate licenses
-            $license = Model_License::generate($user,$order,$product);
+            $licenses = Model_License::generate($user,$order,$product);
+
+            //loop all the licenses
 
             //@todo
             //send email with order details download link and product notes 

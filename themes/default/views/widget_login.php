@@ -12,14 +12,13 @@
 	<li><a href="<?=Route::url('oc-panel',array('controller'=>'home','action'=>'index'))?>">
         <i class="icon-cog"></i> <?=__('Panel')?></a></li>
 
-    <li><a href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'ads'))?>"><i
-           class="icon-edit"></i> <?=__('My Advertisements')?></a></li>
+    <li><a href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'orders'))?>"><i
+           class="icon-edit"></i> <?=__('My Purchases')?></a></li>
 	
 	<li><a href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'edit'))?>"><i
 		   class="icon-lock"></i> <?=__('Edit profile')?></a></li>
 
-    <li><a href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'public'))?>">
-         <i class="icon-eye-open"></i> <?=__('Public profile')?></a></li>
+    
 
 	<li class="divider"></li>
 	<li><a

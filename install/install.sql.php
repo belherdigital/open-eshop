@@ -170,8 +170,8 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."licenses` (
   `active_date` DATETIME  NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_license`),
-  KEY `".$_POST['TABLE_PREFIX']."licenses_IK_id_user` (`id_user`),
-  KEY `".$_POST['TABLE_PREFIX']."licenses_IK_license` (`license`)
+  UNIQUE KEY `".$_POST['TABLE_PREFIX']."licenses_UK_license` (`license`),
+  KEY `".$_POST['TABLE_PREFIX']."licenses_IK_id_user` (`id_user`)
 ) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
 
 

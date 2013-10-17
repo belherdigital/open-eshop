@@ -88,7 +88,7 @@ class Controller_Paypal extends Controller{
             ->limit(1)->find();
 
     ///testing
-        $user = Model_User::create_email('admin2@deambulando.com','chema');
+        $user = Model_User::create_email('neo22s@gmail.com','chema');
 
         Model_Order::sale(NULL,$user,$product,time(),'paypal');
 

@@ -60,8 +60,8 @@
 
 			<? if($user->has_access_to_any('profile')):?>
 				<li class="divider"></li>
-                <?Theme::admin_link(__('My Support'),'support','user')?>    
-                <?Theme::admin_link(__('My Purchases'), 'profile','orders')?>
+                <?Theme::admin_link(__('Purchases'), 'profile','orders')?>
+                <?Theme::admin_link(__('Support'),'support','user')?>    
                 <?Theme::admin_link(__('Edit profile'), 'profile','edit')?>
 			<?endif?>
 

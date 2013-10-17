@@ -181,7 +181,24 @@ class Controller_Panel_Profile extends Auth_Controller {
 
    public function action_orders()
    {
-        
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Purchases')));
+        $this->template->title   = __('Purchases');
+
+        $user = Auth::instance()->get_user();
+
+        $orders = new Model_Order();
+
+        $orders = $orders->where('id_user','=',$user->id_user)
+                        ->where('status', '=', Model_Order::STATUS_PAID)
+                        ->find_all();
+
+        $licenses = new Model_License();
+        $licenses = $licenses->where('id_user','=',$user->id_user)
+                        ->find_all();
+
+
+        $this->template->bind('content', $content);
+        $this->template->content = View::factory('oc-panel/profile/orders',array('licenses'=>$licenses,'orders'=>$orders));
    }
 
 }
