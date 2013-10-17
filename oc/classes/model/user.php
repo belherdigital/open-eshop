@@ -433,7 +433,7 @@ class Model_User extends ORM {
 
         if (!$user->loaded())
         {
-            $password = Text::random('alnum', 8);
+            $password           = Text::random('alnum', 8);
             $user->email        = $email;
             $user->name         = $name;
             $user->status       = self::STATUS_ACTIVE;

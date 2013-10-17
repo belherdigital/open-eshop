@@ -199,7 +199,7 @@ class Model_Category extends ORM {
                 ->select(array(DB::select('COUNT("id_product")')
                         ->from(array('products','a'))
                         ->where('a.id_category','=',DB::expr(core::config('database.default.table_prefix').'c.id_category'))
-                        ->where('a.status','=',Model_Product::STATUS_PUBLISHED)
+                        ->where('a.status','=',Model_Product::STATUS_ACTIVE)
                         ->group_by('id_category'), 'count'))
                 ->from(array('categories', 'c'))
                 ->order_by('order','asc')

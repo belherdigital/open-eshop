@@ -21,7 +21,6 @@ class Controller_Payment_Paypal extends Controller{
 	public function action_ipn()
 	{
 
-
 		$this->auto_render = FALSE;
 
 		//START PAYPAL IPN
@@ -33,7 +32,7 @@ class Controller_Payment_Paypal extends Controller{
 		//retrieve info for the item in DB
 		$product = new Model_product();
 		$product = $product->where('id_product', '=', $id_product)
-					   ->where('status', '=', Model_Product::STATUS_PUBLISHED)
+					   ->where('status', '=', Model_Product::STATUS_ACTIVE)
 					   ->limit(1)->find();
 		
 		if($product->loaded())
@@ -43,7 +42,7 @@ class Controller_Payment_Paypal extends Controller{
 				&& (Core::post('receiver_email')    == core::config('payment.paypal_account') 
 					|| Core::post('business')       == core::config('payment.paypal_account')))
 			{//same price , currency and email no cheating ;)
-				if (paypal::validate_ipn()) 
+                if (paypal::validate_ipn()) 
 				{
 					//create user if doesnt exists
                          //send email to user with password
@@ -80,13 +79,22 @@ class Controller_Payment_Paypal extends Controller{
 	{ 
 		$this->auto_render = FALSE;
 
-		$product_id = $this->request->param('id',0);
+        $product_id = $this->request->param('id',0);
 
-		$product = new Model_product();
+        $product = new Model_product();
 
         $product->where('id_product','=',$product_id)
-            ->where('status','=',Model_Product::STATUS_PUBLISHED)
+            ->where('status','=',Model_Product::STATUS_ACTIVE)
             ->limit(1)->find();
+
+    ///testing
+        $user = Model_User::create_email('admin2@deambulando.com','chema');
+
+        Model_Order::sale(NULL,$user,$product,time(),'paypal');
+
+        d('sd');
+
+		
 
         if ($product->loaded())
         {

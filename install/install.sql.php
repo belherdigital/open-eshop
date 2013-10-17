@@ -40,7 +40,6 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."users` (
   `password` varchar(64) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '0',
   `id_role` int(10) unsigned DEFAULT '1',
-  `id_location` int(10) unsigned DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_modified` datetime DEFAULT NULL,
   `logins` int(10) UNSIGNED NOT NULL DEFAULT '0',
@@ -133,11 +132,11 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."products` (
   `has_images` tinyint(1) NOT NULL DEFAULT '0',
   `file_name` varchar(40) DEFAULT NULL,
   `support_days` int(10)  NOT NULL DEFAULT '0',
+  `licenses` int(10)  NOT NULL DEFAULT '1',
   PRIMARY KEY (`id_product`),
   KEY `".$_POST['TABLE_PREFIX']."products_IK_id_user` (`id_user`),
   KEY `".$_POST['TABLE_PREFIX']."products_IK_id_category` (`id_category`)
 ) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
-
 
 
 mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."orders` (
@@ -150,8 +149,6 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."orders` (
   `amount` decimal(14,3) NOT NULL DEFAULT '0',
   `ip_address` float DEFAULT NULL,
   `txn_id` varchar(255) DEFAULT NULL,
-  `license` varchar(40) DEFAULT NULL,
-  `domain` varchar(255) DEFAULT NULL,
   `pay_date` DATETIME  NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_order`),
@@ -161,18 +158,32 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."orders` (
 )ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
 
 
-
-mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."downloads` (
-  `id_download` int(10) unsigned NOT NULL AUTO_INCREMENT,
+mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."licenses` (
+  `id_license` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_product` int(10) unsigned NOT NULL,
   `id_user` int(10) unsigned NOT NULL,
   `id_order` int(10) unsigned NOT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `license` varchar(40) DEFAULT NULL,
   `domain` varchar(255) DEFAULT NULL,
+  `ip_address` float DEFAULT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `active_date` DATETIME  NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_license`),
+  KEY `".$_POST['TABLE_PREFIX']."licenses_IK_id_user` (`id_user`),
+  KEY `".$_POST['TABLE_PREFIX']."licenses_IK_license` (`license`)
+) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
+
+
+mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."downloads` (
+  `id_download` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_license` int(10) unsigned NOT NULL,
+  `id_user` int(10) unsigned NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ip_address` float DEFAULT NULL,
   PRIMARY KEY (`id_download`),
   KEY `".$_POST['TABLE_PREFIX']."downloads_IK_id_user` (`id_user`),
-  KEY `".$_POST['TABLE_PREFIX']."downloads_IK_id_product` (`id_product`)
+  KEY `".$_POST['TABLE_PREFIX']."downloads_IK_id_license` (`id_license`)
 ) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
 
 
@@ -253,7 +264,6 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."config` (`group_name`, `conf
 ('general', 'analytics', ''),
 ('general', 'translate', ''),
 ('general', 'feed_elements', '20'),
-('general', 'map_elements', '100'),
 ('general', 'site_name', '".$_POST['SITE_NAME']."'),
 ('general', 'site_description', ''),
 ('general', 'advertisements_per_page', '10'),
@@ -272,7 +282,7 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."config` (`group_name`, `conf
 ('image', 'watermark_position', '0'),
 ('email', 'notify_email', '".$_POST['ADMIN_EMAIL']."'),
 ('email', 'smtp_active', 0),
-('email', 'new_ad_notify', 0),
+('email', 'new_sale_notify', 0),
 ('email', 'smtp_host', ''),
 ('email', 'smtp_port', ''),
 ('email', 'smtp_auth', 0),

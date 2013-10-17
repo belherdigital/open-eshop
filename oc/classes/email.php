@@ -115,7 +115,6 @@ class Email {
     {
         
         $email = Model_Content::get($content,'email');
-        $ad_obj = new Model_Ad();
         //content found
         if ($email->loaded())
         { 
@@ -127,11 +126,6 @@ class Email {
 
             if ($from_name === NULL )
                 $from_name = core::config('general.site_name');
-
-            if (isset($file) AND $ad_obj->is_valid_file($file))
-                $file_upload = $file;
-            else
-                $file_upload = NULL;
 
             //adding extra replaces
             $replace+= array('[SITE.NAME]'      =>  core::config('general.site_name'),
@@ -149,7 +143,7 @@ class Email {
             $subject = str_replace(array_keys($replace), array_values($replace), $email->title);
             $body    = str_replace(array_keys($replace), array_values($replace), $email->description);
 
-            return Email::send($to,$to_name,$subject,$body,$from,$from_name, $file_upload); 
+            return Email::send($to,$to_name,$subject,$body,$from,$from_name); 
 
         }
         else return FALSE;

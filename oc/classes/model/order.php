@@ -51,14 +51,22 @@ class Model_Order extends ORM {
         return array('created','parent_deep','order');
     }
     
-
-    public static function create_sale($id_order=NULL, Model_User $user, Model_Product $product, $token, $method = 'paypal')
+    /**
+     * creates new orders for a product SOLD and generates the licenses
+     * @param  integer        $id_order only used if order already exists
+     * @param  Model_User    $user     
+     * @param  Model_Product $product  
+     * @param  string        $token    
+     * @param  string        $method   
+     * @return void                
+     */
+    public static function sale($id_order=NULL, Model_User $user, Model_Product $product, $token, $method = 'paypal')
     {
         $order = new Model_Order();
 
         //retrieve info for the item in DB
         $order = $order->where('id_order', '=', $id_order)
-                       ->where('status', '=', Model_Product::STATUS_CREATED)
+                       ->where('status', '=', Model_Product::STATUS_ACTIVE)
                        ->limit(1)->find();
 
         //order didnt exists probably cuz is paypal and we generate the order only once paid
@@ -73,27 +81,35 @@ class Model_Order extends ORM {
         }
 
         $order->txn_id      = $token;
-        $order->license     = 'yyyymmdd-00000IDUSER-00000IDPROD';//kamaleon-20131017-2-2';//Core::post('payer_email').$product->id_product.$user->id_user;
-        //$order->domain      = '';//empty on license verification we set the first domain they used@todo
         $order->pay_date    = Date::unix2mysql();
         $order->status      = Model_Order::STATUS_PAID;
 
         try {
             $order->save();
 
+            //generate licenses
+            $license = Model_License::generate($user,$order,$product);
+            
             //send email with order details download link and product notes 
             //@todo
             $user->email('new.sale',array( 
-
+                                           '[LICENSE]' => $license,
                                            '[URL.QL]'=>$user->ql('default',NULL,TRUE)
                                         )
                                 );
+            //notify to seller
+            //
+            //
+            
+            return $order;
         } 
         catch (Exception $e) 
         {
             Kohana::$log->add(Log::ERROR, 'Order failed on creation, but paid. '.Core::post('payer_email'));
             d($e);
         }
+
+        return FALSE;
 
     }
 

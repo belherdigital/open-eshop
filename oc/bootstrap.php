@@ -91,10 +91,8 @@ $modules = array(
         	   'orm'          => MODPATH.'orm',        // Object Relationship Mapping
 			   'pagination'   => MODPATH.'pagination', // ORM Pagination
 			   'breadcrumbs'  => MODPATH.'breadcrumbs',// breadcrumb view
-			   //'plugin'       => MODPATH.'plugin',     // hooks used for the plugin system
 			   'formmanager'  => MODPATH.'formmanager',// forms to objects ORM
                'widgets'      => MODPATH.'widgets',    // loads default widgets
-               'blacksmith'   => MODPATH.'blacksmith',    // used for custom fields
 );
 
 //modules for development environment, not included in distribution KO with OC, so you need to place them in your environment

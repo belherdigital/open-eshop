@@ -234,7 +234,7 @@ class Core {
         return ($contents)? $contents : FALSE;
     }
 
-     /**
+    /**
      * Akismet spam check. Invokes akismet class to get response is spam.
      * @param name
      * @param email
@@ -256,7 +256,6 @@ class Core {
         else //we return is not spam since we do not have the api :(
             return FALSE;
     }
-
 
 } //end core
 

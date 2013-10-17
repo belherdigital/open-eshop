@@ -137,12 +137,12 @@
 					</div>
 				</div>
 				<div class="control-group">
-					<?= FORM::label($forms['new_ad_notify']['key'], __('Notify me on new ad'), array('class'=>'control-label', 'for'=>$forms['new_ad_notify']['key']))?>
+					<?= FORM::label($forms['new_sale_notify']['key'], __('Notify me on new sale'), array('class'=>'control-label', 'for'=>$forms['new_sale_notify']['key']))?>
 					<div class="controls">
-						<?= FORM::select($forms['new_ad_notify']['key'], array(FALSE=>'FALSE',TRUE=>'TRUE'), $forms['new_ad_notify']['value'], array(
+						<?= FORM::select($forms['new_sale_notify']['key'], array(FALSE=>'FALSE',TRUE=>'TRUE'), $forms['new_sale_notify']['value'], array(
 						'placeholder' => "TRUE or FALSE",
 						'class' => 'tips', 
-						'id' => $forms['new_ad_notify']['key'], 
+						'id' => $forms['new_sale_notify']['key'], 
 						'data-content'=> '',
 						'data-trigger'=>"hover",
 						'data-placement'=>"right",

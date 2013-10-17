@@ -6,6 +6,7 @@
 				<?Theme::admin_link(__('Products'), 'product','index','oc-panel','icon-shopping-cart')?>
 				<?Theme::admin_link(__('Categories'),'category','index','oc-panel','icon-tags')?>
 				<?Theme::admin_link(__('Orders'), 'order','index','oc-panel','icon-shopping-cart')?>
+                <?Theme::admin_link(__('Licenses'), 'license','index','oc-panel','icon-shopping-cart')?>
                 <?Theme::admin_link(__('Support'), 'support','index','oc-panel','icon-shopping-cart')?>
                 <? if($user->id_role==10):?><li class="divider"></li><?endif?>
 

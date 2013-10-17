@@ -13,8 +13,8 @@ class Model_Product extends ORM {
      /**
      * status constants
      */
-    const STATUS_NOPUBLISHED = 0; //first status of the item, not published. This status send ad to moderation always. Until it gets his status changed 
-    const STATUS_PUBLISHED   = 1; // ad it's available and published
+    const STATUS_NOACTIVE = 0; //not displayed
+    const STATUS_ACTIVE   = 1; 
   
     /**
      * @var  string  Table name
