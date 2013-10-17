@@ -22,7 +22,6 @@ Please read CONTRIBUTING.md
 * Pear File_Gettext http://pear.php.net/package/File_Gettext
 * POTCreator http://hpyer.cn/codes/potcreator
 * PHP.mo https://github.com/josscrowcroft/php.mo
-* PHP-Google maps API http://www.bradwedell.com/php-google-maps-api/
 * PHP-Mailer https://code.google.com/a/apache-extras.org/p/phpmailer/
 * PHP-SitemapGenerator http://www.phpclasses.org/package/5838-PHP-Generate-sitemaps-and-notify-updates.html
 * jsmin-php https://github.com/rgrove/jsmin-php/
@@ -35,4 +34,3 @@ Please read CONTRIBUTING.md
 * jQuery http://jquery.com/
 * jQuery Sortable http://johnny.github.io/jquery-sortable/
 * Bootstrap Image Gallery https://github.com/blueimp/Bootstrap-Image-Gallery
-* Blacksmith https://github.com/themusicman/Blacksmith
