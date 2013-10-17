@@ -10,6 +10,11 @@
 
 class Model_Product extends ORM {
 
+     /**
+     * status constants
+     */
+    const STATUS_NOPUBLISHED = 0; //first status of the item, not published. This status send ad to moderation always. Until it gets his status changed 
+    const STATUS_PUBLISHED   = 1; // ad it's available and published
   
     /**
      * @var  string  Table name
@@ -20,6 +25,12 @@ class Model_Product extends ORM {
      * @var  string  PrimaryKey field name
      */
     protected $_primary_key = 'id_product';
+
+
+        protected $_belongs_to = array(
+        'user'       => array('foreign_key' => 'id_user'),
+        'category'   => array('foreign_key' => 'id_category'),
+    );
 
     public function form_setup($form)
     {

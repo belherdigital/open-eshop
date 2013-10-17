@@ -24,12 +24,6 @@ class Controller extends Kohana_Controller
      */
     public static $category = NULL;
 
-    /**
-     * global Location get form controller so we can access form anywhere like Controller::$location;
-     * @var Model_Location
-     */
-    public static $location = NULL;
-    
 
     /**
      * Initialize properties before running the controller methods (actions),
@@ -52,17 +46,7 @@ class Controller extends Kohana_Controller
                 self::$category = $seo_cat;
         }
         
-        /**
-         * selected location
-         */
-        if($this->request->param('location',NULL) != NULL || $this->request->param('location') != 'all')
-        {
-            $slug_loc   = new Model_Location();
-            $seo_loc = $slug_loc->where('seoname', '=', $this->request->param('location'))->limit(1)->cached()->find();
-            
-            if ($seo_loc->loaded())
-                self::$location = $seo_loc;
-        }
+        
 
         if($this->auto_render===TRUE)
         {

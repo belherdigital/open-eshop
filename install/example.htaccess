@@ -151,7 +151,7 @@ RewriteBase [SITE_FOLDER]
 
 # Protect application and system files from being viewed, commented since problem with godaddy, see below
 # RewriteRule ^(?:oc|languages|install)\b.* index.php/$0 [L]
-RewriteRule ^(?:oc|languages|install)\b.* index.php [PT,QSA,L]
+RewriteRule ^(?:oc|languages|install|data)\b.* index.php [PT,QSA,L]
 
 # Redirects from 1.x to 2.0.x structure
 # cat_parent/category/seotitle-numitem.htm -> category/seotitle.html

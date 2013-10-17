@@ -32,8 +32,8 @@ class Model_Category extends ORM {
 	 * @var  array  ORM Dependency/hirerachy
 	 */
 	protected $_has_many = array(
-		'ads' => array(
-			'model'       => 'Ad',
+		'products' => array(
+			'model'       => 'product',
 			'foreign_key' => 'id_category',
 		),
 	);

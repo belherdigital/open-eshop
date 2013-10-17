@@ -5,7 +5,7 @@ class Controller_Panel_Product extends Auth_Crud {
 	/**
 	 * @var $_index_fields ORM fields shown in index
 	 */
-	//protected $_index_fields = array('type','title','seotitle','locale');
+	protected $_index_fields = array('title','price',);
 
 	/**
 	 * @var $_orm_model ORM model name

@@ -12,11 +12,6 @@
 			<?
             $cats = Model_Category::get_category_count();
             $loc_seoname = NULL;
-            if (Controller::$location!==NULL)
-            {
-                if (Controller::$location->loaded())
-                    $loc_seoname = Controller::$location->seoname;
-            }
             ?>
 			
 			<div class="nav-collapse main_nav">
@@ -62,12 +57,6 @@
 
 				<div class="btn-group pull-right">
 					<?=View::factory('widget_login')?>
-				
-					<a class="btn btn-danger" href="<?=Route::url('post_new')?>">
-						<i class="icon-pencil icon-white"></i>
-						<?=__('Publish new ')?>
-					</a>				
-
 				</div>
 				
 			</div><!--/.nav-collapse -->

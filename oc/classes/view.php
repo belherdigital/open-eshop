@@ -62,14 +62,7 @@ class View extends Kohana_View{
                 $cat_seoname = '_category_'.Controller::$category->seoname;
         }
 
-        $loc_seoname = '';
-        if (Controller::$location!==NULL)
-        {
-            if (Controller::$location->loaded())
-                $loc_seoname = '_location_'.Controller::$location->seoname;
-        }
-
-        return 'fragment_'.$name.'_'.i18n::lang().'_'.Theme::$theme.$cat_seoname.$loc_seoname; //.Theme::$skin
+        return 'fragment_'.$name.'_'.i18n::lang().'_'.Theme::$theme.$cat_seoname; //.Theme::$skin
     }
 
 

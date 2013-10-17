@@ -35,7 +35,7 @@ class Model_Visit extends ORM {
     {
     	return array(
 			        'id_visit'	=> array(array('numeric')),
-			        'id_ad'	=> array(array('numeric')),
+			        'id_product'	=> array(array('numeric')),
 			        'id_user'	=> array(array('numeric')),
 			    );
     }
@@ -49,7 +49,7 @@ class Model_Visit extends ORM {
     {
     	return array(
 			        'id_visit'		=> 'Id visit',
-			        'id_ad'		    => 'Id ad',
+			        'id_product'		    => 'Id Product',
 			        'id_user'		=> 'Id user',
 			        'created'		=> 'Created',
 			        'ip_address'	=> 'Ip address',
@@ -79,97 +79,4 @@ class Model_Visit extends ORM {
     }
 
 
-    protected $_table_columns =  
-array (
-  'id_visit' => 
-  array (
-    'type' => 'int',
-    'min' => '0',
-    'max' => '4294967295',
-    'column_name' => 'id_visit',
-    'column_default' => NULL,
-    'data_type' => 'int unsigned',
-    'is_nullable' => false,
-    'ordinal_position' => 1,
-    'display' => '10',
-    'comment' => '',
-    'extra' => 'auto_increment',
-    'key' => 'PRI',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'id_ad' => 
-  array (
-    'type' => 'int',
-    'min' => '0',
-    'max' => '4294967295',
-    'column_name' => 'id_ad',
-    'column_default' => NULL,
-    'data_type' => 'int unsigned',
-    'is_nullable' => true,
-    'ordinal_position' => 2,
-    'display' => '10',
-    'comment' => '',
-    'extra' => '',
-    'key' => 'MUL',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'id_user' => 
-  array (
-    'type' => 'int',
-    'min' => '0',
-    'max' => '4294967295',
-    'column_name' => 'id_user',
-    'column_default' => NULL,
-    'data_type' => 'int unsigned',
-    'is_nullable' => true,
-    'ordinal_position' => 3,
-    'display' => '10',
-    'comment' => '',
-    'extra' => '',
-    'key' => 'MUL',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'created' => 
-  array (
-    'type' => 'string',
-    'column_name' => 'created',
-    'column_default' => 'CURRENT_TIMESTAMP',
-    'data_type' => 'timestamp',
-    'is_nullable' => false,
-    'ordinal_position' => 4,
-    'comment' => '',
-    'extra' => '',
-    'key' => '',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'ip_address' => 
-  array (
-    'type' => 'float',
-    'column_name' => 'ip_address',
-    'column_default' => NULL,
-    'data_type' => 'float',
-    'is_nullable' => true,
-    'ordinal_position' => 5,
-    'comment' => '',
-    'extra' => '',
-    'key' => '',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'contacted' => 
-  array (
-    'type' => 'int',
-    'min' => '-128',
-    'max' => '127',
-    'column_name' => 'contacted',
-    'column_default' => '0',
-    'data_type' => 'tinyint',
-    'is_nullable' => false,
-    'ordinal_position' => 18,
-    'display' => '1',
-    'comment' => '',
-    'extra' => '',
-    'key' => '',
-    'privileges' => 'select,insert,update,references',
-  ),
-);
 } // END Model_Visit

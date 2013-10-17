@@ -22,7 +22,7 @@ defined('SYSPATH') or exit('Install must be loaded from within index.php!');
 //prevents from new install to be done
 if(!file_exists(DOCROOT.'install/install.lock')) die('Installation seems to be done, please remove /install/ folder');
 
-define('VERSION','2.0.8');
+define('VERSION','0.0.1');
 
 
 //Gets language to use

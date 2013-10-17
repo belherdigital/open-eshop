@@ -6,6 +6,7 @@
 				<?Theme::admin_link(__('Products'), 'product','index','oc-panel','icon-shopping-cart')?>
 				<?Theme::admin_link(__('Categories'),'category','index','oc-panel','icon-tags')?>
 				<?Theme::admin_link(__('Orders'), 'order','index','oc-panel','icon-shopping-cart')?>
+                <?Theme::admin_link(__('Support'), 'support','index','oc-panel','icon-shopping-cart')?>
                 <? if($user->id_role==10):?><li class="divider"></li><?endif?>
 
 				<?Theme::admin_link(__('Content'), 'content','index','oc-panel','icon-file')?>
@@ -17,8 +18,6 @@
                 <?if (Theme::has_options()) 
                         Theme::admin_link(__('Theme Options'), 'theme','options','oc-panel','icon-wrench')?>     
                 <?Theme::admin_link(__('Widgets'), 'widget','index','oc-panel','icon-move')?>   
-                <?Theme::admin_link(__('Custom Fields'), 'fields','index','oc-panel','icon-plus-sign')?>       
-                <?Theme::admin_link(__('Market'), 'market','index','oc-panel','icon-gift')?>
                 <? if($user->id_role==10):?><li class="divider"></li><?endif?>
 
 			<?if ($user->has_access_to_any('settings,config')):?>
@@ -59,23 +58,17 @@
                 </li>
 			<?endif?>
 
-			<? if($user->has_access_to_any('profile') AND $user->id_role!=10):?>
-				<li class="nav-header"><i class="icon-user"></i><?=__('Profile')?></li>
-				<?Theme::admin_link(__('Edit profile'), 'profile','edit')?>
-                <?Theme::admin_link(__('My Advertisements'), 'profile','ads')?>
-                <?Theme::admin_link(__('Stats'),'profile','stats')?>
-                <?Theme::admin_link(__('Subscriptions'),'profile','subscriptions')?>
-				<li><a
-					href="<?=Route::url('profile',array('seoname'=>$user->seoname))?>">
-					<?=__('Public profile')?>
-				</a>
-				</li>
+			<? if($user->has_access_to_any('profile')):?>
+				<li class="divider"></li>
+                <?Theme::admin_link(__('My Support'),'support','user')?>    
+                <?Theme::admin_link(__('My Orders'), 'orders','user')?>
+                <?Theme::admin_link(__('Edit profile'), 'profile','edit')?>
 			<?endif?>
 
 			<?if (Theme::get('premium')!=1):?>
 			<li class="divider"></li>
 			<li class="nav-header">Open eShop</li>
-			<li><a href="http://open-classifieds.com/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>"><?=__('Home')?></a></li>
+			<li><a href="http://open-classifieds.com/eshop/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>"><?=__('Home')?></a></li>
 			<li><a href="http://open-classifieds.com/contact/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>"><?=__('Contact')?></a></li>
             <li class="divider"></li>
 			<li><script type="text/javascript">if (typeof geoip_city!="function")document.write("<scr"+"ipt type=\"text/javascript\" src=\"http://j.maxmind.com/app/geoip.js\"></scr"+"ipt>");
