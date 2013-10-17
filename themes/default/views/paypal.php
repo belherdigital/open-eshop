@@ -19,7 +19,7 @@
         <input type="hidden" name="shipping2" value="0">
         <input type="hidden" name="handling" value="0.00">
         <input type="hidden" name="return" value="<?=$return_url?>">
-        <input type="hidden" name="notify_url" value="<?=Route::url('default',array('controller'=>'payment_paypal','action'=>'ipn'))?>">
+        <input type="hidden" name="notify_url" value="<?=Route::url('default',array('controller'=>'paypal','action'=>'ipn'))?>">
         <input type="hidden" name="no_note" value="1">
         <input type="hidden" name="custom" value="">
         <input type="hidden" name="currency_code" value="<?=$paypal_currency?>">

@@ -13,22 +13,24 @@
             <th>#</th>
             <th><?=__('Product')?></th>
             <th><?=__('Date')?></th>
+            <th><?=__('Support until')?></th>
             <th><?=__('Price')?></th>
-            <th><?=__('Download')?></th>
+            <th></th>
         </tr>
     </thead>
 
     <tbody>
         <?foreach ($orders as $order):?>
-        <tr>
-            <th><?=$order->id_order;?></th>
+        <tr class="info">
+            <td><?=$order->id_order;?></td>
             <td><?=$order->product->title?></td>
             <td><?=$order->pay_date;?></td>
+            <td><?=$order->support_date;?></td>
             <td><?=$order->amount.' '.$order->currency;?></td>
-            <td><a href="" class="btn btn-warning"><i class="icon-download icon-white"></i></a></td>
+            <td><a title="<?=__('Download')?>" href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order))?>" class="btn btn-warning"><i class="icon-download icon-white"></i></a></td>
         </tr>
         <tr>
-            <td colspan="4">
+            <td colspan="5">
                 <table class="table table-striped">
                     <th><?=__('License')?></th>
                     <th><?=__('Created')?></th>

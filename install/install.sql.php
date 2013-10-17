@@ -150,6 +150,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."orders` (
   `ip_address` float DEFAULT NULL,
   `txn_id` varchar(255) DEFAULT NULL,
   `pay_date` DATETIME  NULL,
+  `support_date` DATETIME  NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_order`),
   KEY `".$_POST['TABLE_PREFIX']."orders_IK_id_user` (`id_user`),
@@ -177,20 +178,20 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."licenses` (
 
 mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."downloads` (
   `id_download` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_license` int(10) unsigned NOT NULL,
+  `id_order` int(10) unsigned NOT NULL,
   `id_user` int(10) unsigned NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ip_address` float DEFAULT NULL,
   PRIMARY KEY (`id_download`),
   KEY `".$_POST['TABLE_PREFIX']."downloads_IK_id_user` (`id_user`),
-  KEY `".$_POST['TABLE_PREFIX']."downloads_IK_id_license` (`id_license`)
+  KEY `".$_POST['TABLE_PREFIX']."downloads_IK_id_order` (`id_order`)
 ) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
 
 
 
 mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."tickets` (
   `id_ticket` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_ticket_PARENT` int(10) unsigned NULL,
+  `id_ticket_parent` int(10) unsigned NULL,
   `id_product` int(10) unsigned NOT NULL,
   `id_order` int(10) unsigned NOT NULL,
   `id_user` int(10) unsigned NOT NULL,
@@ -203,6 +204,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."tickets` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_ticket`),
   KEY `".$_POST['TABLE_PREFIX']."tickets_IK_id_user` (`id_user`),
+  KEY `".$_POST['TABLE_PREFIX']."tickets_IK_id_ticket_parent` (`id_ticket_parent`),
   KEY `".$_POST['TABLE_PREFIX']."tickets_IK_id_product` (`id_product`)
 ) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
 
@@ -227,7 +229,7 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."content` (`order`, `title`, 
 mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."roles` (`id_role`, `name`, `description`) VALUES (1, 'user', 'Normal user'), (5, 'translator', 'User + Translations'), (10, 'admin', 'Full access');");
 mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."access` (`id_access`, `id_role`, `access`) VALUES 
             (1, 10, '*.*'),
-            (2, 1, 'profile.*'),(3, 1, 'stats.user'),
+            (2, 1, 'profile.*'),(3, 1, 'stats.user'),(8, 1, 'support.*'),
             (4, 5, 'translations.*'),(5, 5, 'profile.*'),(6, 5, 'stats.user'),(7, 5, 'content.*');");
 
 /**

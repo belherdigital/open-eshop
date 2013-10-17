@@ -32,11 +32,7 @@ class Controller_Feed extends Controller {
                 $ads->where('a.id_category','=',Controller::$category->id_category);
         }
 
-        if (Controller::$location!==NULL)
-        {
-            if (Controller::$location->loaded())
-                $ads->where('a.id_location','=',Controller::$location->id_location);
-        }
+       
 
         $ads = $ads->as_object()->cached()->execute();
 

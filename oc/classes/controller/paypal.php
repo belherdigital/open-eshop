@@ -20,7 +20,6 @@ class Controller_Paypal extends Controller{
 	
 	public function action_ipn()
 	{
-
 		$this->auto_render = FALSE;
 
 		//START PAYPAL IPN
@@ -79,7 +78,7 @@ class Controller_Paypal extends Controller{
 	{ 
 		$this->auto_render = FALSE;
 
-        $product_id = $this->request->param('id',0);
+        $product_id = $this->request->param('id');
 
         $product = new Model_product();
 
@@ -87,14 +86,10 @@ class Controller_Paypal extends Controller{
             ->where('status','=',Model_Product::STATUS_ACTIVE)
             ->limit(1)->find();
 
-    ///testing
-        $user = Model_User::create_email('neo22s@gmail.com','chema');
-
-        Model_Order::sale(NULL,$user,$product,time(),'paypal');
-
-        d('sd');
-
-		
+        ///testing
+        // $user = Model_User::create_email('neo22s@gmail.com','chema');
+        // Model_Order::sale(NULL,$user,$product,time(),'paypal');
+        // d('sd');
 
         if ($product->loaded())
         {

@@ -96,25 +96,23 @@ Route::set('oc-panel', 'oc-panel(/<controller>(/<action>(/<id>(/<current_url>)))
 
 
 /**
- * Item / ad view (public)
+ * Item / product view (public)
  */
-Route::set('ad', '<category>/<seotitle>.html')
+Route::set('product', '<seotitle>.html')
 ->defaults(array(
-		'controller' => 'ad',    
+		'controller' => 'product',    
 		'action'     => 'view',
 ));
 
 /**
- * Sort by Category / Location
+ * Sort by Category
  */
-Route::set('list', '<category>(/<location>)')
+Route::set('list', '<category>/')
 ->defaults(array(
 		'category'	 => 'all',
-		'controller' => 'ad',    
+		'controller' => 'product',    
 		'action'     => 'listing',
 ));
-
-
 
 
 /**

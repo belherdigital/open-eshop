@@ -97,9 +97,9 @@ class Model_License extends ORM {
             $l->save();
         }
 
-        $licenses = new Model_License();
+        $licenses = new self();
         $licenses = $licenses->where('id_user','=',$user->id_user)
-                    >where('id_order','=',$user->id_order)
+                    ->where('id_order','=',$order->id_order)
                     ->find_all();
 
         return $licenses;

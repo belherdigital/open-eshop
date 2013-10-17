@@ -12,23 +12,7 @@ $(function (){
     
     $('.radio > input:checked').parentsUntil('div .accordion').addClass('in');
     
-    //custom fields select. To determain if some fields are shown or not
-    $('select#cf_type_fileds').change(function(){ // on change add hidden   
-        if($(this).val() == 'select' || $(this).val() == 'radio'){
-            $('#cf_values_input').attr('type','text');
-            $('#cf_values_input').parent().parent().css('display','block'); // parent of a parent. display whole block
-        }
-        else{
-            $('#cf_values_input').attr('type','hidden');
-            $('#cf_values_input').parent().parent().css('display','none'); // parent of a parent. dont show whole block
-        }    
-    }).change();
-    
-    // custom field edit, show/hide values field
-    $('#cf_values_input').parent().parent().css('display','none');
-    if( $('#cf_type_field_input').attr('value') == 'select' 
-        || $('#cf_type_field_input').attr('value') == 'radio') 
-            $('#cf_values_input').parent().parent().css('display','block'); 
+   
 });
 
 _debounce = function(func, wait, immediate) {

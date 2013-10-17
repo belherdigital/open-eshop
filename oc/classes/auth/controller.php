@@ -106,7 +106,8 @@ class Auth_Controller extends Controller
 													  'http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js', 
 												      'http://cdn.jsdelivr.net/chosen/0.9.12/chosen.jquery.min.js',
                                                       'js/oc-panel/theme.init.js?v=207',
-                                                      'js/jquery.sceditor.min.js'
+                                                      'js/jquery.sceditor.min.js',
+                                                      'js/jquery.validate.min.js',
                                                       );
 		}
 		

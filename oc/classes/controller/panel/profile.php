@@ -201,4 +201,38 @@ class Controller_Panel_Profile extends Auth_Controller {
         $this->template->content = View::factory('oc-panel/profile/orders',array('licenses'=>$licenses,'orders'=>$orders));
    }
 
+
+
+    public function action_download()
+    {
+        $this->auto_render = FALSE;
+
+        $order_id = $this->request->param('id',0);
+
+        $user = Auth::instance()->get_user();
+
+        $order = new Model_Order();
+
+        $order->where('id_user','=',$user->id_user)
+            ->where('id_order','=',$order_id)
+            ->where('status', '=', Model_Order::STATUS_PAID)
+            ->limit(1)
+            ->find();
+        if ($order->loaded())
+        {
+            $file = DOCROOT.'data/'.$order->product->file_name;
+            if (is_readable($file))
+            {
+                //create a download
+                Model_Download::generate($user, $order);
+
+                $this->response->send_file($file);
+            }
+        }
+        
+        Alert::set(Alert::ERROR, __('Order not found.'));
+        $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
+    
+    }
+
 }

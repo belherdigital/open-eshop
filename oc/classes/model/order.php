@@ -64,6 +64,10 @@ class Model_Order extends ORM {
             'model'   => 'license',
             'foreign_key' => 'id_order',
         ),
+        'downloads' => array(
+            'model'   => 'download',
+            'foreign_key' => 'id_order',
+        ),
     );
 
     public function exclude_fields()
@@ -102,6 +106,7 @@ class Model_Order extends ORM {
 
         $order->txn_id      = $token;
         $order->pay_date    = Date::unix2mysql();
+        $order->support_date= Date::unix2mysql(strtotime('+'.$product->support_days.' day'));
         $order->status      = Model_Order::STATUS_PAID;
 
         try {
@@ -110,7 +115,12 @@ class Model_Order extends ORM {
             //generate licenses
             $licenses = Model_License::generate($user,$order,$product);
 
-            //loop all the licenses
+            //loop all the licenses to an string
+            $license = '';
+            foreach ($licenses as $l) 
+            {
+                $license.=$l->license.'<br>';
+            }
 
             //@todo
             //send email with order details download link and product notes 
