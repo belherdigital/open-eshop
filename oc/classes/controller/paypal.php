@@ -10,7 +10,7 @@
 * @license GPL v3
 */
 
-class Controller_Payment_Paypal extends Controller{
+class Controller_Paypal extends Controller{
 	
 
 	public function after()
@@ -75,7 +75,7 @@ class Controller_Payment_Paypal extends Controller{
 	/**
 	 * [action_form] generates the form to pay at paypal
 	 */
-	public function action_form()
+	public function action_pay()
 	{ 
 		$this->auto_render = FALSE;
 
@@ -83,7 +83,7 @@ class Controller_Payment_Paypal extends Controller{
 
         $product = new Model_product();
 
-        $product->where('id_product','=',$product_id)
+        $product->where('seotitle','=',$product_id)
             ->where('status','=',Model_Product::STATUS_ACTIVE)
             ->limit(1)->find();
 

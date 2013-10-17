@@ -41,13 +41,7 @@ Route::set('contact', URL::title(__('contact')).'.html')
 		'controller' => 'contact',
 		'action'	 => 'index',));
 
-/**
- * maps
- */
-Route::set('map', URL::title(__('map')).'.html')
-->defaults(array(
-        'controller' => 'map',
-        'action'     => 'index',));
+
 /**
  * maintenance
  */
@@ -99,6 +93,8 @@ Route::set('oc-panel', 'oc-panel(/<controller>(/<action>(/<id>(/<current_url>)))
 		'action'     => 'index',
 ));
 
+
+
 /**
  * Item / ad view (public)
  */
@@ -118,15 +114,7 @@ Route::set('list', '<category>(/<location>)')
 		'action'     => 'listing',
 ));
 
-/*
-	user profile route 
- */
- 
-Route::set('profile', 'user/<seoname>/<action>')
-->defaults(array(
-		'controller' => 'user',
-		'action'     => 'index',
-));
+
 
 
 /**

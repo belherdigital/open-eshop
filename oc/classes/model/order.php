@@ -89,18 +89,21 @@ class Model_Order extends ORM {
 
             //generate licenses
             $license = Model_License::generate($user,$order,$product);
-            
-            //send email with order details download link and product notes 
+
             //@todo
+            //send email with order details download link and product notes 
             $user->email('new.sale',array( 
                                            '[LICENSE]' => $license,
                                            '[URL.QL]'=>$user->ql('default',NULL,TRUE)
                                         )
                                 );
+
             //notify to seller
-            //
-            //
-            
+            if(core::config('email.new_sale_notify'))
+            {
+                Email::send(core::config('email.notify_email'), '', 'New Sale! '.$product->title, 'New Sale! '.$product->title, core::config('email.notify_email'), '');
+            }
+
             return $order;
         } 
         catch (Exception $e) 

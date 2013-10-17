@@ -179,4 +179,9 @@ class Controller_Panel_Profile extends Auth_Controller {
    }
 
 
+   public function action_orders()
+   {
+        
+   }
+
 }
