@@ -119,14 +119,14 @@ class Model_Order extends ORM {
             $license = '';
             foreach ($licenses as $l) 
             {
-                $license.=$l->license.'<br>';
+                $license.=$l->license.'\n';
             }
 
             //@todo
             //send email with order details download link and product notes 
             $user->email('new.sale',array( 
                                            '[LICENSE]' => $license,
-                                           '[URL.QL]'=>$user->ql('default',NULL,TRUE)
+                                           '[URL.QL]'=>$user->ql('oc-panel',NULL,TRUE)
                                         )
                                 );
 

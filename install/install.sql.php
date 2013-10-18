@@ -220,8 +220,9 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."content` (`order`, `title`, 
 (0, 'Hello [USER.NAME]!', 'user.contact', 'You have been contacted regarding your advertisement: \n\n`[AD.NAME]`. \n\n User [EMAIL.SENDER] [EMAIL.FROM], have a message for you: \n\n[EMAIL.BODY]. \n\n Regards!', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
 (0, 'Hello [USER.NAME]!', 'userprofile.contact', 'User [EMAIL.SENDER] [EMAIL.FROM], have a message for you: \n\n[EMAIL.SUBJECT] \n\n[EMAIL.BODY]. \n\n Regards!', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
 (0, 'Hello [USER.NAME]!', 'user.new', 'Welcome to [SITE.NAME]. \n\n We are really happy that you have joined us! , \n\n you can log in with you email : [USER.EMAIL], \n\n with password: [USER.PWD]. Password is generated for you, to change it you can visit this link [URL.PWCH]. \n\n Thank you for trusting us! \n\n Regards!', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
-(0, '[EMAIL.SENDER] wants to contact you!', 'contact.admin', 'Hello Admin,\n\n [EMAIL.SENDER]: [EMAIL.FROM], have a message for you:\n\n [EMAIL.BODY] \n\n Regards!', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
-(0, 'Success! Your advertisement `[AD.NAME]` is created on [SITE.NAME]!', 'ads.confirm', 'Welcome [USER.NAME],\n\nThank you for creating an advertisement at [SITE.NAME]! \n\nPlease click on this link [URL.QL] to confirm it.\n\nRegards!', '".$_POST['ADMIN_EMAIL']."', 'email', 1);");
+(0, 'New reply: [TITLE]', 'new.reply', '[URL.QL]\n\n[DESCRIPTION]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
+(0, 'Purchase Receipt', 'new.sale', 'Thanks for buying! [LICENSE]. ', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
+");
 
 /**
  * Access

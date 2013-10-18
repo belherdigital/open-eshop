@@ -19,8 +19,11 @@ class Controller_Panel_Support extends Auth_Controller {
 
         $tickets = new Model_Ticket();
 
-        $tickets = $tickets->where('id_user','=',$user->id_user)
-                        ->where('id_ticket_parent', 'IS', NULL)
+        if ($user->id_role!=10)
+            $tickets->where('id_user','=',$user->id_user);
+
+
+        $tickets = $tickets->where('id_ticket_parent', 'IS', NULL)
                         ->order_by('created','desc')
                         ->find_all();
 
@@ -59,7 +62,7 @@ class Controller_Panel_Support extends Auth_Controller {
                 ->rule('title', 'max_length', array(':value', 145))
 
                 ->rule('description', 'not_empty')
-                ->rule('desc', 'min_length', array(':value', 50))
+                ->rule('description', 'min_length', array(':value', 50))
     
                 ->rule('order', 'not_empty')
                 ->rule('order', 'numeric');
@@ -77,7 +80,9 @@ class Controller_Panel_Support extends Auth_Controller {
                 //send email to notify_url
                 if(core::config('email.new_sale_notify'))
                 {
-                    Email::send(core::config('email.notify_email'), '', 'New Ticket! '.$ticket->title, 'New Ticket! '.$ticket->title, core::config('email.notify_email'), '');
+                    Email::send(core::config('email.notify_email'), '', 'New Ticket: '.$ticket->title, 
+                        Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket)).'\n\n'.$ticket->description, 
+                        core::config('email.notify_email'), '');
                 }
                 
                 Alert::set(Alert::SUCCESS, __('Ticket created.'));
@@ -116,26 +121,133 @@ class Controller_Panel_Support extends Auth_Controller {
 
 
     //if post create a reply ticket
-    public function action_reply()
-    {
-        //after creating the reply we redirect to the ticket view
-    }
-
-
-    //ticket conversation display
     public function action_ticket()
     {
-        //reads ticket if its a ticket not an answer, and we load the entire conversation
+        //after creating the reply we redirect to the ticket view
+        $errors = NULL;
+
+        $user = Auth::instance()->get_user();
+
+
+        $ticket_id = $this->request->param('id',0);
+
+        //getting the parent ticket
+        $ticket = new Model_Ticket();
+
+        if ($user->id_role!=10)
+            $ticket->where('id_user','=',$user->id_user);
+
+        $ticket->where('id_ticket','=',$ticket_id)
+            ->where('id_ticket_parent', 'IS', NULL)
+            ->limit(1)
+            ->find();
+        if (!$ticket->loaded())
+        {
+            Alert::set(Alert::ERROR, __('Not your ticket.'));
+            $this->request->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
+        }
+
+        //create new reply
+        if($_POST)
+        {
+            $validation = Validation::factory($this->request->post())
+                ->rule('description', 'not_empty')
+                ->rule('description', 'min_length', array(':value', 5));
+
+            if ($validation->check())
+            {
+
+                $ticketr = new Model_Ticket();
+                $ticketr->id_user           = $user->id_user;
+                $ticketr->id_order          = $ticket->id_order;
+                $ticketr->id_ticket_parent  = $ticket->id_ticket;
+                $ticketr->description       = core::post('description');
+
+                $ticketr->save();
+
+                //admin
+                if ($user->id_role==10)
+                {
+                    $ticket->id_user_support = $user->id_user;
+                    $ticket->read_date = Date::unix2mysql();
+                    $ticket->status = Model_Ticket::STATUS_HOLD;
+                    $ticket->save();
+
+                    //send email to creator of the ticket
+                    $ticket->user->email('new.reply',array('[TITLE]'=>$ticket->title,
+                                                    '[DESCRIPTION]'=>$ticketr->description,
+                                                    '[URL.QL]'=>$user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE))
+                                            );
+
+                }
+                //send email to notify_url
+                elseif(core::config('email.new_sale_notify'))
+                {
+                    Email::content(core::config('email.notify_email'), NULL, NULL,NULL, 'new.reply', array('[TITLE]'=>$ticket->title,
+                                                    '[DESCRIPTION]'=>$ticketr->description,
+                                                    '[URL.QL]'=>$user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE)));
+                   
+                }
+                
+                Alert::set(Alert::SUCCESS, __('Reply created.'));
+            }
+            else
+            {
+                $errors = $validation->errors('ad');
+            }
+        }
+
+        //getting all the ticket replies
+        $replies = new Model_Ticket();
+        $replies = $replies->where('id_ticket_parent','=',$ticket->id_ticket)
+                    ->order_by('created','asc')
+                    ->find_all();
+
+       
         
-        //mark all tickets as read if admin
-        //if we answer admin, status on hold
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Ticket')));
+        $this->template->title   = $ticket->title.' - '.__('Ticket');
+
+        $this->template->bind('content', $content);
+        $this->template->content = View::factory('oc-panel/pages/support/ticket',array('replies'=>$replies,'ticket'=>$ticket));
+        $content->errors = $errors;
+
     }
+
 
 
     //ticket conversation display
     public function action_close()
     {
-        //reads ticket if its a ticket not an answer, and we load the entire conversation
+        $user = Auth::instance()->get_user();
+
+        $ticket_id = $this->request->param('id',0);
+
+        //getting the parent ticket
+        $ticket = new Model_Ticket();
+
+        //admin can
+        if ($user->id_role!=10)
+            $ticket->where('id_user','=',$user->id_user);
+
+        $ticket->where('id_ticket','=',$ticket_id)
+            ->where('id_ticket_parent', 'IS', NULL)
+            ->limit(1)
+            ->find();
+        if (!$ticket->loaded())
+        {
+            Alert::set(Alert::ERROR, __('Not your ticket.'));
+            $this->request->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
+        }
+        else
+        {
+            //close ticket
+            $ticket->status = Model_Ticket::STATUS_CLOSED;
+            $ticket->save();
+
+            Alert::set(Alert::SUCCESS, __('Ticket closed.'));
+            $this->request->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
+        }
         
     }
 

@@ -226,7 +226,11 @@ class Controller_Panel_Profile extends Auth_Controller {
                 //create a download
                 Model_Download::generate($user, $order);
 
-                $this->response->send_file($file);
+                //how its called the downloaded file
+                $dots = explode('.', $file);
+                $file_name = $order->id_order.'-'.$order->product->seotitle.'-'.$order->product->version.'.'.end($dots);
+
+                $this->response->send_file($file,$file_name);
             }
         }
         
