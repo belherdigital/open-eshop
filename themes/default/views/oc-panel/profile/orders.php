@@ -24,10 +24,13 @@
         <tr class="info">
             <td><?=$order->id_order;?></td>
             <td><?=$order->product->title?></td>
-            <td><?=$order->pay_date;?></td>
-            <td><?=$order->support_date;?></td>
-            <td><?=$order->amount.' '.$order->currency;?></td>
-            <td><a title="<?=__('Download')?>" href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order))?>" class="btn btn-warning"><i class="icon-download icon-white"></i></a></td>
+            <td><?=Date::format($order->pay_date);?></td>
+            <td><?=($order->support_date!=NULL)?Date::format($order->support_date):__('Without support');?></td>
+            <td><?=i18n::money_format($order->amount).' '.$order->currency;?></td>
+            <td><a title="<?=__('Download')?>" href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order))?>" 
+                class="btn btn-mini btn-success">
+                <i class="icon-download icon-white"></i> <?=__('Download')?> <?=$order->product->version?></a>
+            </td>
         </tr>
         <tr>
             <td colspan="5">

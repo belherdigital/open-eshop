@@ -31,6 +31,20 @@
 	<?=Theme::scripts($scripts)?>
 
     <link rel="shortcut icon" href="<?=Theme::public_path('img/favicon.ico')?>">
+    <?if ( core::config('general.analytics')!='' AND Kohana::$environment === Kohana::PRODUCTION ): ?>
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '<?=Core::config('general.analytics')?>']);
+      _gaq.push(['_setDomainName', '<?=$_SERVER['SERVER_NAME']?>']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script> 
+    <?endif?>
 
   </head>
 
@@ -56,15 +70,6 @@
 
 
 	<?=Theme::scripts($scripts,'footer')?>
-	
-    <?if ( core::config('general.analytics')!='' AND Kohana::$environment === Kohana::PRODUCTION ): ?>
-    <script>
-		var _gaq=[['_setAccount','<?=Core::config('general.analytics')?>'],['_trackPageview']]; 
-		(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-		g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-		s.parentNode.insertBefore(g,s)}(document,'script'));
-	</script>
-    <?endif?>
 	
 	<!--[if lt IE 7 ]>
 		<?=HTML::script('http://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js')?>

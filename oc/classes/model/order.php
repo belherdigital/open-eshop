@@ -106,7 +106,8 @@ class Model_Order extends ORM {
 
         $order->txn_id      = $token;
         $order->pay_date    = Date::unix2mysql();
-        $order->support_date= Date::unix2mysql(strtotime('+'.$product->support_days.' day'));
+        if ($product->support_days>0)
+            $order->support_date= Date::unix2mysql(strtotime('+'.$product->support_days.' day'));
         $order->status      = Model_Order::STATUS_PAID;
 
         try {
