@@ -1,27 +1,25 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 <div class="well">
-    <?if(core::config('advertisement.ads_in_home') == 0):?>
-    <h3><?=__('Latest Ads')?></h3>
-    <?elseif(core::config('advertisement.ads_in_home') == 1):?>
-    <h3><?=__('Featured Ads')?></h3>
-    <?elseif(core::config('advertisement.ads_in_home') == 2):?>
-    <h3><?=__('Popular Ads last month')?></h3>
-    <?endif?>
+    <h3><?=__('Latest Products')?></h3>
+   
     <ul class="thumbnails">
         <?$i=0;
-        foreach($ads as $ad):?>
+        foreach($products as $product):?>
         <li class="span2">
             <div class="thumbnail latest_ads" >
                 
-                <?if($ad->get_first_image()!== NULL):?>
-                <a href="<?=Route::url('ad', array('controller'=>'ad','category'=>$ad->category->seoname,'seotitle'=>$ad->seotitle))?>">
-                    <img src="<?=URL::base('http')?><?=$ad->get_first_image()?>" class="img-polaroid">
+                <?if(FALSE): //$product->get_first_image()!== NULL?>
+                <a href="<?=Route::url('ad', array('controller'=>'ad','category'=>$product->category->seoname,'seotitle'=>$product->seotitle))?>">
+                    <img src="<?=URL::base('http')?><?//$product->get_first_image()?>" class="img-polaroid">
                 </a>
                 <?endif?>
                 <div class="caption">
-                    <h5><a href="<?=Route::url('ad', array('controller'=>'ad','category'=>$ad->category->seoname,'seotitle'=>$ad->seotitle))?>"><?=$ad->title?></a></h5>
+                    <h5><a href="<?=Route::url('product', array('seotitle'=>$product->seotitle))?>"><?=$product->title?></a></h5>
 
-                    <p ><?=substr(Text::removebbcode($ad->description), 0, 30)?></p>
+                    <p ><?=substr(Text::removebbcode($product->description), 0, 30)?>
+<a href="<?=Route::url('default', array('controller'=>'paypal','action'=>'pay','id'=>$product->seotitle))?>"><?=__('Paypal')?></a>
+<?=Paymill::button($product)?>
+                    </p>
 
                 </div>
             </div>

@@ -47,22 +47,39 @@
 						))?> 
 					</div>
 				</div>
-				<div class="control-group">
-					<?= FORM::label($forms['paypal_currency']['key'], __('Paypal currency'), array('class'=>'control-label', 'for'=>$forms['paypal_currency']['key']))?>
-					<div class="controls">
-						<?= FORM::select($forms['paypal_currency']['key'], $paypal_currency , array_search($forms['paypal_currency']['value'], $paypal_currency), array(
-						'placeholder' => "USD", 
-						'class' => 'tips', 
-						'id' => $forms['paypal_currency']['key'], 
-						'data-content'=> __("Currency"),
-						'data-trigger'=>"hover",
-						'data-placement'=>"right",
-						'data-toggle'=>"popover",
-						'data-original-title'=>__("Please be sure you are using a currency that paypal supports."),
-						))?> 
-					</div>
-				</div>
-				
+	
+                <div class="control-group">
+                    <?= FORM::label($forms['paymill_private']['key'], __('Paymill private key'), array('class'=>'control-label', 'for'=>$forms['paymill_private']['key']))?>
+                    <div class="controls">
+                        <?= FORM::input($forms['paymill_private']['key'], $forms['paymill_private']['value'], array(
+                        'placeholder' => "", 
+                        'class' => 'tips', 
+                        'id' => $forms['paymill_private']['key'],
+                        'data-content'=> __("Paymill private key"),
+                        'data-trigger'=>"hover",
+                        'data-placement'=>"right",
+                        'data-toggle'=>"popover",
+                        'data-original-title'=>'', 
+                        ))?> 
+                        </div>
+                </div>
+
+                <div class="control-group">
+                    <?= FORM::label($forms['paymill_public']['key'], __('Paymill public key'), array('class'=>'control-label', 'for'=>$forms['paymill_public']['key']))?>
+                    <div class="controls">
+                        <?= FORM::input($forms['paymill_public']['key'], $forms['paymill_public']['value'], array(
+                        'placeholder' => "", 
+                        'class' => 'tips', 
+                        'id' => $forms['paymill_public']['key'],
+                        'data-content'=> __("Paymill public key"),
+                        'data-trigger'=>"hover",
+                        'data-placement'=>"right",
+                        'data-toggle'=>"popover",
+                        'data-original-title'=>'', 
+                        ))?> 
+                        </div>
+                </div>
+
 
 				<div class="form-actions">
 					<?= FORM::button('submit', 'Update', array('type'=>'submit', 'class'=>'btn-small btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'settings', 'action'=>'payment'))))?>

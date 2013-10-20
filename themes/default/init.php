@@ -29,8 +29,9 @@ Theme::$styles = array( 'http://netdna.bootstrapcdn.com/bootswatch/2.3.2/cerulea
                         
         				);
 
+Theme::$scripts['header']   = array('http://code.jquery.com/jquery-1.9.1.min.js');
 
-Theme::$scripts['footer']	= array('http://code.jquery.com/jquery-1.9.1.min.js',
+Theme::$scripts['footer']	= array(
                                     'http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js',
                                     'js/bootstrap-slider.js',
                                     'http://cdn.jsdelivr.net/chosen/0.9.12/chosen.jquery.min.js',
