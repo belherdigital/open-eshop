@@ -51,7 +51,7 @@ class Paymill {
      *
      * @return array
      */
-    public static  function requestApi( $action = '', $params = array(), $privateApiKey )
+    public static function requestApi( $action = '', $params = array(), $privateApiKey )
     {
         $curlOpts = array(
             CURLOPT_URL            => "https://api.paymill.com/v2/" . $action,
@@ -102,7 +102,7 @@ class Paymill {
             $params = array();
         }
 
-        $responseArray = requestApi( $action, $params, $privateApiKey );
+        $responseArray = self::requestApi( $action, $params, $privateApiKey );
         $httpStatusCode = $responseArray[ 'header' ][ 'status' ];
         if ( $httpStatusCode != 200 ) {
             $errorMessage = 'Client returned HTTP status code ' . $httpStatusCode;
