@@ -86,6 +86,12 @@ class Model_License extends ORM {
     {
         $license = date('Ymd').'-'.$order->id_order.'-';
 
+        //until when the license is valid/expires
+        if ($product->license_days>0)
+            $license_valid = Date::unix2mysql(strtotime('+'.$product->license_days.' day'));
+        else 
+            $license_valid = NULL;//never expires
+
         //we create a license for amount specified on product
         for ($i=0; $i < $product->licenses; $i++) 
         { 
@@ -94,6 +100,7 @@ class Model_License extends ORM {
             $l->id_product    = $product->id_product;
             $l->id_order      = $order->id_order;
             $l->license       = $license.strtoupper(Text::random('alnum', 40-strlen($license)));
+            $l->valid_date    = $license_valid;
             $l->save();
         }
 
