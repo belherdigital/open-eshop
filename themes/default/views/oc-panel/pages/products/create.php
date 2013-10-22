@@ -25,7 +25,7 @@
                                    	 	data-target="#acc_<?=$cats[$key]['seoname']?>">                    
                                     	<i class=" icon-plus icon-white"></i> <?=$cats[$key]['name']?>
                                 	</a>
-                                <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" name="category" value="<?=$cats[$key]['id']?>"  > 
+                                <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" name="id_category" value="<?=$cats[$key]['id']?>"  REQUIRED> 
                                 
                                  <?if ($cats[$key]['price']>0):?>
                                     <span class="label label-success">
@@ -37,7 +37,7 @@
                                 
                             <?else:?>
                                 <label class="radio">
-                                <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" name="category" value="<?=$cats[$key]['id']?>"  > 
+                                <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" name="id_category" value="<?=$cats[$key]['id']?>"  REQUIRED> 
                                 
                                		<a class="btn btn-mini btn-primary" data-toggle="collapse" type="button"  
                                    	 	data-target="#acc_<?=$cats[$key]['seoname']?>">                    
@@ -72,7 +72,8 @@
             <div class="control-group">
             	<?= FORM::label('type', __('Type'), array('class'=>'control-label', 'for'=>'type' ))?>
             	<div class="controls">
-		            <select name="type" id="type" class="input-xlarge" >
+		            <select name="type" id="type" class="input-xlarge" REQUIRED>
+		            	<option></option>
 						<option value="1">1</option>
 						<option value="2">2</option>
 						<option value="3">3</option>
@@ -83,7 +84,7 @@
 			<div class="control-group">
             	<?= FORM::label('currency', __('Currency'), array('class'=>'control-label', 'for'=>'currency' ))?>
             	<div class="controls">
-		            <select name="currency" id="currency" class="input-xlarge" >
+		            <select name="currency" id="currency" class="input-xlarge" REQUIRED>
 						<option></option>
 						<?foreach ($currency as $curr):?>
 							<option value="<?=$curr?>"><?=$curr?></option>
@@ -97,28 +98,28 @@
 			<div class="control-group">
 				<?= FORM::label('title', __('Title'), array('class'=>'control-label', 'for'=>'title'))?>
 				<div class="controls">
-					<?= FORM::input('title', Request::current()->post('title'), array('placeholder' => __('Title'), 'class' => 'input-xlarge', 'id' => 'title', ))?>
+					<?= FORM::input('title', Request::current()->post('title'), array('placeholder' => __('Title'), 'class' => 'input-xlarge', 'id' => 'title', 'required'))?>
 				</div>
 			</div>
 
 			<div class="control-group">
 				<?= FORM::label('skins', __('Skin name'), array('class'=>'control-label', 'for'=>'skins'))?>
 				<div class="controls">
-					<?= FORM::input('skins', Request::current()->post('skins'), array('placeholder' => __('skins'), 'class' => 'input-xlarge', 'id' => 'skins', ))?>
+					<?= FORM::input('skins', Request::current()->post('skins'), array('placeholder' => __('skins'), 'class' => 'input-xlarge', 'id' => 'skins', 'required'))?>
 				</div>
 			</div>
 
 			<div class="control-group">
 				<?= FORM::label('url_demo', __('Url demo'), array('class'=>'control-label', 'for'=>'url_demo'))?>
 				<div class="controls">
-					<?= FORM::input('url_demo', Request::current()->post('url_demo'), array('placeholder' => __('http://open-eshop.com'), 'class' => 'input-xlarge', 'id' => 'url_demo', 'type' => 'url',))?>
+					<?= FORM::input('url_demo', Request::current()->post('url_demo'), array('placeholder' => __('http://open-eshop.com'), 'class' => 'input-xlarge', 'id' => 'url_demo', 'type' => 'url', 'required'))?>
 				</div>
 			</div>
 
 			<div class="control-group">
 				<?= FORM::label('version', __('Version'), array('class'=>'control-label', 'for'=>'version'))?>
 				<div class="controls">
-					<?= FORM::input('version', Request::current()->post('version'), array('placeholder' => '1.0.0', 'class' => 'input-xlarge', 'id' => 'version', 'type' => 'text',))?>
+					<?= FORM::input('version', Request::current()->post('version'), array('placeholder' => '1.0.0', 'class' => 'input-xlarge', 'id' => 'version', 'type' => 'text', 'required'))?>
 				</div>
 			</div>
 
@@ -153,14 +154,21 @@
 			<div class="control-group">
 				<?= FORM::label('licenses', __('Licenses'), array('class'=>'control-label', 'for'=>'licenses'))?>
 				<div class="controls">
-					<?= FORM::input('licenses', Request::current()->post('licenses'), array('placeholder' => '1', 'value'=>1 ,'class' => 'input-xlarge', 'id' => 'licenses', 'type'=>'text'))?>
+					<?= FORM::input('licenses', Request::current()->post('licenses'), array('placeholder' => '1', 'class' => 'input-xlarge', 'id' => 'licenses', 'type'=>'text'))?>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<?= FORM::label('license_days', __('License Days'), array('class'=>'control-label', 'for'=>'license_days'))?>
+				<div class="controls">
+					<?= FORM::input('license_days', Request::current()->post('license_days'), array('placeholder' => '0', 'class' => 'input-xlarge', 'id' => 'license_days', 'type'=>'text'))?>
 				</div>
 			</div>
 
 			<div class="control-group">
 				<?= FORM::label('description', __('Description'), array('class'=>'control-label', 'for'=>'description', 'spellcheck'=>TRUE))?>
 				<div class="controls">
-					<?= FORM::textarea('description', Request::current()->post('description'), array('class'=>'span6', 'name'=>'description', 'id'=>'description' ,  'rows'=>10, ))?>
+					<?= FORM::textarea('description', Request::current()->post('description'), array('class'=>'span6', 'name'=>'description', 'id'=>'description' ,  'rows'=>10, 'required'))?>
 				</div>
 			</div>
 			<div class="control-group">
