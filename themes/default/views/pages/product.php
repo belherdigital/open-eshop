@@ -8,5 +8,6 @@
 	<?=Text::bb2html($product->description,TRUE)?>
 </div><!-- /well -->
 
-<a href="<?=Route::url('default', array('controller'=>'paypal','action'=>'pay','id'=>$product->seotitle))?>"><?=__('Paypal')?></a>
+<a class="btn btn-success btn-large" href="<?=Route::url('default', array('controller'=>'paypal','action'=>'pay','id'=>$product->seotitle))?>"><?=__('Pay with Paypal')?></a>
+
 <?=Paymill::button($product)?>

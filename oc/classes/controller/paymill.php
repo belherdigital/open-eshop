@@ -60,7 +60,7 @@ class Controller_Paymill extends Controller{
                 $transaction = Paymill::request(
                     'transactions/',
                     array(
-                         'amount'      => $Paymill::money_format($product->price),
+                         'amount'      => Paymill::money_format($product->price),
                          'currency'    => $product->currency,
                          'client'      => $client[ 'id' ],
                          'payment'     => $payment[ 'id' ],
@@ -71,10 +71,15 @@ class Controller_Paymill extends Controller{
 
                 if ( isset( $transaction[ 'status' ] ) && ( $transaction[ 'status' ] == 'closed' ) ) 
                 {
-                    echo '<strong>Transaction successful! ask for email address.</strong>';
-                    // $this->template = View::factory('paypal', $paypal_data);
-                    // $this->response->body($this->template->render());
-                    die();
+                    //echo '<strong>Transaction successful! ask for email address.</strong>';
+                    //if (Auth::instance()->logged_in())
+                    
+                    //create order
+                    $order = Model_Order::sale(NULL,Auth::instance()->get_user(),$product,Core::post('paymillToken'),'paymill');
+                    //redirect him to the download
+                    Alert::set(Alert::SUCCESS, __('Thanks for your purchase!'));
+                    $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
+
                 } 
                 else 
                 {
@@ -82,10 +87,10 @@ class Controller_Paymill extends Controller{
                     if ( ( !$transaction[ 'status' ] == 'closed' ) ) 
                         $msg.= ' - '. $transaction[ 'data' ][ 'error' ];
 
-                    Kohana::$log->add(Log::ERROR, 'PAymill '.$msg);
+                    Kohana::$log->add(Log::ERROR, 'Paymill '.$msg);
 
                     Alert::set(Alert::ERROR, $msg);
-                    $this->request->redirect(Route::url('default'));
+                    $this->request->redirect(Route::url('product', array('seotitle'=>$product->seotitle)));
 
                 }
             }

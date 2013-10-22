@@ -17,8 +17,7 @@
                     <h5><a href="<?=Route::url('product', array('seotitle'=>$product->seotitle))?>"><?=$product->title?></a></h5>
 
                     <p ><?=substr(Text::removebbcode($product->description), 0, 30)?>
-<a href="<?=Route::url('default', array('controller'=>'paypal','action'=>'pay','id'=>$product->seotitle))?>"><?=__('Paypal')?></a>
-<?=Paymill::button($product)?>
+                        <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle))?>"><?=__('Buy Now')?></a>
                     </p>
 
                 </div>

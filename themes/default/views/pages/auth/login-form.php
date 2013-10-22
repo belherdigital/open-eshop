@@ -31,5 +31,6 @@
             	<i class="icon-user icon-white"></i><?=__('Login')?>
             </button>
           </div>
+          <?=Form::redirect()?>
           <?=Form::CSRF('login')?>
 </form>      	

@@ -20,10 +20,15 @@ class Paymill {
      */
     public static function button(Model_Product $product)
     {
-        if ($product->loaded())
-            return View::factory('paymill_button',array('product'=>$product));
-        else
-            return '';
+        if ( Core::config('payment.paymill_private')!='' AND Core::config('payment.paymill_public')!='' )
+        {
+            if (Auth::instance()->logged_in() AND $product->loaded())
+                return View::factory('pages/paymill/button_loged',array('product'=>$product));
+            elseif ($product->loaded())
+                return View::factory('pages/paymill/button',array('product'=>$product));
+        }
+
+        return '';
     }
 
     /**

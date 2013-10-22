@@ -40,5 +40,6 @@
 			</a>
             <button type="submit" class="btn btn-primary"><?=__('Register')?></button>
           </div>
+          <?=Form::redirect()?>
           <?=Form::CSRF('register')?>
 </form>      	

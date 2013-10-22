@@ -47,7 +47,7 @@ class Controller_Paypal extends Controller{
                          //send email to user with password
                     $user = Model_User::create_email(Core::post('payer_email'),Core::post('first_name').' '.Core::post('last_name'));
 
-                    Model_Order::create_order(NULL,$user,$product,Core::post('txn_id'),'paypal');
+                    Model_Order::sale(NULL,$user,$product,Core::post('txn_id'),'paypal');
                         
 				}
 				else
@@ -99,7 +99,7 @@ class Controller_Paypal extends Controller{
 		 	$paypal_data = array('product_id'           => $product_id,
 	                             'amount'            	=> number_format($product->price, 2, '.', ''),
 	                             'site_name'        	=> core::config('general.site_name'),
-	                             'return_url'           => URL::base(TRUE),//@todo return url from config like TOS
+	                             'return_url'           => URL::base(TRUE),//@todo return url from config like TOS, thanks saying check your paypal account
 	                             'paypal_url'        	=> $paypal_url,
 	                             'paypal_account'    	=> core::config('payment.paypal_account'),
 	                             'paypal_currency'    	=> $product->currency,
