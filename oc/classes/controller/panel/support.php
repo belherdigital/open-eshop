@@ -38,6 +38,7 @@ class Controller_Panel_Support extends Auth_Controller {
         $errors = NULL;
 
         $user = Auth::instance()->get_user();
+        $this->template->scripts['footer'] = array('js/form.js');
 
         //create new ticket
         if($_POST)

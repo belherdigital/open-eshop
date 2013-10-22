@@ -8,9 +8,9 @@
         "Please check your input."
     );
 
-    var $form = $(".post_new");
+    var $form = $("form");
     $form.validate({
-        errorLabelContainer: $(".post_new div.error"),
+        errorLabelContainer: $("form div.error"),
         wrapper: 'div',
         rules: {
             title: {minlength:2},
@@ -23,10 +23,6 @@
     
     //chosen fix
     var settings = $.data($form[0], 'validator').settings;
-    settings.ignore += ':not(.chzn-done)'; // post_new location(any chosen) texarea
-    settings.ignore += ':not(.sceditor-container)'; // post_new description texarea
+    settings.ignore += ':not(.chzn-done)'; // form location(any chosen) texarea
+    settings.ignore += ':not(.sceditor-container)'; // form description texarea
     // end VALIDATION
-
-    //datepicker in case date field exists
-    if($('.cf_date_fields').length != 0){
-        $('.cf_date_fields').datepicker();}

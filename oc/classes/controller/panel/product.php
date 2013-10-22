@@ -28,6 +28,7 @@ class Controller_Panel_Product extends Auth_Crud {
         											 'css/datepicker.css' => 'screen');
         $this->template->scripts['footer'] = array('js/bootstrap-datepicker.js',
         											 'js/oc-panel/products.js',
+                                                     'js/form.js',
         											 'js/jquery-sortable-min.js');
         											 
         											 
@@ -75,7 +76,7 @@ class Controller_Panel_Product extends Auth_Crud {
         	{
         		foreach ($_FILES as $image) 
         		{ 
-        			$image = $obj_product->save_image($image);
+        			echo $image = $obj_product->save_image($image);
         		}
         	}
 
