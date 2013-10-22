@@ -17,7 +17,8 @@ class Controller_Panel_Product extends Auth_Crud {
      * @param  string $view nothing since we don't use it
      * @return void      
      */
-    public function action_create(){
+    public function action_create()
+    {
     	  
         //template header
         $this->template->title  = __('New Product');
@@ -34,6 +35,7 @@ class Controller_Panel_Product extends Auth_Crud {
         list($cats,$order)  = Model_Category::get_all();
         $obj_product = new Model_Product();
 
+        // get currencies from product, returns array
         $currency = $obj_product::get_currency(); 
 
         $this->template->content = View::factory('oc-panel/pages/products/create',array('categories'		=>$cats,
@@ -45,16 +47,19 @@ class Controller_Panel_Product extends Auth_Crud {
         	// $new_product = new Model_Product();
         	$id_user = Auth::instance()->get_user()->id_user;
         	
+        	// set custom values from POST
         	foreach ($product as $field => $value) 
         	{
         		if($field != 'submit')
-        			$obj_product->$field = $value;	
+        			$obj_product->$field = $value;
         	}
-
+        	$seotitle = $obj_product->gen_seotitle($product['title']);
+        	// set non POST values
         	$obj_product->id_user = $id_user;
-        	$obj_product->seotitle = $obj_product->gen_seotitle($product['title']);
+        	$obj_product->seotitle = $seotitle;
         	$obj_product->status = 1;
 
+        	// save product or trow exeption
         	try 
         	{
         		$obj_product->save();
@@ -64,6 +69,17 @@ class Controller_Panel_Product extends Auth_Crud {
         	{
         		throw new HTTP_Exception_500($e->getMessage());
         	}
+
+        	// images
+        	if(isset($_FILES))
+        	{
+        		foreach ($_FILES as $image) 
+        		{ 
+        			$image = $obj_product->save_image($image);
+        		}
+        	}
+
+        	$this->request->redirect(Route::url('oc-panel', array('controller'=>'product','action'=>'index')));
         	
         }
 

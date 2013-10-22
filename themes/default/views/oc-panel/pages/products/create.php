@@ -177,15 +177,15 @@
 					<?= FORM::textarea('email_purchase_notes', Request::current()->post('email_purchase_notes'), array('class'=>'span6', 'name'=>'email_purchase_notes', 'id'=>'email_purchase_notes' , 'rows'=>10))?>
 				</div>
 			</div>
+			
 			<div class="control-group">
-				<?for ($i=0; $i < core::config("advertisement.num_images") ; $i++):?> 
+				<?for ($i=0; $i < 5 ; $i++):?> 
 					<?= FORM::label('images', __('Images'), array('class'=>'control-label', 'for'=>'images'.$i))?>
 					<div class="controls">
 						<input type="file" name="<?='image'.$i?>" id="<?='fileInput'.$i?>" />
 					</div>
 				<?endfor?>
 			</div>
-			
 
 			<div class="form-actions">
 				<?= FORM::button('submit', __('Save'), array('type'=>'submit', 'class'=>'btn-large btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'product','action'=>'create'))))?>
