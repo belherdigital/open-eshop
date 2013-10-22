@@ -133,6 +133,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."products` (
   `file_name` varchar(40) DEFAULT NULL,
   `support_days` int(10)  NOT NULL DEFAULT '0',
   `licenses` int(10)  NOT NULL DEFAULT '1',
+  `license_days` int(10)  NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_product`),
   KEY `".$_POST['TABLE_PREFIX']."products_IK_id_user` (`id_user`),
   KEY `".$_POST['TABLE_PREFIX']."products_IK_id_category` (`id_category`)
@@ -169,6 +170,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."licenses` (
   `ip_address` float DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `active_date` DATETIME  NULL,
+  `valid_date` DATETIME  NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_license`),
   UNIQUE KEY `".$_POST['TABLE_PREFIX']."licenses_UK_license` (`license`),
