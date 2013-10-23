@@ -16,9 +16,20 @@
                 <div class="caption">
                     <h5><a href="<?=Route::url('product', array('seotitle'=>$product->seotitle))?>"><?=$product->title?></a></h5>
 
-                    <p ><?=substr(Text::removebbcode($product->description), 0, 30)?>
-                        <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle))?>"><?=__('Buy Now')?></a>
+                    <?if ($product->has_offer()):?>
+                        <span class="label label-success"><?=__('Offer')?> <del><?=$product->price.' '.$product->currency?></del></span>
+                    <?endif?>
+                    
+                    <p>
+                        <?=substr(Text::removebbcode($product->description), 0, 30)?>
                     </p>
+                    <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle))?>">
+                    <?if ($product->final_price()>0):?>
+                        <?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?>
+                    <?else:?>
+                        <?=__('Free Download')?>
+                    <?endif?>
+                    </a>
 
                 </div>
             </div>
