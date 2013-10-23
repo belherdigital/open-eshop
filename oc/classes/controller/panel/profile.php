@@ -239,4 +239,50 @@ class Controller_Panel_Profile extends Auth_Controller {
     
     }
 
+
+    /**
+     * action to download a free digital good, creates an order if needed and redirect to the payment
+     * @return [type] [description]
+     */
+    public function action_free_download()
+    {
+        $this->auto_render = FALSE;
+
+        $seotitle = $this->request->param('id');
+
+        $product = new Model_product();
+        $product->where('seotitle','=',$seotitle)
+            ->where('status','=',Model_Product::STATUS_ACTIVE)
+            ->limit(1)->find();
+
+        if ($product->loaded())
+        {
+            $user = Auth::instance()->get_user();
+
+            if ($product->final_price()>0)
+            {
+                Alert::set(Alert::ERROR, __('Not a free product.'));
+                $this->request->redirect(Route::url('product',array('seotitle'=>$product->seotitle)));
+            }
+            else
+            {
+
+                //check if he has any other order with this product
+                $order = new Model_Order();
+                $order  ->where('id_user'   , '=', $user->id_user)
+                        ->where('id_product', '=', $product->id_product)
+                        ->where('status'    , '=', Model_Order::STATUS_PAID)
+                        ->limit(1)->find();
+
+                //not any we create the order
+                if (!$order->loaded())
+                    $order = Model_Order::sale(NULL,$user,$product,NULL,'free');
+
+                $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order)));
+            }
+        }
+
+
+    }
+
 }

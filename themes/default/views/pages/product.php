@@ -16,9 +16,22 @@
 </div><!-- /well -->
 
 
+<?if ($product->final_price()>0):?>
+    <a class="btn btn-success btn-large" 
+        href="<?=Route::url('default', array('controller'=>'paypal','action'=>'pay','id'=>$product->seotitle))?>">
+        <?=__('Pay with Paypal')?></a>
 
-<a class="btn btn-success btn-large" 
-    href="<?=Route::url('default', array('controller'=>'paypal','action'=>'pay','id'=>$product->seotitle))?>">
-    <?=__('Pay with Paypal')?></a>
+    <?=Paymill::button($product)?>
+<?else:?>
 
-<?=Paymill::button($product)?>
+    <?if (!Auth::instance()->logged_in()):?>
+    <a class="btn btn-info btn-large" data-toggle="modal" data-dismiss="modal" 
+        href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'register'))?>#register-modal">
+    <?else:?>
+    <a class="btn btn-info btn-large"
+        href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'free_download','id'=>$product->seotitle))?>">
+    <?endif?>
+        <?=__('Free Download')?>
+    </a>
+
+<?endif?>

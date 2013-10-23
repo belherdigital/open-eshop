@@ -23,12 +23,13 @@
                     <p>
                         <?=substr(Text::removebbcode($product->description), 0, 30)?>
                     </p>
-
+                    <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle))?>">
                     <?if ($product->final_price()>0):?>
-                    <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle))?>"><?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?></a>
+                        <?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?>
                     <?else:?>
-                    <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle))?>"><?=__('Free Download')?></a>
+                        <?=__('Free Download')?>
                     <?endif?>
+                    </a>
 
                 </div>
             </div>
