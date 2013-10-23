@@ -274,7 +274,7 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."config` (`group_name`, `conf
 ('general', 'advertisements_per_page', '10'),
 ('general', 'akismet_key', ''),
 ('general', 'alert_terms', ''),
-('general', 'landing_page', '{\"controller\":\"home\",\"action\":\"index\"}'),
+('general', 'landing_page', ''),
 ('image', 'allowed_formats', 'jpeg,jpg,png,'),
 ('image', 'max_image_size', '5'),
 ('image', 'height', ''),
