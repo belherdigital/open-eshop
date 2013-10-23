@@ -91,7 +91,7 @@ class Controller_Panel_Auth extends Controller {
                     if ($ret)
                     {
                         Alert::set(Alert::SUCCESS, __('Email to recover password sent'));
-                        $this->request->redirect(Route::url('default',array('controller'=>'auth','action'=>'login')));
+                        $this->request->redirect(Route::url('oc-panel',array('controller'=>'auth','action'=>'login')));
                     }
 
 				}

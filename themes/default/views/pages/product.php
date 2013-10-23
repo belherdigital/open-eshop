@@ -13,7 +13,32 @@
     
 <div class="well">
 	<?=Text::bb2html($product->description,TRUE)?>
-</div><!-- /well -->
+</div><!-- /well -->    
+
+
+<div>
+    <?if (!empty($product->file_name)):?>
+    <span class="label label-info">
+        <?=strtoupper(strrchr($product->file_name, '.'))?> <?=__('file')?> 
+        <?=round(filesize(DOCROOT.'data/'.$product->file_name)/pow(1024, 2),2)?>MB 
+    </span>
+    <?endif?>
+
+    <?if ($product->support_days>0):?>
+    <span class="label label-info">
+    <?=$product->support_days?> <?=__('days professional support')?>
+    </span>
+    <?endif?>
+
+    <?if ($product->licenses>0):?>
+    <span class="label label-info">
+    <?=$product->licenses?> <?=__('licenses')?> 
+        <?if ($product->license_days>0):?>
+            <?=$product->license_days?> <?=__('days valid')?>
+        <?endif?>
+    </span>
+    <?endif?>
+</div>
 
 
 <?if ($product->final_price()>0):?>
