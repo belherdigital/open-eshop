@@ -60,7 +60,7 @@ class Controller_Paymill extends Controller{
                 $transaction = Paymill::request(
                     'transactions/',
                     array(
-                         'amount'      => Paymill::money_format($product->price),
+                         'amount'      => Paymill::money_format($product->final_price()),
                          'currency'    => $product->currency,
                          'client'      => $client[ 'id' ],
                          'payment'     => $payment[ 'id' ],

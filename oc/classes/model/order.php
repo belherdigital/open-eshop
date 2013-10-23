@@ -100,8 +100,11 @@ class Model_Order extends ORM {
             $order->id_user     = $user->id_user;
             $order->paymethod   = $method;
             $order->currency    = $product->currency;
-            $order->amount      = $product->price;
+            $order->amount      = $product->final_price();
             $order->ip_address  = ip2long(Request::$client_ip);
+
+            //if ($product->has_offer())
+            //$order->description = $product->price.'Offer '.$product->offer_date;
         }
 
         $order->txn_id      = $token;

@@ -57,6 +57,29 @@ class Model_Product extends ORM {
         );
     }
 
+
+    /**
+     * returns if the product is in offer
+     * @return bool 
+     */
+    public function has_offer()
+    {
+        //check if theres an offer for the product
+        if (is_numeric($this->price_offer) AND Date::mysql2unix($this->offer_valid)>time())
+            return TRUE;
+        else
+            return FALSE;
+    }
+    
+    /**
+     * returns the prce of the product checking if there's an offer
+     * @return float 
+     */
+    public function final_price()
+    {
+        return ($this->has_offer())? $this->price_offer : $this->price;
+    }
+
     /**
      * return the title formatted for the URL
      *

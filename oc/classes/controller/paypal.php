@@ -1,3 +1,4 @@
+
 <?php defined('SYSPATH') or die('No direct script access.');
 
 /**
@@ -36,7 +37,8 @@ class Controller_Paypal extends Controller{
 		
 		if($product->loaded())
 		{
-			if (	Core::post('mc_gross')          == number_format($product->price, 2, '.', '')
+
+			if (	Core::post('mc_gross')          == number_format($product->final_price(), 2, '.', '')
 				&&  Core::post('mc_currency')       == $product->currency
 				&& (Core::post('receiver_email')    == core::config('payment.paypal_account') 
 					|| Core::post('business')       == core::config('payment.paypal_account')))
@@ -97,7 +99,7 @@ class Controller_Paypal extends Controller{
 			$paypal_url = (Core::config('payment.sandbox')) ? Paypal::url_sandbox_gateway : Paypal::url_gateway;
 
 		 	$paypal_data = array('product_id'           => $product_id,
-	                             'amount'            	=> number_format($product->price, 2, '.', ''),
+	                             'amount'            	=> number_format($product->final_price(), 2, '.', ''),
 	                             'site_name'        	=> core::config('general.site_name'),
 	                             'return_url'           => URL::base(TRUE),//@todo return url from config like TOS, thanks saying check your paypal account
 	                             'paypal_url'        	=> $paypal_url,
