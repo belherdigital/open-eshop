@@ -172,9 +172,6 @@ class Model_Product extends ORM {
      */
     public function save_image($image)
     {
-        
-        
-         
         if ( 
         ! Upload::valid($image) OR
         ! Upload::not_empty($image) OR
@@ -336,4 +333,62 @@ class Model_Product extends ORM {
 
         return $directory;
     }
+
+    /**
+     * save_product upload images with given path
+     * 
+     * @param  [array]  $file      [file $_FILE-s ]
+     * @param  [string] $seotitle   [unique id, and folder name]
+     * @return [bool]               [return true if 1 or more files uploaded, false otherwise]
+     */
+    public function save_product($file)
+    {
+        if ( 
+        ! Upload::valid($file) OR
+        ! Upload::not_empty($file) OR
+        ! Upload::type($file, explode(',',core::config('product.formats'))) OR
+        ! Upload::size($file, core::config('product.max_size').'M'))
+        {  
+            if ( Upload::not_empty($file) && ! Upload::type($file, explode(',',core::config('product.formats'))))
+            {
+                return Alert::set(Alert::ALERT, $file['name'].' '.__('Is not valid format, please use one of this formats '.core::config('product.formats')));
+            } 
+            if(!Upload::size($file, core::config('product.max_size').'M'))
+            {
+                return Alert::set(Alert::ALERT, $file['name'].' '.__('Is not of valid size. Size is limited on '.core::config('product.max_size').'MB per image'));
+            }
+        }
+
+        if ($file !== NULL)
+        {
+
+            $id = $this->id_product;
+            $obj_product = new self($id);
+            if($obj_product->loaded())
+                $created = $obj_product->created;
+            else
+                $created = NULL;
+
+            
+            $directory = DOCROOT.'/data/'.$id.'/';
+
+            // make dir
+            if(!is_dir($directory)){         // check if directory exists 
+                mkdir($directory, 0755, TRUE);
+            }
+           
+            $product_format = strrchr($file['name'], '.');
+            $encoded_name = md5($file['name'].uniqid(mt_rand())).$product_format;
+             // d($product_format);
+            if ($temp_file = Upload::save($file, $encoded_name, $directory, 775))
+            {
+                return $encoded_name;
+            }
+            else{d('save product crashed');}
+
+                // Delete the temporary file
+                
+        }
+    }
+
 }
