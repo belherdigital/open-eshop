@@ -108,6 +108,7 @@ class Auth_Controller extends Controller
                                                       'js/oc-panel/theme.init.js?v=207',
                                                       'js/jquery.sceditor.min.js',
                                                       'js/jquery.validate.min.js',
+                                                      'js/form.js',
                                                       );
 		}
 		

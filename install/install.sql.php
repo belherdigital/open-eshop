@@ -155,7 +155,6 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."orders` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_order`),
   KEY `".$_POST['TABLE_PREFIX']."orders_IK_id_user` (`id_user`),
-  KEY `".$_POST['TABLE_PREFIX']."orders_IK_license` (`license`),
   KEY `".$_POST['TABLE_PREFIX']."orders_IK_status` (`status`)
 )ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
 
@@ -286,6 +285,9 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."config` (`group_name`, `conf
 ('image', 'watermark', '0'),
 ('image', 'watermark_path', ''),
 ('image', 'watermark_position', '0'),
+('product', 'formats', 'txt,doc,docx,pdf,tif,tiff,gif,psd,raw,wav,aif,mp3,rm,ram,wma,ogg,avi,wmv,mov,mp4,jpeg,jpg,png,zip,7z,7zip,rar,rar5,gzip,'),
+('product', 'max_size', '5'),
+('product', 'num_images', '5'),
 ('email', 'notify_email', '".$_POST['ADMIN_EMAIL']."'),
 ('email', 'smtp_active', 0),
 ('email', 'new_sale_notify', 0),
