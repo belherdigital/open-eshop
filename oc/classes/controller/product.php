@@ -42,4 +42,104 @@ class Controller_Product extends Controller{
 		}
 	}
 
+    public function action_listing()
+    {
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Home'))->set_url(Route::url('default')));
+        
+        /**
+         * we get the model of category from controller to filter and generate urls titles etc...
+         */
+
+        $category = NULL;
+        $category_parent = NULL;
+        if (Controller::$category!==NULL)
+        {
+            if (Controller::$category->loaded())
+            {
+                $category = Controller::$category;
+                //adding the category parent
+                if ($category->id_category_parent!=1 AND $category->parent->loaded())
+                    $category_parent = $category->parent;
+            }
+        }
+
+        //base title
+        if ($category!==NULL)
+            $this->template->title = $category->name;
+        else
+            $this->template->title = __('all');
+
+        
+        if ($category_parent!==NULL)
+        {
+            $this->template->title .=' ('.$category_parent->name.')';
+            Breadcrumbs::add(Breadcrumb::factory()->set_title($category_parent->name)
+                ->set_url(Route::url('list', array('category'=>$category_parent->seoname))));
+        }
+            
+        
+        if ($category!==NULL)
+            Breadcrumbs::add(Breadcrumb::factory()->set_title($category->name)
+                ->set_url(Route::url('list', array('category'=>$category->seoname))));
+        
+
+        //user recognition 
+        $user = (Auth::instance()->get_user() == NULL) ? NULL : Auth::instance()->get_user();
+
+        $products = new Model_Product();
+        
+        //filter by category 
+        if ($category!==NULL)
+        {
+            $products->where('id_category', 'in', $category->get_siblings_ids());
+        }
+
+        //only published products
+        $products->where('status', '=', Model_Product::STATUS_ACTIVE);
+    
+        $res_count = $products->count_all();
+        // check if there are some advet.-s
+        if ($res_count > 0)
+        {
+   
+            // pagination module
+            $pagination = Pagination::factory(array(
+                    'view'              => 'pagination',
+                    'total_items'       => $res_count,
+                    'items_per_page'    => core::config('general.products_per_page'),
+            ))->route_params(array(
+                    'controller'        => $this->request->controller(),
+                    'action'            => $this->request->action(),
+                    'category'          => ($category!==NULL)?$category->seoname:NULL,
+            ));
+           
+            Breadcrumbs::add(Breadcrumb::factory()->set_title(__("Page ").$pagination->current_page));
+
+            //we sort all products with few parameters
+            $products = $products->order_by('created','desc')
+                                ->limit($pagination->items_per_page)
+                                ->offset($pagination->offset)
+                                ->find_all();
+
+            // array of categories sorted for view
+            $data = array('products'     => $products,
+                     'pagination'   => $pagination, 
+                     'user'         => $user, 
+                     'category'     => $category,);
+        }
+        else
+        {
+            // array of categories sorted for view
+            $data = array('products'     => NULL,
+                         'pagination'   => NULL, 
+                          'user'        => $user, 
+                         'category'     => $category,);
+        }
+        
+        
+        
+        $this->template->bind('content', $content);
+        $this->template->content = View::factory('pages/listing',$data);
+
+    }
 }

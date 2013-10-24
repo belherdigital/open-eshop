@@ -4,6 +4,27 @@
     <h1><?=$product->title?></h1>
 </div>
 
+
+    <?if($images = $product->get_images()):?>
+    <div class="control-group">
+        <div class="controls">
+            <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery" data-selector="a.gallery-item">
+            <ul class="thumbnails">
+                <?foreach ($images as $path => $value):?>
+                <?if( isset($value['thumb']) AND isset($value['image']) ):?>
+                <li>
+                    <a data-href="<?=URL::base('http')?><?= $value['image']?>" class="thumbnail gallery-item" data-gallery="gallery">
+                        <img src="<?=URL::base('http')?><?= $value['thumb']?>"  class="img-rounded" alt="">
+                    </a>
+                </li>
+                <?endif?>   
+                <?endforeach?>
+            </ul>
+            </div>
+        </div>  
+    </div>
+    <?endif?>
+
 <?if ($product->has_offer()):?>
     <span class="label label-success"><?=__('Offer')?> <?=$product->final_price().' '.$product->currency?> <del><?=$product->price.' '.$product->currency?></del></span>
     <p><?=__('Offer valid until')?> <?=Date::format($product->offer_valid)?></p>
@@ -11,6 +32,7 @@
     <span class="label "><?=$product->final_price().' '.$product->currency?></span>
 <?endif?>
     
+
 <div class="well">
 	<?=Text::bb2html($product->description,TRUE)?>
 </div><!-- /well -->    

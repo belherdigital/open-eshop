@@ -271,7 +271,7 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."config` (`group_name`, `conf
 ('general', 'feed_elements', '20'),
 ('general', 'site_name', '".$_POST['SITE_NAME']."'),
 ('general', 'site_description', ''),
-('general', 'advertisements_per_page', '10'),
+('general', 'products_per_page', '12'),
 ('general', 'akismet_key', ''),
 ('general', 'alert_terms', ''),
 ('general', 'landing_page', ''),

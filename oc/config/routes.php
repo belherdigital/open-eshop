@@ -13,17 +13,6 @@
  */
 
 
-
-/**
- * Item / post new
- * URL::title(__('publish new'))
- */
-Route::set('post_new', URL::title(__('publish new')).'.html')
-->defaults(array(
-		'controller' => 'new',    
-		'action'     => 'index',
-));
-
 /**
  * search
  */
@@ -88,9 +77,9 @@ Route::set('sitejson','info.json')
  */
 Route::set('oc-panel', 'oc-panel(/<controller>(/<action>(/<id>(/<current_url>))))')
 ->defaults(array(
-		'directory'  => 'panel',
-		'controller' => 'home',
-		'action'     => 'index',
+        'directory'  => 'panel',
+        'controller' => 'home',
+        'action'     => 'index',
 ));
 
 
@@ -100,19 +89,20 @@ Route::set('oc-panel', 'oc-panel(/<controller>(/<action>(/<id>(/<current_url>)))
  */
 Route::set('product', '<seotitle>.html')
 ->defaults(array(
-		'controller' => 'product',    
-		'action'     => 'view',
+        'controller' => 'product',    
+        'action'     => 'view',
 ));
 
 /**
  * Sort by Category
  */
-Route::set('list', '<category>/')
+Route::set('list', '<category>')
 ->defaults(array(
-		'category'	 => 'all',
-		'controller' => 'product',    
-		'action'     => 'listing',
+        'category'   => 'all',
+        'controller' => 'product',    
+        'action'     => 'listing',
 ));
+
 
 
 /**
