@@ -7,18 +7,18 @@
 				<?Theme::admin_link(__('Categories'),'category','index','oc-panel','icon-tags')?>
 				<?Theme::admin_link(__('Orders'), 'order','index','oc-panel','icon-shopping-cart')?>
                 <?Theme::admin_link(__('Licenses'), 'license','index','oc-panel','icon-list')?>
-                <? if($user->id_role==10):?><li class="divider"></li><?endif?>
+                <? if($user->id_role==Model_Role::ROLE_ADMIN):?><li class="divider"></li><?endif?>
 
 				<?Theme::admin_link(__('Content'), 'content','index','oc-panel','icon-file')?>
                 <?Theme::admin_link(__('Translations'), 'translations','index','oc-panel','icon-globe')?>
                 <?Theme::admin_link(__('Newsletters'), 'newsletter','index','oc-panel','icon-envelope')?>
-                <? if($user->id_role==10):?><li class="divider"></li><?endif?>
+                <? if($user->id_role==Model_Role::ROLE_ADMIN):?><li class="divider"></li><?endif?>
 
                 <?Theme::admin_link(__('Themes'), 'theme','index','oc-panel','icon-picture')?>
                 <?if (Theme::has_options()) 
                         Theme::admin_link(__('Theme Options'), 'theme','options','oc-panel','icon-wrench')?>     
                 <?Theme::admin_link(__('Widgets'), 'widget','index','oc-panel','icon-move')?>   
-                <? if($user->id_role==10):?><li class="divider"></li><?endif?>
+                <? if($user->id_role==Model_Role::ROLE_ADMIN):?><li class="divider"></li><?endif?>
 
 			<?if ($user->has_access_to_any('settings,config')):?>
 				<li class="nav-header dropdown-submenu <?=(in_array(Request::current()->controller(),array('settings','config'))) ?'active':''?>">

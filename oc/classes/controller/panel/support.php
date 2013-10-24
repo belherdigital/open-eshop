@@ -19,7 +19,7 @@ class Controller_Panel_Support extends Auth_Controller {
 
         $tickets = new Model_Ticket();
 
-        if ($user->id_role!=10)
+        if ($user->id_role!=Model_Role::ROLE_ADMIN)
             $tickets->where('id_user','=',$user->id_user);
 
 
@@ -134,7 +134,7 @@ class Controller_Panel_Support extends Auth_Controller {
         //getting the parent ticket
         $ticket = new Model_Ticket();
 
-        if ($user->id_role!=10)
+        if ($user->id_role!=Model_Role::ROLE_ADMIN)
             $ticket->where('id_user','=',$user->id_user);
 
         $ticket->where('id_ticket','=',$ticket_id)
@@ -166,7 +166,7 @@ class Controller_Panel_Support extends Auth_Controller {
                 $ticketr->save();
 
                 //admin
-                if ($user->id_role==10)
+                if ($user->id_role==Model_Role::ROLE_ADMIN)
                 {
                     $ticket->id_user_support = $user->id_user;
                     $ticket->read_date = Date::unix2mysql();
@@ -227,7 +227,7 @@ class Controller_Panel_Support extends Auth_Controller {
         $ticket = new Model_Ticket();
 
         //admin can
-        if ($user->id_role!=10)
+        if ($user->id_role!=Model_Role::ROLE_ADMIN)
             $ticket->where('id_user','=',$user->id_user);
 
         $ticket->where('id_ticket','=',$ticket_id)

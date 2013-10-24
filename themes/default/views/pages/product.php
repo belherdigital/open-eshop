@@ -39,6 +39,7 @@
 
 
 <div>
+    <span class="label label-info"><i class="icon-eye-open icon-white"></i> <?=$hits?></span>
     <?if (!empty($product->file_name)):?>
     <span class="label label-info">
         <?=strtoupper(strrchr($product->file_name, '.'))?> <?=__('file')?> 

@@ -23,6 +23,23 @@ class Controller_Product extends Controller{
 
         if ($product->loaded())
         {
+            
+            //adding a visit only if not the owner
+            if(!Auth::instance()->logged_in())
+                $visitor_id = NULL;
+            else
+                $visitor_id = Auth::instance()->get_user()->id_user;
+
+            if ($product->id_user!=$visitor_id)
+                $new_hit = DB::insert('visits', array('id_product', 'id_user', 'ip_address'))
+                        ->values(array($product->id_product, $visitor_id, ip2long(Request::$client_ip)))
+                        ->execute();
+
+            //count how many visits has
+            $hits = new Model_Visit();
+            $hits = $hits->where('id_product','=', $product->id_product)->count_all();
+
+
             Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Home'))->set_url(Route::url('default')));
             Breadcrumbs::add(Breadcrumb::factory()->set_title($product->category->name)->set_url(Route::url('list',array('category'=>$product->category->seoname))));
             Breadcrumbs::add(Breadcrumb::factory()->set_title($product->title));
@@ -32,7 +49,7 @@ class Controller_Product extends Controller{
 
             $this->template->bind('content', $content);
             
-            $this->template->content = View::factory('pages/product',array('product'=>$product));
+            $this->template->content = View::factory('pages/product',array('product'=>$product,'hits'=>$hits));
 
 		}
 		else

@@ -65,15 +65,15 @@ class Controller_Feed extends Controller {
         //not cached :(
         if ($info === NULL)
         {
-            $ads = new Model_Ad();
-            $total_ads = $ads->count_all();
+            $products = new Model_product();
+            $total_products = $products->count_all();
 
-            $last_ad = $ads->select('published')->order_by('published','desc')->limit(1)->find();
-            $last_ad = $last_ad->published;
+            $last_product = $products->select('created')->order_by('created','desc')->limit(1)->find();
+            $last_product = $last_product->created;
 
-            $ads = new Model_Ad();
-            $first_ad = $ads->select('published')->order_by('published','asc')->limit(1)->find();
-            $first_ad = $first_ad->published;
+            $products = new Model_product();
+            $first_product = $products->select('created')->order_by('created','asc')->limit(1)->find();
+            $first_product = $first_product->created;
 
             $views = new Model_Visit();
             $total_views = $views->count_all();
@@ -84,8 +84,8 @@ class Controller_Feed extends Controller {
             $info = array(
                             'site_name'     => Core::config('general.site_name'),
                             'site_url'      => Core::config('general.base_url'),
-                            'created'       => $first_ad,   
-                            'updated'       => $last_ad,   
+                            'created'       => $first_product,   
+                            'updated'       => $last_product,   
                             'email'         => Core::config('email.notify_email'),
                             'version'       => Core::version,
                             'theme'         => Core::config('appearance.theme'),
@@ -94,7 +94,7 @@ class Controller_Feed extends Controller {
                             'timezone'      => Core::config('i18n.timezone'),
                             'locale'        => Core::config('i18n.locale'),
                             'currency'      => '',
-                            'ads'           => $total_ads,
+                            'products'      => $total_products,
                             'views'         => $total_views,
                             'users'         => $total_users,
             );
