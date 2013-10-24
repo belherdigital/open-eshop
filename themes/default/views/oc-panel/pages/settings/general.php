@@ -35,14 +35,14 @@
         <div class="control-group">
             <?= FORM::label($forms['landing_page']['key'], __('Landing page'), array('class'=>'control-label', 'for'=>$forms['landing_page']['key']))?>
             <div class="controls">
-                <?= FORM::select($forms['landing_page']['key'], array('{"controller":"home","action":"index"}'=>'HOME','{"controller":"ad","action":"listing"}'=>'LISTING'), $forms['landing_page']['value'], array(
+                <?= FORM::select($forms['landing_page']['key'], $pages, $forms['landing_page']['value'], array( 
                 'class' => 'tips', 
                 'id' => $forms['landing_page']['key'], 
-                'data-content'=> __("It changes landing page of website"),
+                'data-content'=> __("If you choose to use alert terms, you can select page you want to render. And to edit content, select link 'Content' on your admin panel sidebar. Find page named <name_you_specified> click 'Edit'. In section 'Description' add content that suits you."),
                 'data-trigger'=>"hover",
                 'data-placement'=>"right",
                 'data-toggle'=>"popover",
-                'data-original-title'=>__("Landing page"),
+                'data-original-title'=>__("Accept Terms Alert"),
                 ))?> 
             </div>
         </div>
@@ -385,10 +385,6 @@
 				))?> 
 			</div>
 		</div>
-		<?$pages = array(''=>__('Deactivated'))?>
-		<?foreach (Model_Content::get_pages() as $key => $value) {
-			$pages[$value->seotitle] = $value->title;
-		}?>
 		<div class="control-group">
 			<?= FORM::label($forms['alert_terms']['key'], "<a target='_blank' href='http://open-classifieds.com/2013/10/11/activate-access-terms-alert/'>".__('Accept Terms Alert')."</a>", array('class'=>'control-label', 'for'=>$forms['alert_terms']['key']))?>
 			<div class="controls">

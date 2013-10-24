@@ -179,7 +179,11 @@ class Controller_Panel_Settings extends Auth_Controller {
             $this->request->redirect(Route::url('oc-panel',array('controller'=>'settings','action'=>'general')));
         }
 
-        $this->template->content = View::factory('oc-panel/pages/settings/general', array('forms'=>$forms, 'forms_img'=>$forms_img));
+        $pages = array(''=>__('Deactivated'));
+        foreach (Model_Content::get_pages() as $key => $value) 
+            $pages[$value->seotitle] = $value->title;
+
+        $this->template->content = View::factory('oc-panel/pages/settings/general', array('pages'=>$pages, 'forms'=>$forms, 'forms_img'=>$forms_img));
     }
 
     /**
