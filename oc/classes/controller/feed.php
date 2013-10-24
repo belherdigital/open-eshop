@@ -15,36 +15,35 @@ class Controller_Feed extends Controller {
   		
   		$items = array();
 
-  		//last ads, you can modify this value at: general.feed_elements
-        $ads = DB::select('a.seotitle')
-                ->select(array('c.seoname','category'),'a.title','a.description','a.published')
-                ->from(array('ads', 'a'))
+  		//last products, you can modify this value at: general.feed_elements
+        $products = DB::select('p.seotitle')
+                ->select(array('c.seoname','category'),'p.title','p.description','p.created')
+                ->from(array('products', 'p'))
                 ->join(array('categories', 'c'),'INNER')
-                ->on('a.id_category','=','c.id_category')
-                ->where('a.status','=',Model_Ad::STATUS_PUBLISHED)
-                ->order_by('published','desc')
+                ->on('p.id_category','=','c.id_category')
+                ->where('p.status','=',Model_Product::STATUS_ACTIVE)
+                ->order_by('created','desc')
                 ->limit(Core::config('general.feed_elements'));
 
         //filter by category aor location
         if (Controller::$category!==NULL)
         {
             if (Controller::$category->loaded())
-                $ads->where('a.id_category','=',Controller::$category->id_category);
+                $products->where('p.id_category','=',Controller::$category->id_category);
         }
 
        
+        $products = $products->as_object()->cached()->execute();
 
-        $ads = $ads->as_object()->cached()->execute();
-
-        foreach($ads as $a)
+        foreach($products as $p)
         {
-            $url= Route::url('ad',  array('category'=>$a->category,'seotitle'=>$a->seotitle));
+            $url= Route::url('product',  array('category'=>$p->category,'seotitle'=>$p->seotitle));
 
             $items[] = array(
-			                	'title' 	    => preg_replace('/&(?!\w+;)/', '&amp;', $a->title),
+			                	'title' 	    => preg_replace('/&(?!\w+;)/', '&amp;', $p->title),
 			                	'link' 	        => $url,
-			                	'pubDate'       => Date::mysql2unix($a->published),
-			                	'description'   => Text::removebbcode(preg_replace('/&(?!\w+;)/', '&amp;',$a->description)),
+			                	'pubDate'       => Date::mysql2unix($p->created),
+			                	'description'   => Text::removebbcode(preg_replace('/&(?!\w+;)/', '&amp;',$p->description)),
 			              );
         }
   
