@@ -109,33 +109,34 @@ class Paypal {
      * returns allowed Paypal currencies
      * @return array currencies
      */
-	public static function get_currency()
-	{
-		return array(
-						'Australian Dollars'								=>  'AUD',
-						'Canadian Dollars' 									=>	'CAD',
-						'Euros' 											=>	'EUR',
-						'Pounds Sterling' 									=>	'GBP',
-						'Yen' 												=>	'JPY',
-						'U.S. Dollars' 										=>	'USD',
-						'New Zealand Dollar' 								=>	'NZD',
-						'Swiss Franc' 										=>	'CHF',
-						'Hong Kong Dollar' 									=>	'HKD',
-						'Singapore Dollar' 									=>	'SGD',
-						'Swedish Krona' 									=>	'SEK',
-						'Danish Krone' 										=>	'DKK',
-						'Polish Zloty' 										=>	'PLN',
-						'Norwegian Krone' 									=>	'NOK',
-						'Hungarian Forint' 									=>	'HUF',
-						'Czech Koruna' 										=>	'CZK',
-						'Israeli Shekel' 									=>	'ILS',
-						'Mexican Peso' 										=>	'MXN',
-						'Brazilian Real (only for Brazilian users)' 		=>	'BRL',
-						'Malaysian Ringgits (only for Malaysian users)'		=>	'MYR',
-						'Philippine Pesos' 									=>	'PHP',
-						'Taiwan New Dollars' 								=>	'TWD',
-						'Thai Baht' 										=>	'THB'
-		);
+    public static function get_currency()
+    {
+        return array(
+                        'Australian Dollars'                                =>  'AUD',
+                        'Canadian Dollars'                                  =>  'CAD',
+                        'Euros'                                             =>  'EUR',
+                        'Pounds Sterling'                                   =>  'GBP',
+                        'Yen'                                               =>  'JPY',
+                        'U.S. Dollars'                                      =>  'USD',
+                        'New Zealand Dollar'                                =>  'NZD',
+                        'Swiss Franc'                                       =>  'CHF',
+                        'Hong Kong Dollar'                                  =>  'HKD',
+                        'Singapore Dollar'                                  =>  'SGD',
+                        'Swedish Krona'                                     =>  'SEK',
+                        'Danish Krone'                                      =>  'DKK',
+                        'Polish Zloty'                                      =>  'PLN',
+                        'Norwegian Krone'                                   =>  'NOK',
+                        'Hungarian Forint'                                  =>  'HUF',
+                        'Czech Koruna'                                      =>  'CZK',
+                        'Israeli Shekel'                                    =>  'ILS',
+                        'Mexican Peso'                                      =>  'MXN',
+                        'Brazilian Real (only for Brazilian users)'         =>  'BRL',
+                        'Malaysian Ringgits (only for Malaysian users)'     =>  'MYR',
+                        'Philippine Pesos'                                  =>  'PHP',
+                        'Taiwan New Dollars'                                =>  'TWD',
+                        'Thai Baht'                                         =>  'THB',
+                        'Russian Ruble'                                     =>  'RUB',
+        );
 
-	}
+    }
 }
