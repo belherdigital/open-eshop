@@ -125,6 +125,66 @@ class Controller_Panel_Product extends Auth_Crud {
             
             if($product = $this->request->post())
             {
+                // save product file
+                if(isset($_FILES['file_name']))
+                {    
+                    if($file = $_FILES['file_name'])
+                    {
+                        $file = $obj_product->save_product($file);
+                        if($file != FALSE)
+                            $obj_product->file_name = $file;
+                        else
+                            Alert::set(Alert::WARNING, __('Product is not uploaded.'));
+                    }
+                }
+
+                // deleting single image by path 
+                $deleted_image = core::post('img_delete');
+                if($deleted_image)
+                {
+                    $img_path = $obj_product->gen_img_path($obj_product->id_product, $obj_product->created);
+                    
+                    if (!is_dir($img_path)) 
+                    {
+                        return FALSE;
+                    }
+                    else
+                    {   
+                    
+                        //delete formated image
+                        unlink($img_path.$deleted_image.'.jpg');
+
+                        //delete original image
+                        $orig_img = str_replace('thumb_', '', $deleted_image);
+                        unlink($img_path.$orig_img.".jpg");
+
+                        $this->request->redirect(Route::url('oc-panel', array('controller'  =>'product',
+                                                                              'action'      =>'update',
+                                                                              'id'          =>$obj_product->id_product)));
+                    }
+                }// end of img delete
+
+                //delete product file
+                $product_delete = core::post('product_delete');
+                if($product_delete)
+                {
+                    $p_path = $obj_product->get_file($obj_product->file_name);
+                    if (!is_file($p_path)) 
+                    {
+                        return FALSE;
+                    }
+                    else
+                    {   
+                        chmod($p_path, 0775);
+                        //delete product
+                        unlink($p_path);
+
+                        $this->request->redirect(Route::url('oc-panel', array('controller'  =>'product',
+                                                                              'action'      =>'update',
+                                                                              'id'          =>$obj_product->id_product)));
+                    }
+                }
+
                 // each field in edit product
                 foreach ($product as $field => $value) 
                 {
@@ -153,6 +213,16 @@ class Controller_Panel_Product extends Auth_Crud {
                 catch (Exception $e) 
                 {
                     throw new HTTP_Exception_500($e->getMessage());
+                }
+
+                // save images
+                if(isset($_FILES))
+                {
+                    foreach ($_FILES as $file_name => $file) 
+                    {  
+                        if($file_name != 'file_name')
+                            echo $file = $obj_product->save_image($file);
+                    }
                 }
             }
         }

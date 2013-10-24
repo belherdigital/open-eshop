@@ -74,18 +74,6 @@
                 </div>
             </div>
 
-            <div class="control-group">
-            	<?= FORM::label('type', __('Type'), array('class'=>'control-label', 'for'=>'type' ))?>
-            	<div class="controls">
-		            <select name="type" id="type" class="input-xlarge" REQUIRED>
-		            	<option></option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-					</select>
-				</div>
-			</div>
-
 			<div class="control-group">
             	<?= FORM::label('currency', __('Currency'), array('class'=>'control-label', 'for'=>'currency' ))?>
             	<div class="controls">

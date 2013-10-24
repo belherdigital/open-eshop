@@ -370,7 +370,7 @@ class Model_Product extends ORM {
                 $created = NULL;
 
             
-            $directory = DOCROOT.'/data/'.$id.'/';
+            $directory = DOCROOT.'/data/';
 
             // make dir
             if(!is_dir($directory)){         // check if directory exists 
@@ -389,6 +389,102 @@ class Model_Product extends ORM {
                 // Delete the temporary file
                 
         }
+    }
+
+    /**
+     * Gets all images
+     * @return [array] [array with image names]
+     */
+    public function get_images()
+    {
+        $image_path = array();
+       
+        if($this->loaded())
+        {  
+            $route = $this->gen_img_path($this->id_product, $this->created);
+            $folder = DOCROOT.$route;
+
+            if(is_dir($folder))
+            { 
+                foreach (new DirectoryIterator($folder) as $file) 
+                {   
+
+                    if(!$file->isDot())
+                    {   
+
+                        $key = explode('_', $file->getFilename());
+                        $key = end($key);
+                        $key = explode('.', $key);
+                        $key = (isset($key[0])) ? $key[0] : NULL ;
+
+                        if(is_numeric($key))
+                        {
+                            $type = (strpos($file->getFilename(), 'thumb_') === 0) ? 'thumb' : 'image' ;
+                            $image_path[$key][$type] = $route.$file->getFilename();
+                        }
+                    }
+                }
+            }
+        }
+
+        return $image_path;
+    }
+
+    /**
+     * Gets the first image, and checks type of $type
+     * @param  string $type [type of image (image or thumb) ]
+     * @return string       [image path]
+     */
+    public function get_first_image($type = 'thumb')
+    {
+      
+        $images = $this->get_images();
+        sort($images);
+        if(count($images) >= 1)
+        {
+            $first_image = reset($images);
+        }
+
+        return (isset($first_image[$type])) ? $first_image[$type] : NULL ;
+    }
+
+    /**
+     * [gen_img_path] Generate image path with a given parameters $seotitle and 
+     * date of advertisement creation 
+     * @param  [string] $id         [id of advert ]
+     * @param  [date]   $created     [date of creation]
+     * @return [string]             [directory path]
+     */
+    public function gen_img_path($id, $created)
+    { 
+        
+        $obj_date = date_parse($created); // convert date to array 
+        
+            $year = $obj_date['year']; // take last 2 integers 
+        
+        // check for length, because original path is with 2 integers 
+        if(strlen($obj_date['month']) != 2)
+            $month = '0'.$obj_date['month'];
+        else
+            $month = $obj_date['month'];
+        
+        if(strlen($obj_date['day']) != 2)
+            $day = '0'.$obj_date['day'];
+        else
+            $day = $obj_date['day'];
+
+        $directory = 'images/'.$year.'/'.$month.'/'.$day.'/'.$id.'/';
+       
+        return $directory;
+    }
+
+    public function get_file($file_name)
+    {
+        $product = DOCROOT.'data/'.$file_name;
+        if($product)           
+            return $product;
+        else
+            return FALSE;
     }
 
 }

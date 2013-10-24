@@ -8,7 +8,31 @@
 <div class=" well">
 	<?= FORM::open(Route::url('oc-panel',array('controller'=>'product','action'=>'update','id'=>$product->id_product)), array('class'=>'form-horizontal product_form_update', 'enctype'=>'multipart/form-data'))?>
 		<fieldset>
-
+		<!-- file -->
+		<div class="control-group">
+				<div class="controls">
+					<?$file = $product->get_file($product->file_name)?>
+					<?if($file !== FALSE AND is_file($file)):?>
+						<a href="<?=$file?>" ><?=__('Product Download')?></a>
+						<button class="btn btn-danger index-delete"
+								   onclick="return confirm('<?=__('Delete?')?>');" 
+								   type="submit" 
+								   name="product_delete"
+								   value="<?=$product->id_product?>" 
+								   rel"tooltip" 
+								   title="<?=__('Delete product')?>">
+									<?=__('Delete')?>
+								</button>
+					<?else:?>
+					<div class="control-group">
+					<?= FORM::label('file_name', __('Upload product'), array('class'=>'control-label', 'for'=>'file_name'))?>
+						<div class="controls">
+							<input type="file" name="file_name" id="file_name" />
+						</div>
+					</div>
+					<?endif?>
+				</div>	
+			</div>
 			<!-- drop down selector  CATEGORIES-->
             <div class="control-group">
                 <?= FORM::label('category', __('Category'), array('class'=>'control-label', 'for'=>'category' ))?>
@@ -71,13 +95,6 @@
             </div>
             <!-- /categories -->
 
-            <div class="control-group">
-            	<?= FORM::label('type', __('Type'), array('class'=>'control-label', 'for'=>'type' ))?>
-            	<div class="controls">
-		            <?= FORM::select('type', array(1,2,3), $product->type, array('id'=>'type', 'class'=>'input-xlarge', 'required'))?> 
-				</div>
-			</div>
-
 			<div class="control-group">
             	<?= FORM::label('currency', __('Currency'), array('class'=>'control-label', 'for'=>'currency' ))?>
             	<div class="controls">
@@ -98,13 +115,6 @@
 				<?= FORM::label('title', __('Title'), array('class'=>'control-label', 'for'=>'title'))?>
 				<div class="controls">
 					<?= FORM::input('title', $product->title, array('placeholder' => __('Title'), 'class' => 'input-xlarge', 'id' => 'title', 'required'))?>
-				</div>
-			</div>
-
-			<div class="control-group">
-				<?= FORM::label('skins', __('Skin name'), array('class'=>'control-label', 'for'=>'skins'))?>
-				<div class="controls">
-					<?= FORM::input('skins', $product->skins, array('placeholder' => __('skins'), 'class' => 'input-xlarge', 'id' => 'skins', 'required'))?>
 				</div>
 			</div>
 
@@ -176,15 +186,48 @@
 					<?= FORM::textarea('email_purchase_notes', $product->email_purchase_notes, array('class'=>'span6', 'name'=>'email_purchase_notes', 'id'=>'email_purchase_notes' , 'rows'=>10))?>
 				</div>
 			</div>
-			
+			<!-- images -->
 			<div class="control-group">
-				<?for ($i=0; $i < core::config('product.num_images') ; $i++):?> 
-					<?= FORM::label('images', __('Images'), array('class'=>'control-label', 'for'=>'images'.$i))?>
 					<div class="controls">
-						<input type="file" name="<?='image'.$i?>" id="<?='fileInput'.$i?>" />
-					</div>
-				<?endfor?>
-			</div>
+						<?$images = $product->get_images()?>
+						<?php if($images):?>
+						<ul class="thumbnails">
+							<?php foreach ($images as $path => $value):?>
+							<?if(isset($value['thumb'])): // only formated images (not originals)?>
+							<?$img_name = str_replace(".jpg", "", substr(strrchr($value['thumb'], "/"), 1 ));?>
+							<li>
+								<a class="thumbnail">
+									<img src="<?=URL::base('http')?><?= $value['thumb']?>" class="img-rounded" alt="">
+								</a>
+								
+								<button class="btn btn-danger index-delete"
+								   onclick="return confirm('<?=__('Delete?')?>');" 
+								   type="submit" 
+								   name="img_delete"
+								   value="<?=$img_name?>" 
+								   href="<?=Route::url('oc-panel', array('controller'=>'product', 
+								   									   'action'=>'img_delete', 
+								   									   'id'=>$product->id_product))?>" 
+								   rel"tooltip" 
+								   title="<?=__('Delete image')?>">
+									<?=__('Delete')?>
+								</button>
+							</li>
+							<?endif?>
+							<?endforeach?>
+						</ul>
+						<?endif?>
+					</div>	
+				</div>
+				<!-- ./end images -->
+				<div class="control-group">
+					<?if (core::config('product.num_images') > count($images)):?> <!-- permition to add more images-->
+						<?= FORM::label('images', __('Images'), array('class'=>'control-label', 'for'=>'images0'))?>
+						<div class="controls">
+							<input class="input-file" type="file" name='image' id='fileInput0' />
+						</div>
+					<?endif?>
+				</div>
 
 			<div class="form-actions">
 				<?= FORM::button('submit', __('Save'), array('type'=>'submit', 'class'=>'btn-large btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'product','action'=>'update','id'=>$product->id_product))))?>
