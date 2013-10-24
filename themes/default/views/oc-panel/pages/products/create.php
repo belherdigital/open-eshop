@@ -107,6 +107,11 @@
 				</div>
 			</div>
 
+			
+			<div class="controls">
+				<?= FORM::input('skins', Request::current()->post('skins'), array('placeholder' => __('skins'), 'class' => 'input-xlarge', 'type' => 'hidden'))?>
+			</div>
+
 			<div class="control-group">
 				<?= FORM::label('price', __('Price'), array('class'=>'control-label', 'for'=>'price'))?>
 				<div class="controls">

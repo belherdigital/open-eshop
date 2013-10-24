@@ -223,7 +223,6 @@ class Controller_Panel_Product extends Auth_Crud {
                             ->execute();
                             
                         $users = $query->as_array();
-// d($users);
                         if (count($users)>0)
                         { 
                             if ( !Email::content($users, '', NULL, NULL, 'product.update', 
