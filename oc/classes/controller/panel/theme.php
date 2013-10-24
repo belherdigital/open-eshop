@@ -79,7 +79,6 @@ class Controller_Panel_Theme extends Auth_Controller {
         //$this->template->scripts['footer'][]= '/js/oc-panel/settings.js';
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Themes')));  
         $this->template->title = __('Themes');     
-        $this->template->scripts['footer'][] = 'https://trychec.com/js/embed.js';
 
         //getting the themes
         $themes = Theme::get_installed_themes();
@@ -107,7 +106,13 @@ class Controller_Panel_Theme extends Auth_Controller {
             Theme::set_theme($this->request->param('id'));
             
             Alert::set(Alert::SUCCESS, __('Appearance configuration updated'));
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=>'index')));
+            
+            $opt = Theme::get_options($this->request->param('id'));
+            
+            if (!isset($opt['premium']))
+                $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=>'index')));
+            else
+                $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=>'options')));
         }
 
         $this->template->content = View::factory('oc-panel/pages/themes/theme', array('market' => $market,
