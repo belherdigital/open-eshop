@@ -130,8 +130,10 @@ class Email {
             //adding extra replaces
             $replace+= array('[SITE.NAME]'      =>  core::config('general.site_name'),
                              '[SITE.URL]'       =>  core::config('general.base_url'),
-                             '[USER.NAME]'      =>  $to_name,
-                             '[USER.EMAIL]'     =>  $to);
+                             '[USER.NAME]'      =>  $to_name);
+
+            if(!is_array($to))
+                $replace += array('[USER.EMAIL]'=>$to);
 
             //adding anchor tags to any [URL.* match
             foreach ($replace as $key => $value) 

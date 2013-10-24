@@ -11,9 +11,16 @@
 		<!-- file -->
 		<div class="control-group">
 				<div class="controls">
-					<?$file = $product->get_file($product->file_name)?>
-					<?if($file !== FALSE AND is_file($file)):?>
-						<a href="<?=$file?>" ><?=__('Product Download')?></a>
+					<?if (is_file(DOCROOT.'data/'.$product->file_name)):?>
+					    <span class="label label-info">
+					        <?=strtoupper(strrchr($product->file_name, '.'))?> <?=__('file')?> 
+					    </span>
+					    <span class="label label-info"> 
+					        <?=round(filesize(DOCROOT.'data/'.$product->file_name)/pow(1024, 2),2)?>MB
+					    </span>
+					    <span class="label label-info">
+					        <?=__('Uploaded').' '.Date::unix2mysql(filemtime(DOCROOT.'data/'.$product->file_name))?> 
+					    </span>
 						<button class="btn btn-danger index-delete"
 								   onclick="return confirm('<?=__('Delete?')?>');" 
 								   type="submit" 
@@ -24,12 +31,12 @@
 									<?=__('Delete')?>
 								</button>
 					<?else:?>
-					<div class="control-group">
+					
 					<?= FORM::label('file_name', __('Upload product'), array('class'=>'control-label', 'for'=>'file_name'))?>
-						<div class="controls">
-							<input type="file" name="file_name" id="file_name" />
-						</div>
+					<div class="controls">
+						<input type="file" name="file_name" id="file_name" />
 					</div>
+					
 					<?endif?>
 				</div>	
 			</div>
@@ -228,10 +235,11 @@
 						</div>
 					<?endif?>
 				</div>
-
+				<label class="checkbox">
+			      <input type="checkbox" name="notify"> <?=__('Notify all buyers on this update')?>
+			    </label>
 			<div class="form-actions">
 				<?= FORM::button('submit', __('Save'), array('type'=>'submit', 'class'=>'btn-large btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'product','action'=>'update','id'=>$product->id_product))))?>
-				<p class="help-block"><?=__('User account will be created')?></p>
 			</div>
 		</fieldset>
 	<?= FORM::close()?>

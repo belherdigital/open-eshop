@@ -189,7 +189,7 @@ class Controller_Panel_Product extends Auth_Crud {
                 foreach ($product as $field => $value) 
                 {
                     // do not include submit
-                    if($field != 'submit')
+                    if($field != 'submit' AND $field != 'notify')
                     {
                         // check if its different, and set it is
                         if($value != $obj_product->$field)
@@ -209,6 +209,38 @@ class Controller_Panel_Product extends Auth_Crud {
                 {
                     $obj_product->save();
                     Alert::set(Alert::SUCCESS, __('Product is created.'));
+
+                    if($this->request->post('notify'))
+                    {
+
+                        $query = DB::select('email')->select('name')
+                            ->from(array('users', 'u'))
+                            ->join(array('orders', 'o'),'INNER')
+                            ->on('u.id_user','=','o.id_user')
+                            ->where('u.status','=',Model_User::STATUS_ACTIVE)
+                            ->where('o.status', '=', Model_Order::STATUS_PAID)
+                            ->where('o.id_product', '=', $obj_product->id_product)
+                            ->execute();
+                            
+                        $users = $query->as_array();
+// d($users);
+                        if (count($users)>0)
+                        { 
+                            if ( !Email::content($users, '', NULL, NULL, 'product.update', 
+                                                        array('[TITLE]'=>$obj_product->title,
+                                                              '[URL.PRODUCT]'=>core::config('general.base_url').$obj_product->seotitle.'.html',
+                                                              '[URL.PURCHASES]'=>core::config('general.base_url').'oc-panel/profile/orders',
+                                                              '[VERSION]'=>$obj_product->version)))
+                                Alert::set(Alert::ERROR,__('Error on mail delivery, not sent'));
+                            else 
+                                Alert::set(Alert::SUCCESS,__('Email sent to all the users'));
+                        }
+                        else
+                        {
+                            Alert::set(Alert::ERROR,__('Mail not sent'));
+                        }
+                    }
+
                 } 
                 catch (Exception $e) 
                 {

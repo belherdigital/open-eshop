@@ -173,7 +173,6 @@
 
 			<div class="form-actions">
 				<?= FORM::button('submit', __('Save'), array('type'=>'submit', 'class'=>'btn-large btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'product','action'=>'create'))))?>
-				<p class="help-block"><?=__('User account will be created')?></p>
 			</div>
 		</fieldset>
 	<?= FORM::close()?>
