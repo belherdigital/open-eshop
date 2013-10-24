@@ -115,7 +115,6 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."products` (
   `id_product` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(10) unsigned DEFAULT NULL,
   `id_category` int(10) unsigned DEFAULT NULL,
-  `type` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `title` varchar(145) NOT NULL,
   `seotitle` varchar(145) NOT NULL,
   `skins` varchar(245) NOT NULL,

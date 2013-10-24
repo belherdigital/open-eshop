@@ -14,7 +14,7 @@ class Controller_Panel_Market extends Auth_Controller {
         // validation active 
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Market')));  
         $this->template->title = __('Market');     
-        $this->template->scripts['footer'][] = 'https://trychec.com/js/embed.js';
+        //$this->template->scripts['footer'][] = 'https://trychec.com/js/embed.js';
 
         $market = Core::get_market();
 
