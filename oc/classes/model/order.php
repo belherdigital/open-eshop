@@ -122,17 +122,23 @@ class Model_Order extends ORM {
             //loop all the licenses to an string
             $license = '';
             foreach ($licenses as $l) 
-            {
                 $license.=$l->license.'\n';
-            }
-
-            //@todo
+            
+            //param for sale email
+            $params = array(
+                            '[DATE]'            => $order->pay_date,
+                            '[ORDER.ID]'        => $order->id_order,
+                            '[USER.NAME]'       => $user->name,
+                            '[USER.EMAIL]'      => $user->email,
+                            '[PRODUCT.TITLE]'   => $product->title,
+                            '[PRODUCT.PRICE]'   => $order->amount.' '.$order->currency,
+                            '[PRODUCT.NOTES]'   => $product->email_purchase_notes,
+                            '[URL.DOWNLOAD]'    => Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order)),
+                            '[LICENSE]'         => $license,
+                        );
+            
             //send email with order details download link and product notes 
-            $user->email('new.sale',array( 
-                                           '[LICENSE]' => $license,
-                                           '[URL.QL]'=>$user->ql('oc-panel',NULL,TRUE)
-                                        )
-                                );
+            $user->email('new.sale',$params);
 
             //notify to seller
             if(core::config('email.new_sale_notify'))

@@ -37,9 +37,8 @@ class Model_Content extends ORM {
         //was not found try first translation in english
         if (!$content->loaded())
         {
-
             $content = $content->where('seotitle','=', $seotitle)
-                 ->where('locale','=', 'en_UK')
+                 ->where('locale','=', 'en_US')
                  ->where('type','=', $type)
                  ->where('status','=', 1)
                  ->limit(1)->cached()->find();
@@ -48,9 +47,7 @@ class Model_Content extends ORM {
         //was not found try first translation with that seotitle
         if (!$content->loaded())
         {
-
             $content = $content->where('seotitle','=', $seotitle)
-                 //->where('locale','=', 'en_UK')
                  ->where('type','=', $type)
                  ->where('status','=', 1)
                  ->limit(1)->cached()->find();

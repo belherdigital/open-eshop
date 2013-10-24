@@ -96,7 +96,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."config` (
 
 mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."content` (
   `id_content` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `locale` varchar(8) NOT NULL DEFAULT 'en_UK',
+  `locale` varchar(8) NOT NULL DEFAULT 'en_US',
   `order` int(2) unsigned NOT NULL DEFAULT '0',
   `title` varchar(145) NOT NULL,
   `seotitle` varchar(145) NOT NULL,
@@ -221,7 +221,7 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."content` (`order`, `title`, 
 (0, 'Hello [USER.NAME]!', 'userprofile.contact', 'User [EMAIL.SENDER] [EMAIL.FROM], have a message for you: \n\n[EMAIL.SUBJECT] \n\n[EMAIL.BODY]. \n\n Regards!', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
 (0, 'Hello [USER.NAME]!', 'user.new', 'Welcome to [SITE.NAME]. \n\n We are really happy that you have joined us! , \n\n you can log in with you email : [USER.EMAIL], \n\n with password: [USER.PWD]. Password is generated for you, to change it you can visit this link [URL.PWCH]. \n\n Thank you for trusting us! \n\n Regards!', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
 (0, 'New reply: [TITLE]', 'new.reply', '[URL.QL]\n\n[DESCRIPTION]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
-(0, 'Purchase Receipt', 'new.sale', 'Thanks for buying! [LICENSE]. ', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
+(0, 'Purchase Receipt for [PRODUCT.TITLE]', 'new.sale', '==== ORDER DETAILS ====\nDate: [DATE]\nOrder ID: [ORDER.ID]\nName: [USER.NAME]\nEmail: [USER.EMAIL]\n\n==== Your Order ====\nProduct: [PRODUCT.TITLE]\nProduct Price: [PRODUCT.PRICE]\n\n[PRODUCT.NOTES]\n\n==== Download ====\n[URL.DOWNLOAD]\n\n==== Your Licenses ====\n[LICENSE]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
 ");
 
 /**
