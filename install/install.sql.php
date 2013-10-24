@@ -169,6 +169,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."licenses` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `active_date` DATETIME  NULL,
   `valid_date` DATETIME  NULL,
+  `license_check_date` DATETIME  NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_license`),
   UNIQUE KEY `".$_POST['TABLE_PREFIX']."licenses_UK_license` (`license`),
