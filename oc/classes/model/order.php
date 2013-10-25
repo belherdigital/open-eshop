@@ -82,9 +82,12 @@ class Model_Order extends ORM {
      * @param  Model_Product $product  
      * @param  string        $token    
      * @param  string        $method   
+     * @param  date          $pay_date 
+     * @param  integer       $amount_paid
+     * @param  string        $currency_paid    
      * @return void                
      */
-    public static function sale($id_order=NULL, Model_User $user, Model_Product $product, $token, $method = 'paypal')
+    public static function sale($id_order=NULL, Model_User $user, Model_Product $product, $token, $method = 'paypal', $pay_date = NULL,$amount_paid = NULL, $currency_paid = NULL)
     {
         $order = new Model_Order();
 
@@ -99,8 +102,8 @@ class Model_Order extends ORM {
             $order->id_product  = $product->id_product;
             $order->id_user     = $user->id_user;
             $order->paymethod   = $method;
-            $order->currency    = $product->currency;
-            $order->amount      = $product->final_price();
+            $order->currency    = ($currency_paid==NULL)?$product->currency:$currency_paid;
+            $order->amount      = ($amount_paid==NULL)?$product->final_price():$amount_paid;
             $order->ip_address  = ip2long(Request::$client_ip);
 
             //if ($product->has_offer())
@@ -108,9 +111,11 @@ class Model_Order extends ORM {
         }
 
         $order->txn_id      = $token;
-        $order->pay_date    = Date::unix2mysql();
+        $order->pay_date    = ($pay_date==NULL)?Date::unix2mysql():Date::unix2mysql(strtotime($pay_date));
         if ($product->support_days>0)
-            $order->support_date= Date::unix2mysql(strtotime('+'.$product->support_days.' day'));
+            $order->support_date = Date::unix2mysql(Date::mysql2unix($order->pay_date)+($product->support_days*24*60*60)); 
+            //Date::unix2mysql(strtotime('+'.$product->support_days.' day'));
+        
         $order->status      = Model_Order::STATUS_PAID;
 
         try {
@@ -155,6 +160,23 @@ class Model_Order extends ORM {
         }
 
         return FALSE;
+
+    }
+
+
+    /**
+     * 
+     * formmanager definitions
+     * 
+     */
+    public function form_setup($form)
+    {   
+
+        $form->fields['id_product']['display_as']   = 'select';
+        $form->fields['id_product']['caption']      = 'title';  
+
+        $form->fields['id_user']['display_as']   = 'select';
+        $form->fields['id_user']['caption']      = 'email';   
 
     }
 
