@@ -6,22 +6,15 @@
 
 
     <?if($images = $product->get_images()):?>
-    <div class="control-group">
-        <div class="controls">
-            <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery" data-selector="a.gallery-item">
-            <ul class="thumbnails">
-                <?foreach ($images as $path => $value):?>
-                <?if( isset($value['thumb']) AND isset($value['image']) ):?>
-                <li>
-                    <a data-href="<?=URL::base('http')?><?= $value['image']?>" class="thumbnail gallery-item" data-gallery="gallery">
-                        <img src="<?=URL::base('http')?><?= $value['thumb']?>"  class="img-rounded" alt="">
-                    </a>
-                </li>
-                <?endif?>   
-                <?endforeach?>
-            </ul>
-            </div>
-        </div>  
+    <div class="picture clearfix">
+        <?foreach ($images as $path => $value):?>
+        <?if( isset($value['thumb']) AND isset($value['image']) ):?>
+            <a rel="prettyPhoto[gallery]" href="<?=URL::base('http')?><?= $value['image']?>">
+                <figure><img src="<?=URL::base('http')?><?= $value['thumb']?>" ></figure>
+            </a>
+        <?endif?>   
+        <?endforeach?>
+        <div class="clear"></div>
     </div>
     <?endif?>
 

@@ -1,0 +1,144 @@
+/* Wordcloud */
+.word { font-family:Arial, sans-serif; padding:4px 4px 4px 4px; letter-spacing:3px; text-decoration:none; font-weight:normal; }
+.size9 { color:#000; font-size:26px; }
+.size8 { color:#111; font-size:24px; }
+.size7 { color:#222; font-size:22px; }
+.size6 { color:#333; font-size:20px; }
+.size5 { color:#444; font-size:18px; }
+.size4 { color:#555; font-size:16px; }
+.size3 { color:#666; font-size:14px; }
+.size2 { color:#777; font-size:12px; }
+.size1 { color:#888; font-size:8px; }
+.size0 { color:#999; font-size:6px; }
+#wordcloud a { display:inline; }
+#wordcloud a:hover { background:none; text-decoration:underline; }
+/* CSS Document */
+img { border:none; }
+.clear { clear: both; display: block; overflow: hidden; visibility: hidden; width: 0; height: 0; }
+ul, ol { margin:0; padding:0; }
+li { list-style:none; }
+body { padding-top:45px; }
+.required { font-weight:bold; }
+.error{color:#ff1a1a;}
+span.break { display:block; }
+h1, h2, h3 { margin-bottom:.5em; }
+
+/* ========TOP Menu============*/
+.subnav { background-color: #EEEEEE; background-image: -moz-linear-gradient(center top , #F5F5F5 0%, #EEEEEE 100%); background-repeat: repeat-x; border: 1px solid #E5E5E5; border-radius: 4px 4px 4px 4px; height: 36px; margin-bottom: 20px; width: 100%; }
+.subnav .nav { margin-bottom: 0; }
+.subnav .nav > li > a { border-left: 1px solid #F5F5F5; border-radius: 0 0 0 0; border-right: 1px solid #E5E5E5; margin: 0; padding-bottom: 11px; padding-top: 11px; }
+.subnav .nav > .active > a, .subnav .nav > .active > a:hover { background-color: #E9E9E9; border-left: 0 none; border-right-color: #DDDDDD; box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05) inset; color: #777777; padding-left: 13px; }
+.subnav .nav > .active > a .caret, .subnav .nav > .active > a:hover .caret { border-top-color: #777777; }
+.subnav .nav > li:first-child > a, .subnav .nav > li:first-child > a:hover { border-left: 0 none; border-radius: 4px 0 0 4px; padding-left: 12px; }
+.subnav .nav > li:last-child > a { border-right: 0 none; }
+.subnav .dropdown-menu { border-radius: 0 0 4px 4px; }
+.subnav .nav > li:first-child > a, .subnav .nav > li:first-child > a:hover { border-radius: 0 0 0 0; }
+
+#logo { margin-bottom:20px; }
+#logo img { margin-top:10px; }
+#logo .span4 { text-align:right; }
+#logo .navbar-search { margin-top: 20px; }
+#logo .no-margin { margin-top: 0px; }
+
+/*================= Home ==========================*/
+.categories .span3 { width:31.22%; margin:0 2% 14px 0; }
+.categories h2 {}
+.categories ul { -moz-box-sizing:border-box; box-sizing:border-box; margin-bottom: 20px; padding: 0 8px 15px; border: 1px; border-top:0; border-radius:5px; }
+.ie .categories ul li.cathead { border-top-left-radius: 0; border-top-right-radius: 0; }
+.categories ul li { border-bottom: 1px solid #DDDDDD; line-height: 24px; margin: 0; overflow: hidden; padding: 3px 0 2px 4px; text-transform: lowercase; }
+.categories ul li a { display:block; }
+
+/* ========== Footer ================*/
+footer { padding: 10px;}
+footer p { margin:10px 0 20px 10px; }
+.pages li { border-right: 1px ; display: inline-block; padding: 0 10px; }
+.pages li:last-child { border-right:none; }
+.ie7 .pages li { display: inline; }
+
+/*================= Ad Detail Page ==========================*/
+.picture a { float:left; margin: 0 20px 21px 0; }
+.ie8 .picture a { }
+.picture figure { height: auto; max-width: 110px; padding:0; margin:0; }
+.picture figure img { border: 1px solid #CCCCCC; display: block; line-height: 0; max-width: 100%; height:auto; padding: 3px; }
+.picture figure img:hover { border:1px solid #013F5C; box-shadow:0 0 5px rgba(194, 194, 194, 0.7); }
+#share a { margin:0 5px 5px 0; float:left; }
+.ie8 .picture figure { display:inline-block; float:left; }
+.info { margin:14px 0; }
+.info ul li { line-height:21px; width:40%; margin-right:4%; float:left; }
+.price { color:#AE0C0C; font-size:1.2em; }
+.emailme a { cursor:pointer; }
+a > i { margin-right:5px; margin-top:1px; }
+#email-me { margin-top:14px; }
+#mail-me .control-group { margin-bottom:0; }
+#contact-owner h3 { margin-bottom:7px; }
+
+/*================= Ad Listing Categorie ==========================*/
+#listing-list h1 { margin-bottom:18px; }
+#listing-list .list h2 { margin-bottom:14px; }
+#listing-list .list ul { margin-bottom:14px; }
+#listing-list .list ul li { line-height:21px; }
+.pagination li.active a { font-weight:bold; }
+
+/*================= Sitemap ==========================*/
+#sitemap ul { margin-bottom:18px; }
+#sitemap ul li { line-height:28px; }
+/*================= Media Queries ==========================*/
+
+@media (min-width: 980px) {
+.subnav-fixed { position: fixed; top: 40px; left: 0; right: 0; z-index: 1020; border-color: #d5d5d5; border-width: 0 0 1px; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; -webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1); -moz-box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1); box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1); filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); }
+.subnav-fixed .nav { width: 938px; margin: 0 auto; padding: 0 1px; }
+.subnav .nav > li:first-child > a, .subnav .nav > li:first-child > a:hover { -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
+}
+
+@media screen and (max-width: 979px) {
+body { padding-top:0; }
+.navbar .nav { float:none; }
+.navbar .nav > li { border:0; }
+/* Home */
+.categories .span3 { width:100%; margin:0 0 10px 0; }
+.nav-cat-cont { display:none; }
+/* footer */
+.pages li { display:block; border-right:0; text-align:left; line-height:35px; }
+.pages li a { display:block; padding-left:10px; }
+.pages li a:hover { background:#ededed; }
+}
+
+@media screen and (max-width: 480px) {
+* { float:none!important; }
+.featured-ads { display:none; }
+/* Ad Detail */
+        .picture a { float:left !important; margin-right:15px; }
+.picture figure img { max-height:90px; }
+.info ul li { width:auto; }
+#share a { float:left!important; margin:7px; }
+/* Modal */
+        .modal-header a.close { float:right!important; }
+/* PrettyPhoto */
+        .pp_nav, .pp_social, .pp_gallery, .pp_next, .pp_previous { visibility:hidden; }
+}
+
+@media (min-width: 1210px) {
+.subnav-fixed .nav { width: 1168px; /* 2px less to account for left/right borders being removed when in fixed mode */ }
+}
+
+.carousel .carousel-inner .item img {
+  width: 100%;
+}
+
+.featured{
+    background:#C5DBFA;
+}
+
+/* collapsable categories selector*/
+.btn.btn-primary.btn-mini.collapsed {
+    display: inline-block !important;
+}
+.accordion-group {
+    border: none;
+    -webkit-border-radius: none;
+    -moz-border-radius: none;
+    border-radius: none;
+}
+.accordion-inner { border-top: none;}
+
+.fixed_header { position: absolute; }

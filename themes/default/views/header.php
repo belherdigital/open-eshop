@@ -1,68 +1,122 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
-<div class="navbar navbar-fixed-top">
-	<div class="navbar-inner">
-		<div class="container">
-			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</a>
-			<a class="brand" href="<?=Route::url('default')?>"><?=core::config('general.site_name')?></a>
-			
-			<?
-            $cats = Model_Category::get_category_count();
-            $loc_seoname = NULL;
-            ?>
-			
-			<div class="nav-collapse main_nav">
-				<ul class="nav">
-					<?nav_link(__('Listing'),'ad', 'icon-list' ,'listing', 'list')?>
-					<li class="dropdown">
-		              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=__('Categories')?> <b class="caret"></b></a>
-		              <ul class="dropdown-menu">
 
-		              	<?foreach($cats as $c ):?>
-		              		<?if($c['id_category_parent'] == 1 && $c['id_category'] != 1):?>
-								<li class="nav-header dropdown-submenu">
-                                    <p><a tabindex="-1" title="<?=$c['seoname']?>" href="<?=Route::url('list', array('category'=>$c['seoname'],'location'=>$loc_seoname))?>">
-                                        <?=$c['name']?></a>
-                                    </p>
-									<ul class="dropdown-menu">							
-								 	<?foreach($cats as $chi):?>
-	                            	<?if($chi['id_category_parent'] == $c['id_category']):?>
-	                           			<li class="span4">
-                                            <a title="<?=$chi['name']?>" href="<?=Route::url('list', array('category'=>$chi['seoname'],'location'=>$loc_seoname))?>">
-                                                <span class="header_cat_list"><?=$chi['name']?></span> 
-                                                <span class="count_ads"><span class="badge badge-success"><?=$chi['count']?></span></span>
-                                            </a>
-                                        </li>
-	                           		<?endif?>
-	                         		<?endforeach?>
-									</ul>
-								</li>
-							<?endif?>
-						<?endforeach?>
-		              </ul>
-		            </li>
-                    <?nav_link('','ad', 'icon-search ', 'advanced_search', 'search')?>
-                    <?if (core::config('advertisement.map')==1):?>
-                        <?nav_link('','map', 'icon-globe ', 'index', 'map')?>
-                    <?endif?>
-                    <?nav_link('','contact', 'icon-envelope ', 'index', 'contact')?>
-                    <?nav_link('','rss', 'icon-signal ', 'index', 'rss')?>
-		        </ul>
-		        <?= FORM::open(Route::url('search'), array('class'=>'navbar-search pull-left', 'method'=>'GET', 'action'=>''))?>
-		            <input type="text" name="search" class="search-query span2" placeholder="<?=__('Search')?>">
-		        <?= FORM::close()?>
+<header class="navbar <?=(Theme::get('fixed_toolbar')==1)?'navbar-fixed-top':'navbar-fixed-top fixed_header'?>">
+  <div class="navbar-inner">
+    <div class="container"> 
 
-				<div class="btn-group pull-right">
-					<?=View::factory('widget_login')?>
-				</div>
-				
-			</div><!--/.nav-collapse -->
-		</div>
-	</div>
+        <a class="btn btn-navbar" data-toggle="collapse" data-target= ".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a> 
+
+        <div class="btn-group pull-right">
+            <?=View::factory('widget_login')?>
+        </div>
+
+        <nav class="nav-collapse">
+            <ul class="nav">
+                <?$icon_white=(in_array(Theme::$skin, array('journal','readable','simplex','spacelab','bootstrap')))?'':'icon-white'?>
+                <li class="<?=(Request::current()->controller()=='home')?'active':''?>" >
+                    <a href="<?=Route::url('default')?>"><i class="icon-home <?=$icon_white?>"></i> <?=__('Home')?></a> </li>
+                <?kam_link(__('Listing'),'product', 'icon-list '.$icon_white ,'listing', 'list')?>
+                <?kam_link(__('Search'),'product', 'icon-search '.$icon_white, 'advanced_search', 'search')?>
+                <?kam_link(__('Contact'),'contact', 'icon-envelope '.$icon_white, 'index', 'contact')?>
+                <?kam_link('','rss', 'icon-signal '.$icon_white, 'index', 'rss')?>
+            </ul>
+        </nav>
+        <!--/.nav-collapse --> 
+
+    </div>
+    <!-- end container--> 
+    
+  </div>
+  <!-- end navbar-inner-->
+  <div class="clear"></div>
+</header>
+
+<div id="logo">
+  <div class="container">
+    <div class="row">
+      <div class="span8">
+        <a class="brand" href="<?=Route::url('default')?>">
+
+            <?if (Theme::get('logo_url')!=''):?>
+                <img src="<?=Theme::get('logo_url')?>" title="<?=core::config('general.site_name')?>" alt="<?=core::config('general.site_name')?>" >
+            <?else:?>
+                <h1><?=core::config('general.site_name')?></h1>
+            <?endif?>
+        </a>
+      </div>
+      <?if (Theme::get('short_description')!=''):?>
+      <div class="span8">
+            <p class="lead"><?=Theme::get('short_description')?></p>
+      </div>
+      <?endif?>
+      <div class="span4">
+        <?= FORM::open(Route::url('search'), array('class'=>'navbar-search pull-right '.(Theme::get('short_description')!='')?'no-margin':'', 
+            'method'=>'GET', 'action'=>''))?>
+            <input type="text" name="search" class="search-query span3" placeholder="<?=__('Search')?>">
+        <?= FORM::close()?>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!-- end navbar top-->
+  <div class="subnav hidden-phone <?=(Theme::get('fixed_toolbar')==1)?'':'fixed_header'?>">
+  <div class="container">
+
+    <ul class="nav nav-pills">
+        <?
+            $cats = Model_Category::get_category_count();
+
+            $cat_id = NULL;
+            $cat_parent = NULL;
+            if (Controller::$category!==NULL)
+            {
+                if (Controller::$category->loaded())
+                {
+                    $cat_id = Controller::$category->id_category;
+                    $cat_parent =  Controller::$category->id_category_parent;
+                }
+            }
+
+        ?>
+        <?foreach($cats as $c ):?>
+            <?if($c['id_category_parent'] == 1 && $c['has_siblings'] == FALSE):?>
+                <li  class="<?=($c['id_category'] == $cat_id)?'active':''?>"> 
+                    <a  title="<?=$c['seoname']?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>">
+                        <?=$c['name']?> </a>
+                </li>
+            <?elseif($c['id_category_parent'] == 1 && $c['id_category'] != 1):?>
+                <li class="dropdown <?=($c['id_category'] == $cat_parent OR $c['id_category'] == $cat_id)?'active':''?>">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle" title="<?=$c['seoname']?>" >
+                        <?=$c['name']?><b class="caret"></b></a>
+
+                    <ul class="dropdown-menu">                          
+                    <?foreach($cats as $chi):?>
+                    <?if($chi['id_category_parent'] == $c['id_category']):?>
+                        <li class="<?=($chi['id_category'] == $cat_id)?'active':''?>" >
+                            <a title="<?=$chi['name']?>" href="<?=Route::url('list', array('category'=>$chi['seoname']))?>">
+                            <?=$chi['name']?> <span class="badge pull-right"><?=$chi['count']?></span></a>
+                        </li>
+                    <?endif?>
+                    <?endforeach?>
+                    <li class="divider"></li>
+                    <li><a   title="<?=$c['seoname']?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>">
+                        <?=$c['name']?> <span class="badge badge-success pull-right"><?=$c['count']?></span></a></li>
+                    </ul>
+                    
+                </li>
+            <?endif?>
+        <?endforeach?>
+    </ul>
+    <!-- end nav-pills--> 
+    <div class="clear"></div>
+   </div> <!-- end container-->
+  </div><!-- end .subnav-->
+
 
 <?if (!Auth::instance()->logged_in()):?>
 	<div id="login-modal" class="modal hide fade">

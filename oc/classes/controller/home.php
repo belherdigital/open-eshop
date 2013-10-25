@@ -27,7 +27,7 @@ class Controller_Home extends Controller {
     	    
     	    
             $products = new Model_Product();
-            $products = $products->where('status','=',Model_Product::STATUS_ACTIVE)->cached()->find_all();
+            $products = $products->where('status','=',Model_Product::STATUS_ACTIVE)->limit(Theme::get('num_home_products', 21))->cached()->find_all();
 
 
     		$categs = Model_Category::get_category_count();

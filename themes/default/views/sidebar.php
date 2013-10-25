@@ -26,3 +26,4 @@
     </div>
 <?endif?>
 </div>
+<!--/Sidebar--> 

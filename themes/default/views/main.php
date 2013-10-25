@@ -31,6 +31,7 @@
 	<?=Theme::scripts($scripts)?>
 
     <link rel="shortcut icon" href="<?=Theme::public_path('img/favicon.ico')?>">
+
     <?if ( core::config('general.analytics')!='' AND Kohana::$environment === Kohana::PRODUCTION ): ?>
     <script type="text/javascript">
       var _gaq = _gaq || [];
@@ -45,32 +46,55 @@
       })();
     </script> 
     <?endif?>
+    
+    </head>
 
-  </head>
-
-  <body data-spy="scroll" data-target=".subnav" data-offset="50">
-
+    <body data-spy="scroll" data-target=".subnav" data-offset="50">
     <?if(!isset($_COOKIE['accept_terms']) AND core::config('general.alert_terms') != ''):?>
         <?=View::factory('alert_terms')?>
     <?endif?>
-
 	<?=$header?>
-    <div class="container">
-        <div class="row">
-            
-            <div class="span9">
-                <?=Breadcrumbs::render('breadcrumbs')?>
+
+    <div class="container" id="main">
+      <div class="row">
+
+            <?=(Theme::get('sidebar_position')=='left')?View::fragment('sidebar_front','sidebar'):''?>
+
+            <section class="span9" id="page">
+                <?=(Theme::get('breadcrumb')==1)?Breadcrumbs::render('breadcrumbs'):''?>
                 <?=Alert::show()?>
+
+                <div class="row">
+                    <?foreach ( widgets::get('header') as $widget):?>
+                    <div class="span3">
+                        <?=$widget->render()?>
+                    </div>
+                    <?endforeach?>
+                </div>
+
+                <?=(Theme::get('header_ad')!='')?Theme::get('header_ad'):''?>
                 <?=$content?>
-            </div><!--/span-->
-            <?=View::fragment('sidebar_front','sidebar')?>
-        </div><!--/row-->
-        <?=$footer?>
+            </section>
+
+            <?=(Theme::get('sidebar_position')=='right')?View::fragment('sidebar_front','sidebar'):''?>
+            
+            <div class="container">
+                <?foreach ( widgets::get('footer') as $widget):?>
+                <div class="span3">
+                    <?=$widget->render()?>
+                </div>
+                <?endforeach?>
+            </div>
+
+
+            <?=$footer?>
+       </div>     
     </div><!--/.fluid-container-->
 
 
 	<?=Theme::scripts($scripts,'footer')?>
 	
+    
 	<!--[if lt IE 7 ]>
 		<?=HTML::script('http://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js')?>
 		<script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
