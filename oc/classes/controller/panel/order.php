@@ -24,7 +24,7 @@ class Controller_Panel_Order extends Auth_Crud {
 
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('New Order')));
 
-        if($product = $this->request->post())
+        if($this->request->post())
         {
             $product = new Model_Product(core::post('product'));
 
@@ -47,6 +47,49 @@ class Controller_Panel_Order extends Auth_Crud {
         $this->template->content = View::factory('oc-panel/pages/order/create',array('products'  =>$products,
                                                                                         'currency'  =>Model_Product::get_currency()));                            
        
+    }
+
+
+
+    public function action_import()
+    {    
+
+        if($this->request->post())
+        {
+
+            ini_set('auto_detect_line_endings', true);
+
+            $csv = $_FILES['file_source']['tmp_name'];
+            d($csv);
+   
+            if (($handle = fopen($csv, "r")) !== FALSE) 
+            {
+                $i = 0;
+                while(($data = fgetcsv($handle, 0, ",")) !== false)
+                {
+                    //avoid first line
+                    if ($i!=0)
+                    {
+                        list($email,$pay_date,$product,$amount,$currency,$paymethod) = $data;
+                        
+                        $user = Model_User::create_email($email,substr($email, 0,strpos($email, '@')));
+                        Model_Order::sale(NULL,$user,$product,NULL,$paymethod,$pay_date,$amount,$currency);                                                
+                    }
+                    
+                    $i++;
+                }
+            }
+            fclose($handle);
+
+            //redirect to orders
+            Alert::set(Alert::SUCCESS, __('Import correct'));
+            $this->request->redirect(Route::url('oc-panel',array('controller'=>'order','action'=>'index')));
+
+        }
+
+         //redirect to orders
+        Alert::set(Alert::SUCCESS, __('Not imported'));
+        $this->request->redirect(Route::url('oc-panel',array('controller'=>'order','action'=>'create')));
     }
 
 }
