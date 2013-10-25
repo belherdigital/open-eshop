@@ -28,7 +28,7 @@
     				    <?Theme::admin_link(__('General'), 'settings','general')?>
     				    <?Theme::admin_link(__('Payment'), 'settings','payment')?>
     				    <?Theme::admin_link(__('Email'), 'settings','email')?>
-    				    <?Theme::admin_link(__('Advertisement'), 'settings','form')?>
+    				    <?Theme::admin_link(__('Product'), 'settings','product')?>
                     </ul>
                 </li>
 			<?endif?>

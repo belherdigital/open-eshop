@@ -201,7 +201,7 @@
 			<div class="control-group">
 					<div class="controls">
 						<?$images = $product->get_images()?>
-						<?php if($images):?>
+						<?if($images):?>
 						<ul class="thumbnails">
 							<?php foreach ($images as $path => $value):?>
 							<?if(isset($value['thumb'])): // only formated images (not originals)?>
@@ -216,9 +216,6 @@
 								   type="submit" 
 								   name="img_delete"
 								   value="<?=$img_name?>" 
-								   href="<?=Route::url('oc-panel', array('controller'=>'product', 
-								   									   'action'=>'img_delete', 
-								   									   'id'=>$product->id_product))?>" 
 								   rel"tooltip" 
 								   title="<?=__('Delete image')?>">
 									<?=__('Delete')?>

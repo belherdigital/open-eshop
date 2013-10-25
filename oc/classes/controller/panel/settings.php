@@ -25,41 +25,49 @@ class Controller_Panel_Settings extends Auth_Controller {
      * captcha, uploading text file  
      * @return [view] Renders view with form inputs
      */
-	public function action_form()
+	public function action_product()
     {
-        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Advertisement')));
-        $this->template->title = __('Advertisement');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('product')));
+        $this->template->title = __('product');
        
         // all form config values
-        $advertisement = new Model_Config();
-        $config = $advertisement->where('group_name', '=', 'advertisement')->find_all();
-
+        $product = new Model_Config();
+        $config = $product->where('group_name', '=', 'product')->find_all();
 
         // save only changed values
         if($this->request->post())
         {
-            foreach ($config as $c) 
-            {
-                $config_res = $this->request->post($c->config_key); 
-
-                if(isset($config_res))
+            foreach ($config as $ci) 
+            {   
+                
+                $allowed_formats = '';
+                $config_res = $this->request->post($ci->config_key);
+                if($config_res != $ci->config_value)
                 {
-                    if($config_res !== $c->config_value)
+                    if($ci->config_key == 'formats')
                     {
-                        $c->config_value = $config_res;
-                        try {
-                            $c->save();
-                        } catch (Exception $e) {
-                            echo $e;
-                        }
+                      foreach ($config_res as $key => $value) 
+                      {
+                          $allowed_formats .= $value.",";
+                      }
+                      $config_res = $allowed_formats;
+                    } 
+                    
+                    $ci->config_value = $config_res;
+                    try {
+
+                        $ci->save();
+
+                    } catch (Exception $e) {
+                        echo $e;
                     }
                 }
             }
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'settings','action'=>'form')));
+            $this->request->redirect(Route::url('oc-panel',array('controller'=>'settings','action'=>'product')));
             
         }
 
-        $this->template->content = View::factory('oc-panel/pages/settings/advertisement', array('config'=>$config));
+        $this->template->content = View::factory('oc-panel/pages/settings/product', array('config'=>$config));
     }
 
 

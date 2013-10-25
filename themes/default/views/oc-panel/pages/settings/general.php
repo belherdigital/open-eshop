@@ -89,21 +89,6 @@
 				))?> 
 			</div>
 		</div>
-		<div class="control-group">
-			<?= FORM::label($forms['moderation']['key'], "<a target='_blank' href='http://open-classifieds.com/2013/08/30/how-to-earn-money/'>".__('Moderation')."</a>", array('class'=>'control-label', 'for'=>$forms['moderation']['key']))?>
-			<div class="controls">
-				<?= FORM::select($forms['moderation']['key'], array(0=>"Post directly",1=>"Moderation on",2=>"Payment on",3=>"Email confirmation on", 4=>"Email confirmation with Moderation", 5=>"Payment with Moderation"), $forms['moderation']['value'], array(
-				'placeholder' => $forms['moderation']['value'], 
-				'class' => 'tips ', 
-				'id' => $forms['moderation']['key'],
-				'data-content'=> __("Moderation is how you control newly created advertisements. You can set it up to fulfill your needs. For example, 'Post directly' will enable new ads to be posted directly, and get published as soon they submit."),
-				'data-trigger'=>"hover",
-				'data-placement'=>"right",
-				'data-toggle'=>"popover",
-				'data-original-title'=>__("Moderation controls"), 
-				))?> 
-			</div>
-		</div>
 		
 		<div class="control-group">
 			<?= FORM::label($forms['advertisements_per_page']['key'], __('Advertisements per page'), array('class'=>'control-label', 'for'=>$forms['advertisements_per_page']['key']))?>
@@ -120,36 +105,6 @@
 				))?> 
 			</div>
 		</div>
-		<div class="control-group">
-           <?= FORM::label($forms['feed_elements']['key'], __('Advertisements in RSS'), array('class'=>'control-label', 'for'=>$forms['feed_elements']['key']))?>
-           <div class="controls">
-               <?= FORM::input($forms['feed_elements']['key'], $forms['feed_elements']['value'], array(
-               'placeholder' => "20", 
-               'class' => 'tips', 
-               'id' => $forms['feed_elements']['key'], 
-               'data-content'=> __("Number of Ads"),
-               'data-trigger'=>"hover",
-               'data-placement'=>"right",
-               'data-toggle'=>"popover",
-               'data-original-title'=>__("How many ads are going to appear in the RSS of your site."),
-               ))?> 
-           </div>
-       </div>
-       <div class="control-group">
-           <?= FORM::label($forms['map_elements']['key'], __('Advertisements in Map'), array('class'=>'control-label', 'for'=>$forms['map_elements']['key']))?>
-           <div class="controls">
-               <?= FORM::input($forms['map_elements']['key'], $forms['map_elements']['value'], array(
-               'placeholder' => "20", 
-               'class' => 'tips', 
-               'id' => $forms['map_elements']['key'], 
-               'data-content'=> __("Number of Ads"),
-               'data-trigger'=>"hover",
-               'data-placement'=>"right",
-               'data-toggle'=>"popover",
-               'data-original-title'=>__("How many ads are going to appear in the map of your site."),
-               ))?> 
-           </div>
-       </div>
 		<div class="control-group">
 			
                 <?= FORM::label($forms['number_format']['key'], "<a target='_blank' href='http://open-classifieds.com/2013/08/06/how-to-currency-format/'>".__('Money format')."</a>", array('class'=>'control-label','for'=>$forms['number_format']['key']))?>
