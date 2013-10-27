@@ -19,7 +19,7 @@
                         <?endif?>
                         </a>
                       <div class="caption">
-                        <h5><a href="<?=Route::url('product', array('seotitle'=>$product->seotitle))?>"><?=$product->title?></a></h5>
+                        <h5><a href="<?=Route::url('product', array('seotitle'=>$product->seotitle))?>"><?=substr($product->title, 0, 30)?></a></h5>
                         <p><?=substr(Text::removebbcode($product->description), 0, 30)?></p>
                         <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle))?>">
                         <?if ($product->final_price()>0):?>

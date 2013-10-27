@@ -385,7 +385,9 @@ class Model_Product extends ORM {
             {
                 return $encoded_name;
             }
-            else{d('save product crashed');}
+            else{
+                return FALSE;
+            }
 
                 // Delete the temporary file
                 

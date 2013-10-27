@@ -59,7 +59,7 @@ class Controller_Panel_Product extends Auth_Crud {
         	$obj_product->status = 1;
 
             // save product file
-            if($file = $_FILES['file_name'])
+            if($file = $_FILES['file_name'] AND $_FILES['file_name']['size'] != 0)
             {
                 $file = $obj_product->save_product($file);
                 if($file != FALSE)

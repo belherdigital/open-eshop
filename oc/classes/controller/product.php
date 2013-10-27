@@ -159,4 +159,18 @@ class Controller_Product extends Controller{
         $this->template->content = View::factory('pages/listing',$data);
 
     }
+
+    public function action_search()
+    {
+        //template header
+        $this->template->title              = __('Advanced Search');
+        $this->template->meta_description   = __('Advanced Search');
+
+        $this->template->styles = array('css/datepicker.css' => 'screen');
+        $this->template->scripts['footer'] = array('js/bootstrap-datepicker.js');
+
+        //breadcrumbs
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Home'))->set_url(Route::url('default')));
+    
+    }
 }

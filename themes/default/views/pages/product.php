@@ -1,10 +1,5 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
-<div class="page-header">
-    <h1><?=$product->title?></h1>
-</div>
-
-
     <?if($images = $product->get_images()):?>
     <div class="picture clearfix">
         <?foreach ($images as $path => $value):?>
@@ -22,19 +17,24 @@
     <span class="label label-success"><?=__('Offer')?> <?=$product->final_price().' '.$product->currency?> <del><?=$product->price.' '.$product->currency?></del></span>
     <p><?=__('Offer valid until')?> <?=Date::format($product->offer_valid)?></p>
 <?else:?>
-    <span class="label "><?=$product->final_price().' '.$product->currency?></span>
+    <?if($product->final_price() != 0):?>
+        <span class="label mb-20"><?=$product->final_price().' '.$product->currency?></span>
+    <?else:?>
+        <span class="label label-success mb-20"><?=__('Free')?></span>
+    <?endif?>
 <?endif?>
     
 
-<div class="well">
+<div class="well clearfix">
+    <h2><?=$product->title?></h2>
 	<?=Text::bb2html($product->description,TRUE)?>
 </div><!-- /well -->    
 
 
 <div>
-    <span class="label label-info"><i class="icon-eye-open icon-white"></i> <?=$hits?></span>
+    <span class="label label-info mb-20"><i class="icon-eye-open icon-white"></i> <?=$hits?></span>
     <?if (!empty($product->file_name)):?>
-    <span class="label label-info">
+    <span class="label label-info mb-20">
         <?=strtoupper(strrchr($product->file_name, '.'))?> <?=__('file')?> 
         <?=round(filesize(DOCROOT.'data/'.$product->file_name)/pow(1024, 2),2)?>MB 
     </span>

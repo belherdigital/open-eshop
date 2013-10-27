@@ -128,7 +128,7 @@
 			<div class="control-group">
 				<?= FORM::label('url_demo', __('Url demo'), array('class'=>'control-label', 'for'=>'url_demo'))?>
 				<div class="controls">
-					<?= FORM::input('url_demo', $product->url_demo, array('placeholder' => __('http://open-eshop.com'), 'class' => 'input-xlarge', 'id' => 'url_demo', 'type' => 'url', 'required'))?>
+					<?= FORM::input('url_demo', $product->url_demo, array('placeholder' => __('http://open-eshop.com'), 'class' => 'input-xlarge', 'id' => 'url_demo', 'type' => 'url'))?>
 				</div>
 			</div>
 

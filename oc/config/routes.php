@@ -18,8 +18,8 @@
  */
 Route::set('search',URL::title(__('search')).'.html')
 ->defaults(array(
-        'controller' => 'ad',    
-        'action'     => 'advanced_search',
+        'controller' => 'product',    
+        'action'     => 'search',
 ));
 
 /**
