@@ -12,7 +12,7 @@
          <tr>
             <th>#</th>
             <th><?=__('Product')?></th>
-            <th><?=__('Date')?></th>
+            <th><?=__('Purchased')?></th>
             <th><?=__('Support until')?></th>
             <th><?=__('Price')?></th>
             <th></th>
@@ -23,7 +23,7 @@
         <?foreach ($orders as $order):?>
         <tr class="info">
             <td><?=$order->id_order;?></td>
-            <td><?=$order->product->title?></td>
+            <td><?=$order->product->title?> <?=$order->product->version?></td>
             <td><?=Date::format($order->pay_date);?></td>
             <td><?=($order->support_date!=NULL)?Date::format($order->support_date):__('Without support');?></td>
             <td><?=i18n::money_format($order->amount).' '.$order->currency;?></td>

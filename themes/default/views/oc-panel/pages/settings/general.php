@@ -91,13 +91,13 @@
 		</div>
 		
 		<div class="control-group">
-			<?= FORM::label($forms['advertisements_per_page']['key'], __('Advertisements per page'), array('class'=>'control-label', 'for'=>$forms['advertisements_per_page']['key']))?>
+			<?= FORM::label($forms['products_per_page']['key'], __('Products per page'), array('class'=>'control-label', 'for'=>$forms['products_per_page']['key']))?>
 			<div class="controls">
-				<?= FORM::input($forms['advertisements_per_page']['key'], $forms['advertisements_per_page']['value'], array(
+				<?= FORM::input($forms['products_per_page']['key'], $forms['products_per_page']['value'], array(
 				'placeholder' => "20", 
 				'class' => 'tips', 
-				'id' => $forms['advertisements_per_page']['key'], 
-				'data-content'=> __("This is to control how many advertisements are being displayed per page. Insert an integer value, as a number limit."),
+				'id' => $forms['products_per_page']['key'], 
+				'data-content'=> __("This is to control how many products are being displayed per page. Insert an integer value, as a number limit."),
 				'data-trigger'=>"hover",
 				'data-placement'=>"right",
 				'data-toggle'=>"popover",
@@ -105,8 +105,7 @@
 				))?> 
 			</div>
 		</div>
-		<div class="control-group">
-			
+		<div class="control-group">		
                 <?= FORM::label($forms['number_format']['key'], "<a target='_blank' href='http://open-classifieds.com/2013/08/06/how-to-currency-format/'>".__('Money format')."</a>", array('class'=>'control-label','for'=>$forms['number_format']['key']))?>
 			<div class="controls">
 				<?= FORM::input($forms['number_format']['key'], $forms['number_format']['value'], array(
@@ -122,13 +121,28 @@
 			</div>
 		</div>
 		<div class="control-group">
+           <?= FORM::label($forms['feed_elements']['key'], __('Products in RSS'), array('class'=>'control-label', 'for'=>$forms['feed_elements']['key']))?>
+           <div class="controls">
+               <?= FORM::input($forms['feed_elements']['key'], $forms['feed_elements']['value'], array(
+               'placeholder' => "20", 
+               'class' => 'tips', 
+               'id' => $forms['feed_elements']['key'], 
+               'data-content'=> __("Number of Ads"),
+               'data-trigger'=>"hover",
+               'data-placement'=>"right",
+               'data-toggle'=>"popover",
+               'data-original-title'=>__("How many products are going to appear in the RSS of your site."),
+               ))?> 
+           </div>
+       	</div>
+		<div class="control-group">
 			<?= FORM::label($forms['date_format']['key'], __('Date format'), array('class'=>'control-label', 'for'=>$forms['date_format']['key']))?>
 			<div class="controls">
 				<?= FORM::input($forms['date_format']['key'], $forms['date_format']['value'], array(
 				'placeholder' => "d/m/Y", 
 				'class' => 'tips', 
 				'id' => $forms['date_format']['key'], 
-				'data-content'=> __("Each advertisement have a publish date. By selecting format, you can change how it is shown on your website."),
+				'data-content'=> __("Each product have a publish date. By selecting format, you can change how it is shown on your website."),
 				'data-trigger'=>"hover",
 				'data-placement'=>"right",
 				'data-toggle'=>"popover",

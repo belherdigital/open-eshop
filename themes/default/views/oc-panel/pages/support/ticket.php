@@ -16,10 +16,19 @@
 	</div>
 
     <?foreach ($replies as $reply):?>
-        <h5><?=$reply->user->name?> - <?=$reply->created?></h5>
-        <p><?=Text::bb2html($reply->description,TRUE)?></p>
-        
-        <hr>
+    <div class="row">
+        <div class="span2">
+            <img src="http://www.gravatar.com/avatar/<?=md5(strtolower(trim($reply->user->name)));?>?s=100">
+            <p>
+                <?=$reply->user->name?><br>
+                <?=$reply->created?>
+            </p>
+        </div>
+        <div class="span6">
+            <p><?=Text::bb2html($reply->description,TRUE)?></p>
+        </div>
+        <div class="span8"><hr></div>
+    </div>
     <?endforeach?>
 
     <?if($ticket->status!=Model_Ticket::STATUS_CLOSED):?>

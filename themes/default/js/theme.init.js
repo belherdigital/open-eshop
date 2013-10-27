@@ -1,24 +1,47 @@
 $(function(){
+    $("select").chosen();
     
     $('textarea[name=description], .cf_textarea_fields').sceditorBBCodePlugin({
         toolbar: "bold,italic,underline,strike,|left,center,right,justify|" +
         "bulletlist,orderedlist|link,unlink,youtube|source",
         resizeEnabled: "true"
     });
-    
-    $("select").chosen();
-    
+
+    $("a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_rounded',slideshow:3000, autoplay_slideshow: false});
+ 
     $('.btn').tooltip();
-
-	$('.tips').popover();
-
-	$('.slider_subscribe').slider();
+    
+    $('.slider_subscribe').slider();
 
     $('.radio > input:checked').parentsUntil('div .accordion').addClass('in');
+
+    $("#slider-fixed-products").carousel({ interval: 5000 });
 
     $(window).load(function(){
         $('#accept_terms_modal').modal('show');
     });
+
+    // fix sub nav on scroll
+    var $win = $(window)
+      , $nav = $('.subnav')
+      , navHeight = $('.navbar').first().height()
+      , navTop = $('.subnav').length && $('.subnav').offset().top - navHeight
+      , isFixed = 0
+
+    processScroll();
+
+    $win.on('scroll', processScroll);
+
+    function processScroll() {
+      var i, scrollTop = $win.scrollTop()
+      if (scrollTop >= navTop && !isFixed) {
+        isFixed = 1
+        $nav.addClass('subnav-fixed')
+      } else if (scrollTop <= navTop && isFixed) {
+        isFixed = 0
+        $nav.removeClass('subnav-fixed')
+      }
+    }
 
 });
 

@@ -3,23 +3,22 @@
 	<div class="well sidebar-nav">
 		<ul class="nav nav-list">
                 <li class="divider"></li>
-				<?Theme::admin_link(__('Products'), 'product','index','oc-panel','icon-shopping-cart')?>
+				<?Theme::admin_link(__('Products'), 'product','index','oc-panel','icon-inbox')?>
 				<?Theme::admin_link(__('Categories'),'category','index','oc-panel','icon-tags')?>
 				<?Theme::admin_link(__('Orders'), 'order','index','oc-panel','icon-shopping-cart')?>
-                <?Theme::admin_link(__('Licenses'), 'license','index','oc-panel','icon-shopping-cart')?>
-                <?Theme::admin_link(__('Support'), 'support','index','oc-panel','icon-shopping-cart')?>
-                <? if($user->id_role==10):?><li class="divider"></li><?endif?>
+                <?Theme::admin_link(__('Licenses'), 'license','index','oc-panel','icon-list')?>
+                <? if($user->id_role==Model_Role::ROLE_ADMIN):?><li class="divider"></li><?endif?>
 
 				<?Theme::admin_link(__('Content'), 'content','index','oc-panel','icon-file')?>
                 <?Theme::admin_link(__('Translations'), 'translations','index','oc-panel','icon-globe')?>
                 <?Theme::admin_link(__('Newsletters'), 'newsletter','index','oc-panel','icon-envelope')?>
-                <? if($user->id_role==10):?><li class="divider"></li><?endif?>
+                <? if($user->id_role==Model_Role::ROLE_ADMIN):?><li class="divider"></li><?endif?>
 
                 <?Theme::admin_link(__('Themes'), 'theme','index','oc-panel','icon-picture')?>
                 <?if (Theme::has_options()) 
                         Theme::admin_link(__('Theme Options'), 'theme','options','oc-panel','icon-wrench')?>     
                 <?Theme::admin_link(__('Widgets'), 'widget','index','oc-panel','icon-move')?>   
-                <? if($user->id_role==10):?><li class="divider"></li><?endif?>
+                <? if($user->id_role==Model_Role::ROLE_ADMIN):?><li class="divider"></li><?endif?>
 
 			<?if ($user->has_access_to_any('settings,config')):?>
 				<li class="nav-header dropdown-submenu <?=(in_array(Request::current()->controller(),array('settings','config'))) ?'active':''?>">
@@ -60,15 +59,15 @@
 
 			<? if($user->has_access_to_any('profile')):?>
 				<li class="divider"></li>
-                <?Theme::admin_link(__('Purchases'), 'profile','orders')?>
-                <?Theme::admin_link(__('Support'),'support')?>    
-                <?Theme::admin_link(__('Edit profile'), 'profile','edit')?>
+                <?Theme::admin_link(__('Purchases'), 'profile','orders','oc-panel','icon-shopping-cart')?>
+                <?Theme::admin_link(__('Support'), 'support','index','oc-panel','icon-question-sign')?>
+                <?Theme::admin_link(__('Edit profile'), 'profile','edit','oc-panel','icon-user')?>
 			<?endif?>
 
 			<?if (Theme::get('premium')!=1):?>
 			<li class="divider"></li>
 			<li class="nav-header">Open eShop</li>
-			<li><a href="http://open-classifieds.com/eshop/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>"><?=__('Home')?></a></li>
+			<li><a href="http://open-eshop.com/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>"><?=__('Home')?></a></li>
 			<li><a href="http://open-classifieds.com/contact/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>"><?=__('Contact')?></a></li>
             <li class="divider"></li>
 			<li><script type="text/javascript">if (typeof geoip_city!="function")document.write("<scr"+"ipt type=\"text/javascript\" src=\"http://j.maxmind.com/app/geoip.js\"></scr"+"ipt>");

@@ -4,6 +4,20 @@
     <h1><?=$product->title?></h1>
 </div>
 
+
+    <?if($images = $product->get_images()):?>
+    <div class="picture clearfix">
+        <?foreach ($images as $path => $value):?>
+        <?if( isset($value['thumb']) AND isset($value['image']) ):?>
+            <a rel="prettyPhoto[gallery]" href="<?=URL::base('http')?><?= $value['image']?>">
+                <figure><img src="<?=URL::base('http')?><?= $value['thumb']?>" ></figure>
+            </a>
+        <?endif?>   
+        <?endforeach?>
+        <div class="clear"></div>
+    </div>
+    <?endif?>
+
 <?if ($product->has_offer()):?>
     <span class="label label-success"><?=__('Offer')?> <?=$product->final_price().' '.$product->currency?> <del><?=$product->price.' '.$product->currency?></del></span>
     <p><?=__('Offer valid until')?> <?=Date::format($product->offer_valid)?></p>
@@ -11,12 +25,14 @@
     <span class="label "><?=$product->final_price().' '.$product->currency?></span>
 <?endif?>
     
+
 <div class="well">
 	<?=Text::bb2html($product->description,TRUE)?>
 </div><!-- /well -->    
 
 
 <div>
+    <span class="label label-info"><i class="icon-eye-open icon-white"></i> <?=$hits?></span>
     <?if (!empty($product->file_name)):?>
     <span class="label label-info">
         <?=strtoupper(strrchr($product->file_name, '.'))?> <?=__('file')?> 

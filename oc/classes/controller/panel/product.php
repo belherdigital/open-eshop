@@ -208,7 +208,7 @@ class Controller_Panel_Product extends Auth_Crud {
                 try 
                 {
                     $obj_product->save();
-                    Alert::set(Alert::SUCCESS, __('Product is created.'));
+                    Alert::set(Alert::SUCCESS, __('Product saved.'));
 
                     if($this->request->post('notify'))
                     {

@@ -60,16 +60,38 @@ class Model_License extends ORM {
      * @param  string $license 
      * @return bool          
      */
-    public static function verify($license)
+    public static function verify($license_num,$domain)
     {
+
         $license = new self();
-        $license->where('license','=',$license)
+        $license->where('license','=',$license_num)
                 ->where('status', '=', Model_License::STATUS_ACTIVE)
                 ->limit(1)->find();
 
         if ($license->loaded())
         {
+            //this mean the license was at some point activated
+            if ($license->active_date!=NULL AND $license->active_date!='')
+            {
+                //if license expired return false
+                if ($license->valid_date!=NULL AND $license->valid_date!='' AND Date::mysql2unix($license->valid_date)<time() )
+                    return FALSE;
+                //check domain for the license. if matched
+                if ($license->domain != $domain)
+                    return FALSE;
+            }
+            //if license not active we activate it
+            else
+            {
+                $license->active_date   = Date::unix2mysql();
+                $license->domain        = $domain;
+            }
 
+            $license->license_check_date = Date::unix2mysql();
+            $license->ip_address        = ip2long(Request::$client_ip);
+            $license->save();
+            
+            return TRUE;
         }
 
         return FALSE;
@@ -101,6 +123,7 @@ class Model_License extends ORM {
             $l->id_order      = $order->id_order;
             $l->license       = $license.strtoupper(Text::random('alnum', 40-strlen($license)));
             $l->valid_date    = $license_valid;
+            $l->status        = self::STATUS_ACTIVE;
             $l->save();
         }
 
@@ -114,4 +137,43 @@ class Model_License extends ORM {
 
 
 
+}
+
+/*
+ * Name:    Open eShop API
+ * URL:     http://open-eshop.com
+ * Version: 0.1
+ * Date:    18/10/2013
+ * Author:  Chema Garrido
+ * License: GPL v3
+ * Notes:   API Class for open-eshop.com
+ */
+class eshop{
+    
+    /**
+     * URL where we check the license @todo modify this!!!
+     * @var string
+     */
+    private static $api_url = 'http://eshop.lo/api/license/';
+    private static $timeout = 5;//timeout for the request
+    
+    //sends the request to the server, uses curl
+    public static function license($license)
+    {
+        $ch = curl_init();
+        if ($ch)
+        {
+            curl_setopt($ch, CURLOPT_URL,self::$api_url.$license) ;
+            curl_setopt($ch, CURLOPT_POST, 1 ) ;
+            curl_setopt($ch, CURLOPT_POSTFIELDS,'&domain='.$_SERVER['SERVER_NAME']);
+            curl_setopt($ch, CURLOPT_TIMEOUT,self::$timeout); 
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            $server_output = curl_exec ($ch);
+            curl_close ($ch); 
+            
+            return $server_output;
+        }
+        else return FALSE;
+    }
+    //end send request
 }

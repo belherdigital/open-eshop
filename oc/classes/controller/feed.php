@@ -15,36 +15,35 @@ class Controller_Feed extends Controller {
   		
   		$items = array();
 
-  		//last ads, you can modify this value at: general.feed_elements
-        $ads = DB::select('a.seotitle')
-                ->select(array('c.seoname','category'),'a.title','a.description','a.published')
-                ->from(array('ads', 'a'))
+  		//last products, you can modify this value at: general.feed_elements
+        $products = DB::select('p.seotitle')
+                ->select(array('c.seoname','category'),'p.title','p.description','p.created')
+                ->from(array('products', 'p'))
                 ->join(array('categories', 'c'),'INNER')
-                ->on('a.id_category','=','c.id_category')
-                ->where('a.status','=',Model_Ad::STATUS_PUBLISHED)
-                ->order_by('published','desc')
+                ->on('p.id_category','=','c.id_category')
+                ->where('p.status','=',Model_Product::STATUS_ACTIVE)
+                ->order_by('created','desc')
                 ->limit(Core::config('general.feed_elements'));
 
         //filter by category aor location
         if (Controller::$category!==NULL)
         {
             if (Controller::$category->loaded())
-                $ads->where('a.id_category','=',Controller::$category->id_category);
+                $products->where('p.id_category','=',Controller::$category->id_category);
         }
 
        
+        $products = $products->as_object()->cached()->execute();
 
-        $ads = $ads->as_object()->cached()->execute();
-
-        foreach($ads as $a)
+        foreach($products as $p)
         {
-            $url= Route::url('ad',  array('category'=>$a->category,'seotitle'=>$a->seotitle));
+            $url= Route::url('product',  array('category'=>$p->category,'seotitle'=>$p->seotitle));
 
             $items[] = array(
-			                	'title' 	    => preg_replace('/&(?!\w+;)/', '&amp;', $a->title),
+			                	'title' 	    => preg_replace('/&(?!\w+;)/', '&amp;', $p->title),
 			                	'link' 	        => $url,
-			                	'pubDate'       => Date::mysql2unix($a->published),
-			                	'description'   => Text::removebbcode(preg_replace('/&(?!\w+;)/', '&amp;',$a->description)),
+			                	'pubDate'       => Date::mysql2unix($p->created),
+			                	'description'   => Text::removebbcode(preg_replace('/&(?!\w+;)/', '&amp;',$p->description)),
 			              );
         }
   
@@ -65,15 +64,15 @@ class Controller_Feed extends Controller {
         //not cached :(
         if ($info === NULL)
         {
-            $ads = new Model_Ad();
-            $total_ads = $ads->count_all();
+            $products = new Model_product();
+            $total_products = $products->count_all();
 
-            $last_ad = $ads->select('published')->order_by('published','desc')->limit(1)->find();
-            $last_ad = $last_ad->published;
+            $last_product = $products->select('created')->order_by('created','desc')->limit(1)->find();
+            $last_product = $last_product->created;
 
-            $ads = new Model_Ad();
-            $first_ad = $ads->select('published')->order_by('published','asc')->limit(1)->find();
-            $first_ad = $first_ad->published;
+            $products = new Model_product();
+            $first_product = $products->select('created')->order_by('created','asc')->limit(1)->find();
+            $first_product = $first_product->created;
 
             $views = new Model_Visit();
             $total_views = $views->count_all();
@@ -84,8 +83,8 @@ class Controller_Feed extends Controller {
             $info = array(
                             'site_name'     => Core::config('general.site_name'),
                             'site_url'      => Core::config('general.base_url'),
-                            'created'       => $first_ad,   
-                            'updated'       => $last_ad,   
+                            'created'       => $first_product,   
+                            'updated'       => $last_product,   
                             'email'         => Core::config('email.notify_email'),
                             'version'       => Core::version,
                             'theme'         => Core::config('appearance.theme'),
@@ -94,7 +93,7 @@ class Controller_Feed extends Controller {
                             'timezone'      => Core::config('i18n.timezone'),
                             'locale'        => Core::config('i18n.locale'),
                             'currency'      => '',
-                            'ads'           => $total_ads,
+                            'products'      => $total_products,
                             'views'         => $total_views,
                             'users'         => $total_users,
             );
