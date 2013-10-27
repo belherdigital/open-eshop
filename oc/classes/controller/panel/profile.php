@@ -261,7 +261,7 @@ class Controller_Panel_Profile extends Auth_Controller {
             if ($product->final_price()>0)
             {
                 Alert::set(Alert::ERROR, __('Not a free product.'));
-                $this->request->redirect(Route::url('product',array('seotitle'=>$product->seotitle)));
+                $this->request->redirect(Route::url('product',array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
             }
             else
             {

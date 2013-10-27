@@ -87,7 +87,7 @@ Route::set('oc-panel', 'oc-panel(/<controller>(/<action>(/<id>(/<current_url>)))
 /**
  * Item / product view (public)
  */
-Route::set('product', '<seotitle>.html')
+Route::set('product', '<category>/<seotitle>.html')
 ->defaults(array(
         'controller' => 'product',    
         'action'     => 'view',

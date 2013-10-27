@@ -90,21 +90,21 @@ class Controller_Paymill extends Controller{
                     Kohana::$log->add(Log::ERROR, 'Paymill '.$msg);
 
                     Alert::set(Alert::ERROR, $msg);
-                    $this->request->redirect(Route::url('product', array('seotitle'=>$product->seotitle)));
+                    $this->request->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
 
                 }
             }
             else
             {
                 Alert::set(Alert::INFO, __('Please fill your card details.'));
-                $this->request->redirect(Route::url('product', array('seotitle'=>$product->seotitle)));
+                $this->request->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
             }
 			
 		}
 		else
 		{
 			Alert::set(Alert::INFO, __('Product could not be loaded'));
-            $this->request->redirect(Route::url('product', array('seotitle'=>$product->seotitle)));
+            $this->request->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
 		}
 	}
 

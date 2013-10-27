@@ -132,59 +132,55 @@ class Controller_Panel_Auth extends Controller {
 				
 			if (Valid::email($email,TRUE))
 			{
-				if (core::post('password1')==core::post('password2'))
-				{
-					//check we have this email in the DB
-					$user = new Model_User();
-					$user = $user->where('email', '=', $email)
-							->limit(1)
-							->find();
-			
-					if ($user->loaded())
-					{
-						Form::set_errors(array(__('User already exists')));
-					}
-					else
-					{
-						//create user
-						$user->email 	= $email;
-						$user->name		= core::post('name');
-						$user->status	= Model_User::STATUS_ACTIVE;
-						$user->id_role	= 1;//normal user
-						$user->password = core::post('password1');
-						$user->seoname 	= $user->gen_seo_title(core::post('name'));
-						
-						try
-						{
-							$user->save();
-						}
-						catch (ORM_Validation_Exception $e)
-						{
-							//Form::errors($content->errors);
-						}
-						catch (Exception $e)
-						{
-							throw new HTTP_Exception_500($e->getMessage());
-						}
-						
-						//login the user
-						Auth::instance()->login(core::post('email'), core::post('password1'));
-                        //send email
-                        $user->email('auth.register',array('[USER.PWD]'=>core::post('password1'),
-                                                            '[URL.QL]'=>$user->ql('default',NULL,TRUE))
-                                                    );
-
-                        Alert::set(Alert::SUCCESS, __('Welcome!'));
-                        //login the user
-						$this->request->redirect(Core::post('auth_redirect',Route::url('oc-panel')));
-						
-					}
+				
+				//check we have this email in the DB
+				$user = new Model_User();
+				$user = $user->where('email', '=', $email)
+						->limit(1)
+						->find();
 		
+				if ($user->loaded())
+				{
+					Form::set_errors(array(__('User already exists')));
 				}
 				else
 				{
-					Form::set_errors(array(__('Passwords do not match')));
+                    $password           = Text::random('alnum', 8);
+					//create user
+					$user->email 	= $email;
+					$user->name		= core::post('name');
+					$user->status	= Model_User::STATUS_ACTIVE;
+					$user->id_role	= 1;//normal user
+					$user->password = $password;
+					$user->seoname 	= $user->gen_seo_title(core::post('name'));
+					
+					try
+					{
+						$user->save();
+					}
+					catch (ORM_Validation_Exception $e)
+					{
+						//Form::errors($content->errors);
+					}
+					catch (Exception $e)
+					{
+						throw new HTTP_Exception_500($e->getMessage());
+					}
+					
+					//login the user
+					Auth::instance()->login(core::post('email'), $password);
+                    //send email
+                    $user->email('auth.register',array('[USER.PWD]'=>$password,
+                                                        '[URL.QL]'=>$user->ql('default',NULL,TRUE))
+                                                );
+
+                    Alert::set(Alert::SUCCESS, __('Welcome!'));
+                    //login the user
+					$this->request->redirect(Core::post('auth_redirect',Route::url('oc-panel')));
+					
 				}
+		
+				
 			}
 			else
 			{

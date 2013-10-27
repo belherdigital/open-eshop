@@ -17,7 +17,7 @@
             <div class="thumbnail">
 
                 <?if($product->get_first_image() !== NULL):?>
-                    <a title="<?= $product->title;?>" href="<?=Route::url('product', array('controller'=>'product','seotitle'=>$product->seotitle))?>">
+                    <a title="<?= $product->title;?>" href="<?=Route::url('product', array('controller'=>'product','seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                     <img width="300px" height="200px" src="<?=URL::base('http')?><?=$product->get_first_image()?>" class="img-polaroid advert_img" >
                     </a>
                 <?endif?>
@@ -26,7 +26,7 @@
                     <h3><?=$product->title; ?></h3>
                     <p><?=substr(Text::removebbcode($product->description),0, 255);?></p>
                     <p>
-                        <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle))?>">
+                        <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                         <?if ($product->final_price()>0):?>
                             <?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?>
                         <?else:?>
