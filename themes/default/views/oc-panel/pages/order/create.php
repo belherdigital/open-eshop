@@ -75,12 +75,3 @@
 
 </div>
 <!--/well-->
-
-<div class=" well">
- <h2><?=__('Mass import CSV file.')?></h2>
- <p><?=__('CSV file, first line with field names.')?> $email,$pay_date,$product,$amount,$currency,$paymethod
-    <form action="<?=Route::url('oc-panel',array('controller'=>'order','action'=>'import'))?>" method="post" enctype="multipart/form-data">
-    <input type="file" name="file_source" id="file_source">
-    <input type="submit" class="btn btn-primary" name="import" value="Import it" onclick=" var s = document.getElementById('file_source'); if(null != s && '' == s.value) {alert('Define file name'); s.focus(); return false;}">
-    </form>
-</div>

@@ -87,7 +87,8 @@ class Model_Order extends ORM {
      * @param  string        $currency_paid    
      * @return void                
      */
-    public static function sale($id_order=NULL, Model_User $user, Model_Product $product, $token, $method = 'paypal', $pay_date = NULL,$amount_paid = NULL, $currency_paid = NULL)
+    public static function sale($id_order = NULL, Model_User $user, Model_Product $product, 
+                                $token, $method = 'paypal', $pay_date = NULL,$amount_paid = NULL, $currency_paid = NULL)
     {
         $order = new Model_Order();
 

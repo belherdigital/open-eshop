@@ -53,26 +53,31 @@ class Controller_Panel_Order extends Auth_Crud {
 
     public function action_import()
     {    
+
         if($this->request->post())
         {
 
             ini_set('auto_detect_line_endings', true);
 
             $csv = $_FILES['file_source']['tmp_name'];
-            d($csv);
    
             if (($handle = fopen($csv, "r")) !== FALSE) 
             {
                 $i = 0;
-                while(($data = fgetcsv($handle, 0, ",")) !== false)
+                while(($data = fgetcsv($handle, 0, ";")) !== false)
                 {
                     //avoid first line
                     if ($i!=0)
                     {
-                        list($email,$pay_date,$product,$amount,$currency,$paymethod) = $data;
+                        list($email,$pay_date,$product_seotitle,$amount,$currency) = $data;
                         
                         $user = Model_User::create_email($email,substr($email, 0,strpos($email, '@')));
-                        Model_Order::sale(NULL,$user,$product,NULL,$paymethod,$pay_date,$amount,$currency);                                                
+
+                        $product = new Model_Product();
+                        $product->where('seotitle','=',$product_seotitle)->limit(1)->find();
+                        
+                        if ($product->loaded())
+                            Model_Order::sale(NULL,$user,$product,NULL,'Paypal',$pay_date,$amount,$currency);                                                
                     }
                     
                     $i++;
@@ -86,9 +91,13 @@ class Controller_Panel_Order extends Auth_Crud {
 
         }
 
-         //redirect to orders
-        Alert::set(Alert::SUCCESS, __('Not imported'));
-        $this->request->redirect(Route::url('oc-panel',array('controller'=>'order','action'=>'create')));
+        //template header
+        $this->template->title  = __('Import Orders');
+
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Import Orders')));
+
+        $this->template->content = View::factory('oc-panel/pages/order/import');
+
     }
 
 }
