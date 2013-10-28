@@ -16,7 +16,6 @@
 
         <nav class="nav-collapse">
             <ul class="nav">
-
                 <?if ( count( $menus = Menu::get() )>0 ):?>
                     <?foreach ($menus as $menu => $data):?>
                         <li class="<?=(Request::current()->uri()==$data['url'])?'active':''?>" >
@@ -34,7 +33,6 @@
                     <?kam_link(__('Contact'),'contact', 'icon-envelope '.$icon_white, 'index', 'contact')?>
                     <?kam_link('','rss', 'icon-signal '.$icon_white, 'index', 'rss')?>
                 <?endif?>
-
             </ul>
         </nav>
         <!--/.nav-collapse --> 
@@ -47,7 +45,7 @@
   <div class="clear"></div>
 </header>
 
-<div id="logo" class="m-10">
+<div id="logo">
   <div class="container">
     <div class="row">
       <div class="span8">

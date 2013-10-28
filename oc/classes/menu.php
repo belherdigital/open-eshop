@@ -46,7 +46,7 @@ class Menu {
     {
         $menus = self::get();
         unset($menus[$key]);
-        self::save($mwnu, $menus);
+        self::save($menus);
     }
 
 
