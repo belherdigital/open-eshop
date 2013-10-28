@@ -61,6 +61,7 @@
                         <?Theme::admin_link(__('Optimize'), 'tools','optimize')?>
                         <?Theme::admin_link(__('Cache'), 'tools','cache')?>
                         <?Theme::admin_link(__('Logs'), 'tools','logs')?>
+                        <?Theme::admin_link(__('Import Orders'), 'order','import')?>
                         <?Theme::admin_link(__('PHP Info'), 'tools','phpinfo')?>
                     </ul>
                 </li>
