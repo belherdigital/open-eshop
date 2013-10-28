@@ -144,8 +144,10 @@ class Form extends Kohana_Form {
      */
     public static function redirect($url = NULL)
     {
+        $query_string = ($_SERVER['QUERY_STRING']!='')? '?'.$_SERVER['QUERY_STRING']:'';
+        
         if ($url == NULL)
-            $url = Core::post('auth_redirect',Request::current()->uri());
+            $url = Core::post('auth_redirect',Request::current()->uri().$query_string);
 
         return Form::hidden('auth_redirect',$url);
     }

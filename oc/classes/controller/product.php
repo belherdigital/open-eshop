@@ -15,6 +15,15 @@ class Controller_Product extends Controller{
 	
 	public function action_view()
 	{
+        //to load the minimal view of the product
+        if (core::get('ext')=='1')
+        {
+            $this->before('main-minimal');
+            $product_view = 'pages/product-minimal';
+        }
+        else
+           $product_view = 'pages/product'; 
+            
 
         $product = new Model_product();
         $product->where('seotitle','=',$this->request->param('seotitle'))
@@ -49,7 +58,7 @@ class Controller_Product extends Controller{
 
             $this->template->bind('content', $content);
             
-            $this->template->content = View::factory('pages/product',array('product'=>$product,'hits'=>$hits));
+            $this->template->content = View::factory($product_view,array('product'=>$product,'hits'=>$hits));
 
 		}
 		else
