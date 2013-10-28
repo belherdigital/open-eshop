@@ -11,7 +11,7 @@
                 <?if ($i%3==0 AND $i!=0):?></ul></div><div class="item"><ul class="thumbnails"><?endif?>
                 <li class="span3">
                     <div class="thumbnail">
-                        <a href="<?=Route::url('product', array('seotitle'=>$product->seotitle))?>">
+                        <a href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                       <?if($product->get_first_image()!== NULL):?>
                             <img src="<?=URL::base('http')?><?=$product->get_first_image()?>" >
                         <?else:?>
@@ -19,9 +19,11 @@
                         <?endif?>
                         </a>
                       <div class="caption">
-                        <h5><a href="<?=Route::url('product', array('seotitle'=>$product->seotitle))?>"><?=substr($product->title, 0, 30)?></a></h5>
+
+                        <h5><a href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"><?=$product->title?></a></h5>
+
                         <p><?=substr(Text::removebbcode($product->description), 0, 30)?></p>
-                        <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle))?>">
+                        <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                         <?if ($product->final_price()>0):?>
                             <?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?>
                         <?else:?>

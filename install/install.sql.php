@@ -268,6 +268,7 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."config` (`group_name`, `conf
 ('general', 'maintenance', 0),
 ('general', 'analytics', ''),
 ('general', 'translate', ''),
+('general', 'menu', ''),
 ('general', 'feed_elements', '20'),
 ('general', 'site_name', '".$_POST['SITE_NAME']."'),
 ('general', 'site_description', ''),

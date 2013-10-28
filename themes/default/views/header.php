@@ -16,13 +16,25 @@
 
         <nav class="nav-collapse">
             <ul class="nav">
-                <?$icon_white=(in_array(Theme::$skin, array('journal','readable','simplex','spacelab','bootstrap')))?'':'icon-white'?>
-                <li class="<?=(Request::current()->controller()=='home')?'active':''?>" >
-                    <a href="<?=Route::url('default')?>"><i class="icon-home <?=$icon_white?>"></i> <?=__('Home')?></a> </li>
-                <?kam_link(__('Products'),'product', 'icon-list '.$icon_white ,'listing', 'list')?>
-                <?kam_link(__('Search'),'product', 'icon-search '.$icon_white, 'advanced_search', 'search')?>
-                <?kam_link(__('Contact'),'contact', 'icon-envelope '.$icon_white, 'index', 'contact')?>
-                <?kam_link('','rss', 'icon-signal '.$icon_white, 'index', 'rss')?>
+
+                <?if ( count( $menus = Menu::get() )>0 ):?>
+                    <?foreach ($menus as $menu => $data):?>
+                        <li class="<?=(Request::current()->uri()==$data['url'])?'active':''?>" >
+                        <a href="<?=$data['url']?>" target="<?=$data['target']?>">
+                            <?if($data['icon']!=''):?><i class="<?=$data['icon']?>"></i> <?endif?>
+                            <?=$data['title']?></a> 
+                        </li>
+                    <?endforeach?>
+                <?else:?>
+                    <?$icon_white=(in_array(Theme::$skin, array('journal','readable','simplex','spacelab','bootstrap')))?'':'icon-white'?>
+                    <li class="<?=(Request::current()->controller()=='home')?'active':''?>" >
+                        <a href="<?=Route::url('default')?>"><i class="icon-home <?=$icon_white?>"></i> <?=__('Home')?></a> </li>
+                    <?kam_link(__('Listing'),'product', 'icon-list '.$icon_white ,'listing', 'list')?>
+                    <?kam_link(__('Search'),'product', 'icon-search '.$icon_white, 'advanced_search', 'search')?>
+                    <?kam_link(__('Contact'),'contact', 'icon-envelope '.$icon_white, 'index', 'contact')?>
+                    <?kam_link('','rss', 'icon-signal '.$icon_white, 'index', 'rss')?>
+                <?endif?>
+
             </ul>
         </nav>
         <!--/.nav-collapse --> 

@@ -13,6 +13,7 @@
  */
 
 
+
 /**
  * search
  */
@@ -42,13 +43,12 @@ Route::set('maintenance', URL::title(__('maintenance')).'.html')
 /**
  * page view public
  */
-Route::set('page','p/<seotitle>.html')
+Route::set('page','<seotitle>.html')
 ->defaults(array(
         'controller' => 'page',    
         'action'     => 'view',
-        'seotitle'	 => '',
+        'seotitle'   => '',
 ));
-
 
 /**
  * rss
@@ -87,7 +87,7 @@ Route::set('oc-panel', 'oc-panel(/<controller>(/<action>(/<id>(/<current_url>)))
 /**
  * Item / product view (public)
  */
-Route::set('product', '<seotitle>.html')
+Route::set('product', '<category>/<seotitle>.html')
 ->defaults(array(
         'controller' => 'product',    
         'action'     => 'view',
