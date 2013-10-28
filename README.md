@@ -1,4 +1,4 @@
-#  Open eShop 0.0.1
+#  Open eShop 0.1
 
 
 # Description
