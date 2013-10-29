@@ -12,7 +12,18 @@ $(function (){
     
     $('.radio > input:checked').parentsUntil('div .accordion').addClass('in');
     
-   
+    $('select[name="locale_select"]').change(function()
+    {
+         $('#locale_form').submit();
+    });
+    $('select[name="type"]').change(function()
+    {
+        // alert($(this).val());
+        if($(this).val() == 'email') 
+            $('#from_email').parent().parent().css('display','block');
+        else
+            $('#from_email').parent().parent().css('display','none');
+    });
 });
 
 _debounce = function(func, wait, immediate) {
