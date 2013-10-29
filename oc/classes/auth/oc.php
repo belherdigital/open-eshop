@@ -159,6 +159,39 @@ class Auth_OC extends Kohana_Auth {
 		return FALSE;
 	}
 
+    /**
+     * Logs a user in using social auth
+     * @param string $token
+     * @return  mixed
+     */
+    public function social_login($provider, $identifier)
+    {
+        // Load the user 
+        $user = new Model_User;
+        $user ->where('hybridauth_provider_name', '=', $provider)
+        ->where('hybridauth_provider_uid','=',$identifier)
+        ->where('status','=',Model_User::STATUS_ACTIVE)
+        ->limit(1)
+        ->find();
+
+        if ($user->loaded())
+        {
+            // Complete the login with the found data, and new token
+            $user->complete_login($this->_config['lifetime']);
+
+            // Set the new token
+            Cookie::set('authautologin', $user->token, $this->_config['lifetime']);
+
+            //writes the session
+            $this->complete_login($user);
+
+            // social login was successful
+            return $user;
+        }
+        
+
+        return FALSE;
+    }
 
 	/**
 	 * Log a user out and remove any autologin cookies.
