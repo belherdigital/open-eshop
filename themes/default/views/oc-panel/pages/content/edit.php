@@ -1,11 +1,14 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
-<div class="page-header">
-	<h1><?=__('Edit '.$cont->type)?></h1>
-    
-    <a class="btn btn-primary pull-right" href="http://open-classifieds.com/documentation/translate/"><?=__('New email')?></a>
 
+<div class="page-header">
+    <?if($cont->type == 'page'):?>
+        <h1><?=__('Edit page')?></h1>
+    <?else:?>
+        <h1><?=__('Edit email')?></h1>
+    <?endif?>
 </div>
+
  <?= FORM::open(Route::url('oc-panel',array('controller'=>'content','action'=>'edit','id'=>$cont->id_content)), array('class'=>'form-horizontal', 'enctype'=>'multipart/form-data'))?>
 <fieldset>
     <div class="control-group">

@@ -1,8 +1,17 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
 <div class="page-header">
-	<h1><?=__($type)?></h1>
+    <?if($type == 'page'):?>
+        <h1><?=__('Page')?></h1>
+    <?else:?>
+        <h1><?=__('Email')?></h1>
+    <?endif?>
 </div>
+<a class="btn btn-primary pull-right" 
+    href="<?=Route::url('oc-panel', array('controller'=>'content','action'=>'create'))?>" 
+    rel"tooltip" title="<?=__('Edit')?>">
+    <?=__('New')?>
+</a>
 <?= FORM::open(Route::url('oc-panel',array('controller'=>'content','action'=>'list')), array('method'=>'GET','class'=>'form-horizontal', 'id'=>'locale_form','enctype'=>'multipart/form-data'))?>
     <div class="control-group">
         <?= FORM::label('locale', __('Locale'), array('class'=>'control-label', 'for'=>'locale'))?>
