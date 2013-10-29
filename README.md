@@ -34,3 +34,4 @@ Please read CONTRIBUTING.md
 * jQuery http://jquery.com/
 * jQuery Sortable http://johnny.github.io/jquery-sortable/
 * Bootstrap Image Gallery https://github.com/blueimp/Bootstrap-Image-Gallery
+* Hybrid Auth http://hybridauth.sourceforge.net/

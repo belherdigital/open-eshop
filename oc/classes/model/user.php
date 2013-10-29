@@ -458,4 +458,42 @@ class Model_User extends ORM {
         return $user;
     }
 
+    /**
+     * creates a User from social data
+     * @param  string $email      
+     * @param  string $name       
+     * @param  string $provider   
+     * @param  mixed $identifier 
+     * @return Model_User             
+     */
+    public static function create_social($email,$name=NULL,$provider, $identifier)
+    {
+        $user = new self();
+        $user->where('email','=',$email)->limit(1)->find();
+
+        //doesnt exists
+        if (!$user->loaded())
+        {
+            $user->email        = $email;
+            $user->name         = $name;
+            $user->status       = self::STATUS_ACTIVE;
+            $user->id_role      = 1;
+            $user->seoname      = $user->gen_seo_title($user->name);
+            $user->password     = Text::random('alnum', 8);
+        }
+        //always we set this values even if user existed
+        $user->hybridauth_provider_name = $provider;
+        $user->hybridauth_provider_uid  = $identifier;
+        try
+        {
+            $user->save();
+        }
+        catch (ORM_Validation_Exception $e)
+        {
+            d($e->errors(''));
+        }
+
+        return $user;
+    }
+
 } // END Model_User

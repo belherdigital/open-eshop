@@ -137,7 +137,7 @@ class Form extends Kohana_Form {
 	}
 
     /**
-     * Generates the CSRF form input
+     * Generates the redirect form input
      * @uses    Form
      * @param   string  url to redirect optional
      * @return  string  generated HTML

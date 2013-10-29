@@ -26,6 +26,7 @@
                         Theme::admin_link(__('Theme Options'), 'theme','options','oc-panel','icon-wrench')?>     
                 <?Theme::admin_link(__('Widgets'), 'widget','index','oc-panel','icon-move')?>
                 <?Theme::admin_link(__('Menu'), 'menu','index','oc-panel','icon-list')?>   
+                <?Theme::admin_link(__('Social Auth'), 'social','index','oc-panel','icon-thumbs-up')?>
                 <? if($user->id_role==Model_Role::ROLE_ADMIN):?>
                     <li class="divider"></li>
                 <?endif?>

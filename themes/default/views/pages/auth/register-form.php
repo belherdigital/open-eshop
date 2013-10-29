@@ -25,4 +25,5 @@
           </div>
           <?=Form::redirect()?>
           <?=Form::CSRF('register')?>
+          <?=View::factory('pages/auth/social')?>
 </form>      	

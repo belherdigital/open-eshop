@@ -49,10 +49,13 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."users` (
   `token` varchar(40) DEFAULT NULL,
   `token_created` datetime DEFAULT NULL,
   `token_expires` datetime DEFAULT NULL,
+  `hybridauth_provider_name` varchar(40) NULL DEFAULT NULL,
+  `hybridauth_provider_uid` varchar(245) NULL DEFAULT NULL,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `".$_POST['TABLE_PREFIX']."users_UK_email` (`email`),
   UNIQUE KEY `".$_POST['TABLE_PREFIX']."users_UK_token` (`token`),
-  UNIQUE KEY `".$_POST['TABLE_PREFIX']."users_UK_seoname` (`seoname`)
+  UNIQUE KEY `".$_POST['TABLE_PREFIX']."users_UK_seoname` (`seoname`),
+  UNIQUE KEY `".$_POST['TABLE_PREFIX']."users_UK_provider_AND_uid` (`hybridauth_provider_name`,`hybridauth_provider_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
 
 
@@ -297,7 +300,20 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."config` (`group_name`, `conf
 ('email', 'smtp_auth', 0),
 ('email', 'smtp_ssl', 0),
 ('email', 'smtp_user', ''),
-('email', 'smtp_pass', '');");
+('email', 'smtp_pass', ''),
+('social', 'config', '{'debug_mode':'0','providers':{
+                                                    'OpenID':{'enabled':'1'},
+                                                    'Yahoo':{'enabled':'0','keys':{'id':','secret':'}},
+                                                    'AOL':{'enabled':'1'}
+                                                    ,'Google':{'enabled':'0','keys':{'id':','secret':'}},
+                                                    'Facebook':{'enabled':'0','keys':{'id':','secret':'}},
+                                                    'Twitter':{'enabled':'0','keys':{'key':','secret':'}},
+                                                    'Live':{'enabled':'0','keys':{'id':','secret':'}},
+                                                    'MySpace':{'enabled':'0','keys':{'key':','secret':'}},
+                                                    'LinkedIn':{'enabled':'0','keys':{'key':','secret':'}},
+                                                    'Foursquare':{'enabled':'0','keys':{'id':','secret':'}}},
+                      'base_url':',
+                      'debug_file':'}');");
 
 
 //base category
