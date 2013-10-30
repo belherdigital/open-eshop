@@ -20,8 +20,13 @@ class Controller_Panel_Menu extends Auth_Crud {
         $this->template->scripts['footer'][] = 'js/jquery-sortable-min.js';
         $this->template->scripts['footer'][] = 'js/oc-panel/menu.js';
 
+        //find all, for populating form select fields 
+        list($categories,$order_categories)  = Model_Category::get_all();
 
-        $this->template->content = View::factory('oc-panel/pages/menu',array('menu' => Menu::get()));
+        // d($categories);
+        $this->template->content = View::factory('oc-panel/pages/menu',array('menu' => Menu::get(), 
+                                                                             'categories'=>$categories,
+                                                                             'order_categories'=>$order_categories));
     }
 
 
