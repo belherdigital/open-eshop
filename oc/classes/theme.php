@@ -589,9 +589,55 @@ class Theme {
             }
             self::save($theme);
         }
+    }
+
+    public static function checker($l=NULL)
+    {
+        $l = ($l==NULL)? self::get('samba'):$l;
+        if ($l==NULL AND self::get('premium')==1)
+        {
+            if (Auth::instance()->logged_in() AND Auth::instance()->get_user()->id_role == Model_Role::ROLE_ADMIN )
+                Request::current()->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'license')));
+            else
+            {
+                self::load('default');
+            }
+        }
+        elseif (self::samba($l)==TRUE)
+        {
+            self::$data['samba']      = $l;
+            self::$data['samba_date'] = time()+30*24*60*60;
+            self::save();
+            return TRUE;
+        }
+        
+        return FALSE;
 
     }
 
+    public static function samba($l)
+    {  
+        if ( (self::get('samba_date') < time() OR self::get('samba_date')==NULL) AND Kohana::$environment!== Kohana::DEVELOPMENT)
+        {
+            //@todo review URL
+            $api_url = (Kohana::$environment!== Kohana::DEVELOPMENT)? 'open-eshop.com':'eshop.lo';
+            $api_url = 'http://'.$api_url.'/api/license/';
+            $ch = curl_init();
+            if ($ch)
+            {
+                curl_setopt($ch, CURLOPT_URL,$api_url.$l) ;
+                curl_setopt($ch, CURLOPT_POST, 1 ) ;
+                curl_setopt($ch, CURLOPT_POSTFIELDS,'&domain='.$_SERVER['SERVER_NAME']);
+                curl_setopt($ch, CURLOPT_TIMEOUT,10); 
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+                $out = curl_exec ($ch);
+                curl_close ($ch); //d(json_decode($out));
+                return json_decode($out);
+            }
+            return FALSE;
+        }
+        return TRUE;
+    }
 
     /**
      * saves thme options as json 'theme.NAMETHEME' = array json
