@@ -580,6 +580,7 @@ class Theme {
             self::$data = json_decode($theme_data, TRUE);
         }
         ///save empty with default values
+        //first time installed
         else
         {
             //we set the array with empty values or the default in the option attributes
@@ -588,37 +589,36 @@ class Theme {
                 self::$data[$field] = (isset($attributes['default']))?$attributes['default']:'';
             }
             self::save($theme);
+
+            //since its the first time we activate this theme
         }
+
     }
 
-    public static function checker($l=NULL)
+    public static function checker()
     {
-        $l = ($l==NULL)? self::get('samba'):$l;
-        if ($l==NULL AND self::get('premium')==1)
-        {
-            if (Auth::instance()->logged_in() AND Auth::instance()->get_user()->id_role == Model_Role::ROLE_ADMIN )
-                Request::current()->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'license')));
-            else
-            {
-                self::load('default');
-            }
-        }
-        elseif (self::samba($l)==TRUE)
-        {
-            self::$data['samba']      = $l;
-            self::$data['samba_date'] = time()+30*24*60*60;
-            self::save();
+        if (self::get('premium')!=1 
+                OR (Request::current()->controller()=='api' AND Request::current()->action()=='license') 
+                OR !Auth::instance()->logged_in())
             return TRUE;
-        }
-        
-        return FALSE;
 
+        if (self::get('premium')==1 AND (self::get('license_date') < time() OR self::get('license_date')==NULL))
+        {
+            if (self::license(self::get('license'))==TRUE)
+            {
+                self::$data['license_date'] = time()+7*24*60*60;
+                self::save();
+                return TRUE;
+            }
+            elseif (Auth::instance()->get_user()->id_role == Model_Role::ROLE_ADMIN )
+                Request::current()->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'license')));
+        } 
     }
 
-    public static function samba($l)
+    public static function license($l)
     {  
-        if ( (self::get('samba_date') < time() OR self::get('samba_date')==NULL) AND Kohana::$environment!== Kohana::DEVELOPMENT)
-        {
+        //if (Kohana::$environment!== Kohana::DEVELOPMENT)
+        //{
             //@todo review URL
             $api_url = (Kohana::$environment!== Kohana::DEVELOPMENT)? 'open-eshop.com':'eshop.lo';
             $api_url = 'http://'.$api_url.'/api/license/';
@@ -635,8 +635,8 @@ class Theme {
                 return json_decode($out);
             }
             return FALSE;
-        }
-        return TRUE;
+        //}
+        //return TRUE;
     }
 
     /**
