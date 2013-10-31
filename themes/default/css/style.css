@@ -27,6 +27,8 @@ h1, h2, h3 { margin-bottom:.5em; }
 .m-20{margin: 20px !important;}
 .mb-10{margin-bottom: 10px;}
 .mb-20{margin-bottom: 20px;}
+.mt-10{margin-top: 10px;}
+.mt-20{margin-top: 20px;}
 /* ========TOP Menu============*/
 .subnav { background-color: #EEEEEE; background-image: -moz-linear-gradient(center top , #F5F5F5 0%, #EEEEEE 100%); background-repeat: repeat-x; border: 1px solid #E5E5E5; border-radius: 4px 4px 4px 4px; height: 36px; margin-bottom: 20px; width: 100%; }
 .subnav .nav { margin-bottom: 0; }
@@ -147,3 +149,10 @@ body { padding-top:0; }
 
 .fixed_header { position: absolute; }
 .item_image a img {width: 100%;} 
+
+.pay-btn{
+    width: 125px;
+    font-size: 19px;
+    padding: 6px;
+    border-radius: 5px;
+}

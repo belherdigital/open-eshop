@@ -27,7 +27,7 @@ class Controller_Panel_Content extends Auth_Controller {
         $ll = DB::select(DB::expr('DISTINCT (locale)'))
                 ->from('content')
                 ->where('type','=',$type)
-                    ->order_by('order','desc')
+                    ->order_by('locale')
                     ->as_object()
                     ->cached()
                     ->execute();
@@ -51,7 +51,7 @@ class Controller_Panel_Content extends Auth_Controller {
 
         $ll = DB::select(DB::expr('DISTINCT (locale)'))
                 ->from('content')
-                    ->order_by('order','desc')
+                    ->order_by('locale')
                     ->as_object()
                     ->cached()
                     ->execute();

@@ -8,7 +8,7 @@
     <?endif?>
 </div>
 <a class="btn btn-primary pull-right" 
-    href="<?=Route::url('oc-panel', array('controller'=>'content','action'=>'create'))?>" 
+    href="<?=Route::url('oc-panel', array('controller'=>'content','action'=>'create')).'?type='.$type?>" 
     rel"tooltip" title="<?=__('Edit')?>">
     <?=__('New')?>
 </a>
