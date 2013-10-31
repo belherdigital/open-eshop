@@ -64,18 +64,22 @@ $(function(){
     var new_url;
     var icons;
     var title;
-    $('input[type=radio]').on('click',function()
+    $('.menu_category').on('click',function()
     {
         new_url = "http://" + window.location.hostname +"/"+ $(this).attr('id').replace('radio_','');
         title = $(this).attr('id').replace('radio_','');
         $('input[name=title]').val(title);
         $('input[name=url]').val(new_url);
     });
-    $('#default_links').change(function()
-    {
-        new_url = "http://" + window.location.hostname +"/" + $('option:selected', this).attr('data-url');
-        icons = $('option:selected', this).attr('data-icon');
-        title = $('option:selected', this).attr('data-url');
+    $('.default_links').change(function()
+    {   
+        // $('input').removeAttr('checked');
+        $(".in").removeClass('in').children().removeAttr('checked');
+        $(this).attr('checked');
+        $(this).parent().addClass('in');
+        new_url = "http://" + window.location.hostname +"/" + $(this).attr('data-url');
+        icons = $(this).attr('data-icon');
+        title = $(this).attr('id').replace('radio_','');
         $('input[name=title]').val(title);
         $('input[name=url]').val(new_url);
         $('input[name=icon]').val(icons);

@@ -60,7 +60,7 @@
                             data-target="#acc_<?=$cats[$key]['seoname']?>">                    
                             <i class=" icon-plus icon-white"></i> <?=$cats[$key]['name']?>
                         </a>
-                    <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" name="category" value="<?=$cats[$key]['id']?>" required > 
+                    <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" class="menu_category" name="category" value="<?=$cats[$key]['id']?>" required > 
                     
                      <?if ($cats[$key]['price']>0):?>
                         <span class="label label-success">
@@ -72,7 +72,7 @@
                     
                 <?else:?>
                     <label class="radio">
-                    <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" name="category" value="<?=$cats[$key]['id']?>" required > 
+                    <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" class="menu_category" name="category" value="<?=$cats[$key]['id']?>" required > 
                     
                         <a class="btn btn-mini btn-primary" data-toggle="collapse" type="button"  
                             data-target="#acc_<?=$cats[$key]['seoname']?>">                    
@@ -103,19 +103,52 @@
     </div>
     </div>
 </div>
-<!-- end dropdown categories -->
 
-<div class="control-group" style="display:none;" id="default-group">
+<div class="control-group"  id="default-group">
     <?= FORM::label('default_links_label', __('Default links'), array('class'=>'control-label', 'for'=>'default_links' ))?>
-    <div class="controls">
-        <select name="default_links" id="default_links" class="input-xlarge">
-            <option></option>
-            <option  data-url="" data-icon="icon-home icon-white"><?=__('Home')?></option>
-            <option  data-url="all" data-icon="icon-list icon-white"><?=__('Listing')?></option>
-            <option  data-url="search.html" data-icon="icon-search icon-white"><?=__('Search')?></option>
-            <option  data-url="contact.html" data-icon="icon-envelope icon-white"><?=__('Contact')?></option>
-            <option  data-url="rss.xml" data-icon="icon-signal icon-white"><?=__('RSS')?></option>
-        </select>
+    <div class="controls"> 
+        <div class="accordion" >
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                <label class="radio">
+                <input type="radio" class="default_links" id="radio_home"  name="home" data-url="" data-icon="icon-home icon-white" value="home" checked required >    
+                    <a class="btn btn-primary btn-mini" type="button"  >                    
+                         <?=__('Home')?>
+                    </a>
+                </label>
+                <label class="radio">
+                <input type="radio" class="default_links" id="radio_listing" name="listing" data-url="all" data-icon="icon-list icon-white" value="listing" required >
+                    <a class="btn btn-primary btn-mini" type="button"  >                    
+                         <?=__('listing')?>
+                    </a>
+                </label>
+                <label class="radio">
+                <input type="radio" class="default_links" id="radio_search" name="search" data-url="search.html" data-icon="icon-search icon-white" value="search" required >
+                    <a class="btn btn-primary btn-mini" type="button"  >                    
+                         <?=__('Search')?>
+                    </a>
+                </label>
+                <label class="radio">
+                <input type="radio" class="default_links" id="radio_contact" name="contact" data-url="contact.html" data-icon="icon-envelope icon-white" value="contact" required >
+                    <a class="btn btn-primary btn-mini" type="button"  >                    
+                         <?=__('contact')?>
+                    </a>
+                </label>
+                <label class="radio">
+                <input type="radio" class="default_links" id="radio_rss" name="rss" data-url="rss.xml" data-icon="icon-signal icon-white" value="rss" required >
+                    <a class="btn btn-primary btn-mini" type="button"  >                    
+                         <?=__('rss')?>
+                    </a>
+                </label>
+                <label class="radio">
+                <input type="radio" class="default_links" id="radio_map" name="map" data-url="map.html" data-icon="icon-globe icon-white" value="map" required >
+                    <a class="btn btn-primary btn-mini" type="button"  >                    
+                         <?=__('map')?>
+                    </a>
+                </label>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
