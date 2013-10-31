@@ -79,6 +79,7 @@ class Controller_Panel_Theme extends Auth_Controller {
         //$this->template->scripts['footer'][]= '/js/oc-panel/settings.js';
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Themes')));  
         $this->template->title = __('Themes');     
+        //$this->template->scripts['footer'][] = 'https://trychec.com/js/embed.js';
 
         //getting the themes
         $themes = Theme::get_installed_themes();
@@ -100,19 +101,24 @@ class Controller_Panel_Theme extends Auth_Controller {
             }
         }    
 
-        // save only changed values
+         // save only changed values
         if($this->request->param('id'))
         {
-            Theme::set_theme($this->request->param('id'));
+            $theme = $this->request->param('id');
+
+            $opt = Theme::get_options($theme);
+            Theme::load($theme);
+
+            if (isset($opt['premium']) AND Theme::get('license')==NULL)
+            {
+                 $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=> 'license','id'=>$theme) ));
+            }
+
+            Theme::set_theme($theme);
             
             Alert::set(Alert::SUCCESS, __('Appearance configuration updated'));
             
-            $opt = Theme::get_options($this->request->param('id'));
-            
-            if (!isset($opt['premium']))
-                $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=>'index')));
-            else
-                $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=>'options')));
+            $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=> (!isset($opt['premium']))?'index':'options')));
         }
 
         $this->template->content = View::factory('oc-panel/pages/themes/theme', array('market' => $market,
@@ -121,6 +127,43 @@ class Controller_Panel_Theme extends Auth_Controller {
                                                                                     'selected'=>Theme::get_theme_info(Theme::$theme)));
     }
 
+
+   /**
+     * theme selector
+     * @return [view] 
+     */
+    public function action_license()
+    {
+        $theme = $this->request->param('id');
+
+        // save only changed values
+        if($this->request->post('license'))
+        {
+            if (Theme::license($this->request->post('license'))==TRUE)
+            {
+                Theme::set_theme($theme);     
+                Theme::$options = Theme::get_options($theme);       
+                Theme::load($theme);
+
+                Theme::$data['license']      = $this->request->post('license');
+                Theme::$data['license_date'] = time()+7*24*60*60;
+                Theme::save($theme);
+
+                Alert::set(Alert::SUCCESS, __('Theme activated, thanks.'));
+                $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=> 'options')));
+            }
+            else
+            {
+                Alert::set(Alert::ERROR, __('There was an error activating your license.'));
+            }            
+        }
+
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Theme License')));  
+        $this->template->title = __('Theme License');     
+
+        $this->template->content = View::factory('oc-panel/pages/themes/license', array('theme' => Theme::$theme));
+    }
+    
 
     /**
      * mobile theme selector

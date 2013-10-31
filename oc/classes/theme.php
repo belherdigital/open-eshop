@@ -580,6 +580,7 @@ class Theme {
             self::$data = json_decode($theme_data, TRUE);
         }
         ///save empty with default values
+        //first time installed
         else
         {
             //we set the array with empty values or the default in the option attributes
@@ -588,10 +589,55 @@ class Theme {
                 self::$data[$field] = (isset($attributes['default']))?$attributes['default']:'';
             }
             self::save($theme);
+
+            //since its the first time we activate this theme
         }
 
     }
 
+    public static function checker()
+    {
+        if (self::get('premium')!=1 
+                OR (Request::current()->controller()=='api' AND Request::current()->action()=='license') 
+                OR !Auth::instance()->logged_in())
+            return TRUE;
+
+        if (self::get('premium')==1 AND (self::get('license_date') < time() OR self::get('license_date')==NULL))
+        {
+            if (self::license(self::get('license'))==TRUE)
+            {
+                self::$data['license_date'] = time()+7*24*60*60;
+                self::save();
+                return TRUE;
+            }
+            elseif (Auth::instance()->get_user()->id_role == Model_Role::ROLE_ADMIN )
+                Request::current()->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'license')));
+        } 
+    }
+
+    public static function license($l)
+    {  
+        //if (Kohana::$environment!== Kohana::DEVELOPMENT)
+        //{
+            //@todo review URL
+            $api_url = (Kohana::$environment!== Kohana::DEVELOPMENT)? 'open-eshop.com':'eshop.lo';
+            $api_url = 'http://'.$api_url.'/api/license/';
+            $ch = curl_init();
+            if ($ch)
+            {
+                curl_setopt($ch, CURLOPT_URL,$api_url.$l) ;
+                curl_setopt($ch, CURLOPT_POST, 1 ) ;
+                curl_setopt($ch, CURLOPT_POSTFIELDS,'&domain='.$_SERVER['SERVER_NAME']);
+                curl_setopt($ch, CURLOPT_TIMEOUT,10); 
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+                $out = curl_exec ($ch);
+                curl_close ($ch); //d(json_decode($out));
+                return json_decode($out);
+            }
+            return FALSE;
+        //}
+        //return TRUE;
+    }
 
     /**
      * saves thme options as json 'theme.NAMETHEME' = array json
