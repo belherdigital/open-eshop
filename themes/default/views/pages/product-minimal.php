@@ -4,9 +4,7 @@
 
     <?if($product->get_first_image() !== NULL):?>
     <div class="thumbnail item_image">
-        <a title="<?= $product->title;?>" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
-            <img src="<?=URL::base('http')?><?=$product->get_first_image()?>" class="" >
-        </a>
+        <img src="<?=URL::base('http')?><?=$product->get_first_image()?>" class="" >
     </div>
     <?endif?>
 
@@ -70,3 +68,5 @@
     
 </ul>
 </div>
+
+<?=View::factory('coupon')?>

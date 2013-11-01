@@ -91,6 +91,17 @@ class Core {
     }
 
     /**
+     * shortcut to get or post
+     * @param  [type] $key     [description]
+     * @param  [type] $default [description]
+     * @return [type]          [description]
+     */
+    public static function request($key,$default=NULL)
+    {
+        return (Core::post($key)!==NULL)?Core::post($key):Core::get($key,$default);
+    }
+
+    /**
      * shortcut for the cache instance
      * 
      * @param   string  $name       name of the cache

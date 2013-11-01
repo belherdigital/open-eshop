@@ -9,6 +9,7 @@
 				<?Theme::admin_link(__('Categories'),'category','index','oc-panel','icon-tags')?>
 				<?Theme::admin_link(__('Orders'), 'order','index','oc-panel','icon-shopping-cart')?>
                 <?Theme::admin_link(__('Licenses'), 'license','index','oc-panel','icon-list')?>
+                <?Theme::admin_link(__('Coupons'), 'coupon','index','oc-panel','icon-tag')?>
                 <? if($user->id_role==Model_Role::ROLE_ADMIN):?>
                     <li class="divider"></li>
                 <?endif?>

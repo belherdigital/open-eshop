@@ -242,12 +242,6 @@ include 'install.php';
                 <input type="text" name="ADMIN_PWD" value="<?php echo cP('ADMIN_PWD')?>" class="span6" />   
             </div>
         </div>
-
-        <div class="control-group">
-            <label class="checkbox"><input type="checkbox" name="SAMPLE_DB" checked /><?php echo __("Sample data")?></label>
-            <span class="help-block"><?php echo __("Creates few sample categories to start with")?></span>
-        </div>
-        
     </div>
 
     <div class="tab-pane" id="upgrade">

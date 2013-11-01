@@ -58,13 +58,7 @@
                                     	<i class=" icon-plus icon-white"></i> <?=$cats['categories'][$key]['name']?>
                                 	</a>
                                 <input <?=($cats['categories'][$key]['seoname']==$cats['cat_selected'])?'checked':''?> type="radio" id="radio_<?=$cats['categories'][$key]['seoname']?>" name="category" value="<?=$cats['categories'][$key]['id']?>" required > 
-                                
-                                 <?if ($cats['categories'][$key]['price']>0):?>
-                                    <span class="label label-success">
-                                    <?=i18n::money_format( $cats['categories'][$key]['price'])?>
-                                    </span>
-                                <?endif?>
-                                
+                                                        
                                 </label>
                                 
                             <?else:?>
@@ -75,12 +69,6 @@
                                    	 	data-target="#acc_<?=$cats['categories'][$key]['seoname']?>">                    
                                     	<?=$cats['categories'][$key]['name']?>
                                 	</a>
-
-                                 <?if ($cats['categories'][$key]['price']>0):?>
-                                    <span class="label label-success">
-                                    <?=i18n::money_format( $cats['categories'][$key]['price'])?>
-                                    </span>
-                                <?endif?>
                                 </label>
                             <?endif?>
                         </div>

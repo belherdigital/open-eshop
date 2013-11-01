@@ -104,6 +104,7 @@ class Model_Order extends ORM {
             $order->id_user     = $user->id_user;
             $order->paymethod   = $method;
             $order->currency    = ($currency_paid==NULL)?$product->currency:$currency_paid;
+            //@todo add coupon ID and discount
             $order->amount      = ($amount_paid==NULL)?$product->final_price():$amount_paid;
             $order->ip_address  = ip2long(Request::$client_ip);
 
@@ -121,7 +122,8 @@ class Model_Order extends ORM {
 
         try {
             $order->save();
-
+            //if saved delete coupon from session and -- number of coupons. @todo
+            
             //generate licenses
             $licenses = Model_License::generate($user,$order,$product);
 

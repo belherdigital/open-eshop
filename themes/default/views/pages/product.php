@@ -76,3 +76,5 @@
     </a>
 
 <?endif?>
+
+<?=View::factory('coupon')?>

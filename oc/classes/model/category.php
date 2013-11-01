@@ -60,7 +60,7 @@ class Model_Category extends ORM {
 			        'parent_deep'		=> array(),
 			        'seoname'			=> array(array('not_empty'), array('max_length', array(':value', 145)), ),
 			        'description'		=> array(array('max_length', array(':value', 255)), ),
-			        'price'				=> array(array('numeric')), );
+			         );
 	}
 
 	/**
@@ -78,7 +78,7 @@ class Model_Category extends ORM {
 			        'parent_deep'			=> __('Parent deep'),
 			        'seoname'				=> __('Seoname'),
 			        'description'			=> __('Description'),
-			        'price'					=> __('Price'));
+			        );
 	}
 	
     /**
@@ -117,7 +117,6 @@ class Model_Category extends ORM {
                                                   'id_category_parent' => $cat->id_category_parent,
                                                   'parent_deep'        => $cat->parent_deep,
                                                   'seoname'            => $cat->seoname,
-                                                  'price'              => $cat->price,
                                                   'id'                 => $cat->id_category,
                                                 );
         }
@@ -218,7 +217,6 @@ class Model_Category extends ORM {
                                     'id_category_parent'        => $c->id_category_parent,
                                     'parent_deep'   => $c->parent_deep,
                                     'order'         => $c->order,
-                                    'price'         => $c->price,
                                     'has_siblings'  => FALSE,
                                     'count'         => (is_numeric($c->count))?$c->count:0
                                     );
@@ -469,22 +467,6 @@ array (
     'ordinal_position' => 8,
     'character_maximum_length' => '255',
     'collation_name' => 'utf8_general_ci',
-    'comment' => '',
-    'extra' => '',
-    'key' => '',
-    'privileges' => 'select,insert,update,references',
-  ),
-  'price' => 
-  array (
-    'type' => 'float',
-    'exact' => true,
-    'column_name' => 'price',
-    'column_default' => '0',
-    'data_type' => 'decimal',
-    'is_nullable' => false,
-    'ordinal_position' => 9,
-    'numeric_scale' => '0',
-    'numeric_precision' => '10',
     'comment' => '',
     'extra' => '',
     'key' => '',

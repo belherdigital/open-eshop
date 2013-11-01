@@ -35,4 +35,16 @@ class URL extends Kohana_URL {
         return parent::title($title, $separator, $ascii_only);
     }
 
+    /**
+     * returns the current url we are visiting with querystring included
+     * @return [type] [description]
+     */
+    public static function current()
+    {
+        $query_string = ($_SERVER['QUERY_STRING']!='')? '?'.$_SERVER['QUERY_STRING']:'';
+
+        return URL::base('http').Request::current()->uri().$query_string;
+    }
+
+
 } // End url

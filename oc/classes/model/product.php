@@ -64,7 +64,7 @@ class Model_Product extends ORM {
      */
     public function has_offer()
     {
-        //check if theres an offer for the product
+        //check if theres an offer for the product OR a coupon @todo
         if (is_numeric($this->price_offer) AND Date::mysql2unix($this->offer_valid)>time())
             return TRUE;
         else
@@ -77,6 +77,7 @@ class Model_Product extends ORM {
      */
     public function final_price()
     {
+        //OR a coupon @todo
         return ($this->has_offer())? $this->price_offer : $this->price;
     }
 

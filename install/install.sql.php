@@ -68,7 +68,6 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."categories` 
   `parent_deep` int(2) unsigned NOT NULL DEFAULT '0',
   `seoname` varchar(145) NOT NULL,
   `description` varchar(255) NULL,
-  `price` decimal(10,2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_category`) USING BTREE,
   UNIQUE KEY `".$_POST['TABLE_PREFIX']."categories_IK_seo_name` (`seoname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
@@ -146,6 +145,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."orders` (
   `id_order` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(10) unsigned NOT NULL,
   `id_product` int(10) unsigned NULL,
+  `id_coupon` int(10) unsigned NULL,
   `paymethod` varchar(20) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `currency` char(3) NOT NULL,
@@ -210,6 +210,21 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."tickets` (
   KEY `".$_POST['TABLE_PREFIX']."tickets_IK_id_user` (`id_user`),
   KEY `".$_POST['TABLE_PREFIX']."tickets_IK_id_ticket_parent` (`id_ticket_parent`),
   KEY `".$_POST['TABLE_PREFIX']."tickets_IK_id_product` (`id_product`)
+) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
+
+
+mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."coupons` (
+  `id_coupon` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(145) NOT NULL,
+  `notes` varchar(245) DEFAULT NULL,
+  `discount_amount` decimal(14,3) NOT NULL DEFAULT '0',
+  `discount_percentage` decimal(14,3) NOT NULL DEFAULT '0',
+  `number_coupons` int(10) DEFAULT NULL,
+  `valid_date` DATETIME  NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_coupon`),
+  UNIQUE KEY `".$_POST['TABLE_PREFIX']."coupons_UK_name` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
 
 
@@ -301,19 +316,10 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."config` (`group_name`, `conf
 ('email', 'smtp_ssl', 0),
 ('email', 'smtp_user', ''),
 ('email', 'smtp_pass', ''),
-('social', 'config', '{'debug_mode':'0','providers':{
-                                                    'OpenID':{'enabled':'1'},
-                                                    'Yahoo':{'enabled':'0','keys':{'id':','secret':'}},
-                                                    'AOL':{'enabled':'1'}
-                                                    ,'Google':{'enabled':'0','keys':{'id':','secret':'}},
-                                                    'Facebook':{'enabled':'0','keys':{'id':','secret':'}},
-                                                    'Twitter':{'enabled':'0','keys':{'key':','secret':'}},
-                                                    'Live':{'enabled':'0','keys':{'id':','secret':'}},
-                                                    'MySpace':{'enabled':'0','keys':{'key':','secret':'}},
-                                                    'LinkedIn':{'enabled':'0','keys':{'key':','secret':'}},
-                                                    'Foursquare':{'enabled':'0','keys':{'id':','secret':'}}},
-                      'base_url':',
-                      'debug_file':'}');");
+('social', 'config', '{\"debug_mode\":\"0\",\"providers\":{\"OpenID\":{\"enabled\":\"1\"},\"Yahoo\":{\"enabled\":\"0\",\"keys\":{\"id\":\"\",\"secret\":\"\"}},
+\"AOL\":{\"enabled\":\"1\"},\"Google\":{\"enabled\":\"0\",\"keys\":{\"id\":\"\",\"secret\":\"\"}},\"Facebook\":{\"enabled\":\"0\",\"keys\":{\"id\":\"\",\"secret\":\"\"}},
+\"Twitter\":{\"enabled\":\"0\",\"keys\":{\"key\":\"\",\"secret\":\"\"}},\"Live\":{\"enabled\":\"0\",\"keys\":{\"id\":\"\",\"secret\":\"\"}},\"MySpace\":{\"enabled\":\"0\",\"keys\":{\"key\":\"\",\"secret\":\"\"}},
+\"LinkedIn\":{\"enabled\":\"0\",\"keys\":{\"key\":\"\",\"secret\":\"\"}},\"Foursquare\":{\"enabled\":\"0\",\"keys\":{\"id\":\"\",\"secret\":\"\"}}},\"base_url\":\"\",\"debug_file\":\"\"}');");
 
 
 //base category

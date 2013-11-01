@@ -45,14 +45,26 @@ class Alert {
             'title'=> $title, 
             'text' => $text
 		);
+
 		if ($name !== NULL)
 		{
 			$data[$name] = $mydata;
 		}
 		else
 		{
-			$data[] = $mydata;
+            //avoid duplicated alerts
+            $duplicated = FALSE;
+            foreach ($data as $key => $value) 
+            {
+                if ($value==$mydata)
+                    $duplicated = TRUE;
+            }
+
+            if (!$duplicated)
+			     $data[] = $mydata;
 		}
+
+
 		$session->set(self::$session_var, $data);
 
 		return TRUE;
