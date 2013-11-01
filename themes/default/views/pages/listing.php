@@ -1,12 +1,12 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
      
 <?if ($category!==NULL):?>
+<?if (strlen($category->description>0)):?>
 <div class="well advise clearfix" id="advise">
     <p><?=Text::bb2html($category->description,TRUE)?></p> 
 </div><!--end of advise-->
 <?endif?>
-
-
+<?endif?>
 
     <?if(count($products)):?>
         <div class="row-fluid">
