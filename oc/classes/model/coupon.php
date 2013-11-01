@@ -31,5 +31,23 @@ class Model_Coupon extends ORM {
         return array('created');
     }
 
+    /**
+     * decreases de number available of coupon and deletes de cookie ;)
+     * @param  model_coupon $coupon 
+     * @return void         
+     */
+    public static function sale($coupon = NULL)
+    {
+        if ($coupon!=NULL)
+        {
+            if ($coupon->loaded())
+            {
+                $coupon->number_coupons--;
+                $coupon->save();
+                Session::instance()->set('coupon','');
+            }
+        }
+    }
+
 
 }

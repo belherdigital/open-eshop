@@ -70,7 +70,7 @@ class Controller extends Kohana_Controller
                     ->where('number_coupons','>',0)
                     ->where('valid_date','>',DB::expr('NOW()'))
                     ->where('status','=',1)
-                    ->limit(1)->cached()->find();
+                    ->limit(1)->find();
             if ($coupon->loaded())
             {
                 self::$coupon = $coupon;

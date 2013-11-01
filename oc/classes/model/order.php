@@ -104,12 +104,11 @@ class Model_Order extends ORM {
             $order->id_user     = $user->id_user;
             $order->paymethod   = $method;
             $order->currency    = ($currency_paid==NULL)?$product->currency:$currency_paid;
-            //@todo add coupon ID and discount
+            //add coupon ID and discount
+            if (Controller::$coupon!=NULL)
+                $order->id_coupon = Controller::$coupon->id_coupon;
             $order->amount      = ($amount_paid==NULL)?$product->final_price():$amount_paid;
             $order->ip_address  = ip2long(Request::$client_ip);
-
-            //if ($product->has_offer())
-            //$order->description = $product->price.'Offer '.$product->offer_date;
         }
 
         $order->txn_id      = $token;
@@ -122,7 +121,8 @@ class Model_Order extends ORM {
 
         try {
             $order->save();
-            //if saved delete coupon from session and -- number of coupons. @todo
+            //if saved delete coupon from session and -- number of coupons.
+            Model_Coupon::sale(Controller::$coupon);
             
             //generate licenses
             $licenses = Model_License::generate($user,$order,$product);

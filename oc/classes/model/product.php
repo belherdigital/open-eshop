@@ -65,20 +65,30 @@ class Model_Product extends ORM {
     public function has_offer()
     {
         //check if theres an offer for the product OR a coupon @todo
-        if (is_numeric($this->price_offer) AND Date::mysql2unix($this->offer_valid)>time())
+        if ( (is_numeric($this->price_offer) AND Date::mysql2unix($this->offer_valid)>time()) OR Controller::$coupon!=NULL)
             return TRUE;
         else
             return FALSE;
     }
     
     /**
-     * returns the prce of the product checking if there's an offer
+     * returns the prce of the product checking if there's an offer or coupon
      * @return float 
      */
     public function final_price()
     {
-        //OR a coupon @todo
-        return ($this->has_offer())? $this->price_offer : $this->price;
+        //coupon added
+        if ( Controller::$coupon!=NULL)
+        {
+            if (Controller::$coupon->discount_amount>0)
+                return round($this->price - Controller::$coupon->discount_amount,2);
+            elseif (Controller::$coupon->discount_percentage>0)
+                return round($this->price - ( ($this->price*Controller::$coupon->discount_percentage)/100),2);
+            else 
+                return $this->price;
+        }
+        else
+            return ($this->has_offer())? $this->price_offer : $this->price;
     }
 
     /**
