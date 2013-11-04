@@ -173,6 +173,13 @@
 				</div>
 			</div>
 
+            <div class="control-group">
+                <?= FORM::label('featured', __('Feature product'), array('class'=>'control-label', 'for'=>'featured'))?>
+                <div class="controls">  
+                    <input  type="text" class="span2" size="16" id="featured" name="featured"  value="<?=$product->featured?>" class="input-xlarge" data-date="" data-date-format="yyyy-mm-dd">
+                </div>
+            </div>
+
 			<div class="control-group">
 				<?= FORM::label('description', __('Description'), array('class'=>'control-label', 'for'=>'description', 'spellcheck'=>TRUE))?>
 				<div class="controls">

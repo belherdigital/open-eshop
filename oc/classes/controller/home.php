@@ -27,8 +27,29 @@ class Controller_Home extends Controller {
     	    
     	    
             $products = new Model_Product();
-            $products = $products->where('status','=',Model_Product::STATUS_ACTIVE)->limit(Theme::get('num_home_products', 21))->cached()->find_all();
+            $products->where('status','=',Model_Product::STATUS_ACTIVE);
 
+            switch (core::config('product.products_in_home')) 
+            {
+                case 2:
+                    $id_products = array_keys(Model_Visit::popular_products());
+                    if (count($id_products)>0)
+                        $products->where('id_product','IN', $id_products);
+                    
+                    break;
+                case 1:
+                    $products->where('featured','IS NOT', NULL)
+                    ->where('featured','>', DB::expr('NOW()'))
+                    ->order_by('featured','desc');
+                    break;
+                case 0:
+                default:
+                    $products->order_by('created','desc');
+                    break;
+            }
+
+            $products = $products->limit(Theme::get('num_home_products', 21))
+                        ->cached()->find_all();
 
     		$categs = Model_Category::get_category_count();
     	

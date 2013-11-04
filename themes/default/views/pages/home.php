@@ -1,7 +1,13 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 <?if (count($products)>0):?>
 <section class="featured-ads">
-      <h2><?=__("Latest Products"); ?></h2>
+      <?if(core::config('product.products_in_home') == 0):?>
+        <h2><?=__('Latest')?></h2>
+    <?elseif(core::config('product.products_in_home') == 1):?>
+        <h2><?=__('Featured')?></h2>
+    <?elseif(core::config('product.products_in_home') == 2):?>
+        <h2><?=__('Most popular')?></h2>
+    <?endif?>
       <div id="slider-fixed-products" class="carousel slide">
         <div class="carousel-inner">
             <div class="active item">
