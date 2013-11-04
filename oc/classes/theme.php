@@ -564,7 +564,7 @@ class Theme {
      * @param  string $theme theme to load from
      * @return void 
      */
-    public static function load($theme = NULL)
+    public static function load($theme = NULL, $create_data = TRUE)
     {   
         self::$data = array();
 
@@ -579,20 +579,31 @@ class Theme {
         { 
             self::$data = json_decode($theme_data, TRUE);
         }
-        ///save empty with default values
-        //first time installed
-        else
-        {
-            //we set the array with empty values or the default in the option attributes
-            foreach (self::$options as $field => $attributes) 
-            {
-                self::$data[$field] = (isset($attributes['default']))?$attributes['default']:'';
-            }
-            self::save($theme);
+        ///save empty with default values & first time installed
+        elseif($create_data == TRUE)
+            self::data_set($theme);
 
-            //since its the first time we activate this theme
+    }
+
+    /**
+     * function that sets the data of the theme if was the first time activated
+     * @param  string $theme 
+     * @return void        
+     */
+    public static function data_set($theme)
+    {
+        if ($theme === NULL)
+            $theme = self::$theme;
+
+        self::$data = array();
+
+        //we set the array with empty values or the default in the option attributes
+        foreach (self::$options as $field => $attributes) 
+        {
+            self::$data[$field] = (isset($attributes['default']))?$attributes['default']:'';
         }
 
+        self::save($theme);
     }
 
     public static function checker()
