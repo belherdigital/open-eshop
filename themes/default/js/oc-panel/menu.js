@@ -66,17 +66,28 @@ $(function(){
     var title;
     $('.menu_category').on('click',function()
     {
+        //select radio if its notselected
+        if(!$(this).parent().hasClass('in')){
+            $(".in").removeClass('in').children().removeAttr('checked');
+            $(this).attr('checked');
+            $(this).parent().addClass('in');
+        }
         new_url = "http://" + window.location.hostname +"/"+ $(this).attr('id').replace('radio_','');
-        title = $(this).attr('id').replace('radio_','');
+        title = $(this).attr('data-name').replace('radio_','');
         $('input[name=title]').val(title);
         $('input[name=url]').val(new_url);
     });
-    $('.default_links').change(function()
+    
+    $('.default_links').on('click',function()
     {   
-        // $('input').removeAttr('checked');
-        $(".in").removeClass('in').children().removeAttr('checked');
-        $(this).attr('checked');
-        $(this).parent().addClass('in');
+        //select radio if its notselected
+        if(!$(this).parent().hasClass('in')){
+            $(".in").removeClass('in').children().removeAttr('checked');
+            $(this).attr('checked');
+            $(this).parent().addClass('in');
+        }
+
+        // add values to forms
         new_url = "http://" + window.location.hostname +"/" + $(this).attr('data-url');
         icons = $(this).attr('data-icon');
         title = $(this).attr('id').replace('radio_','');
@@ -84,20 +95,21 @@ $(function(){
         $('input[name=url]').val(new_url);
         $('input[name=icon]').val(icons);
     });
+
     $('#menu_type li a').on('click', function(){
         
-        if($(this).text() == 'Categories'){
+        if($(this).hasClass('categories')){
             // $('#url').attr('disabled','disabled');
             $('#default-group').css('display','none');
             $('#categories-group').css('display','block');
 
         }
-        else if($(this).text() == 'Custom'){
+        else if($(this).hasClass('custom')){
             // $('#url').removeAttr('disabled','disabled');
             $('#default-group').css('display','none');
             $('#categories-group').css('display','none');
         }
-        else if($(this).text() == 'Default'){
+        else if($(this).hasClass('default')){
             $('#categories-group').css('display','none');
             $('#default-group').css('display','block');
             // $('#url').removeAttr('disabled','disabled');
