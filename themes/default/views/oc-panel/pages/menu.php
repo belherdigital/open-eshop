@@ -36,9 +36,9 @@
     </button>
     <ul class="dropdown-menu" id="menu_type">
         <!-- dropdown menu links -->
-        <li><a><?=__('Custom')?></a></li>
-        <li><a><?=__('Categories')?></a></li>
-        <li><a><?=__('Default')?></a></li>
+        <li><a class="custom"><?=__('Custom')?></a></li>
+        <li><a class="categories"><?=__('Categories')?></a></li>
+        <li><a class="default"><?=__('Default')?></a></li>
     </ul>
 </div>
 
@@ -60,12 +60,12 @@
                             data-target="#acc_<?=$cats[$key]['seoname']?>">                    
                             <i class=" icon-plus icon-white"></i> <?=$cats[$key]['name']?>
                         </a>
-                    <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" class="menu_category" name="category" value="<?=$cats[$key]['id']?>" required > 
+                    <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" data-name="radio_<?=$cats[$key]['name']?>" class="menu_category"  value="<?=$cats[$key]['id']?>" required > 
                     </label>
                     
                 <?else:?>
                     <label class="radio">
-                    <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" class="menu_category" name="category" value="<?=$cats[$key]['id']?>" required > 
+                    <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" data-name="radio_<?=$cats[$key]['name']?>" class="menu_category"  value="<?=$cats[$key]['id']?>" required > 
                     
                         <a class="btn btn-mini btn-primary" data-toggle="collapse" type="button"  
                             data-target="#acc_<?=$cats[$key]['seoname']?>">                    
@@ -91,44 +91,44 @@
     </div>
 </div>
 
-<div class="control-group"  id="default-group">
+<div class="control-group"  id="default-group" style="display:none;">
     <?= FORM::label('default_links_label', __('Default links'), array('class'=>'control-label', 'for'=>'default_links' ))?>
     <div class="controls"> 
         <div class="accordion" >
             <div class="accordion-group">
                 <div class="accordion-heading">
                 <label class="radio">
-                <input type="radio" class="default_links" id="radio_home"  name="home" data-url="" data-icon="icon-home icon-white" value="home" checked required >    
+                <input type="radio" class="default_links" id="radio_home"  name="home" data-url="" data-icon="icon-home icon-white" value="home">    
                     <a class="btn btn-primary btn-mini" type="button"  >                    
                          <?=__('Home')?>
                     </a>
                 </label>
                 <label class="radio">
-                <input type="radio" class="default_links" id="radio_listing" name="listing" data-url="all" data-icon="icon-list icon-white" value="listing" required >
+                <input type="radio" class="default_links" id="radio_listing" name="listing" data-url="all" data-icon="icon-list icon-white" value="listing">
                     <a class="btn btn-primary btn-mini" type="button"  >                    
                          <?=__('listing')?>
                     </a>
                 </label>
                 <label class="radio">
-                <input type="radio" class="default_links" id="radio_search" name="search" data-url="search.html" data-icon="icon-search icon-white" value="search" required >
+                <input type="radio" class="default_links" id="radio_search" name="search" data-url="search.html" data-icon="icon-search icon-white" value="search">
                     <a class="btn btn-primary btn-mini" type="button"  >                    
                          <?=__('Search')?>
                     </a>
                 </label>
                 <label class="radio">
-                <input type="radio" class="default_links" id="radio_contact" name="contact" data-url="contact.html" data-icon="icon-envelope icon-white" value="contact" required >
+                <input type="radio" class="default_links" id="radio_contact" name="contact" data-url="contact.html" data-icon="icon-envelope icon-white" value="contact">
                     <a class="btn btn-primary btn-mini" type="button"  >                    
                          <?=__('contact')?>
                     </a>
                 </label>
                 <label class="radio">
-                <input type="radio" class="default_links" id="radio_rss" name="rss" data-url="rss.xml" data-icon="icon-signal icon-white" value="rss" required >
+                <input type="radio" class="default_links" id="radio_rss" name="rss" data-url="rss.xml" data-icon="icon-signal icon-white" value="rss">
                     <a class="btn btn-primary btn-mini" type="button"  >                    
                          <?=__('rss')?>
                     </a>
                 </label>
                 <label class="radio">
-                <input type="radio" class="default_links" id="radio_map" name="map" data-url="map.html" data-icon="icon-globe icon-white" value="map" required >
+                <input type="radio" class="default_links" id="radio_map" name="map" data-url="map.html" data-icon="icon-globe icon-white" value="map">
                     <a class="btn btn-primary btn-mini" type="button"  >                    
                          <?=__('map')?>
                     </a>
@@ -142,14 +142,14 @@
 <div class="control-group">
     <label class="control-label"><?=__('Title')?></label>
     <div class="controls docs-input-sizes">
-        <input class="input-xlarge" type="text" name="title" value="<?=Core::post('title')?>" placeholder="<?=__('Title')?>">
+        <input class="input-xlarge" type="text" name="title" value="<?=Core::post('title')?>" placeholder="<?=__('Title')?>" required>
     </div>
 </div>
 
 <div class="control-group">
     <label class="control-label"><?=__('Url')?></label>
     <div class="controls docs-input-sizes">
-        <input class="input-xlarge" type="text" id="url" name="url" value="<?=Core::post('Url')?>" placeholder="http://somedomain.com">
+        <input class="input-xlarge" type="url" id="url" name="url" value="<?=Core::post('Url')?>" placeholder="http://somedomain.com" required>
     </div>
 </div>
 
