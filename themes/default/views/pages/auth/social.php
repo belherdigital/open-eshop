@@ -3,7 +3,8 @@
     <legend><?=__('Social Login')?></legend>
     <?foreach ($providers as $key => $value):?>
         <?if($value['enabled']):?>
-            <a  class=" oc_social icon <?=$key?>" href="<?=Route::url('default',array('controller'=>'social','action'=>'login','id'=>strtolower($key)))?>"><?=$key?></a>
+        	<?if(strtolower($key) == 'live')$key='windows'?>
+            <a  class=" zocial <?=strtolower($key)?> social-btn" href="<?=Route::url('default',array('controller'=>'social','action'=>'login','id'=>strtolower($key)))?>"><?=$key?></a>
         <?endif?>
     <?endforeach?>
 </fieldset>
