@@ -15,6 +15,23 @@
 			<?foreach ($config as $c):?>
 			<?$forms[$c->config_key] = array('key'=>$c->config_key, 'value'=>$c->config_value)?>
 			<?endforeach?>
+
+            <div class="control-group">
+                <?= FORM::label($forms['products_in_home']['key'], __('Products in home'), array('class'=>'control-label', 'for'=>$forms['products_in_home']['key']))?>
+                <div class="controls">
+                    <?= FORM::select($forms['products_in_home']['key'], array(0=>__('Latest'),1=>__('Featured'),2=>__('Popular last month')), $forms['products_in_home']['value'], array(
+                    'placeholder' => $forms['products_in_home']['value'], 
+                    'class' => 'tips ', 
+                    'id' => $forms['products_in_home']['key'],
+                    'data-content'=> __("You can choose what products you want to display in home."),
+                    'data-trigger'=>"hover",
+                    'data-placement'=>"right",
+                    'data-toggle'=>"popover",
+                    'data-original-title'=>__("Products in home"), 
+                    ))?> 
+                </div>
+            </div>
+
 			<div class="control-group">
 				<?= FORM::label($forms['num_images']['key'], __('Number of images'), array('class'=>'control-label', 'for'=>$forms['num_images']['key']))?>
 				<div class="controls">

@@ -52,16 +52,6 @@ class Sitemap {
             //$sitemap->robotsFileName = 'robots.txt';
             
 
-            //users
-            $users = new Model_User();
-            $users = $users->select('seoname')->select('created')->where('status','=',Model_User::STATUS_ACTIVE)->find_all();
-
-            foreach($users as $user)
-            {
-                $url = Route::url('profile',  array('seoname'=>$user->seoname));
-                $sitemap->addUrl($url, date('c',Date::mysql2unix($user->created)),  'monthly',    '0.5');
-            }
-
             //pages CMS 
             $pages =  new Model_Content();
             $pages = $pages->select('seotitle')->where('type','=','page')->where('status','=','1')->find_all();
@@ -72,41 +62,30 @@ class Sitemap {
                 $sitemap->addUrl($url, date('c',Date::mysql2unix($page->created)),  'monthly',    '0.5');
             }
 
-            //locations
-            $locs = new Model_Location();
-            $locs = $locs->select('seoname')->where('id_location','!=',1)->find_all();
-
+          
             //categories
             $cats =  new Model_Category();
             $cats = $cats->select('seoname')->where('id_category','!=',1)->find_all();
             foreach($cats as $cat)
             {
-
                 $url = Route::url('list',  array('category'=>$cat->seoname));
-
                 $sitemap->addUrl($url, date('c'),  'daily',    '0.7');
-
-                //adding the categories->locations
-                foreach($locs as $loc)
-                {
-                    $url = Route::url('list',  array('category'=>$cat->seoname,'location'=>$loc->seoname));
-                    $sitemap->addUrl($url, date('c'),  'weekly',    '0.5');
-                }
             }
             
-            //all the ads
-            $ads = DB::select('a.seotitle')
-                    ->select(array('c.seoname','category'))
-                    ->from(array('ads', 'a'))
-                    ->join(array('categories', 'c'),'INNER')
-                    ->on('a.id_category','=','c.id_category')
-                    ->where('a.status','=',Model_Ad::STATUS_PUBLISHED)
-                    ->as_object()
-                    ->execute();
+            //last products, you can modify this value at: general.feed_elements
+            $products = DB::select('p.seotitle')
+                ->select(array('c.seoname','category'),'p.title','p.created')
+                ->from(array('products', 'p'))
+                ->join(array('categories', 'c'),'INNER')
+                ->on('p.id_category','=','c.id_category')
+                ->where('p.status','=',Model_Product::STATUS_ACTIVE)
+                ->order_by('created','desc')
+                ->as_object()
+                ->execute();
 
-            foreach($ads as $a)
+            foreach($products as $p)
             {
-                $url= Route::url('ad',  array('category'=>$a->category,'seotitle'=>$a->seotitle));
+                $url= Route::url('product',  array('category'=>$p->category,'seotitle'=>$p->seotitle));
                 $sitemap->addUrl($url, date('c'),  'monthly',    '0.5');
             }
             

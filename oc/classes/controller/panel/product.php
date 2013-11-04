@@ -73,6 +73,7 @@ class Controller_Panel_Product extends Auth_Crud {
         	{
         		$obj_product->save();
         		Alert::set(Alert::SUCCESS, __('Product is created.'));
+                Sitemap::generate();
         	} 
         	catch (Exception $e) 
         	{
@@ -209,7 +210,7 @@ class Controller_Panel_Product extends Auth_Crud {
                 {
                     $obj_product->save();
                     Alert::set(Alert::SUCCESS, __('Product saved.'));
-
+                    Sitemap::generate();
                     if($this->request->post('notify'))
                     {
 

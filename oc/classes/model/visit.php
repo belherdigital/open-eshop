@@ -62,20 +62,20 @@ class Model_Visit extends ORM {
       return $id_visit;
     }
     /**
-     * get popular ads
+     * get popular products
      * @param  integer $days number of days to calculate
-     * @return array        id_ad and count
+     * @return array        id_products and count
      */
-    public static function popular_ads($days = 30)
+    public static function popular_products($days = 30)
     {
-        $query = DB::select('id_ad',DB::expr('COUNT(id_visit) count'))
+        $query = DB::select('id_product',DB::expr('COUNT(id_visit) count'))
                         ->from('visits')
                         ->where('created','between',array(date('Y-m-d',strtotime('-'.$days.' day')),date::unix2mysql()))
-                        ->group_by(DB::expr('id_ad'))
+                        ->group_by(DB::expr('id_product'))
                         ->order_by('count','asc')
                         ->execute();
 
-        return $query->as_array('id_ad');
+        return $query->as_array('id_product');
     }
 
 
