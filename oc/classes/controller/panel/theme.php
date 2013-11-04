@@ -107,7 +107,7 @@ class Controller_Panel_Theme extends Auth_Controller {
             $theme = $this->request->param('id');
 
             $opt = Theme::get_options($theme);
-            Theme::load($theme);
+            Theme::load($theme,FALSE);
 
             if (isset($opt['premium']) AND Theme::get('license')==NULL)
             {
