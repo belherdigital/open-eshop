@@ -19,6 +19,63 @@ class Model_Content extends ORM {
      */
     protected $_primary_key = 'id_content';
 
+    public function filters()
+    {
+        return array(
+                'seotitle' => array(
+                                array(array($this, 'gen_seotitle'))
+                              ),
+                
+        );
+    }
+
+    /**
+     * return the title formatted for the URL
+     *
+     * @param  string $title
+     * 
+     */
+    public function gen_seotitle($seotitle)
+    {
+        //in case seotitle is really small or null
+        if (strlen($seotitle)<3)
+            $seotitle = $this->title;
+
+        $seotitle = URL::title($seotitle);
+
+        if ($seotitle != $this->seotitle)
+        {
+            $cat = new self;
+            //find a user same seotitle
+            $s = $cat->where('seotitle', '=', $seotitle)->limit(1)->find();
+
+            //found, increment the last digit of the seotitle
+            if ($s->loaded())
+            {
+                $cont = 2;
+                $loop = TRUE;
+                while($loop)
+                {
+                    $attempt = $seotitle.'-'.$cont;
+                    $cat = new self;
+                    unset($s);
+                    $s = $cat->where('seotitle', '=', $attempt)->limit(1)->find();
+                    if(!$s->loaded())
+                    {
+                        $loop = FALSE;
+                        $seotitle = $attempt;
+                    }
+                    else
+                    {
+                        $cont++;
+                    }
+                }
+            }
+        }
+        
+
+        return $seotitle;
+    }
 
     /**
      * get the model filtered
@@ -37,17 +94,20 @@ class Model_Content extends ORM {
         //was not found try first translation in english
         if (!$content->loaded())
         {
+
             $content = $content->where('seotitle','=', $seotitle)
-                 ->where('locale','=', 'en_US')
+                 ->where('locale','=', 'en_UK')
                  ->where('type','=', $type)
                  ->where('status','=', 1)
                  ->limit(1)->cached()->find();
         }
-
+        
         //was not found try first translation with that seotitle
         if (!$content->loaded())
         {
+
             $content = $content->where('seotitle','=', $seotitle)
+                 //->where('locale','=', 'en_UK')
                  ->where('type','=', $type)
                  ->where('status','=', 1)
                  ->limit(1)->cached()->find();
@@ -83,31 +143,30 @@ class Model_Content extends ORM {
 
     public static function get_pages()
     {
-        $pages = new self;
-        $pages = $pages ->select('seotitle','title')
+      $pages = new self;
+      $pages = $pages ->select('seotitle','title')
                         ->where('type','=', 'page')
                         ->where('status','=', 1)
                         ->order_by('order','asc')
                         ->cached()
                         ->find_all();
-        return $pages;
+      return $pages;
     }
-
+    
     public static function get_contents($type, $locale = NULL)
     {
-        if($locale == NULL)
-            $locale = core::config('i18n.locale');
+      if($locale == NULL)
+        $locale = core::config('i18n.locale');
 
-        $pages = new self;
-        $pages = $pages ->select('seotitle','title')
+      $pages = new self;
+      $pages = $pages ->select('seotitle','title')
                         ->where('type','=', $type)
                         ->where('locale','=', $locale)
                         ->order_by('order','asc')
                         ->cached()
                         ->find_all();
-        return $pages;
+      return $pages;
     }
-
 
     public function form_setup($form)
     {
@@ -117,7 +176,7 @@ class Model_Content extends ORM {
         $form->fields['locale']['display_as']  = 'select';
         $form->fields['locale']['options']     = i18n::get_languages();
 
-
+        $form->fields['seotitle']['display_as']  = 'hidden';
     }
 
     public function exclude_fields()

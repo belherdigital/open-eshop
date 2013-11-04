@@ -8,7 +8,7 @@
     <?endif?>
 </div>
 <a class="btn btn-primary pull-right" 
-    href="<?=Route::url('oc-panel', array('controller'=>'content','action'=>'create')).'?type='.$type?>" 
+    href="<?=Route::url('oc-panel', array('controller'=>'content','action'=>'create')).'?type='.$type ?>" 
     rel"tooltip" title="<?=__('Edit')?>">
     <?=__('New')?>
 </a>
@@ -29,6 +29,7 @@
         <th><?=__('Title')?></th>
         <th><?=__('locale')?></th>
         <th><?=__('created')?></th>
+        <th><?=__('seotitle')?></th>
         <th><?=__('status')?></th>
         <th></th>
     </tr>
@@ -38,6 +39,7 @@
         <td><?=$content->title?></td>
         <td><?=$content->locale?></td>
         <td><?=$content->created?></td>
+        <td><?=$content->seotitle?></td>
         <td><?=$content->status?></td>
         <td width="5%">
             

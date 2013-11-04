@@ -35,6 +35,7 @@ class Controller_Panel_Content extends Auth_Controller {
         $l_locale = array(''=>'');
         foreach ($ll as $key => $l) 
             $l_locale[$l->locale] = $l->locale;
+
         
         $this->template->content = View::factory('oc-panel/pages/content/list',array('contents'=>$contents, 
                                                                                         'type'=>$type, 
@@ -49,24 +50,10 @@ class Controller_Panel_Content extends Auth_Controller {
         
         $content = new Model_Content();
 
-        $ll = DB::select(DB::expr('DISTINCT (locale)'))
-                ->from('content')
-                    ->order_by('locale')
-                    ->as_object()
-                    ->cached()
-                    ->execute();
+        $languages = i18n::get_languages();
 
-
-        $l_locale = array(''=>'');
-        foreach ($ll as $key => $l) 
-            $l_locale[$l->locale] = $l->locale;
-
-        $type = array(''=>'',
-                      'email'=>'email',
-                      'page'=>'page');
-
-        $this->template->content = View::factory('oc-panel/pages/content/create', array('locale'=>$l_locale, 
-                                                                                        'type'=>$type));
+        $this->template->content = View::factory('oc-panel/pages/content/create', array('locale'=>$languages, 
+                                                                                        'type'=>$this->request->query('type')));
 
         if($p = $this->request->post())
         {
@@ -79,16 +66,18 @@ class Controller_Panel_Content extends Auth_Controller {
             }
             // if status is not checked, it is not set as POST response
             $content->status = (isset($p['status']))?1:0;
+            $content->seotitle = $content->gen_seotitle($this->request->post('title'));
 
             try 
             {
                 $content->save();
-                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'list')).'?type='.$p['type'].'&locale_select='.$p['locale'].'!');
+                Alert::set(Alert::SUCCESS, $this->request->post('type').' '.__('is created'));
+                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'list')).'?type='.$p['type'].'&locale_select='.$p['locale']);
             } 
             catch (Exception $e) 
             {
                 Alert::set(Alert::ERROR, $e->getMessage());
-                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'list')).'?type='.$p['type'].'&locale_select='.$p['locale'].'!');
+                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'list')).'?type='.$p['type'].'&locale_select='.$p['locale']);
             }
         }
 
@@ -106,7 +95,9 @@ class Controller_Panel_Content extends Auth_Controller {
         $locale = $content->locale;
         if ($content->loaded())
         {
-            $this->template->content = View::factory('oc-panel/pages/content/edit',array('cont'=>$content));
+            $languages = i18n::get_languages();
+
+            $this->template->content = View::factory('oc-panel/pages/content/edit',array('cont'=>$content,'locale'=>$languages));
 
             if($p = $this->request->post())
             {
@@ -119,11 +110,13 @@ class Controller_Panel_Content extends Auth_Controller {
                 }
                 // if status is not checked, it is not set as POST response
                 $content->status = (isset($p['status']))?1:0;
+                $content->seotitle = $content->gen_seotitle($this->request->post('title'));
 
                 try 
                 {
                     $content->save();
-                    Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'list')).'?type='.$type.'&locale_select='.$locale);
+                    Alert::set(Alert::SUCCESS, $content->type.' '.__('is edited'));
+                    Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'edit', 'id'=>$content->id_content)));
                 } 
                 catch (Exception $e) 
                 {
@@ -134,7 +127,7 @@ class Controller_Panel_Content extends Auth_Controller {
         else
         {
             Alert::set(Alert::INFO, __('Faild to load content'));
-            Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'list')).'?type='.$type.'&locale_select='.$locale); 
+            Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'edit')).'?type='.$type.'&locale_select='.$locale); 
         }
     }
 
@@ -157,7 +150,7 @@ class Controller_Panel_Content extends Auth_Controller {
             {
                 $content->delete();
                 $this->template->content = 'OK';
-                Alert::set(Alert::SUCCESS, __('Content deleted'));
+                Alert::set(Alert::SUCCESS, __('Content is deleted'));
             }
             catch (Exception $e)
             {
@@ -165,7 +158,7 @@ class Controller_Panel_Content extends Auth_Controller {
             }
         }
         else
-             Alert::set(Alert::INFO, __('content not deleted'));
+             Alert::set(Alert::INFO, __('Content is not deleted'));
 
         Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'list')).'?type='.$type.'&locale_select='.$locale);  
     }

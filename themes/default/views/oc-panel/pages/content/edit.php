@@ -20,7 +20,7 @@
     <div class="control-group">
         <?= FORM::label('locale', __('Locale'), array('class'=>'control-label', 'for'=>'locale'))?>
         <div class="controls">
-            <?= FORM::input('locale', $cont->locale, array('placeholder' => __('locale'), 'class' => '', 'id' => 'locale', 'required'))?>
+            <?= FORM::select('locale', $locale, core::config('i18n.locale'),array('placeholder' => __('locale'), 'class' => '', 'id' => 'locale', 'required'))?>
         </div>
     </div>
     <div class="control-group">
@@ -29,20 +29,6 @@
             <?= FORM::textarea('description', $cont->description, array('placeholder' => __('description'), 'class' => '', 'id' => 'description'))?>
         </div>
     </div>
-    <div class="control-group">
-        <?= FORM::label('seotitle', __('Seo title'), array('class'=>'control-label', 'for'=>'seotitle'))?>
-        <div class="controls">
-            <?= FORM::input('seotitle', $cont->seotitle, array('placeholder' => __('Seo title'), 'class' => '', 'id' => 'seotitle', 'required'))?>
-        </div>
-    </div>
-    <?if($cont->type == 'email'):?>
-        <div class="control-group">
-        <?= FORM::label('from_email', __('From email'), array('class'=>'control-label', 'for'=>'from_email'))?>
-        <div class="controls">
-            <?= FORM::input('from_email', $cont->from_email, array('placeholder' => __('from_email'), 'class' => '', 'id' => 'from_email'))?>
-        </div>
-    </div>
-    <?endif?>
     <div class="control-group">
     <?= FORM::label('status', __('Status'), array('class'=>'control-label', 'for'=>'status'))?>
         <div class="controls">
