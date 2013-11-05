@@ -3,7 +3,7 @@
 	
 <?=Form::errors()?>
 <div class="page-header">
-	<h1><?=__('Advertisement Configuration')?></h1>
+	<h1><?=__('Product Configuration')?></h1>
     <p class=""><?=__('List of optional fields. To activate/deactivate select "TRUE/FALSE" in desired field.')?></p>
 
 </div>
@@ -87,6 +87,21 @@
 					))?> 
 				</div>
 			</div>
+            <div class="control-group">
+                <?= FORM::label($forms['disqus']['key'], __('Disqus'), array('class'=>'control-label', 'for'=>$forms['disqus']['key']))?>
+                <div class="controls">
+                    <?= FORM::input($forms['disqus']['key'], $forms['disqus']['value'], array(
+                    'placeholder' => "", 
+                    'class' => 'tips', 
+                    'id' => $forms['disqus']['key'], 
+                    'data-content'=> __("Disqus Comments"),
+                    'data-trigger'=>"hover",
+                    'data-placement'=>"right",
+                    'data-toggle'=>"popover",
+                    'data-original-title'=>__("You need to write your disqus ID to enable the service."),
+                    ))?> 
+                </div>
+            </div>
 			<div class="form-actions">
 				<?= FORM::button('submit', 'Update', array('type'=>'submit', 'class'=>'btn-small btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'settings', 'action'=>'product'))))?>
 			</div>

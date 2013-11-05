@@ -14,6 +14,9 @@
                     <li class="divider"></li>
                 <?endif?>
 
+                <?if (core::config('general.blog')==1):?>
+                    <?Theme::admin_link(__('Blog'), 'blog','index','oc-panel','icon-pencil')?>
+                <?endif?>
 				<?Theme::admin_link(__('Page'), 'content','list?type=page&locale_select='.core::config('i18n.locale'),'oc-panel','icon-file')?>
                 <?Theme::admin_link(__('Email'), 'content','list?type=email&locale_select='.core::config('i18n.locale'),'oc-panel','icon-envelope')?>
                 <?Theme::admin_link(__('Translations'), 'translations','index','oc-panel','icon-globe')?>

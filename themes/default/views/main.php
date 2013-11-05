@@ -15,8 +15,11 @@
 	<meta name="author" content="open-classifieds.com">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
+    <?if (core::config('general.blog')==1):?>
+    <link rel="alternate" type="application/atom+xml" title="RSS Blog <?=Core::config('general.site_name')?>" href="<?=Route::url('rss-blog')?>" />
+    <?endif?>
     <link rel="alternate" type="application/atom+xml" title="RSS <?=Core::config('general.site_name')?>" href="<?=Route::url('rss')?>" />
-
+    
     <?if (Controller::$category!==NULL):?>
     <link rel="alternate" type="application/atom+xml"  title="RSS <?=Core::config('general.site_name')?> - <?=Controller::$category->name?>"  href="<?=Route::url('rss',array('category'=>Controller::$category->seoname))?>" />
     <?endif?>     

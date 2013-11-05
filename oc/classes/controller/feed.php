@@ -54,6 +54,46 @@ class Controller_Feed extends Controller {
 	
 	}
 
+    public function action_blog()
+    {
+        $this->auto_render = FALSE;
+
+        $info = array(
+                        'title'     => 'RSS Blog '.Core::config('general.site_name'),
+                        'pubDate' => date("D, d M Y H:i:s T"),
+                        'description' => __('Latest post published'),
+                        'generator'     => 'Open Classifieds',
+        ); 
+        
+        $items = array();
+
+        $posts = new Model_Post();
+        $posts = $posts->where('status','=', 1)
+                ->order_by('created','desc')
+                ->where('id_forum','IS',NULL)
+                ->limit(Core::config('general.feed_elements'))
+                ->cached()
+                ->find_all();
+           
+
+        foreach($posts as $post)
+        {
+            $url= Route::url('blog',  array('seotitle'=>$post->seotitle));
+
+            $items[] = array(
+                                'title'         => preg_replace('/&(?!\w+;)/', '&amp;', $post->title),
+                                'link'          => $url,
+                                'pubDate'       => Date::mysql2unix($post->created),
+                                'description'   => Text::removebbcode(preg_replace('/&(?!\w+;)/', '&amp;',$post->description)),
+                          );
+        }
+  
+        $xml = Feed::create($info, $items);
+
+        $this->response->headers('Content-type','text/xml');
+        $this->response->body($xml);
+    
+    }
 
     public function action_info()
     {

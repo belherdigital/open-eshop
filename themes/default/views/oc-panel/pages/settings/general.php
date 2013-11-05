@@ -368,6 +368,38 @@
 				))?> 
 			</div>
 		</div>
+
+        <div class="control-group">
+            <?= FORM::label($forms['blog']['key'], __("Activates Blog posting"), array('class'=>'control-label', 'for'=>$forms['blog']['key']))?>
+            <div class="controls">
+                <?= FORM::select($forms['blog']['key'], array(FALSE=>'FALSE',TRUE=>'TRUE'), $forms['blog']['value'], array(
+                'placeholder' => "TRUE or FALSE", 
+                'class' => 'tips', 
+                'id' => $forms['blog']['key'], 
+                'data-content'=> __("Once set to TRUE, enables blog posts"),
+                'data-trigger'=>"hover",
+                'data-placement'=>"right",
+                'data-toggle'=>"popover",
+                'data-original-title'=>__("Activates Blog posting"),
+                ))?> 
+            </div>
+        </div>
+        <div class="control-group">
+                <?= FORM::label($forms['blog_disqus']['key'], __('Disqus for blog'), array('class'=>'control-label', 'for'=>$forms['blog_disqus']['key']))?>
+                <div class="controls">
+                    <?= FORM::input($forms['blog_disqus']['key'], $forms['blog_disqus']['value'], array(
+                    'placeholder' => "", 
+                    'class' => 'tips', 
+                    'id' => $forms['blog_disqus']['key'], 
+                    'data-content'=> __("Disqus for Blog Comments"),
+                    'data-trigger'=>"hover",
+                    'data-placement'=>"right",
+                    'data-toggle'=>"popover",
+                    'data-original-title'=>__("You need to write your disqus ID to enable the service."),
+                    ))?> 
+                </div>
+            </div>
+
 		<div class="form-actions">
 			<?= FORM::button('submit', 'Update', array('type'=>'submit', 'class'=>'btn-small btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'settings', 'action'=>'general'))))?>
 		</div>
