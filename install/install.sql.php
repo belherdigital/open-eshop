@@ -229,6 +229,22 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."coupons` (
 ) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
 
 
+mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."posts` (
+  `id_post` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_user` int(10) unsigned NOT NULL,
+  `id_forum` int(10) unsigned NULL,
+  `title` varchar(245) NOT NULL,
+  `seotitle` varchar(245) NOT NULL,
+  `description` text NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ip_address` float DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_post`) USING BTREE,
+  UNIQUE KEY `".$_POST['TABLE_PREFIX']."posts_UK_seotitle` (`seotitle`),
+  KEY `".$_POST['TABLE_PREFIX']."posts_IK_id_user` (`id_user`),
+  KEY `".$_POST['TABLE_PREFIX']."posts_IK_id_forum` (`id_forum`)
+) ENGINE=InnoDB DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
+
 
 /**
  * add basic content like emails
@@ -309,6 +325,7 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."config` (`group_name`, `conf
 ('product', 'max_size', '5'),
 ('product', 'num_images', '5'),
 ('product', 'products_in_home', '0'),
+('product', 'disqus', ''),
 ('email', 'notify_email', '".$_POST['ADMIN_EMAIL']."'),
 ('email', 'smtp_active', 0),
 ('email', 'new_sale_notify', 0),

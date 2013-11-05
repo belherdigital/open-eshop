@@ -501,4 +501,23 @@ class Model_Product extends ORM {
             return FALSE;
     }
 
+    /**
+     * prints the disqus script from the view
+     * @return string HTML or false in case not loaded
+     */
+    public function disqus()
+    {
+        if($this->loaded())
+        {
+            if ($this->status == 1 AND strlen(core::config('product.disqus'))>0 )
+            {
+                return View::factory('pages/disqus',
+                                array('disqus'=>core::config('product.disqus')))
+                        ->render();
+            }
+        }
+    
+        return FALSE;
+    }
+
 }

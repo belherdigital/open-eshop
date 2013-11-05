@@ -50,6 +50,16 @@ Route::set('page','<seotitle>.html')
         'seotitle'   => '',
 ));
 
+
+/**
+ * rss for blog
+ */
+Route::set('rss-blog','rss/blog.xml')
+->defaults(array(
+        'controller' => 'feed',    
+        'action'     => 'blog',
+));
+
 /**
  * rss
  */
@@ -82,6 +92,15 @@ Route::set('oc-panel', 'oc-panel(/<controller>(/<action>(/<id>(/<current_url>)))
         'action'     => 'index',
 ));
 
+
+/**
+ * blog
+ */
+Route::set('blog', 'blog(/<seotitle>.html)')
+->defaults(array(
+        'controller' => 'blog',    
+        'action'     => 'index',
+));
 
 
 /**

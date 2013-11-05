@@ -78,3 +78,5 @@
 <?endif?>
 
 <?=View::factory('coupon')?>
+
+<?=$product->disqus()?>
