@@ -29,6 +29,9 @@
                     <li class="<?=(Request::current()->controller()=='home')?'active':''?>" >
                         <a href="<?=Route::url('default')?>"><i class="icon-home <?=$icon_white?>"></i> <?=__('Home')?></a> </li>
                     <?kam_link(__('Listing'),'product', 'icon-list '.$icon_white ,'listing', 'list')?>
+                    <?if (core::config('general.blog')==1):?>
+                        <?kam_link(__('Blog'),'blog','','index','blog')?>
+                    <?endif?>
                     <?kam_link(__('Search'),'product', 'icon-search '.$icon_white, 'advanced_search', 'search')?>
                     <?kam_link(__('Contact'),'contact', 'icon-envelope '.$icon_white, 'index', 'contact')?>
                     <?kam_link('','rss', 'icon-signal '.$icon_white, 'index', 'rss')?>
