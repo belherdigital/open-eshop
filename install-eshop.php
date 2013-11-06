@@ -229,7 +229,7 @@ class OC{
      */
     public static function versions()
     {
-        return json_decode(OC::curl_get_contents('http://open-classifieds.com/files/versions.json?r='.time()),TRUE);
+        return json_decode(OC::curl_get_contents('http://open-eshop.com/files/versions.json?r='.time()),TRUE);
     }
 }
 
@@ -251,7 +251,7 @@ function hostingAd()
                 <li>1 Premium Theme, of your choice worth $99.99</li>
                 <li>Professional Installation and Support worth $89</li>
                 <li>Free Domain name, worth $10</li>
-            <a class="btn btn-primary btn-large" href="http://open-classifieds.com/hosting/">
+            <a class="btn btn-primary btn-large" href="http://open-eshop.com/#Section-4">
                 <i class=" icon-shopping-cart icon-white"></i> Get Hosting! Less than $5 Month</a>
         </p>
     </div>
@@ -284,7 +284,7 @@ $succeed    = TRUE;
     <meta name="author" content="Open eShop">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <link rel="shortcut icon" href="http://open-classifieds.com/wp-content/uploads/2012/04/favicon1.ico" />
+    <link rel="shortcut icon" href="http://open-eshop.com/assets/ico/favicon.ico" />
 
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -333,7 +333,7 @@ $succeed    = TRUE;
     <div class="nav-collapse">
 
     <div class="btn-group pull-right">
-        <a class="btn btn-primary" href="http://open-classifieds.com/market/">
+        <a class="btn btn-primary" href="http://open-eshop.com/">
             <i class="icon-shopping-cart icon-white"></i> We install it for you, Buy now!
         </a>
     </div>
@@ -370,8 +370,7 @@ $succeed    = TRUE;
                         <li class="divider"></li>
                         
                         <li class="nav-header">Open eShop</li>
-                        <li><a href="http://open-classifieds.com/market/">Market</a></li>
-                        <li><a href="http://open-classifieds.com/">Support & More</a></li>
+                        <li><a href="http://open-eshop.com/">Open eShop</a></li>
                         <li><a href="http://j.mp/thanksdonate" target="_blank">
                                 <img src="http://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" alt="">
                         </a></li>
@@ -426,7 +425,7 @@ $succeed    = TRUE;
     <h1>Welcome to Open eShop installation</h1>
     <p>
         Welcome to the super easy and fast installation. 
-            <a href="http://open-classifieds.com/market/" target="_blank">
+            <a href="http://open-eshop.com/" target="_blank">
             If you need any help please check our professional services</a>.
     </p>    
 </div>
@@ -458,7 +457,7 @@ $succeed    = TRUE;
 
 <footer>
 <p>
-&copy;  <a href="http://open-classifieds.com" title="Open Source PHP Classifieds">Open eShop</a> 2009 - <?php echo date('Y')?>
+&copy;  <a href="http://open-eshop.com" title="Open Source PHP Digital Goods">Open eShop</a> <?php echo date('Y')?>
 </p>
 </footer>    
 
