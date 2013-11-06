@@ -87,21 +87,22 @@ class Auth_Controller extends Controller
 
 
             //other color
-            if (Theme::get('admin_theme')!='bootstrap' AND Theme::get('admin_theme')!='')
-            {
-                Theme::$styles               = array(                                  
-                                                'http://netdna.bootstrapcdn.com/bootswatch/2.3.2/'.Theme::get('admin_theme').'/bootstrap.min.css' => 'screen',
-                                                'http://cdn.jsdelivr.net/bootstrap/2.3.2/css/bootstrap-responsive.min.css' => 'screen',
-                                                'http://cdn.jsdelivr.net/chosen/0.9.12/chosen.css' => 'screen', 
-                                                'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
-                                                );
-            }
-            //default theme
-            else
+            if (Theme::get('admin_theme')=='bootstrap')
             {
                 Theme::$styles                    = array('http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css' => 'screen',
                                                         'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
                                                         'http://cdn.jsdelivr.net/chosen/0.9.12/chosen.css'=>'screen');
+               
+            }
+            //default theme
+            else
+            {
+                 Theme::$styles               = array(                                  
+                                                'http://netdna.bootstrapcdn.com/bootswatch/2.3.2/'.Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
+                                                'http://cdn.jsdelivr.net/bootstrap/2.3.2/css/bootstrap-responsive.min.css' => 'screen',
+                                                'http://cdn.jsdelivr.net/chosen/0.9.12/chosen.css' => 'screen', 
+                                                'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
+                                                );
             }
         
 

@@ -180,6 +180,82 @@ class Controller_Product extends Controller{
 
         //breadcrumbs
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Home'))->set_url(Route::url('default')));
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title ));
+
+        list($categories,$order_categories)  = Model_Category::get_all();
+
+        $pagination = NULL;
+        $products   = NULL;
+
+        if($this->request->query())
+        {
+            $products = new Model_Product();
+        
+            //filter by category 
+            if (core::get('category')!==NULL)
+            {
+                $category = new Model_Category();
+                $category->where('seoname','=',core::get('category'))->limit(1)->find();
+                if ($category->loaded())
+                    $products->where('id_category', '=', $category->get_siblings_ids());
+            }
+
+            //filter by title description 
+            if (core::get('search')!==NULL AND strlen(core::get('search'))>=3)
+            {
+                $products
+                    ->where_open()
+                    ->where('title', 'like', '%'.core::get('search').'%')
+                    ->or_where('description', 'like', '%'.core::get('search').'%')
+                    ->where_close();
+            }
+
+            //filter by price
+            if (is_numeric(core::get('price-min')) AND is_numeric(core::get('price-max')))
+            {
+                $products->where('price', 'BETWEEN', array(core::get('price-min'),core::get('price-max')));
+            }
+
+
+            //only published products
+            $products->where('status', '=', Model_Product::STATUS_ACTIVE);
+        
+            $res_count = $products->count_all();
+            // check if there are some advet.-s
+            if ($res_count > 0)
+            {
+       
+                // pagination module
+                $pagination = Pagination::factory(array(
+                        'view'              => 'pagination',
+                        'total_items'       => $res_count,
+                        'items_per_page'    => core::config('general.products_per_page'),
+                ))->route_params(array(
+                        'controller'        => $this->request->controller(),
+                        'action'            => $this->request->action(),
+                        'category'          => ($category!==NULL)?$category->seoname:NULL,
+                ));
+               
+                Breadcrumbs::add(Breadcrumb::factory()->set_title(__("Page ").$pagination->current_page));
+
+                //we sort all products with few parameters
+                $products = $products->order_by('created','desc')
+                                    ->limit($pagination->items_per_page)
+                                    ->offset($pagination->offset)
+                                    ->find_all();
+            }
+        }
+
+
+        $this->template->bind('content', $content);
+        
+        $this->template->content = View::factory('pages/search', array('categories'=>$categories,
+                                                                        'order_categories'=>$order_categories,
+                                                                        'products'=>$products,
+                                                                        'pagination'=>$pagination));
+
+
+
     
     }
 }
