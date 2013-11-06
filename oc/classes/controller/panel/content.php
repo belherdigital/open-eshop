@@ -10,10 +10,11 @@ class Controller_Panel_Content extends Auth_Controller {
         
         
         $type = $this->request->query('type');
+        $site = ($type == 'page')?__('Page'):__('Email');
         $locale = ($this->request->query('locale_select')) ? $this->request->query('locale_select') : NULL ;
 
         // validation active 
-        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Content')));  
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($site));  
         $this->template->title = __('contents');
 
         if(Model_Content::get_contents($type,$locale)->count() != 0)
@@ -35,7 +36,6 @@ class Controller_Panel_Content extends Auth_Controller {
         $l_locale = array(''=>'');
         foreach ($ll as $key => $l) 
             $l_locale[$l->locale] = $l->locale;
-
         
         $this->template->content = View::factory('oc-panel/pages/content/list',array('contents'=>$contents, 
                                                                                         'type'=>$type, 
@@ -47,13 +47,15 @@ class Controller_Panel_Content extends Auth_Controller {
      */
     public function action_create()
     {
-        
+        $type = $this->request->query('type');
+        $site = ($type == 'page')?__('Page'):__('Email');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Create').' '.$site));
         $content = new Model_Content();
 
         $languages = i18n::get_languages();
 
         $this->template->content = View::factory('oc-panel/pages/content/create', array('locale'=>$languages, 
-                                                                                        'type'=>$this->request->query('type')));
+                                                                                        'type'=>$type));
 
         if($p = $this->request->post())
         {
@@ -88,10 +90,14 @@ class Controller_Panel_Content extends Auth_Controller {
      */
     public function action_edit()
     {
+
         $id = $this->request->param('id');
         $content = new Model_Content($id);
 
         $type = $content->type;
+        $site = ($type == 'page')?__('Page'):__('Email');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Edit').' '.$site));
+        
         $locale = $content->locale;
         if ($content->loaded())
         {

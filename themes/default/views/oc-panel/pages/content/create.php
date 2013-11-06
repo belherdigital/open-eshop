@@ -2,9 +2,9 @@
 
 <div class="page-header">
     <?if($type == 'page'):?>
-        <h1><?=__('Create page')?></h1>
+        <h1><?=__('Create').' '.__('Page')?></h1>
     <?else:?>
-        <h1><?=__('Create email')?></h1>
+        <h1><?=__('Create').' '.__('Email')?></h1>
     <?endif?>
 </div>
 
