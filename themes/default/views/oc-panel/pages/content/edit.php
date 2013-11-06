@@ -3,9 +3,9 @@
 
 <div class="page-header">
     <?if($cont->type == 'page'):?>
-        <h1><?=__('Edit page')?></h1>
+        <h1><?=__('Edit').' '.__('Page')?></h1>
     <?else:?>
-        <h1><?=__('Edit email')?></h1>
+        <h1><?=__('Edit').' '.__('Email')?></h1>
     <?endif?>
 </div>
 
