@@ -82,15 +82,10 @@
 
 			<?if (Theme::get('premium')!=1):?>
 			<li class="divider"></li>
-			<li class="nav-header">Open eShop</li>
-			<li><a href="http://open-eshop.com/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>"><?=__('Home')?></a></li>
-			<li><a href="http://open-classifieds.com/contact/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>"><?=__('Contact')?></a></li>
+			<li class="nav-header">by Open eShop</li>
+			<li><a href="http://open-eshop.com/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>">Open eShop</a></li>
             <li class="divider"></li>
-			<li><script type="text/javascript">if (typeof geoip_city!="function")document.write("<scr"+"ipt type=\"text/javascript\" src=\"http://j.maxmind.com/app/geoip.js\"></scr"+"ipt>");
-                document.write("<scr"+"ipt type=\"text/javascript\" src=\"http://api.adserum.com/sync.js?a=6&f=3&w=200&h=200\"></scr"+"ipt>");
-                </script>
-            </li>
-			
+
             <li><a href="https://twitter.com/openclassifieds"
                 onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"
                 class="twitter-follow-button" data-show-count="false"
