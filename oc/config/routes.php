@@ -112,6 +112,18 @@ Route::set('product', '<category>/<seotitle>.html')
         'action'     => 'view',
 ));
 
+
+/**
+ * Item / product view minimal (public)
+ */
+Route::set('product-minimal', '<seotitle>.htm')
+->defaults(array(
+        'controller' => 'product',    
+        'action'     => 'view',
+        'ext'        => 1
+));
+
+
 /**
  * Sort by Category
  */

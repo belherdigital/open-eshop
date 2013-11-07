@@ -16,7 +16,7 @@ class Controller_Product extends Controller{
 	public function action_view()
 	{
         //to load the minimal view of the product
-        if (core::get('ext')=='1')
+        if (core::get('ext',$this->request->param('ext'))=='1')
         {
             $this->before('main-minimal');
             $product_view = 'pages/product-minimal';

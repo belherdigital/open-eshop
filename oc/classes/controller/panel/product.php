@@ -5,12 +5,29 @@ class Controller_Panel_Product extends Auth_Crud {
 	/**
 	 * @var $_index_fields ORM fields shown in index
 	 */
-	protected $_index_fields = array('title','price',);
+	protected $_index_fields = array('title','status');
 
 	/**
 	 * @var $_orm_model ORM model name
 	 */
 	protected $_orm_model = 'product';
+
+    /**
+     *
+     * list of possible actions for the crud, you can modify it to allow access or deny, by default all
+     * @var array
+     */
+    public $crud_actions = array('create','update');
+
+    /**
+     *
+     * Loads a basic list info
+     * @param string $view template to render 
+     */
+    public function action_index($view = NULL)
+    {
+        parent::action_index('oc-panel/pages/products/index');
+    }    
 
 	/**
      * overwrites the default crud index
