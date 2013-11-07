@@ -231,6 +231,12 @@
 						</div>
 					<?endif?>
 				</div>
+                <div class="control-group ">
+                    <label for="status" class="control-label"><?=__('Active')?>?</label>    <div class="controls">
+                        <label class="checkbox">
+                    <input type="checkbox" name="status" value="" <?=($product->status==Model_Product::STATUS_ACTIVE)?'checked="checked"':''?>>  &nbsp;
+                </label>                            </div>
+                </div>
 				<label class="checkbox">
 			      <input type="checkbox" name="notify"> <?=__('Notify all buyers on this update')?>
 			    </label>

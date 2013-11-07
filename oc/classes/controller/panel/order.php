@@ -14,6 +14,13 @@ class Controller_Panel_Order extends Auth_Crud {
 
     /**
      *
+     * list of possible actions for the crud, you can modify it to allow access or deny, by default all
+     * @var array
+     */
+    public $crud_actions = array('create','update');
+
+    /**
+     *
      * Loads a basic list info
      * @param string $view template to render 
      */
