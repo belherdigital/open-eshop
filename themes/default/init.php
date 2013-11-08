@@ -3,7 +3,7 @@
   * Theme Name: Kamaleon Free
   * Description: Responsive theme, HTML5. Default base, link on footer.
   * Tags: HTML5, Responsive, Mobile, Advanced Confiuration, prettyPhoto, Slider.
-  * Version: 1.0
+  * Version: 1.1
   * Author: Chema <chema@garridodiaz.com>
   * License: GPL v3
   */
@@ -26,7 +26,7 @@ Theme::load();
 
 $theme_css = array( 'http://netdna.bootstrapcdn.com/bootswatch/2.3.2/flatly/bootstrap.min.css' => 'screen',
                     'http://cdn.jsdelivr.net/bootstrap/2.3.2/css/bootstrap-responsive.min.css' => 'screen',
-                    'css/style.css?v=1.0' => 'screen',
+                    'css/style.css?v=1.1' => 'screen',
                     'http://cdn.jsdelivr.net/chosen/0.9.12/chosen.css' => 'screen',
                     'css/slider.css' => 'screen',
                     'css/zocial.css' => 'screen',
@@ -43,7 +43,7 @@ Theme::$scripts['footer']   = array('http://netdna.bootstrapcdn.com/twitter-boot
                                     'js/bootstrap-slider.js',
                                     'js/jquery.validate.min.js',
                                     'http://cdn.jsdelivr.net/prettyphoto/3.1.5/js/jquery.prettyPhoto.js',
-                                    'js/theme.init.js?v=1.0',
+                                    'js/theme.init.js?v=1.1',
                                     );
 
 
