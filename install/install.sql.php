@@ -258,7 +258,7 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."content` (`order`, `title`, 
 (0, 'Hello [USER.NAME]!', 'user.new', 'Welcome to [SITE.NAME]. \n\n We are really happy that you have joined us! , \n\n you can log in with you email : [USER.EMAIL], \n\n with password: [USER.PWD]. Password is generated for you, to change it you can visit this link [URL.PWCH]. \n\n Thank you for trusting us! \n\n Regards!', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
 (0, 'New reply: [TITLE]', 'new.reply', '[URL.QL]\n\n[DESCRIPTION]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
 (0, 'Purchase Receipt for [PRODUCT.TITLE]', 'new.sale', '==== ORDER DETAILS ====\nDate: [DATE]\nOrder ID: [ORDER.ID]\nName: [USER.NAME]\nEmail: [USER.EMAIL]\n\n==== Your Order ====\nProduct: [PRODUCT.TITLE]\nProduct Price: [PRODUCT.PRICE]\n\n[PRODUCT.NOTES]\n\n==== Download ====\n[URL.DOWNLOAD]\n\n==== Your Licenses ====\n[LICENSE]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
-(0, 'Product updated [TITLE]', 'product.update', '==== UPDATE DETAILS ====\nVersion: [VERSION]\nProduct name: [TITLE]\n\n==== DOWNLOAD ====\n[URL.PURCHASES]\n\n==== PRODUCT PAGE ====\n[URL.PRODUCT]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
+(0, 'Product updated [TITLE]', 'product.update', '==== UPDATE DETAILS ====\nVersion: [VERSION]\nProduct name: [TITLE]\n\n==== DOWNLOAD ====\n[URL.PURCHASES]\n\n==== PRODUCT PAGE ====\n[URL.PRODUCT]', '".$_POST['ADMIN_EMAIL']."', 'email', 1)
 ");
 
 /**

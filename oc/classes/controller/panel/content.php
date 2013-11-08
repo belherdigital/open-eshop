@@ -11,7 +11,7 @@ class Controller_Panel_Content extends Auth_Controller {
         
         $type = $this->request->query('type');
         $site = ($type == 'page')?__('Page'):__('Email');
-        $locale = ($this->request->query('locale_select')) ? $this->request->query('locale_select') : NULL ;
+        $locale = core::get('locale_select');
 
         // validation active 
         Breadcrumbs::add(Breadcrumb::factory()->set_title($site));  

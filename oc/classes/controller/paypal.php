@@ -95,13 +95,14 @@ class Controller_Paypal extends Controller{
 
         if ($product->loaded())
         {
-        	
+        	$return_url = (core::config('payment.thanks_page')!='')? Route::url('page',array('seotitle'=>core::config('payment.thanks_page'))):URL::base(TRUE);
+
 			$paypal_url = (Core::config('payment.sandbox')) ? Paypal::url_sandbox_gateway : Paypal::url_gateway;
 
 		 	$paypal_data = array('product_id'           => $product->id_product,
 	                             'amount'            	=> number_format($product->final_price(), 2, '.', ''),
 	                             'site_name'        	=> core::config('general.site_name'),
-	                             'return_url'           => URL::base(TRUE),//@todo return url from config like TOS, thanks saying check your paypal account
+	                             'return_url'           => $return_url,
 	                             'paypal_url'        	=> $paypal_url,
 	                             'paypal_account'    	=> core::config('payment.paypal_account'),
 	                             'paypal_currency'    	=> $product->currency,

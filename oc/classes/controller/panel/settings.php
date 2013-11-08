@@ -241,7 +241,12 @@ class Controller_Panel_Settings extends Auth_Controller {
             $this->request->redirect(Route::url('oc-panel',array('controller'=>'settings','action'=>'payment')));
         }
 
+        $pages = array(''=>__('Deactivated'));
+        foreach (Model_Content::get_pages() as $key => $value) 
+            $pages[$value->seotitle] = $value->title;
+
         $this->template->content = View::factory('oc-panel/pages/settings/payment', array('config'          => $config,
+                                                                                           'pages'          => $pages,
                                                                                           'paypal_currency' => $paypal_currency));
     }
 
