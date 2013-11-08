@@ -47,8 +47,17 @@
 						))?> 
 					</div>
 				</div>
-	
                 <div class="control-group">
+                    <div class="controls">
+                    <label>
+                        <p>To get paid via Credit card you need a Paymill account. It's free to register. They charge 2'95% of any sale.</p>
+                        <a class="btn btn-success" target="_blank" href="https://app.paymill.com/en-en/auth/register?referrer=openclassifieds">
+                            <i class="icon-pencil icon-white"></i> Register for free at Paymill</a>
+                    </label>
+                    </div>
+                </div>
+                <div class="control-group">
+                    
                     <?= FORM::label($forms['paymill_private']['key'], __('Paymill private key'), array('class'=>'control-label', 'for'=>$forms['paymill_private']['key']))?>
                     <div class="controls">
                         <?= FORM::input($forms['paymill_private']['key'], $forms['paymill_private']['value'], array(

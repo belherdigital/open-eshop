@@ -19,11 +19,11 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><b><?=__('Ads')?></b></td>
-                    <td><?=$ads_today?></td>
-                    <td><?=$ads_yesterday?></td>
-                    <td><?=$ads_month?></td>
-                    <td><?=$ads_total?></td>
+                    <td><b><?=__('Sales')?></b></td>
+                    <td>$<?=$amount_today?> (<?=$orders_today?>)</td>
+                    <td>$<?=$amount_yesterday?> (<?=$orders_yesterday?>)</td>
+                    <td>$<?=$amount_month?> (<?=$orders_month?>)</td>
+                    <td>$<?=$amount_total?> (<?=$orders_total?>)</td>
                 </tr>
                 <tr>
                     <td><b><?=__('Visits')?></b></td>
@@ -31,13 +31,6 @@
                     <td><?=$visits_yesterday?></td>
                     <td><?=$visits_month?></td>
                     <td><?=$visits_total?></td>
-                </tr>
-                <tr>
-                    <td><b><?=__('Sales')?></b></td>
-                    <td><?=$orders_today?></td>
-                    <td><?=$orders_yesterday?></td>
-                    <td><?=$orders_month?></td>
-                    <td><?=$orders_total?></td>
                 </tr>
             </tbody>
         </table>
@@ -68,13 +61,14 @@
 </div> <!-- /.row -->
 
 
+<?=Chart::column($stats_orders,array('title'=>__('Sales statistics'),
+                                    'height'=>400,
+                                    'width'=>800,
+                                    'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>        
+
 <?=Chart::column($stats_daily,array('title'=>__('Views and Ads statistics'),
                                     'height'=>400,
                                     'width'=>800,
                                     'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>          
 
-
-<?=Chart::column($stats_orders,array('title'=>__('Sales statistics'),
-                                    'height'=>400,
-                                    'width'=>800,
-                                    'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>                                                              
+                                                      

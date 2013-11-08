@@ -172,6 +172,13 @@
 				<?endfor?>
 			</div>
 
+            <div class="control-group ">
+                <label for="status" class="control-label"><?=__('Active')?>?</label>    <div class="controls">
+                    <label class="checkbox">
+                <input type="checkbox" name="status" value="" checked="checked">  &nbsp;
+            </label>                            </div>
+            </div>
+
 			<div class="form-actions">
 				<?= FORM::button('submit', __('Save'), array('type'=>'submit', 'class'=>'btn-large btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'product','action'=>'create'))))?>
 			</div>

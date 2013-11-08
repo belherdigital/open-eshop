@@ -223,8 +223,14 @@ class Auth_Crud extends Auth_Controller
 	 */
 	public function allowed_crud_action($action = NULL)
 	{
+        $notify = FALSE;
+
 		if ($action === NULL)
-		$action = $this->request->action();
+        {
+            $action = $this->request->action();
+            $notify = TRUE;
+        }
+            
 	
 		//its a crud request? check whitelist
 		if (in_array($action, $this->_crud_actions) )
@@ -233,7 +239,9 @@ class Auth_Crud extends Auth_Controller
 			if (!in_array($action, $this->crud_actions) )
 			{
 				//access not allowed
-				Alert::set(Alert::ERROR, __('Access not allowed'));
+				if ($notify==TRUE)
+                    Alert::set(Alert::ERROR, __('Access not allowed'));
+
 				return FALSE;
 			}
 		}

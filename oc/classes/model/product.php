@@ -27,9 +27,15 @@ class Model_Product extends ORM {
     protected $_primary_key = 'id_product';
 
 
-        protected $_belongs_to = array(
-        'user'       => array('foreign_key' => 'id_user'),
-        'category'   => array('foreign_key' => 'id_category'),
+    protected $_belongs_to = array(
+        'user' => array(
+                'model'       => 'user',
+                'foreign_key' => 'id_user',
+            ),
+       'category' => array(
+                'model'       => 'category',
+                'foreign_key' => 'id_category',
+            ),
     );
 
     public function form_setup($form)

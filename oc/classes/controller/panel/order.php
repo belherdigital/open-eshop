@@ -5,12 +5,52 @@ class Controller_Panel_Order extends Auth_Crud {
 	/**
 	* @var $_index_fields ORM fields shown in index
 	*/
-	protected $_index_fields = array('id_order','id_user','paymethod','amount','status');
+	protected $_index_fields = array('id_order','id_user','id_product', 'paymethod','amount','status');
 	
 	/**
 	 * @var $_orm_model ORM model name
 	 */
 	protected $_orm_model = 'order';
+
+    /**
+     *
+     * list of possible actions for the crud, you can modify it to allow access or deny, by default all
+     * @var array
+     */
+    public $crud_actions = array('create','update');
+
+    /**
+     *
+     * Loads a basic list info
+     * @param string $view template to render 
+     */
+    public function action_index($view = NULL)
+    {
+        $this->template->title = __('Orders');
+        $this->template->scripts['footer'][] = 'js/oc-panel/crud/index.js';
+        
+        $orders = new Model_Order();
+
+        $pagination = Pagination::factory(array(
+                    'view'           => 'pagination',
+                    'total_items'    => $orders->count_all(),
+        ))->route_params(array(
+                    'controller' => $this->request->controller(),
+                    'action'     => $this->request->action(),
+        ));
+
+        $pagination->title($this->template->title);
+
+        $orders = $orders->order_by('created','desc')
+        ->limit($pagination->items_per_page)
+        ->offset($pagination->offset)
+        ->find_all();
+
+        $pagination = $pagination->render();
+
+        
+        $this->render('oc-panel/pages/order/index', array('orders' => $orders,'pagination'=>$pagination));
+    }    
 
     /**
      * overwrites the default crud index

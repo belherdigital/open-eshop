@@ -57,6 +57,10 @@ class Model_Order extends ORM {
                 'model'       => 'user',
                 'foreign_key' => 'id_user',
             ),
+        'coupon' => array(
+                'model'       => 'coupon',
+                'foreign_key' => 'id_coupon',
+            ),
     );
 
     protected $_has_many = array(

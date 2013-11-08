@@ -189,7 +189,7 @@ class Core {
         if ( time() > strtotime('+1 week',filemtime($version_file)) OR $reload === TRUE )
         {
             //read from oc/versions.json on CDN
-            $json = Core::curl_get_contents('http://open-classifieds.com/files/eshop-versions.json?r='.time());
+            $json = Core::curl_get_contents('http://open-eshop.com/files/versions.json?r='.time());
             $versions = json_decode($json,TRUE);
             if (is_array($versions))
             {
@@ -211,7 +211,7 @@ class Core {
      */
     public static function get_market($reload = FALSE)
     {
-        $market_url = 'http://open-classifieds.com/files/eshop-market.json';
+        $market_url = 'http://open-eshop.com/files/market.json';
 
         //try to get the json from the cache
         $market = Core::cache($market_url);
