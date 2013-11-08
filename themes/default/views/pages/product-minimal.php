@@ -77,4 +77,5 @@
     </a>
 <?endif?>
 </div>
+<div class="clear"></div>
 

@@ -77,6 +77,9 @@
 
 <?endif?>
 </div>
+<div class="clear"></div>
+<br/>
+<div class="coupon">
 <?=View::factory('coupon')?>
-
+</div>
 <?=$product->disqus()?>
