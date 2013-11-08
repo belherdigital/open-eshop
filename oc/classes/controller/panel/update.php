@@ -217,7 +217,7 @@ class Controller_Panel_Update extends Auth_Controller {
 
         $update_src_dir = DOCROOT."update"; // update dir 
         $fname = $update_src_dir."/".$version.".zip"; //full file name
-        $folder_prefix = 'openclassifieds2-';
+        $folder_prefix = 'open-eshop-';
         $dest_dir = DOCROOT; //destination directory
         
         //check if exists file name

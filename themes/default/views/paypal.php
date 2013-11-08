@@ -24,6 +24,7 @@
         <input type="hidden" name="custom" value="">
         <input type="hidden" name="currency_code" value="<?=$paypal_currency?>">
         <input type="hidden" name="rm" value="2">
+        <input type="hidden" name="custom" value="<?=$coupon?>">
         <input type="submit" value="<?=__('Click here if you are not redirected');?>">
     </form>
 </div>
