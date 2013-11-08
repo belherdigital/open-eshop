@@ -149,10 +149,3 @@ body { padding-top:0; }
 
 .fixed_header { position: absolute; }
 .item_image a img {width: 100%;} 
-
-.pay-btn{
-    width: 125px;
-    font-size: 19px;
-    padding: 6px;
-    border-radius: 5px;
-}

@@ -18,8 +18,11 @@ class Controller_Product extends Controller{
         //to load the minimal view of the product
         if (core::get('ext')=='1')
         {
+
             $this->before('main-minimal');
             $product_view = 'pages/product-minimal';
+            $this->template->styles = array('css/style-minimal.css' => 'screen');
+            $this->template->scripts['footer'] = array('js/minimal.js');
         }
         else
            $product_view = 'pages/product'; 

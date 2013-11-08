@@ -52,14 +52,3 @@ function setCookie(c_name,value,exdays)
     var c_value = escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
     document.cookie=c_name + "=" + c_value;
 }
-
-$(function(){
-
-    // Iframe payment butom customization
-    // $('iframe').contents().find('button').css({'width': '125px',
-    //                                            'font-size': '19px',
-    //                                            'padding': '6px',
-    //                                            'border-radius': '5px',
-    //                                            'font-family': '"Lato","Helvetica Neue",Helvetica,Arial,sans-serif'
-    //                                         });
-});
