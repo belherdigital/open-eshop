@@ -7,7 +7,16 @@
     <?endif?>
     
     <h2><?=$product->title?></h2>
-    
+    <?if ($product->has_offer()):?>
+        <span class="label label-success mb-20 "><?=__('Offer')?> <?=$product->final_price().' '.$product->currency?> <br/><del><?=$product->price.' '.$product->currency?></del></span>
+    <p><?=__('Offer valid until')?> <?=Date::format($product->offer_valid)?></p>
+        <?else:?>
+            <?if($product->final_price() != 0):?>
+                <span class="label label-success mb-20 "><?=$product->final_price().' '.$product->currency?></span>
+            <?else:?>
+                <span class="label label-success mb-20 "><?=__('Free')?></span>
+            <?endif?>
+        <?endif?>
     <span class="label label-info pull-right">
         <i class="icon-eye-open icon-white"></i> <?=$hits?>
     </span>
@@ -42,19 +51,12 @@
                     </li>
                 <?endif?>
             </ul>
-            
+            <div class="mt-20">
+            <?=View::factory('coupon')?>
+            </div>
         </div>
     </div>
-    <?if ($product->has_offer()):?>
-    <span class="label label-success mb-20 mt-20"><?=__('Offer')?> <?=$product->final_price().' '.$product->currency?> <br/><del><?=$product->price.' '.$product->currency?></del></span>
-    <p><?=__('Offer valid until')?> <?=Date::format($product->offer_valid)?></p>
-<?else:?>
-    <?if($product->final_price() != 0):?>
-        <span class="label label-success mb-20 mt-20"><?=$product->final_price().' '.$product->currency?></span>
-    <?else:?>
-        <span class="label label-success mb-20 mt-20"><?=__('Free')?></span>
-    <?endif?>
-<?endif?>
+    
 <div class="button-space">
 
 <?if ($product->final_price()>0):?>
@@ -76,4 +78,3 @@
 <?endif?>
 </div>
 
-<?=View::factory('coupon')?>

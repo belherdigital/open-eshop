@@ -56,9 +56,9 @@
     <?endif?>
 </div>
 
-
+<div class="button-space">
 <?if ($product->final_price()>0):?>
-    <a class="btn btn-success btn-large" 
+    <a class="btn btn-success pay-btn" 
         href="<?=Route::url('default', array('controller'=>'paypal','action'=>'pay','id'=>$product->seotitle))?>">
         <?=__('Pay with Paypal')?></a>
 
@@ -76,7 +76,7 @@
     </a>
 
 <?endif?>
-
+</div>
 <?=View::factory('coupon')?>
 
 <?=$product->disqus()?>

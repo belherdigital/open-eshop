@@ -149,3 +149,5 @@ body { padding-top:0; }
 
 .fixed_header { position: absolute; }
 .item_image a img {width: 100%;} 
+.pay-btn{ float:left; padding: 10px; font-size: 19px; margin-right: 10px;}
+.button-space{ margin-top: 30px;margin-left: 20%; margin-right: 20%;}
