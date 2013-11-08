@@ -21,7 +21,7 @@ class Paypal {
     /**
      * For IPN validation
      */
-    const ipn_sandbox_url      	= 'ttps://www.sandbox.paypal.com/cgi-bin/webscr';
+    const ipn_sandbox_url      	= 'https://www.sandbox.paypal.com/cgi-bin/webscr';
     const ipn_url              	= 'https://www.paypal.com/cgi-bin/webscr';
 
 

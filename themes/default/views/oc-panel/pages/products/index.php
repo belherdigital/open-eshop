@@ -32,7 +32,7 @@
 					<td><?=html::chars($element->$field)?></td>
 				<?endforeach?>
                 <td>
-                    <?=$element->price.' '.$element->currency?>
+                    <?=$element->final_price().' '.$element->currency?>
                 </td>
                 <td>
                     <a target="_blank" href="<?=Route::url('product', array('seotitle'=>$element->seotitle,'category'=>$element->category->seoname)) ?>">

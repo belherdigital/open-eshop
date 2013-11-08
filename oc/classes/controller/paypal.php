@@ -80,11 +80,11 @@ class Controller_Paypal extends Controller{
 	{ 
 		$this->auto_render = FALSE;
 
-        $product_id = $this->request->param('id');
+        $product_seo = $this->request->param('id');
 
         $product = new Model_product();
 
-        $product->where('seotitle','=',$product_id)
+        $product->where('seotitle','=',$product_seo)
             ->where('status','=',Model_Product::STATUS_ACTIVE)
             ->limit(1)->find();
 
@@ -98,7 +98,7 @@ class Controller_Paypal extends Controller{
         	
 			$paypal_url = (Core::config('payment.sandbox')) ? Paypal::url_sandbox_gateway : Paypal::url_gateway;
 
-		 	$paypal_data = array('product_id'           => $product_id,
+		 	$paypal_data = array('product_id'           => $product->id_product,
 	                             'amount'            	=> number_format($product->final_price(), 2, '.', ''),
 	                             'site_name'        	=> core::config('general.site_name'),
 	                             'return_url'           => URL::base(TRUE),//@todo return url from config like TOS, thanks saying check your paypal account

@@ -21,10 +21,9 @@
         <input type="hidden" name="return" value="<?=$return_url?>">
         <input type="hidden" name="notify_url" value="<?=Route::url('default',array('controller'=>'paypal','action'=>'ipn'))?>">
         <input type="hidden" name="no_note" value="1">
-        <input type="hidden" name="custom" value="">
+        <input type="hidden" name="custom" value="<?=$coupon?>">
         <input type="hidden" name="currency_code" value="<?=$paypal_currency?>">
         <input type="hidden" name="rm" value="2">
-        <input type="hidden" name="custom" value="<?=$coupon?>">
         <input type="submit" value="<?=__('Click here if you are not redirected');?>">
     </form>
 </div>
