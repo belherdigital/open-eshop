@@ -49,7 +49,7 @@ class Controller_Api extends Controller {
         $i = 0;
         foreach($products as $p)
         {
-            $url= Route::url('product',  array('category'=>$p->category->seoname,'seotitle'=>$p->seotitle));
+            $url= Route::url('product-minimal',  array('seotitle'=>$p->seotitle));
 
             $items[] = array(
                                 'id_product'    => $p->id_product,

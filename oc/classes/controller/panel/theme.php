@@ -94,8 +94,7 @@ class Controller_Panel_Theme extends Auth_Controller {
             foreach ($json as $theme) 
             {
                 //we add only those the user doesn't have installed
-                if (strtolower($theme['type']) == 'theme' 
-                    AND !in_array(strtolower($theme['seoname']), array_keys($themes))
+                if (!in_array(strtolower($theme['seoname']), array_keys($themes))
                     AND !in_array(strtolower($theme['seoname']), array_keys($mobile_themes)) )
                     $market[] = $theme;
             }

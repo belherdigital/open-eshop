@@ -152,7 +152,7 @@ class Controller_Panel_Product extends Auth_Crud {
                         if($file != FALSE)
                             $obj_product->file_name = $file;
                         else
-                            Alert::set(Alert::WARNING, __('Product is not uploaded.'));
+                            Alert::set(Alert::INFO, __('Product is not uploaded.'));
                     }
                 }
 

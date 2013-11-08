@@ -132,7 +132,7 @@ class Controller_Panel_Content extends Auth_Controller {
         }
         else
         {
-            Alert::set(Alert::INFO, __('Faild to load content'));
+            Alert::set(Alert::INFO, __('Failed to load content'));
             Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'edit')).'?type='.$type.'&locale_select='.$locale); 
         }
     }
