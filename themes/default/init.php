@@ -2,8 +2,8 @@
 /**
   * Theme Name: Kamaleon Free
   * Description: Responsive theme, HTML5. Default base, link on footer.
-  * Tags: HTML5, Responsive, Mobile, Admin Themes, Advanced Confiuration, prettyPhoto, Slider.
-  * Version: 0.1
+  * Tags: HTML5, Responsive, Mobile, Advanced Confiuration, prettyPhoto, Slider.
+  * Version: 1.0
   * Author: Chema <chema@garridodiaz.com>
   * License: GPL v3
   */

@@ -1,13 +1,13 @@
 <?php defined('SYSPATH') or die('No direct script access.');
                 return array (
-  '0.1' => 
+  '1.0' => 
   array (
-    'codename' => 'eShop',
-    'released' => '2013-xx-xx',
-    'blog' => '',
-    'changelog' => 'https://github.com/open-classifieds/open-eshop/commits/',
-    'issues' => '',
-    'download' => 'http://j.mp/oe_01',
+    'codename' => 'zanzibar',
+    'released' => '2013-11-08',
+    'blog' => 'http://open-classifieds.com/2013/11/08/open-eshop/',
+    'changelog' => 'https://github.com/open-classifieds/open-eshop/commits/1.0',
+    'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=1&page=1&state=closed',
+    'download' => 'http://j.mp/oe_10',
   ),
 
   

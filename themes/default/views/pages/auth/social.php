@@ -1,4 +1,4 @@
-<?if (Theme::get('premium')==1 AND count($providers = Social::get_providers())>0):?>
+<?if (count($providers = Social::get_providers())>0):?>
 <fieldset>
     <legend><?=__('Social Login')?></legend>
     <?foreach ($providers as $key => $value):?>
