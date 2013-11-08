@@ -43,7 +43,10 @@
                 <?endif?>
             </ul>
             
-            <?if ($product->has_offer()):?>
+        </div>
+    </div>
+<div class="button-space">
+<?if ($product->has_offer()):?>
                 <span class="label label-success"><?=__('Offer')?> <?=$product->final_price().' '.$product->currency?> <br/><del><?=$product->price.' '.$product->currency?></del></span>
                 <p><?=__('Offer valid until')?> <?=Date::format($product->offer_valid)?></p>
             <?else:?>
@@ -53,9 +56,6 @@
                     <span class="label label-success mb-20 mt-20"><?=__('Free')?></span>
                 <?endif?>
             <?endif?>
-        </div>
-    </div>
-<div class="button-space">
 <?if ($product->final_price()>0):?>
     <a class="btn btn-success btn-large pay-btn mb-20" 
         href="<?=Route::url('default', array('controller'=>'paypal','action'=>'pay','id'=>$product->seotitle))?>">
