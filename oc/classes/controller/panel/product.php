@@ -245,8 +245,8 @@ class Controller_Panel_Product extends Auth_Crud {
                         { 
                             if ( !Email::content($users, '', NULL, NULL, 'product.update', 
                                                         array('[TITLE]'=>$obj_product->title,
-                                                              '[URL.PRODUCT]'=>core::config('general.base_url').$obj_product->seotitle.'.html',
-                                                              '[URL.PURCHASES]'=>core::config('general.base_url').'oc-panel/profile/orders',
+                                                              '[URL.PRODUCT]'=> Route::url('product-minimal', array('seotitle'=>$obj_product->seotitle)),
+                                                              '[URL.PURCHASES]'=>Route::url('oc-panel', array('controller'  =>'profile','action'      =>'orders')),
                                                               '[VERSION]'=>$obj_product->version)))
                                 Alert::set(Alert::ERROR,__('Error on mail delivery, not sent'));
                             else 
