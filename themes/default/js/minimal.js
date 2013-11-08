@@ -4,10 +4,7 @@ $('#mini-tabs a').click(function (e) {
 });
 
 $(function(){
-// alert($('iframe').contents().attr('height'));
-// $('iframe').contents().attr('height','60')
-// window.frameElement.style.height = '60px';
-    // alert($('iframe').contents().attr('style'));
+
     //Iframe payment butom customization
     $('iframe').contents().find('button').css({'height': '40px',
                                                'font-size': '19px',

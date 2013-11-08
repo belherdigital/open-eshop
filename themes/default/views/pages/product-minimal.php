@@ -45,29 +45,30 @@
             
         </div>
     </div>
+    <?if ($product->has_offer()):?>
+    <span class="label label-success mb-20 mt-20"><?=__('Offer')?> <?=$product->final_price().' '.$product->currency?> <br/><del><?=$product->price.' '.$product->currency?></del></span>
+    <p><?=__('Offer valid until')?> <?=Date::format($product->offer_valid)?></p>
+<?else:?>
+    <?if($product->final_price() != 0):?>
+        <span class="label label-success mb-20 mt-20"><?=$product->final_price().' '.$product->currency?></span>
+    <?else:?>
+        <span class="label label-success mb-20 mt-20"><?=__('Free')?></span>
+    <?endif?>
+<?endif?>
 <div class="button-space">
-<?if ($product->has_offer()):?>
-                <span class="label label-success"><?=__('Offer')?> <?=$product->final_price().' '.$product->currency?> <br/><del><?=$product->price.' '.$product->currency?></del></span>
-                <p><?=__('Offer valid until')?> <?=Date::format($product->offer_valid)?></p>
-            <?else:?>
-                <?if($product->final_price() != 0):?>
-                    <span class="label mb-20 mt-20"><?=$product->final_price().' '.$product->currency?></span>
-                <?else:?>
-                    <span class="label label-success mb-20 mt-20"><?=__('Free')?></span>
-                <?endif?>
-            <?endif?>
+
 <?if ($product->final_price()>0):?>
-    <a class="btn btn-success btn-large pay-btn mb-20" 
+    <a class="btn btn-success pay-btn mb-20" 
         href="<?=Route::url('default', array('controller'=>'paypal','action'=>'pay','id'=>$product->seotitle))?>">
         <?=__('Pay with Paypal')?></a>
 
     <?=Paymill::button($product)?>
 <?else:?>
     <?if (!Auth::instance()->logged_in()):?>
-    <a class="btn btn-info btn-large pay-btn mb-20" data-toggle="modal" data-dismiss="modal" 
+    <a class="btn btn-info pay-btn mb-20" data-toggle="modal" data-dismiss="modal" 
         href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'register'))?>#register-modal">
     <?else:?>
-    <a class="btn btn-info btn-large pay-btn mb-20"
+    <a class="btn btn-info pay-btn mb-20"
         href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'free_download','id'=>$product->seotitle))?>">
     <?endif?>
         <?=__('Free Download')?>
