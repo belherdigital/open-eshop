@@ -62,11 +62,11 @@ class Controller extends Kohana_Controller
             Session::instance()->set('coupon','');
             Alert::set(Alert::INFO, __('Coupon deleted.'));
         }
-        //selected coupon
-        elseif(core::request('coupon') != NULL OR Session::instance()->get('coupon')!='' )
+        //selected coupon Paypal custom, or coupon via get/psot or session
+        elseif(core::post('custom') != NULL OR core::request('coupon') != NULL OR Session::instance()->get('coupon')!='' )
         {
             $slug_coupon   = new Model_Coupon();
-            $coupon = $slug_coupon->where('name', '=', core::request('coupon',Session::instance()->get('coupon')) )
+            $coupon = $slug_coupon->where('name', '=', core::post('custom',core::request('coupon',Session::instance()->get('coupon'))) )
                     ->where('number_coupons','>',0)
                     ->where('valid_date','>',DB::expr('NOW()'))
                     ->where('status','=',1)
