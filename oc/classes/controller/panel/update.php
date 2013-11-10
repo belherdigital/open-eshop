@@ -48,21 +48,15 @@ class Controller_Panel_Update extends Auth_Controller {
     /**
      * This function will upgrate configs that didn't existed in verisons below 2.0.3 
      */
-    public function action_203()
+    public function action_11()
     {
         // build array with new (missing) configs
-        $configs = array(array('config_key'     =>'watermark',
-                               'group_name'     =>'image', 
+        $configs = array(array('config_key'     =>'general',
+                               'group_name'     =>'blog', 
                                'config_value'   =>'0'), 
-                         array('config_key'     =>'watermark_path',
-                               'group_name'     =>'image', 
-                               'config_value'   =>''), 
-                         array('config_key'     =>'watermark_position',
-                               'group_name'     =>'image', 
-                               'config_value'   =>'0'),
-                         array('config_key'     =>'ads_in_home',
-                               'group_name'     =>'advertisement',
-                               'config_value'   =>'0'));
+                         array('config_key'     =>'general',
+                               'group_name'     =>'blog_disqus', 
+                               'config_value'   =>''));
         
         $contents = array(array('order'=>'0',
                                'title'=>'Hello [USER.NAME]!',
@@ -76,129 +70,6 @@ class Controller_Panel_Update extends Auth_Controller {
         $return_conf = Model_Config::config_array($configs);
         $return_cont = Model_Content::content_array($contents);
 
-    }
-
-    /**
-     * This function will upgrate DB that didn't existed in verisons below 2.0.5 
-     * changes added: subscription widget, new email content, map zoom, paypal seller etc..  
-     */
-    public function action_205()
-    {
-        // build array with new (missing) configs
-        $configs = array(array('config_key'     =>'paypal_seller',
-                               'group_name'     =>'payment', 
-                               'config_value'   =>'0'),
-                         array('config_key'     =>'map_zoom',
-                               'group_name'     =>'advertisement', 
-                               'config_value'   =>'16'),
-                         array('config_key'     =>'center_lon',
-                               'group_name'     =>'advertisement', 
-                               'config_value'   =>'3'),
-                         array('config_key'     =>'center_lat',
-                               'group_name'     =>'advertisement', 
-                               'config_value'   =>'40'),
-                         array('config_key'     =>'new_ad_notify',
-                               'group_name'     =>'email', 
-                               'config_value'   =>'0'));
-
-        $contents = array(array('order'=>'0',
-                               'title'=>'Advertisement `[AD.TITLE]` is created on [SITE.NAME]!',
-                               'seotitle'=>'ads.subscribers',
-                               'description'=>"Hello [USER.NAME],\n\nYou may be interested in this one [AD.TITLE]!\n\nYou can visit this link to see advertisement [URL.AD]",
-                               'from_email'=>core::config('email.notify_email'),
-                               'type'=>'email',
-                               'status'=>'1'),
-                          array('order'=>'0',
-                               'title'=>'Advertisement `[AD.TITLE]` is created on [SITE.NAME]!',
-                               'seotitle'=>'ads.to_admin',
-                               'description'=>"Click here to visit [URL.AD]",
-                               'from_email'=>core::config('email.notify_email'),
-                               'type'=>'email',
-                               'status'=>'1'));
-
-        // returns TRUE if some config is saved 
-        $return_conf = Model_Config::config_array($configs);
-        $return_cont = Model_Content::content_array($contents);
-
-        $prefix = Database::instance()->table_prefix();
-        $config_db = Kohana::$config->load('database');
-        $charset = $config_db['default']['charset'];
-        
-        /*
-          @todo NOT DINAMIC, get charset
-        */
-        mysql_query("CREATE TABLE IF NOT EXISTS `".$prefix."subscribers` (
-                    `id_subscribe` int(10) unsigned NOT NULL AUTO_INCREMENT,
-                    `id_user` int(10) unsigned NOT NULL,
-                    `id_category` int(10) unsigned NOT NULL DEFAULT '0',
-                    `id_location` int(10) unsigned NOT NULL DEFAULT '0',
-                    `min_price` decimal(14,3) NOT NULL DEFAULT '0',
-                    `max_price` decimal(14,3) NOT NULL DEFAULT '0',
-                    `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                    PRIMARY KEY (`id_subscribe`)
-                  ) ENGINE=MyISAM DEFAULT CHARSET=".$charset.";");
-        
-        // remove INDEX from content table
-        mysql_query("ALTER TABLE `".$prefix."content` DROP INDEX `".$prefix."content_UK_seotitle`");
-    }
-
-    /**
-     * This function will upgrate DB that didn't existed in verisons below 2.0.5 
-     * changes added: config for landing page, etc..  
-     */
-    public function action_206()
-    {
-      // build array with new (missing) configs
-        $configs = array(array('config_key'     =>'landing_page',
-                               'group_name'     =>'general', 
-                               'config_value'   =>'{"controller":"home","action":"index"}'),
-                         array('config_key'     =>'banned_words',
-                               'group_name'     =>'advertisement', 
-                               'config_value'   =>''),
-                         array('config_key'     =>'banned_words_replacement',
-                               'group_name'     =>'advertisement', 
-                               'config_value'   =>''),
-                         array('config_key'     =>'akismet_key',
-                               'group_name'     =>'general', 
-                               'config_value'   =>''));
-
-        // returns TRUE if some config is saved 
-        $return_conf = Model_Config::config_array($configs);
-
-        
-    }
-
-
-    /**
-     * This function will upgrate DB that didn't existed in verisons below 2.0.6
-     * changes added: config for custom field
-     */
-    public function action_207()
-    {
-      // build array with new (missing) configs
-        $configs = array(array('config_key'     =>'fields',
-                               'group_name'     =>'advertisement', 
-                               'config_value'   =>''),
-                         array('config_key'     =>'alert_terms',
-                               'group_name'     =>'general', 
-                               'config_value'   =>''),
-                         );
-
-        // returns TRUE if some config is saved 
-        $return_conf = Model_Config::config_array($configs);
-
-        //call update actions 203,205,206,207 
-
-        $this->action_203();
-        $this->action_205();
-        $this->action_206();
-
-        //clean cache
-        Cache::instance()->delete_all();
-        Theme::delete_minified();
-            
-        Alert::set(Alert::SUCCESS, __('Updated'));
-        $this->request->redirect(Route::url('oc-panel', array('controller'=>'update', 'action'=>'index'))); 
     }
 
     /**
