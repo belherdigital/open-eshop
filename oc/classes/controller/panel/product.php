@@ -197,6 +197,9 @@ class Controller_Panel_Product extends Auth_Crud {
                         //delete product
                         unlink($p_path);
 
+                        $obj_product->file_name = '';
+                        $obj_product->save();
+
                         $this->request->redirect(Route::url('oc-panel', array('controller'  =>'product',
                                                                               'action'      =>'update',
                                                                               'id'          =>$obj_product->id_product)));

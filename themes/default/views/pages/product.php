@@ -79,7 +79,11 @@
     <a class="btn btn-info btn-large"
         href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'free_download','id'=>$product->seotitle))?>">
     <?endif?>
-        <?=__('Free Download')?>
+        <?if(!empty($product->file_name)):?>
+            <?=__('Free Download')?>
+        <?else:?>
+            <?=__('Get it for Free')?>
+        <?endif?>
     </a>
 
 <?endif?>

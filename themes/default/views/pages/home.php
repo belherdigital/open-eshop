@@ -32,8 +32,10 @@
                         <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                         <?if ($product->final_price()>0):?>
                             <?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?>
-                        <?else:?>
+                        <?elseif(!empty($product->file_name)):?>
                             <?=__('Free Download')?>
+                        <?else:?>
+                            <?=__('Get it for Free')?>
                         <?endif?>
                         </a>
                       </div>

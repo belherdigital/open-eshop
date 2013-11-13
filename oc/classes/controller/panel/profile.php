@@ -221,7 +221,7 @@ class Controller_Panel_Profile extends Auth_Controller {
         if ($order->loaded())
         {
             $file = DOCROOT.'data/'.$order->product->file_name;
-            if (is_readable($file))
+            if (is_readable($file) AND  !empty($order->product->file_name))
             {
                 //create a download
                 Model_Download::generate($user, $order);
@@ -233,7 +233,7 @@ class Controller_Panel_Profile extends Auth_Controller {
             }
         }
         
-        Alert::set(Alert::ERROR, __('Order not found.'));
+        Alert::set(Alert::ERROR, __('Download not found.'));
         $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
     
     }
