@@ -4,3 +4,4 @@ images/*
 themes/*
 data/*
 !themes/default/
+oc/vendor/hybridauth/logs.txt
