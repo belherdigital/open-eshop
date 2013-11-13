@@ -35,6 +35,7 @@
                 <?endif?>
             </td>
         </tr>
+        <?if ($order->licenses->count_all()>0):?>
         <tr>
             <td colspan="5">
                 <table class="table table-striped">
@@ -53,6 +54,7 @@
                 </table>
             </td>
         </tr>
+        <?endif?>
         <?endforeach?>
     </tbody>
 
