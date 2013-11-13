@@ -194,6 +194,7 @@ class Controller_Product extends Controller{
         {
             $products = new Model_Product();
         
+            $category = NULL;
             //filter by category 
             if (core::get('category')!==NULL)
             {
