@@ -107,10 +107,13 @@ class Controller_Panel_Translations extends Auth_Controller {
         $pocreator_default = new File_Gettext_PO();
         $pocreator_default->load($default);
 
+        $en_array_order = $pocreator_en->strings;
+        ksort($en_array_order,SORT_NATURAL);
+
         //watch out there's a limit of 1000 posts....we have 540...
         if($this->request->post())
         {
-            foreach ($pocreator_en->strings as $key=>$string) 
+            foreach ($en_array_order as $key=>$string) 
                 $keys[] = $key;
 
             $translations = $this->request->post('translations');
@@ -142,8 +145,9 @@ class Controller_Panel_Translations extends Auth_Controller {
             Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'translations','action'=>'edit','id'=>$this->request->param('id'))));  
         }
 
+
         $content->edit_language     = $this->request->param('id');
-        $content->strings_en        = $pocreator_en->strings;
+        $content->strings_en        = $en_array_order;
         $content->strings_default   = $pocreator_default->strings;
 
     }

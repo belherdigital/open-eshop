@@ -31,7 +31,7 @@
         <tr id="tr_<?=$cont?>" class="<?=($value)? 'success': 'error'?>">
             <td width="5%"><?=$cont?></td>
             <td>
-                <textarea id="orig_<?=$cont?>" disabled style="width: 100%" name="labels[<?=$cont?>]"><?=$key?></textarea>
+                <textarea id="orig_<?=$cont?>" disabled style="width: 100%"><?=$key?></textarea>
             </td>
             <td width="5%">
                 <button class="btn button-copy" data-orig="orig_<?=$cont?>" data-dest="dest_<?=$cont?>" data-tr="tr_<?=$cont?>" ><i class="icon-arrow-right"></i></button>
