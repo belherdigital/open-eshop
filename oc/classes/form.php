@@ -136,7 +136,7 @@ class Form extends Kohana_Form {
 		return CSRF::form($namespace);		
 	}
 
-    /**
+     /**
      * Generates the redirect form input
      * @uses    Form
      * @param   string  url to redirect optional
@@ -146,6 +146,9 @@ class Form extends Kohana_Form {
     {        
         if ($url == NULL)
             $url = Core::post('auth_redirect',URL::current());
+
+        //if (Session::instance()->get('auth_redirect')==NULL)
+            Session::instance()->set('auth_redirect', $url);
 
         return Form::hidden('auth_redirect',$url);
     }

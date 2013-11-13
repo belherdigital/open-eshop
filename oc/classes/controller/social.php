@@ -1,51 +1,51 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 class Controller_Social extends Controller {
-	
-	public function action_login()
-	{
+    
+    public function action_login()
+    {
          //if user loged in redirect home
         if (Auth::instance()->logged_in())
             Auth::instance()->login_redirect();
 
-		Social::include_vendor();
-			
-		$config = Social::get();
-		
-		if ($this->request->query('hauth_start') OR $this->request->query('hauth_done'))
-		{
-			try 
-			{
-				Hybrid_Endpoint::process($this->request->query());
-			} 
-			catch (Exception $e) 
-			{
-				Alert::set(Alert::ERROR, $e->getMessage());
-				$this->request->redirect(Route::url('default'));
-			}
-				
-		}
-		else
-		{ 
-			$provider_name = $this->request->param('id');
-	 
-			try
-			{
-				// initialize Hybrid_Auth with a given file
-				$hybridauth = new Hybrid_Auth( $config );
-	 
-				// try to authenticate with the selected provider
+        Social::include_vendor();
+            
+        $config = Social::get();
+        
+        if ($this->request->query('hauth_start') OR $this->request->query('hauth_done'))
+        {
+            try 
+            {
+                Hybrid_Endpoint::process($this->request->query());
+            } 
+            catch (Exception $e) 
+            {
+                Alert::set(Alert::ERROR, $e->getMessage());
+                $this->request->redirect(Route::url('default'));
+            }
+                
+        }
+        else
+        { 
+            $provider_name = $this->request->param('id');
+     
+            try
+            {
+                // initialize Hybrid_Auth with a given file
+                $hybridauth = new Hybrid_Auth( $config );
+     
+                // try to authenticate with the selected provider
                 if ($provider_name == 'openid')
                     $params = array( 'openid_identifier' => 'https://me.yahoo.com/');
                 else
                     $params = NULL;
 
-				$adapter = $hybridauth->authenticate( $provider_name , $params);
+                $adapter = $hybridauth->authenticate( $provider_name , $params);
 
 
-				if ($hybridauth->isConnectedWith($provider_name)) 
-				{
-					//var_dump($adapter->getUserProfile());
+                if ($hybridauth->isConnectedWith($provider_name)) 
+                {
+                    //var_dump($adapter->getUserProfile());
                     $user_profile = $adapter->getUserProfile();
 
 
@@ -75,17 +75,18 @@ class Controller_Social extends Controller {
                     }
 
                     Alert::set(Alert::SUCCESS, __('Welcome!'));
-                    $this->request->redirect(Route::url('default'));
+                    //$this->request->redirect(Route::url('default'));
+                    $this->request->redirect(Session::instance()->get_once('auth_redirect'));
                     
-				}
-			}
-			catch( Exception $e )
-			{
-				Alert::set(Alert::ERROR, __('Error: please try again!')." ".$e->getMessage());
-				$this->request->redirect(Route::url('default'));
-			}
-		} 
-	}
+                }
+            }
+            catch( Exception $e )
+            {
+                Alert::set(Alert::ERROR, __('Error: please try again!')." ".$e->getMessage());
+                $this->request->redirect(Route::url('default'));
+            }
+        } 
+    }
 
     /**
      * simple registration without password
@@ -111,7 +112,10 @@ class Controller_Social extends Controller {
                 Auth::instance()->social_login($provider_name,core::get('uid'));
 
                 Alert::set(Alert::SUCCESS, __('Welcome!'));
-                $this->request->redirect(Route::url('default'));
+
+                //change the redirect
+                //$this->request->redirect(Route::url('default'));
+                $this->request->redirect(Session::instance()->get_once('auth_redirect'));
             }
             else
             {
@@ -124,4 +128,4 @@ class Controller_Social extends Controller {
         $this->template->title            = __('Register new user');
             
     }
-}	
+}   
