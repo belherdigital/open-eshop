@@ -15,7 +15,7 @@ class Controller_Panel_Home extends Auth_Controller {
 
 
         //try to get the RSS from the cache
-        $rss_url = 'http://feeds.feedburner.com/OpenClassifieds';
+        $rss_url = 'http://feeds.feedburner.com/RssBlogOpenEshop';
         $rss = Core::cache($rss_url,NULL,3*24*60*60);
 
         //not cached :(
