@@ -23,6 +23,12 @@
         <span class="label label-success mb-20"><?=__('Free')?></span>
     <?endif?>
 <?endif?>
+
+<?if (!empty($product->url_demo)):?>
+    <span class="label pull-right">
+        <a href="<?=$product->url_demo?>" target="blank"><?=__('Demo')?></a>
+    </span>
+<?endif?>
     
 
 <div class="well clearfix">
@@ -33,6 +39,7 @@
 
 <div>
     <span class="label label-info mb-20"><i class="icon-eye-open icon-white"></i> <?=$hits?></span>
+
     <?if (!empty($product->file_name)):?>
     <span class="label label-info mb-20">
         <?=strtoupper(strrchr($product->file_name, '.'))?> <?=__('file')?> 
