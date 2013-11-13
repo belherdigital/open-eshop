@@ -4,6 +4,10 @@ class Controller_Social extends Controller {
 	
 	public function action_login()
 	{
+         //if user loged in redirect home
+        if (Auth::instance()->logged_in())
+            Auth::instance()->login_redirect();
+
 		Social::include_vendor();
 			
 		$config = Social::get();
