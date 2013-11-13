@@ -51,25 +51,21 @@ class Controller_Panel_Update extends Auth_Controller {
     public function action_11()
     {
         // build array with new (missing) configs
-        $configs = array(array('config_key'     =>'general',
+        $configs = array(array('config_key'     =>'payment',
+                               'group_name'     =>'thanks_page', 
+                               'config_value'   =>''), 
+                         array('config_key'     =>'general',
                                'group_name'     =>'blog', 
                                'config_value'   =>'0'), 
                          array('config_key'     =>'general',
                                'group_name'     =>'blog_disqus', 
                                'config_value'   =>''));
         
-        $contents = array(array('order'=>'0',
-                               'title'=>'Hello [USER.NAME]!',
-                               'seotitle'=>'userprofile.contact',
-                               'description'=>"User [EMAIL.SENDER] [EMAIL.FROM], have a message for you: \n\n [EMAIL.SUBJECT] \n\n[EMAIL.BODY]. \n\n Regards!",
-                               'from_email'=>core::config('email.notify_email'),
-                               'type'=>'email',
-                               'status'=>'1'));
+
         
         // returns TRUE if some config is saved 
         $return_conf = Model_Config::config_array($configs);
-        $return_cont = Model_Content::content_array($contents);
-
+        
     }
 
     /**
