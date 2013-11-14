@@ -2,12 +2,12 @@
                 return array (
  '1.1' => 
   array (
-    'codename' => 'serengueti',
-    'released' => '2013-11-xx',
-    'blog' => '',
+    'codename' => 'serengeti',
+    'released' => '2013-11-14',
+    'blog' => 'http://market.open-eshop.com/blog/open-eshop-11.html',
     'changelog' => 'https://github.com/open-classifieds/open-eshop/commits/1.1',
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=3&page=1&state=closed',
-    'download' => '',
+    'download' => 'http://j.mp/oe_11',
   ),
 
   '1.0' => 

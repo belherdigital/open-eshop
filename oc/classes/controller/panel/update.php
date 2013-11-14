@@ -66,6 +66,12 @@ class Controller_Panel_Update extends Auth_Controller {
         // returns TRUE if some config is saved 
         $return_conf = Model_Config::config_array($configs);
         
+        //clean cache
+        Cache::instance()->delete_all();
+        Theme::delete_minified();
+            
+        Alert::set(Alert::SUCCESS, __('Updated'));
+        $this->request->redirect(Route::url('oc-panel', array('controller'=>'update', 'action'=>'index'))); 
     }
 
     /**
