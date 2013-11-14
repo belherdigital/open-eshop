@@ -67,7 +67,7 @@
     <?=Paymill::button($product)?>
 <?else:?>
     <?if (!Auth::instance()->logged_in()):?>
-    <a class="btn btn-info pay-btn mb-20" data-toggle="modal" data-dismiss="modal" 
+    <a class="btn btn-info pay-btn mb-20"  
         href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'register'))?>#register-modal">
     <?else:?>
     <a class="btn btn-info pay-btn mb-20"
@@ -82,4 +82,3 @@
 <?endif?>
 </div>
 <div class="clear"></div>
-

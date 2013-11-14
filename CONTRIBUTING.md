@@ -8,21 +8,21 @@ Recommended PHP 5.4 , MySQL 5.5, Apache 2.2, Linux
 For development and to enable debug and disable cache and minify you can create a vhost:
 
 Host file:
-127.0.0.1   reoc.lo
+127.0.0.1   eshop.lo
 
 Vhost apache:
 <VirtualHost *:80>
-ServerName market.lo
-DocumentRoot /var/www/reoc/
+ServerName eshop.lo
+DocumentRoot /var/www/open-eshop/
 </VirtualHost>
 
 ## Git usage
 Example to clone project on local:
 
-git clone git@github.com:open-classifieds/openclassifieds2.git reoc
+git clone git@github.com:open-classifieds/open-eshop.git reoc
 cd reoc
 git branch -a (lists all the branches)
-git checkout -b 2.0 origin/2.0 (or latest branch)
+git checkout -b 1.0 origin/1.0 (or latest branch)
 
 
 GIT files to ignore changes, DO NOT COMMIT THIS FILES:
@@ -38,7 +38,7 @@ git update-index --assume-unchanged oc/cache/.empty
 
 ## Reporting issues
 
-https://github.com/open-classifieds/market/issues
+https://github.com/open-classifieds/open-eshop/issues
 
 We only accept issues that are bug reports or feature requests. Bugs must be isolated and reproducible problems that we can fix within the Open eShop core. Please read the following guidelines before opening any issue.
 
