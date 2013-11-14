@@ -41,8 +41,8 @@ class Controller_Panel_Product extends Auth_Crud {
 
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('New Product')));
         $this->template->styles              = array('css/sortable.css' => 'screen',
-        											 'css/datepicker.css' => 'screen');
-        $this->template->scripts['footer'] = array('js/bootstrap-datepicker.js',
+        											 'http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
+        $this->template->scripts['footer'] = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
         											 'js/oc-panel/products.js',
         											 'js/jquery-sortable-min.js');
         											 
@@ -120,8 +120,8 @@ class Controller_Panel_Product extends Auth_Crud {
 
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Edit Product')));
         $this->template->styles              = array('css/sortable.css' => 'screen',
-                                                     'css/datepicker.css' => 'screen');
-        $this->template->scripts['footer']   = array('js/bootstrap-datepicker.js',
+                                                     'http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
+        $this->template->scripts['footer']   = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
                                                      'js/oc-panel/products.js',
                                                      'js/jquery-sortable-min.js');
                                                      

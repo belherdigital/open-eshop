@@ -30,7 +30,7 @@ class Controller_Panel_Newsletter extends Auth_Controller {
             $users = $query->as_array();
             if (count($users)>0 OR Core::post('subject')!=NULL)
             {
-                if ( !Email::send($users,'',Core::post('subject'),Text::bb2html(Core::post('description'),TRUE),Core::post('from'), Core::post('from_email') ) )
+                if ( !Email::send($users,'',Core::post('subject'),Core::post('description'),Core::post('from'), Core::post('from_email') ) )
                     Alert::set(Alert::ERROR,__('Error on mail delivery, not sent'));
                 else 
                     Alert::set(Alert::SUCCESS,__('Email sent to all the users'));

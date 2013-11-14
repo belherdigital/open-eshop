@@ -123,7 +123,7 @@
 			<div class="control-group">
 				<?= FORM::label('version', __('Version'), array('class'=>'control-label', 'for'=>'version'))?>
 				<div class="controls">
-					<?= FORM::input('version', $product->version, array('placeholder' => '1.0.0', 'class' => 'input-xlarge', 'id' => 'version', 'type' => 'text', 'required'))?>
+					<?= FORM::input('version', $product->version, array('placeholder' => '1.0.0', 'class' => 'input-xlarge', 'id' => 'version', 'type' => 'text'))?>
 				</div>
 			</div>
 

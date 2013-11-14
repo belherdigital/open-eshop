@@ -132,8 +132,8 @@ class Controller_Panel_Tools extends Auth_Controller {
         
         $this->template->title = __('System logs');
 
-        $this->template->styles = array('css/datepicker.css' => 'screen');
-        $this->template->scripts['footer'] = array('js/bootstrap-datepicker.js', 'js/oc-panel/logs.js');
+        $this->template->styles = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
+        $this->template->scripts['footer'] = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js', 'js/oc-panel/logs.js');
         
         
         $date = core::get('date',date('Y-m-d'));
