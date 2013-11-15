@@ -1,5 +1,16 @@
 <?php defined('SYSPATH') or die('No direct script access.');
                 return array (
+
+ '1.2' => 
+  array (
+    'codename' => 'king',
+    'released' => '2014-01-xx',
+    'blog' => '',
+    'changelog' => 'https://github.com/open-classifieds/open-eshop/commits/1.2',
+    'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=4&page=1&state=closed',
+    'download' => '',
+  ),
+
  '1.1' => 
   array (
     'codename' => 'serengeti',

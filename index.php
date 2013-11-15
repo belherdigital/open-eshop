@@ -43,7 +43,7 @@ define('EXT', '.php');
 ini_set('display_errors', 'On');
  
 # Error reporting may look like this but E_ALL is only what we need
-error_reporting(E_ALL | E_STRICT);
+error_reporting(E_ALL & ~E_DEPRECATED);
 
 /**
  * End of standard configuration! Changing any of the code below should only be
