@@ -176,7 +176,7 @@ class Controller_Panel_Support extends Auth_Controller {
                     //send email to creator of the ticket
                     $ticket->user->email('new.reply',array('[TITLE]'=>$ticket->title,
                                                     '[DESCRIPTION]'=>$ticketr->description,
-                                                    '[URL.QL]'=>$user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE))
+                                                    '[URL.QL]'=>$ticket->user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE))
                                             );
 
                 }
