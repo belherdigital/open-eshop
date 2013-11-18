@@ -29,7 +29,7 @@ class URL extends Kohana_URL {
          * @var boolean
          */
         if ($ascii_only === NULL)
-            $ascii_only = ( in_array(i18n::$locale, array('hi_IN','ar','ur_PK','ru_RU','bn_BD','ml_IN')) )? FALSE:TRUE;
+            $ascii_only = ( in_array(i18n::$locale, array('hi_IN','ar','ur_PK','ru_RU','bn_BD','ml_IN','ja_JP')) )? FALSE:TRUE;
 
                 
         return parent::title($title, $separator, $ascii_only);

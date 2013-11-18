@@ -176,16 +176,23 @@ class Controller_Panel_Support extends Auth_Controller {
                     //send email to creator of the ticket
                     $ticket->user->email('new.reply',array('[TITLE]'=>$ticket->title,
                                                     '[DESCRIPTION]'=>$ticketr->description,
-                                                    '[URL.QL]'=>$user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE))
+                                                    '[URL.QL]'=>$ticket->user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE))
                                             );
 
                 }
                 //send email to notify_url
                 elseif(core::config('email.new_sale_notify'))
                 {
+                    //send email to creator of the ticket before this we need to set the user id to the product :S
+                    // $ticket->product->user->email('new.reply',array('[TITLE]'=>$ticket->title,
+                    //                                 '[DESCRIPTION]'=>$ticketr->description,
+                    //                                 '[URL.QL]'=>$ticket->product->user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE))
+                    //                         );
+
                     Email::content(core::config('email.notify_email'), NULL, NULL,NULL, 'new.reply', array('[TITLE]'=>$ticket->title,
                                                     '[DESCRIPTION]'=>$ticketr->description,
-                                                    '[URL.QL]'=>$user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE)));
+                                                    '[URL.QL]'=>Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket)))
+                                                );
                    
                 }
                 
