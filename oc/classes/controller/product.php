@@ -201,7 +201,7 @@ class Controller_Product extends Controller{
                 $category = new Model_Category();
                 $category->where('seoname','=',core::get('category'))->limit(1)->find();
                 if ($category->loaded())
-                    $products->where('id_category', '=', $category->get_siblings_ids());
+                    $products->where('id_category', 'IN', $category->get_siblings_ids());
             }
 
             //filter by title description 
