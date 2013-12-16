@@ -83,13 +83,7 @@ class Widget_Categories extends Widget
 
 		$this->cat_items = $list_cat;
 		$this->cat_breadcrumb = $current_and_parent;
-        $this->loc_seoname = NULL;
-        if (Controller::$location!==NULL)
-        {
-            if (Controller::$location->loaded())
-                if(Controller::$location->id_location!=1)
-                    $this->loc_seoname = Controller::$location->seoname;
-        }
+        
 
 	}
 
