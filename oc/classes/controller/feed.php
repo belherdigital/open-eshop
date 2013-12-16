@@ -129,7 +129,7 @@ class Controller_Feed extends Controller {
                             'version'       => Core::version,
                             'theme'         => Core::config('appearance.theme'),
                             'theme_mobile'  => Core::config('appearance.theme_mobile'),
-                            'charset'       => Core::config('i18n.charset'),
+                            'charset'       => Kohana::$charset,
                             'timezone'      => Core::config('i18n.timezone'),
                             'locale'        => Core::config('i18n.locale'),
                             'currency'      => '',
