@@ -60,7 +60,7 @@ class Controller_Api extends Controller {
                                 'url_more'      => $url,
                                 'url_buy'       => $url,
                                 'url_demo'      => $p->url_demo,
-                                'url_screenshot'=> URL::base('http').$p->get_first_image(),
+                                'url_screenshot'=> URL::base().$p->get_first_image(),
                                 'type'          => $p->category->seoname,
                                 'price'         => $p->price,
                                 'price_offer'   => $p->price_offer,

@@ -43,7 +43,7 @@ class URL extends Kohana_URL {
     {
         $query_string = ($_SERVER['QUERY_STRING']!='')? '?'.$_SERVER['QUERY_STRING']:'';
 
-        return URL::base('http').Request::current()->uri().$query_string;
+        return URL::base().Request::current()->uri().$query_string;
     }
 
 

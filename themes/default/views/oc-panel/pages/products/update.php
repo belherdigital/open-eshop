@@ -203,7 +203,7 @@
 							<?$img_name = str_replace(".jpg", "", substr(strrchr($value['thumb'], "/"), 1 ));?>
 							<li>
 								<a class="thumbnail">
-									<img src="<?=URL::base('http')?><?= $value['thumb']?>" class="img-rounded" alt="">
+									<img src="<?=URL::base()?><?= $value['thumb']?>" class="img-rounded" alt="">
 								</a>
 								
 								<button class="btn btn-danger index-delete"

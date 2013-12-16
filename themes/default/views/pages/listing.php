@@ -19,7 +19,7 @@
 
                     <?if($product->get_first_image() !== NULL):?>
                         <a title="<?= $product->title;?>" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
-                            <img width="300px" height="200px" src="<?=URL::base('http')?><?=$product->get_first_image()?>" class="" >
+                            <img width="300px" height="200px" src="<?=URL::base()?><?=$product->get_first_image()?>" class="" >
                         </a>
                     <?endif?>
 

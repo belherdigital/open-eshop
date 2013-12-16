@@ -51,13 +51,6 @@ class CSRF {
          */
         public static function valid($namespace=NULL)
         {
-               /*
-                $referer = Request::current()->referrer();
-                $site_url = substr(URL::base('http'), 7);
-                $preg = '/^https?:\/\/([^/]+\.)?'.str_replace('.','\.',$site_url);
-                if ( ! preg_match($preg, $referer))
-                  return FALSE; // invalid referer!!!
-                */
         	if ($namespace===NULL)
         		$namespace = URL::title(Request::current()->uri());
         	

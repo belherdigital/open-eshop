@@ -238,7 +238,7 @@ class Theme {
         if (!Valid::url($file))
         {
             //@todo add a hook here in case we want to use a CDN
-            return URL::base('http').'themes'.DIRECTORY_SEPARATOR.$theme.DIRECTORY_SEPARATOR.$file;
+            return URL::base().'themes'.DIRECTORY_SEPARATOR.$theme.DIRECTORY_SEPARATOR.$file;
         }
          
         //seems an external url

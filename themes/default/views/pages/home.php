@@ -19,7 +19,7 @@
                     <div class="thumbnail">
                         <a href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                       <?if($product->get_first_image()!== NULL):?>
-                            <img src="<?=URL::base('http')?><?=$product->get_first_image()?>" >
+                            <img src="<?=URL::base()?><?=$product->get_first_image()?>" >
                         <?else:?>
                             <img src="http://www.placehold.it/200x200&text=<?=$product->category->name?>"> 
                         <?endif?>
@@ -64,7 +64,7 @@
             <li class="cathead">
                 <?if (file_exists(DOCROOT.'images/categories/'.$c['seoname'].'.png')):?>
                 <a title="<?=$c['name']?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>">
-                <img src="<?=URL::base('http').'images/categories/'.$c['seoname'].'.png'?>" >
+                <img src="<?=URL::base().'images/categories/'.$c['seoname'].'.png'?>" >
                 </a>
                 <?endif?>
                 <a title="<?=$c['name']?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>"><?=strtoupper($c['name']);?> <span class="badge badge-success pull-right"><?=$c['count']?></span></a>

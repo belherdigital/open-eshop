@@ -2,7 +2,7 @@
 
     <?if($product->get_first_image() !== NULL):?>
     <div class="thumbnail ">
-        <img src="<?=URL::base('http')?><?=$product->get_first_image('image')?>" class="" >
+        <img src="<?=URL::base()?><?=$product->get_first_image('image')?>" class="" >
     </div>
     <?endif?>
     

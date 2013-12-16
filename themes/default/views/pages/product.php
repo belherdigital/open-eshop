@@ -4,8 +4,8 @@
     <div class="picture clearfix">
         <?foreach ($images as $path => $value):?>
         <?if( isset($value['thumb']) AND isset($value['image']) ):?>
-            <a rel="prettyPhoto[gallery]" href="<?=URL::base('http')?><?= $value['image']?>">
-                <figure><img src="<?=URL::base('http')?><?= $value['thumb']?>" ></figure>
+            <a rel="prettyPhoto[gallery]" href="<?=URL::base()?><?= $value['image']?>">
+                <figure><img src="<?=URL::base()?><?= $value['thumb']?>" ></figure>
             </a>
         <?endif?>   
         <?endforeach?>
