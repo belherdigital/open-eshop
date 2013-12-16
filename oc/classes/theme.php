@@ -38,7 +38,7 @@ class Theme {
         if (isset($scripts[$type])===TRUE)
         {
 
-            if (Kohana::$environment == Kohana::DEVELOPMENT)//@todo
+            if (Kohana::$environment == Kohana::DEVELOPMENT OR Core::config('config.minify') == FALSE)//@todo
             {
                 foreach($scripts[$type] as $file)
                 {
@@ -109,7 +109,7 @@ class Theme {
 
         $ret = '';
 
-        if (Kohana::$environment == Kohana::DEVELOPMENT)
+        if (Kohana::$environment == Kohana::DEVELOPMENT OR Core::config('config.minify') == FALSE)
         {
             foreach($styles as $file => $type)
             {

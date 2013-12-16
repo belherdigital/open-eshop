@@ -314,6 +314,7 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."config` (`group_name`, `conf
 ('general', 'landing_page', ''),
 ('general', 'blog', '0'),
 ('general', 'blog_disqus', ''),
+('general', 'minify', 0),
 ('image', 'allowed_formats', 'jpeg,jpg,png,'),
 ('image', 'max_image_size', '5'),
 ('image', 'height', ''),

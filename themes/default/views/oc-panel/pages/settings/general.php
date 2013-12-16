@@ -399,6 +399,21 @@
                     ))?> 
                 </div>
             </div>
+        <div class="form-group">
+            <?= FORM::label($forms['minify']['key'], __("Minify CSS/JS"), array('class'=>'control-label col-sm-3', 'for'=>$forms['minify']['key']))?>
+            <div class="col-sm-4">
+                <?= FORM::select($forms['minify']['key'], array(FALSE=>'FALSE',TRUE=>'TRUE'), $forms['minify']['value'], array(
+                'placeholder' => "TRUE or FALSE", 
+                'class' => 'tips form-control input-sm', 
+                'id' => $forms['minify']['key'], 
+                'data-content'=> __("Once set to TRUE, enables minify CSS and JS to speed up your site"),
+                'data-trigger'=>"hover",
+                'data-placement'=>"right",
+                'data-toggle'=>"popover",
+                'data-original-title'=>__("Activates Minify CSS/JS"),
+                ))?> 
+            </div>
+        </div>
 
 		<div class="form-actions">
 			<?= FORM::button('submit', 'Update', array('type'=>'submit', 'class'=>'btn-small btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'settings', 'action'=>'general'))))?>

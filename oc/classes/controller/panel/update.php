@@ -46,7 +46,7 @@ class Controller_Panel_Update extends Auth_Controller {
     }
 
     /**
-     * This function will upgrate configs that didn't existed in verisons below 2.0.3 
+     * This function will upgrate configs  
      */
     public function action_11()
     {
@@ -65,7 +65,28 @@ class Controller_Panel_Update extends Auth_Controller {
         
         // returns TRUE if some config is saved 
         $return_conf = Model_Config::config_array($configs);
+       
+    }
+
+    /**
+     * This function will upgrate configs  
+     */
+    public function action_12()
+    {
+        // build array with new (missing) configs
+        $configs = array(
+                         array('config_key'     =>'minify',
+                               'group_name'     =>'general', 
+                               'config_value'   =>'0'), 
+                        );
         
+
+        
+        // returns TRUE if some config is saved 
+        $return_conf = Model_Config::config_array($configs);
+        
+        $this->action_11();
+
         //clean cache
         Cache::instance()->delete_all();
         Theme::delete_minified();
