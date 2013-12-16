@@ -102,6 +102,15 @@ Route::set('blog', 'blog(/<seotitle>.html)')
         'action'     => 'index',
 ));
 
+/**
+ * Item / product view (public)
+ */
+Route::set('demo', 'demo/<seotitle>.html')
+->defaults(array(
+        'controller' => 'product',    
+        'action'     => 'demo',
+));
+
 
 /**
  * Item / product view (public)

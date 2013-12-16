@@ -213,6 +213,7 @@ class Controller_Panel_Theme extends Auth_Controller {
                 {
                     $zip->extractTo($root);
                     $zip->close();
+                    unlink($root.$zip_theme['name']);
                 } 
                 else 
                 {

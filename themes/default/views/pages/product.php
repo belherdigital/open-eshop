@@ -26,7 +26,7 @@
 
 <?if (!empty($product->url_demo)):?>
     <span class="label pull-right">
-        <a href="<?=$product->url_demo?>" target="blank"><?=__('Demo')?></a>
+        <a href="<?=Route::url('demo', array('seotitle'=>$product->seotitle))?>" ><?=__('Demo')?></a>
     </span>
 <?endif?>
     

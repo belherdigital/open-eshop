@@ -12,7 +12,7 @@
     <meta name="keywords" content="<?=$meta_keywords?>" >
     <meta name="description" content="<?=$meta_description?>" >
     <meta name="copyright" content="<?=$meta_copywrite?>" >
-	<meta name="author" content="open-classifieds.com">
+	<meta name="author" content="open-eshop.com">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
     <?if (core::config('general.blog')==1):?>

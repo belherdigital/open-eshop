@@ -12,7 +12,7 @@
     <meta name="keywords" content="<?=$meta_keywords?>" >
     <meta name="description" content="<?=$meta_description?>" >
     <meta name="copyright" content="<?=$meta_copywrite?>" >
-	<meta name="author" content="open-classifieds.com">
+	<meta name="author" content="open-eshop.com">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link rel="alternate" type="application/atom+xml" title="RSS <?=Core::config('general.site_name')?>" href="<?=Route::url('rss')?>" />
@@ -102,6 +102,6 @@
 		<?=HTML::script('http://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js')?>
 		<script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
 	<![endif]-->
-  <?=(Kohana::$environment === Kohana::DEVELOPMENT)? View::factory('profiler'):''?>
+  <?//=(Kohana::$environment === Kohana::DEVELOPMENT)? View::factory('profiler'):''?>
   </body>
 </html>

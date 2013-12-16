@@ -1,11 +1,5 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
-    <?if($product->get_first_image() !== NULL):?>
-    <div class="thumbnail ">
-        <img src="<?=URL::base()?><?=$product->get_first_image('image')?>" class="" >
-    </div>
-    <?endif?>
-    
     <h2><?=$product->title?></h2>
     <?if ($product->has_offer()):?>
         <span class="label label-success mb-20 "><?=__('Offer')?> <?=$product->final_price().' '.$product->currency?> <br/><del><?=$product->price.' '.$product->currency?></del></span>
@@ -17,6 +11,14 @@
                 <span class="label label-success mb-20 "><?=__('Free')?></span>
             <?endif?>
         <?endif?>
+
+    <?if($product->get_first_image() !== NULL):?>
+    <div class="thumbnail ">
+        <img src="<?=URL::base()?><?=$product->get_first_image('image')?>" class="" >
+    </div>
+    <?endif?>
+    
+   
     <span class="label label-info pull-right">
         <i class="icon-eye-open icon-white"></i> <?=$hits?>
     </span>
@@ -60,7 +62,7 @@
 <div class="button-space">
 
 <?if ($product->final_price()>0):?>
-    <a class="btn btn-success pay-btn mb-20" 
+    <a class="btn btn-success pay-btn mb-20" target="_top"
         href="<?=Route::url('default', array('controller'=>'paypal','action'=>'pay','id'=>$product->seotitle))?>">
         <?=__('Pay with Paypal')?></a>
 

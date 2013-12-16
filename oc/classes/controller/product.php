@@ -71,6 +71,48 @@ class Controller_Product extends Controller{
 		}
 	}
 
+    public function action_demo()
+    {
+        $this->before('demo');
+
+        $product = new Model_product();
+        $product->where('seotitle','=',$this->request->param('seotitle'))
+            ->where('status','=',Model_Product::STATUS_ACTIVE)
+            ->limit(1)->find();
+
+        if ($product->loaded())
+        {
+            //count how many visits has
+            $hits = new Model_Visit();
+            $hits = $hits->where('id_product','=', $product->id_product)->count_all();
+           
+            $this->template->title            = $product->title;
+            $this->template->meta_description = $product->description;
+
+            $this->template->bind('product', $product);
+
+            //get all the products same category
+            $products = $product->category->products->find_all();
+            $this->template->bind('products', $products);
+
+            $skins = NULL;
+            if ($product->skins!='')
+                $skins = explode(',',$product->skins);
+            if (!is_array($skins) OR count($skins)<=0)
+                $skins = NULL;
+
+            $this->template->bind('skins', $skins);
+
+            $skin = core::get('skin');
+            $this->template->bind('skin', $skin);           
+        }
+        else
+        {
+            Alert::set(Alert::INFO, __('Product not found.'));
+            $this->request->redirect(Route::url('default'));
+        }
+    }
+
     public function action_listing()
     {
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Home'))->set_url(Route::url('default')));

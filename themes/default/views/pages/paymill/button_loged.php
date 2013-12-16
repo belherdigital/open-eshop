@@ -12,6 +12,7 @@
         data-submit-button="<?=__('Pay')?> <?=$product->final_price()?> <?=$product->currency?>"
         data-elv="false"
         data-lang="en-GB"
-        data-public-key="<?=Core::config('payment.paymill_public')?>">
+        data-public-key="<?=Core::config('payment.paymill_public')?>"
+        >
     </script>
 </form>
