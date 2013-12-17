@@ -32,7 +32,6 @@
 				</div>
 		</div>
 		
-		<?if (core::config('advertisement.captcha') != FALSE):?>
 		<div class="control-group">
 			<div class="controls">
 				<?=__('Captcha')?>*:<br />
@@ -40,7 +39,7 @@
 				<?= FORM::input('captcha', "", array('class' => 'input-xlarge', 'id' => 'captcha', 'required'))?>
 			</div>
 		</div>
-		<?endif?>
+	
 		<div class="control-group">
 			<div class="controls">
 				<?= FORM::button('submit', __('Contact Us'), array('type'=>'submit', 'class'=>'btn btn-success', 'action'=>Route::url('contact')))?>

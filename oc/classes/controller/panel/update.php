@@ -81,9 +81,18 @@ class Controller_Panel_Update extends Auth_Controller {
                         );
         
 
+        $contents = array(array('order'=>'0',
+                               'title'=>'[EMAIL.SENDER] wants to contact you!',
+                               'seotitle'=>'contact.admin',
+                               'description'=>"Hello Admin,\n\n [EMAIL.SENDER]: [EMAIL.FROM], have a message for you:\n\n [EMAIL.BODY] \n\n Regards!",
+                               'from_email'=>core::config('email.notify_email'),
+                               'type'=>'email',
+                               'status'=>'1'));
         
         // returns TRUE if some config is saved 
         $return_conf = Model_Config::config_array($configs);
+        $return_cont = Model_Content::content_array($contents);
+
         
         $this->action_11();
 
