@@ -127,9 +127,12 @@
 				</div>
 			</div>
 
-			<div class="controls">
-				<?= FORM::input('skins', $product->skins, array('placeholder' => __('skins'), 'class' => 'input-xlarge', 'type' => 'hidden'))?>
-			</div>
+             <div class="control-group">
+                <?= FORM::label('skins', __('Skins'), array('class'=>'control-label', 'for'=>'skins'))?>
+                <div class="controls">
+                    <?= FORM::input('skins', $product->skins, array('placeholder' => 'Comma separated', 'class' => 'input-xlarge', 'id' => 'skins', 'type' => 'text'))?>
+                </div>
+            </div>
 
 			<div class="control-group">
 				<?= FORM::label('price', __('Price'), array('class'=>'control-label', 'for'=>'price'))?>
