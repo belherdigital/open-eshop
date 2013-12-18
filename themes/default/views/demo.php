@@ -116,7 +116,7 @@
           <div class="btn-group navbar-right btn-header-group">
 
                 <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
-                    <i class="glyphicon glyphicon-shopping-cart"></i>
+                    <span class="glyphicon glyphicon-shopping-cart"></span>
                 <?if ($product->final_price()>0):?>
                     <?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?>
                 <?elseif(!empty($product->file_name)):?>
@@ -126,7 +126,7 @@
                 <?endif?>
                 </a> 
                 <a class="btn btn-info" title="<?=__('Full screen demo')?>" href="<?=$product->url_demo?>&skin=<?=$skin?>">
-                    <i class="glyphicon glyphicon-fullscreen"></i> 
+                    <span class="glyphicon glyphicon-fullscreen"></span> 
                 </a>
             </div>
 
