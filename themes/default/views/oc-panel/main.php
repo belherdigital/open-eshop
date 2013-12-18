@@ -73,6 +73,22 @@
 			<div class="span9">
 				<?=Breadcrumbs::render('oc-panel/breadcrumbs')?>      
 				<?=Alert::show()?>
+                <?if (!isset($_COOKIE['donation_alert'])  AND Theme::get('premium')!=1):?>
+                   <div class="alert alert-warning fade in">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true" onclick='setCookie("donation_alert",1,7)'>×</button>
+                    <h4><?=__('Help us to improve!')?></h4>
+                    <p><?=__('Open Classifieds it´s an amazing free Open Source Software. With an small donation you are helping us to keep the project alive and updated. Thanks!')?></p>
+                    <p>
+                      <a href="http://j.mp/thanksdonate" onclick='setCookie("donation_alert",1,30)'>
+                            <img src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" alt="">
+                      </a>
+                      <?=__('Or')?>
+                      <a href="<?=Route::url('oc-panel',array('controller'=>'market'))?>" class="btn btn-success">
+                        <i class="glyphicon glyphicon-gift"></i> <?=__('Buy a Theme')?>
+                       </a>
+                    </p>
+                  </div>
+                <?endif?>
 				<?=$content?>
 	    	</div><!--/span--> 
 	    	

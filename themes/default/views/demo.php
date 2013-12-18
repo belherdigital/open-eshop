@@ -43,6 +43,7 @@
         border:none;
         }
         .btn-header-group{padding-top: 10px;}
+        
     </style>
 
     <link rel="shortcut icon" href="<?=Theme::public_path('img/favicon.ico')?>">
@@ -68,7 +69,6 @@
 
     <!-- Fixed navbar -->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only"><?=__('Toggle Navigation')?></span>
@@ -133,7 +133,6 @@
             
         </div><!--/.nav-collapse -->
 
-      </div>
     </div>
 
 

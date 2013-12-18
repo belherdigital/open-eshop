@@ -1,9 +1,9 @@
 <?php defined('SYSPATH') or die('No direct script access.');
                 return array (
 
- '1.2' => 
+  '1.2' => 
   array (
-    'codename' => 'king',
+    'codename' => 'nungwi',
     'released' => '2014-01-xx',
     'blog' => '',
     'changelog' => 'https://github.com/open-classifieds/open-eshop/commits/1.2',
@@ -11,7 +11,7 @@
     'download' => '',
   ),
 
- '1.1' => 
+  '1.1' => 
   array (
     'codename' => 'serengeti',
     'released' => '2013-11-14',
@@ -20,7 +20,6 @@
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=3&page=1&state=closed',
     'download' => 'http://j.mp/oe_11',
   ),
-
   '1.0' => 
   array (
     'codename' => 'zanzibar',
@@ -30,6 +29,4 @@
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=1&page=1&state=closed',
     'download' => 'http://j.mp/oe_10',
   ),
-
-  
 );
