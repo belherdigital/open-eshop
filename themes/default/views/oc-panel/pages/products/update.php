@@ -4,11 +4,11 @@
 <div class="page-header">
     <h1><?=__('Edit Product')?></h1>
     <p>
-        <?=__('Sell your product')?>:
+        <?=__('Sell your product')?>:<br>
         Link:
     <a target="_blank" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)) ?>">
                         <?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)) ?>
-                    </a>
+                    </a><br>
 Button with overlay:
 <textarea class="span4" onclick="this.select()"><script src="<?=Core::config('general.base_url')?>embed.js"></script>
 <a class="oe_button" href="<?=Route::url('product-minimal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)) ?>"><?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?></a></textarea>

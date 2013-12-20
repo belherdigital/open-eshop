@@ -2,7 +2,7 @@
 
 
 <div class="page-header">
-	<h1><?=__('Support Tickets')?></h1>
+	<h1><?=$title?></h1>
     <a class="btn btn-info pull-right" href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'new'))?>">
         <?=__('New')?></a>
 </div>

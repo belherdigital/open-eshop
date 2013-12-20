@@ -12,13 +12,25 @@
         <?=__('Close Ticket')?></a>
         <?endif?> 
 
+        <?if(Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN):?>
+        <form class="form-inline pull-right" method="post" action="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>"> 
+            <?= FORM::select('agent', $users, $ticket->id_user_support, array( 
+                'id' => 'agent', 
+                'data-trigger'=>"hover",
+                'data-placement'=>"right",
+                'data-toggle'=>"popover",
+                ))?> 
+            <button type="submit" class="btn"><?=__('Assign')?></button>
+        </form>
+        <?endif?> 
+
         </p>    
 	</div>
 
     <?foreach ($replies as $reply):?>
     <div class="row">
         <div class="span2">
-            <img src="http://www.gravatar.com/avatar/<?=md5(strtolower(trim($reply->user->name)));?>?s=100">
+            <img src="http://www.gravatar.com/avatar/<?=md5(strtolower(trim($reply->user->email)));?>?s=100">
             <p>
                 <?=$reply->user->name?><br>
                 <?=$reply->created?>

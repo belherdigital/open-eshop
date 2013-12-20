@@ -83,11 +83,19 @@ class Controller_Panel_Update extends Auth_Controller {
 
         $contents = array(array('order'=>'0',
                                'title'=>'[EMAIL.SENDER] wants to contact you!',
-                               'seotitle'=>'contact.admin',
+                               'seotitle'=>'contactadmin',
                                'description'=>"Hello Admin,\n\n [EMAIL.SENDER]: [EMAIL.FROM], have a message for you:\n\n [EMAIL.BODY] \n\n Regards!",
                                'from_email'=>core::config('email.notify_email'),
                                'type'=>'email',
-                               'status'=>'1'));
+                               'status'=>'1'),
+                            array('order'=>'0',
+                               'title'=>'Ticket assigned to you: [TITLE]',
+                               'seotitle'=>'assignagent',
+                               'description'=>'[URL.QL]\n\n[DESCRIPTION]',
+                               'from_email'=>core::config('email.notify_email'),
+                               'type'=>'email',
+                               'status'=>'1'),
+                        );
         
         // returns TRUE if some config is saved 
         $return_conf = Model_Config::config_array($configs);

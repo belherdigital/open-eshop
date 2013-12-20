@@ -19,8 +19,28 @@ class Controller_Panel_Support extends Auth_Controller {
 
         $tickets = new Model_Ticket();
 
-        if ($user->id_role!=Model_Role::ROLE_ADMIN)
-            $tickets->where('id_user','=',$user->id_user);
+     
+        switch ($this->request->param('id'))
+        {
+            case 'assigned':
+                if ($user->id_role==Model_Role::ROLE_ADMIN)
+                {
+                    $this->template->title.= ' '. __('Assigned Tickets');
+                    $tickets->where('id_user_support','=',$user->id_user);
+                }
+            break;
+            
+            case 'admin':
+                if ($user->id_role==Model_Role::ROLE_ADMIN) 
+                    $this->template->title.= ' '. __('All Tickets');
+            break;
+            
+            default:
+            case 'client':
+                $this->template->title.= ' '. $user->name;
+                $tickets->where('id_user','=',$user->id_user);
+            break;
+        }       
 
 
         $tickets = $tickets->where('id_ticket_parent', 'IS', NULL)
@@ -28,7 +48,7 @@ class Controller_Panel_Support extends Auth_Controller {
                         ->find_all();
 
         $this->template->bind('content', $content);
-        $this->template->content = View::factory('oc-panel/pages/support/index',array('tickets'=>$tickets));
+        $this->template->content = View::factory('oc-panel/pages/support/index',array('title'=>$this->template->title, 'tickets'=>$tickets));
     }
 
 
@@ -77,7 +97,7 @@ class Controller_Panel_Support extends Auth_Controller {
 
                 $ticket->save();
 
-                //send email to notify_url
+                //send email to notify_url @todo we should add a config on general to select who gets the emails by default.
                 if(core::config('email.new_sale_notify'))
                 {
                     Email::send(core::config('email.notify_email'), '', 'New Ticket: '.$ticket->title, 
@@ -150,58 +170,81 @@ class Controller_Panel_Support extends Auth_Controller {
         //create new reply
         if($_POST)
         {
-            $validation = Validation::factory($this->request->post())
-                ->rule('description', 'not_empty')
-                ->rule('description', 'min_length', array(':value', 5));
-
-            if ($validation->check())
+            if (core::post('agent') AND $user->id_role==Model_Role::ROLE_ADMIN)
             {
+                //modify ticket 
+                $ticket->id_user_support = core::post('agent');
+                $ticket->save();
 
-                $ticketr = new Model_Ticket();
-                $ticketr->id_user           = $user->id_user;
-                $ticketr->id_order          = $ticket->id_order;
-                $ticketr->id_ticket_parent  = $ticket->id_ticket;
-                $ticketr->description       = core::post('description');
+                //send notification to agent
+                $agent = new Model_User(core::post('agent'));
+                $agent->email('assignagent',array('[TITLE]'=>$ticket->title,
+                                                    '[DESCRIPTION]'=>$ticket->description,
+                                                    '[URL.QL]'=>$agent->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE)));
 
-                $ticketr->save();
-
-                //admin
-                if ($user->id_role==Model_Role::ROLE_ADMIN)
-                {
-                    $ticket->id_user_support = $user->id_user;
-                    $ticket->read_date = Date::unix2mysql();
-                    $ticket->status = Model_Ticket::STATUS_HOLD;
-                    $ticket->save();
-
-                    //send email to creator of the ticket
-                    $ticket->user->email('new.reply',array('[TITLE]'=>$ticket->title,
-                                                    '[DESCRIPTION]'=>$ticketr->description,
-                                                    '[URL.QL]'=>$ticket->user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE))
-                                            );
-
-                }
-                //send email to notify_url
-                elseif(core::config('email.new_sale_notify'))
-                {
-                    //send email to creator of the ticket before this we need to set the user id to the product :S
-                    // $ticket->product->user->email('new.reply',array('[TITLE]'=>$ticket->title,
-                    //                                 '[DESCRIPTION]'=>$ticketr->description,
-                    //                                 '[URL.QL]'=>$ticket->product->user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE))
-                    //                         );
-
-                    Email::content(core::config('email.notify_email'), NULL, NULL,NULL, 'new.reply', array('[TITLE]'=>$ticket->title,
-                                                    '[DESCRIPTION]'=>$ticketr->description,
-                                                    '[URL.QL]'=>Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket)))
-                                                );
-                   
-                }
-                
-                Alert::set(Alert::SUCCESS, __('Reply created.'));
+                Alert::set(Alert::SUCCESS, __('Agent assigned.'));
             }
             else
             {
-                $errors = $validation->errors('ad');
+                $validation = Validation::factory($this->request->post())
+                ->rule('description', 'not_empty')
+                ->rule('description', 'min_length', array(':value', 5));
+
+                if ($validation->check())
+                {
+                    $ticketr = new Model_Ticket();
+                    $ticketr->id_user           = $user->id_user;
+                    $ticketr->id_order          = $ticket->id_order;
+                    $ticketr->id_ticket_parent  = $ticket->id_ticket;
+                    $ticketr->description       = core::post('description');
+
+                    $ticketr->save();
+
+                    //admin answer so we send email to owner of ticket
+                    if ($user->id_role==Model_Role::ROLE_ADMIN)
+                    {
+                        $ticket->id_user_support = $user->id_user;
+                        $ticket->read_date = Date::unix2mysql();
+                        $ticket->status = Model_Ticket::STATUS_HOLD;
+                        $ticket->save();
+
+                        //send email to creator of the ticket
+                        $ticket->user->email('new.reply',array('[TITLE]'=>$ticket->title,
+                                                        '[DESCRIPTION]'=>$ticketr->description,
+                                                        '[URL.QL]'=>$ticket->user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE))
+                                                );
+
+                    }
+                    //sending email to agent assigned to this ticket.
+                    elseif(is_numeric($ticket->id_user_support))
+                    {
+                        //send notification to agent
+                        $agent = new Model_User($ticket->id_user_support);
+                        $agent->email('new.reply',array('[TITLE]'=>$ticket->title,
+                                                        '[DESCRIPTION]'=>$ticketr->description,
+                                                        '[URL.QL]'=>$agent->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE))
+                                                );
+
+                    }
+                    //send email to notify_url /admin since we dont have the agent
+                    elseif(core::config('email.new_sale_notify'))
+                    {
+
+                        Email::content(core::config('email.notify_email'), NULL, NULL,NULL, 'new.reply', array('[TITLE]'=>$ticket->title,
+                                                        '[DESCRIPTION]'=>$ticketr->description,
+                                                        '[URL.QL]'=>Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket)))
+                                                    );
+                       
+                    }
+                    
+                    Alert::set(Alert::SUCCESS, __('Reply created.'));
+                }
+                else
+                {
+                    $errors = $validation->errors('ad');
+                }
             }
+            
         }
 
         //getting all the ticket replies
@@ -209,14 +252,25 @@ class Controller_Panel_Support extends Auth_Controller {
         $replies = $replies->where('id_ticket_parent','=',$ticket->id_ticket)
                     ->order_by('created','asc')
                     ->find_all();
-
-       
         
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Ticket')));
         $this->template->title   = $ticket->title.' - '.__('Ticket');
 
+        //loading agents/admins 
+        $users = NULL;
+        if ($user->id_role==Model_Role::ROLE_ADMIN)
+        {
+            $users_db = DB::select('u.id_user')->select('u.name')
+                ->from(array('users', 'u'))
+                ->where('id_role','=',Model_Role::ROLE_ADMIN)
+                ->as_object()
+                ->execute();
+            foreach ($users_db as $key => $value) 
+            $users[$value->id_user] = $value->name;
+        }
+        
         $this->template->bind('content', $content);
-        $this->template->content = View::factory('oc-panel/pages/support/ticket',array('replies'=>$replies,'ticket'=>$ticket));
+        $this->template->content = View::factory('oc-panel/pages/support/ticket',array('replies'=>$replies,'ticket'=>$ticket, 'users'=>$users));
         $content->errors = $errors;
 
     }
