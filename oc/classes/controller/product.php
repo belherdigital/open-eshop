@@ -86,8 +86,8 @@ class Controller_Product extends Controller{
             $hits = new Model_Visit();
             $hits = $hits->where('id_product','=', $product->id_product)->count_all();
            
-            $this->template->title            = $product->title;
-            $this->template->meta_description = $product->description;
+            $this->template->title            = $product->title. ' - '.__('Demo').' - '.$product->category->name;
+            $this->template->meta_description = __('Demo').', '.__('preview').','.$product->description;
 
             $this->template->bind('product', $product);
 

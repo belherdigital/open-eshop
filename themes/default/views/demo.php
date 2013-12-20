@@ -8,9 +8,9 @@
     <meta charset="<?=Kohana::$charset?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title><?=__('Demo')?> - <?=$title?></title>
-    <meta name="keywords" content="<?=__('Demo')?>,<?=$meta_keywords?>" >
-    <meta name="description" content="<?=__('Demo')?> - <?=$meta_description?>" >
+    <title><?=$title?></title>
+    <meta name="keywords" content="<?=$meta_keywords?>" >
+    <meta name="description" content="<?=$meta_description?>" >
     <meta name="copyright" content="<?=$meta_copywrite?>" >
     <meta name="author" content="open-eshop.com">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -22,7 +22,7 @@
     <?endif?>     
     
     <!-- Bootstrap core CSS -->
-    <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.3/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.3/cyborg/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -32,17 +32,17 @@
 
     <style type="text/css">
         iframe{
-        position: absolute; 
-        background: transparent; 
-        width: 100%; 
-        height:100%; 
-        top: 0; 
-        padding-top:60px; 
-        z-index: 1;
-        display:block;
-        border:none;
+            position: absolute; 
+            background: transparent; 
+            width: 100%; 
+            height:100%; 
+            top: 0; 
+            padding-top:50px; 
+            z-index: 1;
+            display:block;
+            border:none;
         }
-        .btn-header-group{padding-top: 10px;}
+        .btn-header-group{padding-top: 12px;}
         
     </style>
 
@@ -115,7 +115,7 @@
 
           <div class="btn-group navbar-right btn-header-group">
 
-                <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
+                <a class="btn btn-success btn-sm" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                     <span class="glyphicon glyphicon-shopping-cart"></span>
                 <?if ($product->final_price()>0):?>
                     <?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?>
@@ -125,7 +125,7 @@
                     <?=__('Get it for Free')?>
                 <?endif?>
                 </a> 
-                <a class="btn btn-info" title="<?=__('Full screen demo')?>" href="<?=$product->url_demo?>&skin=<?=$skin?>">
+                <a class="btn btn-default btn-sm" title="<?=__('Full screen demo')?>" href="<?=$product->url_demo?>&skin=<?=$skin?>">
                     <span class="glyphicon glyphicon-fullscreen"></span> 
                 </a>
             </div>
