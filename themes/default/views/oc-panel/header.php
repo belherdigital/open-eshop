@@ -19,6 +19,7 @@
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
+                    <?=Theme::admin_link(__('Market'), 'market','index','oc-panel','icon icon-gift icon-white')?>
                     <?Theme::admin_link(__('Support'), 'support','index','oc-panel','icon-question-sign icon-white')?>
                 	<?=Theme::admin_link(__('Stats'),'stats','index','oc-panel','icon-align-left icon-white')?>
                     <?=Theme::admin_link(__('Widgets'),'widget','index','oc-panel','icon-move icon-white')?>

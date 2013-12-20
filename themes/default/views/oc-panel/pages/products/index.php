@@ -38,10 +38,6 @@
                     <a target="_blank" href="<?=Route::url('product', array('seotitle'=>$element->seotitle,'category'=>$element->category->seoname)) ?>">
                         <?=Route::url('product', array('seotitle'=>$element->seotitle,'category'=>$element->category->seoname)) ?>
                     </a>
-                    <br>
-                    <a target="_blank" href="<?=Route::url('product-minimal', array('seotitle'=>$element->seotitle,'category'=>$element->category->seoname)) ?>">
-                        <?=Route::url('product-minimal', array('seotitle'=>$element->seotitle,'category'=>$element->category->seoname)) ?>
-                    </a>
                 </td>
 				<?if ($controller->allowed_crud_action('delete') OR $controller->allowed_crud_action('update')):?>
 				<td width="80px">

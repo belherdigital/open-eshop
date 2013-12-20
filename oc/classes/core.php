@@ -211,7 +211,8 @@ class Core {
      */
     public static function get_market($reload = FALSE)
     {
-        $market_url = 'http://market.open-eshop.com/api/products/open-eshop';
+        $market_url = (Kohana::$environment!== Kohana::DEVELOPMENT)? 'market.open-eshop.com':'eshop.lo';
+        $market_url = 'http://'.$market_url.'/api/products';
 
         //try to get the json from the cache
         $market = Core::cache($market_url);

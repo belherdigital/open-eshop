@@ -34,12 +34,12 @@ foreach ($market as $item):?>
             </p>
             <?if ( $item['price_offer']>0):?>
             <p>
-                <a href="<?=$item['url_buy']?>" class="btn btn-block btn-danger"><?=__('Limited Offer!')?> $<?=$item['price_offer']?></a>
-                <a href="<?=$item['url_buy']?>" class="btn btn-block btn-info"><i class="icon-time icon-white"></i> <?=__('Valid Until')?>  <?= Date::format($item['offer_valid'], core::config('general.date_format'))?></a>
+                <a href="<?=$item['url_buy']?>" class="btn btn-block btn-danger oe_button"><?=__('Limited Offer!')?> $<?=$item['price_offer']?></a>
+                <a href="<?=$item['url_buy']?>" class="btn btn-block btn-info oe_button"><i class="icon-time icon-white"></i> <?=__('Valid Until')?>  <?= Date::format($item['offer_valid'], core::config('general.date_format'))?></a>
             </p>
             <?endif?>
             <p>
-                <a class="btn btn-primary btn-large" href="<?=$item['url_buy']?>">
+                <a class="btn btn-primary btn-large oe_button" href="<?=$item['url_buy']?>">
                     <i class="icon-shopping-cart icon-white"></i>  <?=__('Buy Now')?>
                 </a>
                 <?if (empty($item['url_demo'])===FALSE):?>
