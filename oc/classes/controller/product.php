@@ -56,11 +56,11 @@ class Controller_Product extends Controller{
             Breadcrumbs::add(Breadcrumb::factory()->set_title($product->category->name)->set_url(Route::url('list',array('category'=>$product->category->seoname))));
             Breadcrumbs::add(Breadcrumb::factory()->set_title($product->title));
            
-            $this->template->title            = $product->title;
+            $this->template->title            = $product->title.' - '.$product->category->name;
             $this->template->meta_description = $product->description;
 
             $this->template->bind('content', $content);
-            
+            $this->template->bind('product', $product);
             $this->template->content = View::factory($product_view,array('product'=>$product,'hits'=>$hits));
 
 		}

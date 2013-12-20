@@ -26,7 +26,7 @@
 
 <?if (!empty($product->url_demo)):?>
     <span class="label pull-right">
-        <a href="<?=Route::url('demo', array('seotitle'=>$product->seotitle))?>" ><?=__('Demo')?></a>
+        <a href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" ><?=__('Demo')?></a>
     </span>
 <?endif?>
     
@@ -66,7 +66,7 @@
 <div class="button-space">
 <?if ($product->final_price()>0):?>
     <a class="btn btn-success pay-btn" 
-        href="<?=Route::url('default', array('controller'=>'paypal','action'=>'pay','id'=>$product->seotitle))?>">
+        href="<?=Route::url('product-paypal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
         <?=__('Pay with Paypal')?></a>
 
     <?=Paymill::button($product)?>

@@ -22,7 +22,7 @@
     <?endif?>     
     
     <!-- Bootstrap core CSS -->
-    <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.2/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.3/flatly/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -91,7 +91,7 @@
               <ul class="dropdown-menu">
                 <?foreach ($skins as $s):?>
                     <?if ($s!=$skin):?>
-                    <li><a title="<?=$s?>" href="<?=Route::url('demo', array('seotitle'=>$product->seotitle))?>?skin=<?=$s?>"><?=$s?></a></li>
+                    <li><a title="<?=$s?>" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>?skin=<?=$s?>"><?=$s?></a></li>
                     <?endif?>
                 <?endforeach?>
               </ul>
@@ -103,7 +103,7 @@
               <ul class="dropdown-menu">
                 <?foreach ($products as $p):?>
                     <?if (!empty($p->url_demo) AND $p->id_product!=$product->id_product):?>
-                    <li><a title="<?=__('Demo')?> - <?=$p->title?>" href="<?=Route::url('demo', array('seotitle'=>$p->seotitle))?>"><?=$p->title?></a></li>
+                    <li><a title="<?=__('Demo')?> - <?=$p->title?>" href="<?=Route::url('product-demo', array('seotitle'=>$p->seotitle,'category'=>$p->category->seoname))?>"><?=$p->title?></a></li>
                     <?endif?>
                 <?endforeach?>
                 

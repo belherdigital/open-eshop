@@ -102,15 +102,35 @@ Route::set('blog', 'blog(/<seotitle>.html)')
         'action'     => 'index',
 ));
 
+
+
 /**
- * Item / product view (public)
+ * Item / product view minimal (public)
  */
-Route::set('demo', 'demo/<seotitle>.html')
+Route::set('product-minimal', '<category>/embed/<seotitle>.html')
+->defaults(array(
+        'controller' => 'product',    
+        'action'     => 'view',
+        'ext'        => 1
+));
+
+/**
+ * Item / product view preview/demo
+ */
+Route::set('product-demo', '<category>/demo/<seotitle>.html')
 ->defaults(array(
         'controller' => 'product',    
         'action'     => 'demo',
 ));
 
+/**
+ * Item paypal form
+ */
+Route::set('product-paypal', '<category>/paypal/<seotitle>.htm')
+->defaults(array(
+        'controller' => 'paypal',    
+        'action'     => 'pay',
+));
 
 /**
  * Item / product view (public)
@@ -122,15 +142,7 @@ Route::set('product', '<category>/<seotitle>.html')
 ));
 
 
-/**
- * Item / product view minimal (public)
- */
-Route::set('product-minimal', '<seotitle>.htm')
-->defaults(array(
-        'controller' => 'product',    
-        'action'     => 'view',
-        'ext'        => 1
-));
+
 
 
 /**

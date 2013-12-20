@@ -15,6 +15,10 @@
 	<meta name="author" content="open-eshop.com">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
+    <?if (isset($product)):?>
+    <link rel="canonical" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"/>
+    <?endif?>
+
     <link rel="alternate" type="application/atom+xml" title="RSS <?=Core::config('general.site_name')?>" href="<?=Route::url('rss')?>" />
 
     <?if (Controller::$category!==NULL):?>

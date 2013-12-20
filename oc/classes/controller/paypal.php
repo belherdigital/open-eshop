@@ -80,7 +80,7 @@ class Controller_Paypal extends Controller{
 	{ 
 		$this->auto_render = FALSE;
 
-        $product_seo = $this->request->param('id');
+        $product_seo = $this->request->param('seotitle');
 
         $product = new Model_product();
 

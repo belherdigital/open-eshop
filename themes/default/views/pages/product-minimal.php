@@ -63,7 +63,7 @@
 
 <?if ($product->final_price()>0):?>
     <a class="btn btn-success pay-btn mb-20" target="_top"
-        href="<?=Route::url('default', array('controller'=>'paypal','action'=>'pay','id'=>$product->seotitle))?>">
+        href="<?=Route::url('product-paypal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
         <?=__('Pay with Paypal')?></a>
 
     <?=Paymill::button($product)?>
