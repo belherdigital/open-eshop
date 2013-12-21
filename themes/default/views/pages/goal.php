@@ -12,6 +12,13 @@
 <?endif?>
 
 <?if (isset($order)):?>
+    
+    <?if ( core::config('general.analytics')!='' AND Kohana::$environment === Kohana::PRODUCTION ): ?>
+    <script type="text/javascript">
+    _gaq.push(['_trackEvent', 'Purchase', '<?=$order->product->seotitle?>', <?=$order->amount?>]);
+    </script>
+    <?endif?>
+
     <?if(!empty($order->product->file_name)):?>
         <hr>
         <a title="<?=__('Download')?>" href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order))?>" 

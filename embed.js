@@ -73,22 +73,20 @@ open_eshop.height = 800;
 // Set name of class to trigger model
 open_eshop.click_class = 'oe_button';
 // Set the css styles here... It would be appended to head
-//open_eshop.css = '.oe_button{}';
+open_eshop.css = '.oe_button{font-weight: bold;} .open-eshop_noscroll{overflow: hidden;}';
 
 open_eshop.over = open_eshop.ifrm = {};
 open_eshop.init = function (os_ns) {
 
-    //UNCOMMENT THIS IF YOU WANT TO USE BUTTON STYLES
-    // t = document.createElement('style');
-    // t.type = 'text/css';
-    // if (t.styleSheet) {
-    //     t.styleSheet.cssText = os_ns.css;
-    // } else {
-    //     t.appendChild(document.createTextNode(os_ns.css));
-    // }
-    // document.getElementsByTagName('head')[0].appendChild(t);
+    t = document.createElement('style');
+    t.type = 'text/css';
+    if (t.styleSheet) {
+        t.styleSheet.cssText = os_ns.css;
+    } else {
+        t.appendChild(document.createTextNode(os_ns.css));
+    }
+    document.getElementsByTagName('head')[0].appendChild(t);
 
-    //close the overlay
     bind_event(document, 'click', function (e) {
         clkd = e.target || e.srcElement || window.event.target || window.event.srcElement;
         idd = clkd.getAttribute('id');
@@ -97,17 +95,18 @@ open_eshop.init = function (os_ns) {
             while (paras[0]) {
                 paras[0].parentNode.removeChild(paras[0]);
             }
-
-            document.getElementById("open_eshop_iframe_mask").remove();
+            document.body.className = document.body.className.replace(/\bopen-eshop_noscroll\b/, '');
+            if (document.getElementById("open_eshop_iframe_mask")) document.getElementById("open_eshop_iframe_mask").remove();
         }
     });
 
-    //getting the elements <a by class open_eshop.click_class
+
     os_ns._eles = getElementsByClassName(document, os_ns.click_class);
     for (i = 0; i < os_ns._eles.length; i++) {
 
         bind_event(os_ns._eles[i], 'click', function (e) {
             bod = document.body;
+            bod.className += " open-eshop_noscroll";
             tar = e.target || e.srcElement || window.event.target || window.event.srcElement;
 
             over = document.createElement("DIV");
@@ -118,6 +117,7 @@ open_eshop.init = function (os_ns) {
             over.style.left = 0;
             over.style.margin = 0;
             over.style.padding = 0;
+            over.style.zIndex = 12314242535364778769;
             over.style.width = '100%';
             over.style.height = '100%';
             over.style.background = '#000';
@@ -126,22 +126,28 @@ open_eshop.init = function (os_ns) {
             os_ns.over[i] = over;
             bod.appendChild(over);
 
+            ifrmc = document.createElement("DIV");
+            ifrmc.setAttribute("id", 'open_eshop_iframe' + i);
+            ifrmc.setAttribute("class", 'open_eshop_iframe');
+            ifrmc.style.width = os_ns.width + "px";
+            ifrmc.style.height = os_ns.height + "px";
+            ifrmc.style.position = 'fixed';
+            ifrmc.style.top = '50%';
+            ifrmc.style.left = '50%';
+            ifrmc.style.zIndex = 92314242535364778769;
+            ifrmc.style.marginLeft = '-' + (os_ns.width / 2) + 'px';
+            ifrmc.style.marginTop = '-' + (os_ns.height / 2) + 'px';
 
             ifrm = document.createElement("IFRAME");
             ifrm.setAttribute("src", tar.getAttribute('href'));
-            ifrm.setAttribute("id", 'open_eshop_iframe' + i);
-            ifrm.setAttribute("class", 'open_eshop_iframe');
             ifrm.style.width = os_ns.width + "px";
             ifrm.style.height = os_ns.height + "px";
-            ifrm.style.position = 'absolute';
-            ifrm.style.top = '50%';
-            ifrm.style.left = '50%';
-            ifrm.style.marginLeft = '-' + (os_ns.width / 2) + 'px';
-            ifrm.style.marginTop = '-' + (os_ns.height / 2) + 'px';
-            ifrm.style.zIndex = 12314242535364778769;
+            ifrm.style.backgroundColor = "transparent";
             ifrm.style.border = 0;
-            os_ns.ifrm[i] = ifrm;
-            bod.appendChild(ifrm);
+            os_ns.ifrm[i] = ifrmc;
+
+            ifrmc.appendChild(ifrm);
+            bod.appendChild(ifrmc);
 
             cancelDefaultAction(e);
         });
