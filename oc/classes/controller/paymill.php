@@ -76,9 +76,8 @@ class Controller_Paymill extends Controller{
                     
                     //create order
                     $order = Model_Order::sale(NULL,Auth::instance()->get_user(),$product,Core::post('paymillToken'),'paymill');
-                    //redirect him to the download
-                    Alert::set(Alert::SUCCESS, __('Thanks for your purchase!'));
-                    $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
+                    //redirect him to the thanks page
+                    $this->request->redirect(Route::url('product-goal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
 
                 } 
                 else 

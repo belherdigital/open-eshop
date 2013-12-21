@@ -48,16 +48,16 @@
 					</div>
 				</div>
                  <div class="control-group">
-                <?= FORM::label($forms['thanks_page']['key'], __('Paypal thanks page'), array('class'=>'control-label', 'for'=>$forms['thanks_page']['key']))?>
+                <?= FORM::label($forms['thanks_page']['key'], __('Thanks page'), array('class'=>'control-label', 'for'=>$forms['thanks_page']['key']))?>
                 <div class="controls">
                     <?= FORM::select($forms['thanks_page']['key'], $pages, $forms['thanks_page']['value'], array( 
                     'class' => 'tips', 
                     'id' => $forms['thanks_page']['key'], 
-                    'data-content'=> __("Select which page you want to redirect the user after a success paypal payment, be sure to mention to check their paypal account for an email."),
+                    'data-content'=> __("Select which page you want to redirect the user after a successful payment, be sure to mention to check their paypal account for an email."),
                     'data-trigger'=>"hover",
                     'data-placement'=>"right",
                     'data-toggle'=>"popover",
-                    'data-original-title'=>__("Thanks for the Paypal payment page"),
+                    'data-original-title'=>__("Thanks for payment page"),
                     ))?> 
                 </div>
                 </div>

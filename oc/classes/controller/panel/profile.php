@@ -190,6 +190,7 @@ class Controller_Panel_Profile extends Auth_Controller {
 
         $orders = $orders->where('id_user','=',$user->id_user)
                         ->where('status', '=', Model_Order::STATUS_PAID)
+                        ->order_by('created','desc')
                         ->find_all();
 
         $licenses = new Model_License();

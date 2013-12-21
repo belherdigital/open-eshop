@@ -145,7 +145,7 @@ class Model_Order extends ORM {
                             '[PRODUCT.TITLE]'   => $product->title,
                             '[PRODUCT.PRICE]'   => $order->amount.' '.$order->currency,
                             '[PRODUCT.NOTES]'   => $product->email_purchase_notes,
-                            '[URL.DOWNLOAD]'    => Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order)),
+                            '[URL.DOWNLOAD]'    => $user->ql('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order)),
                             '[LICENSE]'         => $license,
                         );
             

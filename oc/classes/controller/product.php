@@ -71,6 +71,59 @@ class Controller_Product extends Controller{
 		}
 	}
 
+    /**
+     * action product goal after buying
+     * @return void 
+     */
+    public function action_goal()
+    {
+
+        $product = new Model_product();
+        $product->where('seotitle','=',$this->request->param('seotitle'))
+            ->where('status','=',Model_Product::STATUS_ACTIVE)
+            ->limit(1)->find();
+
+        if ($product->loaded())
+        {
+           
+            $this->template->title            = $product->title.' - '.$product->category->name;
+            $this->template->meta_description = $product->description;
+
+            $thanks_message = NULL;
+
+            if (core::config('payment.thanks_page')!='')
+            {
+                $thanks_message = Model_Content::get(core::config('payment.thanks_page'));
+            }
+
+            $order = NULL;
+            if (Auth::instance()->logged_in())
+            {
+                $user = Auth::instance()->get_user();
+                $order = new Model_Order();
+                $order->where('id_user','=',$user->id_user)
+                    ->where('id_product','=',$product->id_product)
+                    ->order_by('created','desc')->limit(1)->find();
+                if (!$order->loaded())
+                    $order = NULL;
+
+                $price_paid = $order->amount;
+            }
+            else
+                $price_paid = Session::instance()->get('goal_'.$product->id_product,$product->final_price());
+
+
+            $this->template->bind('content', $content);
+            $this->template->content = View::factory('pages/goal',array('product'=>$product,'thanks_message'=>$thanks_message,'order'=>$order,'price_paid'=>$price_paid));
+
+        }
+        else
+        {
+            Alert::set(Alert::INFO, __('Product not found.'));
+            $this->request->redirect(Route::url('default'));
+        }
+    }
+
     public function action_demo()
     {
         $this->before('demo');
