@@ -298,6 +298,8 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."config` (`group_name`, `conf
 ('payment', 'paypal_account', ''),
 ('payment', 'paymill_private', ''),
 ('payment', 'paymill_public', ''),
+('payment', 'stripe_private', ''),
+('payment', 'stripe_public', ''),
 ('general', 'number_format', '%n'),
 ('general', 'date_format', 'd-m-y'),
 ('general', 'base_url', '".$_POST['SITE_URL']."'),

@@ -78,6 +78,12 @@ class Controller_Panel_Update extends Auth_Controller {
                          array('config_key'     =>'minify',
                                'group_name'     =>'general', 
                                'config_value'   =>'0'), 
+                         array('config_key'     =>'stripe_public',
+                               'group_name'     =>'payment', 
+                               'config_value'   =>''), 
+                         array('config_key'     =>'stripe_private',
+                               'group_name'     =>'payment', 
+                               'config_value'   =>''), 
                         );
         
 

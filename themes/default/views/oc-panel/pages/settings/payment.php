@@ -104,6 +104,48 @@
                         </div>
                 </div>
 
+                <div class="control-group">
+                    <div class="controls">
+                    <label>
+                        <p>To get paid via Credit card you can also use a Stripe account. It's free to register. They charge 2'95% of any sale.</p>
+                        <a class="btn btn-success" target="_blank" href="https://stripe.com">
+                            <i class="icon-pencil icon-white"></i> Register for free at Stripe</a>
+                    </label>
+                    </div>
+                </div>
+                <div class="control-group">
+                    
+                    <?= FORM::label($forms['stripe_private']['key'], __('Stripe private key'), array('class'=>'control-label', 'for'=>$forms['stripe_private']['key']))?>
+                    <div class="controls">
+                        <?= FORM::input($forms['stripe_private']['key'], $forms['stripe_private']['value'], array(
+                        'placeholder' => "", 
+                        'class' => 'tips', 
+                        'id' => $forms['stripe_private']['key'],
+                        'data-content'=> __("Stripe private key"),
+                        'data-trigger'=>"hover",
+                        'data-placement'=>"right",
+                        'data-toggle'=>"popover",
+                        'data-original-title'=>'', 
+                        ))?> 
+                        </div>
+                </div>
+
+                <div class="control-group">
+                    <?= FORM::label($forms['stripe_public']['key'], __('Stripe public key'), array('class'=>'control-label', 'for'=>$forms['stripe_public']['key']))?>
+                    <div class="controls">
+                        <?= FORM::input($forms['stripe_public']['key'], $forms['stripe_public']['value'], array(
+                        'placeholder' => "", 
+                        'class' => 'tips', 
+                        'id' => $forms['stripe_public']['key'],
+                        'data-content'=> __("Stripe public key"),
+                        'data-trigger'=>"hover",
+                        'data-placement'=>"right",
+                        'data-toggle'=>"popover",
+                        'data-original-title'=>'', 
+                        ))?> 
+                        </div>
+                </div>
+
                
 				<div class="form-actions">
 					<?= FORM::button('submit', 'Update', array('type'=>'submit', 'class'=>'btn-small btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'settings', 'action'=>'payment'))))?>

@@ -4,7 +4,7 @@
     <script
         src="https://button.paymill.com/v1/"
         id="button"
-        data-label="<?=__('Pay with Credit Card')?>"
+        data-label="<?=__('Pay with Card')?>"
         data-title="<?=$product->title?>"
         data-description="<?=substr(Text::removebbcode($product->description), 0, 30)?>"
         data-amount="<?=Paymill::money_format($product->final_price())?>"

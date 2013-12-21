@@ -26,7 +26,6 @@ class Controller_Product extends Controller{
         }
         else
            $product_view = 'pages/product'; 
-            
 
         $product = new Model_product();
         $product->where('seotitle','=',$this->request->param('seotitle'))
@@ -35,6 +34,13 @@ class Controller_Product extends Controller{
 
         if ($product->loaded())
         {
+
+            //stripe button
+            if ( Core::config('payment.stripe_private')!='' AND Core::config('payment.stripe_public')!='' )
+            {
+                $this->template->scripts['footer'][] = 'https://checkout.stripe.com/v2/checkout.js';
+                $this->template->scripts['footer'][] = Route::url('default',array('controller'=>'stripe','action'=>'javascript','id'=>$product->seotitle));
+            }    
             
             //adding a visit only if not the owner
             if(!Auth::instance()->logged_in())
@@ -103,6 +109,7 @@ class Controller_Product extends Controller{
                 $order = new Model_Order();
                 $order->where('id_user','=',$user->id_user)
                     ->where('id_product','=',$product->id_product)
+                    ->where('status','=',Model_Order::STATUS_PAID)
                     ->order_by('created','desc')->limit(1)->find();
                 if (!$order->loaded())
                     $order = NULL;
@@ -111,7 +118,6 @@ class Controller_Product extends Controller{
             }
             else
                 $price_paid = Session::instance()->get('goal_'.$product->id_product,$product->final_price());
-
 
             $this->template->bind('content', $content);
             $this->template->content = View::factory('pages/goal',array('product'=>$product,'thanks_message'=>$thanks_message,'order'=>$order,'price_paid'=>$price_paid));
