@@ -73,7 +73,7 @@ open_eshop.height = 600;
 // Set name of class to trigger model
 open_eshop.click_class = 'oe_button';
 // Set the css styles here... It would be appended to head
-open_eshop.css = '.oe_button{font-weight: bold;} .open-eshop_noscroll{overflow: hidden;}';
+open_eshop.css = '.oe_button{} .open-eshop_noscroll{overflow: hidden;}';
 
 open_eshop.over = open_eshop.ifrm = {};
 open_eshop.init = function (os_ns) {
