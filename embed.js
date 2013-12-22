@@ -69,7 +69,7 @@ var open_eshop = open_eshop || {};
 // Set width of modal 
 open_eshop.width = 480;
 // Set height of modal
-open_eshop.height = 800;
+open_eshop.height = 600;
 // Set name of class to trigger model
 open_eshop.click_class = 'oe_button';
 // Set the css styles here... It would be appended to head
