@@ -171,6 +171,7 @@ class Controller_Panel_Update extends Auth_Controller {
                           'themes/',
                           'languages/',
                           'index.php',
+                          'embed.js',
                           'README.md',);
       
         foreach ($copy_list as $dest_path) 
