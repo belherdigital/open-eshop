@@ -28,9 +28,6 @@ foreach ($market as $item):?>
             </p>
             <p>
                 <?=Text::bb2html($item['description'])?>
-                <?if (strlen($item['url_more'])>0):?>
-                    <a href="<?=$item['url_more']?>"><?=__('More info')?></a>
-                <?endif?>
             </p>
             <?if ( $item['price_offer']>0):?>
             <p>
