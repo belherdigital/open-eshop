@@ -5,10 +5,10 @@
   array (
     'codename' => 'nungwi',
     'released' => '2014-01-xx',
-    'blog' => '',
+    'blog' => 'http://market.open-eshop.com/blog/open-eshop-11.html',
     'changelog' => 'https://github.com/open-classifieds/open-eshop/commits/1.2',
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=4&page=1&state=closed',
-    'download' => '',
+    'download' => 'http://j.mp/oe_12',
   ),
 
   '1.1' => 
