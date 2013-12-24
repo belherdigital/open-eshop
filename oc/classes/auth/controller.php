@@ -66,6 +66,9 @@ class Auth_Controller extends Controller
         Theme::checker();
         
         $this->maintenance();
+
+        //Gets a coupon if selected
+        self::$coupon = Model_Coupon::get_coupon();
 	
 		if($this->auto_render===TRUE)
 		{

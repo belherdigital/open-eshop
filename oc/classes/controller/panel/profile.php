@@ -244,7 +244,7 @@ class Controller_Panel_Profile extends Auth_Controller {
      * action to download a free digital good, creates an order if needed and redirect to the payment
      * @return [type] [description]
      */
-    public function action_free_download()
+    public function action_free()
     {
         $this->auto_render = FALSE;
 
@@ -278,7 +278,12 @@ class Controller_Panel_Profile extends Auth_Controller {
                 if (!$order->loaded())
                     $order = Model_Order::sale(NULL,$user,$product,NULL,'free');
 
-                $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order)));
+                //if theres download redirect him to the file
+                if (!empty($product->file_name))
+                    $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order)));
+                else
+                    $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
+
             }
         }
 

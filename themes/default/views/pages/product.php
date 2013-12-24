@@ -78,7 +78,7 @@
         href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'register'))?>#register-modal">
     <?else:?>
     <a class="btn btn-info btn-large"
-        href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'free_download','id'=>$product->seotitle))?>">
+        href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'free','id'=>$product->seotitle))?>">
     <?endif?>
         <?if(!empty($product->file_name)):?>
             <?=__('Free Download')?>

@@ -54,38 +54,8 @@ class Controller extends Kohana_Controller
                 self::$category = $seo_cat;
         }
         
-        /**
-         * Deletes a coupon in use
-         */
-        if(core::request('coupon_delete') != NULL)
-        {
-            Session::instance()->set('coupon','');
-            Alert::set(Alert::INFO, __('Coupon deleted.'));
-        }
-        //selected coupon Paypal custom field, or coupon via get/post or session
-        elseif(core::post('custom') != NULL OR core::request('coupon') != NULL OR Session::instance()->get('coupon')!='' )
-        {
-            $slug_coupon   = new Model_Coupon();
-            $coupon = $slug_coupon->where('name', '=', core::post('custom',core::request('coupon',Session::instance()->get('coupon'))) )
-                    ->where('number_coupons','>',0)
-                    ->where('valid_date','>',DB::expr('NOW()'))
-                    ->where('status','=',1)
-                    ->limit(1)->find();
-            if ($coupon->loaded())
-            {
-                self::$coupon = $coupon;
-                if (Session::instance()->get('coupon')!=self::$coupon->name)
-                {
-                    Alert::set(Alert::SUCCESS, __('Coupon added!'));
-                    Session::instance()->set('coupon',self::$coupon->name);
-                }
-            }
-            else
-                Alert::set(Alert::INFO, __('Coupon not valid, expired or already used.'));
-                
-        }
-
-
+        //Gets a coupon if selected
+        self::$coupon = Model_Coupon::get_coupon();
 
         if($this->auto_render===TRUE)
         {
