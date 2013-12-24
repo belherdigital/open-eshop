@@ -5,11 +5,11 @@
     <h1><?=__('Edit Product')?></h1>
     <p>
         <?=__('Sell your product')?>:<br>
-        Link:
+        <?=__('Link')?>
     <a target="_blank" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)) ?>">
                         <?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)) ?>
                     </a><br>
-Button with overlay:
+<?=__('Button with overlay')?>
 <textarea class="span4" onclick="this.select()"><script src="<?=Core::config('general.base_url')?>embed.js"></script>
 <a class="oe_button" href="<?=Route::url('product-minimal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)) ?>"><?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?></a></textarea>
 </p>
@@ -68,13 +68,13 @@ Button with overlay:
                                    	 	data-target="#acc_<?=$cats['categories'][$key]['seoname']?>">                    
                                     	<i class=" icon-plus icon-white"></i> <?=$cats['categories'][$key]['name']?>
                                 	</a>
-                                <input <?=($cats['categories'][$key]['seoname']==$cats['cat_selected'])?'checked':''?> type="radio" id="radio_<?=$cats['categories'][$key]['seoname']?>" name="category" value="<?=$cats['categories'][$key]['id']?>" required > 
+                                <input <?=($cats['categories'][$key]['seoname']==$cats['cat_selected'])?'checked':''?> type="radio" id="radio_<?=$cats['categories'][$key]['seoname']?>" name="id_category" value="<?=$cats['categories'][$key]['id']?>" required > 
                                                         
                                 </label>
                                 
                             <?else:?>
                                 <label class="radio">
-                                <input <?=($cats['categories'][$key]['seoname']==$cats['cat_selected'])?'checked':''?> type="radio" id="radio_<?=$cats['categories'][$key]['seoname']?>" name="category" value="<?=$cats['categories'][$key]['id']?>" required > 
+                                <input <?=($cats['categories'][$key]['seoname']==$cats['cat_selected'])?'checked':''?> type="radio" id="radio_<?=$cats['categories'][$key]['seoname']?>" name="id_category" value="<?=$cats['categories'][$key]['id']?>" required > 
                                 
                                		<a class="btn btn-mini btn-primary" data-toggle="collapse" type="button"  
                                    	 	data-target="#acc_<?=$cats['categories'][$key]['seoname']?>">                    

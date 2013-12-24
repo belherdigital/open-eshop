@@ -10,9 +10,9 @@
 				<?Theme::admin_link(__('Orders'), 'order','index','oc-panel','icon-shopping-cart')?>
                 <?Theme::admin_link(__('Licenses'), 'license','index','oc-panel','icon-list')?>
                 <?Theme::admin_link(__('Coupons'), 'coupon','index','oc-panel','icon-tag')?>
-                <?Theme::admin_link(__('Support Admin'), 'support','index','oc-panel','icon-question-sign','admin')?>
-                <?Theme::admin_link(__('Support Assigned'), 'support','index','oc-panel','icon-question-sign','assigned')?>
                 <? if($user->id_role==Model_Role::ROLE_ADMIN):?>
+                    <?Theme::admin_link(__('Support Admin'), 'support','index','oc-panel','icon-question-sign','admin')?>
+                    <?Theme::admin_link(__('Support Assigned'), 'support','index','oc-panel','icon-question-sign','assigned')?>
                     <li class="divider"></li>
                 <?endif?>
 
