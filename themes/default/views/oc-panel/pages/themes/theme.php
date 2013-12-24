@@ -109,7 +109,7 @@ foreach ($mobile_themes as $theme=>$info):?>
             <p><?=$info['Description']?></p>
             <p><?=$info['License']?> v<?=$info['Version']?></p>
             <p>
-                <a class="btn btn-primary" href="<?=Route::url('oc-panel',array('controller'=>'theme','action'=>'mobile','id'=>$theme))?>"><?=__('Activate')?></a>
+                <a class="btn btn-primary" href="<?=Route::url('oc-panel',array('controller'=>'theme','action'=>'index','id'=>$theme))?>"><?=__('Activate')?></a>
                 <a class="btn" target="_blank" href="<?=Route::url('default')?>?theme=<?=$theme?>"><?=__('Preview')?></a>    
             </p>
         </div>
