@@ -226,4 +226,23 @@ class Controller_Panel_Theme extends Auth_Controller {
         }
     }
 
+    /**
+     * mobile theme selector
+     * @return [view] 
+     */
+    public function action_mobile()
+    {
+
+        // save only changed values
+        if($this->request->param('id'))
+        {
+            Theme::set_mobile_theme($this->request->param('id'));
+            
+            Alert::set(Alert::SUCCESS, __('Mobile Theme updated'));
+            $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=>'index')));
+        }
+
+       
+    }
+
 }//end of controller
