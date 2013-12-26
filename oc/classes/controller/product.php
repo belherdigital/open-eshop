@@ -39,7 +39,7 @@ class Controller_Product extends Controller{
             if ( Core::config('payment.stripe_private')!='' AND Core::config('payment.stripe_public')!='' )
             {
                 $this->template->scripts['footer'][] = 'https://checkout.stripe.com/v2/checkout.js';
-                $this->template->scripts['footer'][] = Route::url('default',array('controller'=>'stripe','action'=>'javascript','id'=>$product->seotitle));
+                $this->template->scripts['footer'][] = Route::url('default',array('controller'=>'stripe','action'=>'javascript','id'=>$product->seotitle)).'?t='.time();
             }    
             
             //adding a visit only if not the owner

@@ -340,7 +340,7 @@ function get_timezones()
  */
 function get_select_timezones($select_name='TIMEZONE',$selected=NULL)
 {
-	$sel='';
+    if ($selected=='UTC') $selected='Europe/London';
     $timezones = get_timezones();
     $sel.='<select id="'.$select_name.'" name="'.$select_name.'">';
     foreach( $timezones as $continent=>$timezone )
@@ -348,11 +348,8 @@ function get_select_timezones($select_name='TIMEZONE',$selected=NULL)
         $sel.= '<optgroup label="'.$continent.'">';
         foreach( $timezone as $city=>$cityname )
         {            
-            if ($selected==$city)
-            {
-                $sel.= '<option selected="selected" value="'.$city.'">'.$cityname.'</option>';
-            }
-            else $sel.= '<option value="'.$city.'">'.$cityname.'</option>';
+            $seloption = ($city==$selected) ? ' selected="selected"' : '';
+            $sel .= "<option value=\"$city\"$seloption>$cityname</option>";
         }
         $sel.= '</optgroup>';
     }

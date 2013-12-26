@@ -18,10 +18,10 @@ if ($_POST AND $succeed)
 	
 ///////////////////////////////////////////////////////
 	//check DB connection
-	$link = mysql_connect($_POST['DB_HOST'], $_POST['DB_USER'], $_POST['DB_PASS']);
+	$link = @mysql_connect($_POST['DB_HOST'], $_POST['DB_USER'], $_POST['DB_PASS']);
 	if (!$link) 
 	{
-		$error_msg.= __('Cannot connect to server').' '. $_POST['DB_HOST'].' '. mysql_error();
+		$error_msg = __('Cannot connect to server').' '. $_POST['DB_HOST'].' '. mysql_error();
 		$install = FALSE;
 	}
 	
@@ -29,7 +29,7 @@ if ($_POST AND $succeed)
 	{
         if ($_POST['DB_NAME'])
         {
-            $dbcheck = mysql_select_db($_POST['DB_NAME']);
+            $dbcheck = @mysql_select_db($_POST['DB_NAME']);
             if (!$dbcheck)
             {
             	 $error_msg.= __('Database name').': ' . mysql_error();
@@ -38,22 +38,22 @@ if ($_POST AND $succeed)
         }
         else 
         {
-    		$error_msg.= '<p>'.__('No database name was given').'. '.__('Available databases').':</p>\n';
+    		$error_msg.= '<p>'.__('No database name was given').'. '.__('Available databases').':</p>';
     		$db_list = @mysql_query('SHOW DATABASES');
-    		$error_msg.= '<pre>\n';
+    		$error_msg.= '<pre>';
 			if (!$db_list) 
 			{
-				$error_msg.= __('Invalid query'). ':\n' . mysql_error();
+				$error_msg.= __('Invalid query'). ':<br>' . mysql_error();
 			}
 			else 
 			{
 				while ($row = mysql_fetch_assoc($db_list)) 
 				{
-					$error_msg.= $row['Database'] . '\n';
+					$error_msg.= $row['Database'] . '<br>';
 				}
 			}
 
-    		$error_msg.= '</pre>\n';
+    		$error_msg.= '</pre>';
             $install 	= FALSE;
         }
 	}

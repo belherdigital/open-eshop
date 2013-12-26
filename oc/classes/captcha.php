@@ -13,12 +13,12 @@
 class captcha{
 
     /**
-	 * generates the image for the captcha
-	 * @param string $name, used in the session
-	 * @param int $width
-	 * @param int $height
-	 * @param string $baseList
-	 */
+     * generates the image for the captcha
+     * @param string $name, used in the session
+     * @param int $width
+     * @param int $height
+     * @param string $baseList
+     */
     public static function image($name='',$width=120,$height=40,$baseList = '123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ')
     {
         //echo $name.' orig= '.Session::instance()->get('captcha_'.$name).'<br>';
@@ -65,24 +65,27 @@ class captcha{
 
     
     /**
-	 *
-	 * @param string $name for the session
-	 */
+     *
+     * @param string $name for the session
+     */
     public static function url($name='')
     {
         return Route::url('default',array('controller'  => 'captcha', 'action' => 'image', 'id'=>$name)); 
     }
     
     /**
-	 * check if its valid or not
-	 * @param string $name for the session
-	 * @return boolean
-	 */
+     * check if its valid or not
+     * @param string $name for the session
+     * @return boolean
+     */
     public static function check($name = '')
     { 
         //d(strtolower(core::post('captcha')));
         //d(Session::instance()->get('captcha_'.$name));
         //d(Session::instance()->get('captcha_'.$name) == strtolower(core::post('captcha')));
+
+        if (core::config('advertisement.captcha') == FALSE) // Captchas are disabled
+            return TRUE;
 
         if (Session::instance()->get('captcha_'.$name) == strtolower(core::post('captcha'))) 
         {
@@ -94,30 +97,30 @@ class captcha{
     }
     
     /**
-	 * javascript that allow us to reload the iamge in case you can't read it
-	 * @return string javascript
-	 */
+     * javascript that allow us to reload the iamge in case you can't read it
+     * @return string javascript
+     */
     public static function reload_image()
     {
         return '<script type="text/javascript">
-		function reloadImg(id) {
-		var obj = document.getElementById(id);
-		var src = obj.src;
-		var date = new Date();
-		obj.src = src + "&v=" + date.getTime();
-		return false;
-		}</script>';
+        function reloadImg(id) {
+        var obj = document.getElementById(id);
+        var src = obj.src;
+        var date = new Date();
+        obj.src = src + "&v=" + date.getTime();
+        return false;
+        }</script>';
     }
 
     /**
-	 * generates the HTML image tag to add in a form
-	 * @param string $name unique name for the image
-	 * @return string html tag
-	 */
+     * generates the HTML image tag to add in a form
+     * @param string $name unique name for the image
+     * @return string html tag
+     */
     public static function image_tag($name='')
     {
         return self::reload_image().
                 '<img alt="captcha" id="captcha_img_'.$name.'" style="cursor: pointer;" title="Click to refresh"
-				onClick="return reloadImg(\'captcha_img_'.$name.'\');" src="'.captcha::url($name).'">';
+                onClick="return reloadImg(\'captcha_img_'.$name.'\');" src="'.captcha::url($name).'">';
     }
 }
