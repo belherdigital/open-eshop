@@ -83,7 +83,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
 
-            <li class="dropdown">
+            <li class="dropdown active">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=__('More themes')?> <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <?foreach ($products as $p):?>
@@ -96,9 +96,9 @@
             </li>
 
             <?if (count($skins)>0):?>
-            <li class="active" class="dropdown">
+            <li class="dropdown">
               <a title="<?=__('Choose stlye')?>" href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <?=($skin!=NULL)?$skin:__('Choose style')?><b class="caret"></b>
+                <?=($skin!=NULL)?$skin:__('Choose style')?> (<?=(count($skins))?>)<b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
                 <?foreach ($skins as $s):?>
