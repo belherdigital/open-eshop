@@ -49,7 +49,8 @@ class Controller_Api extends Controller {
         $i = 0;
         foreach($products as $p)
         {
-            $url= Route::url('product-minimal',  array('seotitle'=>$p->seotitle,'category'=>$p->category->seoname));
+            $url= Route::url('product',  array('seotitle'=>$p->seotitle,'category'=>$p->category->seoname));
+            $urlmin= Route::url('product-minimal',  array('seotitle'=>$p->seotitle,'category'=>$p->category->seoname));
 
             $items[] = array(
                                 'id_product'    => $p->id_product,
@@ -58,7 +59,7 @@ class Controller_Api extends Controller {
                                 'seoname'       => $p->seotitle,
                                 'skins'         => $p->skins,
                                 'url_more'      => $url,
-                                'url_buy'       => $url,
+                                'url_buy'       => $urlmin,
                                 'url_demo'      => (!empty($p->url_demo))?Route::url('product-demo', array('seotitle'=>$p->seotitle,'category'=>$p->category->seoname)):'',
                                 'url_screenshot'=> URL::base().$p->get_first_image(),
                                 'type'          => $p->category->seoname,

@@ -125,7 +125,7 @@
                     <?=__('Get it for Free')?>
                 <?endif?>
                 </a> 
-                <a class="btn btn-default btn-sm" title="<?=__('Full screen demo')?>" href="<?=$product->url_demo?>&skin=<?=$skin?>">
+                <a class="btn btn-default btn-sm" title="<?=__('Full screen demo')?>" href="<?=$product->url_demo?><?=(count($skins)>0)?'&skin='.$skin:''?>">
                     <span class="glyphicon glyphicon-fullscreen"></span> 
                 </a>
             </div>
@@ -137,7 +137,7 @@
 
 
 
-    <iframe frameborder="0" noresize="noresize" src="<?=$product->url_demo?>&skin=<?=$skin?>" ></iframe>
+    <iframe frameborder="0" noresize="noresize" src="<?=$product->url_demo?><?=(count($skins)>0)?'&skin='.$skin:''?>" ></iframe>
 
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
