@@ -83,6 +83,18 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
 
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=__('More themes')?> <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <?foreach ($products as $p):?>
+                    <?if (!empty($p->url_demo) AND $p->id_product!=$product->id_product):?>
+                    <li><a title="<?=__('Demo')?> - <?=$p->title?>" href="<?=Route::url('product-demo', array('seotitle'=>$p->seotitle,'category'=>$p->category->seoname))?>"><?=$p->title?></a></li>
+                    <?endif?>
+                <?endforeach?>
+                
+              </ul>
+            </li>
+
             <?if (count($skins)>0):?>
             <li class="active" class="dropdown">
               <a title="<?=__('Choose stlye')?>" href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -97,18 +109,6 @@
               </ul>
             </li>
             <?endif?>
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=__('More themes')?> <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <?foreach ($products as $p):?>
-                    <?if (!empty($p->url_demo) AND $p->id_product!=$product->id_product):?>
-                    <li><a title="<?=__('Demo')?> - <?=$p->title?>" href="<?=Route::url('product-demo', array('seotitle'=>$p->seotitle,'category'=>$p->category->seoname))?>"><?=$p->title?></a></li>
-                    <?endif?>
-                <?endforeach?>
-                
-              </ul>
-            </li>
 
             <li><p class="navbar-text"><?=substr(Text::removebbcode($product->description), 0, 30)?></p></li>
           </ul>
