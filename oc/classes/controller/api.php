@@ -59,7 +59,7 @@ class Controller_Api extends Controller {
                                 'skins'         => $p->skins,
                                 'url_more'      => $url,
                                 'url_buy'       => $url,
-                                'url_demo'      => (!empty($product->url_demo))?Route::url('product-demo', array('seotitle'=>$p->seotitle,'category'=>$p->category->seoname)):'',
+                                'url_demo'      => (!empty($p->url_demo))?Route::url('product-demo', array('seotitle'=>$p->seotitle,'category'=>$p->category->seoname)):'',
                                 'url_screenshot'=> URL::base().$p->get_first_image(),
                                 'type'          => $p->category->seoname,
                                 'price'         => $p->price,
