@@ -86,7 +86,7 @@ class Model_Order extends ORM {
      * @param  Model_Product $product  
      * @param  string        $token    
      * @param  string        $method   
-     * @param  date          $pay_date 
+     * @param  date          $pay_date Y-m-d H:i:s
      * @param  integer       $amount_paid
      * @param  string        $currency_paid    
      * @return void                
@@ -116,7 +116,7 @@ class Model_Order extends ORM {
         }
 
         $order->txn_id      = $token;
-        $order->pay_date    = ($pay_date==NULL)?Date::unix2mysql():Date::unix2mysql(strtotime($pay_date));
+        $order->pay_date    = ($pay_date==NULL)?Date::unix2mysql():$pay_date;
         if ($product->support_days>0)
             $order->support_date = Date::unix2mysql(Date::mysql2unix($order->pay_date)+($product->support_days*24*60*60)); 
             //Date::unix2mysql(strtotime('+'.$product->support_days.' day'));

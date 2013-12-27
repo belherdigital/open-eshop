@@ -93,10 +93,8 @@ class Controller_Panel_Order extends Auth_Crud {
 
     public function action_import()
     {    
-
         if($this->request->post())
         {
-
             ini_set('auto_detect_line_endings', true);
 
             $csv = $_FILES['file_source']['tmp_name'];
@@ -110,7 +108,7 @@ class Controller_Panel_Order extends Auth_Crud {
                     if ($i!=0)
                     {
                         list($email,$pay_date,$product_seotitle,$amount,$currency) = $data;
-                        
+                        $pay_date = Date::from_format($pay_date, 'd/m/yy', 'Y-m-d H:i:s');
                         $user = Model_User::create_email($email,substr($email, 0,strpos($email, '@')));
 
                         $product = new Model_Product();

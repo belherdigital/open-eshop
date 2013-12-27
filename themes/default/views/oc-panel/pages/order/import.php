@@ -4,7 +4,7 @@
 <div class="page-header">
     <h1><?=__('Import Orders')?></h1>
     <h2><?=__('Mass import CSV file.')?></h2>
-    <p><?=__('CSV file, first line with field names.')?> email;Date MM/DD/YY; SEOTITLE; 45.5; USD
+    <p><?=__('CSV file, first line with field names.')?> email;Date DD/MM/YYYY; SEOTITLE; 45.5; USD
 </div>
 
 
