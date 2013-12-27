@@ -77,7 +77,7 @@
                    <div class="alert alert-warning fade in">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true" onclick='setCookie("donation_alert",1,7)'>×</button>
                     <h4><?=__('Help us to improve!')?></h4>
-                    <p><?=__('Open Classifieds it´s an amazing free Open Source Software. With an small donation you are helping us to keep the project alive and updated. Thanks!')?></p>
+                    <p><?=__('Open eShop it´s an amazing free Open Source Software. With a small donation you are helping us to keep the project alive and updated. Thanks!')?></p>
                     <p>
                       <a href="http://j.mp/thanksdonate" onclick='setCookie("donation_alert",1,30)'>
                             <img src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" alt="">

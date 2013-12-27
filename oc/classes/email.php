@@ -138,7 +138,7 @@ class Email {
             //adding anchor tags to any [URL.* match
             foreach ($replace as $key => $value) 
             {
-                if(strpos($key, '[URL.')===0 OR $key == '[SITE.URL]')
+                if( (strpos($key, '[URL.')===0 OR $key == '[SITE.URL]') AND $value!='')
                     $replace[$key] = '[url='.$value.']'.$value.'[/url]';
             }
 

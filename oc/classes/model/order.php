@@ -163,7 +163,6 @@ class Model_Order extends ORM {
         catch (Exception $e) 
         {
             Kohana::$log->add(Log::ERROR, 'Order failed on creation, but paid. '.Core::post('payer_email'));
-            d($e);
         }
 
         return FALSE;
