@@ -117,7 +117,7 @@ class Controller_Panel_Order extends Auth_Crud {
                         $product->where('seotitle','=',$product_seotitle)->limit(1)->find();
                         
                         if ($product->loaded())
-                            Model_Order::sale(NULL,$user,$product,NULL,'Paypal',$pay_date,$amount,$currency);                                                
+                            Model_Order::sale(NULL,$user,$product,NULL,'import',$pay_date,$amount,$currency);                                                
                     }
                     
                     $i++;
