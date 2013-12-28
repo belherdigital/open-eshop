@@ -63,7 +63,7 @@
 
     <div class="control-group ">
     <label for="formorm_pay_date" class="control-label"><?=__('Pay Date')?></label>    <div class="controls">
-        <input type="text" id="formorm_pay_date" name="pay_date" placeholder="DD-MM-YYYY" value="">                         </div>
+        <input type="text" id="formorm_pay_date" name="pay_date" placeholder="YYYY-MM-DD" value="<?=date('Y-m-d H:i:s')?>">                         </div>
 </div>
 
 

@@ -41,7 +41,7 @@ class Controller_Panel_Order extends Auth_Crud {
 
         $pagination->title($this->template->title);
 
-        $orders = $orders->order_by('created','desc')
+        $orders = $orders->order_by('pay_date','desc')
         ->limit($pagination->items_per_page)
         ->offset($pagination->offset)
         ->find_all();
