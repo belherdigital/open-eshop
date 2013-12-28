@@ -513,15 +513,15 @@ class Theme {
      * @param  string $route      
      * @param  string $icon         class name of bootstrap icon to append with nav-link 
      */
-    public static function admin_link($name,$controller,$action='index',$route='oc-panel', $icon=NULL)
+    public static function admin_link($name,$controller,$action='index',$route='oc-panel', $icon=NULL, $id=NULL)
     {   
         if (Auth::instance()->get_user()->has_access($controller))
         {
         ?>
             <li <?=(Request::current()->controller()==$controller 
-                    && Request::current()->action()==$action)?'class="active"':''?> >
+                    && Request::current()->action()==$action && Request::current()->param('id')==$id)?'class="active"':''?> >
                 <a href="<?=Route::url($route,array('controller'=>$controller,
-                                                    'action'=>$action))?>">
+                                                    'action'=>$action,'id'=>$id))?>">
                     <?if($icon!==NULL)?>
                         <i class="<?=$icon?>"></i>
                     <?=$name?>
