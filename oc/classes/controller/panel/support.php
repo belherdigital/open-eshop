@@ -44,7 +44,7 @@ class Controller_Panel_Support extends Auth_Controller {
 
 
         $tickets = $tickets->where('id_ticket_parent', 'IS', NULL)
-                        ->order_by('status','desc')
+                        ->order_by('status','asc')
                         ->find_all();
 
         $this->template->bind('content', $content);
