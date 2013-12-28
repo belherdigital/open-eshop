@@ -22,7 +22,7 @@ class Model_Ticket extends ORM {
      * @var  array  Available statuses array
      */
     public static $statuses = array(
-        self::STATUS_CREATED      =>  'Created',
+        self::STATUS_CREATED      =>  'New',
         self::STATUS_READ         =>  'Read',
         self::STATUS_HOLD         =>  'Hold',
         self::STATUS_CLOSED       =>  'Closed',

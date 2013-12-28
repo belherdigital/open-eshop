@@ -192,15 +192,19 @@ class Controller_Panel_Support extends Auth_Controller {
 
                 if ($validation->check())
                 {
+                    //creates the answer ticket
                     $ticketr = new Model_Ticket();
                     $ticketr->id_user           = $user->id_user;
                     $ticketr->id_order          = $ticket->id_order;
                     $ticketr->id_ticket_parent  = $ticket->id_ticket;
                     $ticketr->description       = core::post('description');
-
                     $ticketr->save();
 
-                    //admin answer so we send email to owner of ticket
+                    //modify status of parent ticket
+                    $ticket->status = Model_Ticket::STATUS_CREATED;
+                    $ticket->save();
+
+                    //an admin answer so we send email to owner of ticket
                     if ($user->id_role==Model_Role::ROLE_ADMIN)
                     {
                         $ticket->id_user_support = $user->id_user;
@@ -215,7 +219,7 @@ class Controller_Panel_Support extends Auth_Controller {
                                                 );
 
                     }
-                    //sending email to agent assigned to this ticket.
+                    //client answers so sending email to agent assigned to this ticket.
                     elseif(is_numeric($ticket->id_user_support))
                     {
                         //send notification to agent
@@ -226,7 +230,7 @@ class Controller_Panel_Support extends Auth_Controller {
                                                 );
 
                     }
-                    //send email to notify_url /admin since we dont have the agent
+                    //client answers so send email to notify_url /admin since we dont have the agent
                     elseif(core::config('email.new_sale_notify'))
                     {
 
