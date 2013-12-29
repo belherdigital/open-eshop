@@ -609,7 +609,7 @@ class Theme {
     public static function checker()
     {
         if (self::get('premium')!=1 
-                OR (Request::current()->controller()=='api' AND Request::current()->action()=='license') 
+                OR (Request::current()->controller()=='theme' AND Request::current()->action()=='license') 
                 OR !Auth::instance()->logged_in())
             return TRUE;
 

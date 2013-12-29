@@ -32,7 +32,7 @@
                 <td><a href="<?=Route::url('oc-panel', array('controller'=> 'product', 'action'=>'update','id'=>$order->product->pk())) ?>">
                     <?=$order->product->title?></a></td>
                 <td><?=$order->amount.' '.$order->currency?></td>
-                <td><a href="<?=Route::url('oc-panel', array('controller'=> 'coupon', 'action'=>'update','id'=>$order->product->pk())) ?>">
+                <td><a href="<?=Route::url('oc-panel', array('controller'=> 'coupon', 'action'=>'update','id'=>$order->coupon->pk())) ?>">
                     <?=$order->coupon->name?></a></td>
                 <td><?=$order->pay_date?></td>
 				<td width="80px">
