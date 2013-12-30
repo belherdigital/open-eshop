@@ -2,8 +2,8 @@
 
 
 	<div class="page-header">
-        <h1><?=$ticket->title?> - <?=$ticket->product->title?></h1>
-        <h3><?=$ticket->user->name?> <?=Date::fuzzy_span(Date::mysql2unix($ticket->created))?></h3>
+        <h1><?=$ticket->title?></h1>
+        <p><?=$ticket->user->name?> <?=Date::fuzzy_span(Date::mysql2unix($ticket->created))?> - <?=$ticket->product->title?></p>
 
         <?if($ticket->status!=Model_Ticket::STATUS_CLOSED):?>
         <a class="btn btn-warning pull-right" href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'close','id'=>$ticket->id_ticket))?>">
@@ -11,7 +11,18 @@
         <?endif?> 
 
         <?if(Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN):?>
-    
+        
+            <form class="form-inline pull-right" method="post" action="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>"> 
+                <?= FORM::select('agent', $users, $ticket->id_user_support, array( 
+                    'id' => 'agent', 
+                    'data-trigger'=>"hover",
+                    'data-placement'=>"right",
+                    'data-toggle'=>"popover",
+                    ))?> 
+                <button type="submit" class="btn btn-info"><?=__('Assign')?></button>
+            </form>
+
+
             <a href="<?=Route::url('oc-panel', array('controller'=> 'order', 'action'=>'update','id'=>$ticket->order->pk())) ?>">
                 <?=round($ticket->order->amount,2)?><?=$ticket->order->currency?> <?=Date::format($ticket->order->pay_date,'d-m-y')?>
             </a>
@@ -25,20 +36,10 @@
             <?foreach ($ticket->order->licenses->find_all() as $license):?>
                 <br>
                 <a href="<?=Route::url('oc-panel', array('controller'=> 'license', 'action'=>'update','id'=>$license->id_license)) ?>">
-                    <?=($license->status==Model_License::STATUS_NOACTIVE)?__('Inactive'):'http://'.$license->domain?>
+                    <?=(empty($license->domain))?__('Inactive license'):'http://'.$license->domain?>
                 </a>
             <?endforeach?>
             <?endif?>
-
-            <form class="form-inline pull-right" method="post" action="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>"> 
-                <?= FORM::select('agent', $users, $ticket->id_user_support, array( 
-                    'id' => 'agent', 
-                    'data-trigger'=>"hover",
-                    'data-placement'=>"right",
-                    'data-toggle'=>"popover",
-                    ))?> 
-                <button type="submit" class="btn btn-info"><?=__('Assign')?></button>
-            </form>
         <?endif?> 
 	</div>
 

@@ -93,6 +93,7 @@ class Controller_Panel_Support extends Auth_Controller {
                 $ticket = new Model_Ticket();
                 $ticket->id_user  = $user->id_user;
                 $ticket->id_order = $id_order;
+                $ticket->id_product = $order->product->id_product;
                 $ticket->title    = core::post('title');
                 $ticket->description    = core::post('description');
 
