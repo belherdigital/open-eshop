@@ -28,11 +28,16 @@ class Controller_Panel_Support extends Auth_Controller {
                     $this->template->title.= ' '. __('Assigned Tickets');
                     $tickets->where('id_user_support','=',$user->id_user);
                 }
+                else 
+                    $tickets->where('id_user','=',$user->id_user);
             break;
             
             case 'admin':
                 if ($user->id_role==Model_Role::ROLE_ADMIN) 
                     $this->template->title.= ' '. __('All Tickets');
+                else
+                    $tickets->where('id_user','=',$user->id_user);
+
             break;
             
             default:
@@ -41,6 +46,16 @@ class Controller_Panel_Support extends Auth_Controller {
                 $tickets->where('id_user','=',$user->id_user);
             break;
         }       
+
+        if (is_numeric(core::get('status')))
+        {
+            $filter_status = core::get('status');
+            if (isset(Model_Ticket::$statuses[$filter_status]))
+            {
+                $this->template->title.= ' '. Model_Ticket::$statuses[$filter_status];
+                $tickets->where('status','=',$filter_status);
+            }
+        }
 
 
         $tickets = $tickets->where('id_ticket_parent', 'IS', NULL)

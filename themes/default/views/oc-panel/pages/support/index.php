@@ -3,6 +3,18 @@
 
 <div class="page-header">
 	<h1><?=$title?></h1>
+
+    <div class="btn-group">
+        <a href="?status=-1" class="btn <?=(core::get('status')==-1)?'btn-primary':''?>">
+            <?=__('All')?>
+        </a>
+        <?foreach (Model_Ticket::$statuses as $k => $v):?>
+        <a href="?status=<?=$k?>" class="btn <?=(core::get('status')==$k)?'btn-primary':''?>">
+            <?=$v?>
+        </a>
+        <?endforeach?>
+    </div>
+
     <a class="btn btn-info pull-right" href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'new'))?>">
         <?=__('New')?></a>
 </div>
