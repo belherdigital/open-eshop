@@ -11,7 +11,7 @@
         <?endif?> 
 
         <?if(Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN):?>
-        
+
             <form class="form-inline pull-right" method="post" action="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>"> 
                 <?= FORM::select('agent', $users, $ticket->id_user_support, array( 
                     'id' => 'agent', 
@@ -58,7 +58,7 @@
     </div>
 
     <?foreach ($replies as $reply):?>
-    <div class="row <?=($ticket->id_user!==$reply->id_user)?'alert alert-warning':''?>">
+    <div class="row <?=($ticket->id_user!==$reply->id_user)?'well':''?>" >
         <div class="span2">
             <img src="http://www.gravatar.com/avatar/<?=md5(strtolower(trim($reply->user->email)));?>?s=100">
             <p>
