@@ -11,7 +11,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="brand" href="<?=Route::url('oc-panel',array('controller'=>'home'))?>">eShop <?=__('Panel')?></a>
+            <a class="brand" href="<?=Route::url('oc-panel',array('controller'=>'home'))?>"><i class="icon-th-large icon-white"></i> <?=__('Panel')?></a>
 
             <div class="btn-group pull-right visible-desktop">
                 <?=View::factory('oc-panel/widget_login')?>

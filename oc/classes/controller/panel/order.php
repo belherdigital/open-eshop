@@ -30,6 +30,7 @@ class Controller_Panel_Order extends Auth_Crud {
         $this->template->scripts['footer'][] = 'js/oc-panel/crud/index.js';
         
         $orders = new Model_Order();
+        $orders = $orders->where('status', '=', Model_Order::STATUS_PAID);
 
         $pagination = Pagination::factory(array(
                     'view'           => 'pagination',

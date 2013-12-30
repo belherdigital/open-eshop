@@ -26,9 +26,9 @@
             <td><?=$ticket->created?></td>
             <td><?=(empty($ticket->read_date))?__('None'):$ticket->read_date?></td>
             <td><?=(Model_Ticket::$statuses[$ticket->status])?></td>
-            <td><?if($ticket->status!=Model_Ticket::STATUS_CLOSED):?>
-                <a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>" class="btn btn-success"><i class="icon-envelope icon-white"></i></a>
-                <?endif?>
+            <td>
+                <a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>" class="btn btn-success">
+                    <i class="icon-envelope icon-white"></i></a>
             </td>
         </tr>
         <?endforeach?>
