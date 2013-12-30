@@ -57,14 +57,31 @@ class Controller_Panel_Support extends Auth_Controller {
             }
         }
 
+        $tickets = $tickets->where('id_ticket_parent', 'IS', NULL);
+
+        $pagination = Pagination::factory(array(
+                    'view'           => 'pagination',
+                    'total_items'    => $tickets->count_all(),
+        ))->route_params(array(
+                    'controller' => $this->request->controller(),
+                    'action'     => $this->request->action(),
+        ));
+
+        $pagination->title($this->template->title);
 
         $tickets = $tickets->where('id_ticket_parent', 'IS', NULL)
                         ->order_by('status','asc')
                         ->order_by('created','desc')
+                        ->limit($pagination->items_per_page)
+                        ->offset($pagination->offset)
                         ->find_all();
 
+        $pagination = $pagination->render(); 
+
         $this->template->bind('content', $content);
-        $this->template->content = View::factory('oc-panel/pages/support/index',array('title'=>$this->template->title, 'tickets'=>$tickets));
+        $this->template->content = View::factory('oc-panel/pages/support/index',array('title'=>$this->template->title, 
+            'tickets'=>$tickets,
+            'pagination'=>$pagination));
     }
 
 
