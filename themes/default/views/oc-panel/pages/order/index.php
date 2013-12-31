@@ -1,5 +1,10 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 <div class="page-header">
+    <form class="form-search pull-right" method="get" action="<?=URL::current();?>">
+      <input type="text" class="input-medium search-query" name="email" placeholder="<?=__('email')?>" value="<?=core::get('email')?>">
+      <button type="submit" class="btn"><?=__('Search')?></button>
+    </form>
+
 	<h1><?=__('Orders')?></h1>
 	
 	<a class="btn btn-primary pull-right" href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'create')) ?>">

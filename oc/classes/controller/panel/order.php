@@ -32,6 +32,15 @@ class Controller_Panel_Order extends Auth_Crud {
         $orders = new Model_Order();
         $orders = $orders->where('status', '=', Model_Order::STATUS_PAID);
 
+        if (core::get('email')!==NULL)
+        {
+            $user = new Model_User();
+            $user->where('email','=',core::get('email'))->limit(1)->find();
+            if ($user->loaded())
+                $orders = $orders->where('id_user', '=', $user->id_user);
+        }
+
+
         $pagination = Pagination::factory(array(
                     'view'           => 'pagination',
                     'total_items'    => $orders->count_all(),
