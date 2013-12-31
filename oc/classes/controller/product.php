@@ -164,7 +164,9 @@ class Controller_Product extends Controller{
             $this->template->bind('product', $product);
 
             //get all the products same category
-            $products = $product->category->products->find_all();
+            $products = $product->category->products
+                        ->where('status','=',Model_Product::STATUS_ACTIVE)
+                        ->cached()->find_all();
             $this->template->bind('products', $products);
 
             $skins = NULL;

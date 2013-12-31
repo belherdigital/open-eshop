@@ -83,6 +83,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
 
+            <?if ($products->count() > 1):?>
             <li class="dropdown active">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=__('More themes')?> <b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -91,9 +92,9 @@
                     <li><a title="<?=__('Demo')?> - <?=$p->title?>" href="<?=Route::url('product-demo', array('seotitle'=>$p->seotitle,'category'=>$p->category->seoname))?>"><?=$p->title?></a></li>
                     <?endif?>
                 <?endforeach?>
-                
               </ul>
             </li>
+            <?endif?>
 
             <?if (count($skins)>0):?>
             <li class="dropdown">
