@@ -61,17 +61,14 @@ class I18n extends Kohana_I18n {
         Kohana::$charset  = self::$charset;
                 
         /**
-         * In Windows LC_MESSAGES are not recognized by any reason.
-         * So we check if LC_MESSAGES is defined to avoid bugs,
+         * In Windows LC_ALL are not recognized sometimes
+         * So we check if LC_ALL is defined to avoid bugs,
          * and force using gettext
          */
-        if(defined('LC_MESSAGES'))
-            $locale_res = setlocale(LC_MESSAGES, self::$locale);
+        if(defined('LC_ALL'))
+            $locale_res = setlocale(LC_ALL, self::$locale);
         else
             $locale_res = FALSE;
-
-        // used with a function money_format
-        setlocale(LC_MONETARY, self::$locale);
 
         /**
          * check if gettext exists if not uses gettext dropin
@@ -87,7 +84,7 @@ class I18n extends Kohana_I18n {
              */
             require Kohana::find_file('vendor', 'php-gettext/gettext','inc'); 
             
-            T_setlocale(LC_MESSAGES, self::$locale);
+            T_setlocale(LC_ALL, self::$locale);
             T_bindtextdomain(self::$domain,DOCROOT.'languages');
             T_bind_textdomain_codeset(self::$domain, self::$charset);
             T_textdomain(self::$domain);

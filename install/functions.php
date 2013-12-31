@@ -254,7 +254,7 @@ function gettext_init($locale,$domain = 'messages',$charset = 'utf8')
     /**
      * check if gettext exists if not uses gettext dropin
      */
-    $locale_res = setlocale(LC_MESSAGES, $locale);
+    $locale_res = setlocale(LC_ALL, $locale);
     if ( !function_exists('_') OR $locale_res===FALSE OR empty($locale_res) )
     {
         /**
@@ -266,7 +266,7 @@ function gettext_init($locale,$domain = 'messages',$charset = 'utf8')
          */
         include APPPATH.'vendor/php-gettext/gettext.inc';
         
-        T_setlocale(LC_MESSAGES, $locale);
+        T_setlocale(LC_ALL, $locale);
         T_bindtextdomain($domain,DOCROOT.'languages');
         T_bind_textdomain_codeset($domain, $charset);
         T_textdomain($domain);
