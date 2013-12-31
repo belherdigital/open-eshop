@@ -59,7 +59,7 @@ include 'install.php';
         <?php 
         //getting the php info clean!
         ob_start();                                                                                                        
-        phpinfo();                                                                                                     
+        @phpinfo();                                                                                                     
         $phpinfo = ob_get_contents();                                                                                         
         ob_end_clean();  
         //strip the body html                                                                                                  
@@ -94,7 +94,7 @@ include 'install.php';
             	<div class="well sidebar-nav">
             	
             		<ul class="nav nav-list">
-            			<li class="nav-header"><?php echo __("Requirements")?> <?php echo VERSION?></li>
+            			<li class="nav-header"><?php echo __("Requirements")?>OE v.<?php echo VERSION?></li>
             			<li class="divider"></li>
             			
             			<?php foreach ($checks as $name => $values):
@@ -103,10 +103,12 @@ include 'install.php';
 
             				if ($values['result'] == FALSE)
             					$msg .= $values['message'].'<br>';
+
+                            $color = ($values['result'])?'success':'important';
             			?>
 
             				<li><i class="icon-<?php echo ($values['result'])?"ok":"remove"?>"></i> 
-            					<?php echo $name?>
+            					<?php printf ('<span class="label label-%s">%s</span>',$color,$name);?>
             				</li>
             			<?php endforeach?>
 
@@ -185,12 +187,12 @@ include 'install.php';
        <select name="LANGUAGE" onchange="window.location.href='?LANGUAGE='+this.options[this.selectedIndex].value">
 		    <?php 
 		    $languages = scandir("languages");
-		    foreach ($languages as $lang) {
-			    
-			    if( strpos($lang,'.')==false && $lang!='.' && $lang!='..' ){
-				    if ($lang==$locale_language)  $sel= "selected=selected";
-				    else $sel = "";
-				    echo "<option $sel value=\"$lang\">$lang</option>";
+		    foreach ($languages as $lang) 
+            {    
+			    if( strpos($lang,'.')==false && $lang!='.' && $lang!='..' )
+                {
+				    $sel = ($lang==$locale_language) ? ' selected="selected"' : '';
+                    echo "<option$sel value=\"$lang\">$lang</option>";
 			    }
 		    }
 		    ?>
@@ -289,7 +291,7 @@ include 'install.php';
 <div class="control-group">
 	<label class="control-label"><?php echo __("Database charset")?>:</label>
 	<div class="controls">
-	<input type="text" name="DB_CHARSET" value="<?php echo cP('DB_CHARSET','utf8')?>"  class="span6"   />
+	<input type="text" name="DB_CHARSET" value="<?php echo cP('DB_CHARSET','utf8')?>"  class="span3"   />
 	</div>
 </div>
 

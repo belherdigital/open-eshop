@@ -5,11 +5,11 @@
 	<h1><?=$title?></h1>
 
     <div class="btn-group">
-        <a href="?status=-1" class="btn <?=(core::get('status')==-1)?'btn-primary':''?>">
+        <a href="?status=-1" class="btn <?=(core::get('status',-1)==-1)?'btn-primary':''?>">
             <?=__('All')?>
         </a>
         <?foreach (Model_Ticket::$statuses as $k => $v):?>
-        <a href="?status=<?=$k?>" class="btn <?=(core::get('status')==$k)?'btn-primary':''?>">
+        <a href="?status=<?=$k?>" class="btn <?=(core::get('status',-1)==$k)?'btn-primary':''?>">
             <?=$v?>
         </a>
         <?endforeach?>

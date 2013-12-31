@@ -26,9 +26,10 @@ define('VERSION','1.2');
 
 
 //Gets language to use
-if      (isset($_POST['LANGUAGE'])) $locale_language=$_POST['LANGUAGE'];
-elseif  (isset($_GET['LANGUAGE'])) $locale_language=$_GET['LANGUAGE'];
-else    $locale_language='en_US';//default
+if      (isset($_POST['LANGUAGE'])) $locale_language = $_POST['LANGUAGE'];
+elseif  (isset($_GET['LANGUAGE'])) $locale_language  = $_GET['LANGUAGE'];
+elseif  ($locale_language = get_browser_favorite_language());
+else    $locale_language  = 'en_US';//default
 
 //start translations
 gettext_init($locale_language);
@@ -63,9 +64,48 @@ $checks = oc_requirements();
  * *************************************************************
  */
 
+/**
+ * Parse Accept-Language HTTP header to detect user's language(s) 
+ * and get the most favorite one
+ *
+ * Adapted from
+ * @link http://www.thefutureoftheweb.com/blog/use-accept-language-header
+ *
+ * @return NULL|string  favorite user's language
+ *
+ */
+function get_browser_favorite_language()
+{
+    if ( ! isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
+        return NULL;
+
+    // break up string into pieces (languages and q factors)
+    preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $lang_parse);
+
+    if ( ! count($lang_parse[1]))
+        return NULL;
+
+    // create a list of languages in the form 'es' => 0.8
+    $langs = array_combine($lang_parse[1], $lang_parse[4]);
+
+    // set default to 1 for languages without a specified q factor
+    foreach ($langs as $lang => $q)
+        if ($q === '') $langs[$lang] = 1;
+
+    arsort($langs, SORT_NUMERIC); // sort list based on q factor. higher first
+    reset($langs);
+    $lang = strtolower(key($langs)); // Gotcha ! the 1st top favorite language
+
+    // when necessary, convert 'es' to 'es_ES'
+    // so scandir("languages") will match and gettext_init below can seamlessly load its stuff
+    if (strlen($lang) == 2)
+        $lang .= '_'.strtoupper($lang);
+
+    return $lang;
+}
 
 /**
- * checs that your hosting has everything that needs to have
+ * checks that your hosting has everything that needs to have
  * @return array 
  */
 function oc_requirements()
@@ -76,13 +116,9 @@ function oc_requirements()
      */
     if(function_exists('apache_get_modules'))
     {
-        $mod_msg        = 'OC Requires Apache mod_rewrite module to be installed';
+        $mod_msg        = 'OE requires Apache mod_rewrite module to be installed';
         $mod_mandatory  = TRUE;
-
-        if (in_array('mod_rewrite',apache_get_modules()))
-            $mod_result = TRUE;
-        else 
-            $mod_result     = FALSE;
+        $mod_result     = in_array('mod_rewrite',apache_get_modules());
         
     }
     //in case they dont use apache a nicer message
@@ -342,7 +378,7 @@ function get_select_timezones($select_name='TIMEZONE',$selected=NULL)
 {
     if ($selected=='UTC') $selected='Europe/London';
     $timezones = get_timezones();
-    $sel.='<select id="'.$select_name.'" name="'.$select_name.'">';
+    $sel = '<select id="'.$select_name.'" name="'.$select_name.'">';
     foreach( $timezones as $continent=>$timezone )
     {
         $sel.= '<optgroup label="'.$continent.'">';

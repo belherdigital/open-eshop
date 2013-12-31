@@ -358,10 +358,12 @@ $succeed    = TRUE;
 
                             if ($values['result'] == FALSE)
                                 $msg .= $values['message'].'<br>';
+
+                            $color = ($values['result'])?'success':'important';
                         ?>
 
                             <li><i class="icon-<?php echo ($values['result'])?"ok":"remove"?>"></i> 
-                                <?php echo $name?>
+                                <?php printf ('<span class="label label-%s">%s</span>',$color,$name);?>
                             </li>
                         <?php endforeach?>
 
