@@ -77,8 +77,9 @@ class Controller_Paymill extends Controller{
                     //create order
                     $order = Model_Order::sale(NULL,Auth::instance()->get_user(),$product,Core::post('paymillToken'),'paymill');
                     //redirect him to the thanks page
-                    $this->request->redirect(Route::url('product-goal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
-
+                    $this->request->redirect(Route::url('product-goal', array('seotitle'=>$product->seotitle,
+                                                                              'category'=>$product->category->seoname,
+                                                                              'order'   =>$order->id_order)));
                 } 
                 else 
                 {

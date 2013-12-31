@@ -91,7 +91,6 @@ class Controller_Product extends Controller{
 
         if ($product->loaded())
         {
-           
             $this->template->title            = $product->title.' - '.$product->category->name;
             $this->template->meta_description = $product->description;
 
@@ -103,7 +102,20 @@ class Controller_Product extends Controller{
             }
 
             $order = NULL;
-            if (Auth::instance()->logged_in())
+            $price_paid = 0;
+
+            //in case we have the order on the URL
+            if ($this->request->param('order'))
+            {
+                $order = new Model_Order($this->request->param('order'));
+              
+                if (!$order->loaded())
+                    $order = NULL;
+                else
+                    $price_paid = $order->amount;
+            }
+            //we dont have the order in the URL
+            elseif (Auth::instance()->logged_in())
             {
                 $user = Auth::instance()->get_user();
                 $order = new Model_Order();
@@ -113,11 +125,12 @@ class Controller_Product extends Controller{
                     ->order_by('created','desc')->limit(1)->find();
                 if (!$order->loaded())
                     $order = NULL;
-
-                $price_paid = $order->amount;
+                else
+                    $price_paid = $order->amount;
             }
+            //from paypal @ paypal form seted
             else
-                $price_paid = Session::instance()->get('goal_'.$product->id_product,$product->final_price());
+                $price_paid = Session::instance()->get_once('goal_'.$product->id_product,$product->final_price());
 
             $this->template->bind('content', $content);
             $this->template->content = View::factory('pages/goal',array('product'=>$product,'thanks_message'=>$thanks_message,'order'=>$order,'price_paid'=>$price_paid));

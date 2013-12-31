@@ -112,6 +112,8 @@ class Model_Order extends ORM {
             if (Controller::$coupon!=NULL)
                 $order->id_coupon = Controller::$coupon->id_coupon;
             $order->amount      = ($amount_paid==NULL)?$product->final_price():$amount_paid;
+            
+            //bad!!! paypal will put here his ip adress @todo
             $order->ip_address  = ip2long(Request::$client_ip);
         }
 

@@ -63,7 +63,9 @@ class Controller_Stripe extends Controller{
                     $order = Model_Order::sale(NULL,$user,$product,Core::post('stripeToken'),'stripe');
                     
                     //redirect him to the thanks page
-                    $this->request->redirect(Route::url('product-goal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+                    $this->request->redirect(Route::url('product-goal', array('seotitle'=>$product->seotitle,
+                                                                              'category'=>$product->category->seoname,
+                                                                              'order'   =>$order->id_order)));
                 }
                 catch(Stripe_CardError $e) 
                 {
