@@ -26,8 +26,8 @@
             <th><?=__('Title')?></th>
             <th><?=__('Date')?></th>
             <th><?=__('Last Answer')?></th>
-            <th><?=__('Status')?></th>
-            <th>#</th>
+            <th><?=__('Agent')?></th>
+            <th span="2"></th>
         </tr>
     </thead>
 
@@ -37,7 +37,11 @@
             <td><?=$ticket->title;?></td>
             <td><?=$ticket->created?></td>
             <td><?=(empty($ticket->read_date))?__('None'):$ticket->read_date?></td>
-            <td><?=(Model_Ticket::$statuses[$ticket->status])?></td>
+            <td><?=(!$ticket->agent->loaded())?__('None'):$ticket->agent->name?></td>
+            <td><span class="label <?=($ticket->status==Model_Ticket::STATUS_CLOSED)?'label-important':''?>
+                                    <?=($ticket->status==Model_Ticket::STATUS_CREATED)?'label-info':''?>">
+                <?=(Model_Ticket::$statuses[$ticket->status])?></span>
+            </td>
             <td>
                 <a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>" class="btn btn-success">
                     <i class="icon-envelope icon-white"></i></a>
