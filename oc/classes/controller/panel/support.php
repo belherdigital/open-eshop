@@ -65,6 +65,7 @@ class Controller_Panel_Support extends Auth_Controller {
         ))->route_params(array(
                     'controller' => $this->request->controller(),
                     'action'     => $this->request->action(),
+                    'id'         => $this->request->param('id'),
         ));
 
         $pagination->title($this->template->title);
