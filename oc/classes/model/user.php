@@ -474,12 +474,13 @@ class Model_User extends ORM {
         //doesnt exists
         if (!$user->loaded())
         {
+            $password           = Text::random('alnum', 8);
             $user->email        = $email;
             $user->name         = $name;
             $user->status       = self::STATUS_ACTIVE;
             $user->id_role      = 1;
             $user->seoname      = $user->gen_seo_title($user->name);
-            $user->password     = Text::random('alnum', 8);
+            $user->password     = $password;
         }
         //always we set this values even if user existed
         $user->hybridauth_provider_name = $provider;
@@ -487,6 +488,10 @@ class Model_User extends ORM {
         try
         {
             $user->save();
+            //send welcome email
+            $user->email('auth.register',array('[USER.PWD]'=>$password,
+                                                    '[URL.QL]'=>$user->ql('default',NULL,TRUE))
+                                            );
         }
         catch (ORM_Validation_Exception $e)
         {
