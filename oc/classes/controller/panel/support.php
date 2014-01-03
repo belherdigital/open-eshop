@@ -202,9 +202,20 @@ class Controller_Panel_Support extends Auth_Controller {
             $this->request->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
         }
 
+        //marking it as read if wasnt from moderators
+        if ($ticket->status==Model_Ticket::STATUS_CREATED AND $user->id_role==Model_Role::ROLE_ADMIN)
+        {
+            //modify status of parent ticket
+            $ticket->id_user_support = $user->id_user;
+            $ticket->read_date = Date::unix2mysql();
+            $ticket->status = Model_Ticket::STATUS_READ;
+            $ticket->save();
+        }
+
         //create new reply
         if($_POST)
         {
+            //Change the agent assigned to this ticket
             if (core::post('agent') AND $user->id_role==Model_Role::ROLE_ADMIN)
             {
                 //modify ticket 
@@ -219,6 +230,7 @@ class Controller_Panel_Support extends Auth_Controller {
 
                 Alert::set(Alert::SUCCESS, __('Agent assigned.'));
             }
+            //leave a reply
             else
             {
                 $validation = Validation::factory($this->request->post())
@@ -249,7 +261,7 @@ class Controller_Panel_Support extends Auth_Controller {
 
                         //send email to creator of the ticket
                         $ticket->user->email('new.reply',array('[TITLE]'=>$ticket->title,
-                                                        '[DESCRIPTION]'=>$ticketr->description,
+                                                        '[DESCRIPTION]'=>'',//$ticketr->description,
                                                         '[URL.QL]'=>$ticket->user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE))
                                                 );
 

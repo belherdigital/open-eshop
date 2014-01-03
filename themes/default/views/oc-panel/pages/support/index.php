@@ -33,13 +33,16 @@
 
     <tbody>
         <?foreach ($tickets as $ticket):?>
-        <tr class="<?=($ticket->status==Model_Ticket::STATUS_CLOSED)?'error':''?><?=($ticket->status==Model_Ticket::STATUS_HOLD)?'warning':''?>">
+        <tr class="<?=($ticket->status==Model_Ticket::STATUS_CLOSED)?'error':''?>
+            <?=($ticket->status==Model_Ticket::STATUS_HOLD)?'warning':''?>
+            <?=($ticket->status==Model_Ticket::STATUS_READ)?'success':''?>">
             <td><?=$ticket->title;?></td>
             <td><?=$ticket->created?></td>
             <td><?=(empty($ticket->read_date))?__('None'):$ticket->read_date?></td>
             <td><?=(!$ticket->agent->loaded())?__('None'):$ticket->agent->name?></td>
             <td><span class="label <?=($ticket->status==Model_Ticket::STATUS_CLOSED)?'label-important':''?>
-                                    <?=($ticket->status==Model_Ticket::STATUS_CREATED)?'label-info':''?>">
+                                    <?=($ticket->status==Model_Ticket::STATUS_CREATED)?'label-info':''?>
+                                    <?=($ticket->status==Model_Ticket::STATUS_READ)?'label-success':''?>">
                 <?=(Model_Ticket::$statuses[$ticket->status])?></span>
             </td>
             <td>
