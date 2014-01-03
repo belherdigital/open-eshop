@@ -297,9 +297,9 @@ function gettext_init($locale,$domain = 'messages',$charset = 'utf8')
 function hostingAd()
 {
     ?>
-    <div class="hero-unit">
+    <div class="jumbotron">
         <h2>Ups! You need a compatible Hosting</h2>
-        <p class="text-error">Your hosting seems to be not compatible. Check your settings.<p>
+        <p class="text-danger">Your hosting seems to be not compatible. Check your settings.<p>
         <p>We have partnership with hosting companies to assure compatibility. And we include:
             <ul>
                 <li>100% Compatible High Speed Hosting</li>
@@ -378,7 +378,7 @@ function get_select_timezones($select_name='TIMEZONE',$selected=NULL)
 {
     if ($selected=='UTC') $selected='Europe/London';
     $timezones = get_timezones();
-    $sel = '<select id="'.$select_name.'" name="'.$select_name.'">';
+    $sel = '<select class="form-control" id="'.$select_name.'" name="'.$select_name.'">';
     foreach( $timezones as $continent=>$timezone )
     {
         $sel.= '<optgroup label="'.$continent.'">';
