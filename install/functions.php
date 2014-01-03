@@ -473,3 +473,26 @@ function generate_password ($length = 16)
 
     return $password;
 }
+
+/**
+ * cleans an string of spaces etc
+ * @param  string $s 
+ * @return string    
+ */
+function slug($s) 
+{
+    // everything to lower and no spaces begin or end
+    $s = strtolower(trim($s));
+ 
+    // adding - for spaces and union characters
+    $find = array(' ', '&', 'rn', 'n', '+',',');
+    $s = str_replace ($find, '-', $s);
+ 
+    //delete and replace rest of special chars
+    $find = array('/[^a-z0-9-<>]/', '/[-]+/', '/<[^>]*>/');
+    $repl = array('', '-', '');
+    $s = preg_replace ($find, $repl, $s);
+ 
+    //return the friendly s
+    return $s;
+}
