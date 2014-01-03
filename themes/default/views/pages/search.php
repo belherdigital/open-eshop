@@ -28,5 +28,5 @@
 
 <?if (count($products)>0):?>
     <h3><?=__('Search results')?></h3>
-    <?=View::factory('pages/listing',array('pagination'=>$pagination,'products'=>$products,'category'=>NULL))?>
+    <?=View::factory('pages/product/listing',array('pagination'=>$pagination,'products'=>$products,'category'=>NULL))?>
 <?endif?>

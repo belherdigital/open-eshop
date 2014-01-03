@@ -526,4 +526,25 @@ class Model_Product extends ORM {
         return FALSE;
     }
 
+    public function related()
+    {
+        if($this->loaded())
+        {
+            if (core::config('product.related')>0 )
+            {
+                $products = new self();
+                $products = $products
+                ->where('id_category','=',$this->id_category)
+                ->where('id_product','!=',$this->id_product)
+                ->limit(core::config('product.related'))
+                ->order_by(DB::expr('RAND()'))
+                ->find_all();
+
+                return View::factory('pages/product/related',array('products'=>$products))->render();
+            }
+        }
+    
+        return FALSE;
+    }
+
 }

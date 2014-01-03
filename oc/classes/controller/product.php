@@ -20,12 +20,12 @@ class Controller_Product extends Controller{
         {
 
             $this->before('main-minimal');
-            $product_view = 'pages/product-minimal';
+            $product_view = 'pages/product/minimal';
             $this->template->styles = array('css/style-minimal.css' => 'screen');
             $this->template->scripts['footer'] = array('js/minimal.js');
         }
         else
-           $product_view = 'pages/product'; 
+           $product_view = 'pages/product/single'; 
 
         $product = new Model_product();
         $product->where('seotitle','=',$this->request->param('seotitle'))
@@ -133,7 +133,7 @@ class Controller_Product extends Controller{
                 $price_paid = Session::instance()->get_once('goal_'.$product->id_product,$product->final_price());
 
             $this->template->bind('content', $content);
-            $this->template->content = View::factory('pages/goal',array('product'=>$product,'thanks_message'=>$thanks_message,'order'=>$order,'price_paid'=>$price_paid));
+            $this->template->content = View::factory('pages/product/goal',array('product'=>$product,'thanks_message'=>$thanks_message,'order'=>$order,'price_paid'=>$price_paid));
 
         }
         else
@@ -284,7 +284,7 @@ class Controller_Product extends Controller{
         
         
         $this->template->bind('content', $content);
-        $this->template->content = View::factory('pages/listing',$data);
+        $this->template->content = View::factory('pages/product/listing',$data);
 
     }
 

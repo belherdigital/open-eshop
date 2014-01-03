@@ -94,4 +94,5 @@
 <div class="coupon">
 <?=View::factory('coupon')?>
 </div>
+<?=$product->related()?>
 <?=$product->disqus()?>

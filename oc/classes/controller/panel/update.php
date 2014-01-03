@@ -84,6 +84,9 @@ class Controller_Panel_Update extends Auth_Controller {
                          array('config_key'     =>'stripe_private',
                                'group_name'     =>'payment', 
                                'config_value'   =>''), 
+                         array('config_key'     =>'related',
+                               'group_name'     =>'product', 
+                               'config_value'   =>'5'), 
                         );
         
 
@@ -107,7 +110,6 @@ class Controller_Panel_Update extends Auth_Controller {
         $return_conf = Model_Config::config_array($configs);
         $return_cont = Model_Content::content_array($contents);
 
-        
         $this->action_11();
 
         //clean cache
@@ -185,7 +187,6 @@ class Controller_Panel_Update extends Auth_Controller {
         //delete file when all finished
         File::delete($update_src_dir);
         $this->request->redirect(Route::url('oc-panel', array('controller'=>'update', 'action'=>str_replace('.', '', $version))));
-
     }
 
     

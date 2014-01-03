@@ -48,6 +48,22 @@
 				</div>
 			</div>
 
+            <div class="form-group">
+                <?= FORM::label($forms['related']['key'], __('Related products'), array('class'=>'control-label col-sm-3', 'for'=>$forms['related']['key']))?>
+                <div class="col-sm-4">
+                    <?= FORM::input($forms['related']['key'], $forms['related']['value'], array(
+                    'placeholder' => $forms['related']['value'], 
+                    'class' => 'tips form-control ', 
+                    'id' => $forms['related']['key'],
+                    'data-content'=> __("You can choose if theres random related products displayed at the prduct page"),
+                    'data-trigger'=>"hover",
+                    'data-placement'=>"right",
+                    'data-toggle'=>"popover",
+                    'data-original-title'=>__("Related products"), 
+                    ))?> 
+                </div>
+            </div>
+
 			<div class="control-group">
 				<?= FORM::label($forms['max_size']['key'], __('Size of the file'), array('class'=>'control-label', 'for'=>$forms['max_size']['key']))?>
 				<div class="controls">
