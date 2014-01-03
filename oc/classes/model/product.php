@@ -536,6 +536,7 @@ class Model_Product extends ORM {
                 $products = $products
                 ->where('id_category','=',$this->id_category)
                 ->where('id_product','!=',$this->id_product)
+                ->where('status','=',self::STATUS_ACTIVE)
                 ->limit(core::config('product.related'))
                 ->order_by(DB::expr('RAND()'))
                 ->find_all();
