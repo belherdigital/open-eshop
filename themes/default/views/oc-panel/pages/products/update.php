@@ -12,6 +12,12 @@
 <?=__('Button with overlay')?>
 <textarea class="span4" onclick="this.select()"><script src="<?=Core::config('general.base_url')?>embed.js"></script>
 <a class="oe_button" href="<?=Route::url('product-minimal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)) ?>"><?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?></a></textarea>
+
+<br>
+<a class="btn btn-primary" target="_blank" 
+        href="http://panel.adserum.com/new-advertisement.html?name=<?=$product->user->name?>&email=<?=$product->user->email?>&title=<?=$product->title?>&desc=<?=$product->description?>&desc2=<?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?>&url=<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>&durl=<?=core::config('general.base_url')?>">
+        <i class="glyphicon glyphicon-globe"></i> <?=__('Promote at Adserum')?>
+</a>
 </p>
 </div>
 

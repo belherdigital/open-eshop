@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1><?=__('Site Usage Statistics')?></h1>   
+    <h1><?=$title?></h1>   
 </div>
 
 
@@ -61,12 +61,12 @@
 </div> <!-- /.row -->
 
 
-<?=Chart::column($stats_orders,array('title'=>__('Sales statistics'),
+<?=Chart::column($stats_orders,array('title'=>__('Sales statistics per day'),
                                     'height'=>400,
                                     'width'=>800,
                                     'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>        
 
-<?=Chart::column($stats_daily,array('title'=>__('Views and Ads statistics'),
+<?=Chart::column($stats_daily,array('title'=>__('Visits per day'),
                                     'height'=>400,
                                     'width'=>800,
                                     'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>          

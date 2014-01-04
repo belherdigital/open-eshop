@@ -20,7 +20,7 @@
 			<?endforeach?>
 			<?if ($controller->allowed_crud_action('delete') OR $controller->allowed_crud_action('update')):?>
             <th><?=__('Price')?></th>
-            <th><?=__('Sale URL')?></th>
+            <th>URL</th>
 			<th><?=__('Actions') ?></th>
 			<?endif?>
 		</tr>
@@ -52,7 +52,9 @@
 						<i class="icon-trash icon-white"></i>
 					</a>
 					<?endif?>
-
+                    <a class="btn btn-inverse" href="<?=Route::url('oc-panel', array('id'=>$element->seotitle,'controller'=>'stats','action'=>'index')) ?>">
+                        <i class="icon-align-left icon-white"></i>
+                    </a>
 				</td>
 				<?endif?>
 			</tr>

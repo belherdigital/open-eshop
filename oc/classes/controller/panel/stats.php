@@ -13,15 +13,35 @@ class Controller_Panel_Stats extends Auth_Controller {
 
     public function action_index()
     {
-        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Stats')));
+
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Stats'))->set_url(Route::url('oc-panel',array('controller'  => 'stats'))));
+        $this->template->title = __('Stats');
 
         $this->template->styles = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
         $this->template->scripts['footer'] = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
                                                     'js/oc-panel/stats/dashboard.js');
         
-        $this->template->title = __('Stats');
         $this->template->bind('content', $content);        
         $content = View::factory('oc-panel/pages/stats/dashboard');
+        $content->title = $this->template->title;
+
+        //stats by product
+        $content->product = NULL;
+        if ($this->request->param('id'))
+        {
+            $product = new Model_product();
+            $product->where('seotitle','=',$this->request->param('id'))
+                ->where('status','=',Model_Product::STATUS_ACTIVE)
+                ->limit(1)->find();
+            if ($product->loaded())
+            {
+                $content->product = $product;
+                $this->template->title.=' '.$product->title;
+                $content->title.=' '.$product->title;
+                Breadcrumbs::add(Breadcrumb::factory()->set_title($product->title));
+            }
+        }
+        
 
         //Getting the dates and range
         $from_date = Core::post('from_date',strtotime('-1 month'));
@@ -51,8 +71,10 @@ class Controller_Panel_Stats extends Auth_Controller {
         $query = DB::select(DB::expr('DATE(created) date'))
                         ->select(DB::expr('COUNT(id_visit) count'))
                         ->from('visits')
-                        ->where('created','between',array($my_from_date,$my_to_date))
-                        ->group_by(DB::expr('DATE( created )'))
+                        ->where('created','between',array($my_from_date,$my_to_date));
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query->group_by(DB::expr('DATE( created )'))
                         ->order_by('date','asc')
                         ->execute();
 
@@ -72,8 +94,10 @@ class Controller_Panel_Stats extends Auth_Controller {
          //Today 
         $query = DB::select(DB::expr('COUNT(id_visit) count'))
                         ->from('visits')
-                        ->where(DB::expr('DATE( created )'),'=',DB::expr('CURDATE()'))
-                        ->group_by(DB::expr('DATE( created )'))
+                        ->where(DB::expr('DATE( created )'),'=',DB::expr('CURDATE()'));
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query->group_by(DB::expr('DATE( created )'))
                         ->order_by('created','asc')
                         ->execute();
 
@@ -83,8 +107,10 @@ class Controller_Panel_Stats extends Auth_Controller {
         //Yesterday
         $query = DB::select(DB::expr('COUNT(id_visit) count'))
                         ->from('visits')
-                        ->where(DB::expr('DATE( created )'),'=',date('Y-m-d',strtotime('-1 day')))
-                        ->group_by(DB::expr('DATE( created )'))
+                        ->where(DB::expr('DATE( created )'),'=',date('Y-m-d',strtotime('-1 day')));
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query->group_by(DB::expr('DATE( created )'))
                         ->order_by('created','asc')
                         ->execute();
 
@@ -95,16 +121,20 @@ class Controller_Panel_Stats extends Auth_Controller {
         //Last 30 days visits
         $query = DB::select(DB::expr('COUNT(id_visit) count'))
                         ->from('visits')
-                        ->where('created','between',array(date('Y-m-d',strtotime('-30 day')),date::unix2mysql()))
-                        ->execute();
+                        ->where('created','between',array(date('Y-m-d',strtotime('-30 day')),date::unix2mysql()));
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query->execute();
 
         $visits = $query->as_array();
         $content->visits_month = (isset($visits[0]['count']))?$visits[0]['count']:0;
 
         //total visits
         $query = DB::select(DB::expr('COUNT(id_visit) count'))
-                        ->from('visits')
-                        ->execute();
+                        ->from('visits');
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query->execute();
 
         $visits = $query->as_array();
         $content->visits_total = (isset($visits[0]['count']))?$visits[0]['count']:0;
@@ -118,7 +148,10 @@ class Controller_Panel_Stats extends Auth_Controller {
                         ->select(DB::expr('SUM(amount) total'))
                         ->from('orders')
                         ->where('pay_date','between',array($my_from_date,$my_to_date))
-                        ->where('status','=',Model_Order::STATUS_PAID)
+                        ->where('status','=',Model_Order::STATUS_PAID);
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query
                         ->group_by(DB::expr('DATE( pay_date )'))
                         ->order_by('date','asc')
                         ->execute();
@@ -141,7 +174,10 @@ class Controller_Panel_Stats extends Auth_Controller {
                         ->select(DB::expr('SUM(amount) total'))
                         ->from('orders')
                         ->where(DB::expr('DATE( pay_date )'),'=',DB::expr('CURDATE()'))
-                        ->where('status','=',Model_Order::STATUS_PAID)
+                        ->where('status','=',Model_Order::STATUS_PAID);
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query
                         ->group_by(DB::expr('DATE( pay_date )'))
                         ->order_by('pay_date','asc')
                         ->execute();
@@ -155,7 +191,10 @@ class Controller_Panel_Stats extends Auth_Controller {
                         ->select(DB::expr('SUM(amount) total'))
                         ->from('orders')
                         ->where(DB::expr('DATE( pay_date )'),'=',date('Y-m-d',strtotime('-1 day')))
-                        ->where('status','=',Model_Order::STATUS_PAID)
+                        ->where('status','=',Model_Order::STATUS_PAID);
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query
                         ->group_by(DB::expr('DATE( pay_date )'))
                         ->order_by('pay_date','asc')
                         ->execute();
@@ -170,7 +209,10 @@ class Controller_Panel_Stats extends Auth_Controller {
                         ->select(DB::expr('SUM(amount) total'))
                         ->from('orders')
                         ->where('pay_date','between',array(date('Y-m-d',strtotime('-30 day')),date::unix2mysql()))
-                        ->where('status','=',Model_Order::STATUS_PAID)
+                        ->where('status','=',Model_Order::STATUS_PAID);
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query
                         ->execute();
 
         $orders = $query->as_array();
@@ -181,7 +223,10 @@ class Controller_Panel_Stats extends Auth_Controller {
         $query = DB::select(DB::expr('COUNT(id_order) count'))
                         ->select(DB::expr('SUM(amount) total'))
                         ->from('orders')
-                        ->where('status','=',Model_Order::STATUS_PAID)
+                        ->where('status','=',Model_Order::STATUS_PAID);
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query
                         ->execute();
 
         $orders = $query->as_array();
