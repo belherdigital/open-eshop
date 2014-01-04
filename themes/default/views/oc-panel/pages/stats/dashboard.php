@@ -36,7 +36,7 @@
         </table>
 
         <hr>
-        <h2><?=__('Charts')?></h2>
+        <h3><?=__('Charts')?></h3>
 
         <form id="edit-profile" class="form-inline" method="post" action="">
             <fieldset>
