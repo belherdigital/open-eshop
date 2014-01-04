@@ -97,9 +97,9 @@
                 <tr>
                     <td><a href="<?=Route::url('oc-panel', array('id'=>$p->seotitle,'controller'=>'stats','action'=>'index')) ?>">
                         <?=$p->title?></a></td>
-                    <td><?=round($orders_product[$p->id_product]['total'],2)?></td>
-                    <td><?=$orders_product[$p->id_product]['count']?></td>
-                    <td><?=$visits_product[$p->id_product]['count']?></td
+                    <td><?=(isset($orders_product[$p->id_product]))?round($orders_product[$p->id_product]['total'],2):0?></td>
+                    <td><?=(isset($orders_product[$p->id_product]))?$orders_product[$p->id_product]['count']:0?></td>
+                    <td><?=(isset($visits_product[$p->id_product]))?$visits_product[$p->id_product]['count']:0?></td
                 </tr>
                 <?endforeach?>
             </tbody>

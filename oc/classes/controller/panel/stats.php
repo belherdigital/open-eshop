@@ -312,7 +312,7 @@ class Controller_Panel_Stats extends Auth_Controller {
         //for the graphic
         $products_total = array();
         foreach ($content->products as $p) 
-            $products_total[] = array('name'=>$p->title,'$'=>round($content->orders_product[$p->id_product]['total'],2));
+            $products_total[] = array('name'=>$p->title,'$'=>(isset($content->orders_product[$p->id_product]))?round($content->orders_product[$p->id_product]['total'],2):0);
         
         $content->products_total = $products_total;   
         
