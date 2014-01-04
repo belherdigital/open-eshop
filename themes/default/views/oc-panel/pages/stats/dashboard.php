@@ -108,7 +108,7 @@
     </div> 
     <div class="span6">
         <?=Chart::pie($products_total,array(
-                                    'height'=>400,
+                                    'height'=>600,
                                     'width'=>'100%'))?> 
     </div>
 </div>                                                     
