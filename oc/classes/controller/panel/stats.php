@@ -144,7 +144,7 @@ class Controller_Panel_Stats extends Auth_Controller {
 
 
         //visits by month 1 year from to_date
-        $query = DB::select(DB::expr('CONCAT(YEAR(`created`),"-",MONTH(`created`)) date'))
+        $query = DB::select(DB::expr('DATE_FORMAT(`created`, "%Y-%m") date'))
                         ->select(DB::expr('COUNT(id_visit) count'))
                         ->from('visits');
         if ($content->product!==NULL)
@@ -260,7 +260,7 @@ class Controller_Panel_Stats extends Auth_Controller {
 
 
         //orders per month
-        $query = DB::select(DB::expr('CONCAT(YEAR(`pay_date`),"-",MONTH(`pay_date`)) date'))
+        $query = DB::select(DB::expr('DATE_FORMAT(`pay_date`, "%Y-%m") date'))
                         ->select(DB::expr('COUNT(id_order) count'))
                         ->select(DB::expr('SUM(amount) total'))
                         ->from('orders')
@@ -317,8 +317,5 @@ class Controller_Panel_Stats extends Auth_Controller {
         $content->products_total = $products_total;   
         
     }
-
-
-
 
 }
