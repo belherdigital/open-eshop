@@ -81,7 +81,7 @@
 
 <div class="row">
 
-    <div class="span3">
+    <div class="span9">
         <h3><?=__('Totals products')?></h3>
         <table class="table table-bordered table-condensed">
             <thead>
@@ -106,7 +106,7 @@
         </table>
 
     </div> 
-    <div class="span6">
+    <div class="span9">
         <?=Chart::pie($products_total,array(
                                     'height'=>600,
                                     'width'=>'100%'))?> 
