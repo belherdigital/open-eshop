@@ -31,7 +31,6 @@ class Controller_Panel_Stats extends Auth_Controller {
         {
             $product = new Model_product();
             $product->where('seotitle','=',$this->request->param('id'))
-                ->where('status','=',Model_Product::STATUS_ACTIVE)
                 ->limit(1)->find();
             if ($product->loaded())
             {
@@ -59,7 +58,10 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         //dates range we are filtering
         $dates     = Date::range($from_date, $to_date,'+1 day','Y-m-d',array('date'=>0,'count'=> 0),'date');
-        
+
+        //dates range we are filtering, 1 year back from the to date.
+        $dates_year     = Date::range($from_date-(365*24*60*60),$to_date,'+1 month','Y-m',array('date'=>0,'count'=> 0),'date');
+
         //dates displayed in the form
         $content->from_date = date('Y-m-d',$from_date);
         $content->to_date   = date('Y-m-d',$to_date) ;
@@ -139,6 +141,28 @@ class Controller_Panel_Stats extends Auth_Controller {
         $visits = $query->as_array();
         $content->visits_total = (isset($visits[0]['count']))?$visits[0]['count']:0;
 
+
+
+        //visits by month 1 year from to_date
+        $query = DB::select(DB::expr('CONCAT(YEAR(`created`),"-",MONTH(`created`)) date'))
+                        ->select(DB::expr('COUNT(id_visit) count'))
+                        ->from('visits');
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+
+        $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
+                        ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
+                        ->execute();
+        $visits = $query->as_array('date');
+        $stats_by_month = array();
+
+        foreach ($dates_year as $date) 
+        {
+            $count_views = (isset($visits[$date['date']]['count']))?$visits[$date['date']]['count']:0;            
+            $stats_by_month[] = array('date'=>$date['date'],'views'=> $count_views);
+        } 
+
+        $content->stats_by_month =  $stats_by_month;
 
         /////////////////////ORDERS STATS////////////////////////////////
 
@@ -232,6 +256,65 @@ class Controller_Panel_Stats extends Auth_Controller {
         $orders = $query->as_array();
         $content->orders_total = (isset($orders[0]['count']))?$orders[0]['count']:0;
         $content->amount_total = (isset($orders[0]['total']))?$orders[0]['total']:0;
+
+
+
+        //orders per month
+        $query = DB::select(DB::expr('CONCAT(YEAR(`pay_date`),"-",MONTH(`pay_date`)) date'))
+                        ->select(DB::expr('COUNT(id_order) count'))
+                        ->select(DB::expr('SUM(amount) total'))
+                        ->from('orders')
+                        ->where('status','=',Model_Order::STATUS_PAID);
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query->group_by(DB::expr('YEAR(`pay_date`),MONTH(`pay_date`)'))
+                        ->order_by(DB::expr('YEAR(`pay_date`),MONTH(`pay_date`)'),'asc')
+                        ->execute();
+
+        $orders = $query->as_array('date');
+
+        $stats_orders_by_month = array();
+        foreach ($dates_year as $date) 
+        {
+            $count_orders = (isset($orders[$date['date']]['count']))?$orders[$date['date']]['count']:0;
+            $count_sum = (isset($orders[$date['date']]['total']))?$orders[$date['date']]['total']:0;
+            
+            $stats_orders_by_month[] = array('date'=>$date['date'],'#orders'=> $count_orders,'$'=>$count_sum);
+        } 
+        $content->stats_orders_by_month =  $stats_orders_by_month;
+
+
+        //////////////////////////GROUP BY PRODUCT TOTAL///////////////////
+        //visits
+        $query = DB::select(DB::expr('COUNT(id_visit) count'))
+                        ->select('id_product')
+                        ->from('visits')
+                        ->where('id_product','is not',NULL)
+                        ->group_by('id_product')
+                        ->order_by('count','desc')
+                        ->execute();
+        $content->visits_product = $query->as_array('id_product');
+
+        //orders
+        $query = DB::select('id_product')
+                        ->select(DB::expr('COUNT(id_order) count'))
+                        ->select(DB::expr('SUM(amount) total'))
+                        ->from('orders')
+                        ->where('status','=',Model_Order::STATUS_PAID)
+                        ->group_by('id_product')
+                        ->order_by('total','desc')
+                        ->execute();
+        $content->orders_product = $query->as_array('id_product');
+
+        $products = new Model_Product();
+        $content->products = $products->find_all();
+
+        //for the graphic
+        $products_total = array();
+        foreach ($content->products as $p) 
+            $products_total[] = array('name'=>$p->title,'$'=>round($content->orders_product[$p->id_product]['total'],2));
+        
+        $content->products_total = $products_total;   
         
     }
 

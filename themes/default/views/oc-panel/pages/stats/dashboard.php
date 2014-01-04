@@ -60,15 +60,55 @@
     
 </div> <!-- /.row -->
 
-
+<div class="row">
 <?=Chart::column($stats_orders,array('title'=>__('Sales statistics per day'),
                                     'height'=>400,
-                                    'width'=>800,
-                                    'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>        
+                                    'width'=>'100%',
+                                    'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>       
+<?=Chart::column($stats_orders_by_month,array('title'=>__('Sales statistics per month'),
+                                    'height'=>400,
+                                    'width'=>'100%',
+                                    'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>                                      
 
 <?=Chart::column($stats_daily,array('title'=>__('Visits per day'),
                                     'height'=>400,
-                                    'width'=>800,
-                                    'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>          
+                                    'width'=>'100%'))?> 
 
-                                                      
+<?=Chart::column($stats_by_month,array('title'=>__('Visits per month'),
+                                    'height'=>400,
+                                    'width'=>'100%'))?>   
+</div>
+
+<div class="row">
+
+    <div class="span3">
+        <h3><?=__('Totals products')?></h3>
+        <table class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th><?=__('Product')?></th>
+                    <th>$$$</th>
+                    <th><?=__('Orders')?></th>
+                    <th><?=__('Views')?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?foreach ($products as $p):?>
+                <tr>
+                    <td><a href="<?=Route::url('oc-panel', array('id'=>$p->seotitle,'controller'=>'stats','action'=>'index')) ?>">
+                        <?=$p->title?></a></td>
+                    <td><?=round($orders_product[$p->id_product]['total'],2)?></td>
+                    <td><?=$orders_product[$p->id_product]['count']?></td>
+                    <td><?=$visits_product[$p->id_product]['count']?></td
+                </tr>
+                <?endforeach?>
+            </tbody>
+        </table>
+
+    </div> 
+    <div class="span6">
+        <?=Chart::pie($products_total,array(
+                                    'height'=>400,
+                                    'width'=>'100%'))?> 
+    </div>
+</div>                                                     
