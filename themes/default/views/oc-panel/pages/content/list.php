@@ -3,8 +3,10 @@
 <div class="page-header">
     <?if($type == 'page'):?>
         <h1><?=__('Page')?></h1>
-    <?else:?>
+    <?elseif($type == 'email'):?>
         <h1><?=__('Email')?></h1>
+    <?elseif($type == 'help'):?>
+        <h1><?=__('FAQ')?></h1>
     <?endif?>
 </div>
 <a class="btn btn-primary pull-right" 

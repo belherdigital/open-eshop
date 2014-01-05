@@ -3,8 +3,10 @@
 <div class="page-header">
     <?if($type == 'page'):?>
         <h1><?=__('Create').' '.__('Page')?></h1>
-    <?else:?>
+    <?elseif($type == 'email'):?>
         <h1><?=__('Create').' '.__('Email')?></h1>
+    <?elseif($type == 'help'):?>
+        <h1><?=__('Create').' '.__('FAQ')?></h1>
     <?endif?>
 </div>
 

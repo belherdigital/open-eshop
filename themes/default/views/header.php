@@ -33,6 +33,9 @@
                     <?if (core::config('general.blog')==1):?>
                         <?kam_link(__('Blog'),'blog','','index','blog')?>
                     <?endif?>
+                    <?if (core::config('general.faq')==1):?>
+                        <?kam_link(__('FAQ'),'faq','icon-question-sign '.$icon_white,'index','faq')?>
+                    <?endif?>
                     <?kam_link(__('Contact'),'contact', 'icon-envelope '.$icon_white, 'index', 'contact')?>
                     <?kam_link('','rss', 'icon-signal '.$icon_white, 'index', 'rss')?>
                 <?endif?>

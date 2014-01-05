@@ -51,14 +51,14 @@ class Controller_Panel_Update extends Auth_Controller {
     public function action_11()
     {
         // build array with new (missing) configs
-        $configs = array(array('config_key'     =>'payment',
-                               'group_name'     =>'thanks_page', 
+        $configs = array(array('config_key'     =>'thanks_page',
+                               'group_name'     =>'payment', 
                                'config_value'   =>''), 
-                         array('config_key'     =>'general',
-                               'group_name'     =>'blog', 
+                         array('config_key'     =>'blog',
+                               'group_name'     =>'general', 
                                'config_value'   =>'0'), 
-                         array('config_key'     =>'general',
-                               'group_name'     =>'blog_disqus', 
+                         array('config_key'     =>'blog_disqus',
+                               'group_name'     =>'general', 
                                'config_value'   =>''));
         
 
@@ -87,6 +87,12 @@ class Controller_Panel_Update extends Auth_Controller {
                          array('config_key'     =>'related',
                                'group_name'     =>'product', 
                                'config_value'   =>'5'), 
+                         array('config_key'     =>'faq',
+                               'group_name'     =>'general', 
+                               'config_value'   =>'0'), 
+                         array('config_key'     =>'faq_disqus',
+                               'group_name'     =>'general', 
+                               'config_value'   =>''),
                         );
         
 

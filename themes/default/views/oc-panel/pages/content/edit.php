@@ -4,8 +4,10 @@
 <div class="page-header">
     <?if($cont->type == 'page'):?>
         <h1><?=__('Edit').' '.__('Page')?></h1>
-    <?else:?>
+    <?elseif($cont->type == 'email'):?>
         <h1><?=__('Edit').' '.__('Email')?></h1>
+    <?elseif($cont->type == 'help'):?>
+        <h1><?=__('Edit').' '.__('FAQ')?></h1>
     <?endif?>
 </div>
 

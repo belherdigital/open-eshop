@@ -8,9 +8,21 @@ class Controller_Panel_Content extends Auth_Controller {
     public function action_list()
     {
         
-        
         $type = $this->request->query('type');
-        $site = ($type == 'page')?__('Page'):__('Email');
+        //$site = ($type == 'page')?__('Page'):__('Email');
+        switch ($type) {
+            case 'email':
+                $site = __('Email');
+                break;
+            case 'help':
+                $site = __('FAQ');
+                break;
+            case 'email':
+            default:
+                $site = __('Page');
+                break;
+        }
+
         $locale = core::get('locale_select');
 
         // validation active 
@@ -48,7 +60,20 @@ class Controller_Panel_Content extends Auth_Controller {
     public function action_create()
     {
         $type = $this->request->query('type');
-        $site = ($type == 'page')?__('Page'):__('Email');
+        //$site = ($type == 'page')?__('Page'):__('Email');
+        switch ($type) {
+            case 'email':
+                $site = __('Email');
+                break;
+            case 'help':
+                $site = __('FAQ');
+                break;
+            case 'email':
+            default:
+                $site = __('Page');
+                break;
+        }
+
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Create').' '.$site));
         $content = new Model_Content();
 
@@ -95,7 +120,20 @@ class Controller_Panel_Content extends Auth_Controller {
         $content = new Model_Content($id);
 
         $type = $content->type;
-        $site = ($type == 'page')?__('Page'):__('Email');
+        //$site = ($type == 'page')?__('Page'):__('Email');
+        switch ($type) {
+            case 'email':
+                $site = __('Email');
+                break;
+            case 'help':
+                $site = __('FAQ');
+                break;
+            case 'email':
+            default:
+                $site = __('Page');
+                break;
+        }
+
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Edit').' '.$site));
         
         $locale = $content->locale;

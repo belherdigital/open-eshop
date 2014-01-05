@@ -62,6 +62,16 @@ class Sitemap {
                 $sitemap->addUrl($url, date('c',Date::mysql2unix($page->created)),  'monthly',    '0.5');
             }
 
+            //FAQ CMS 
+            $pages =  new Model_Content();
+            $pages = $pages->select('seotitle')->where('type','=','help')->where('status','=','1')->find_all();
+
+            foreach($pages as $page)
+            {
+                $url = Route::url('faq',  array('seotitle'=>$page->seotitle));
+                $sitemap->addUrl($url, date('c',Date::mysql2unix($page->created)),  'monthly',    '0.5');
+            }
+
           
             //categories
             $cats =  new Model_Category();

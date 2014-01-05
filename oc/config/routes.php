@@ -102,6 +102,15 @@ Route::set('blog', 'blog(/<seotitle>.html)')
         'action'     => 'index',
 ));
 
+/**
+ * FAQ
+ */
+Route::set('faq', 'faq(/<seotitle>.html)')
+->defaults(array(
+        'controller' => 'faq',    
+        'action'     => 'index',
+));
+
 
 
 /**
