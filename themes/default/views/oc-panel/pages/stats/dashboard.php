@@ -11,9 +11,10 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th><?=__('Today')?></th>
-                    <th><?=__('Yesterday')?></th>
-                    <th><?=__('Last 30 days')?></th>
+                    <th><?=__('Today')?> <?=date('d-m')?></th>
+                    <th><?=__('Yesterday')?> <?=date('d-m',strtotime('-1 day'))?></th>
+                    <th><?=__('Month')?> <?=date('M Y')?></th>
+                    <th><?=__('Year')?> <?=date('Y')?></th>
                     <th><?=__('Total')?></th>
                 </tr>
             </thead>
@@ -23,6 +24,7 @@
                     <td>$<?=$amount_today?> (<?=$orders_today?>)</td>
                     <td>$<?=$amount_yesterday?> (<?=$orders_yesterday?>)</td>
                     <td>$<?=$amount_month?> (<?=$orders_month?>)</td>
+                    <td>$<?=$amount_year?> (<?=$orders_year?>)</td>
                     <td>$<?=$amount_total?> (<?=$orders_total?>)</td>
                 </tr>
                 <tr>
@@ -30,6 +32,7 @@
                     <td><?=$visits_today?></td>
                     <td><?=$visits_yesterday?></td>
                     <td><?=$visits_month?></td>
+                    <td><?=$visits_year?></td>
                     <td><?=$visits_total?></td>
                 </tr>
             </tbody>

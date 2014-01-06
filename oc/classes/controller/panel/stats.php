@@ -106,6 +106,21 @@ class Controller_Panel_Stats extends Auth_Controller {
         $ads = $query->as_array();
         $content->visits_today     = (isset($ads[0]['count']))?$ads[0]['count']:0;
 
+         //Current month 
+        $query = DB::select(DB::expr('COUNT(id_visit) count'))
+                        ->from('visits')
+                        ->where(DB::expr('MONTH( created )'),'=',DB::expr('MONTH(CURDATE())'))
+                        ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
+                        ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
+                        ->order_by('created','asc')
+                        ->execute();
+
+        $ads = $query->as_array();
+        $content->visits_month     = (isset($ads[0]['count']))?$ads[0]['count']:0;
+
         //Yesterday
         $query = DB::select(DB::expr('COUNT(id_visit) count'))
                         ->from('visits')
@@ -120,16 +135,20 @@ class Controller_Panel_Stats extends Auth_Controller {
         $content->visits_yesterday= (isset($ads[0]['count']))?$ads[0]['count']:0;
 
 
-        //Last 30 days visits
+        //Current month 
         $query = DB::select(DB::expr('COUNT(id_visit) count'))
                         ->from('visits')
-                        ->where('created','between',array(date('Y-m-d',strtotime('-30 day')),date::unix2mysql()));
+                        ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
         if ($content->product!==NULL)
                 $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query->execute();
+        $query = $query->group_by(DB::expr('YEAR(`created`)'))
+                        ->order_by(DB::expr('YEAR(`created`)'),'asc')
+                        ->order_by('created','asc')
+                        ->execute();
 
-        $visits = $query->as_array();
-        $content->visits_month = (isset($visits[0]['count']))?$visits[0]['count']:0;
+        $ads = $query->as_array();
+        $content->visits_year     = (isset($ads[0]['count']))?$ads[0]['count']:0;
+
 
         //total visits
         $query = DB::select(DB::expr('COUNT(id_visit) count'))
@@ -228,20 +247,43 @@ class Controller_Panel_Stats extends Auth_Controller {
         $content->amount_yesterday     = (isset($ads[0]['total']))?$ads[0]['total']:0;
 
 
-        //Last 30 days orders
+        //current month
         $query = DB::select(DB::expr('COUNT(id_order) count'))
                         ->select(DB::expr('SUM(amount) total'))
                         ->from('orders')
-                        ->where('pay_date','between',array(date('Y-m-d',strtotime('-30 day')),date::unix2mysql()))
+                        ->where(DB::expr('MONTH( pay_date )'),'=',DB::expr('MONTH(CURDATE())'))
+                        ->where(DB::expr('YEAR( pay_date )'),'=',DB::expr('YEAR(CURDATE())'))
                         ->where('status','=',Model_Order::STATUS_PAID);
         if ($content->product!==NULL)
                 $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query
+        $query = $query->group_by(DB::expr('YEAR(`pay_date`),MONTH(`pay_date`)'))
+                        ->order_by(DB::expr('YEAR(`pay_date`),MONTH(`pay_date`)'),'asc')
+                        ->order_by('pay_date','asc')
                         ->execute();
+
 
         $orders = $query->as_array();
         $content->orders_month = (isset($orders[0]['count']))?$orders[0]['count']:0;
         $content->amount_month = (isset($orders[0]['total']))?$orders[0]['total']:0;
+
+
+        //current year
+        $query = DB::select(DB::expr('COUNT(id_order) count'))
+                        ->select(DB::expr('SUM(amount) total'))
+                        ->from('orders')
+                        ->where(DB::expr('YEAR( pay_date )'),'=',DB::expr('YEAR(CURDATE())'))
+                        ->where('status','=',Model_Order::STATUS_PAID);
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query->group_by(DB::expr('YEAR(`pay_date`)'))
+                        ->order_by(DB::expr('YEAR(`pay_date`)'),'asc')
+                        ->order_by('pay_date','asc')
+                        ->execute();
+
+
+        $orders = $query->as_array();
+        $content->orders_year = (isset($orders[0]['count']))?$orders[0]['count']:0;
+        $content->amount_year= (isset($orders[0]['total']))?$orders[0]['total']:0;
 
         //total orders
         $query = DB::select(DB::expr('COUNT(id_order) count'))
