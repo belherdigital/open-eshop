@@ -11,9 +11,6 @@
 
 -------------------------------------------------------------------*/
 
-
-
-
 .faq-search {
 	margin-bottom: 2em;
 	
@@ -26,18 +23,13 @@
 	padding: 2%;
 }
 
-
-
 .faq-empty {
 	display: none;
 }
 
-
-
 .faq-toc {
 	padding: 1.5em 0;
 	margin: 2em 0 0;
-	
 	border: 1px dotted #CCC;
 	border-right: none;
 	border-left: none;
@@ -50,7 +42,6 @@
 
 .faq-toc li {
 	margin-bottom: .75em;
-	
 	list-style: none;
 }
 
@@ -59,11 +50,9 @@
 }
 
 
-
 .faq-list {
 	padding: 0;
 	margin: 3em 0 0;
-	
 	list-style: none;	
 }
 
@@ -81,38 +70,21 @@
 .faq-text {
 	display: table-cell;
 	vertical-align: top;
-	
 }
 
 
 .faq-number {
 	width: 32px;
 	height: 32px;
-	
+	text-align: center;
 	font-size: 14px;
 	font-weight: 600;
-	text-align: center;
 	line-height: 32px;
 	color: #FFF;
-	
+	/*
 	background: #F90;
-	
 	border: 3px solid #FFF;
-	
 	box-shadow: 1px 1px 3px rgba(0,0,0,.4);
-	
 	border-radius: 100px;
-	
-	text-shadow: 1px 1px 2px rgba(0,0,0,.4);
+	text-shadow: 1px 1px 2px rgba(0,0,0,.4);*/
 }
-
-
-
-
-.btn-support-ask {
-		display: block; font-size: 22px; padding: 14px 0; font-weight: 600; margin-bottom: .75em;
-	}
-	
-	.btn-support-contact {
-		display: block; padding: 12px 0; font-size: 18px; font-weight: 600;
-	}

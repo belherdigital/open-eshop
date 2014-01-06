@@ -30,7 +30,7 @@
         	enableToc: true,
         	enableStyling: true,
             //numberHtml: '{{#}}.',
-            numberHtml: '<div class="faq-number">{{#}}</div>'
+            numberHtml: '<div class="faq-number badge badge-info">{{#}}</div>'
         };
         /**
          * Merge the runtime options with the default settings
@@ -161,7 +161,5 @@
 
 //starting the plugin
 $(function () {
-    
     $('.faq-list').goFaq ();
-    
 });

@@ -1,11 +1,11 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
 <div class="page-header">
-    <h1><?=$page->title?></h1>
+    <h1><?=$faq->title?></h1>
 </div>
 
 <div class="well">
-	<?=Text::bb2html($page->description,TRUE)?>
+	<?=Text::bb2html($faq->description,TRUE)?>
 </div><!-- /well -->
 
 <?=$disqus?>

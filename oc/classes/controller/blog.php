@@ -5,7 +5,7 @@ class Controller_Blog extends Controller {
     public function __construct($request, $response)
     {
         parent::__construct($request, $response);
-        
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Home'))->set_url(Route::url('default')));
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Blog'))->set_url(Route::url('blog')));
 
     }

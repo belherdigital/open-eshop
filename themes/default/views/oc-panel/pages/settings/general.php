@@ -415,7 +415,7 @@
             </div>
         </div>
         <div class="control-group">
-                <?= FORM::label($forms['faq_disqus']['key'], __('Disqus for faq'), array('class'=>'control-label', 'for'=>$forms['faq_disqus']['key']))?>
+                <?= FORM::label($forms['faq_disqus']['key'], __('Disqus for FAQ'), array('class'=>'control-label', 'for'=>$forms['faq_disqus']['key']))?>
                 <div class="controls">
                     <?= FORM::input($forms['faq_disqus']['key'], $forms['faq_disqus']['value'], array(
                     'placeholder' => "", 
