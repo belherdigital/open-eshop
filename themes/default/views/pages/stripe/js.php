@@ -1,3 +1,5 @@
+<?php defined('SYSPATH') or die('No direct script access.');?>
+
 $('#stripe_button').click(function(){
   var token = function(res){
     var $input = $('<input type=hidden name=stripeToken />').val(res.id);

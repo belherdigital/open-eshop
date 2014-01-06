@@ -41,6 +41,9 @@ class Controller_Stripe extends Controller{
                 // Get the credit card details submitted by the form
                 $token = Core::post('stripeToken');
 
+                // email
+                $email = Core::post('stripeEmail');
+
                 // Create the charge on Stripe's servers - this will charge the user's card
                 try 
                 {
@@ -54,7 +57,7 @@ class Controller_Stripe extends Controller{
                     if (!Auth::instance()->logged_in())
                     {
                         //create user if doesnt exists and send email to user with password
-                        $user = Model_User::create_email(Core::post('stripeEmail'),Core::post('stripeEmail'));
+                        $user = Model_User::create_email($email,$email);
                     }
                     else//he was loged so we use his user
                         $user = Auth::instance()->get_user();

@@ -13,7 +13,7 @@
 
 <?if ( core::config('general.analytics')!='' AND Kohana::$environment === Kohana::PRODUCTION AND is_numeric($price_paid)): ?>
     <script type="text/javascript">
-    _gaq.push(['_trackEvent', 'Purchase', '<?=$order->product->seotitle?>', <?=round($price_paid,2)?>]);
+    _gaq.push(['_trackEvent', 'Purchase', '<?=$product->seotitle?>', <?=round($price_paid,2)?>]);
     </script>
 <?endif?>
 
