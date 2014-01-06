@@ -1,7 +1,7 @@
 $('#stripe_button').click(function(){
   var token = function(res){
     var $input = $('<input type=hidden name=stripeToken />').val(res.id);
-    $('form').append($input).submit();
+    $('#stripe_form').append($input).submit();
   };
 
   StripeCheckout.open({
@@ -13,7 +13,8 @@ $('#stripe_button').click(function(){
     <?if (Auth::instance()->logged_in()):?>
     email:       '<?=Auth::instance()->get_user()->email?>',
      <?endif?>
-    panelLabel:  'Checkout'
+    panelLabel:  'Checkout',
+    token:       token
   });
 
   return false;

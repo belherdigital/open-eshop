@@ -70,7 +70,6 @@
         <?=__('Pay with Paypal')?></a>
     <?=StripeKO::button($product)?>
     <?=Paymill::button($product)?>
-</form>
 <?else:?>
 
     <?if (!Auth::instance()->logged_in()):?>
