@@ -38,7 +38,8 @@ class StripeKO {
      */
     public static function money_format($amount)
     {
-        return str_replace(array(',','.'), '', $amount);
+        return $amount*100;
+        //return str_replace(array(',','.'), '', $amount);
     }
 
 
