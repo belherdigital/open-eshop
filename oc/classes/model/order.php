@@ -183,9 +183,9 @@ class Model_Order extends ORM {
 
         $form->fields['id_product']['display_as']   = 'select';
         $form->fields['id_product']['caption']      = 'title';  
-
-        $form->fields['id_user']['display_as']   = 'select';
-        $form->fields['id_user']['caption']      = 'email';   
+        $form->fields['id_user']['display_as']   = 'text';
+        //$form->fields['id_user']['display_as']   = 'select';
+        //$form->fields['id_user']['caption']      = 'email';   
 
     }
 
