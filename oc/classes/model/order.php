@@ -33,6 +33,7 @@ class Model_Order extends ORM {
     const STATUS_CREATED        = 0;   // just created
     const STATUS_PAID           = 1;   // paid!
     const STATUS_REFUSED        = 5;   //tried to paid but not succeed
+    const STATUS_FRAUD          = 66;  //fraud!!!!
     const STATUS_REFUND         = 99;  //we refunded the money
 
     /**
@@ -42,6 +43,7 @@ class Model_Order extends ORM {
         self::STATUS_CREATED      =>  'Created',
         self::STATUS_PAID         =>  'Paid',
         self::STATUS_REFUSED      =>  'Refused',
+        self::STATUS_FRAUD       =>  'Fraud',
         self::STATUS_REFUND       =>  'Refund',
     );
 
@@ -183,7 +185,10 @@ class Model_Order extends ORM {
 
         $form->fields['id_product']['display_as']   = 'select';
         $form->fields['id_product']['caption']      = 'title';  
-        $form->fields['id_user']['display_as']   = 'text';
+        $form->fields['id_user']['display_as']      = 'text';
+        $form->fields['id_coupon']['display_as']      = 'text';
+        $form->fields['status']['display_as']       = 'select';
+        $form->fields['status']['options']           = array_keys(self::$statuses);
         //$form->fields['id_user']['display_as']   = 'select';
         //$form->fields['id_user']['caption']      = 'email';   
 

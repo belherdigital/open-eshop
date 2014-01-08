@@ -99,6 +99,45 @@ class Controller_Panel_Order extends Auth_Crud {
        
     }
 
+    /**
+     * CRUD controller: UPDATE
+     */
+    public function action_update()
+    {
+        $this->template->title = __('Update').' '.__($this->_orm_model).' '.$this->request->param('id');
+    
+        $form = new FormOrm($this->_orm_model,$this->request->param('id'));
+        
+        if ($this->request->post())
+        {
+            if ( $success = $form->submit() )
+            {
+                $form->save_object();
+
+                //if fraud or refunded....disable licenses!!
+                if ($form->object->status == Model_Order::STATUS_FRAUD OR $form->object->status == Model_Order::STATUS_REFUND)
+                {
+                    foreach ($form->object->licenses->find_all() as $l) 
+                    {
+                        $l->status = Model_License::STATUS_NOACTIVE;
+                        $l->save();
+                    }
+                }
+
+                Alert::set(Alert::SUCCESS, __('Item updated').'. '.__('Please to see the changes delete the cache')
+                    .'<br><a class="btn btn-primary btn-mini" href="'.Route::url('oc-panel',array('controller'=>'tools','action'=>'cache')).'?force=1">'
+                    .__('Delete All').'</a>');
+                $this->request->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller())));
+            }
+            else
+            {
+                Alert::set(Alert::ERROR, __('Check form for errors'));
+            }
+        }
+    
+        return $this->render('oc-panel/crud/update', array('form' => $form));
+    }
+
 
 
     public function action_import()

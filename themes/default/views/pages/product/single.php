@@ -25,9 +25,7 @@
 <?endif?>
 
 <?if (!empty($product->url_demo)):?>
-    <span class="label pull-right">
-        <a href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" ><?=__('Demo')?></a>
-    </span>
+    <a class="btn btn-warning btn-small pull-right" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" ><?=__('Demo')?></a>
 <?endif?>
     
 
