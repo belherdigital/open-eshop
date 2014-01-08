@@ -59,7 +59,7 @@ class Controller_Api extends Controller {
                                 'seoname'       => $p->seotitle,
                                 'skins'         => $p->skins,
                                 'url_more'      => $url,
-                                'url_buy'       => $urlmin,
+                                'url_buy'       => $url,//$urlmin,// in case you want embed buy
                                 'url_demo'      => (!empty($p->url_demo))?Route::url('product-demo', array('seotitle'=>$p->seotitle,'category'=>$p->category->seoname)):'',
                                 'url_screenshot'=> URL::base().$p->get_first_image(),
                                 'type'          => $p->category->seoname,

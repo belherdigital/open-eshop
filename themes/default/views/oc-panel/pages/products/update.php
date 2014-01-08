@@ -11,7 +11,7 @@
                     </a><br>
 <?=__('Button with overlay')?>
 <textarea class="span4" onclick="this.select()"><script src="<?=Core::config('general.base_url')?>embed.js"></script>
-<a class="oe_button" href="<?=Route::url('product-minimal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)) ?>"><?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?></a></textarea>
+<a class="oe_button" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)) ?>"><?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?></a></textarea>
 
 <br>
 <a class="btn btn-primary" target="_blank" 

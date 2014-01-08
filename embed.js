@@ -139,7 +139,7 @@ open_eshop.init = function (os_ns) {
             ifrmc.style.marginTop = '-' + (os_ns.height / 2) + 'px';
 
             ifrm = document.createElement("IFRAME");
-            ifrm.setAttribute("src", tar.getAttribute('href'));
+            ifrm.setAttribute("src", tar.getAttribute('href')+'?ext=1');
             ifrm.style.width = os_ns.width + "px";
             ifrm.style.height = os_ns.height + "px";
             ifrm.setAttribute("scrolling", 'no');
