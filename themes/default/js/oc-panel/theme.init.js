@@ -3,7 +3,7 @@ $(function (){
 
     $('#formorm_description, textarea[name=description], textarea[name=email_purchase_notes], .cf_textarea_fields').addClass('span6').sceditorBBCodePlugin({
         toolbar: "bold,italic,underline,strike|left,center,right,justify|" +
-        "bulletlist,orderedlist|link,unlink|source",
+        "bulletlist,orderedlist|link,unlink,image,youtube|source",
         resizeEnabled: "true"});
     
     $('.tips').popover();
