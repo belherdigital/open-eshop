@@ -20,15 +20,33 @@ class Model_Coupon extends ORM {
      */
     protected $_primary_key = 'id_coupon';
 
+    /**
+     * @var  array  ORM Dependency/hirerachy
+     */
+    protected $_belongs_to = array(
+        'product' => array(
+                'model'       => 'product',
+                'foreign_key' => 'id_product',
+            ),
+    );
 
-    public function form_setup($form)
-    {
-       
-    }
+
 
     public function exclude_fields()
     {
         return array('created');
+    }
+
+    /**
+     * 
+     * formmanager definitions
+     * 
+     */
+    public function form_setup($form)
+    {   
+
+        $form->fields['id_product']['display_as']   = 'select';
+        $form->fields['id_product']['caption']      = 'title';  
     }
 
     /**

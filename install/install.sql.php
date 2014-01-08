@@ -216,6 +216,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."tickets` (
 
 mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."coupons` (
   `id_coupon` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_product` int(10) unsigned NULL DEFAULT NULL,
   `name` varchar(145) NOT NULL,
   `notes` varchar(245) DEFAULT NULL,
   `discount_amount` decimal(14,3) NOT NULL DEFAULT '0',

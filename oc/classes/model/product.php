@@ -70,31 +70,54 @@ class Model_Product extends ORM {
      */
     public function has_offer()
     {
-        //check if theres an offer for the product OR a coupon @todo
-        if ( (is_numeric($this->price_offer) AND Date::mysql2unix($this->offer_valid)>time()) OR Controller::$coupon!=NULL)
+        //check if theres an offer for the product OR a coupon
+        if ( (is_numeric($this->price_offer) AND Date::mysql2unix($this->offer_valid)>time()) OR $this->valid_coupon())
             return TRUE;
         else
             return FALSE;
     }
     
     /**
-     * returns the prce of the product checking if there's an offer or coupon
+     * returns the price of the product checking if there's an offer or coupon
      * @return float 
      */
     public function final_price()
     {
+   
+        // only calculate price if coupon is NULL or for that poroduct
+        if ($this->valid_coupon())
+        {
+            //calculating price
+            if (Controller::$coupon->discount_amount>0)
+                $calc_price = round($this->price - Controller::$coupon->discount_amount,2);
+            elseif (Controller::$coupon->discount_percentage>0)
+                $calc_price = round($this->price - ( ($this->price*Controller::$coupon->discount_percentage)/100),2);
+
+            //in case calculated price is negative
+            return ($calc_price>0)? $calc_price : 0;
+        }
+        
+        //in case not any coupon check the offer price
+        return ($this->has_offer() AND Date::mysql2unix($this->offer_valid)>time() )? $this->price_offer : $this->price;
+    }
+
+    /**
+     * validates if a coupon its added and valid for that product
+     * @return bool 
+     */
+    public function valid_coupon()
+    {
         //coupon added
         if ( Controller::$coupon!=NULL)
         {
-            if (Controller::$coupon->discount_amount>0)
-                return round($this->price - Controller::$coupon->discount_amount,2);
-            elseif (Controller::$coupon->discount_percentage>0)
-                return round($this->price - ( ($this->price*Controller::$coupon->discount_percentage)/100),2);
-            else 
-                return $this->price;
+            // only calculate price if coupon is NULL or for that poroduct
+            if (Controller::$coupon->id_product == $this->id_product OR Controller::$coupon->id_product == NULL)
+            {
+                return TRUE;
+            }
         }
-        else
-            return ($this->has_offer())? $this->price_offer : $this->price;
+
+        return FALSE;
     }
 
     /**
