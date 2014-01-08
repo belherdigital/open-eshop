@@ -57,7 +57,7 @@ class Controller_Stripe extends Controller{
                     if (!Auth::instance()->logged_in())
                     {
                         //create user if doesnt exists and send email to user with password
-                        $user = Model_User::create_email($email,$email);
+                        $user = Model_User::create_email($email,core::post('stripeBillingName',$email));
                     }
                     else//he was loged so we use his user
                         $user = Auth::instance()->get_user();

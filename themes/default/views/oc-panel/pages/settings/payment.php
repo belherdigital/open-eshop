@@ -146,6 +146,22 @@
                         </div>
                 </div>
 
+                <div class="control-group">
+                    <?= FORM::label($forms['stripe_address']['key'], __('Requires address to pay for extra security'), array('class'=>'control-label', 'for'=>$forms['stripe_address']['key']))?>
+                    <div class="controls">
+                        <?= FORM::select($forms['stripe_address']['key'], array(FALSE=>"FALSE",TRUE=>"TRUE"),$forms['stripe_address']['value'], array(
+                        'placeholder' => "TRUE or FALSE", 
+                        'class' => 'tipsti', 
+                        'id' => $forms['stripe_address']['key'],
+                        'data-content'=> '',
+                        'data-trigger'=>"hover",
+                        'data-placement'=>"right",
+                        'data-toggle'=>"popover",
+                        'data-original-title'=>'', 
+                        ))?> 
+                    </div>
+                </div>
+
                
 				<div class="form-actions">
 					<?= FORM::button('submit', 'Update', array('type'=>'submit', 'class'=>'btn-small btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'settings', 'action'=>'payment'))))?>

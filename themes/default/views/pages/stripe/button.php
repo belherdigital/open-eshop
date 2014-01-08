@@ -10,7 +10,9 @@
         data-email="<?=Auth::instance()->get_user()->email?>"
     <?endif?>
     data-amount="<?=StripeKO::money_format($product->final_price())?>"
-    data-currency="<?=$product->currency?>">
+    data-currency="<?=$product->currency?>"
+    <?=(Core::config('payment.stripe_address')==TRUE)?'data-address = "TRUE"':''?>
+    >
   </script>
 </form>
 <?/*
