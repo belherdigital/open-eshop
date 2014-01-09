@@ -73,7 +73,7 @@
 			<div class="span9">
 				<?=Breadcrumbs::render('oc-panel/breadcrumbs')?>      
 				<?=Alert::show()?>
-                <?if (!isset($_COOKIE['donation_alert'])  AND Theme::get('premium')!=1):?>
+                <?if (!isset($_COOKIE['donation_alert'])  AND Theme::get('premium')!=1 AND $user->id_role==Model_Role::ROLE_ADMIN):?>
                    <div class="alert alert-warning fade in">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true" onclick='setCookie("donation_alert",1,7)'>×</button>
                     <h4><?=__('Help us to improve!')?></h4>

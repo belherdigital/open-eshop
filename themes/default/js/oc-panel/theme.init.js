@@ -1,11 +1,26 @@
 $(function (){
     
 
-    $('#formorm_description, textarea[name=description], textarea[name=email_purchase_notes], .cf_textarea_fields').addClass('span6').sceditorBBCodePlugin({
-        toolbar: "bold,italic,underline,strike|left,center,right,justify|" +
-        "bulletlist,orderedlist|link,unlink,image,youtube|source",
-        resizeEnabled: "true"});
+    if ($("textarea[name=description]").data('editor')=='html')
+    {
+        $("#formorm_description, textarea[name=description], textarea[name=email_purchase_notes], .cf_textarea_fields").addClass('span8').sceditor({
+            plugins: "xhtml",
+            height: "450",
+            toolbarExclude: "emoticon,cut,copy,paste,pastetext",
+            resizeEnabled: "true",
+            enablePasteFiltering: "true"
+        });
+    }
+    else
+    {
+        $('#formorm_description, textarea[name=description], textarea[name=email_purchase_notes], .cf_textarea_fields').addClass('span6').sceditorBBCodePlugin({
+            toolbar: "bold,italic,underline,strike|left,center,right,justify|" +
+            "bulletlist,orderedlist|link,unlink,image,youtube|source",
+            resizeEnabled: "true",
+            enablePasteFiltering: "true"});
+    }
     
+
     $('.tips').popover();
 
     $("select").chosen();

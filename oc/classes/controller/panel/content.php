@@ -86,10 +86,16 @@ class Controller_Panel_Content extends Auth_Controller {
         {
             foreach ($p as $name => $value) 
             {
-                if($name != 'submit')
+                //for description we accept the HTML as comes...a bit risky but only admin can
+                if ($name=='description')
+                {
+                    $content->description = Kohana::$_POST_ORIG['description'];
+                }
+                elseif($name != 'submit')
                 {
                     $content->$name = $value;
                 }
+
             }
             // if status is not checked, it is not set as POST response
             $content->status = (isset($p['status']))?1:0;
@@ -147,7 +153,12 @@ class Controller_Panel_Content extends Auth_Controller {
             {
                 foreach ($p as $name => $value) 
                 {
-                    if($name != 'submit')
+                    //for description we accept the HTML as comes...a bit risky but only admin can
+                    if ($name=='description')
+                    {
+                        $content->description = Kohana::$_POST_ORIG['description'];
+                    }
+                    elseif($name != 'submit')
                     {
                         $content->$name = $value;
                     }

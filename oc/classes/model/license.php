@@ -47,7 +47,8 @@ class Model_License extends ORM {
 
     public function form_setup($form)
     {
-       
+       $form->fields['id_user']['display_as']      = 'text';
+       $form->fields['id_order']['display_as']      = 'text';
     }
 
     public function exclude_fields()

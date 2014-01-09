@@ -105,14 +105,16 @@ class Text extends Kohana_Text {
 	 * translates in the relative html code.
 	 *
 	 * @param string $text
-	 * @param boolean $advanced his var describes if the parser run in advanced mode (only *simple* bbcode is parsed).
+	 * @param boolean $advanced his var describes if the parser run in advanced mode (only *simple* bbcode is parsed)..
+     * @param boolean $specialchars if true transform specal chars
 	 * @return string
 	 */
-	public static function bb2html($text,$advanced=FALSE)
+	public static function bb2html($text,$advanced = FALSE, $specialchars = TRUE)
     {
 
 		//special chars
-		$text  = htmlspecialchars($text, ENT_QUOTES, Kohana::$charset);
+		if ($specialchars === TRUE)
+            $text  = htmlspecialchars($text, ENT_QUOTES, Kohana::$charset);
 
 		/**
 		 *

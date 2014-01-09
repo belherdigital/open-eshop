@@ -4,8 +4,8 @@
     <h1><?=$faq->title?></h1>
 </div>
 
-<div class="well">
-	<?=Text::bb2html($faq->description,TRUE)?>
+<div>
+	<?=Text::bb2html($faq->description,TRUE,FALSE)?>
 </div><!-- /well -->
 
 <?=$disqus?>
