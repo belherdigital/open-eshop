@@ -89,7 +89,7 @@ class Text extends Kohana_Text {
                                  '<a href="mailto: $1">$1</a>',
                                  '<a href="mailto: $1">$2</a>',
                                  '<img src="$1" alt="$1" />',
-                                 '<img src="$1" alt="$2" />',
+                                 '<img src="$2" alt="$1" />',
                                  '<code>$2</code>',
                                  '<iframe width="560" height="315" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>',
                                  '<iframe width="560" height="315" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>',

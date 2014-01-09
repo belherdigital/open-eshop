@@ -34,7 +34,7 @@ class TextTest extends Kohana_UnitTest_TestCase
                 array('[email]admin@open-classifieds.com[/email]', '<a href="mailto: admin@open-classifieds.com">admin@open-classifieds.com</a>'),
                 array('[email=admin@open-classifieds.com]oc[/email]', '<a href="mailto: admin@open-classifieds.com">oc</a>'),
                 array('[img]http://open-classifieds.com/logo.png[/img]', '<img src="http://open-classifieds.com/logo.png" alt="http://open-classifieds.com/logo.png" />'),
-                array('[img=http://open-classifieds.com/logo.png]oc[/img]', '<img src="http://open-classifieds.com/logo.png" alt="oc" />'),
+                array('[img=oc]http://open-classifieds.com/logo.png[/img]', '<img src="http://open-classifieds.com/logo.png" alt="oc" />'),
                 array('[code]some code[/code]', '<code>some code</code>'),
                 array('[youtube]http://www.youtube.com/watch?v=eTOKXCEwo_8[/youtube]',
                       '<iframe width="560" height="315" src="http://www.youtube.com/embed/eTOKXCEwo_8" frameborder="0" allowfullscreen></iframe>'),
