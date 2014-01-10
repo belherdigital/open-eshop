@@ -20,6 +20,7 @@ $(function(){
     $(window).load(function(){
         $('#accept_terms_modal').modal('show');
     });
+    if (!navigator.onLine) $('.off-line').show();
 
     // fix sub nav on scroll
     var $win = $(window)
