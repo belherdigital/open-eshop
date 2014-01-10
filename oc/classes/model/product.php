@@ -561,7 +561,7 @@ class Model_Product extends ORM {
                 ->where('id_product','!=',$this->id_product)
                 ->where('status','=',self::STATUS_ACTIVE)
                 ->limit(core::config('product.related'))
-                ->order_by(DB::expr('RAND()'))
+                //->order_by(DB::expr('RAND()'))
                 ->find_all();
 
                 return View::factory('pages/product/related',array('products'=>$products))->render();
