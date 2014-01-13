@@ -76,6 +76,7 @@ class Controller_Panel_Update extends Auth_Controller {
         //coupons product
         $prefix = Database::instance()->table_prefix();
         mysql_query("ALTER TABLE  `".$prefix."coupons` ADD  `id_product` INT NULL DEFAULT NULL AFTER  `id_coupon`");
+        mysql_query("ALTER TABLE  `".$prefix."orders` ADD  `notes` VARCHAR( 245 ) NULL DEFAULT NULL");
 
         // build array with new (missing) configs
         $configs = array(

@@ -66,6 +66,11 @@
         <input type="text" id="formorm_pay_date" name="pay_date" placeholder="YYYY-MM-DD" value="<?=date('Y-m-d H:i:s')?>">                         </div>
 </div>
 
+    <div class="control-group ">
+    <label for="formorm_notes" class="control-label"><?=__('Notes')?></label>    <div class="controls">
+        <input type="text" id="formorm_notes" maxlength=245 name="notes" placeholder="Order notes 245 characters max" value="">                         </div>
+</div>
+
 
 			<div class="form-actions">
 				<?= FORM::button('submit', __('Save'), array('type'=>'submit', 'class'=>'btn-large btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'order','action'=>'create'))))?>
