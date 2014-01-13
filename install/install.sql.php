@@ -51,6 +51,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."users` (
   `token_expires` datetime DEFAULT NULL,
   `hybridauth_provider_name` varchar(40) NULL DEFAULT NULL,
   `hybridauth_provider_uid` varchar(245) NULL DEFAULT NULL,
+  `signature` varchar(245) NULL DEFAULT NULL,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `".$_POST['TABLE_PREFIX']."users_UK_email` (`email`),
   UNIQUE KEY `".$_POST['TABLE_PREFIX']."users_UK_token` (`token`),

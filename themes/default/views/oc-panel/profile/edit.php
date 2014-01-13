@@ -63,6 +63,11 @@
       <div class="page-header">
         <h1><?=__('Profile picture')?></h1>
       </div>
+
+      <div class="row">
+        
+            <img src="<?=$user->get_profile_image()?>" class="img-rounded" alt="<?=__('Profile Picture')?>" height='200px'>
+    </div>
       
       <form class="well form-horizontal" enctype="multipart/form-data" method="post" action="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'image'))?>">         
               <?=Form::errors()?>  
