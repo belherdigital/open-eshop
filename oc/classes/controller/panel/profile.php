@@ -140,22 +140,8 @@ class Controller_Panel_Profile extends Auth_Controller {
             
             $user->name = core::post('name');
             $user->email = core::post('email');
-            $user->seoname = URL::title(core::post('name'));
-            // $user->password2 = core::post('password2');
-            
-            $password1 = core::post('password1');
-            if(!empty($password1))
-            {
-                if(core::post('password1') == core::post('password2'))
-                {
-                    $user->password = core::post('password1');
-                }
-                else
-                {
-                    Alert::set(Alert::ERROR, __('New password is invalid, or they do not match! Please try again.'));
-                    $this->request->redirect(Route::url('oc-panel', array('controller'=>'profile','action'=>'edit')));
-                }
-            } 
+            $user->signature = core::post('signature');
+            $user->seoname = $user->gen_seo_title(core::post('name'));
 
             try {
                 $user->save();

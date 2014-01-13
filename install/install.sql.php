@@ -156,6 +156,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."orders` (
   `pay_date` DATETIME  NULL,
   `support_date` DATETIME  NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
+  `notes` VARCHAR( 245 ) NULL DEFAULT NULL,
   PRIMARY KEY (`id_order`),
   KEY `".$_POST['TABLE_PREFIX']."orders_IK_id_user` (`id_user`),
   KEY `".$_POST['TABLE_PREFIX']."orders_IK_status` (`status`)
