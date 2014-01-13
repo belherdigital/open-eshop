@@ -88,7 +88,7 @@
       <div class="control-group">
         <label class="control-label"><?=__("Reply")?>:</label>
         <div class="controls">
-        <textarea name="description" rows="10" class="span6" required></textarea>
+        <textarea name="description" rows="10" class="span6" required><?=core::post('description',__('Description'))?></textarea>
         </div>
       </div>
 
