@@ -86,7 +86,7 @@
 
     <div class="span9">
         <h3><?=__('Totals products')?></h3>
-        <table class="table table-bordered table-condensed">
+        <table class="table table-bordered table-condensed sortable">
             <thead>
                 <tr>
                     <th><?=__('Product')?></th>

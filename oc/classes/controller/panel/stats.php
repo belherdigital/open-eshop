@@ -19,6 +19,7 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $this->template->styles = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
         $this->template->scripts['footer'] = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
+                                                    'http://cdn.jsdelivr.net/sorttable/2/sorttable.min.js',
                                                     'js/oc-panel/stats/dashboard.js');
         
         $this->template->bind('content', $content);        
