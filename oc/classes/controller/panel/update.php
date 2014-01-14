@@ -79,6 +79,20 @@ class Controller_Panel_Update extends Auth_Controller {
         mysql_query("ALTER TABLE  `".$prefix."orders` ADD  `notes` VARCHAR( 245 ) NULL DEFAULT NULL");
         mysql_query("ALTER TABLE  `".$prefix."users` ADD  `signature` VARCHAR( 245 ) NULL DEFAULT NULL");
         mysql_query("ALTER TABLE  `".$prefix."visits` DROP  `contacted`");
+        mysql_query("ALTER TABLE  `".$prefix."posts` ADD  `id_post_parent` INT NULL DEFAULT NULL AFTER  `id_user`");
+        mysql_query("ALTER TABLE  `".$prefix."posts` ENGINE = MYISAM ");
+        mysql_query("CREATE TABLE IF NOT EXISTS  `".$prefix."forums` (
+                      `id_forum` int(10) unsigned NOT NULL AUTO_INCREMENT,
+                      `name` varchar(145) NOT NULL,
+                      `order` int(2) unsigned NOT NULL DEFAULT '0',
+                      `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                      `id_forum_parent` int(10) unsigned NOT NULL DEFAULT '0',
+                      `parent_deep` int(2) unsigned NOT NULL DEFAULT '0',
+                      `seoname` varchar(145) NOT NULL,
+                      `description` varchar(255) NULL,
+                      PRIMARY KEY (`id_forum`) USING BTREE,
+                      UNIQUE KEY `".$prefix."forums_IK_seo_name` (`seoname`)
+                    ) ENGINE=MyISAM");
 
         // build array with new (missing) configs
         $configs = array(
@@ -106,6 +120,9 @@ class Controller_Panel_Update extends Auth_Controller {
                          array('config_key'     =>'faq_disqus',
                                'group_name'     =>'general', 
                                'config_value'   =>''),
+                         array('config_key'     =>'forums',
+                               'group_name'     =>'general', 
+                               'config_value'   =>'0'), 
                         );
         
 

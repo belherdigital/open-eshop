@@ -27,6 +27,14 @@
                 <?endif?>
                 <?Theme::admin_link(__('Translations'), 'translations','index','oc-panel','icon-globe')?>
                 <?Theme::admin_link(__('Newsletters'), 'newsletter','index','oc-panel','icon-envelope')?>
+
+                <? if($user->id_role==Model_Role::ROLE_ADMIN AND core::config('general.forums')==1):?>
+                    <li class="divider"></li>
+                    <?Theme::admin_link(__('Forums'),'forum','index','oc-panel','icon-tags')?>
+                    <?Theme::admin_link(__('Forum Topics'), 'forum','topics','oc-panel','icon-pencil')?>
+                <?endif?>
+
+
                 <? if($user->id_role==Model_Role::ROLE_ADMIN):?>
                     <li class="divider"></li>
                 <?endif?>

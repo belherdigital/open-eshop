@@ -43,6 +43,12 @@ class Model_Content extends ORM {
 
         $seotitle = URL::title($seotitle);
 
+        //this are reserved pages names used in the routes.php
+        $banned_names = array(URL::title(__('search')),URL::title(__('contact')),URL::title(__('maintenance')));
+        //same name as a route..shit!
+        if (in_array($seotitle, $banned_names))
+            $seotitle = URL::title(__('page')).'-'.$seotitle; 
+
         if ($seotitle != $this->seotitle)
         {
             $cat = new self;
