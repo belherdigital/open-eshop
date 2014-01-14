@@ -78,6 +78,7 @@ class Controller_Panel_Update extends Auth_Controller {
         mysql_query("ALTER TABLE  `".$prefix."coupons` ADD  `id_product` INT NULL DEFAULT NULL AFTER  `id_coupon`");
         mysql_query("ALTER TABLE  `".$prefix."orders` ADD  `notes` VARCHAR( 245 ) NULL DEFAULT NULL");
         mysql_query("ALTER TABLE  `".$prefix."users` ADD  `signature` VARCHAR( 245 ) NULL DEFAULT NULL");
+        mysql_query("ALTER TABLE  `".$prefix."visits` DROP  `contacted`");
 
         // build array with new (missing) configs
         $configs = array(
@@ -93,6 +94,9 @@ class Controller_Panel_Update extends Auth_Controller {
                          array('config_key'     =>'stripe_address',
                                'group_name'     =>'payment', 
                                'config_value'   =>'0'), 
+                         array('config_key'     =>'alternative',
+                               'group_name'     =>'payment', 
+                               'config_value'   =>''), 
                          array('config_key'     =>'related',
                                'group_name'     =>'product', 
                                'config_value'   =>'5'), 

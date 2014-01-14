@@ -61,6 +61,20 @@
                     ))?> 
                 </div>
                 </div>
+                <div class="control-group">
+                    <?= FORM::label($forms['alternative']['key'], __('Alternative Payment'), array('class'=>'control-label', 'for'=>$forms['alternative']['key']))?>
+                    <div class="controls">
+                        <?= FORM::select($forms['alternative']['key'], $pages, $forms['alternative']['value'], array( 
+                        'class' => 'tips', 
+                        'id' => $forms['alternative']['key'], 
+                        'data-content'=> __("A button with the page title appears next to other pay button, onclick model opens with description."),
+                        'data-trigger'=>"hover",
+                        'data-placement'=>"right",
+                        'data-toggle'=>"popover",
+                        'data-original-title'=>__("Alternative Payment"),
+                        ))?> 
+                    </div>
+                </div>
 
                 <div class="control-group">
                     <div class="controls">

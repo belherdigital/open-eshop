@@ -78,15 +78,12 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."visits` (
   `id_visit` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_product` int(10) unsigned DEFAULT NULL,
   `id_user` int(10) unsigned DEFAULT NULL,
-  `contacted` tinyint(1) NOT NULL DEFAULT '0',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ip_address` float DEFAULT NULL,
   PRIMARY KEY (`id_visit`),
   KEY `".$_POST['TABLE_PREFIX']."visits_IK_id_user` (`id_user`),
   KEY `".$_POST['TABLE_PREFIX']."visits_IK_id_product` (`id_product`)
 ) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
-
-
 
 
 mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."config` ( 
@@ -304,6 +301,7 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."config` (`group_name`, `conf
 ('payment', 'stripe_private', ''),
 ('payment', 'stripe_public', ''),
 ('payment', 'stripe_address', '0'),
+('payment', 'alternative', ''),
 ('general', 'number_format', '%n'),
 ('general', 'date_format', 'd-m-y'),
 ('general', 'base_url', '".$_POST['SITE_URL']."'),

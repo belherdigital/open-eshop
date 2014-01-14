@@ -571,4 +571,22 @@ class Model_Product extends ORM {
         return FALSE;
     }
 
+    /**
+     * renders a modal with alternative paymethod instructions
+     * @return string 
+     */
+    public function alternative_pay_button()
+    {
+        if($this->loaded())
+        {
+            if (core::config('payment.alternative')!='' )
+            {
+                $content = Model_Content::get(core::config('payment.alternative'));
+                return View::factory('pages/product/alternative_button',array('content'=>$content))->render();
+            }
+        }
+    
+        return FALSE;
+    }
+
 }

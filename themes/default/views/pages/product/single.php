@@ -33,6 +33,7 @@
     <a class="btn btn-success pay-btn" 
         href="<?=Route::url('product-paypal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
         <?=__('Pay with Paypal')?></a>
+    <?=$product->alternative_pay_button()?>
     <?=StripeKO::button($product)?>
     <?=Paymill::button($product)?>
 <?else:?>
