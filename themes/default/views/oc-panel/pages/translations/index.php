@@ -22,7 +22,7 @@
             <a class="btn btn-warning" 
                 href="<?=Route::url('oc-panel', array('controller'=>'translations','action'=>'edit','id'=>$language))?>" 
                 rel"tooltip" title="<?=__('Edit')?>">
-                <i class="icon-pencil icon-white"></i>
+                <i class="glyphicon glyphicon-pencil?v=2.1.2"></i>
             </a>
 
         </td>

@@ -5,45 +5,45 @@
                 <? if($user->id_role==Model_Role::ROLE_ADMIN):?>
                     <li class="divider"></li>
                 <?endif?>
-				<?Theme::admin_link(__('Products'), 'product','index','oc-panel','icon-inbox')?>
-				<?Theme::admin_link(__('Categories'),'category','index','oc-panel','icon-tags')?>
-				<?Theme::admin_link(__('Orders'), 'order','index','oc-panel','icon-shopping-cart')?>
-                <?Theme::admin_link(__('Licenses'), 'license','index','oc-panel','icon-list')?>
-                <?Theme::admin_link(__('Coupons'), 'coupon','index','oc-panel','icon-tag')?>
-                <?Theme::admin_link(__('Downloads'), 'download','index','oc-panel','icon-download-alt')?>
+				<?Theme::admin_link(__('Products'), 'product','index','oc-panel','glyphicon glyphicon-inbox')?>
+				<?Theme::admin_link(__('Categories'),'category','index','oc-panel','glyphicon glyphicon-tags')?>
+				<?Theme::admin_link(__('Orders'), 'order','index','oc-panel','glyphicon glyphicon-shopping-cart')?>
+                <?Theme::admin_link(__('Licenses'), 'license','index','oc-panel','glyphicon glyphicon-list')?>
+                <?Theme::admin_link(__('Coupons'), 'coupon','index','oc-panel','glyphicon glyphicon-tag')?>
+                <?Theme::admin_link(__('Downloads'), 'download','index','oc-panel','glyphicon glyphicon-download-alt')?>
                 <? if($user->id_role==Model_Role::ROLE_ADMIN):?>
-                    <?Theme::admin_link(__('Support Admin'), 'support','index','oc-panel','icon-question-sign','admin')?>
-                    <?Theme::admin_link(__('Support Assigned'), 'support','index','oc-panel','icon-question-sign','assigned')?>
+                    <?Theme::admin_link(__('Support Admin'), 'support','index','oc-panel','glyphicon glyphicon-question-sign','admin')?>
+                    <?Theme::admin_link(__('Support Assigned'), 'support','index','oc-panel','glyphicon glyphicon-question-sign','assigned')?>
                     <li class="divider"></li>
                 <?endif?>
 
                 <?if (core::config('general.blog')==1):?>
-                    <?Theme::admin_link(__('Blog'), 'blog','index','oc-panel','icon-pencil')?>
+                    <?Theme::admin_link(__('Blog'), 'blog','index','oc-panel','glyphicon glyphicon-pencil')?>
                 <?endif?>
-				<?Theme::admin_link(__('Page'), 'content','list?type=page&locale_select='.core::config('i18n.locale'),'oc-panel','icon-file')?>
-                <?Theme::admin_link(__('Email'), 'content','list?type=email&locale_select='.core::config('i18n.locale'),'oc-panel','icon-envelope')?>
+				<?Theme::admin_link(__('Page'), 'content','list?type=page&locale_select='.core::config('i18n.locale'),'oc-panel','glyphicon glyphicon-file')?>
+                <?Theme::admin_link(__('Email'), 'content','list?type=email&locale_select='.core::config('i18n.locale'),'oc-panel','glyphicon glyphicon-envelope')?>
                 <?if (core::config('general.faq')==1):?>
-                    <?Theme::admin_link(__('FAQ'), 'content','list?type=help&locale_select='.core::config('i18n.locale'),'oc-panel',' icon-question-sign')?>
+                    <?Theme::admin_link(__('FAQ'), 'content','list?type=help&locale_select='.core::config('i18n.locale'),'oc-panel',' glyphicon glyphicon-question-sign')?>
                 <?endif?>
-                <?Theme::admin_link(__('Translations'), 'translations','index','oc-panel','icon-globe')?>
-                <?Theme::admin_link(__('Newsletters'), 'newsletter','index','oc-panel','icon-envelope')?>
+                <?Theme::admin_link(__('Translations'), 'translations','index','oc-panel','glyphicon glyphicon-globe')?>
+                <?Theme::admin_link(__('Newsletters'), 'newsletter','index','oc-panel','glyphicon glyphicon-envelope')?>
                 <? if($user->id_role==Model_Role::ROLE_ADMIN):?>
                     <li class="divider"></li>
                 <?endif?>
 
-                <?Theme::admin_link(__('Themes'), 'theme','index','oc-panel','icon-picture')?>
+                <?Theme::admin_link(__('Themes'), 'theme','index','oc-panel','glyphicon glyphicon-picture')?>
                 <?if (Theme::has_options()) 
-                        Theme::admin_link(__('Theme Options'), 'theme','options','oc-panel','icon-wrench')?>     
-                <?Theme::admin_link(__('Widgets'), 'widget','index','oc-panel','icon-move')?>
-                <?Theme::admin_link(__('Menu'), 'menu','index','oc-panel','icon-list')?>   
-                <?Theme::admin_link(__('Social Auth'), 'social','index','oc-panel','icon-thumbs-up')?>
+                        Theme::admin_link(__('Theme Options'), 'theme','options','oc-panel','glyphicon glyphicon-wrench')?>     
+                <?Theme::admin_link(__('Widgets'), 'widget','index','oc-panel','glyphicon glyphicon-move')?>
+                <?Theme::admin_link(__('Menu'), 'menu','index','oc-panel','glyphicon glyphicon-list')?>   
+                <?Theme::admin_link(__('Social Auth'), 'social','index','oc-panel','glyphicon glyphicon-thumbs-up')?>
                 <? if($user->id_role==Model_Role::ROLE_ADMIN):?>
                     <li class="divider"></li>
                 <?endif?>
 
 			<?if ($user->has_access_to_any('settings,config')):?>
 				<li class="nav-header dropdown-submenu <?=(in_array(Request::current()->controller(),array('settings','config'))) ?'active':''?>">
-                <a tabindex="-1" href="#"><i class="icon-edit"></i><?=__('Settings')?></a>
+                <a tabindex="-1" href="#"><i class="glyphicon glyphicon-edit"></i><?=__('Settings')?></a>
                     <ul class="dropdown-menu">
     				    <?Theme::admin_link(__('General'), 'settings','general')?>
     				    <?Theme::admin_link(__('Payment'), 'settings','payment')?>
@@ -55,7 +55,7 @@
 
             <?if ($user->has_access_to_any('user,role,access')):?>
                 <li class="nav-header dropdown-submenu <?=(in_array(Request::current()->controller(),array('user','role','access'))) ?'active':''?>">
-                <a tabindex="-1" href="#"><i class="icon-user"></i><?=__('Users')?></a>
+                <a tabindex="-1" href="#"><i class="glyphicon glyphicon-user"></i><?=__('Users')?></a>
                     <ul class="dropdown-menu">
                       <?Theme::admin_link(__('Users'),'user')?>
                       <?Theme::admin_link(__('User Roles'),'role')?>
@@ -66,7 +66,7 @@
 
 			<?if ($user->has_access_to_any('tools')):?>
 				<li class="nav-header dropdown-submenu <?=(Request::current()->controller()=='tools') ?'active':''?>">
-                <a tabindex="-1" href="#"><i class="icon-wrench"></i><?=__('Tools')?></a>
+                <a tabindex="-1" href="#"><i class="glyphicon glyphicon-wrench"></i><?=__('Tools')?></a>
                     <ul class="dropdown-menu">
                         <?Theme::admin_link(__('Updates'), 'update','index')?>
                         <?Theme::admin_link(__('Sitemap'), 'tools','sitemap')?>
@@ -81,9 +81,9 @@
 
 			<? if($user->has_access_to_any('profile')):?>
 				<li class="divider"></li>
-                <?Theme::admin_link(__('Purchases'), 'profile','orders','oc-panel','icon-shopping-cart')?>
-                <?Theme::admin_link(__('Support'), 'support','index','oc-panel','icon-comment')?>
-                <?Theme::admin_link(__('Edit profile'), 'profile','edit','oc-panel','icon-user')?>
+                <?Theme::admin_link(__('Purchases'), 'profile','orders','oc-panel','glyphicon glyphicon-shopping-cart')?>
+                <?Theme::admin_link(__('Support'), 'support','index','oc-panel','glyphicon glyphicon-comment')?>
+                <?Theme::admin_link(__('Edit profile'), 'profile','edit','oc-panel','glyphicon glyphicon-user')?>
 			<?endif?>
 
 			<?if (Theme::get('premium')!=1):?>

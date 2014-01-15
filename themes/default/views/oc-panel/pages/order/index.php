@@ -8,7 +8,7 @@
 	<h1><?=__('Orders')?></h1>
 	
 	<a class="btn btn-primary pull-right" href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'create')) ?>">
-		<i class="icon-pencil icon-white"></i>
+		<i class="glyphicon glyphicon-pencil?v=2.1.2"></i>
 		<?=__('New')?>
 	</a>				
 
@@ -43,7 +43,7 @@
 				<td width="80px">
 					<?if ($controller->allowed_crud_action('update')):?>
 					<a title="<?=__('Edit')?>" class="btn btn-primary" href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'update','id'=>$order->pk()))?>">
-						<i class="icon-edit icon-white"></i>
+						<i class="glyphicon glyphicon-edit?v=2.1.2"></i>
 					</a>
 					<?endif?>
 				</td>

@@ -47,7 +47,7 @@
             </td>
             <td>
                 <a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>" class="btn btn-success">
-                    <i class="icon-envelope icon-white"></i></a>
+                    <i class="glyphicon glyphicon-envelope?v=2.1.2"></i></a>
             </td>
         </tr>
         <?endforeach?>

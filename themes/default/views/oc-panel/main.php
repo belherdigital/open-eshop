@@ -84,7 +84,7 @@
                       </a>
                       <?=__('Or')?>
                       <a href="<?=Route::url('oc-panel',array('controller'=>'market'))?>" class="btn btn-success">
-                        <i class="glyphicon glyphicon-gift"></i> <?=__('Buy a Theme')?>
+                        <i class="glyphicon glyphglyphicon glyphicon-gift"></i> <?=__('Buy a Theme')?>
                        </a>
                     </p>
                   </div>

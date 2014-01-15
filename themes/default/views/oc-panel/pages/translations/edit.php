@@ -11,18 +11,18 @@
         <th><?=__('Original Translation')?></th>
         <th><button class="btn" id="button-copy-all" 
                 data-text="<?=__('Copy all?, Be aware this will replace all your texts.')?>" >
-                <i class="icon-arrow-right"></i></button>
+                <i class="glyphicon glyphicon-arrow-right"></i></button>
             <?if (strlen(Core::config('general.translate'))>0):?>
                 <button id="button-translate-all" class="btn" data-apikey="<?=Core::config('general.translate')?>"
                     data-text="<?=__('Translate all?, Be aware this will replace all your texts.')?>"
-                    data-langsource="en" data-langtarget="<?=substr($edit_language,0,2)?>" ><i class="icon-globe"></i>
+                    data-langsource="en" data-langtarget="<?=substr($edit_language,0,2)?>" ><i class="glyphicon glyphicon-globe"></i>
                 </button>
             <?endif?>
         </th>
         <th><?=__('Translation')?> <?=$edit_language?></th>
         <th></th>
     </tr>
-    <button type="submit" class="btn btn-primary pull-right" name="translation[submit]"><i class="icon-hdd icon-white"></i> <?=__('Save')?></button>
+    <button type="submit" class="btn btn-primary pull-right" name="translation[submit]"><i class="glyphicon glyphicon-hdd?v=2.1.2"></i> <?=__('Save')?></button>
 
     <?$cont = 0; $chars=0;?>
     <?foreach($strings_en as $key => $value):?>
@@ -34,28 +34,28 @@
                 <textarea id="orig_<?=$cont?>" disabled style="width: 100%"><?=$key?></textarea>
             </td>
             <td width="5%">
-                <button class="btn button-copy" data-orig="orig_<?=$cont?>" data-dest="dest_<?=$cont?>" data-tr="tr_<?=$cont?>" ><i class="icon-arrow-right"></i></button>
+                <button class="btn button-copy" data-orig="orig_<?=$cont?>" data-dest="dest_<?=$cont?>" data-tr="tr_<?=$cont?>" ><i class="glyphicon glyphicon-arrow-right"></i></button>
                 <br>
                 <?if (strlen(Core::config('general.translate'))>0):?>
-                    <button class="btn button-translate" data-orig="orig_<?=$cont?>" data-dest="dest_<?=$cont?>" data-tr="tr_<?=$cont?>" ><i class="icon-globe"></i></button>
+                    <button class="btn button-translate" data-orig="orig_<?=$cont?>" data-dest="dest_<?=$cont?>" data-tr="tr_<?=$cont?>" ><i class="glyphicon glyphicon-globe"></i></button>
                 <?else:?>
                     <a target="_blank" class="btn" 
                     href="http://translate.google.com/#en/<?=substr($edit_language,0,2)?>/<?=urlencode($key)?>">
-                    <i class="icon-globe"></i></a>
+                    <i class="glyphicon glyphicon-globe"></i></a>
                 <?endif?>
             </td>
             <td>  
                 <textarea id="dest_<?=$cont?>" style="width: 100%" name="translations[<?=$cont?>]"><?=$value?></textarea>
             </td>
             <td width="5%">
-                <button type="submit" class="btn btn-primary" name="translation[submit]"><i class="icon-hdd icon-white"></i></button>
+                <button type="submit" class="btn btn-primary" name="translation[submit]"><i class="glyphicon glyphicon-hdd?v=2.1.2"></i></button>
             </td>
         </tr>
         <?$cont++; //if($cont>10) break;?>
     <?endforeach;?>
 
     </table>
-    <button type="submit" class="btn btn-primary pull-right" name="translation[submit]"><i class="icon-hdd icon-white"></i> <?=__('Save')?></button>
+    <button type="submit" class="btn btn-primary pull-right" name="translation[submit]"><i class="glyphicon glyphicon-hdd?v=2.1.2"></i> <?=__('Save')?></button>
 
     <?=$chars?>
 

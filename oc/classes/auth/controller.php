@@ -92,17 +92,18 @@ class Auth_Controller extends Controller
             //other color
             if (Theme::get('admin_theme')=='bootstrap')
             {
-                Theme::$styles                    = array('http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css' => 'screen',
+                Theme::$styles                    = array('http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-combined.min.css' => 'screen',
                                                         'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
-                                                        'http://cdn.jsdelivr.net/chosen/0.9.12/chosen.css'=>'screen');
+                                                        'http://cdn.jsdelivr.net/chosen/0.9.12/chosen.css'=>'screen',
+                                                        'css/admin-styles.css' => 'screen');
                
             }
             //default theme
             else
             {
                  Theme::$styles               = array(                                  
-                                                'http://netdna.bootstrapcdn.com/bootswatch/2.3.2/'.Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
-                                                'http://cdn.jsdelivr.net/bootstrap/2.3.2/css/bootstrap-responsive.min.css' => 'screen',
+                                                'http://netdna.bootstrapcdn.com/bootswatch/3.0.3/'.Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
+                                                // 'http://cdn.jsdelivr.net/bootstrap/3.0.3/css/bootstrap-responsive.min.css' => 'screen',
                                                 'http://cdn.jsdelivr.net/chosen/0.9.12/chosen.css' => 'screen', 
                                                 'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
                                                 );
@@ -110,8 +111,8 @@ class Auth_Controller extends Controller
         
 
 
-            Theme::$scripts['footer']		  = array('http://code.jquery.com/jquery-1.9.1.min.js',	
-													  'http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js', 
+            Theme::$scripts['footer']		  = array('http://code.jquery.com/jquery-1.10.2.min.js',	
+													  'http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js', 
 												      'http://cdn.jsdelivr.net/chosen/0.9.12/chosen.jquery.min.js',
                                                       'js/oc-panel/theme.init.js?v=12',
                                                       'js/jquery.sceditor.min.js?v=144',

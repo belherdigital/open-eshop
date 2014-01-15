@@ -29,7 +29,7 @@
             <?if (Theme::has_options()):?>
             <a class="btn btn-mini btn-primary" title="<?=__('Theme Options')?>" 
                 href="<?=Route::url('oc-panel',array('controller'=>'theme','action'=>'options'))?>">
-                <i class="icon-wrench icon-white"></i> </a>
+                <i class="glyphicon glyphicon-wrench?v=2.1.2"></i> </a>
             <?endif?>
         </p>
         <p><?=$selected['Description']?></p>
@@ -38,11 +38,11 @@
                 <?=__('Using mobile theme')?> <code><?=Core::config('appearance.theme_mobile')?></code>
                 <a class="btn btn-mini btn-warning" title="<?=__('Disable')?>" 
                     href="<?=Route::url('oc-panel',array('controller'=>'theme','action'=>'mobile','id'=>'disable'))?>">
-                    <i class="icon-remove icon-white"></i>
+                    <i class="glyphicon glyphicon-remove?v=2.1.2"></i>
                 </a>
                 <a class="btn btn-mini btn-primary" title="<?=__('Options')?>" 
                     href="<?=Route::url('oc-panel',array('controller'=>'theme','action'=>'options','id'=>Core::config('appearance.theme_mobile')))?>">
-                <i class="icon-wrench icon-white"></i></a>
+                <i class="glyphicon glyphicon-wrench?v=2.1.2"></i></a>
             </p>
         <?endif?>
     </div>

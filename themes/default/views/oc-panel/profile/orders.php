@@ -31,7 +31,7 @@
                 <?if(!empty($order->product->file_name)):?>
                 <a title="<?=__('Download')?>" href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order))?>" 
                 class="btn btn-mini btn-success">
-                <i class="icon-download icon-white"></i> <?=__('Download')?> <?=$order->product->version?></a>
+                <i class="glyphicon glyphicon-download?v=2.1.2"></i> <?=__('Download')?> <?=$order->product->version?></a>
                 <?endif?>
             </td>
         </tr>

@@ -8,7 +8,7 @@
 <ol class='plholder span9' id="ol_1" data-id="1">
 <?if (is_array($menu)):?>
 <?foreach($menu as $key=>$data):?>
-    <li data-id="<?=$key?>" id="<?=$key?>"><i class="icon-move"></i> 
+    <li data-id="<?=$key?>" id="<?=$key?>"><i class="glyphicon glyphicon-move"></i> 
         <?if($data['icon']!=''):?><i class="<?=$data['icon']?>"></i> <?endif?>
                
         <span class="label label-info "><?=$data['title']?></span>
@@ -17,7 +17,7 @@
            data-id="li_<?=$key?>" 
            class="btn btn-mini btn-danger index-delete pull-right"  
            href="<?=Route::url('oc-panel', array('controller'=> 'menu', 'action'=>'delete','id'=>$key))?>">
-                    <i class="icon-trash icon-white"></i>
+                    <i class="glyphicon glyphicon-trash?v=2.1.2"></i>
         </a>
     </li>
 <?endforeach?>
@@ -58,7 +58,7 @@
                     <label class="radio">
                         <a class="btn btn-primary btn-mini" data-toggle="collapse" type="button"  
                             data-target="#acc_<?=$cats[$key]['seoname']?>">                    
-                            <i class=" icon-plus icon-white"></i> <?=$cats[$key]['name']?>
+                            <i class=" glyphicon glyphicon-plus?v=2.1.2"></i> <?=$cats[$key]['name']?>
                         </a>
                     <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" data-name="radio_<?=$cats[$key]['name']?>" class="menu_category"  value="<?=$cats[$key]['id']?>" required > 
                     </label>
@@ -98,37 +98,37 @@
             <div class="accordion-group">
                 <div class="accordion-heading">
                 <label class="radio">
-                <input type="radio" class="default_links" id="radio_home"  name="home" data-url="" data-icon="icon-home icon-white" value="home">    
+                <input type="radio" class="default_links" id="radio_home"  name="home" data-url="" data-icon="glyphicon glyphicon-home?v=2.1.2" value="home">    
                     <a class="btn btn-primary btn-mini" type="button"  >                    
                          <?=__('Home')?>
                     </a>
                 </label>
                 <label class="radio">
-                <input type="radio" class="default_links" id="radio_listing" name="listing" data-url="all" data-icon="icon-list icon-white" value="listing">
+                <input type="radio" class="default_links" id="radio_listing" name="listing" data-url="all" data-icon="glyphicon glyphicon-list?v=2.1.2" value="listing">
                     <a class="btn btn-primary btn-mini" type="button"  >                    
                          <?=__('listing')?>
                     </a>
                 </label>
                 <label class="radio">
-                <input type="radio" class="default_links" id="radio_search" name="search" data-url="search.html" data-icon="icon-search icon-white" value="search">
+                <input type="radio" class="default_links" id="radio_search" name="search" data-url="search.html" data-icon="glyphicon glyphicon-search?v=2.1.2" value="search">
                     <a class="btn btn-primary btn-mini" type="button"  >                    
                          <?=__('Search')?>
                     </a>
                 </label>
                 <label class="radio">
-                <input type="radio" class="default_links" id="radio_contact" name="contact" data-url="contact.html" data-icon="icon-envelope icon-white" value="contact">
+                <input type="radio" class="default_links" id="radio_contact" name="contact" data-url="contact.html" data-icon="glyphicon glyphicon-envelope?v=2.1.2" value="contact">
                     <a class="btn btn-primary btn-mini" type="button"  >                    
                          <?=__('contact')?>
                     </a>
                 </label>
                 <label class="radio">
-                <input type="radio" class="default_links" id="radio_rss" name="rss" data-url="rss.xml" data-icon="icon-signal icon-white" value="rss">
+                <input type="radio" class="default_links" id="radio_rss" name="rss" data-url="rss.xml" data-icon="glyphicon glyphicon-signal?v=2.1.2" value="rss">
                     <a class="btn btn-primary btn-mini" type="button"  >                    
                          <?=__('rss')?>
                     </a>
                 </label>
                 <label class="radio">
-                <input type="radio" class="default_links" id="radio_map" name="map" data-url="map.html" data-icon="icon-globe icon-white" value="map">
+                <input type="radio" class="default_links" id="radio_map" name="map" data-url="map.html" data-icon="glyphicon glyphicon-globe?v=2.1.2" value="map">
                     <a class="btn btn-primary btn-mini" type="button"  >                    
                          <?=__('map')?>
                     </a>
@@ -168,7 +168,7 @@
 <div class="control-group">
     <label class="control-label"><a target="_blank" href="http://getbootstrap.com/2.3.2/base-css.html#icons"><?=__('Icon')?></a></label>
     <div class="controls docs-input-sizes">
-        <input class="input-xlarge" type="text" name="icon" value="<?=Core::post('icon')?>" placeholder="<?=__('icon-envelope icon-white')?>">
+        <input class="input-xlarge" type="text" name="icon" value="<?=Core::post('icon')?>" placeholder="<?=__('glyphicon glyphicon-envelope?v=2.1.2')?>">
     </div>
 </div>
 

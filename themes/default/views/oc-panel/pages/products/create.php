@@ -28,7 +28,7 @@
                                 <label class="radio">
                                 	<a class="btn btn-primary btn-mini" data-toggle="collapse" type="button"  
                                    	 	data-target="#acc_<?=$cats[$key]['seoname']?>">                    
-                                    	<i class=" icon-plus icon-white"></i> <?=$cats[$key]['name']?>
+                                    	<i class=" glyphicon glyphicon-plus?v=2.1.2"></i> <?=$cats[$key]['name']?>
                                 	</a>
                                 <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" name="id_category" value="<?=$cats[$key]['id']?>"  REQUIRED> 
                                                                 

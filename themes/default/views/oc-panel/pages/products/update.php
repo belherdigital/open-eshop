@@ -16,7 +16,7 @@
 <br>
 <a class="btn btn-primary" target="_blank" 
         href="http://panel.adserum.com/new-advertisement.html?name=<?=$product->user->name?>&email=<?=$product->user->email?>&title=<?=$product->title?>&desc=<?=$product->description?>&desc2=<?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?>&url=<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>&durl=<?=core::config('general.base_url')?>">
-        <i class="glyphicon glyphicon-globe"></i> <?=__('Promote at Adserum')?>
+        <i class="glyphicon glyphglyphicon glyphicon-globe"></i> <?=__('Promote at Adserum')?>
 </a>
 </p>
 </div>
@@ -72,7 +72,7 @@
                                 <label class="radio">
                                 	<a class="btn btn-primary btn-mini" data-toggle="collapse" type="button"  
                                    	 	data-target="#acc_<?=$cats['categories'][$key]['seoname']?>">                    
-                                    	<i class=" icon-plus icon-white"></i> <?=$cats['categories'][$key]['name']?>
+                                    	<i class=" glyphicon glyphicon-plus?v=2.1.2"></i> <?=$cats['categories'][$key]['name']?>
                                 	</a>
                                 <input <?=($cats['categories'][$key]['seoname']==$cats['cat_selected'])?'checked':''?> type="radio" id="radio_<?=$cats['categories'][$key]['seoname']?>" name="id_category" value="<?=$cats['categories'][$key]['id']?>" required > 
                                                         

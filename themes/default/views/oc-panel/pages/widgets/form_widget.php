@@ -9,7 +9,7 @@
     </button>
 </li> 
 <?else:?>
-    <li class="liholder" id="<?=$widget->id_name()?>"><i class="icon-move"></i>  <?=$widget->title()?> <span class="muted"><?=$widget->title?></span>
+    <li class="liholder" id="<?=$widget->id_name()?>"><i class="glyphicon glyphicon-move"></i>  <?=$widget->title()?> <span class="muted"><?=$widget->title?></span>
         <button class="btn btn-primary btn-mini pull-right" data-toggle="modal" data-target="#modal_<?=$widget->id_name()?>" type="button"><?=__('Edit')?></button>
     </li>
 <?endif?>
@@ -51,7 +51,7 @@
     <?if ($widget->loaded):?>
         <a onclick="return confirm('<?=__('Sure you want to delete the widget? You can move it to the inactive placeholder')?>');"
             href="<?=Route::url('oc-panel',array('controller'=>'widget','action'=>'remove','id'=>$widget->widget_name))?>" class="btn btn-danger pull-left">
-            <i class="icon-trash icon-white"></i></a>
+            <i class="glyphicon glyphicon-trash?v=2.1.2"></i></a>
     <?endif?>
 
     <button onclick="form_widget_<?=$widget->id_name()?>.submit();" class="btn btn-primary"><?=__('Save changes')?></button>

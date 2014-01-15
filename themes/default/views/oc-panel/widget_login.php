@@ -1,31 +1,31 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
-<a class="btn btn-success"
+<a class="btn btn-success navbar-btn"
 	href="<?=Route::url('oc-panel',array('controller'=>'home','action'=>'index'))?>">
-	<i class="icon-user icon-white"></i> 
+	<i class="glyphglyphicon glyphicon-user glyphicon"></i> 
 </a>
-<a class="btn dropdown-toggle btn-success" data-toggle="dropdown"
+<a class="btn dropdown-toggle btn-success navbar-btn"  data-toggle="dropdown"
 	href="#"> <span class="caret"></span>
 </a>
+
 <ul class="dropdown-menu">
 	
 	<li><a href="<?=Route::url('oc-panel',array('controller'=>'home','action'=>'index'))?>">
-        <i class="icon-cog"></i> <?=__('Panel')?></a></li>
+        <i class="glyphicon glyphglyphicon glyphicon-cog"></i> <?=__('Panel')?></a></li>
 
-    <li><a href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'orders'))?>"><i
-           class="icon-edit"></i> <?=__('My Purchases')?></a></li>
-    
-    <li><a href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'edit'))?>"><i
-           class="icon-lock"></i> <?=__('Edit profile')?></a></li>
-
+    <li><a href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'ads'))?>"><i
+           class="glyphicon glyphglyphicon glyphicon-edit"></i> <?=__('My Advertisements')?></a></li>
+	
+	<li><a href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'edit'))?>"><i
+		   class="glyphicon glyphglyphicon glyphicon-lock"></i> <?=__('Edit profile')?></a></li>
 
 	<li class="divider"></li>
 	<li><a
 		href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'logout'))?>">
-			<i class="icon-off"></i> <?=__('Logout')?>
+			<i class="glyphicon glyphglyphicon glyphicon-off"></i> <?=__('Logout')?>
 	</a></li>
     <li>
         <a
         href="<?=Route::url('default')?>">
-            <i class="icon-home"></i> <?=__('Visit Site')?></a>
+            <i class="glyphicon glyphglyphicon glyphicon-home"></i> <?=__('Visit Site')?></a>
 	</li>
 </ul>

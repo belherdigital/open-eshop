@@ -48,12 +48,12 @@
             <a class="btn btn-primary" 
                 href="<?=Route::url('oc-panel', array('controller'=>'content','action'=>'edit','id'=>$content))?>" 
                 rel"tooltip" title="<?=__('Edit')?>">
-                <i class="icon-edit icon-white"></i>
+                <i class="glyphicon glyphicon-edit?v=2.1.2"></i>
             </a>
             <a class="btn btn-danger" 
                 href="<?=Route::url('oc-panel', array('controller'=>'content','action'=>'delete','id'=>$content))?>" 
                 rel"tooltip" title="<?=__('Delete')?>">
-                <i class="icon-trash icon-white"></i>
+                <i class="glyphicon glyphicon-trash?v=2.1.2"></i>
             </a>
 
         </td>

@@ -67,7 +67,7 @@
                     <label>
                         <p>To get paid via Credit card you need a Paymill account. It's free to register. They charge 2'95% of any sale.</p>
                         <a class="btn btn-success" target="_blank" href="https://app.paymill.com/en-en/auth/register?referrer=openclassifieds">
-                            <i class="icon-pencil icon-white"></i> Register for free at Paymill</a>
+                            <i class="glyphicon glyphicon-pencil?v=2.1.2"></i> Register for free at Paymill</a>
                     </label>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                     <label>
                         <p>To get paid via Credit card you can also use a Stripe account. It's free to register. They charge 2'95% of any sale.</p>
                         <a class="btn btn-success" target="_blank" href="https://stripe.com">
-                            <i class="icon-pencil icon-white"></i> Register for free at Stripe</a>
+                            <i class="glyphicon glyphicon-pencil?v=2.1.2"></i> Register for free at Stripe</a>
                     </label>
                     </div>
                 </div>
