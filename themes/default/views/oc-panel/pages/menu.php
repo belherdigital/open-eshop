@@ -5,7 +5,7 @@
 </div>
 
 <div class="row">
-<ol class='plholder span9' id="ol_1" data-id="1">
+<ol class='plholder col-md-9' id="ol_1" data-id="1">
 <?if (is_array($menu)):?>
 <?foreach($menu as $key=>$data):?>
     <li data-id="<?=$key?>" id="<?=$key?>"><i class="glyphicon glyphicon-move"></i> 

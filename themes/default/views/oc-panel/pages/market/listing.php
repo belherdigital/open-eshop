@@ -6,7 +6,7 @@
 <?$i=0;
 foreach ($market as $item):?>
     <?if ($i%3==0):?></ul></div><div class="row-fluid"><ul class="thumbnails"><?endif?>
-    <li class="span4">
+    <li class="col-md-4">
     <div class="thumbnail <?if ( $item['price_offer']>0):?>alert-success<?endif?>" >
 
         <?if (empty($item['url_screenshot'])===FALSE):?>

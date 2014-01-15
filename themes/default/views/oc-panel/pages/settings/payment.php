@@ -181,4 +181,4 @@
 					<?= FORM::button('submit', 'Update', array('type'=>'submit', 'class'=>'btn-small btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'settings', 'action'=>'payment'))))?>
 				</div>
 			</fieldset>	
-	</div><!--end span10-->
+	</div><!--end col-md-10-->

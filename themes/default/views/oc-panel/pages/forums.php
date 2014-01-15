@@ -7,7 +7,7 @@
   <?=__('New forum')?></a>
 </div>
 
-<ol class='plholder span8' id="ol_1" data-id="0">
+<ol class='plholder col-md-8' id="ol_1" data-id="0">
 <?function lili($item, $key,$forums){?>
     <li data-id="<?=$key?>" id="li_<?=$key?>"><i class="icon-move"></i> <?=$forums[$key]['name']?>
         

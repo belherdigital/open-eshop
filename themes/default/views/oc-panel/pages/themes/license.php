@@ -21,4 +21,4 @@
 		</div>
 	</fieldset>	
 </form>
-</div><!--end span10-->
+</div><!--end col-md-10-->

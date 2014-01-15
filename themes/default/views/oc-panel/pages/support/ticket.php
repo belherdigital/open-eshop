@@ -44,7 +44,7 @@
 	</div>
 
     <div class="row">
-        <div class="span2">
+        <div class="col-md-2">
             <img src="<?=$ticket->user->get_profile_image()?>">
             <p>
                 <?=$ticket->user->name?><br>
@@ -52,14 +52,14 @@
                 <?=$ticket->created?>
             </p>
         </div>
-        <div class="span6">
+        <div class="col-md-6">
             <p><?=Text::bb2html($ticket->description,TRUE)?></p>
         </div>
     </div>
 
     <?foreach ($replies as $reply):?>
     <div class="row <?=($ticket->id_user!==$reply->id_user)?'well':''?>" >
-        <div class="span2">
+        <div class="col-md-2">
             <img src="<?=$reply->user->get_profile_image()?>">
             <p>
                 <?=$reply->user->name?><br>
@@ -67,7 +67,7 @@
                 <?=$reply->created?>
             </p>
         </div>
-        <div class="span6">
+        <div class="col-md-6">
             <p><?=Text::bb2html($reply->description,TRUE)?></p>
         </div>
     </div>
@@ -88,7 +88,7 @@
       <div class="control-group">
         <label class="control-label"><?=__("Reply")?>:</label>
         <div class="controls">
-        <textarea name="description" rows="10" class="span6" required><?=core::post('description',__('Description'))?></textarea>
+        <textarea name="description" rows="10" class="col-md-6" required><?=core::post('description',__('Description'))?></textarea>
         </div>
       </div>
 

@@ -7,7 +7,7 @@
   <?=__('New category')?></a>
 </div>
 
-<ol class='plholder span8' id="ol_1" data-id="1">
+<ol class='plholder col-md-8' id="ol_1" data-id="1">
 <?=_('Home')?>
 <?function lili($item, $key,$cats){?>
     <li data-id="<?=$key?>" id="li_<?=$key?>"><i class="glyphicon glyphicon-move"></i> <?=$cats[$key]['name']?>

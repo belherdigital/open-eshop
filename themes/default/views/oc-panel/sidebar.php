@@ -1,5 +1,5 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
-<div class="span3 hidden-phone">
+<div class="col-md-3 hidden-phone">
 	<div class="well sidebar-nav">
 		<ul class="nav nav-list">
                 <? if($user->id_role==Model_Role::ROLE_ADMIN):?>

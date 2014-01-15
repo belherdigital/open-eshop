@@ -5,7 +5,7 @@
 
 <div class="row">
 
-    <div class="span9">
+    <div class="col-md-9">
 
         <table class="table table-bordered table-condensed">
             <thead>
@@ -44,11 +44,11 @@
         <form id="edit-profile" class="form-inline" method="post" action="">
             <fieldset>
                 <?=__('From')?>
-                <input  type="text" class="span2" size="16"
+                <input  type="text" class="col-md-2" size="16"
                         id="from_date" name="from_date"  value="<?=$from_date?>"  
                         data-date="<?=$from_date?>" data-date-format="yyyy-mm-dd">
                 <?=__('To')?>
-                <input  type="text" class="span2" size="16"
+                <input  type="text" class="col-md-2" size="16"
                         id="to_date" name="to_date"  value="<?=$to_date?>"  
                         data-date="<?=$to_date?>" data-date-format="yyyy-mm-dd">
 
@@ -59,7 +59,7 @@
 
 
         
-    </div> <!-- /.span12 -->
+    </div> <!-- /.col-md-12 -->
     
 </div> <!-- /.row -->
 
@@ -84,7 +84,7 @@
 
 <div class="row">
 
-    <div class="span9">
+    <div class="col-md-9">
         <h3><?=__('Totals products')?></h3>
         <table class="table table-bordered table-condensed sortable">
             <thead>
@@ -109,7 +109,7 @@
         </table>
 
     </div> 
-    <div class="span9">
+    <div class="col-md-9">
         <?=Chart::pie($products_total,array(
                                     'height'=>600,
                                     'width'=>'100%'))?> 

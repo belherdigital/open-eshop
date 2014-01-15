@@ -56,7 +56,7 @@
 foreach ($themes as $theme=>$info):?>
     <?if(Theme::$theme!==$theme):?>
     <?if ($i%3==0):?></ul></div><div class="row-fluid"><ul class="thumbnails"><?endif?>
-    <li class="span4">
+    <li class="col-md-4">
     <div class="thumbnail">
 
         <?if ($scr = Theme::get_theme_screenshot($theme)):?>
@@ -97,7 +97,7 @@ if ($a_m_themes>0):?>
 foreach ($mobile_themes as $theme=>$info):?>
     <?if(Core::config('appearance.theme_mobile')!==$theme):?>
     <?if ($i%3==0):?></ul></div><div class="row-fluid"><ul class="thumbnails"><?endif?>
-    <li class="span4">
+    <li class="col-md-4">
     <div class="thumbnail">
 
         <?if ($scr = Theme::get_theme_screenshot($theme)):?>

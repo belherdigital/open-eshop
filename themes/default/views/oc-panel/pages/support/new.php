@@ -20,7 +20,7 @@
       <div class="control-group">
         <label class="control-label"><?=__("Product")?>:</label>
         <div class="controls">
-        <select name="order" class="span4" required>
+        <select name="order" class="col-md-4" required>
             <option></option>
             <?foreach ($orders as $order):?>
                 <option  value="<?=$order->id_order?>" <?=(core::post('order')==$order->id_order)?'SELECTED':''?>>
@@ -34,14 +34,14 @@
       <div class="control-group">
         <label class="control-label"><?=__("Title")?>:</label>
         <div class="controls">
-        <input  type="text" name="title" value="<?=core::post('title')?>" class="span6"  required /> 
+        <input  type="text" name="title" value="<?=core::post('title')?>" class="col-md-6"  required /> 
         </div>
       </div>
 
       <div class="control-group">
         <label class="control-label"><?=__("Description")?>:</label>
         <div class="controls">
-        <textarea name="description" rows="20" class="span6" required><?=core::post('description',__('Description'))?></textarea>
+        <textarea name="description" rows="20" class="col-md-6" required><?=core::post('description',__('Description'))?></textarea>
         </div>
       </div>
 

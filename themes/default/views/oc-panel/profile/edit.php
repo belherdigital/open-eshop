@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 <div class="row-fluid">
-	<div class="span10">
+	<div class="col-md-10">
 		<div class="page-header">
 			<h1><?=__('Edit Profile')?></h1>
 		</div>
@@ -30,7 +30,7 @@
 	</div>
 	<!--/span-->
 	
-	<div class="span10">
+	<div class="col-md-10">
     	<div class="page-header">
     		<h1><?=__('Change password')?></h1>
     	</div>
@@ -57,9 +57,9 @@
               
                 <button type="submit" class="btn btn-primary"><?=__('Update')?></button>
     	</form>
-    </div><!--end span10-->
+    </div><!--end col-md-10-->
 
-    <div class="span10">
+    <div class="col-md-10">
       <div class="page-header">
         <h1><?=__('Profile picture')?></h1>
       </div>
@@ -78,6 +78,6 @@
             </div>
                 <button type="submit" class="btn btn-primary"><?=__('Update')?></button>
       </form>
-    </div><!--end span10-->
+    </div><!--end col-md-10-->
 </div>
 <!--/row-->

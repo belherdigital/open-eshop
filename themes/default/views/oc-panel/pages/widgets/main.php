@@ -84,12 +84,12 @@
     <div class="container">
 	    <div class="row">
 	    	
-	    	<div class="span12">
+	    	<div class="col-md-12">
 	    		<?=Breadcrumbs::render('oc-panel/breadcrumbs')?>
 	    		<?=Alert::show()?>
 	    	</div><!--/span--> 
 
-	    	<div class="span8">
+	    	<div class="col-md-8">
                 <h2><?=__('Available widgets')?></h2>
                 <a href="http://open-classifieds.com/2013/08/26/overview-of-widgets/" target="_blank"><?=__('Read more')?></a></a>
 
@@ -103,7 +103,7 @@
 	    	</div><!--/span--> 
 	    	
 	    	<!--placeholders-->
-	    	<div class="span4">
+	    	<div class="col-md-4">
 				<?foreach ($placeholders as $placeholder=>$widgets):?>
 				<div class="well sidebar-nav">
                 <p class="nav-header"><?=$placeholder?></p>

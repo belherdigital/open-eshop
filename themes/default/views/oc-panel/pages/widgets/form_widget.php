@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
 <?if (!$widget->loaded):?>
-<li class="well span2">
+<li class="well col-md-2">
     <b><?=$widget->title?></b>
     <p><?=$widget->description?></p>
     <button  class="btn btn-primary btn-mini" data-toggle="modal" data-target="#modal_<?=$widget->id_name()?>" type="button">

@@ -124,7 +124,7 @@
 			<div class="control-group">
 				<?= FORM::label('offer_valid', __('Offer Valid'), array('class'=>'control-label', 'for'=>'offer_valid'))?>
 				<div class="controls">	
-					<input  type="text" class="span2" size="16" id="offer_valid" name="offer_valid"  value="" class="input-xlarge" data-date="" data-date-format="yyyy-mm-dd">
+					<input  type="text" class="col-md-2" size="16" id="offer_valid" name="offer_valid"  value="" class="input-xlarge" data-date="" data-date-format="yyyy-mm-dd">
                 </div>
             </div>
 
@@ -152,20 +152,20 @@
             <div class="control-group">
                 <?= FORM::label('featured', __('Feature product'), array('class'=>'control-label', 'for'=>'featured'))?>
                 <div class="controls">  
-                    <input  type="text" class="span2" size="16" id="featured" name="featured"  value="" class="input-xlarge" data-date="" data-date-format="yyyy-mm-dd">
+                    <input  type="text" class="col-md-2" size="16" id="featured" name="featured"  value="" class="input-xlarge" data-date="" data-date-format="yyyy-mm-dd">
                 </div>
             </div>
 
 			<div class="control-group">
 				<?= FORM::label('description', __('Description'), array('class'=>'control-label', 'for'=>'description', 'spellcheck'=>TRUE))?>
 				<div class="controls">
-					<?= FORM::textarea('description', Request::current()->post('description'), array('class'=>'span6', 'name'=>'description', 'id'=>'description' ,  'rows'=>10, 'required'))?>
+					<?= FORM::textarea('description', Request::current()->post('description'), array('class'=>'col-md-6', 'name'=>'description', 'id'=>'description' ,  'rows'=>10, 'required'))?>
 				</div>
 			</div>
 			<div class="control-group">
 				<?= FORM::label('email_purchase_notes', __('Notes'), array('class'=>'control-label', 'for'=>'email_purchase_notes', 'spellcheck'=>TRUE))?>
 				<div class="controls">
-					<?= FORM::textarea('email_purchase_notes', Request::current()->post('email_purchase_notes'), array('class'=>'span6', 'name'=>'email_purchase_notes', 'id'=>'email_purchase_notes' , 'rows'=>10))?>
+					<?= FORM::textarea('email_purchase_notes', Request::current()->post('email_purchase_notes'), array('class'=>'col-md-6', 'name'=>'email_purchase_notes', 'id'=>'email_purchase_notes' , 'rows'=>10))?>
 				</div>
 			</div>
 			

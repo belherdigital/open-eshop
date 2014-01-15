@@ -70,7 +70,7 @@
 	    <div class="row">
 	    
 		<?=View::factory('oc-panel/sidebar',array('user'=>$user))?>
-			<div class="span9">
+			<div class="col-md-9">
 				<?=Breadcrumbs::render('oc-panel/breadcrumbs')?>      
 				<?=Alert::show()?>
                 <?if (!isset($_COOKIE['donation_alert'])  AND Theme::get('premium')!=1 AND $user->id_role==Model_Role::ROLE_ADMIN):?>
