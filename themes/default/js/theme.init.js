@@ -1,11 +1,5 @@
 $(function(){
     $("select").chosen();
-    
-    $('textarea[name=description], .cf_textarea_fields').sceditorBBCodePlugin({
-        toolbar: "bold,italic,underline,strike,|left,center,right,justify|" +
-        "bulletlist,orderedlist|link,unlink,youtube|source",
-        resizeEnabled: "true"
-    });
 
     $("a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_rounded',slideshow:3000, autoplay_slideshow: false});
  

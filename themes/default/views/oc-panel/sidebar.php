@@ -25,8 +25,16 @@
                 <?if (core::config('general.faq')==1):?>
                     <?Theme::admin_link(__('FAQ'), 'content','list?type=help&locale_select='.core::config('i18n.locale'),'oc-panel',' glyphicon glyphicon-question-sign')?>
                 <?endif?>
+                
                 <?Theme::admin_link(__('Translations'), 'translations','index','oc-panel','glyphicon glyphicon-globe')?>
                 <?Theme::admin_link(__('Newsletters'), 'newsletter','index','oc-panel','glyphicon glyphicon-envelope')?>
+
+                <? if($user->id_role==Model_Role::ROLE_ADMIN AND core::config('general.forums')==1):?>
+                    <li class="divider"></li>
+                    <?Theme::admin_link(__('Forums'),'forum','index','oc-panel','icon-tags')?>
+                    <?Theme::admin_link(__('Forum Topics'), 'forum','topics','oc-panel','icon-pencil')?>
+                <?endif?>
+
                 <? if($user->id_role==Model_Role::ROLE_ADMIN):?>
                     <li class="divider"></li>
                 <?endif?>

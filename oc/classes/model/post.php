@@ -118,7 +118,7 @@ class Model_Post extends ORM {
 
 
     /**
-     * prints the disqus script from the view
+     * prints the disqus script from the view for blogs!
      * @return string HTML or false in case not loaded
      */
     public function disqus()

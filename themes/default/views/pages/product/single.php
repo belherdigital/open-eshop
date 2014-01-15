@@ -27,6 +27,33 @@
 <?if (!empty($product->url_demo)):?>
     <a class="btn btn-warning btn-small pull-right" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" ><?=__('Demo')?></a>
 <?endif?>
+
+<div class="button-space">
+<?if ($product->final_price()>0):?>
+    <a class="btn btn-success pay-btn" 
+        href="<?=Route::url('product-paypal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
+        <?=__('Pay with Paypal')?></a>
+    <?=$product->alternative_pay_button()?>
+    <?=StripeKO::button($product)?>
+    <?=Paymill::button($product)?>
+<?else:?>
+
+    <?if (!Auth::instance()->logged_in()):?>
+    <a class="btn btn-info btn-large" data-toggle="modal" data-dismiss="modal" 
+        href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'register'))?>#register-modal">
+    <?else:?>
+    <a class="btn btn-info btn-large"
+        href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'free','id'=>$product->seotitle))?>">
+    <?endif?>
+        <?if(!empty($product->file_name)):?>
+            <?=__('Free Download')?>
+        <?else:?>
+            <?=__('Get it for Free')?>
+        <?endif?>
+    </a>
+
+<?endif?>
+</div>
     
 
 <div class="well clearfix">
@@ -61,31 +88,7 @@
     <?endif?>
 </div>
 
-<div class="button-space">
-<?if ($product->final_price()>0):?>
-    <a class="btn btn-success pay-btn" 
-        href="<?=Route::url('product-paypal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
-        <?=__('Pay with Paypal')?></a>
-    <?=StripeKO::button($product)?>
-    <?=Paymill::button($product)?>
-<?else:?>
 
-    <?if (!Auth::instance()->logged_in()):?>
-    <a class="btn btn-info btn-large" data-toggle="modal" data-dismiss="modal" 
-        href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'register'))?>#register-modal">
-    <?else:?>
-    <a class="btn btn-info btn-large"
-        href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'free','id'=>$product->seotitle))?>">
-    <?endif?>
-        <?if(!empty($product->file_name)):?>
-            <?=__('Free Download')?>
-        <?else:?>
-            <?=__('Get it for Free')?>
-        <?endif?>
-    </a>
-
-<?endif?>
-</div>
 <div class="clear"></div>
 <br/>
 <div class="coupon">

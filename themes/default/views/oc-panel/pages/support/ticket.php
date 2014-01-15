@@ -45,7 +45,7 @@
 
     <div class="row">
         <div class="span2">
-            <img src="http://www.gravatar.com/avatar/<?=md5(strtolower(trim($ticket->user->email)));?>?s=100">
+            <img src="<?=$ticket->user->get_profile_image()?>">
             <p>
                 <?=$ticket->user->name?><br>
                 <?=Date::fuzzy_span(Date::mysql2unix($ticket->created))?><br>
@@ -60,7 +60,7 @@
     <?foreach ($replies as $reply):?>
     <div class="row <?=($ticket->id_user!==$reply->id_user)?'well':''?>" >
         <div class="span2">
-            <img src="http://www.gravatar.com/avatar/<?=md5(strtolower(trim($reply->user->email)));?>?s=100">
+            <img src="<?=$reply->user->get_profile_image()?>">
             <p>
                 <?=$reply->user->name?><br>
                 <?=Date::fuzzy_span(Date::mysql2unix($reply->created))?><br>
@@ -88,7 +88,7 @@
       <div class="control-group">
         <label class="control-label"><?=__("Reply")?>:</label>
         <div class="controls">
-        <textarea name="description" rows="10" class="span6" required></textarea>
+        <textarea name="description" rows="10" class="span6" required><?=core::post('description',__('Description'))?></textarea>
         </div>
       </div>
 

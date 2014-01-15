@@ -561,10 +561,28 @@ class Model_Product extends ORM {
                 ->where('id_product','!=',$this->id_product)
                 ->where('status','=',self::STATUS_ACTIVE)
                 ->limit(core::config('product.related'))
-                ->order_by(DB::expr('RAND()'))
+                //->order_by(DB::expr('RAND()'))
                 ->find_all();
 
                 return View::factory('pages/product/related',array('products'=>$products))->render();
+            }
+        }
+    
+        return FALSE;
+    }
+
+    /**
+     * renders a modal with alternative paymethod instructions
+     * @return string 
+     */
+    public function alternative_pay_button()
+    {
+        if($this->loaded())
+        {
+            if (core::config('payment.alternative')!='' )
+            {
+                $content = Model_Content::get(core::config('payment.alternative'));
+                return View::factory('pages/product/alternative_button',array('content'=>$content))->render();
             }
         }
     

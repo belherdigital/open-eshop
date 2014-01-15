@@ -8,6 +8,8 @@ $(function (){
             height: "450",
             toolbarExclude: "emoticon,cut,copy,paste,pastetext",
             resizeEnabled: "true",
+            emoticonsEnabled: "false",
+            emoticonsCompat: "false",
             enablePasteFiltering: "true"
         });
     }
@@ -17,6 +19,8 @@ $(function (){
             toolbar: "bold,italic,underline,strike|left,center,right,justify|" +
             "bulletlist,orderedlist|link,unlink,image,youtube|source",
             resizeEnabled: "true",
+            emoticonsEnabled: "false",
+            emoticonsCompat: "false",
             enablePasteFiltering: "true"});
     }
     

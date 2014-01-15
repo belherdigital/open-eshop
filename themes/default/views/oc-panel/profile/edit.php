@@ -18,12 +18,15 @@
 						<?= FORM::input('email', $user->email, array('class'=>'input-xlarge', 'id'=>'email', 'type'=>'email' ,'required','placeholder'=>__('Email')))?>
 					</div>
 				</div>
-				
+				<div class="control-group">
+                    <?= FORM::label('signature', __('Email Signature'), array('class'=>'control-label', 'for'=>'signature'))?>
+                    <div class="controls">
+                        <?= FORM::input('signature', $user->signature, array('class'=>'input-xlarge', 'id'=>'signature', 'type'=>'signature', 'maxlength'=>'245'  ,'placeholder'=>__('Email Signature')))?>
+                    </div>
+                </div>
 
-				<div class="form-actions">
-					<?= FORM::button('submit', __('Send'), array('type'=>'submit', 'class'=>'btn btn-success', 'action'=>Route::url('oc-panel',array('controller'=>'profile','action'=>'edit'))))?>
-				</div>
-		<?= FORM::close()?>
+            <button type="submit" class="btn btn-primary"><?=__('Update')?></button>    		
+        <?= FORM::close()?>
 	</div>
 	<!--/span-->
 	
@@ -52,11 +55,7 @@
                 </div>
               </div>
               
-              <div class="form-actions">
-              	<a href="<?=Route::url('oc-panel')?>" class="btn"><?=__('Cancel')?></a>
-                <button type="submit" class="btn btn-primary"><?=__('Send')?></button>
-              </div>
-              <?=Form::CSRF()?>
+                <button type="submit" class="btn btn-primary"><?=__('Update')?></button>
     	</form>
     </div><!--end span10-->
 
@@ -64,6 +63,11 @@
       <div class="page-header">
         <h1><?=__('Profile picture')?></h1>
       </div>
+
+      <div class="row">
+        
+            <img src="<?=$user->get_profile_image()?>" class="img-rounded" alt="<?=__('Profile Picture')?>" height='200px'>
+    </div>
       
       <form class="well form-horizontal" enctype="multipart/form-data" method="post" action="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'image'))?>">         
               <?=Form::errors()?>  
@@ -72,10 +76,7 @@
             <div class="control-group">
               <input type="file" name="profile_image" id="profile_img" />
             </div>
-            <div class="form-actions">
-                <a href="<?=Route::url('oc-panel')?>" class="btn"><?=__('Cancel')?></a>
-                <button type="submit" class="btn btn-primary"><?=__('Send')?></button>
-              </div>
+                <button type="submit" class="btn btn-primary"><?=__('Update')?></button>
       </form>
     </div><!--end span10-->
 </div>

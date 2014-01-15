@@ -51,6 +51,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."users` (
   `token_expires` datetime DEFAULT NULL,
   `hybridauth_provider_name` varchar(40) NULL DEFAULT NULL,
   `hybridauth_provider_uid` varchar(245) NULL DEFAULT NULL,
+  `signature` varchar(245) NULL DEFAULT NULL,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `".$_POST['TABLE_PREFIX']."users_UK_email` (`email`),
   UNIQUE KEY `".$_POST['TABLE_PREFIX']."users_UK_token` (`token`),
@@ -77,15 +78,12 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."visits` (
   `id_visit` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_product` int(10) unsigned DEFAULT NULL,
   `id_user` int(10) unsigned DEFAULT NULL,
-  `contacted` tinyint(1) NOT NULL DEFAULT '0',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ip_address` float DEFAULT NULL,
   PRIMARY KEY (`id_visit`),
   KEY `".$_POST['TABLE_PREFIX']."visits_IK_id_user` (`id_user`),
   KEY `".$_POST['TABLE_PREFIX']."visits_IK_id_product` (`id_product`)
 ) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
-
-
 
 
 mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."config` ( 
@@ -156,6 +154,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."orders` (
   `pay_date` DATETIME  NULL,
   `support_date` DATETIME  NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
+  `notes` VARCHAR( 245 ) NULL DEFAULT NULL,
   PRIMARY KEY (`id_order`),
   KEY `".$_POST['TABLE_PREFIX']."orders_IK_id_user` (`id_user`),
   KEY `".$_POST['TABLE_PREFIX']."orders_IK_status` (`status`)
@@ -233,7 +232,8 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."coupons` (
 mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."posts` (
   `id_post` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(10) unsigned NOT NULL,
-  `id_forum` int(10) unsigned NULL,
+  `id_post_parent` int(10) unsigned NULL DEFAULT NULL,
+  `id_forum` int(10) unsigned NULL DEFAULT NULL,
   `title` varchar(245) NOT NULL,
   `seotitle` varchar(245) NOT NULL,
   `description` text NOT NULL,
@@ -243,8 +243,23 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."posts` (
   PRIMARY KEY (`id_post`) USING BTREE,
   UNIQUE KEY `".$_POST['TABLE_PREFIX']."posts_UK_seotitle` (`seotitle`),
   KEY `".$_POST['TABLE_PREFIX']."posts_IK_id_user` (`id_user`),
+  KEY `".$_POST['TABLE_PREFIX']."posts_IK_id_post_parent` (`id_post_parent`),
   KEY `".$_POST['TABLE_PREFIX']."posts_IK_id_forum` (`id_forum`)
-) ENGINE=InnoDB DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
+) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
+
+
+mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."forums` (
+  `id_forum` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(145) NOT NULL,
+  `order` int(2) unsigned NOT NULL DEFAULT '0',
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `id_forum_parent` int(10) unsigned NOT NULL DEFAULT '0',
+  `parent_deep` int(2) unsigned NOT NULL DEFAULT '0',
+  `seoname` varchar(145) NOT NULL,
+  `description` varchar(255) NULL,
+  PRIMARY KEY (`id_forum`) USING BTREE,
+  UNIQUE KEY `".$_POST['TABLE_PREFIX']."forums_IK_seo_name` (`seoname`)
+) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
 
 
 /**
@@ -302,6 +317,7 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."config` (`group_name`, `conf
 ('payment', 'stripe_private', ''),
 ('payment', 'stripe_public', ''),
 ('payment', 'stripe_address', '0'),
+('payment', 'alternative', ''),
 ('general', 'number_format', '%n'),
 ('general', 'date_format', 'd-m-y'),
 ('general', 'base_url', '".$_POST['SITE_URL']."'),

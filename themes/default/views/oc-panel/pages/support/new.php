@@ -41,7 +41,7 @@
       <div class="control-group">
         <label class="control-label"><?=__("Description")?>:</label>
         <div class="controls">
-        <textarea name="description" rows="20" class="span6" required><?=core::post('description')?></textarea>
+        <textarea name="description" rows="20" class="span6" required><?=core::post('description',__('Description'))?></textarea>
         </div>
       </div>
 
