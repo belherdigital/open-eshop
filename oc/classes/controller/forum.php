@@ -86,6 +86,7 @@ class Controller_Forum extends Controller {
                     $validation = Validation::factory($this->request->post())
                                                     ->rule('description', 'not_empty')
                                                     ->rule('description', 'min_length', array(':value', 5))
+                                                    ->rule('description', 'max_length', array(':value', 1000))
                                                     ->rule('title', 'not_empty')
                                                     ->rule('title', 'min_length', array(':value', 5))
                                                     ->rule('id_forum', 'numeric');
@@ -225,6 +226,7 @@ class Controller_Forum extends Controller {
                     {
                         $validation = Validation::factory($this->request->post())
                                                         ->rule('description', 'not_empty')
+                                                        ->rule('description', 'max_length', array(':value', 1000))
                                                         ->rule('description', 'min_length', array(':value', 5));
 
                         if ($validation->check())

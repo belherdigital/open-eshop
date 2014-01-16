@@ -117,6 +117,7 @@ class Controller_Panel_Support extends Auth_Controller {
 
                 ->rule('description', 'not_empty')
                 ->rule('description', 'min_length', array(':value', 50))
+                ->rule('description', 'max_length', array(':value', 1000))
     
                 ->rule('order', 'not_empty')
                 ->rule('order', 'numeric');
