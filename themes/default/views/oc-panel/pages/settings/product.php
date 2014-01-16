@@ -87,7 +87,7 @@
 														"tif" => "tif", "tiff" => "tiff", "gif" => "gif", "psd" => "psd", 
 														"raw" => "raw", "wav" => "wav", "aif" => "aif", "mp3" => "mp3", "rm" => "rm ", 
 														"ram" => "ram", "wma" => "wma", "ogg" => "ogg", "avi" => "avi", "wmv" => "wmv", 
-														"mov" => "mov", "mp4" => "mp4", "jpeg" => "jpeg", "jpg" => "jpg", "png" => "png", 
+														"mov" => "mov", "mp4" => "mp4", "mkv" => "mkv", "jpeg" => "jpeg", "jpg" => "jpg", "png" => "png", 
 														"zip" => "zip", "7z" => "7z ", "7zip" => "7zip", "rar" => "rar", "rar5" => "rar5", 
 														"gzip" => "gzip" ), 
 					explode(',', $forms['formats']['value']), array(
@@ -118,6 +118,21 @@
                     ))?> 
                 </div>
             </div>
+            <div class="control-group">
+            <?= FORM::label($forms['reviews']['key'], __("Product Reviews"), array('class'=>'control-label', 'for'=>$forms['reviews']['key']))?>
+            <div class="controls">
+                <?= FORM::select($forms['reviews']['key'], array(FALSE=>'FALSE',TRUE=>'TRUE'), $forms['reviews']['value'], array(
+                'placeholder' => "TRUE or FALSE", 
+                'class' => 'tips', 
+                'id' => $forms['reviews']['key'], 
+                'data-content'=> __("Enables users to review purchased products"),
+                'data-trigger'=>"hover",
+                'data-placement'=>"right",
+                'data-toggle'=>"popover",
+                'data-original-title'=>__("Product Reviews"),
+                ))?> 
+            </div>
+        </div>
 			<div class="form-actions">
 				<?= FORM::button('submit', 'Update', array('type'=>'submit', 'class'=>'btn-small btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'settings', 'action'=>'product'))))?>
 			</div>

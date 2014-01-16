@@ -589,4 +589,21 @@ class Model_Product extends ORM {
         return FALSE;
     }
 
+
+    /**
+     * saves the rates recalculating it
+     * @return [type] [description]
+     */
+    public function recalculate_rate()
+    {
+        if($this->loaded())
+        {
+            //get all the rates and divide by them
+            $this->rate = Model_Rate::get_product_rate($this);
+            $this->save();
+            return $this->rate;
+        }
+        return FALSE;
+    }
+
 }

@@ -100,6 +100,7 @@ class Controller_Forum extends Controller {
                         $topic->seotitle = $topic->gen_seotitle($topic->title);
                         $topic->description    = core::post('description');
                         $topic->status   = Model_Post::STATUS_ACTIVE;
+                        $topic->ip_address   = ip2long(Request::$client_ip);
                         $topic->save();
 
                         $this->request->redirect(Route::url('forum-topic',array('forum'=>$topic->forum->seoname,'seotitle'=>$topic->seotitle)));
@@ -239,6 +240,7 @@ class Controller_Forum extends Controller {
                             $reply->seotitle = $reply->gen_seotitle($reply->title);
                             $reply->description    = core::post('description');
                             $reply->status   = Model_Post::STATUS_ACTIVE;
+                            $reply->ip_address   = ip2long(Request::$client_ip);
                             $reply->save();
 
                             Alert::set(Alert::SUCCESS, __('Reply added, thanks!'));

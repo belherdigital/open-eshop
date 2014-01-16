@@ -193,6 +193,15 @@ Route::set('product-paypal', '<category>/paypal/<seotitle>.html')
 ));
 
 /**
+ * product reviews
+ */
+Route::set('product-review', '<category>/reviews/<seotitle>.html')
+->defaults(array(
+        'controller' => 'product',    
+        'action'     => 'reviews',
+));
+
+/**
  * Item / product view (public)
  */
 Route::set('product', '<category>/<seotitle>.html')

@@ -93,6 +93,22 @@ class Controller_Panel_Update extends Auth_Controller {
                       PRIMARY KEY (`id_forum`) USING BTREE,
                       UNIQUE KEY `".$prefix."forums_IK_seo_name` (`seoname`)
                     ) ENGINE=MyISAM");
+        mysql_query("ALTER TABLE  `".$prefix."products` ADD `rate` FLOAT( 4, 2 ) NULL DEFAULT NULL ;");
+        mysql_query("CREATE TABLE IF NOT EXISTS ".$prefix."reviews (
+                    id_review int(10) unsigned NOT NULL AUTO_INCREMENT,
+                    id_user int(10) unsigned NOT NULL,
+                    id_order int(10) unsigned NOT NULL,
+                    id_product int(10) unsigned NOT NULL,
+                    rate int(2) unsigned NOT NULL DEFAULT '0',
+                    description varchar(1000) NOT NULL,
+                    created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    ip_address float DEFAULT NULL,
+                    status tinyint(1) NOT NULL DEFAULT '0',
+                    PRIMARY KEY (id_review) USING BTREE,
+                    KEY ".$prefix."reviews_IK_id_user (id_user),
+                    KEY ".$prefix."reviews_IK_id_order (id_order),
+                    KEY ".$prefix."reviews_IK_id_product (id_product)
+                    ) ENGINE=MyISAM;");
 
         // build array with new (missing) configs
         $configs = array(
@@ -122,6 +138,9 @@ class Controller_Panel_Update extends Auth_Controller {
                                'config_value'   =>''),
                          array('config_key'     =>'forums',
                                'group_name'     =>'general', 
+                               'config_value'   =>'0'), 
+                         array('config_key'     =>'reviews',
+                               'group_name'     =>'product', 
                                'config_value'   =>'0'), 
                         );
         

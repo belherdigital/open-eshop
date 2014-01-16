@@ -28,10 +28,15 @@
             <td><?=($order->support_date!=NULL)?Date::format($order->support_date):__('Without support');?></td>
             <td><?=i18n::money_format($order->amount).' '.$order->currency;?></td>
             <td>
+                <?if (core::config('product.reviews')==1):?>
+                    <a title="<?=__('Review prouct')?>" href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'review','id'=>$order->product->id_product))?>" 
+                        class="btn btn-mini btn-warning">
+                        <i class="glyphicon glyphicon-star-empty"></i></a>
+                <?endif?>
                 <?if(!empty($order->product->file_name)):?>
                 <a title="<?=__('Download')?>" href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order))?>" 
                 class="btn btn-mini btn-success">
-                <i class="glyphicon glyphicon-download?v=2.1.2"></i> <?=__('Download')?> <?=$order->product->version?></a>
+                <i class="glyphicon glyphicon-download"></i> <?=__('Download')?> <?=$order->product->version?></a>
                 <?endif?>
             </td>
         </tr>
