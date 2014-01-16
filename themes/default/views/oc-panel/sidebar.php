@@ -32,7 +32,7 @@
                 <? if($user->id_role==Model_Role::ROLE_ADMIN AND core::config('general.forums')==1):?>
                     <li class="divider"></li>
                     <?Theme::admin_link(__('Forums'),'forum','index','oc-panel','icon-tags')?>
-                    <?Theme::admin_link(__('Forum Topics'), 'forum','topics','oc-panel','icon-pencil')?>
+                    <?Theme::admin_link(__('Topics'), 'topic','index','oc-panel','icon-pencil')?>
                 <?endif?>
 
                 <? if($user->id_role==Model_Role::ROLE_ADMIN):?>

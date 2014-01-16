@@ -24,6 +24,11 @@
     </div>
     <div class="span6">
         <p><?=Text::bb2html($topic->description,TRUE)?></p>
+        <?if(Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN):?>
+            <a class="badge badge-warning pull-right" href="<?=Route::url('oc-panel', array('controller'=> 'topic', 'action'=>'update','id'=>$topic->id_post)) ?>">
+                <i class="icon icon-edit"></i>
+            </a>
+        <?endif?>
     </div>
 </div>
 <hr>
@@ -39,6 +44,11 @@
     </div>
     <div class="span6">
         <p><?=Text::bb2html($reply->description,TRUE)?></p>
+        <?if(Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN):?>
+            <a class="badge badge-warning pull-right" href="<?=Route::url('oc-panel', array('controller'=> 'topic', 'action'=>'update','id'=>$reply->id_post)) ?>">
+                <i class="icon icon-edit"></i>
+            </a>
+        <?endif?>
     </div>
 </div>
 <hr>
