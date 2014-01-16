@@ -29,7 +29,7 @@
             <td><?=i18n::money_format($order->amount).' '.$order->currency;?></td>
             <td>
                 <?if (core::config('product.reviews')==1):?>
-                    <a title="<?=__('Review prouct')?>" href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'review','id'=>$order->product->id_product))?>" 
+                    <a title="<?=__('Review prouct')?>" href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'review','id'=>$order->id_order))?>" 
                         class="btn btn-mini btn-warning">
                         <i class="glyphicon glyphicon-star-empty"></i></a>
                 <?endif?>

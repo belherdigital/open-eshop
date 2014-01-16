@@ -288,26 +288,21 @@ class Controller_Panel_Profile extends Auth_Controller {
      */
     public function action_review()
     {
-        $product_id = $this->request->param('id');
+        $id_order = $this->request->param('id');
 
         $user = Auth::instance()->get_user();
 
-
-        $product = new Model_product();
-        $product->where('id_product','=',$product_id)
-            ->where('status','=',Model_Product::STATUS_ACTIVE)
-            ->limit(1)->find();
-
         $order = new Model_Order();
-
         $order->where('id_user','=',$user->id_user)
-            ->where('id_product','=',$product_id)
+            ->where('id_order','=',$id_order)
             ->where('status', '=', Model_Order::STATUS_PAID)
             ->limit(1)
             ->find();
 
-        if ($product->loaded() AND $order->loaded())
+        if ($order->loaded())
         {
+            $product = $order->product;
+
             Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Purchases'))->set_url(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders'))));
             Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Review').' '.$product->title));
             $this->template->title   = __('Review product').' '.$product->title;
@@ -317,7 +312,7 @@ class Controller_Panel_Profile extends Auth_Controller {
             //lets see if we had the review already done..
             $review = new Model_Review();
             $review->where('id_user','=',$user->id_user)
-                ->where('id_product','=',$product_id)
+                ->where('id_product','=',$product->id_product)
                 ->where('id_order','=',$order->id_order)
                 ->where('status', '=', Model_Review::STATUS_ACTIVE)
                 ->limit(1)
