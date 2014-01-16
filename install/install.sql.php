@@ -336,6 +336,7 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."config` (`group_name`, `conf
 ('general', 'blog_disqus', ''),
 ('general', 'faq', '0'),
 ('general', 'faq_disqus', ''),
+('general', 'forums', '0'),
 ('general', 'minify', 0),
 ('image', 'allowed_formats', 'jpeg,jpg,png,'),
 ('image', 'max_image_size', '5'),

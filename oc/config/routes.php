@@ -124,7 +124,7 @@ Route::set('forum-topic', 'forum/<forum>/<seotitle>.html')
 /**
  * specific forum list of topics
  */
-Route::set('forum-list', 'forum(/<forum>)')
+Route::set('forum-list', 'forum/<forum>')
 ->defaults(array(
         'controller' => 'forum',    
         'action'     => 'list',
