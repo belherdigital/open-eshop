@@ -67,10 +67,25 @@ class Model_Review extends ORM {
         $form->fields['id_order']['display_as']      = 'text';
     }
 
+    /**
+     * returns the product rate from all the reviews
+     * @param  Model_Product $product [description]
+     * @return [type]                 [description]
+     */
     public static function get_product_rate(Model_Product $product)
     {
-        
+        //visits created last XX days
+        $query = DB::select(DB::expr('SUM(rate) rate'))
+                        ->select(DB::expr('COUNT(id_product) total'))
+                        ->from('reviews')
+                        ->where('id_product','=',$product->id_product)
+                        ->where('status','=',Model_Review::STATUS_ACTIVE)
+                        ->group_by('id_product')
+                        ->execute();
 
+        $rates = $query->as_array();
+
+        return (isset($rates[0]))?round($rates[0]['rate']/$rates[0]['total'],2):FALSE;
 
     }
 

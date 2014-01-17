@@ -16,7 +16,7 @@
     <?php endforeach ?>
     </ul>
     <?php endif ?>       
-    <?=FORM::open(Route::url('oc-panel',array('controller'=>'profile','action'=>'review','id'=>$product->id_product)), array('class'=>'form-horizontal', 'enctype'=>'multipart/form-data'))?>
+    <?=FORM::open(Route::url('oc-panel',array('controller'=>'profile','action'=>'review','id'=>$order->id_order)), array('class'=>'form-horizontal', 'enctype'=>'multipart/form-data'))?>
     <fieldset>
 
         <div id="review_raty"></div>
@@ -31,7 +31,7 @@
         <div class="control-group">
             <div class="controls">
                 <?= FORM::button('submit', __('Publish new review'), array('type'=>'submit', 'class'=>'btn btn-success', 
-                'action'=>Route::url('oc-panel',array('controller'=>'profile','action'=>'review','id'=>$product->id_product))) )?>
+                'action'=>Route::url('oc-panel',array('controller'=>'profile','action'=>'review','id'=>$order->id_order))) )?>
             </div>
             <br class="clear">
         </div>

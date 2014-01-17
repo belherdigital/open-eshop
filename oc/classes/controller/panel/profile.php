@@ -321,9 +321,8 @@ class Controller_Panel_Profile extends Auth_Controller {
             $this->template->bind('content', $content);
             
             $errors = NULL;
-            if($this->request->post()) //message submition  
+            if($this->request->post() AND !$review->loaded())  
             {
-
                 $validation = Validation::factory($this->request->post())->rule('rate', 'numeric')
                                                 ->rule('description', 'not_empty')->rule('description', 'min_length', array(':value', 5))
                                                 ->rule('description', 'max_length', array(':value', 1000));
@@ -336,16 +335,21 @@ class Controller_Panel_Profile extends Auth_Controller {
                         $rate = 0;
 
                     $review = new Model_Review();
-                    $review->id_user    =  $user->id_user;
-                    $review->id_order   =  $order->id_order;
-                    $review->id_product =  $product->id_product;
+                    $review->id_user        = $user->id_user;
+                    $review->id_order       = $order->id_order;
+                    $review->id_product     = $product->id_product;
                     $review->description    = core::post('description');
-                    $review->status   = Model_Review::STATUS_ACTIVE;
-                    $review->ip_address   = ip2long(Request::$client_ip);
-                    $review->rate = $rate;
+                    $review->status         = Model_Review::STATUS_ACTIVE;
+                    $review->ip_address     = ip2long(Request::$client_ip);
+                    $review->rate           = $rate;
                     $review->save();
                     //email product owner?? notify him of new review
-                    //$product->user->email---
+                    $product->user->email('reviewproduct',
+                                 array('[TITLE]'        =>$product->title,
+                                        '[RATE]'        =>$review->rate,
+                                        '[DESCRIPTION]' =>$review->description,
+                                        '[URL.QL]'      =>$product->user->ql('product-review',array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))));
+
                     $product->recalculate_rate();
                     Alert::set(Alert::SUCCESS, __('Thanks for your review!'));
                     $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));

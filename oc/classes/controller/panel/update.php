@@ -159,6 +159,13 @@ class Controller_Panel_Update extends Auth_Controller {
                                'from_email'=>core::config('email.notify_email'),
                                'type'=>'email',
                                'status'=>'1'),
+                            array('order'=>'0',
+                               'title'=>'New review for [TITLE] [RATE]',
+                               'seotitle'=>'reviewproduct',
+                               'description'=>'[URL.QL]\n\n[RATE]\n\n[DESCRIPTION]',
+                               'from_email'=>core::config('email.notify_email'),
+                               'type'=>'email',
+                               'status'=>'1'),
                         );
         
         // returns TRUE if some config is saved 

@@ -599,7 +599,7 @@ class Model_Product extends ORM {
         if($this->loaded())
         {
             //get all the rates and divide by them
-            $this->rate = Model_Rate::get_product_rate($this);
+            $this->rate = Model_Review::get_product_rate($this);
             $this->save();
             return $this->rate;
         }
