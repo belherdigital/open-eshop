@@ -12,7 +12,7 @@ class Controller_Panel_Widget extends Auth_Controller {
 
     public function action_index()
     {
-        $this->before('oc-panel/pages/widgets/main');
+        // $this->before('oc-panel/pages/widgets/main');
 
         //template header
         $this->template->title  = __('Widgets');
@@ -23,8 +23,9 @@ class Controller_Panel_Widget extends Auth_Controller {
         $this->template->scripts['footer'][] = 'js/oc-panel/widgets.js';
 
 
-        $this->template->widgets           = Widgets::get_widgets();
-        $this->template->placeholders      = Widgets::get_placeholders();
+        $widgets           = Widgets::get_widgets();
+        $placeholders      = Widgets::get_placeholders();
+        $this->template->content = View::factory('oc-panel/pages/widgets/widget',array('widgets' => $widgets,'placeholders'=>$placeholders));
 
     }
     

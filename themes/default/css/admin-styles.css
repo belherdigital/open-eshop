@@ -20,7 +20,7 @@ li.sbp .caret{float: right;margin-top: 7px;}
 .main{
 	padding-left: 205px;
 	position: relative;
-	min-height: 950px;
+	min-height: 1250px;
 }
 
 /*WIDGET VIEW*/
@@ -112,7 +112,12 @@ li.sbp:hover{border-right: none;}
 .miniclose{
 
 }
-
+/*TICKETS*/
+.ticket_image{
+	max-width: 100px;
+}
+.ww{word-wrap:break-word;
+}
 /*colapsable sidebar*/
 .sidebar-nav .nav.nav-list.side-ul.hide{
 

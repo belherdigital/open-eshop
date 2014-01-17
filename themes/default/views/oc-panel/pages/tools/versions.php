@@ -12,31 +12,32 @@
             <?=__('Check for updates')?></a>
 
 </div>
-
-<table class="table table-striped">
-<tr>
-    <th><?=__('Version')?></th>
-    <th><?=__('Information')?></th>
-</tr>
-<?foreach ($versions as $version=>$values):?> 
-<tr>
+<div class="table-responsive">
+    <table class="table table-striped">
+    <tr>
+        <th><?=__('Version')?></th>
+        <th><?=__('Information')?></th>
+    </tr>
+    <?foreach ($versions as $version=>$values):?> 
+    <tr>
+            <td>
+                <?=$version?>
+                <?=($version==$latest_version)? '<span class="label label-success">'.__('Latest').'</span>':''?>
+                <?=($version==core::version)? '<span class="label label-info">'.__('Current').'</span>':''?>
+                <br /><br />
+            </td>
+            
         <td>
-            <?=$version?>
-            <?=($version==$latest_version)? '<span class="label label-success">'.__('Latest').'</span>':''?>
-            <?=($version==core::version)? '<span class="label label-info">'.__('Current').'</span>':''?>
-            <br /><br />
+            <table class="table">
+                <?foreach ($values as $key => $value):?>
+                    <tr>
+                        <th><?=ucfirst($key)?></th>
+                        <td><?=(strpos($value, 'http')===FALSE? $value: HTML::anchor($value,substr($value, 0,40)) )?></td>
+                    </tr>
+                <?endforeach?>
+            </table>
         </td>
-        
-    <td>
-        <table class="table">
-            <?foreach ($values as $key => $value):?>
-                <tr>
-                    <th><?=ucfirst($key)?></th>
-                    <td><?=(strpos($value, 'http')===FALSE? $value: HTML::anchor($value,substr($value, 0,40)) )?></td>
-                </tr>
-            <?endforeach?>
-        </table>
-    </td>
-</tr>
-<?endforeach?>
-</table>
+    </tr>
+    <?endforeach?>
+    </table>
+</div>

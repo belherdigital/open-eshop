@@ -1,10 +1,12 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
-<div class="col-md-3 hidden-phone">
-	<div class="well sidebar-nav">
-		<ul class="nav nav-list">
-                <? if($user->id_role==Model_Role::ROLE_ADMIN):?>
-                    <li class="divider"></li>
-                <?endif?>
+<aside class="col-md-1 col-sm-1 col-xs-1 respon-left-panel well">
+    
+    <div class="sidebar-nav">
+        
+        <!-- <button type="button" class="btn btn-default miniclose pull-right"><span class="glyphicon glyphicon-arrow-left"></span></button> -->
+        <div class="clearfix"></div>
+        
+        <ul class="nav nav-list side-ul active">
 				<?Theme::admin_link(__('Products'), 'product','index','oc-panel','glyphicon glyphicon-inbox')?>
 				<?Theme::admin_link(__('Categories'),'category','index','oc-panel','glyphicon glyphicon-tags')?>
 				<?Theme::admin_link(__('Orders'), 'order','index','oc-panel','glyphicon glyphicon-shopping-cart')?>
@@ -50,21 +52,21 @@
                 <?endif?>
 
 			<?if ($user->has_access_to_any('settings,config')):?>
-				<li class="nav-header dropdown-submenu <?=(in_array(Request::current()->controller(),array('settings','config'))) ?'active':''?>">
-                <a tabindex="-1" href="#"><i class="glyphicon glyphicon-edit"></i><?=__('Settings')?></a>
-                    <ul class="dropdown-menu">
-    				    <?Theme::admin_link(__('General'), 'settings','general')?>
-    				    <?Theme::admin_link(__('Payment'), 'settings','payment')?>
-    				    <?Theme::admin_link(__('Email'), 'settings','email')?>
-    				    <?Theme::admin_link(__('Product'), 'settings','product')?>
+                <li class="dropdown-sidebar sbp <?=(in_array(Request::current()->controller(),array('settings','config'))) ?'active':''?>">
+                <a class="dropdown-toggle"><i class="glyphicon glyphicon-edit"></i><span class="side-name-link"><?=__('Settings')?><i class="glyphicon glyphicon-chevron-down pull-right"></i></span></a>
+                    <ul class="submenu">
+                        <?Theme::admin_link(__('General'), 'settings','general')?>
+                        <?Theme::admin_link(__('Payment'), 'settings','payment')?>
+                        <?Theme::admin_link(__('Email'), 'settings','email')?>
+                        <?Theme::admin_link(__('Product'), 'settings','product')?>
                     </ul>
                 </li>
-			<?endif?>
+            <?endif?>
 
             <?if ($user->has_access_to_any('user,role,access')):?>
-                <li class="nav-header dropdown-submenu <?=(in_array(Request::current()->controller(),array('user','role','access'))) ?'active':''?>">
-                <a tabindex="-1" href="#"><i class="glyphicon glyphicon-user"></i><?=__('Users')?></a>
-                    <ul class="dropdown-menu">
+                <li class="dropdown-sidebar sbp <?=(in_array(Request::current()->controller(),array('user','role','access'))) ?'active':''?>">
+                <a class="dropdown-toggle"><i class="glyphicon glyphicon-user"></i><span class="side-name-link"><?=__('Users')?><i class="glyphicon glyphicon-chevron-down pull-right"></i></span></a>
+                    <ul class="submenu">
                       <?Theme::admin_link(__('Users'),'user')?>
                       <?Theme::admin_link(__('User Roles'),'role')?>
                       <?Theme::admin_link(__('Roles access'),'access')?>
@@ -72,20 +74,20 @@
                 </li>
             <? endif ?>
 
-			<?if ($user->has_access_to_any('tools')):?>
-				<li class="nav-header dropdown-submenu <?=(Request::current()->controller()=='tools') ?'active':''?>">
-                <a tabindex="-1" href="#"><i class="glyphicon glyphicon-wrench"></i><?=__('Tools')?></a>
-                    <ul class="dropdown-menu">
+            <?if ($user->has_access_to_any('tools')):?>
+                <li class="dropdown-sidebar sbp <?=(Request::current()->controller()=='tools') ?'active':''?>">
+                <a class="dropdown-toggle"><i class="glyphicon glyphicon-wrench"></i><span class="side-name-link"><?=__('Tools')?><i class="glyphicon glyphicon-chevron-down pull-right"></i></span></a>
+                    <ul class="submenu">
                         <?Theme::admin_link(__('Updates'), 'update','index')?>
                         <?Theme::admin_link(__('Sitemap'), 'tools','sitemap')?>
+                        <?Theme::admin_link(__('Migration'), 'tools','migration')?>
                         <?Theme::admin_link(__('Optimize'), 'tools','optimize')?>
                         <?Theme::admin_link(__('Cache'), 'tools','cache')?>
                         <?Theme::admin_link(__('Logs'), 'tools','logs')?>
-                        <?Theme::admin_link(__('Import Orders'), 'order','import')?>
                         <?Theme::admin_link(__('PHP Info'), 'tools','phpinfo')?>
                     </ul>
                 </li>
-			<?endif?>
+            <?endif?>
 
 			<? if($user->has_access_to_any('profile')):?>
 				<li class="divider"></li>
@@ -93,14 +95,20 @@
                 <?Theme::admin_link(__('Support'), 'support','index','oc-panel','glyphicon glyphicon-comment')?>
                 <?Theme::admin_link(__('Edit profile'), 'profile','edit','oc-panel','glyphicon glyphicon-user')?>
 			<?endif?>
-
+            <div class="divider"></div>
+            <li>
+                <a  class=" btn-colapse-sidebar"><i class="glyphicon glyphicon-circle-arrow-left"></i>
+                <span class="side-name-link"><?=__('Collapse menu')?></span>
+                </a>
+                
+            </li>
 			<?if (Theme::get('premium')!=1):?>
-			<li class="divider"></li>
-			<li class="nav-header">by Open eShop</li>
-			<li><a href="http://open-eshop.com/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>">Open eShop</a></li>
-            <li class="divider"></li>
+			<li class="no-prem divider"></li>
+			<li class="no-prem nav-header">by Open eShop</li>
+			<li class="no-prem"><a href="http://open-eshop.com/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>">Open eShop</a></li>
+            <li class="no-prem divider"></li>
 
-            <li><a href="https://twitter.com/openclassifieds"
+            <li class="no-prem"><a href="https://twitter.com/openclassifieds"
                 onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"
                 class="twitter-follow-button" data-show-count="false"
                 data-size="large">Follow @openclassifieds</a><br />
@@ -110,5 +118,5 @@
         
 	</div>
 	<!--/.well -->
-</div>
+</aside>
 <!--/span-->

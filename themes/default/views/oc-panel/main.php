@@ -43,7 +43,7 @@
         }
 
         /* collapsable categories selector*/
-        .btn.btn-primary.btn-mini.collapsed {
+        .btn.btn-primary.btn-xs.collapsed {
           display: inline-block !important;
         }
         .accordion-group {
@@ -66,11 +66,10 @@
 
   <body>
 	<?=$header?>
-    <div class="container">
-	    <div class="row">
 	    
 		<?=View::factory('oc-panel/sidebar',array('user'=>$user))?>
-			<div class="col-md-9">
+    <div class="bs-docs-nav">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main pull-left">
 				<?=Breadcrumbs::render('oc-panel/breadcrumbs')?>      
 				<?=Alert::show()?>
                 <?if (!isset($_COOKIE['donation_alert'])  AND Theme::get('premium')!=1 AND $user->id_role==Model_Role::ROLE_ADMIN):?>
@@ -90,11 +89,11 @@
                   </div>
                 <?endif?>
 				<?=$content?>
-	    	</div><!--/span--> 
-	    	
-		</div><!--/row-->
-		<?=$footer?>
-    </div><!--/.fluid-container-->
+        </div><!--/span--> 
+
+    </div><!--/.fluid-->
+    <div class="clearfix"></div>
+    <?=$footer?>
 
 	<?=Theme::scripts($scripts,'footer','default')?>
 

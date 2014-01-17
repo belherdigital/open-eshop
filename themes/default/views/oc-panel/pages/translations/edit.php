@@ -22,7 +22,7 @@
         <th><?=__('Translation')?> <?=$edit_language?></th>
         <th></th>
     </tr>
-    <button type="submit" class="btn btn-primary pull-right" name="translation[submit]"><i class="glyphicon glyphicon-hdd?v=2.1.2"></i> <?=__('Save')?></button>
+    <button type="submit" class="btn btn-primary pull-right" name="translation[submit]"><i class="glyphicon glyphicon-hdd"></i> <?=__('Save')?></button>
 
     <?$cont = 0; $chars=0;?>
     <?foreach($strings_en as $key => $value):?>
@@ -48,14 +48,14 @@
                 <textarea id="dest_<?=$cont?>" style="width: 100%" name="translations[<?=$cont?>]"><?=$value?></textarea>
             </td>
             <td width="5%">
-                <button type="submit" class="btn btn-primary" name="translation[submit]"><i class="glyphicon glyphicon-hdd?v=2.1.2"></i></button>
+                <button type="submit" class="btn btn-primary" name="translation[submit]"><i class="glyphicon glyphicon-hdd"></i></button>
             </td>
         </tr>
         <?$cont++; //if($cont>10) break;?>
     <?endforeach;?>
 
     </table>
-    <button type="submit" class="btn btn-primary pull-right" name="translation[submit]"><i class="glyphicon glyphicon-hdd?v=2.1.2"></i> <?=__('Save')?></button>
+    <button type="submit" class="btn btn-primary pull-right" name="translation[submit]"><i class="glyphicon glyphicon-hdd"></i> <?=__('Save')?></button>
 
     <?=$chars?>
 

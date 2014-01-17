@@ -164,86 +164,40 @@ class Form extends Kohana_Form {
     public static function form_tag($name, $options, $value = NULL)
     {
         if ($options['display'] != 'hidden')
-            $label = FORM::label($name, (isset($options['label']))?$options['label']:$name, array('class'=>'control-label', 'for'=>$name));
+            $label = FORM::label($name, (isset($options['label']))?$options['label']:$name, array('class'=>'control-label col-md-5 col-sm-5 col-xs-12', 'for'=>$name));
         else
             $label = '';
 
         //$out = '';
         if ($value === NULL)
             $value = (isset($options['default'])) ? $options['default']:NULL;
-        
-        // dependent classes on type
-        if($options['display']=='date' AND (strpos($name,'cf_') !== FALSE))
-        {
-        	$class = 'cf_date_fields';
-        	$data_date = $value;
-        }
-        elseif($options['display']=='text' AND (strpos($name,'cf_') !== FALSE))
-        	$class = 'cf_text_fields';
-        elseif($options['display']=='string' AND (strpos($name,'cf_') !== FALSE))
-        	$class = 'cf_text_fields';
-        elseif($options['display']=='textarea' AND (strpos($name,'cf_') !== FALSE))
-        	$class = 'cf_textarea_fields span6';
-        elseif($options['display']=='checkbox' AND (strpos($name,'cf_') !== FALSE))
-        	$class = 'cf_checkbox_fields';
-        elseif($options['display']=='radio' AND (strpos($name,'cf_') !== FALSE))
-        	$class = 'cf_radio_fields';
-        elseif($options['display']=='select' AND (strpos($name,'cf_') !== FALSE))
-        	$class = 'cf_select_fields';
-        else
-        	$class = '';
-        
-        $attributes = array('placeholder' 		=> (isset($options['label'])) ? $options['label']:$name, 
-                            'class'       		=> 'input-large'.' '.$class, 
-                            'id'          		=> $name, 
-                            ($options['display']=='date')?'data-date':'' =>  $value, // optional attr for datapicker.js
-                            ($options['display']=='date')?'data-date-format="yyyy-mm-dd"':''=>'', // optional attr for datapicker.js
-                            (isset($options['required']) AND $options['required']== TRUE)?'required':''
+
+
+        $attributes = array('placeholder' => (isset($options['label'])) ? $options['label']:$name, 
+                            'data-placeholder'       => (isset($options['label'])) ? $options['label']:$name,
+                            'class'       => 'form-control', 
+                            'id'          => $name, 
+                            (isset($options['required']))?'required':''
                     );
 
         switch ($options['display']) 
         {
             case 'select':
-                $input = FORM::select($name, $options['options'], (!is_array($value))?$value:NULL, $attributes);
+                $input = FORM::select($name, $options['options'], $value, array('class'=>'col-md-9 col-sm-9 col-xs-12'));
                 break;
-            case 'text':
-                $input = FORM::input($name, $value, $attributes);
-                break;
-			case 'textarea':
+            case 'textarea':
                 $input = FORM::textarea($name, $value, $attributes);
                 break;
             case 'hidden':
                 $input = FORM::hidden($name, $value, $attributes);
                 break;
-            case 'date':
-                $input = FORM::input($name, $value, $attributes);
-                break;
-			case 'checkbox':
-				$checked = ($value == 1) ? TRUE : FALSE ;  
-				// hidden input + checkbox is a trick to get value of a non selected checkbox.
-                $input = FORM::hidden($name, 0).FORM::checkbox($name, NULL, $checked, $attributes);
-                break;
-            case 'radio':
-         		$input = FORM::hidden($name, 0);
-         		
-	            foreach($options['options'] as $id => $value)
-				{
-					$checked = ($id == $options['default']) ? TRUE : FALSE ;
-					
-					// hidden input + checkbox is a trick to get value of a non selected radio.
-					$input .= '<div class="">'.FORM::label($name, $value, array('class'=>'', 'for'=>$name));
-	                $input .= FORM::radio($name, $id, $checked, $attributes).'</div>';
-			    }
-                break;
-            case 'string':
+            case 'text':
             default:
                 $input = FORM::input($name, $value, $attributes);
                 break;
         }
 
-        $out = $label.'<div class="controls">'.$input.'</div>';
-
-        
+        $out = $label.'<div class="col-md-5 col-sm-5 col-xs-12">'.$input.'</div>';
 
         return $out;
 

@@ -1,1 +1,1 @@
-<label for="<?php echo $field['field_id']; ?>" class="control-label"><?php echo $field['label']; ?></label>
+<label for="<?php echo $field['field_id']; ?>" class="col-md-3 control-label"><?php echo $field['label']; ?></label>
