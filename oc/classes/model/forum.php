@@ -141,15 +141,20 @@ class Model_Forum extends ORM {
 	 * counts the forums topics
 	 * @return array
 	 */
-	public static function get_category_count()
+	public static function get_forum_count()
 	{
-
         $forums = DB::select('f.*')
-                ->select(array(DB::select('COUNT("id_posts")')
+                ->select(array(DB::select('COUNT("id_post")')
                         ->from(array('posts','p'))
                         ->where('p.id_forum','=',DB::expr(core::config('database.default.table_prefix').'f.id_forum'))
                         ->where('p.status','=',Model_Post::STATUS_ACTIVE)
                         ->group_by('id_forum'), 'count'))
+                ->select(array(DB::select('created')
+                        ->from(array('posts','p'))
+                        ->where('p.id_forum','=',DB::expr(core::config('database.default.table_prefix').'f.id_forum'))
+                        ->where('p.status','=',Model_Post::STATUS_ACTIVE)
+                        ->order_by('created','desc')
+                        ->limit(1), 'last_message'))
                 ->from(array('forums', 'f'))
                 ->order_by('order','asc')
                 ->as_object()
@@ -161,15 +166,16 @@ class Model_Forum extends ORM {
 
         foreach ($forums as $f) 
         {
-            $forum_count[$f->id_forum] = array('id_forum'    => $f->id_forum,
-                                    'seoname'           => $f->seoname,
-                                    'name'          => $f->name,
-                                    'id_forum_parent'        => $f->id_forum_parent,
-                                    'parent_deep'   => $f->parent_deep,
-                                    'order'         => $f->order,
-                                    'has_siblings'  => FALSE,
-                                    'count'         => (is_numeric($f->count))?$f->count:0
-                                    );
+            $forum_count[$f->id_forum] = array('id_forum'           => $f->id_forum,
+                                                'seoname'           => $f->seoname,
+                                                'name'              => $f->name,
+                                                'id_forum_parent'   => $f->id_forum_parent,
+                                                'parent_deep'       => $f->parent_deep,
+                                                'order'             => $f->order,
+                                                'has_siblings'      => FALSE,
+                                                'count'             => (is_numeric($f->count))?$f->count:0,
+                                                'last_message'      => $f->last_message
+                                                );
             //counting the ads the parent have
             if ($f->id_forum_parent!=0)
             {

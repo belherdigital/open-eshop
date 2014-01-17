@@ -21,12 +21,18 @@ class Model_Post extends ORM {
     protected $_primary_key = 'id_post';
 
     /**
+     * status constants
+     */
+    const STATUS_NOACTIVE = 0; 
+    const STATUS_ACTIVE   = 1; 
+
+    /**
      * @var  array  ORM Dependency/hirerachy
      */
     protected $_has_many = array(
-        'comments' => array(
-            'model'       => 'comment',
-            'foreign_key' => 'id_comment',
+        'replies' => array(
+            'model'       => 'post',
+            'foreign_key' => 'id_post_parent',
         ),
     );
 
@@ -83,9 +89,9 @@ class Model_Post extends ORM {
 
         if ($seotitle != $this->seotitle)
         {
-            $cat = new self;
+            $post = new self;
             //find a user same seotitle
-            $s = $cat->where('seotitle', '=', $seotitle)->limit(1)->find();
+            $s = $post->where('seotitle', '=', $seotitle)->limit(1)->find();
 
             //found, increment the last digit of the seotitle
             if ($s->loaded())
@@ -95,9 +101,9 @@ class Model_Post extends ORM {
                 while($loop)
                 {
                     $attempt = $seotitle.'-'.$cont;
-                    $cat = new self;
+                    $post = new self;
                     unset($s);
-                    $s = $cat->where('seotitle', '=', $attempt)->limit(1)->find();
+                    $s = $post->where('seotitle', '=', $attempt)->limit(1)->find();
                     if(!$s->loaded())
                     {
                         $loop = FALSE;

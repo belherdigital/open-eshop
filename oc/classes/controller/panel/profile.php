@@ -2,7 +2,12 @@
 
 class Controller_Panel_Profile extends Auth_Controller {
 
-    
+    public function __construct($request, $response)
+    {
+        parent::__construct($request, $response);
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Profile'))->set_url(Route::url('oc-panel',array('controller'=>'profile'))));
+
+    }
 
 	public function action_index()
 	{
@@ -273,6 +278,91 @@ class Controller_Panel_Profile extends Auth_Controller {
             }
         }
 
+
+    }
+
+
+    /**
+     * user ads a new review
+     * @return [type] [description]
+     */
+    public function action_review()
+    {
+        $id_order = $this->request->param('id');
+
+        $user = Auth::instance()->get_user();
+
+        $order = new Model_Order();
+        $order->where('id_user','=',$user->id_user)
+            ->where('id_order','=',$id_order)
+            ->where('status', '=', Model_Order::STATUS_PAID)
+            ->limit(1)
+            ->find();
+
+        if ($order->loaded())
+        {
+            $product = $order->product;
+
+            Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Purchases'))->set_url(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders'))));
+            Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Review').' '.$product->title));
+            $this->template->title   = __('Review product').' '.$product->title;
+            $this->template->scripts['footer'][] = 'js/jquery.raty.min.js';
+            $this->template->scripts['footer'][] = 'js/oc-panel/review.js';
+
+            //lets see if we had the review already done..
+            $review = new Model_Review();
+            $review->where('id_user','=',$user->id_user)
+                ->where('id_product','=',$product->id_product)
+                ->where('id_order','=',$order->id_order)
+                ->where('status', '=', Model_Review::STATUS_ACTIVE)
+                ->limit(1)
+                ->find();
+            
+            $this->template->bind('content', $content);
+            
+            $errors = NULL;
+            if($this->request->post() AND !$review->loaded())  
+            {
+                $validation = Validation::factory($this->request->post())->rule('rate', 'numeric')
+                                                ->rule('description', 'not_empty')->rule('description', 'min_length', array(':value', 5))
+                                                ->rule('description', 'max_length', array(':value', 1000));
+                if ($validation->check())
+                {
+                    $rate = core::post('rate');
+                    if ($rate>Model_Review::RATE_MAX)
+                        $rate = Model_Review::RATE_MAX;
+                    elseif ($rate<0)
+                        $rate = 0;
+
+                    $review = new Model_Review();
+                    $review->id_user        = $user->id_user;
+                    $review->id_order       = $order->id_order;
+                    $review->id_product     = $product->id_product;
+                    $review->description    = core::post('description');
+                    $review->status         = Model_Review::STATUS_ACTIVE;
+                    $review->ip_address     = ip2long(Request::$client_ip);
+                    $review->rate           = $rate;
+                    $review->save();
+                    //email product owner?? notify him of new review
+                    $product->user->email('reviewproduct',
+                                 array('[TITLE]'        =>$product->title,
+                                        '[RATE]'        =>$review->rate,
+                                        '[DESCRIPTION]' =>$review->description,
+                                        '[URL.QL]'      =>$product->user->ql('product-review',array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))));
+
+                    $product->recalculate_rate();
+                    Alert::set(Alert::SUCCESS, __('Thanks for your review!'));
+                    $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
+                }
+                else
+                    $errors = $validation->errors('ad');
+               
+            }     
+            
+            $this->template->content = View::factory('oc-panel/profile/review',array('order'=>$order,'product'=>$product,'errors'=>$errors,'review'=>$review));
+        }
+        else
+            $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
 
     }
 

@@ -93,6 +93,22 @@ class Controller_Panel_Update extends Auth_Controller {
                       PRIMARY KEY (`id_forum`) USING BTREE,
                       UNIQUE KEY `".$prefix."forums_IK_seo_name` (`seoname`)
                     ) ENGINE=MyISAM");
+        mysql_query("ALTER TABLE  `".$prefix."products` ADD `rate` FLOAT( 4, 2 ) NULL DEFAULT NULL ;");
+        mysql_query("CREATE TABLE IF NOT EXISTS ".$prefix."reviews (
+                    id_review int(10) unsigned NOT NULL AUTO_INCREMENT,
+                    id_user int(10) unsigned NOT NULL,
+                    id_order int(10) unsigned NOT NULL,
+                    id_product int(10) unsigned NOT NULL,
+                    rate int(2) unsigned NOT NULL DEFAULT '0',
+                    description varchar(1000) NOT NULL,
+                    created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    ip_address float DEFAULT NULL,
+                    status tinyint(1) NOT NULL DEFAULT '0',
+                    PRIMARY KEY (id_review) USING BTREE,
+                    KEY ".$prefix."reviews_IK_id_user (id_user),
+                    KEY ".$prefix."reviews_IK_id_order (id_order),
+                    KEY ".$prefix."reviews_IK_id_product (id_product)
+                    ) ENGINE=MyISAM;");
 
         // build array with new (missing) configs
         $configs = array(
@@ -123,6 +139,15 @@ class Controller_Panel_Update extends Auth_Controller {
                          array('config_key'     =>'forums',
                                'group_name'     =>'general', 
                                'config_value'   =>'0'), 
+                         array('config_key'     =>'reviews',
+                               'group_name'     =>'product', 
+                               'config_value'   =>'0'), 
+                         array('config_key'     =>'demo_theme',
+                               'group_name'     =>'product', 
+                               'config_value'   =>'yeti'),
+                        array('config_key'     =>'demo_resize',
+                               'group_name'     =>'product', 
+                               'config_value'   =>'1'), 
                         );
         
 
@@ -137,6 +162,13 @@ class Controller_Panel_Update extends Auth_Controller {
                                'title'=>'Ticket assigned to you: [TITLE]',
                                'seotitle'=>'assignagent',
                                'description'=>'[URL.QL]\n\n[DESCRIPTION]',
+                               'from_email'=>core::config('email.notify_email'),
+                               'type'=>'email',
+                               'status'=>'1'),
+                            array('order'=>'0',
+                               'title'=>'New review for [TITLE] [RATE]',
+                               'seotitle'=>'reviewproduct',
+                               'description'=>'[URL.QL]\n\n[RATE]\n\n[DESCRIPTION]',
                                'from_email'=>core::config('email.notify_email'),
                                'type'=>'email',
                                'status'=>'1'),

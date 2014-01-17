@@ -91,6 +91,10 @@ class Controller_Product extends Controller{
 
         if ($product->loaded())
         {
+            Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Home'))->set_url(Route::url('default')));
+            Breadcrumbs::add(Breadcrumb::factory()->set_title($product->category->name)->set_url(Route::url('list',array('category'=>$product->category->seoname))));
+            Breadcrumbs::add(Breadcrumb::factory()->set_title($product->title)->set_url(Route::url('product',array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))));
+            Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Thanks')));
             $this->template->title            = $product->title.' - '.$product->category->name;
             $this->template->meta_description = $product->description;
 
@@ -134,6 +138,43 @@ class Controller_Product extends Controller{
 
             $this->template->bind('content', $content);
             $this->template->content = View::factory('pages/product/goal',array('product'=>$product,'thanks_message'=>$thanks_message,'order'=>$order,'price_paid'=>$price_paid));
+
+        }
+        else
+        {
+            Alert::set(Alert::INFO, __('Product not found.'));
+            $this->request->redirect(Route::url('default'));
+        }
+    }
+
+    /**
+     * action product reviews after buying
+     * @return void 
+     */
+    public function action_reviews()
+    {
+
+        $product = new Model_product();
+        $product->where('seotitle','=',$this->request->param('seotitle'))
+            ->where('status','=',Model_Product::STATUS_ACTIVE)
+            ->limit(1)->find();
+
+        if ($product->loaded())
+        {
+            Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Home'))->set_url(Route::url('default')));
+            Breadcrumbs::add(Breadcrumb::factory()->set_title($product->category->name)->set_url(Route::url('list',array('category'=>$product->category->seoname))));
+            Breadcrumbs::add(Breadcrumb::factory()->set_title($product->title)->set_url(Route::url('product',array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))));
+            Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Reviews')));
+            $this->template->title            = __('Reviews').' '.$product->title.' - '.$product->category->name;
+            $this->template->meta_description = $product->description;
+
+            $reviews = new Model_Review();
+            $reviews = $reviews->where('id_product','=',$product->id_product)
+                                ->where('status', '=', Model_Review::STATUS_ACTIVE)->find_all();
+
+
+            $this->template->bind('content', $content);
+            $this->template->content = View::factory('pages/product/review',array('product'=>$product,'reviews'=>$reviews));
 
         }
         else

@@ -85,7 +85,7 @@ class Sitemap {
                 $sitemap->addUrl($url, date('c'),  'daily',    '0.7');
             }
             
-            //last products, you can modify this value at: general.feed_elements
+            //all products
             $products = DB::select('p.seotitle')
                 ->select(array('c.seoname','category'),'p.title','p.created')
                 ->from(array('products', 'p'))
@@ -100,6 +100,8 @@ class Sitemap {
             {
                 $url= Route::url('product',  array('category'=>$p->category,'seotitle'=>$p->seotitle));
                 $sitemap->addUrl($url, date('c'),  'monthly',    '0.5');
+                $url= Route::url('product-review',  array('category'=>$p->category,'seotitle'=>$p->seotitle));
+                $sitemap->addUrl($url, date('c'),  'weekly',    '0.6');
             }
 
             //all the blog posts
@@ -114,6 +116,32 @@ class Sitemap {
                 $url= Route::url('blog',  array('seotitle'=>$post->seotitle));
                 $sitemap->addUrl($url, date('c'),  'monthly',    '0.5');
             }
+
+            //Forums
+            $sitemap->addUrl(Route::url('forum-home'), date('c'), 'monthly',    '0.5' );
+
+            $forums =  new Model_Forum();
+            $forums = $forums->select('seoname')->find_all();
+            foreach($forums as $forum)
+            {
+                $url = Route::url('forum-list',  array('forum'=>$forum->seoname));
+                $sitemap->addUrl($url, date('c'),  'daily',    '0.7');
+            }
+
+            //all the topics
+            $posts = new Model_Post();
+            $posts = $posts->where('status','=', Model_Post::STATUS_ACTIVE)
+                    ->where('id_forum','IS NOT',NULL)
+                    ->where('id_post_parent','IS',NULL)
+                    ->order_by('created','desc')
+                    ->find_all();
+            foreach ($posts as $post) 
+            {
+                $url= Route::url('forum-topic',  array('seotitle'=>$post->seotitle,'forum'=>$post->forum->seoname));
+                $sitemap->addUrl($url, date('c'),'daily',    '0.7');
+            }
+
+
             
             try
             {

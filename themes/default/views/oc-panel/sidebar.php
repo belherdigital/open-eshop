@@ -13,6 +13,9 @@
                 <?Theme::admin_link(__('Licenses'), 'license','index','oc-panel','glyphicon glyphicon-list')?>
                 <?Theme::admin_link(__('Coupons'), 'coupon','index','oc-panel','glyphicon glyphicon-tag')?>
                 <?Theme::admin_link(__('Downloads'), 'download','index','oc-panel','glyphicon glyphicon-download-alt')?>
+                <?if (core::config('product.reviews')==1):?>
+                    <?Theme::admin_link(__('Reviews'), 'review','index','oc-panel','glyphicon glyphicon-star-empty')?>
+                <?endif?>
                 <? if($user->id_role==Model_Role::ROLE_ADMIN):?>
                     <?Theme::admin_link(__('Support Admin'), 'support','index','oc-panel','glyphicon glyphicon-question-sign','admin')?>
                     <?Theme::admin_link(__('Support Assigned'), 'support','index','oc-panel','glyphicon glyphicon-question-sign','assigned')?>
@@ -34,7 +37,7 @@
                 <? if($user->id_role==Model_Role::ROLE_ADMIN AND core::config('general.forums')==1):?>
                     <li class="divider"></li>
                     <?Theme::admin_link(__('Forums'),'forum','index','oc-panel','icon-tags')?>
-                    <?Theme::admin_link(__('Forum Topics'), 'forum','topics','oc-panel','icon-pencil')?>
+                    <?Theme::admin_link(__('Topics'), 'topic','index','oc-panel','icon-pencil')?>
                 <?endif?>
 
                 <? if($user->id_role==Model_Role::ROLE_ADMIN):?>

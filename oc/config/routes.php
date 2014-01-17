@@ -124,7 +124,7 @@ Route::set('forum-topic', 'forum/<forum>/<seotitle>.html')
 /**
  * specific forum list of topics
  */
-Route::set('forum-list', 'forum(/<forum>)')
+Route::set('forum-list', 'forum/<forum>')
 ->defaults(array(
         'controller' => 'forum',    
         'action'     => 'list',
@@ -190,6 +190,15 @@ Route::set('product-paypal', '<category>/paypal/<seotitle>.html')
 ->defaults(array(
         'controller' => 'paypal',    
         'action'     => 'pay',
+));
+
+/**
+ * product reviews
+ */
+Route::set('product-review', '<category>/reviews/<seotitle>.html')
+->defaults(array(
+        'controller' => 'product',    
+        'action'     => 'reviews',
 ));
 
 /**

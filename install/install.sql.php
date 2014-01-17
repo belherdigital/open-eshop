@@ -134,6 +134,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."products` (
   `support_days` int(10)  NOT NULL DEFAULT '0',
   `licenses` int(10)  NOT NULL DEFAULT '1',
   `license_days` int(10)  NOT NULL DEFAULT '0',
+  `rate` FLOAT( 4, 2 ) NOT NULL DEFAULT NULL,
   PRIMARY KEY (`id_product`),
   KEY `".$_POST['TABLE_PREFIX']."products_IK_id_user` (`id_user`),
   KEY `".$_POST['TABLE_PREFIX']."products_IK_id_category` (`id_category`)
@@ -261,6 +262,22 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".$_POST['TABLE_PREFIX']."forums` (
   UNIQUE KEY `".$_POST['TABLE_PREFIX']."forums_IK_seo_name` (`seoname`)
 ) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
 
+mysql_query("CREATE TABLE IF NOT EXISTS ".$_POST['TABLE_PREFIX']."reviews (
+    id_review int(10) unsigned NOT NULL AUTO_INCREMENT,
+    id_user int(10) unsigned NOT NULL,
+    id_order int(10) unsigned NOT NULL,
+    id_product int(10) unsigned NOT NULL,
+    rate int(2) unsigned NOT NULL DEFAULT '0',
+    description varchar(1000) NOT NULL,
+    created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ip_address float DEFAULT NULL,
+    status tinyint(1) NOT NULL DEFAULT '0',
+    PRIMARY KEY (id_review) USING BTREE,
+    KEY ".$_POST['TABLE_PREFIX']."reviews_IK_id_user (id_user),
+    KEY ".$_POST['TABLE_PREFIX']."reviews_IK_id_order (id_order),
+    KEY ".$_POST['TABLE_PREFIX']."reviews_IK_id_product (id_product)
+    ) ENGINE=MyISAM DEFAULT CHARSET=".$POST['DBCHARSET'].";");
+
 
 /**
  * add basic content like emails
@@ -274,7 +291,8 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."content` (`order`, `title`, 
 (0, 'New reply: [TITLE]', 'new.reply', '[URL.QL]\n\n[DESCRIPTION]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
 (0, 'Purchase Receipt for [PRODUCT.TITLE]', 'new.sale', '==== ORDER DETAILS ====\nDate: [DATE]\nOrder ID: [ORDER.ID]\nName: [USER.NAME]\nEmail: [USER.EMAIL]\n\n==== Your Order ====\nProduct: [PRODUCT.TITLE]\nProduct Price: [PRODUCT.PRICE]\n\n[PRODUCT.NOTES]\n\n==== Download ====\n[URL.DOWNLOAD]\n\n==== Your Licenses ====\n[LICENSE]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
 (0, 'Product updated [TITLE]', 'product.update', '==== UPDATE DETAILS ====\nVersion: [VERSION]\nProduct name: [TITLE]\n\n==== DOWNLOAD ====\n[URL.PURCHASES]\n\n==== PRODUCT PAGE ====\n[URL.PRODUCT]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
-(0, 'Ticket assigned to you: [TITLE]', 'assignagent', '[URL.QL]\n\n[DESCRIPTION]', '".$_POST['ADMIN_EMAIL']."', 'email', 1)
+(0, 'Ticket assigned to you: [TITLE]', 'assignagent', '[URL.QL]\n\n[DESCRIPTION]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
+(0, 'New review for [TITLE] [RATE]', 'reviewproduct', '[URL.QL]\n\n[RATE]\n\n[DESCRIPTION]', '".$_POST['ADMIN_EMAIL']."', 'email', 1)
 ");
 
 /**
@@ -336,6 +354,7 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."config` (`group_name`, `conf
 ('general', 'blog_disqus', ''),
 ('general', 'faq', '0'),
 ('general', 'faq_disqus', ''),
+('general', 'forums', '0'),
 ('general', 'minify', 0),
 ('image', 'allowed_formats', 'jpeg,jpg,png,'),
 ('image', 'max_image_size', '5'),
@@ -347,12 +366,15 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."config` (`group_name`, `conf
 ('image', 'watermark', '0'),
 ('image', 'watermark_path', ''),
 ('image', 'watermark_position', '0'),
-('product', 'formats', 'txt,doc,docx,pdf,tif,tiff,gif,psd,raw,wav,aif,mp3,rm,ram,wma,ogg,avi,wmv,mov,mp4,jpeg,jpg,png,zip,7z,7zip,rar,rar5,gzip,'),
+('product', 'formats', 'txt,doc,docx,pdf,tif,tiff,gif,psd,raw,wav,aif,mp3,rm,ram,wma,ogg,avi,wmv,mov,mp4,mkv,jpeg,jpg,png,zip,7z,7zip,rar,rar5,gzip,'),
 ('product', 'max_size', '5'),
 ('product', 'num_images', '5'),
 ('product', 'products_in_home', '0'),
 ('product', 'disqus', ''),
 ('product', 'related', '5'),
+('product', 'reviews', '0'),
+('product', 'demo_theme', 'yeti'),
+('product', 'demo_resize', '1'),
 ('email', 'notify_email', '".$_POST['ADMIN_EMAIL']."'),
 ('email', 'smtp_active', 0),
 ('email', 'new_sale_notify', 0),

@@ -25,7 +25,13 @@
 <?endif?>
 
 <?if (!empty($product->url_demo)):?>
-    <a class="btn btn-warning btn-small pull-right" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" ><?=__('Demo')?></a>
+    <a class="btn btn-warning btn-small pull-right" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" >
+        <?=__('Demo')?></a>
+<?endif?>
+
+<?if ($product->rate!==NULL):?>
+    <a class="btn btn-success btn-small pull-right" href="<?=Route::url('product-review', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" >
+        <?=round($product->rate,1)?>/<?=Model_Review::RATE_MAX?></a>
 <?endif?>
 
 <div class="button-space">
@@ -37,7 +43,6 @@
     <?=StripeKO::button($product)?>
     <?=Paymill::button($product)?>
 <?else:?>
-
     <?if (!Auth::instance()->logged_in()):?>
     <a class="btn btn-info btn-large" data-toggle="modal" data-dismiss="modal" 
         href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'register'))?>#register-modal">
@@ -51,7 +56,6 @@
             <?=__('Get it for Free')?>
         <?endif?>
     </a>
-
 <?endif?>
 </div>
     

@@ -23,7 +23,7 @@ class Controller_Blog extends Controller {
         $this->template->meta_description = __('Blog');
         
         $posts = new Model_Post();
-        $posts->where('status','=', 1)->where('id_forum','IS',NULL);
+        $posts->where('status','=', Model_Post::STATUS_ACTIVE)->where('id_forum','IS',NULL);
 
         $res_count = $posts->count_all();
         // check if there are some post
@@ -73,7 +73,7 @@ class Controller_Blog extends Controller {
     {
         
             $post = new Model_Post();
-            $post->where('status','=',1)
+            $post->where('status','=',Model_Post::STATUS_ACTIVE)
                 ->where('seotitle','=',$seotitle)
                 ->where('id_forum','IS',NULL)
                 ->cached()->limit(1)->find();
@@ -86,13 +86,13 @@ class Controller_Blog extends Controller {
                 $this->template->meta_description = $post->description;
 
                 $previous = new Model_Post();
-                $previous = $previous->where('status','=',1)
+                $previous = $previous->where('status','=',Model_Post::STATUS_ACTIVE)
                             ->where('id_forum','IS',NULL)
                             ->order_by('created','desc')
                             ->where('id_post', '<', $post->id_post)
                             ->limit(1)->find();  
                 $next = new Model_Post();
-                $next = $next->where('status','=',1)
+                $next = $next->where('status','=',Model_Post::STATUS_ACTIVE)
                             ->where('id_forum','IS',NULL)
                             ->where('id_post', '>', $post->id_post)
                             ->limit(1)->find();

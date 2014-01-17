@@ -27,7 +27,7 @@ Please read CONTRIBUTING.md
 * jsmin-php https://github.com/rgrove/jsmin-php/
 * Minify https://github.com/mrclay/minify
 * Mobile Detect https://github.com/serbanghita/Mobile-Detect
-* Twitter Bootstrap http://twitter.github.com/bootstrap/
+* Bootstrap http://getbootstrap.com/
 * Bootswatch http://bootswatch.com/
 * Chosen https://github.com/harvesthq/chosen
 * SCEditor https://github.com/samclarke/SCEditor
@@ -35,3 +35,5 @@ Please read CONTRIBUTING.md
 * jQuery Sortable http://johnny.github.io/jquery-sortable/
 * Bootstrap Image Gallery https://github.com/blueimp/Bootstrap-Image-Gallery
 * Hybrid Auth http://hybridauth.sourceforge.net/
+* Switcheroo https://github.com/OriginalEXE/Switcheroo
+* Raty https://github.com/wbotelhos/raty
