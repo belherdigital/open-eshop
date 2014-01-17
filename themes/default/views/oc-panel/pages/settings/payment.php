@@ -16,12 +16,12 @@
 					<?$forms[$c->config_key] = array('key'=>$c->config_key, 'value'=>$c->config_value)?>
 				<?endforeach?>
 
-                <div class="control-group">
-                    <?= FORM::label($forms['paypal_account']['key'], __('Paypal account'), array('class'=>'control-label', 'for'=>$forms['paypal_account']['key']))?>
-                    <div class="controls">
+                <div class="form-group">
+                    <?= FORM::label($forms['paypal_account']['key'], __('Paypal account'), array('class'=>'col-md-3 control-label', 'for'=>$forms['paypal_account']['key']))?>
+                    <div class="col-md-5">
                         <?= FORM::input($forms['paypal_account']['key'], $forms['paypal_account']['value'], array(
                         'placeholder' => "some@email.com", 
-                        'class' => 'tips', 
+                        'class' => 'tips form-control', 
                         'id' => $forms['paypal_account']['key'],
                         'data-content'=> __("Paypal mail address"),
                         'data-trigger'=>"hover",
@@ -32,12 +32,12 @@
                         </div>
                 </div>
 
-				<div class="control-group">
-					<?= FORM::label($forms['sandbox']['key'], __('Sandbox'), array('class'=>'control-label', 'for'=>$forms['sandbox']['key']))?>
-					<div class="controls">
+				<div class="form-group">
+					<?= FORM::label($forms['sandbox']['key'], __('Sandbox'), array('class'=>'col-md-3 control-label', 'for'=>$forms['sandbox']['key']))?>
+					<div class="col-md-5">
 						<?= FORM::select($forms['sandbox']['key'], array(FALSE=>"FALSE",TRUE=>"TRUE"),$forms['sandbox']['value'], array(
 						'placeholder' => "TRUE or FALSE", 
-						'class' => 'tipsti', 
+						'class' => 'tips form-control', 
 						'id' => $forms['sandbox']['key'],
 						'data-content'=> '',
 						'data-trigger'=>"hover",
@@ -47,11 +47,11 @@
 						))?> 
 					</div>
 				</div>
-                 <div class="control-group">
-                <?= FORM::label($forms['thanks_page']['key'], __('Thanks page'), array('class'=>'control-label', 'for'=>$forms['thanks_page']['key']))?>
-                <div class="controls">
+                 <div class="form-group">
+                <?= FORM::label($forms['thanks_page']['key'], __('Thanks page'), array('class'=>'col-md-3 control-label', 'for'=>$forms['thanks_page']['key']))?>
+                <div class="col-md-5">
                     <?= FORM::select($forms['thanks_page']['key'], $pages, $forms['thanks_page']['value'], array( 
-                    'class' => 'tips', 
+                    'class' => 'tips form-control', 
                     'id' => $forms['thanks_page']['key'], 
                     'data-content'=> __("Select which page you want to redirect the user after a successful payment, be sure to mention to check their paypal account for an email."),
                     'data-trigger'=>"hover",
@@ -61,11 +61,11 @@
                     ))?> 
                 </div>
                 </div>
-                <div class="control-group">
-                    <?= FORM::label($forms['alternative']['key'], __('Alternative Payment'), array('class'=>'control-label', 'for'=>$forms['alternative']['key']))?>
-                    <div class="controls">
+                <div class="form-group">
+                    <?= FORM::label($forms['alternative']['key'], __('Alternative Payment'), array('class'=>'col-md-3 control-label', 'for'=>$forms['alternative']['key']))?>
+                    <div class="col-md-5">
                         <?= FORM::select($forms['alternative']['key'], $pages, $forms['alternative']['value'], array( 
-                        'class' => 'tips', 
+                        'class' => 'tips form-control', 
                         'id' => $forms['alternative']['key'], 
                         'data-content'=> __("A button with the page title appears next to other pay button, onclick model opens with description."),
                         'data-trigger'=>"hover",
@@ -76,22 +76,20 @@
                     </div>
                 </div>
 
-                <div class="control-group">
-                    <div class="controls">
-                    <label>
+                <div class="form-group">
+                    <label class="col-md-5 col-md-offset-3">
                         <p>To get paid via Credit card you need a Paymill account. It's free to register. They charge 2'95% of any sale.</p>
                         <a class="btn btn-success" target="_blank" href="https://app.paymill.com/en-en/auth/register?referrer=openclassifieds">
-                            <i class="glyphicon glyphicon-pencil?v=2.1.2"></i> Register for free at Paymill</a>
+                            <i class="glyphicon glyphicon-pencil"></i> Register for free at Paymill</a>
                     </label>
-                    </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     
-                    <?= FORM::label($forms['paymill_private']['key'], __('Paymill private key'), array('class'=>'control-label', 'for'=>$forms['paymill_private']['key']))?>
-                    <div class="controls">
+                    <?= FORM::label($forms['paymill_private']['key'], __('Paymill private key'), array('class'=>'col-md-3 control-label', 'for'=>$forms['paymill_private']['key']))?>
+                    <div class="col-md-5">
                         <?= FORM::input($forms['paymill_private']['key'], $forms['paymill_private']['value'], array(
                         'placeholder' => "", 
-                        'class' => 'tips', 
+                        'class' => 'tips form-control', 
                         'id' => $forms['paymill_private']['key'],
                         'data-content'=> __("Paymill private key"),
                         'data-trigger'=>"hover",
@@ -102,12 +100,12 @@
                         </div>
                 </div>
 
-                <div class="control-group">
-                    <?= FORM::label($forms['paymill_public']['key'], __('Paymill public key'), array('class'=>'control-label', 'for'=>$forms['paymill_public']['key']))?>
-                    <div class="controls">
+                <div class="form-group">
+                    <?= FORM::label($forms['paymill_public']['key'], __('Paymill public key'), array('class'=>'col-md-3 control-label', 'for'=>$forms['paymill_public']['key']))?>
+                    <div class="col-md-5">
                         <?= FORM::input($forms['paymill_public']['key'], $forms['paymill_public']['value'], array(
                         'placeholder' => "", 
-                        'class' => 'tips', 
+                        'class' => 'tips form-control', 
                         'id' => $forms['paymill_public']['key'],
                         'data-content'=> __("Paymill public key"),
                         'data-trigger'=>"hover",
@@ -118,22 +116,20 @@
                         </div>
                 </div>
 
-                <div class="control-group">
-                    <div class="controls">
-                    <label>
+                <div class="form-group">
+                    <label class="col-md-5 col-md-offset-3">
                         <p>To get paid via Credit card you can also use a Stripe account. It's free to register. They charge 2'95% of any sale.</p>
                         <a class="btn btn-success" target="_blank" href="https://stripe.com">
-                            <i class="glyphicon glyphicon-pencil?v=2.1.2"></i> Register for free at Stripe</a>
+                            <i class="glyphicon glyphicon-pencil"></i> Register for free at Stripe</a>
                     </label>
-                    </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     
-                    <?= FORM::label($forms['stripe_private']['key'], __('Stripe private key'), array('class'=>'control-label', 'for'=>$forms['stripe_private']['key']))?>
-                    <div class="controls">
+                    <?= FORM::label($forms['stripe_private']['key'], __('Stripe private key'), array('class'=>'col-md-3 control-label', 'for'=>$forms['stripe_private']['key']))?>
+                    <div class="col-md-5">
                         <?= FORM::input($forms['stripe_private']['key'], $forms['stripe_private']['value'], array(
                         'placeholder' => "", 
-                        'class' => 'tips', 
+                        'class' => 'tips form-control', 
                         'id' => $forms['stripe_private']['key'],
                         'data-content'=> __("Stripe private key"),
                         'data-trigger'=>"hover",
@@ -144,12 +140,12 @@
                         </div>
                 </div>
 
-                <div class="control-group">
-                    <?= FORM::label($forms['stripe_public']['key'], __('Stripe public key'), array('class'=>'control-label', 'for'=>$forms['stripe_public']['key']))?>
-                    <div class="controls">
+                <div class="form-group">
+                    <?= FORM::label($forms['stripe_public']['key'], __('Stripe public key'), array('class'=>'col-md-3 control-label', 'for'=>$forms['stripe_public']['key']))?>
+                    <div class="col-md-5">
                         <?= FORM::input($forms['stripe_public']['key'], $forms['stripe_public']['value'], array(
                         'placeholder' => "", 
-                        'class' => 'tips', 
+                        'class' => 'tips form-control', 
                         'id' => $forms['stripe_public']['key'],
                         'data-content'=> __("Stripe public key"),
                         'data-trigger'=>"hover",
@@ -160,12 +156,12 @@
                         </div>
                 </div>
 
-                <div class="control-group">
-                    <?= FORM::label($forms['stripe_address']['key'], __('Requires address to pay for extra security'), array('class'=>'control-label', 'for'=>$forms['stripe_address']['key']))?>
-                    <div class="controls">
+                <div class="form-group">
+                    <?= FORM::label($forms['stripe_address']['key'], __('Requires address to pay for extra security'), array('class'=>'col-md-3 control-label', 'for'=>$forms['stripe_address']['key']))?>
+                    <div class="col-md-5">
                         <?= FORM::select($forms['stripe_address']['key'], array(FALSE=>"FALSE",TRUE=>"TRUE"),$forms['stripe_address']['value'], array(
                         'placeholder' => "TRUE or FALSE", 
-                        'class' => 'tipsti', 
+                        'class' => 'tips form-control', 
                         'id' => $forms['stripe_address']['key'],
                         'data-content'=> '',
                         'data-trigger'=>"hover",
@@ -178,7 +174,7 @@
 
                
 				<div class="form-actions">
-					<?= FORM::button('submit', 'Update', array('type'=>'submit', 'class'=>'btn-small btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'settings', 'action'=>'payment'))))?>
+					<?= FORM::button('submit', 'Update', array('type'=>'submit', 'class'=>'btn btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'settings', 'action'=>'payment'))))?>
 				</div>
 			</fieldset>	
 	</div><!--end col-md-10-->

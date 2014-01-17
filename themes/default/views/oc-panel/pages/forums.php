@@ -13,12 +13,12 @@
         
         <a data-text="<?=__('Are you sure you want to delete? We will move the siblings forums and ads to the parent of this forum.')?>" 
            data-id="li_<?=$key?>" 
-           class="btn btn-mini btn-danger index-delete pull-right"  
+           class="btn btn-xs btn-danger index-delete pull-right"  
            href="<?=Route::url('oc-panel', array('controller'=> 'forum', 'action'=>'delete','id'=>$key))?>">
                     <i class="icon-trash icon-white"></i>
         </a>
 
-        <a class="btn btn-mini btn-primary pull-right" 
+        <a class="btn btn-xs btn-primary pull-right" 
             href="<?=Route::url('oc-panel',array('controller'=>'forum','action'=>'update','id'=>$key))?>">
             <?=__('Edit')?>
         </a>

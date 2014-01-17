@@ -11,20 +11,20 @@
             </button>
             
             <a class="navbar-brand" href="<?=Route::url('oc-panel',array('controller'=>'home'))?>"><i class="glyphicon glyphglyphicon glyphicon-th-large"></i> <?=__('Panel')?></a>
-            <div class="btn-group pull-right ml-20">
+            <div class="btn-group pull-right">
                 <?=View::factory('oc-panel/widget_login')?>
             </div>
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <?=Theme::admin_link(__('Market'), 'market','index','oc-panel','glyphicon glyphicon-gift?v=2.1.2')?>
-                    <?=Theme::admin_link(__('Support'), 'support','index','oc-panel','glyphicon glyphicon-comment?v=2.1.2')?>
-                	<?=Theme::admin_link(__('Stats'),'stats','index','oc-panel','glyphicon glyphicon-align-left?v=2.1.2')?>
-                    <?=Theme::admin_link(__('Widgets'),'widget','index','oc-panel','glyphicon glyphicon-move?v=2.1.2')?>
-                    <?=Theme::admin_link(__('Cache'),'tools','cache','oc-panel','glyphicon glyphicon-cog?v=2.1.2')?>
+                    <?=Theme::admin_link(__('Market'), 'market','index','oc-panel','glyphicon glyphicon-gift')?>
+                    <?=Theme::admin_link(__('Support'), 'support','index','oc-panel','glyphicon glyphicon-comment')?>
+                	<?=Theme::admin_link(__('Stats'),'stats','index','oc-panel','glyphicon glyphicon-align-left')?>
+                    <?=Theme::admin_link(__('Widgets'),'widget','index','oc-panel','glyphicon glyphicon-move')?>
+                    <?=Theme::admin_link(__('Cache'),'tools','cache','oc-panel','glyphicon glyphicon-cog')?>
                     <? if(Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN):?>
             	    <li  class="dropdown "><a href="#" class="dropdown-toggle"
-            		      data-toggle="dropdown"><i class="glyphicon glyphicon-plus?v=2.1.2"></i> <?=__('New')?> <b class="caret"></b></a>
+            		      data-toggle="dropdown"><i class="glyphicon glyphicon-plus"></i> <?=__('New')?> <b class="caret"></b></a>
                     	<ul class="dropdown-menu">
                             
                             <?=Theme::admin_link(__('Product'),'product','create')?>
@@ -43,7 +43,7 @@
                     <ul class="nav">
                         <li>
                             <a href="<?=Route::url('default')?>">
-                                    <i class="glyphicon glyphicon-home?v=2.1.2"></i>
+                                    <i class="glyphicon glyphicon-home"></i>
                                 <?=_('Visit Site')?>
                             </a>
                         </li>

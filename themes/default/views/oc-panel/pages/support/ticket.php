@@ -18,6 +18,7 @@
                     'data-trigger'=>"hover",
                     'data-placement'=>"right",
                     'data-toggle'=>"popover",
+                    'class'=>'form-control',
                     ))?> 
                 <button type="submit" class="btn btn-info"><?=__('Assign')?></button>
             </form>
@@ -45,14 +46,14 @@
 
     <div class="row">
         <div class="col-md-2">
-            <img src="<?=$ticket->user->get_profile_image()?>">
+            <img class="ticket_image" src="<?=$ticket->user->get_profile_image()?>">
             <p>
                 <?=$ticket->user->name?><br>
                 <?=Date::fuzzy_span(Date::mysql2unix($ticket->created))?><br>
                 <?=$ticket->created?>
             </p>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-10 col-sm-10 col-xs-10">
             <p><?=Text::bb2html($ticket->description,TRUE)?></p>
         </div>
     </div>
@@ -60,14 +61,14 @@
     <?foreach ($replies as $reply):?>
     <div class="row <?=($ticket->id_user!==$reply->id_user)?'well':''?>" >
         <div class="col-md-2">
-            <img src="<?=$reply->user->get_profile_image()?>">
+            <img class="ticket_image" src="<?=$reply->user->get_profile_image()?>">
             <p>
                 <?=$reply->user->name?><br>
                 <?=Date::fuzzy_span(Date::mysql2unix($reply->created))?><br>
                 <?=$reply->created?>
             </p>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-9">
             <p><?=Text::bb2html($reply->description,TRUE)?></p>
         </div>
     </div>
@@ -85,16 +86,16 @@
         <?php endif ?>       
 
 
-      <div class="control-group">
-        <label class="control-label"><?=__("Reply")?>:</label>
-        <div class="controls">
-        <textarea name="description" rows="10" class="col-md-6" required><?=core::post('description',__('Description'))?></textarea>
+      <div class="form-group">
+        <label class="col-md-2"><?=__("Reply")?>:</label>
+        <div class="col-md-9 col-sm-9 col-xs-12">
+        <textarea name="description" rows="10" class="form-control" required><?=core::post('description',__('Description'))?></textarea>
         </div>
       </div>
 
                 
       <div class="form-actions">
-      	<a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'index'))?>" class="btn"><?=__('Cancel')?></a>
+      	<a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'index'))?>" class="btn btn-default"><?=__('Cancel')?></a>
         <button type="submit" class="btn btn-primary"><?=__('Reply')?></button>
       </div>
 	</form>  

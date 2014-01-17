@@ -106,6 +106,7 @@ class Auth_Controller extends Controller
                                                 // 'http://cdn.jsdelivr.net/bootstrap/3.0.3/css/bootstrap-responsive.min.css' => 'screen',
                                                 'http://cdn.jsdelivr.net/chosen/0.9.12/chosen.css' => 'screen', 
                                                 'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
+                                                'css/admin-styles.css' => 'screen',
                                                 );
             }
         
@@ -117,6 +118,7 @@ class Auth_Controller extends Controller
                                                       'js/oc-panel/theme.init.js?v=12',
                                                       'js/jquery.sceditor.min.js?v=144',
                                                       'js/jquery.validate.min.js',
+                                                      'js/oc-panel/sidebar.js',
                                                       'js/form.js',
                                                       );
 		}

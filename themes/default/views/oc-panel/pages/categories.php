@@ -14,12 +14,12 @@
         
         <a data-text="<?=__('Are you sure you want to delete? We will move the siblings categories and ads to the parent of this category.')?>" 
            data-id="li_<?=$key?>" 
-           class="btn btn-mini btn-danger index-delete pull-right"  
+           class="btn btn-xs btn-danger pull-right"  
            href="<?=Route::url('oc-panel', array('controller'=> 'category', 'action'=>'delete','id'=>$key))?>">
-                    <i class="glyphicon glyphicon-trash?v=2.1.2"></i>
+                    <i class="glyphicon glyphicon-trash"></i>
         </a>
 
-        <a class="btn btn-mini btn-primary pull-right" 
+        <a class="btn btn-xs btn-primary pull-right" 
             href="<?=Route::url('oc-panel',array('controller'=>'category','action'=>'update','id'=>$key))?>">
             <?=__('Edit')?>
         </a>

@@ -6,13 +6,13 @@
 	<?endif?>
 	<?if ($controller->allowed_crud_action('create')):?>
 	<a class="btn btn-primary pull-right" href="<?=Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'create')) ?>">
-		<i class="glyphicon glyphicon-pencil?v=2.1.2"></i>
+		<i class="glyphicon glyphicon-pencil"></i>
 		<?=__('New')?>
 	</a>				
 	<?endif?>
 </div>
-
-<table class="table table-striped table-bordered">
+<div class="table-responsive">
+<table class="table table-hover">
 	<thead>
 		<tr>
 			<?foreach($fields as $field):?>
@@ -43,17 +43,17 @@
 				<td width="80px">
 					<?if ($controller->allowed_crud_action('update')):?>
 					<a title="<?=__('Edit')?>" class="btn btn-primary" href="<?=Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'update','id'=>$element->pk()))?>">
-						<i class="glyphicon glyphicon-edit?v=2.1.2"></i>
+						<i class="glyphicon glyphicon-edit"></i>
 					</a>
 					<?endif?>
 					<?if ($controller->allowed_crud_action('delete')):?>
 					<a data-text="<?=__('Are you sure you want to delete?')?>" 
 						data-id="tr<?=$element->pk()?>" class="btn btn-danger index-delete" title="<?=__('Delete')?>" href="<?=Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'delete','id'=>$element->pk()))?>">
-						<i class="glyphicon glyphicon-trash?v=2.1.2"></i>
+						<i class="glyphicon glyphicon-trash"></i>
 					</a>
 					<?endif?>
-                    <a class="btn btn-inverse" href="<?=Route::url('oc-panel', array('id'=>$element->seotitle,'controller'=>'stats','action'=>'index')) ?>">
-                        <i class="glyphicon glyphicon-align-left?v=2.1.2"></i>
+                    <a class="btn btn-default" href="<?=Route::url('oc-panel', array('id'=>$element->seotitle,'controller'=>'stats','action'=>'index')) ?>">
+                        <i class="glyphicon glyphicon-align-left"></i>
                     </a>
 				</td>
 				<?endif?>
@@ -61,5 +61,6 @@
 		<?endforeach?>
 	</tbody>
 </table>
+</div>
 
 <?=$pagination?>

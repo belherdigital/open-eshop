@@ -13,37 +13,37 @@
           <?=Form::errors()?>        
     
 
-        <div class="control-group">
-        <label class="control-label"><?=__('From')?>:</label>
-        <div class="controls">
-        <input  type="text" name="from" value="<?=Auth::instance()->get_user()->name?>" class="col-md-6"  />
+        <div class="form-group">
+        <label class="col-md-2"><?=__('From')?>:</label>
+        <div class="col-md-5">
+        <input  type="text" name="from" value="<?=Auth::instance()->get_user()->name?>" class="col-md-6 form-control"  />
         </div>
       </div>
 
-      <div class="control-group">
-        <label class="control-label"><?=__('From Email')?>:</label>
-        <div class="controls">
-        <input  type="text" name="from_email" value="<?=Auth::instance()->get_user()->email?>" class="col-md-6"  />
+      <div class="form-group">
+        <label class="col-md-2"><?=__('From Email')?>:</label>
+        <div class="col-md-5">
+        <input  type="text" name="from_email" value="<?=Auth::instance()->get_user()->email?>" class="col-md-6 form-control"  />
         </div>
       </div>
 
-      <div class="control-group">
-        <label class="control-label"><?=__('Subject')?>:</label>
-        <div class="controls">
-        <input  type="text" name="subject" value="" class="col-md-6"  />
+      <div class="form-group">
+        <label class="col-md-2"><?=__('Subject')?>:</label>
+        <div class="col-md-5">
+        <input  type="text" name="subject" value="" class="col-md-6 form-control"  />
         </div>
       </div>
 
-      <div class="control-group">
-        <label class="control-label"><?=__('Message')?>:</label>
-        <div class="controls">
-        <textarea  name="description"  id="formorm_description" class="col-md-6" rows="15" ></textarea>
+      <div class="form-group">
+        <label class="col-md-2"><?=__('Message')?>:</label>
+        <div class="col-md-9">
+        <textarea  name="description"  id="formorm_description" class="col-md-10 col-sm-10 col-xs-12 form-control" rows="15" ></textarea>
         </div>
       </div>
           
           
       <div class="form-actions">
-        <a href="<?=Route::url('oc-panel')?>" class="btn"><?=__('Cancel')?></a>
+        <a href="<?=Route::url('oc-panel')?>" class="btn btn-default"><?=__('Cancel')?></a>
         <button type="submit" class="btn btn-primary"><?=__('Send')?></button>
       </div>
     </form>    

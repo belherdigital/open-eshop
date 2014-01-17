@@ -6,8 +6,8 @@
     
 </div>
 
-
-<table class="table table-striped">
+<div class="table-responsive">
+    <table class="table table-striped">
     <thead>
          <tr>
             <th>#</th>
@@ -54,13 +54,32 @@
                         <td><?=$license->created?></td>
                         <td><?=($license->status==Model_License::STATUS_NOACTIVE)?__('Inactive'):$license->domain?></td>
                     <tr>
-                    <?endif?>
-                <?endforeach?>
-                </table>
-            </td>
-        </tr>
-        <?endif?>
-        <?endforeach?>
-    </tbody>
 
-</table>
+                    <?endif?>
+                </td>
+            </tr>
+            <?if ($order->licenses->count_all()>0):?>
+            <tr>
+                <td colspan="5">
+                    <table class="table table-striped">
+                        <th><?=__('License')?></th>
+                        <th><?=__('Created')?></th>
+                        <th><?=__('Domain')?></th>
+                    <?foreach ($licenses as $license):?>
+                        <?if($license->id_order == $order->id_order):?>
+                        <tr>
+                            <td><?=$license->license?></td>
+                            <td><?=$license->created?></td>
+                            <td><?=($license->status==Model_License::STATUS_NOACTIVE)?__('Inactive'):$license->domain?></td>
+                        <tr>
+                        <?endif?>
+                    <?endforeach?>
+                    </table>
+                </td>
+            </tr>
+            <?endif?>
+            <?endforeach?>
+        </tbody>
+
+    </table>
+</div>

@@ -55,8 +55,8 @@ for ($i = $n7; $i <= $n8; $i++)
 }
 
 ?>
-<div class="pagination">
-  <ul>
+
+  <ul class="pagination">
 		<li <?=(!$first_page)?'class="active"':''?>>
 			<a title="<?=__('First')?> <?=$page->title()?>" href="<?=HTML::chars($page->url($first_page))?>" rel="first"><i class="icon-step-backward"></i></a>
 		</li>
@@ -80,4 +80,3 @@ for ($i = $n7; $i <= $n8; $i++)
 		</li>
 
   </ul>
-</div><!-- .pagination -->

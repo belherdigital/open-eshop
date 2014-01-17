@@ -43,6 +43,11 @@ $(function (){
         else
             $('#from_email').parent().parent().css('display','none');
     });
+
+    $('input').each(function(){
+        if(!$('input').hasClass('form-control') && 
+        $('input').attr('type') != 'checkbox') {$('input').addClass('form-control');}
+    });
 });
 
 _debounce = function(func, wait, immediate) {
