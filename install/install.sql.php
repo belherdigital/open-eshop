@@ -373,6 +373,8 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."config` (`group_name`, `conf
 ('product', 'disqus', ''),
 ('product', 'related', '5'),
 ('product', 'reviews', '0'),
+('product', 'demo_theme', 'yeti'),
+('product', 'demo_resize', '1'),
 ('email', 'notify_email', '".$_POST['ADMIN_EMAIL']."'),
 ('email', 'smtp_active', 0),
 ('email', 'new_sale_notify', 0),

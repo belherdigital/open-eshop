@@ -22,7 +22,8 @@
     <?endif?>     
     
     <!-- Bootstrap core CSS -->
-    <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.3/cyborg/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.3/<?=core::config('product.demo_theme')?>/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -32,7 +33,6 @@
 
     <style type="text/css">
         iframe{
-            position: absolute; 
             background: transparent; 
             width: 100%; 
             height:100%; 
@@ -41,9 +41,12 @@
             z-index: 1;
             display:block;
             border:none;
+            margin:0 auto;
+            max-width:100%;
         }
-        .btn-header-group{padding-top: 12px;}
-        
+        .btn-header-group{padding-top: 5px;}
+        body{background-color: grey}
+        .switcher-bar{height:50px !important;}
     </style>
 
     <link rel="shortcut icon" href="<?=Theme::public_path('img/favicon.ico')?>">
@@ -68,7 +71,7 @@
   <body>
 
     <!-- Fixed navbar -->
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-default navbar-fixed-top switcher-bar" role="navigation">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only"><?=__('Toggle Navigation')?></span>
@@ -115,19 +118,25 @@
           </ul>
 
           <div class="btn-group navbar-right btn-header-group">
-
-                <a class="btn btn-success btn-sm" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
-                    <span class="glyphicon glyphicon-shopping-cart"></span>
-                <?if ($product->final_price()>0):?>
-                    <?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?>
-                <?elseif(!empty($product->file_name)):?>
-                    <?=__('Free Download')?>
-                <?else:?>
-                    <?=__('Get it for Free')?>
+                <?if (core::config('product.demo_resize')==TRUE):?>
+                <a class="btn btn-default btn-sm mobile-btn" title="Mobile" href="#">
+                    <span class="fa fa-mobile fa-2x"></span> 
+                </a>
+                <a class="btn btn-default btn-sm tablet-btn" title="Tablet" href="#">
+                    <span class="fa fa-tablet fa-2x"></span> 
+                </a>
+                <a class="btn btn-default btn-sm desktop-btn" title="Desktop full width" href="#">
+                    <span class="fa fa-desktop fa-2x"></span> 
+                </a>
                 <?endif?>
+                <a class="btn btn-success btn-sm" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"
+                    title="<?if ($product->final_price()>0):?>
+                    <?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?>
+                    <?elseif(!empty($product->file_name)):?><?else:?><?=__('Get it for Free')?><?endif?>">
+                    <span class="fa fa-shopping-cart fa-2x"></span>
                 </a> 
-                <a class="btn btn-default btn-sm" title="<?=__('Full screen demo')?>" href="<?=$product->url_demo?><?=(count($skins)>0)?'&skin='.$skin:''?>">
-                    <span class="glyphicon glyphicon-fullscreen"></span> 
+                <a class="btn btn-default btn-sm" title="<?=__('Full screen demo, removes the bar')?>" href="<?=$product->url_demo?><?=(count($skins)>0)?'&skin='.$skin:''?>">
+                    <span class="fa fa-times fa-2x"></span> 
                 </a>
             </div>
 
@@ -138,9 +147,44 @@
 
 
 
-    <iframe frameborder="0" noresize="noresize" src="<?=$product->url_demo?><?=(count($skins)>0)?'&skin='.$skin:''?>" ></iframe>
+    <iframe id="product-iframe" frameborder="0" noresize="noresize" src="<?=$product->url_demo?><?=(count($skins)>0)?'&skin='.$skin:''?>" ></iframe>
 
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="/themes/default/js/demo.js"></script>
+    <script type="text/javascript">
+        /* Modified from
+         * Switcheroo by OriginalEXE
+         * https://github.com/OriginalEXE/Switcheroo
+         * MIT licenced
+         */
+        $productIframe = $( '#product-iframe' );
+
+        // Let's calculate iframe height
+        function switcher_iframe_height() {
+                var $w_height = $( window ).height(),$b_height = $( '.switcher-bar' ).height(),
+                $i_height = $w_height - $b_height - 2;
+                $productIframe.height($i_height);
+        }
+
+        $( document ).ready(switcher_iframe_height);
+
+        // Switching views
+        $( '.desktop-btn' ).on( 'click', function() {
+            $productIframe.animate({'width'       : $( window ).width(), });
+            switcher_iframe_height();
+            return false;
+        });
+
+        $( '.tablet-btn' ).on( 'click', function() {
+            $productIframe.animate({'width'  : '800px','height' : '480px'});
+            return false;
+        });
+
+        $( '.mobile-btn' ).on( 'click', function() {
+            $productIframe.animate({'width'  : '480px','height' : '800px' });
+            return false;
+        });
+    </script>
   </body>
 </html>

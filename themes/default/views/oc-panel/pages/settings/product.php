@@ -132,6 +132,49 @@
                 'data-original-title'=>__("Product Reviews"),
                 ))?> 
             </div>
+
+            <div class="control-group">
+                <?= FORM::label($forms['demo_theme']['key'], __('Demo Bar Theme'), array('class'=>'control-label', 'for'=>$forms['demo_theme']['key']))?>
+                <div class="controls">
+                    <?= FORM::select($forms['demo_theme']['key'], array( 'amelia'    => 'Amelia',
+                                                            'cerulean'  => 'Cerulean',
+                                                            'cosmo'     => 'Cosmo',
+                                                            'cyborg'    => 'Cyborg',
+                                                            'journal'   => 'Journal',
+                                                            'flatly'    => 'Flatly',
+                                                            'readable'  => 'Readable',
+                                                            'simplex'   => 'Simplex',
+                                                            'slate'     => 'Slate',
+                                                            'spacelab'  => 'Space Lab',
+                                                            'united'    => 'United',
+                                                            'yeti'      => 'Yeti',
+                                                                ),  $forms['demo_theme']['value'], array(
+                    'placeholder' => $forms['demo_theme']['value'], 
+                    'class' => 'tips ', 
+                    'id' => $forms['demo_theme']['key'],
+                    'data-content'=> __("You can choose what theme to use in the demo bar."),
+                    'data-trigger'=>"hover",
+                    'data-placement'=>"right",
+                    'data-toggle'=>"popover",
+                    'data-original-title'=>__("Demo Bar Theme"), 
+                    ))?> 
+                </div>
+            </div>
+            <div class="control-group">
+            <?= FORM::label($forms['demo_resize']['key'], __("Demo resize buttons"), array('class'=>'control-label', 'for'=>$forms['demo_resize']['key']))?>
+            <div class="controls">
+                <?= FORM::select($forms['demo_resize']['key'], array(FALSE=>'FALSE',TRUE=>'TRUE'), $forms['demo_resize']['value'], array(
+                'placeholder' => "TRUE or FALSE", 
+                'class' => 'tips', 
+                'id' => $forms['demo_resize']['key'], 
+                'data-content'=> __("Enables buttons to resize the demo"),
+                'data-trigger'=>"hover",
+                'data-placement'=>"right",
+                'data-toggle'=>"popover",
+                'data-original-title'=>__("Demo resize"),
+                ))?> 
+            </div>
+
         </div>
 			<div class="form-actions">
 				<?= FORM::button('submit', 'Update', array('type'=>'submit', 'class'=>'btn-small btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'settings', 'action'=>'product'))))?>

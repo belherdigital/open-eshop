@@ -142,6 +142,12 @@ class Controller_Panel_Update extends Auth_Controller {
                          array('config_key'     =>'reviews',
                                'group_name'     =>'product', 
                                'config_value'   =>'0'), 
+                         array('config_key'     =>'demo_theme',
+                               'group_name'     =>'product', 
+                               'config_value'   =>'yeti'),
+                        array('config_key'     =>'demo_resize',
+                               'group_name'     =>'product', 
+                               'config_value'   =>'1'), 
                         );
         
 
