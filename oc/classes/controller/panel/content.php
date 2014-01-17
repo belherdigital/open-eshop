@@ -165,7 +165,8 @@ class Controller_Panel_Content extends Auth_Controller {
                 }
                 // if status is not checked, it is not set as POST response
                 $content->status = (isset($p['status']))?1:0;
-                $content->seotitle = $content->gen_seotitle($this->request->post('title'));
+                if ($type!='email')//email we do not update the seoname if not wont find the email to be sent :S
+                    $content->seotitle = $content->gen_seotitle($this->request->post('title'));
 
                 try 
                 {
