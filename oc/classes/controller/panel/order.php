@@ -81,7 +81,11 @@ class Controller_Panel_Order extends Auth_Crud {
             if($product->loaded())
             {
                 $user = Model_User::create_email(core::post('email'),core::post('name'));
-                Model_Order::sale(NULL,$user,$product,NULL,core::post('paymethod'),core::post('pay_date'),core::post('amount'),core::post('currency'));
+                $order = Model_Order::sale(NULL,$user,$product,NULL,core::post('paymethod'),core::post('pay_date'),core::post('amount'),core::post('currency'));
+
+                //adding the notes
+                $order->notes = core::post('notes');
+                $order->save();
 
                 //redirect to orders
                 Alert::set(Alert::SUCCESS, __('Order created'));
