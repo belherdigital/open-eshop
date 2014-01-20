@@ -102,7 +102,10 @@ class Model_Coupon extends ORM {
                 return $coupon;
             }
             else
+            {
                 Alert::set(Alert::INFO, __('Coupon not valid, expired or already used.'));
+                Session::instance()->set('coupon','');
+            }
                 
         }
 
