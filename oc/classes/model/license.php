@@ -63,6 +63,8 @@ class Model_License extends ORM {
      */
     public static function verify($license_num,$domain)
     {
+        //removing the www. so we accept both for same domain
+        $domain = preg_replace('#^www\.(.+\.)#i', '$1', $domain);
 
         $license = new self();
         $license->where('license','=',$license_num)
@@ -71,7 +73,7 @@ class Model_License extends ORM {
 
         if ($license->loaded())
         {
-            //this mean the license was at some point activated
+            //this means the license was at some point activated
             if ($license->active_date!=NULL AND $license->active_date!='')
             {
                 //if license expired return false
@@ -89,7 +91,7 @@ class Model_License extends ORM {
             }
 
             $license->license_check_date = Date::unix2mysql();
-            $license->ip_address        = ip2long(Request::$client_ip);
+            $license->ip_address         = ip2long(Request::$client_ip);
             $license->save();
             
             return TRUE;
