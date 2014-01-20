@@ -638,7 +638,7 @@ class Theme {
             {
                 curl_setopt($ch, CURLOPT_URL,$api_url.$l) ;
                 curl_setopt($ch, CURLOPT_POST, 1 ) ;
-                curl_setopt($ch, CURLOPT_POSTFIELDS,'&domain='.$_SERVER['SERVER_NAME']);
+                curl_setopt($ch, CURLOPT_POSTFIELDS,'&domain='.parse_url(URL::base(), PHP_URL_HOST));
                 curl_setopt($ch, CURLOPT_TIMEOUT,10); 
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
                 $out = curl_exec ($ch);
