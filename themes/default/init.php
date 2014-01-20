@@ -27,7 +27,7 @@ Theme::load();
 $theme_css = array( 'http://netdna.bootstrapcdn.com/bootswatch/2.3.2/flatly/bootstrap.min.css' => 'screen',
                     'http://cdn.jsdelivr.net/bootstrap/2.3.2/css/bootstrap-responsive.min.css' => 'screen',
                     'css/style.css?v=1.2' => 'screen',
-                    'http://cdn.jsdelivr.net/chosen/0.9.12/chosen.css' => 'screen',
+                    'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen',
                     'css/slider.css' => 'screen',
                     'css/zocial.css' => 'screen',
                     'http://cdn.jsdelivr.net/prettyphoto/3.1.5/css/prettyPhoto.css' => 'screen',
@@ -37,7 +37,7 @@ Theme::$styles = $theme_css;
 
 Theme::$scripts['footer']   = array('http://code.jquery.com/jquery-1.9.1.min.js',
                                     'http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js',
-                                    'http://cdn.jsdelivr.net/chosen/0.9.12/chosen.jquery.min.js',
+                                    'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
                                     'js/bootstrap-slider.js',
                                     'js/jquery.validate.min.js',
                                     'http://cdn.jsdelivr.net/prettyphoto/3.1.5/js/jquery.prettyPhoto.js',

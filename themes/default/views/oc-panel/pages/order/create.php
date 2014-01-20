@@ -10,12 +10,12 @@
 
 
         <div class="form-group ">
-    <label for="formorm_paymethod" class="col-md-2"><?=__('Name')?></label>  <div class="col-md-5">
+    <label for="formorm_paymethod" class="col-md-3 control-label"><?=__('Name')?></label>  <div class="col-md-5">
         <input type="text" id="formorm_paymethod" name="name" value="" >                            </div>
 </div>
 
         <div class="form-group ">
-    <label for="formorm_paymethod" class="col-md-2"><?=__('Email')?></label>  <div class="col-md-5">
+    <label for="formorm_paymethod" class="col-md-3 control-label"><?=__('Email')?></label>  <div class="col-md-5">
         <input type="text" id="formorm_paymethod" name="email" value="" >                            </div>
 </div>
 
@@ -56,18 +56,18 @@
             </div>
 
     <div class="form-group ">
-    <label for="formorm_amount" class="col-md-2"><?=__('Amount')?></label>    <div class="col-md-5">
+    <label for="formorm_amount" class="col-md-3 control-label"><?=__('Amount')?></label>    <div class="col-md-5">
         <input type="text" id="formorm_amount" name="amount" value="">                         </div>
 </div>
 
 
     <div class="form-group ">
-    <label for="formorm_pay_date" class="col-md-2"><?=__('Pay Date')?></label>    <div class="col-md-5">
+    <label for="formorm_pay_date" class="col-md-3 control-label"><?=__('Pay Date')?></label>    <div class="col-md-5">
         <input type="text" id="formorm_pay_date" name="pay_date" placeholder="YYYY-MM-DD" value="<?=date('Y-m-d H:i:s')?>">                         </div>
 </div>
 
     <div class="form-group ">
-    <label for="formorm_notes" class="col-md-2"><?=__('Notes')?></label>    <div class="col-md-5">
+    <label for="formorm_notes" class="col-md-3 control-label"><?=__('Notes')?></label>    <div class="col-md-5">
         <input type="text" id="formorm_notes" maxlength=245 name="notes" placeholder="Order notes 245 characters max" value="">                         </div>
 </div>
 
