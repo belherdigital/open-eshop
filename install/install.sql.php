@@ -292,7 +292,8 @@ mysql_query("INSERT INTO `".$_POST['TABLE_PREFIX']."content` (`order`, `title`, 
 (0, 'Purchase Receipt for [PRODUCT.TITLE]', 'new.sale', '==== ORDER DETAILS ====\nDate: [DATE]\nOrder ID: [ORDER.ID]\nName: [USER.NAME]\nEmail: [USER.EMAIL]\n\n==== Your Order ====\nProduct: [PRODUCT.TITLE]\nProduct Price: [PRODUCT.PRICE]\n\n[PRODUCT.NOTES]\n\n==== Download ====\n[URL.DOWNLOAD]\n\n==== Your Licenses ====\n[LICENSE]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
 (0, 'Product updated [TITLE]', 'product.update', '==== UPDATE DETAILS ====\nVersion: [VERSION]\nProduct name: [TITLE]\n\n==== DOWNLOAD ====\n[URL.PURCHASES]\n\n==== PRODUCT PAGE ====\n[URL.PRODUCT]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
 (0, 'Ticket assigned to you: [TITLE]', 'assignagent', '[URL.QL]\n\n[DESCRIPTION]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
-(0, 'New review for [TITLE] [RATE]', 'reviewproduct', '[URL.QL]\n\n[RATE]\n\n[DESCRIPTION]', '".$_POST['ADMIN_EMAIL']."', 'email', 1)
+(0, 'New review for [TITLE] [RATE]', 'reviewproduct', '[URL.QL]\n\n[RATE]\n\n[DESCRIPTION]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
+(0, 'New support ticket created `[TITLE]`', 'newticket', 'We have received your support inquiry. We will try to answer you within the next 24 working hours, thank you for your patience.\n\n[URL.QL]', '".$_POST['ADMIN_EMAIL']."', 'email', 1)
 ");
 
 /**
