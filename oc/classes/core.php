@@ -87,7 +87,7 @@ class Core {
      */
     public static function post($key,$default=NULL)
     {
-    	return (Request::current()->post($key)!==NULL)?Request::current()->post($key):$default;
+    	return (isset($_POST[$key]))?$_POST[$key]:$default;
     }
 
     /**
