@@ -57,7 +57,7 @@
             <p><?=Text::bb2html($ticket->description,TRUE)?></p>
         </div>
     </div>
-
+    <hr>
     <?foreach ($replies as $reply):?>
     <div class="row <?=($ticket->id_user!==$reply->id_user)?'well':''?>" >
         <div class="col-md-2">
@@ -72,6 +72,7 @@
             <p><?=Text::bb2html($reply->description,TRUE)?></p>
         </div>
     </div>
+    <hr>
     <?endforeach?>
 
     <?if($ticket->status!=Model_Ticket::STATUS_CLOSED):?>

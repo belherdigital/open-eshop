@@ -12,7 +12,13 @@ class Controller_Panel_Topic extends Auth_Crud {
      */
     protected $_orm_model = 'post';
 
-    
+    /**
+     *
+     * list of possible actions for the crud, you can modify it to allow access or deny, by default all
+     * @var array
+     */
+    public $crud_actions = array('update');
+
     /**
      *
      * Loads a basic list info

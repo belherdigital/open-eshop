@@ -9,7 +9,7 @@
 
 .edit-image{margin-bottom: 20px;}
 .index-delete{margin-top: 10px;}
-.js .collapsed{display: block !important;}
+/*.js .collapsed{display: block !important;}*/
 .navbar-toggle{margin-left: 20px;}
 li.sbp .caret{float: right;margin-top: 7px;}
 .thumbnails{list-style: none;}
@@ -99,7 +99,7 @@ li.sbp:hover{border-right: none;}
 }
 .respon-left-panel li a {
 	color:#000;
-	padding: 10px 9px;
+	padding: 5px 0px 5px 10px;
 }
 .respon-left-panel li a:hover {
 	color:#000;
