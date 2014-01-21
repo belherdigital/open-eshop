@@ -10,13 +10,13 @@
                 <span class="icon-bar"></span>
             </button>
             
-            <a class="navbar-brand" href="<?=Route::url('oc-panel',array('controller'=>'home'))?>"><i class="glyphicon glyphglyphicon glyphicon-th-large"></i> <?=__('Panel')?></a>
-            <div class="btn-group pull-right">
+            <a class="navbar-brand" href="<?=Route::url('oc-panel',array('controller'=>'home'))?>"><i class="glyphicon glyphicon-th-large"></i> <?=__('Panel')?></a>
+            <div class="btn-group pull-right ml-20">
                 <?=View::factory('oc-panel/widget_login')?>
             </div>
 
-            <div class="nav-collapse collapse">
-                <ul class="nav">
+            <div class="navbar-collapse collapse" id="mobile-menu-panel">
+                <ul class="nav navbar-nav">
                     <?=Theme::admin_link(__('Market'), 'market','index','oc-panel','glyphicon glyphicon-gift')?>
                     <?=Theme::admin_link(__('Support'), 'support','index','oc-panel','glyphicon glyphicon-comment')?>
                 	<?=Theme::admin_link(__('Stats'),'stats','index','oc-panel','glyphicon glyphicon-align-left')?>
@@ -39,16 +39,15 @@
 
                 </ul>
                 
-                <div class="nav pull-right">
-                    <ul class="nav">
-                        <li>
-                            <a href="<?=Route::url('default')?>">
-                                    <i class="glyphicon glyphicon-home"></i>
-                                <?=_('Visit Site')?>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <div class=""></div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="<?=Route::url('default')?>">
+                                <i class="  glyphicon-home glyphicon"></i>
+                            <?=_('Visit Site')?>
+                        </a>
+                    </li>
+                </ul>
 
             </div> <!--/.nav-collapse -->
 

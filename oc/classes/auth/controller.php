@@ -101,7 +101,7 @@ class Auth_Controller extends Controller
             //default theme
             else
             {
-                 Theme::$styles               = array(                                  
+                 Theme::$styles               = array(  'http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css' => 'screen',                                
                                                 'http://netdna.bootstrapcdn.com/bootswatch/3.0.3/'.Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
                                                 // 'http://cdn.jsdelivr.net/bootstrap/3.0.3/css/bootstrap-responsive.min.css' => 'screen',
                                                 'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen', 

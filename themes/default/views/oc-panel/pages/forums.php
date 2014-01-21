@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
 <div class="page-header">
-    <h1><?=__('Froums')?></h1>
+    <h1><?=__('Forums')?></h1>
     <p><?=__("Change the order of your forums. Keep in mind that more than 2 levels nested probably won´t be displayed in the theme (it is not recommended).")?></p>
     <a class="btn btn-primary pull-right" href="<?=Route::url('oc-panel',array('controller'=>'forum','action'=>'create'))?>">
   <?=__('New forum')?></a>
@@ -13,9 +13,9 @@
         
         <a data-text="<?=__('Are you sure you want to delete? We will move the siblings forums and ads to the parent of this forum.')?>" 
            data-id="li_<?=$key?>" 
-           class="btn btn-xs btn-danger index-delete pull-right"  
+           class="btn btn-xs btn-danger pull-right"  
            href="<?=Route::url('oc-panel', array('controller'=> 'forum', 'action'=>'delete','id'=>$key))?>">
-                    <i class="icon-trash icon-white"></i>
+                    <i class="glyphicon glyphicon-trash"></i>
         </a>
 
         <a class="btn btn-xs btn-primary pull-right" 
