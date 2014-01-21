@@ -140,6 +140,10 @@ class Controller_Panel_Support extends Auth_Controller {
                         Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket)).'\n\n'.$ticket->description, 
                         core::config('email.notify_email'), '');
                 }
+
+                $user->email('newticket',array('[TITLE]'=>$ticket->title,
+                                              '[URL.QL]'=>$user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE)));
+
                 
                 Alert::set(Alert::SUCCESS, __('Ticket created.'));
                 $this->request->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
