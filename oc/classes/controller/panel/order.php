@@ -138,8 +138,11 @@ class Controller_Panel_Order extends Auth_Crud {
                 Alert::set(Alert::ERROR, __('Check form for errors'));
             }
         }
+
+        $licenses = new Model_License();
+        $licenses = $licenses->where('id_order','=',$this->request->param('id'))->find_all();
     
-        return $this->render('oc-panel/crud/update', array('form' => $form));
+        return $this->render('oc-panel/pages/order/update', array('form' => $form,'licenses'=>$licenses));
     }
 
 
