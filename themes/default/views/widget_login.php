@@ -13,7 +13,7 @@
         <i class="icon-cog icon-white"></i> <?=__('Panel')?></a></li>
 
     <li><a href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'orders'))?>"><i
-           class="icon-edit icon-white"></i> <?=__('My Purchases')?></a></li>
+           class="icon-shopping-cart icon-white"></i> <?=__('My Purchases')?></a></li>
 	
 	<li><a href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'edit'))?>"><i
 		   class="icon-lock icon-white"></i> <?=__('Edit profile')?></a></li>
