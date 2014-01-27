@@ -1,89 +1,82 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
-<header class="navbar <?=(Theme::get('fixed_toolbar')==1)?'navbar-fixed-top':'navbar-fixed-top fixed_header'?>">
-  <div class="navbar-inner">
-    <div class="container"> 
+<div class="navbar navbar-default <?=(Theme::get('fixed_toolbar')==1)?'navbar-fixed-top':''?>">
+    <div class="container resiz-cont">
 
-        <a class="btn btn-navbar" data-toggle="collapse" data-target= ".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </a> 
-
-        <div class="btn-group pull-right">
-            <?=View::factory('widget_login')?>
+        <div class="btn-group pull-right btn-header-group">
+            <?=View::factory('widget_login')?>         
+        </div>
+        
+        <div class="navbar-collapse bs-navbar-collapse collapse" id="mobile-menu-panel">
+            <ul class="nav navbar-nav">
+            <?if (class_exists('Menu') AND count( $menus = Menu::get() )>0 ):?>
+                <?foreach ($menus as $menu => $data):?>
+                    <li class="<?=(Request::current()->uri()==$data['url'])?'active':''?>" >
+                    <a href="<?=$data['url']?>" target="<?=$data['target']?>">
+                        <?if($data['icon']!=''):?><i class="<?=$data['icon']?>"></i> <?endif?>
+                        <?=$data['title']?></a> 
+                    </li>
+                <?endforeach?>
+            <?else:?>
+                <li class="<?=(Request::current()->controller()=='home')?'active':''?>" >
+                    <a href="<?=Route::url('default')?>"><i class="glyphicon glyphicon-home "></i> <?=__('Home')?></a> </li>
+                <?kam_link(__('Listing'),'ad', 'glyphicon glyphicon-list ' ,'listing', 'list')?>
+                <?if (core::config('general.blog')==1):?>
+                    <?kam_link(__('Blog'),'blog','glyphicon glyphicon-file','index','blog')?>
+                <?endif?>
+                <?if (core::config('general.faq')==1):?>
+                    <?kam_link(__('FAQ'),'faq','glyphicon glyphicon-question-sign','index','faq')?>
+                <?endif?>
+                <?if (core::config('general.forums')==1):?>
+                    <?kam_link(__('Forums'),'forum','glyphicon glyphicon-tag','index','forum-home')?>
+                <?endif?>
+                <?kam_link(__('Search'),'ad', 'glyphicon glyphicon-search ', 'advanced_search', 'search')?>
+                <?if (core::config('advertisement.map')==1):?>
+                    <?kam_link('','map', 'glyphicon glyphicon-globe ', 'index', 'map')?>
+                <?endif?>
+                <?kam_link(__('Contact'),'contact', 'glyphicon glyphicon-envelope ', 'index', 'contact')?>
+                <?kam_link('','rss', 'glyphicon glyphicon-signal ', 'index', 'rss')?>
+            </ul>
+        <?endif?>
+            
         </div>
 
-        <nav class="nav-collapse">
-            <ul class="nav">
-                <?if ( count( $menus = Menu::get() )>0 ):?>
-                    <?foreach ($menus as $menu => $data):?>
-                        <li class="<?=(Request::current()->uri()==$data['url'])?'active':''?>" >
-                        <a href="<?=$data['url']?>" target="<?=$data['target']?>">
-                            <?if($data['icon']!=''):?><i class="<?=$data['icon']?>"></i> <?endif?>
-                            <?=$data['title']?></a> 
-                        </li>
-                    <?endforeach?>
-                <?else:?>
-                    <?$icon_white=(in_array(Theme::$skin, array('journal','readable','simplex','spacelab','bootstrap')))?'':'icon-white'?>
-                    <li class="<?=(Request::current()->controller()=='home')?'active':''?>" >
-                        <a href="<?=Route::url('default')?>"><i class="icon-home <?=$icon_white?>"></i> <?=__('Home')?></a> </li>
-                    <?kam_link(__('Listing'),'product', 'icon-list '.$icon_white ,'listing', 'list')?>
-                    <?kam_link(__('Search'),'product', 'icon-search '.$icon_white, 'search', 'search')?>
-                    <?if (core::config('general.blog')==1):?>
-                        <?kam_link(__('Blog'),'blog','','index','blog')?>
-                    <?endif?>
-                    <?if (core::config('general.faq')==1):?>
-                        <?kam_link(__('FAQ'),'faq','icon-question-sign '.$icon_white,'index','faq')?>
-                    <?endif?>
-                    <?if (core::config('general.forums')==1):?>
-                        <?kam_link(__('Forums'),'forum','icon-tag '.$icon_white,'index','forum-home')?>
-                    <?endif?>
-                    <?kam_link(__('Contact'),'contact', 'icon-envelope '.$icon_white, 'index', 'contact')?>
-                    <?kam_link('','rss', 'icon-signal '.$icon_white, 'index', 'rss')?>
-                <?endif?>
-            </ul>
-        </nav>
+        
         <!--/.nav-collapse --> 
-
     </div>
     <!-- end container--> 
-    
-  </div>
-  <!-- end navbar-inner-->
-  <div class="clear"></div>
-</header>
+</div>
 
 <div id="logo">
-  <div class="container">
+    <div class="container">
     <div class="row">
-      <div class="span8">
-        <a class="brand" href="<?=Route::url('default')?>">
+        <div class="col-lg-8">
+            <a class="brand" href="<?=Route::url('default')?>">
 
-            <?if (Theme::get('logo_url')!=''):?>
-                <img src="<?=Theme::get('logo_url')?>" title="<?=core::config('general.site_name')?>" alt="<?=core::config('general.site_name')?>" >
-            <?else:?>
-                <h1><?=core::config('general.site_name')?></h1>
-            <?endif?>
-        </a>
-      </div>
-      <?if (Theme::get('short_description')!=''):?>
-      <div class="span8">
+                <?if (Theme::get('logo_url')!=''):?>
+                    <img src="<?=Theme::get('logo_url')?>" title="<?=core::config('general.site_name')?>" alt="<?=core::config('general.site_name')?>" >
+                <?else:?>
+                    <h1><?=core::config('general.site_name')?></h1>
+                <?endif?>
+            </a>
+        </div>
+        <?if (Theme::get('short_description')!=''):?>
+        <div class="col-lg-8">
             <p class="lead"><?=Theme::get('short_description')?></p>
-      </div>
-      <?endif?>
-      <div class="span4">
-        <?= FORM::open(Route::url('search'), array('class'=>'navbar-search pull-right '.(Theme::get('short_description')!='')?'no-margin':'', 
-            'method'=>'GET', 'action'=>''))?>
-            <input type="text" name="search" class="search-query span3" placeholder="<?=__('Search')?>">
-        <?= FORM::close()?>
-      </div>
+        </div>
+        <?endif?>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mb-30 pull-right">
+            <?= FORM::open(Route::url('search'), array('class'=>'navbar-form '.(Theme::get('short_description')!='')?'no-margin':'', 
+                'method'=>'GET', 'action'=>''))?>
+                <input type="text" name="search" class="form-control col-lg-3 col-md-3 col-sm-12 col-xs-12" placeholder="<?=__('Search')?>">
+            <?= FORM::close()?>
+        </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- end navbar top-->
-  <div class="subnav hidden-phone <?=(Theme::get('fixed_toolbar')==1)?'':'fixed_header'?>">
+<div class="subnav navbar <?=(Theme::get('fixed_toolbar')==1)?'':'fixed_header'?>">
   <div class="container">
 
     <ul class="nav nav-pills">
@@ -100,6 +93,7 @@
                     $cat_parent =  Controller::$category->id_category_parent;
                 }
             }
+
 
         ?>
         <?foreach($cats as $c ):?>
@@ -138,36 +132,48 @@
 
 
 <?if (!Auth::instance()->logged_in()):?>
-	<div id="login-modal" class="modal hide fade">
-            <div class="modal-header">
-              <a class="close" data-dismiss="modal" >&times;</a>
-              <h3><?=__('Login')?></h3>
+    <div id="login-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <a class="close" data-dismiss="modal" >&times;</a>
+                  <h3><?=__('Login')?></h3>
+                </div>
+                
+                <div class="modal-body">
+                    <?=View::factory('pages/auth/login-form')?>
+                </div>
             </div>
-            
-            <div class="modal-body">
-				<?=View::factory('pages/auth/login-form')?>
-    		</div>
+        </div>
     </div>
     
-    <div id="forgot-modal" class="modal hide fade">
-            <div class="modal-header">
-              <a class="close" data-dismiss="modal" >&times;</a>
-              <h3><?=__('Forgot password')?></h3>
+    <div id="forgot-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <a class="close" data-dismiss="modal" >&times;</a>
+                  <h3><?=__('Forgot password')?></h3>
+                </div>
+                
+                <div class="modal-body">
+                    <?=View::factory('pages/auth/forgot-form')?>
+                </div>
             </div>
-            
-            <div class="modal-body">
-				<?=View::factory('pages/auth/forgot-form')?>
-    		</div>
+        </div>
     </div>
     
-     <div id="register-modal" class="modal hide fade">
-            <div class="modal-header">
-              <a class="close" data-dismiss="modal" >&times;</a>
-              <h3><?=__('Register')?></h3>
+     <div id="register-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <a class="close" data-dismiss="modal" >&times;</a>
+                  <h3><?=__('Register')?></h3>
+                </div>
+                
+                <div class="modal-body">
+                    <?=View::factory('pages/auth/register-form')?>
+                </div>
             </div>
-            
-            <div class="modal-body">
-				<?=View::factory('pages/auth/register-form')?>
-    		</div>
+        </div>
     </div>
 <?endif?>

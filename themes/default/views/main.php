@@ -12,8 +12,7 @@
     <meta name="keywords" content="<?=$meta_keywords?>" >
     <meta name="description" content="<?=$meta_description?>" >
     <meta name="copyright" content="<?=$meta_copywrite?>" >
-	<meta name="author" content="open-eshop.com">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="author" content="open-classifieds.com">
 
     <?if (core::config('general.blog')==1):?>
     <link rel="alternate" type="application/atom+xml" title="RSS Blog <?=Core::config('general.site_name')?>" href="<?=Route::url('rss-blog')?>" />
@@ -34,7 +33,6 @@
 	<?=Theme::scripts($scripts)?>
 
     <link rel="shortcut icon" href="<?=Theme::public_path('img/favicon.ico')?>">
-
     <?if ( core::config('general.analytics')!='' AND Kohana::$environment === Kohana::PRODUCTION ): ?>
     <script type="text/javascript">
       var _gaq = _gaq || [];
@@ -49,28 +47,27 @@
       })();
     </script> 
     <?endif?>
-    
     </head>
 
-    <body data-spy="scroll" data-target=".subnav" data-offset="50">
+    <body data-spy="scroll" data-target=".subnav" data-offset="50" class="<?=(Theme::get('fixed_toolbar')==1)?'':'body_fixed'?>">
     <?if(!isset($_COOKIE['accept_terms']) AND core::config('general.alert_terms') != ''):?>
         <?=View::factory('alert_terms')?>
     <?endif?>
 	<?=$header?>
-
-    <div class="container" id="main">
+    
+    <div class="container bs-docs-container" id="main">
     <div class="alert alert-warning off-line" style="display:none;"><strong><?=__('Warning')?>!</strong> <?=__('We detected you are currently off-line, please login to gain full experience.')?></div>
-      <div class="row">
+        <div class="row">
 
             <?=(Theme::get('sidebar_position')=='left')?View::fragment('sidebar_front','sidebar'):''?>
 
-            <section class="span9" id="page">
+            <section class="col-lg-9" id="page">
                 <?=(Theme::get('breadcrumb')==1)?Breadcrumbs::render('breadcrumbs'):''?>
                 <?=Alert::show()?>
 
                 <div class="row">
                     <?foreach ( widgets::get('header') as $widget):?>
-                    <div class="span3">
+                    <div class="col-lg-9">
                         <?=$widget->render()?>
                     </div>
                     <?endforeach?>
@@ -84,7 +81,7 @@
             
             <div class="container">
                 <?foreach ( widgets::get('footer') as $widget):?>
-                <div class="span3">
+                <div class="col-lg-3">
                     <?=$widget->render()?>
                 </div>
                 <?endforeach?>
@@ -99,6 +96,7 @@
 	<?=Theme::scripts($scripts,'footer')?>
 	
     
+	
 	<!--[if lt IE 7 ]>
 		<?=HTML::script('http://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js')?>
 		<script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>

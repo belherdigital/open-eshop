@@ -55,7 +55,7 @@ for ($i = $n7; $i <= $n8; $i++)
 }
 
 ?>
-<p class="pagination">
+<ul class="pagination">
 
 	<?php if ($first_page !== FALSE): ?>
 		<a href="<?php echo HTML::chars($page->url($first_page)) ?>" rel="first"><?php echo __('First') ?></a>
@@ -91,4 +91,4 @@ for ($i = $n7; $i <= $n8; $i++)
 		<?php echo __('Last') ?>
 	<?php endif ?>
 
-</p><!-- .pagination -->
+</ul><!-- .pagination -->

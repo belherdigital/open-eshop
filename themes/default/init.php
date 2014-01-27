@@ -24,19 +24,20 @@ Theme::$options = Theme::get_options();
 //we load earlier the theme since we need some info
 Theme::load(); 
 
-$theme_css = array( 'http://netdna.bootstrapcdn.com/bootswatch/2.3.2/flatly/bootstrap.min.css' => 'screen',
-                    'http://cdn.jsdelivr.net/bootstrap/2.3.2/css/bootstrap-responsive.min.css' => 'screen',
+$theme_css = array( 'http://netdna.bootstrapcdn.com/bootswatch/3.0.3/yeti/bootstrap.min.css' => 'screen',
                     'css/style.css?v=1.2' => 'screen',
                     'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen',
                     'css/slider.css' => 'screen',
                     'css/zocial.css' => 'screen',
+                    'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen', 
                     'http://cdn.jsdelivr.net/prettyphoto/3.1.5/css/prettyPhoto.css' => 'screen',
                     );
 
 Theme::$styles = $theme_css;
 
-Theme::$scripts['footer']   = array('http://code.jquery.com/jquery-1.9.1.min.js',
-                                    'http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js',
+Theme::$scripts['header']   = array('http://code.jquery.com/jquery-1.9.1.min.js',);
+Theme::$scripts['footer']   = array('http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js',
+                                    'js/jquery.sceditor.min.js',
                                     'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
                                     'js/bootstrap-slider.js',
                                     'js/jquery.validate.min.js',

@@ -13,7 +13,9 @@
             <?endif?>
         </p>
     <?else:?>
-        <input class="input-medium" type="text" name="coupon" value="<?=Core::get('coupon')?><?=Core::get('coupon')?>" placeholder="<?=__('Coupon Name')?>">          
+    <div class="form-group">
+        <input class="form-control" type="text" name="coupon" value="<?=Core::get('coupon')?><?=Core::get('coupon')?>" placeholder="<?=__('Coupon Name')?>">          
+    </div>
         <button type="submit" class="btn btn-primary"><?=__('Add')?></button>
     <?endif?>      	
 </form>

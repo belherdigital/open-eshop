@@ -92,7 +92,7 @@ class Auth_Controller extends Controller
             //other color
             if (Theme::get('admin_theme')=='bootstrap')
             {
-                Theme::$styles                    = array('http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-combined.min.css' => 'screen',
+                Theme::$styles                    = array('http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css' => 'screen',
                                                         'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
                                                         'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css'=>'screen',
                                                         'css/admin-styles.css' => 'screen');

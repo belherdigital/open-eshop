@@ -9,18 +9,18 @@
 <?endif?>
 
     <?if(count($products)):?>
-        <div class="row-fluid">
-        <ul class="thumbnails">
-        <?$i=0;
+
+        <?$i=1;
         foreach($products as $product ):?>
-            <?if ($i%3==0):?></ul></div><div class="row-fluid"><ul class="thumbnails"><?endif?>
-            <li class="span4">
+            <div class="col-md-4 col-sm-4 col-xs-12">
                 <div class="thumbnail">
 
                     <?if($product->get_first_image() !== NULL):?>
                         <a title="<?= $product->title;?>" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                             <img width="300px" height="200px" src="<?=URL::base()?><?=$product->get_first_image()?>" class="" >
                         </a>
+                    <?else:?>
+                        <img src="http://www.placehold.it/200x200&text=<?=$product->category->name?>"> 
                     <?endif?>
 
                     <div class="caption">
@@ -37,11 +37,11 @@
                         </a>
                     </div>
                 </div>
-            </li>
+            </div>
+            <?if ($i%3==0):?><div class="clearfix"></div> <?endif?>
         <?$i++?>
     <?endforeach?>
-    </ul>
-</div><!--/row-->
+
 
 <?=$pagination?>
 <?elseif (count($products) == 0):?>

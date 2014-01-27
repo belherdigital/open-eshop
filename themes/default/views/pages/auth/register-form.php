@@ -2,22 +2,22 @@
 <form class="well form-horizontal"  method="post" action="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'register'))?>">         
           <?=Form::errors()?>
           
-          <div class="control-group">
-            <label class="control-label"><?=__('Name')?></label>
-            <div class="controls docs-input-sizes">
-              <input class="input-medium" type="text" name="name" value="<?=Request::current()->post('name')?>" placeholder="<?=__('Name')?>">
+          <div class="form-group">
+            <label class="col-md-1 control-label"><?=__('Name')?></label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input class="form-control" type="text" name="name" value="<?=Request::current()->post('name')?>" placeholder="<?=__('Name')?>">
             </div>
           </div>
           
-          <div class="control-group">
-            <label class="control-label"><?=__('Email')?></label>
-            <div class="controls docs-input-sizes">
-              <input class="input-medium" type="text" name="email" value="<?=Request::current()->post('email')?>" placeholder="<?=__('Email')?>">
+          <div class="form-group">
+            <label class="col-md-1 control-label"><?=__('Email')?></label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input class="form-control" type="text" name="email" value="<?=Request::current()->post('email')?>" placeholder="<?=__('Email')?>">
             </div>
           </div>
           
-          <div class="form-actions">
-          	<a class="btn"  data-dismiss="modal" data-toggle="modal" title="<?=__('Login')?>" href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'login'))?>#login-modal">
+          <div class="col-md-offset-1">
+          	<a class="btn btn-default"  data-dismiss="modal" data-toggle="modal" title="<?=__('Login')?>" href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'login'))?>#login-modal">
 				<i class="icon-user"></i> 
 				<?=__('Login')?>
 			</a>

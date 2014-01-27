@@ -55,14 +55,14 @@ for ($i = $n7; $i <= $n8; $i++)
 }
 
 ?>
-
+  <div class="clearfix"></div>
   <ul class="pagination">
-		<li <?=(!$first_page)?'class="active"':''?>>
-			<a title="<?=__('First')?> <?=$page->title()?>" href="<?=HTML::chars($page->url($first_page))?>" rel="first"><i class="icon-step-backward"></i></a>
+		<li <?=(!$first_page)?'class="disabled"':''?>>
+			<a title="<?=__('First')?> <?=$page->title()?>" href="<?=HTML::chars($page->url($first_page))?>" rel="first"><i class="glyphicon glyphicon-step-backward"></i></a>
 		</li>
 	
-		<li <?=(!$previous_page)?'class="active"':''?>>
-			<a title="<?=__('Previous')?> <?=$page->title()?>" href="<?=HTML::chars($page->url($previous_page))?>" rel="prev"><i class="icon-backward"></i></a>
+		<li <?=(!$previous_page)?'class="disabled"':''?>>
+			<a title="<?=__('Previous')?> <?=$page->title()?>" href="<?=HTML::chars($page->url($previous_page))?>" rel="prev"><i class="glyphicon glyphicon-backward"></i></a>
 		</li>
 
         <?php foreach ($links as $number => $content): ?>
@@ -71,12 +71,12 @@ for ($i = $n7; $i <= $n8; $i++)
             </li>
         <?php endforeach ?>
 
-		<li <?=(!$next_page)?'class="active"':''?>>
-			<a title="<?=__('Next')?> <?=$page->title()?>" href="<?=HTML::chars($page->url($next_page)) ?>" rel="next"><i class="icon-forward"></i></a>
+		<li <?=(!$next_page)?'class="disabled"':''?>>
+			<a title="<?=__('Next')?> <?=$page->title()?>" href="<?=HTML::chars($page->url($next_page)) ?>" rel="next"><i class="glyphicon glyphicon-forward"></i></a>
 		</li>
 
-		<li <?=(!$last_page)?'class="active"':''?>>
-			<a title="<?=__('Last')?> <?=$page->title()?>" href="<?=HTML::chars($page->url($last_page)) ?>" rel="last"><i class="icon-step-forward"></i></a>
+		<li <?=(!$last_page)?'class="disabled"':''?>>
+			<a title="<?=__('Last')?> <?=$page->title()?>" href="<?=HTML::chars($page->url($last_page)) ?>" rel="last"><i class="glyphicon glyphicon-step-forward"></i></a>
 		</li>
 
   </ul>

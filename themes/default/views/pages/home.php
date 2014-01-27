@@ -1,55 +1,51 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 <?if (count($products)>0):?>
-<section class="featured-ads">
-      <?if(core::config('product.products_in_home') == 0):?>
-        <h2><?=__('Latest')?></h2>
-    <?elseif(core::config('product.products_in_home') == 1):?>
-        <h2><?=__('Featured')?></h2>
-    <?elseif(core::config('product.products_in_home') == 2):?>
-        <h2><?=__('Most popular')?></h2>
-    <?endif?>
-      <div id="slider-fixed-products" class="carousel slide">
-        <div class="carousel-inner">
-            <div class="active item">
-                <ul class="thumbnails">    
-                <?$i=0;
-                foreach($products as $product):?>
-                <?if ($i%3==0 AND $i!=0):?></ul></div><div class="item"><ul class="thumbnails"><?endif?>
-                <li class="span3">
-                    <div class="thumbnail">
-                        <a href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
-                      <?if($product->get_first_image()!== NULL):?>
-                            <img src="<?=URL::base()?><?=$product->get_first_image()?>" >
-                        <?else:?>
-                            <img src="http://www.placehold.it/200x200&text=<?=$product->category->name?>"> 
-                        <?endif?>
-                        </a>
-                      <div class="caption">
 
-                        <h5><a href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"><?=$product->title?></a></h5>
-
-                        <p><?=substr(Text::removebbcode($product->description), 0, 30)?></p>
-                        <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
-                        <?if ($product->final_price()>0):?>
-                            <?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?>
-                        <?elseif(!empty($product->file_name)):?>
-                            <?=__('Free Download')?>
-                        <?else:?>
-                            <?=__('Get it for Free')?>
-                        <?endif?>
-                        </a>
-                      </div>
-                    </div>
-                </li>
-                <?$i++;
-                endforeach?>
-            </ul>
+    <section class="well featured-posts">
+        <?if(core::config('product.products_in_home') == 0):?>
+            <h2><?=__('Latest')?></h2>
+        <?elseif(core::config('product.products_in_home') == 1):?>
+            <h2><?=__('Featured')?></h2>
+        <?elseif(core::config('product.products_in_home') == 2):?>
+            <h2><?=__('Most popular')?></h2>
+        <?endif?>
+          <div id="slider-fixed-products" class="carousel slide">
+            <div class="carousel-inner">
+                <div class="active item">
+                    <ul class="thumbnails">    
+                    <?$i=0;
+                    foreach ($products as $product):?>
+                    <?if ($i%4==0 AND $i!=0):?></ul></div><div class="item"><ul class="thumbnails"><?endif?>
+                    <li class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <div class="thumbnail">
+                            <a href="<?=Route::url('product', array('category'=>$product->category->seoname,'seotitle'=>$product->seotitle))?>">
+                          <?if($product->get_first_image()!== NULL):?>
+                                <img src="<?=URL::base()?><?=$product->get_first_image()?>" >
+                            <?else:?>
+                                <img src="http://www.placehold.it/200x200&text=<?=$product->category->name?>"> 
+                            <?endif?>
+                            </a>
+                          <div class="caption">
+                            <h5><a href="<?=Route::url('product', array('category'=>$product->category->seoname,'seotitle'=>$product->seotitle))?>"><?=substr(Text::removebbcode($product->title), 0, 30)?></a></h5>
+                            <p><?=substr(Text::removebbcode($product->description), 0, 30)?></p>
+                            
+                          </div>
+                        </div>
+                    </li>
+                    <?$i++;
+                    endforeach?>
+                </ul>
+              </div>
+            </div>
+            <a class="left carousel-control" href="#slider-fixed-products" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#slider-fixed-products" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
           </div>
-        </div>
-        <a class="left carousel-control" href="#slider-fixed-products" data-slide="prev">&lsaquo;</a>
-        <a class="right carousel-control" href="#slider-fixed-products" data-slide="next">&rsaquo;</a>
-      </div>
-</section>
+    </section>
+
 <?endif?>
 
 
@@ -60,7 +56,7 @@
         foreach($categs as $c):?>
         <?if($c['id_category_parent'] == 1 && $c['id_category'] != 1):?>
 
-        <ul class="span3">
+        <ul class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <li class="cathead">
                 <?if (file_exists(DOCROOT.'images/categories/'.$c['seoname'].'.png')):?>
                 <a title="<?=$c['name']?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>">
