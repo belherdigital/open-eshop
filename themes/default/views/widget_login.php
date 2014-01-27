@@ -12,8 +12,9 @@
 	<li><a href="<?=Route::url('oc-panel',array('controller'=>'home','action'=>'index'))?>">
         <i class="glyphicon glyphicon-cog"></i> <?=__('Panel')?></a></li>
 
-    <li><a href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'ads'))?>"><i
-           class="glyphicon glyphicon-edit"></i> <?=__('My Advertisements')?></a></li>
+
+    <li><a href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'orders'))?>"><i
+           class="glyphicon glyphicon-shopping-cart"></i> <?=__('My Purchases')?></a></li>
 	
 	<li><a href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'edit'))?>"><i
 		   class="glyphicon glyphicon-lock"></i> <?=__('Edit profile')?></a></li>

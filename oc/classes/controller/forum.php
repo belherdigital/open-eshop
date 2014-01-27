@@ -150,6 +150,7 @@ class Controller_Forum extends Controller {
         $topic->where('status','=',Model_Post::STATUS_ACTIVE)
             ->where('seotitle','=',$this->request->param('seotitle',NULL))
             ->where('id_forum','IS NOT',NULL)
+            ->where('id_post_parent','IS',NULL)
             ->cached()->limit(1)->find();
 
         if ($topic->loaded())
@@ -175,6 +176,7 @@ class Controller_Forum extends Controller {
             $previous = $previous->where('status','=',Model_Post::STATUS_ACTIVE)
                         ->where('id_forum','=',$topic->id_forum)
                         ->where('id_post', '<', $topic->id_post)
+                        ->where('id_post_parent','IS',NULL)
                         ->order_by('created','desc')
                         ->limit(1)->find();  
 
@@ -182,6 +184,7 @@ class Controller_Forum extends Controller {
             $next = $next->where('status','=',Model_Post::STATUS_ACTIVE)
                         ->where('id_forum','=',$topic->id_forum)
                         ->where('id_post', '>', $topic->id_post)
+                        ->where('id_post_parent','IS',NULL)
                         ->limit(1)->find();
 
             $this->template->bind('content', $content);
@@ -242,7 +245,7 @@ class Controller_Forum extends Controller {
                             $reply->status   = Model_Post::STATUS_ACTIVE;
                             $reply->ip_address   = ip2long(Request::$client_ip);
                             $reply->save();
-
+                            unset($_POST['description']);
                             Alert::set(Alert::SUCCESS, __('Reply added, thanks!'));
                             
                         }

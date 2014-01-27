@@ -29,7 +29,7 @@ class Email {
 
         $body = Text::bb2html($body,TRUE);
         //get the template from the html email boilerplate
-        $body = View::factory('email',array('title'=>$subject,'content'=>nl2br($body)))->render();
+        $body = View::factory('email',array('title'=>$subject,'content'=>$body))->render();
 
         $mail= new PHPMailer();
         $mail->CharSet = Kohana::$charset;
@@ -139,7 +139,7 @@ class Email {
             foreach ($replace as $key => $value) 
             {
                 if( (strpos($key, '[URL.')===0 OR $key == '[SITE.URL]') AND $value!='')
-                    $replace[$key] = '[url='.$value.']'.$value.'[/url]';
+                    $replace[$key] = '[url='.$value.']'.parse_url($value, PHP_URL_HOST).'[/url]';
             }
 
             $subject = str_replace(array_keys($replace), array_values($replace), $email->title);

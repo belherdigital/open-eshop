@@ -2,7 +2,7 @@
 <div class="page-header">
     <h1><?=$product->title.' '.__("Reviews")?></h1>
     <?if ($product->rate!==NULL):?>
-        <h2><?=round($product->rate,1)?>/<?=Model_Review::RATE_MAX?> <?=__('from')?> <?=count($reviews)?> <?=__('reviews')?></h2>
+        <h2><span class="rating"><?=round($product->rate,1)?></span>/<?=Model_Review::RATE_MAX?> <?=__('from')?> <?=count($reviews)?> <?=__('reviews')?></h2>
     <?endif?>
     <?if (!empty($product->url_demo)):?>
         <a class="btn btn-warning btn-small pull-right" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" ><?=__('Demo')?></a>

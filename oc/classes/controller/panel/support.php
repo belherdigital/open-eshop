@@ -170,7 +170,7 @@ class Controller_Panel_Support extends Auth_Controller {
 
         if ($orders->count() == 0)
         {
-            Alert::set(Alert::ERROR, __('You do not have any purchase with support active.'));
+            Alert::set(Alert::WARNING, __('You do not have any purchase with support active.'));
             $this->request->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
         }
 
@@ -251,6 +251,7 @@ class Controller_Panel_Support extends Auth_Controller {
                     $ticketr->id_ticket_parent  = $ticket->id_ticket;
                     $ticketr->description       = core::post('description');
                     $ticketr->save();
+                    unset($_POST['description']);
 
                     //modify status of parent ticket
                     $ticket->status = Model_Ticket::STATUS_CREATED;
