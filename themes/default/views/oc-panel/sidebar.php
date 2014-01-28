@@ -106,15 +106,12 @@
                 
             </li>
 			<?if (Theme::get('premium')!=1):?>
-			<li class="no-prem divider"></li>
-			<li class="no-prem nav-header">by Open eShop</li>
-			<li class="no-prem"><a href="http://open-eshop.com/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>">Open eShop</a></li>
-            <li class="no-prem divider"></li>
-
-            <li class="no-prem"><a href="https://twitter.com/openclassifieds"
+			<li class="divider"></li>
+			<li><a href="http://open-eshop.com/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>">by Open eShop</a></li>
+            <li><a href="https://twitter.com/openeshop"
                 onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"
                 class="twitter-follow-button" data-show-count="false"
-                data-size="large">Follow @openclassifieds</a><br />
+                data-size="large">Follow @openeshop</a><br />
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></li>
 			<?endif?>
 		</ul>

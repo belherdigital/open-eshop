@@ -25,7 +25,7 @@
 
                     <div class="caption">
                         <h5><a href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"><?=substr($product->title, 0, 30)?></a></h5>
-                        <p><?=substr(Text::removebbcode($product->description), 0, 30)?></p>
+                        <p><?=Text::limit_chars(Text::removebbcode($product->description), 30, NULL, TRUE)?></p>
                         <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                         <?if ($product->final_price()>0):?>
                             <?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?>

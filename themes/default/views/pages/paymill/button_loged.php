@@ -6,7 +6,7 @@
         id="button"
         data-label="<?=__('Pay with Card')?>"
         data-title="<?=$product->title?>"
-        data-description="<?=substr(Text::removebbcode($product->description), 0, 30)?>"
+        data-description="<?=Text::limit_chars(Text::removebbcode($product->description),30,NULL, TRUE)?>"
         data-amount="<?=Paymill::money_format($product->final_price())?>"
         data-currency="<?=$product->currency?>"
         data-submit-button="<?=__('Pay')?> <?=$product->final_price()?> <?=$product->currency?>"

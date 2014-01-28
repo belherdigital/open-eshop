@@ -17,7 +17,7 @@
                 <?endif?>
                 <a title="<?= $p->title;?>" href="<?=Route::url('product', array('controller'=>'product','category'=>$p->category->seoname,'seotitle'=>$p->seotitle))?>"> <?=$p->title; ?></a>
             </h4>
-            <p><?=substr(Text::removebbcode($p->description),0, 255);?></p>
+            <p><?=Text::limit_chars(Text::removebbcode($p->description),255,NULL,TRUE);?></p>
         </div>
     </li>
     <?endforeach?>

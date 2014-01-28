@@ -1,0 +1,5 @@
+.btn-header-group{padding-top: 0px;}
+.nav.navbar-nav:first-child{margin-left: 0px;}
+.btn {padding: 10px;}
+.form-group .btn, .input-group-addon, .input-group-btn .btn{padding:3px;}
+.subnav-fixed{top: 43px;}

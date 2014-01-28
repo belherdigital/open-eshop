@@ -1,14 +1,23 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
-<div id="alternative_pay_modal" class="modal hide fade" data-backdrop="static">
-    <div class="modal-header">
+
+<button data-toggle="modal" data-target="#alternative_pay_modal" class="btn btn-warning pay-btn full-w">
+    <?=$content->title?>
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="alternative_pay_modal" tabindex="-1" role="dialog" aria-labelledby="alternative_pay_modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h1><?=$content->title?></h1>
-    </div>
-    <div class="modal-body">
+        <h4 class="modal-title" id="myModalLabel"><?=$content->title?></h4>
+      </div>
+      <div class="modal-body">
         <p><?=Text::bb2html($content->description,TRUE,FALSE)?></p>
-    </div>
-    <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true"><?=__('Close')?></button>
-    </div>
-</div>
-<button data-toggle="modal" data-target="#alternative_pay_modal" class="btn btn-success pay-btn"><?=$content->title?></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><?=__('OK')?></button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

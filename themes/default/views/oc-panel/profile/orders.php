@@ -28,7 +28,7 @@
                 <td><?=($order->support_date!=NULL)?Date::format($order->support_date):__('Without support');?></td>
                 <td><?=i18n::money_format($order->amount).' '.$order->currency;?></td>
                 <td>
-                    <?if (core::config('product.reviews')==1):?>
+                    <?if (core::config('product.reviews')==1 AND Theme::get('premium')==1):?>
                         <a title="<?=__('Review prouct')?>" href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'review','id'=>$order->id_order))?>" 
                             class="btn btn-mini btn-warning">
                             <i class="glyphicon glyphicon-star-empty"></i></a>

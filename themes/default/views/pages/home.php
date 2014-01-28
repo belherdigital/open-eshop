@@ -26,8 +26,10 @@
                             <?endif?>
                             </a>
                           <div class="caption">
-                            <h5><a href="<?=Route::url('product', array('category'=>$product->category->seoname,'seotitle'=>$product->seotitle))?>"><?=substr(Text::removebbcode($product->title), 0, 30)?></a></h5>
-                            <p><?=substr(Text::removebbcode($product->description), 0, 30)?></p>
+                            <h5><a href="<?=Route::url('product', array('category'=>$product->category->seoname,'seotitle'=>$product->seotitle))?>">
+                                <?=Text::limit_chars(Text::removebbcode($product->title),30, NULL, TRUE)?></a>
+                            </h5>
+                            <p><?=Text::limit_chars(Text::removebbcode($product->description), 30, NULL, TRUE)?></p>
                             
                           </div>
                         </div>

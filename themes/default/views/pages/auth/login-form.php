@@ -33,5 +33,4 @@
           </div>
           <?=Form::redirect()?>
           <?=Form::CSRF('login')?>
-          <?=View::factory('pages/auth/social')?>
 </form>      	

@@ -80,7 +80,7 @@
             <span class="icon-bar"></span>
           </button> 
           <a class="navbar-brand" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
-            <span class="glyphicon glyphicon-th-large"></span> <?=substr($product->title, 0, 30)?>
+            <span class="glyphicon glyphicon-th-large"></span> <?=$product->title?>
           </a>
         </div>
         <div class="navbar-collapse collapse">
@@ -114,7 +114,7 @@
             </li>
             <?endif?>
 
-            <li><p class="navbar-text"><?=substr(Text::removebbcode($product->description), 0, 30)?></p></li>
+            <li><p class="navbar-text"><?=Text::limit_chars(Text::removebbcode($product->description), 45, NULL, TRUE)?></p></li>
           </ul>
 
           <div class="btn-group navbar-right btn-header-group">

@@ -32,7 +32,7 @@ class Controller_Api extends Controller {
         $products = new Model_Product();
         $products = $products 
                 ->where('status','=',Model_Product::STATUS_ACTIVE)
-                ->order_by('price','desc')
+                ->order_by('price','asc')
                 ->limit(Core::config('general.feed_elements'));
 
         //filter by category 
