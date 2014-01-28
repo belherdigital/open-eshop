@@ -103,8 +103,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button> 
+          <a class="navbar-brand" href="<?=Route::url('default')?>">
+            <img src="<?=Theme::public_path('img/favicon.ico')?>"> 
+          </a>
           <a class="navbar-brand" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
-            <span class="glyphicon glyphicon-th-large"></span> <?=$product->title?>
+            <?=$product->title?>
           </a>
         </div>
         <div class="navbar-collapse collapse">
