@@ -20,7 +20,7 @@
 
     <div class="button-space">
     <?if ($product->final_price()>0):?>
-        <a class="btn btn-success pay-btn mb-20" target="_top"
+        <a class="btn btn-success pay-btn full-w" target="_top"
             href="<?=Route::url('product-paypal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
             <?=__('Pay with Paypal')?></a>
         <?=$product->alternative_pay_button()?>
