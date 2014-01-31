@@ -5,20 +5,22 @@
 
 <div class="well">
 	<?php if ($errors): ?>
-    <p class="message"><?=__('Some errors were encountered, please check the details you entered.')?></p>
-    <ul class="errors">
-    <?php foreach ($errors as $message): ?>
-        <li><?php echo $message ?></li>
-    <?php endforeach ?>
-    </ul>
+    <div class="alert alert-warning">
+	    <?=__('Some errors were encountered, please check the details you entered.')?>
+	    <ul class="errors">
+		    <?php foreach ($errors as $message): ?>
+		        <li><?php echo $message ?></li>
+		    <?php endforeach ?>
+	    </ul>
+    </div>
     <?php endif ?>       
 	<?=FORM::open(Route::url('forum-new'), array('class'=>'form-horizontal', 'enctype'=>'multipart/form-data'))?>
 	<fieldset>
 
-        <div class="control-group">
-            <?= FORM::label('id_forum', __('Forum'), array('class'=>'control-label', 'for'=>'id_forum' ))?>
-            <div class="controls">
-                <select name="id_forum" id="id_forum" class="input-xlarge" REQUIRED>
+        <div class="form-group">
+            <?= FORM::label('id_forum', __('Forum'), array('class'=>'col-md-2 control-label', 'for'=>'id_forum' ))?>
+            <div class="col-md-6">
+                <select name="id_forum" id="id_forum" class="form-control" REQUIRED>
                     <option><?=__('Select a forum')?></option>
                     <?foreach ($forums as $f):?>
                         <option value="<?=$f['id_forum']?>" <?=(core::request('id_forum')==$f['id_forum'])?'selected':''?>>
@@ -28,32 +30,31 @@
             </div>
         </div>
 
-		<div class="control-group">
-			<?= FORM::label('title', __('Title'), array('class'=>'control-label', 'for'=>'title'))?>
-			<div class="controls ">
-				<?= FORM::input('title', core::post('title'), array('placeholder' => __('Title'), 'class' => 'col-md-6', 'id' => 'title', 'required'))?>
+		<div class="form-group">
+			<?= FORM::label('title', __('Title'), array('class'=>'col-md-2 control-label', 'for'=>'title'))?>
+			<div class="col-md-6 ">
+				<?= FORM::input('title', core::post('title'), array('placeholder' => __('Title'), 'class' => 'form-control', 'id' => 'title', 'required'))?>
 			</div>
 		</div>
-		<div class="control-group">
-			<?= FORM::label('description', __('Description'), array('class'=>'control-label', 'for'=>'description'))?>
-			<div class="controls">
-				<?= FORM::textarea('description', core::post('description'), array('placeholder' => __('Description'), 'class' => 'col-md-6', 'name'=>'description', 'id'=>'description', 'required'))?>	
+		<div class="form-group">
+			<?= FORM::label('description', __('Description'), array('class'=>'col-md-2 control-label', 'for'=>'description'))?>
+			<div class="col-md-6">
+				<?= FORM::textarea('description', core::post('description'), array('placeholder' => __('Description'), 'class' => 'form-control', 'name'=>'description', 'id'=>'description', 'required'))?>	
 			</div>
 		</div>
 		
-		<div class="control-group">
-			<div class="controls">
+		<div class="form-group">
+			<div class="col-md-6 col-md-offset-2">
 				<?=__('Captcha')?>*:<br />
 				<?=captcha::image_tag('new-forum')?><br />
-				<?= FORM::input('captcha', "", array('class' => 'col-md-6', 'id' => 'captcha', 'required'))?>
+				<?= FORM::input('captcha', "", array('class' => 'form-control', 'id' => 'captcha', 'required'))?>
 			</div>
 		</div>
-	
-		<div class="control-group">
-			<div class="controls">
+		<div class="clearfix"></div><br>
+		<div class="form-group">
+			<div class="col-md-6 col-md-offset-2">
 				<?= FORM::button('submit', __('Publish new topic'), array('type'=>'submit', 'class'=>'btn btn-success', 'action'=>Route::url('forum-new')))?>
 			</div>
-			<br class="clear">
 		</div>
 	</fieldset>
 	<?= FORM::close()?>
