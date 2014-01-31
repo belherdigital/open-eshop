@@ -12,8 +12,9 @@
 class Alert {
 
 	const SUCCESS	= 'success';
-	const ERROR		= 'error';
-	const ALERT		= 'block';
+	const ERROR		= 'danger';
+	const WARNING	= 'warning';
+	const ALERT		= 'warning';
 	const INFO		= 'info';
 
 	/**
@@ -147,6 +148,9 @@ class Alert {
 			{
 				case self::INFO:
 					$title = __('Info');
+					break;
+				case self::WARNING:
+					$title = __('Warning');
 					break;
 				case self::ALERT:
 					$title = __('Warning');

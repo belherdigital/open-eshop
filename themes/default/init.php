@@ -50,7 +50,7 @@ Theme::$scripts['footer']   = array('http://netdna.bootstrapcdn.com/bootstrap/3.
 /**
  * custom error alerts
  */
-Form::$errors_tpl   = '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a>
+Form::$errors_tpl   = '<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a>
                         <h4 class="alert-heading">%s</h4>
                         <ul>%s</ul></div>';
 
