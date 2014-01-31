@@ -31,13 +31,13 @@
 		<div class="control-group">
 			<?= FORM::label('title', __('Title'), array('class'=>'control-label', 'for'=>'title'))?>
 			<div class="controls ">
-				<?= FORM::input('title', core::post('title'), array('placeholder' => __('Title'), 'class' => 'span6', 'id' => 'title', 'required'))?>
+				<?= FORM::input('title', core::post('title'), array('placeholder' => __('Title'), 'class' => 'col-md-6', 'id' => 'title', 'required'))?>
 			</div>
 		</div>
 		<div class="control-group">
 			<?= FORM::label('description', __('Description'), array('class'=>'control-label', 'for'=>'description'))?>
 			<div class="controls">
-				<?= FORM::textarea('description', core::post('description'), array('placeholder' => __('Description'), 'class' => 'span6', 'name'=>'description', 'id'=>'description', 'required'))?>	
+				<?= FORM::textarea('description', core::post('description'), array('placeholder' => __('Description'), 'class' => 'col-md-6', 'name'=>'description', 'id'=>'description', 'required'))?>	
 			</div>
 		</div>
 		
@@ -45,7 +45,7 @@
 			<div class="controls">
 				<?=__('Captcha')?>*:<br />
 				<?=captcha::image_tag('new-forum')?><br />
-				<?= FORM::input('captcha', "", array('class' => 'input-xlarge', 'id' => 'captcha', 'required'))?>
+				<?= FORM::input('captcha', "", array('class' => 'col-md-6', 'id' => 'captcha', 'required'))?>
 			</div>
 		</div>
 	

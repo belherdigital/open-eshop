@@ -11,7 +11,7 @@ $('#stripe_button').click(function(){
     amount:      <?=StripeKO::money_format($product->final_price())?>,
     currency:    '<?=$product->currency?>',
     name:        '<?=$product->title?>',
-    description: '<?=substr(Text::removebbcode($product->description), 0, 30)?>',
+    description: '<?=Text::limit_chars(Text::removebbcode($product->description), 30, NULL, TRUE)?>',
     <?if (Auth::instance()->logged_in()):?>
     email:       '<?=Auth::instance()->get_user()->email?>',
      <?endif?>

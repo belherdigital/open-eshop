@@ -37,7 +37,6 @@
             width: 100%; 
             height:100%; 
             top: 0; 
-            padding-top:50px; 
             z-index: 1;
             display:block;
             border:none;
@@ -47,6 +46,31 @@
         .btn-header-group{padding-top: 5px;}
         body{background-color: grey}
         .switcher-bar{height:50px !important;}
+
+        .desktop-view{
+            padding-top:50px;
+        }
+
+        .tablet-border{
+            margin-top:150px;
+            border-radius: 36px 36px 36px 36px;
+            -moz-border-radius: 36px 36px 36px 36px;
+            -webkit-border-radius: 36px 36px 36px 36px;
+            border-left: 56px solid #000000;
+            border-right: 56px solid #000000;
+            border-bottom: 36px solid #000000;
+            border-top: 36px solid #000000;
+        }
+        .mobile-border{
+            margin-top:75px;
+            border-radius: 24px 24px 24px 24px;
+            -moz-border-radius: 24px 24px 24px 24px;
+            -webkit-border-radius: 24px 24px 24px 24px;
+            border-left: 16px solid #000000;
+            border-right: 16px solid #000000;
+            border-bottom: 60px solid #000000;
+            border-top: 40px solid #000000;
+        }
     </style>
 
     <link rel="shortcut icon" href="<?=Theme::public_path('img/favicon.ico')?>">
@@ -79,8 +103,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button> 
+          <a class="navbar-brand" href="<?=Route::url('default')?>">
+            <img src="<?=Theme::public_path('img/favicon.ico')?>"> 
+          </a>
           <a class="navbar-brand" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
-            <span class="glyphicon glyphicon-th-large"></span> <?=substr($product->title, 0, 30)?>
+            <?=$product->title?>
           </a>
         </div>
         <div class="navbar-collapse collapse">
@@ -114,7 +141,7 @@
             </li>
             <?endif?>
 
-            <li><p class="navbar-text"><?=substr(Text::removebbcode($product->description), 0, 30)?></p></li>
+            <li><p class="navbar-text"><?=Text::limit_chars(Text::removebbcode($product->description), 45, NULL, TRUE)?></p></li>
           </ul>
 
           <div class="btn-group navbar-right btn-header-group">
@@ -142,16 +169,12 @@
 
             
         </div><!--/.nav-collapse -->
-
     </div>
 
-
-
-    <iframe id="product-iframe" frameborder="0" noresize="noresize" src="<?=$product->url_demo?><?=(count($skins)>0)?'&skin='.$skin:''?>" ></iframe>
+    <iframe class="desktop-view" id="product-iframe" frameborder="0" noresize="noresize" src="<?=$product->url_demo?><?=(count($skins)>0)?'&skin='.$skin:''?>" ></iframe>
 
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script src="/themes/default/js/demo.js"></script>
     <script type="text/javascript">
         /* Modified from
          * Switcheroo by OriginalEXE
@@ -171,20 +194,27 @@
 
         // Switching views
         $( '.desktop-btn' ).on( 'click', function() {
+            $productIframe.removeClass();
+            $productIframe.addClass('desktop-view');
             $productIframe.animate({'width'       : $( window ).width(), });
             switcher_iframe_height();
             return false;
         });
 
         $( '.tablet-btn' ).on( 'click', function() {
+            $productIframe.removeClass();
+            $productIframe.addClass('tablet-border');
             $productIframe.animate({'width'  : '800px','height' : '480px'});
             return false;
         });
 
         $( '.mobile-btn' ).on( 'click', function() {
+            $productIframe.removeClass();
+            $productIframe.addClass('mobile-border');
             $productIframe.animate({'width'  : '480px','height' : '800px' });
             return false;
-        });
+        }); 
+
     </script>
   </body>
 </html>

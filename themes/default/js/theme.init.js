@@ -2,30 +2,13 @@ $(function(){
     if(!$("select").hasClass('disable-chosen')){
         $("select").chosen();   
     } 
-    $("#category_subscribe").chosen(); 
     $('.remove_chzn').chosen('destroy');
-    $('textarea[name=description]').sceditorBBCodePlugin({
-        toolbar: "bold,italic,underline,strike,|left,center,right,justify|" +
-        "bulletlist,orderedlist|link,unlink,youtube|source",
-        resizeEnabled: "true"
-    });
-    
-    //sceditorBBCodePlugin for validation, updates iframe on submit 
-    $("button[name=submit]").click(function(){
-        $("textarea[name=description]").data("sceditor").updateTextareaValue();
-    });
 
     // $( "div.sceditor-group" ).css('padding','1px 15px 5px 5px');
     
     $("a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_rounded',slideshow:3000, autoplay_slideshow: false});
  
     $('input, select, textarea, .btn').tooltip();
-
-    //datepicker in case date field exists
-    if($('.cf_date_fields').length != 0){
-        $('.cf_date_fields').datepicker();}
-    
-    $('.slider_subscribe').slider();
 
     $('.radio > input:checked').parentsUntil('div .accordion').addClass('in');
 
@@ -34,7 +17,15 @@ $(function(){
     $(window).load(function(){
         $('#accept_terms_modal').modal('show');
     });
-    if (!navigator.onLine) $('.off-line').show();
+    
+    //online offline message
+    window.addEventListener("offline", function(e) {
+        $('.off-line').show();
+    }, false);
+
+    window.addEventListener("online", function(e) {
+        $('.off-line').hide();
+    }, false);
     
 
     // fix sub nav on scroll

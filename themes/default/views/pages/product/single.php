@@ -42,13 +42,6 @@
 <div class="col-md-6">
 	<div class="page-header">
 		<h3><?=$product->title?></h3>
-		<?if ($product->rate!==NULL):?>
-	    <a class="label label-warning" href="<?=Route::url('product-review', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" >
-		   	<?for ($i=0; $i < round($product->rate,1); $i++):?>
-		   		<span class="glyphicon glyphicon-star"></span>
-		   	<?endfor?>
-	    </a>
-	<?endif?>
 	</div>
 
 	<?if ($product->has_offer()):?>
@@ -58,7 +51,7 @@
 	    	</span> <?=__('Offer')?> <?=$product->final_price().' '.$product->currency?> 
 	    	<del><?=$product->price.' '.$product->currency?></del> </h4>
 	    </span>
-		<span class="offer-valid"><?=__('Offer valid until')?> <?=Date::format($product->offer_valid)?></span>
+		<span class="offer-valid"><?=__('Offer valid until')?> <?=(Date::format((Controller::$coupon!==NULL)?Controller::$coupon->valid_date:$product->offer_valid))?></span>
 	<?else:?>
 	    <?if($product->final_price() != 0):?>
 	        <h4><?=__('Price')?> : <?=$product->final_price().' '.$product->currency?></span></h4>
@@ -78,10 +71,7 @@
 	    <a class="btn btn-success pay-btn full-w" 
 	        href="<?=Route::url('product-paypal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
 	        <?=__('Pay with Paypal')?></a>
-
 	    <?=$product->alternative_pay_button()?>
-	    <?=StripeKO::button($product)?>
-	    <?=Paymill::button($product)?>
 	<?else:?>
 	    <?if (!Auth::instance()->logged_in()):?>
 	    <a class="btn btn-info btn-large" data-toggle="modal" data-dismiss="modal" 

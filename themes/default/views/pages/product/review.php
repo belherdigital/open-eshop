@@ -14,8 +14,11 @@
             href="<?=Route::url('product-paypal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
             <?=__('Pay with Paypal')?></a>
         <?=$product->alternative_pay_button()?>
-        <?=StripeKO::button($product)?>
-        <?=Paymill::button($product)?>
+        <?if (Theme::get('premium')==1):?>
+            <?=StripeKO::button($product)?>
+            <?=Paymill::button($product)?>
+        <?endif?>
+        
     <?else:?>
         <?if (!Auth::instance()->logged_in()):?>
         <a class="btn btn-info btn-large" data-toggle="modal" data-dismiss="modal" 

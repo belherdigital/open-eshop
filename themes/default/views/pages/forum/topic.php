@@ -69,7 +69,7 @@
 
     <div class="control-group">
     <div class="controls">
-    <textarea name="description" rows="10" class="span6" required><?=core::post('description',__('Reply here'))?></textarea>
+    <textarea name="description" rows="10" class="col-md-6" required><?=core::post('description',__('Reply here'))?></textarea>
     </div>
     </div>
 
@@ -81,7 +81,7 @@
             </div>
         </div>
 
-    <button type="submit" class="btn btn-primary"><?=__('Reply')?></button>
+    <button type="submit" class="btn btn-primary" name="submit"><?=__('Reply')?></button>
 </form>  
 <?else:?>
 <a class="btn btn-success pull-right" data-toggle="modal" data-dismiss="modal" 

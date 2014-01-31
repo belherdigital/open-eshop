@@ -3,7 +3,7 @@
     <h2><?=$product->title?></h2>
     <?if ($product->has_offer()):?>
         <span class="label label-success mb-20 "><?=__('Offer')?> <?=$product->final_price().' '.$product->currency?> <del><?=$product->price.' '.$product->currency?></del></span>
-        <p><?=__('Offer valid until')?> <?=Date::format($product->offer_valid)?></p>
+        <p><?=__('Offer valid until')?> <?=(Date::format((Controller::$coupon!==NULL)?Controller::$coupon->valid_date:$product->offer_valid))?></p>
     <?else:?>
         <?if($product->final_price() != 0):?>
             <span class="label label-success mb-20 "><?=$product->final_price().' '.$product->currency?></span>
@@ -20,12 +20,10 @@
 
     <div class="button-space">
     <?if ($product->final_price()>0):?>
-        <a class="btn btn-success pay-btn mb-20" target="_top"
+        <a class="btn btn-success pay-btn full-w" target="_top"
             href="<?=Route::url('product-paypal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
             <?=__('Pay with Paypal')?></a>
         <?=$product->alternative_pay_button()?>
-        <?=StripeKO::button($product)?>
-        <?=Paymill::button($product)?>
     <?else:?>
         <?if (!Auth::instance()->logged_in()):?>
         <a class="btn btn-info pay-btn mb-20"  

@@ -2,6 +2,12 @@
 <div class="page-header">
     <h1><?=__('Social Authentication Settings')?></h1>
 </div>
+    <?if (Theme::get('premium')!=1):?>
+        <p class="well"><span class="label label-info"><?=__('Heads Up!')?></span> 
+            <?=__('Social authentication is only available with premium themes!').'<br/>'.__('Upgrade your Open eShop site to activate this feature.')?>
+            <a class="btn btn-success pull-right" href="<?=Route::url('oc-panel',array('controller'=>'theme'))?>"><?=__('Browse Themes')?></a>
+        </p>
+    <?endif?>
 
     <div class="well">
     <?= FORM::open(Route::url('oc-panel',array('controller'=>'social', 'action'=>'index')), array('class'=>'form-horizontal', 'enctype'=>'multipart/form-data'))?>

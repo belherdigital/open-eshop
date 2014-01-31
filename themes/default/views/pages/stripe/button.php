@@ -5,7 +5,7 @@
     data-key="<?=Core::config('payment.stripe_public')?>"
     data-label="<?=__('Pay with Card')?>"
     data-name="<?=$product->title?>"
-    data-description="<?=substr(Text::removebbcode($product->description), 0, 30)?>"
+    data-description="<?=Text::limit_chars(Text::removebbcode($product->description), 30, NULL, TRUE)?>"
     <?if (Auth::instance()->logged_in()):?>
         data-email="<?=Auth::instance()->get_user()->email?>"
     <?endif?>

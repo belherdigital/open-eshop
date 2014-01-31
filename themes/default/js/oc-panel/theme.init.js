@@ -3,7 +3,7 @@ $(function (){
 
     if ($("textarea[name=description]").data('editor')=='html')
     {
-        $("#formorm_description, textarea[name=description], textarea[name=email_purchase_notes], .cf_textarea_fields").addClass('span8').sceditor({
+        $("#formorm_description, textarea[name=description], textarea[name=email_purchase_notes], .cf_textarea_fields").addClass('col-md-6').sceditor({
             plugins: "xhtml",
             height: "450",
             toolbarExclude: "emoticon,cut,copy,paste,pastetext",
@@ -15,7 +15,7 @@ $(function (){
     }
     else
     {
-        $('#formorm_description, textarea[name=description], textarea[name=email_purchase_notes], .cf_textarea_fields').addClass('span6').sceditorBBCodePlugin({
+        $('#formorm_description, textarea[name=description], textarea[name=email_purchase_notes], .cf_textarea_fields').addClass('col-md-6').sceditorBBCodePlugin({
             toolbar: "bold,italic,underline,strike|left,center,right,justify|" +
             "bulletlist,orderedlist|link,unlink,image,youtube|source",
             resizeEnabled: "true",

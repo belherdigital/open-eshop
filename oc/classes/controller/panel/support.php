@@ -170,7 +170,7 @@ class Controller_Panel_Support extends Auth_Controller {
 
         if ($orders->count() == 0)
         {
-            Alert::set(Alert::WARNING, __('You do not have any purchase with support active.'));
+            Alert::set(Alert::ALERT, __('You do not have any purchase with support active.'));
             $this->request->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
         }
 

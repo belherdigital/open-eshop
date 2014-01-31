@@ -39,7 +39,7 @@ class Controller_Forum extends Controller {
         if ($forum->loaded())
         {
             //template header
-            $this->template->title            = $forum->name;
+            $this->template->title            = $forum->name.' - '.__('Forum');
             $this->template->meta_description = $forum->description;
             Breadcrumbs::add(Breadcrumb::factory()->set_title($forum->name));
             
@@ -121,13 +121,12 @@ class Controller_Forum extends Controller {
         }
 
         //template header
-        $this->template->title            = __('New Topic');
-        $this->template->meta_description = __('New Topic');
-        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('New Topic')));
+        $this->template->title            = __('New Forum Topic');
+        $this->template->meta_description = $this->template->title;
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title));
 
-        $this->template->styles              = array('http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen');
-        $this->template->scripts['footer'][] = 'js/jquery.sceditor.min.js?v=144';
-        $this->template->scripts['footer'][] = 'js/forum-new.js';
+        $this->template->styles              = array('css/jquery.sceditor.min.css' => 'screen');
+        $this->template->scripts['footer']   = array('js/jquery.sceditor.min.js?v=144','js/forum-new.js');
         
         $forums = Model_Forum::get_forum_count();
             
@@ -163,7 +162,7 @@ class Controller_Forum extends Controller {
                 ->set_url(Route::url('forum-list',array('forum'=>$forum->seoname))));
             Breadcrumbs::add(Breadcrumb::factory()->set_title($topic->title));
 
-            $this->template->title            = $topic->title;
+            $this->template->title            = $topic->title.' - '.$forum->name.' - '.__('Forum');
             $this->template->meta_description = $topic->description;
 
             //getting all the topic replies, @todo pagination
@@ -214,9 +213,8 @@ class Controller_Forum extends Controller {
         //if loged in add styles and check for post
         if (Auth::instance()->logged_in())
         {
-            $this->template->styles              = array('http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen');
-            $this->template->scripts['footer'][] = 'js/jquery.sceditor.min.js?v=144';
-            $this->template->scripts['footer'][] = 'js/forum-new.js';
+            $this->template->styles              = array('css/jquery.sceditor.min.css' => 'screen');
+            $this->template->scripts['footer']   = array('js/jquery.sceditor.min.js?v=144','js/forum-new.js');
 
             $errors = NULL;
             if($this->request->post()) //message submition  
