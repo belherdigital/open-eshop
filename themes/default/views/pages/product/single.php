@@ -1,7 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 <div class="col-md-6">
 
-<?$images = $product->get_images()?>
 	<?if(isset($images[1]['image'])):?>
 		<img class="main-image" src="<?=URL::base()?><?=$images[1]['image']?>">
 	<?else:?>
@@ -14,7 +13,7 @@
 	            <div class="active item">
 	                <?$i=0;
 	                foreach ($images as $path => $value):?>
-	                <?if ($i%3==0 AND $i!=0):?></div><div class="item"><?endif?>
+	                <?if ($i%2==0 AND $i!=0):?></div><div class="item"><?endif?>
 		                <?if($images = $product->get_images()):?>
 						    <div class="picture">
 						        <?if( isset($value['thumb']) AND isset($value['image']) ):?>

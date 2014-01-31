@@ -88,7 +88,7 @@ a > i { margin-right:5px; margin-top:1px; }
 #listing-list .list ul li { line-height:21px; }
 .pagination li.active a { font-weight:bold; }
 /*====================== Single ========================*/
-.main-image{width: 100%;}
+.main-image{width: 100%; min-height: 280px;}
 .offer-valid{font-size: 12px;}
 .offer del{font-size: 13px;}
 /*================= Sitemap ==========================*/
