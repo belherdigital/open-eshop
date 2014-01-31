@@ -50,19 +50,19 @@ else
 {
     Theme::$styles = array(
                         'http://netdna.bootstrapcdn.com/bootswatch/3.0.2/yeti/bootstrap.min.css' => 'screen',
-                        'css/style.css?v=1.2' => 'screen',
-                        'css/yeti-style.css' => 'screen',
                         'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen',
                         'http://cdn.jsdelivr.net/prettyphoto/3.1.5/css/prettyPhoto.css' => 'screen',
+                        'css/style.css?v=1.2' => 'screen',
+                        'css/yeti-style.css' => 'screen',
                         'css/slider.css' => 'screen',
                         );
 
     Theme::$scripts['footer']   = array('http://code.jquery.com/jquery-1.10.2.min.js',
                                         'http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js',
-                                        'js/bootstrap-slider.js',
-                                        'js/jquery.validate.min.js',
                                         'http://cdn.jsdelivr.net/prettyphoto/3.1.5/js/jquery.prettyPhoto.js',
                                         'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
+                                        'js/bootstrap-slider.js',
+                                        'js/jquery.validate.min.js',
                                         'js/theme.init.js?v=1.2',
                                         );
 }
