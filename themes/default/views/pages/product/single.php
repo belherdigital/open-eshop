@@ -1,10 +1,8 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
 <div class="col-md-6">
-
-<?$images = $product->get_images()?>
-    <?if(isset($images[1]['image'])):?>
-        <img class="main-image" src="<?=URL::base()?><?=$images[1]['image']?>">
+    <?if($images):?>
+        <img class="main-image" src="<?=URL::base()?><?=current($images)['image']?>">
     <?else:?>
         <img src="http://www.placehold.it/300x300&text=No Image">
     <?endif?>
