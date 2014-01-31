@@ -20,7 +20,7 @@ class Paymill {
      */
     public static function button(Model_Product $product)
     {
-        if ( Core::config('payment.paymill_private')!='' AND Core::config('payment.paymill_public')!='' )
+        if ( Core::config('payment.paymill_private')!='' AND Core::config('payment.paymill_public')!='' AND Theme::get('premium')==1)
         {
             if (Auth::instance()->logged_in() AND $product->loaded())
                 return View::factory('pages/paymill/button_loged',array('product'=>$product));
