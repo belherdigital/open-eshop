@@ -67,7 +67,9 @@ class Controller_Product extends Controller{
 
             $this->template->bind('content', $content);
             $this->template->bind('product', $product);
-            $this->template->content = View::factory($product_view,array('product'=>$product,'hits'=>$hits));
+            $this->template->content = View::factory($product_view,array('product'=>$product,
+                                                                         'hits'=>$hits, 
+                                                                         'images'=>$images = $product->get_images()));
 
 		}
 		else

@@ -1,47 +1,55 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
-<div class="col-md-6">
 
-<?$images = $product->get_images()?>
-	<?if(isset($images[1]['image'])):?>
-		<img class="main-image" src="<?=URL::base()?><?=$images[1]['image']?>">
-	<?else:?>
-		<img src="http://www.placehold.it/300x300&text=No Image">
-	<?endif?>
+<div class="col-md-6">
     <?if($images):?>
-		<div class="clearfix"></div><br>
-	    <div id="slider-fixed-products" class="carousel slide">
-	        <div class="carousel-inner">
-	            <div class="active item">
-	                <?$i=0;
-	                foreach ($images as $path => $value):?>
-	                <?if ($i%3==0 AND $i!=0):?></div><div class="item"><?endif?>
-		                <?if($images = $product->get_images()):?>
-						    <div class="picture">
-						        <?if( isset($value['thumb']) AND isset($value['image']) ):?>
-						            <a rel="prettyPhoto[gallery]" href="<?=URL::base()?><?= $value['image']?>">
-						                <figure><img src="<?=URL::base()?><?= $value['thumb']?>" ></figure>
-						            </a>
-						        <?endif?>   
-						    </div>
-					    <?endif?>
-	                <?$i++;
-	                endforeach?>
-	          	</div>
-	        </div>
-	        <?if($i > 4):?>
-	        <a class="left carousel-control" href="#slider-fixed-products" data-slide="prev">
-	            <span class="glyphicon glyphicon-chevron-left"></span>
-	        </a>
-	        <a class="right carousel-control" href="#slider-fixed-products" data-slide="next">
-	            <span class="glyphicon glyphicon-chevron-right"></span>
-	        </a>
-	        <?endif?>
-		</div>
-	<?endif?>
+        <img class="main-image" src="<?=URL::base()?><?=current($images)['image']?>">
+    <?else:?>
+        <img src="http://www.placehold.it/300x300&text=No Image">
+    <?endif?>
+    <?if($images):?>
+        <div class="clearfix"></div><br>
+        <div id="slider-fixed-products" class="carousel slide">
+            <div class="carousel-inner">
+                <div class="active item">
+                    <?$i=0;
+                    foreach ($images as $path => $value):?>
+                    <?if ($i%3==0 AND $i!=0):?></div><div class="item"><?endif?>
+                        <?if($images = $product->get_images()):?>
+                            <div class="picture">
+                                <?if( isset($value['thumb']) AND isset($value['image']) ):?>
+                                    <a rel="prettyPhoto[gallery]" href="<?=URL::base()?><?= $value['image']?>">
+                                        <figure><img src="<?=URL::base()?><?= $value['thumb']?>" ></figure>
+                                    </a>
+                                <?endif?>   
+                            </div>
+                        <?endif?>
+                    <?$i++;
+                    endforeach?>
+                </div>
+            </div>
+            <?if($i > 4):?>
+            <a class="left carousel-control" href="#slider-fixed-products" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#slider-fixed-products" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+            <?endif?>
+        </div>
+    <?endif?>
 </div>
+
 <div class="col-md-6">
 	<div class="page-header">
-		<h3><?=$product->title?></h3>
+		<h3><?=$product->title?>
+	    <?if ($product->rate!==NULL):?>
+    	    <a class="btn-xs" href="<?=Route::url('product-review', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" >
+    		   	<?for ($i=0; $i < round($product->rate,1); $i++):?>
+    		   		<span class="glyphicon glyphicon-star"></span>
+    		   	<?endfor?>
+                <span class="rating"><?=round($product->rate,2)?></span>
+    	    </a>
+	   <?endif?></h3>
 	</div>
 
 	<?if ($product->has_offer()):?>
@@ -71,7 +79,10 @@
 	    <a class="btn btn-success pay-btn full-w" 
 	        href="<?=Route::url('product-paypal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
 	        <?=__('Pay with Paypal')?></a>
+
 	    <?=$product->alternative_pay_button()?>
+	    <?=StripeKO::button($product)?>
+	    <?=Paymill::button($product)?>
 	<?else:?>
 	    <?if (!Auth::instance()->logged_in()):?>
 	    <a class="btn btn-info btn-large" data-toggle="modal" data-dismiss="modal" 
@@ -90,17 +101,13 @@
 	<?endif?>
 		<div class="clearfix"></div><br>
 	</div>
-</div>
-
-<div class="clearfix"></div><br>
-
+        
 	<ul class="nav nav-tabs mb-30">
 	  	<li class="active">
 	  		<a href="#description" data-toggle="tab"><?=__('Description')?></a>	
 	  	</li>
 	  	<li><a href="#details" data-toggle="tab"><?=__('Details')?></a></li>
 	</ul>
-	
 	<div class="tab-content">
 		<div class="tab-pane active" id="description">
 			<?=Text::bb2html($product->description,TRUE)?>
@@ -126,6 +133,10 @@
 		    <?endif?>
 		</div>
 	</div>
+
+</div>
+
+<div class="clearfix"></div>
 <br/>
 <div class="coupon">
 <?=View::factory('coupon')?>
