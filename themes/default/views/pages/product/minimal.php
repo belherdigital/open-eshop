@@ -29,7 +29,7 @@
         <a class="btn btn-info pay-btn mb-20"  
             href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'register'))?>#register-modal">
         <?else:?>
-        <a class="btn btn-info pay-btn mb-20"
+        <a class="btn btn-info pay-btn full-w"
             href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'free','id'=>$product->seotitle))?>">
         <?endif?>
             <?if(!empty($product->file_name)):?>
@@ -40,11 +40,11 @@
         </a>
     <?endif?>
     </div>
-    
+    <div class="clearfix"></div><br>
 <!--     <span class="label label-info pull-right">
         <i class="icon-eye-open icon-white"></i> <?=$hits?>
     </span> -->
-
+<div class="clearfix"></div>
     <ul id="mini-tabs" class="nav nav-tabs">
         <li class="active"><a href="#desc" data-toggle="tab"><?=__('Description')?></a></li>
         <li><a href="#details" data-toggle="tab"><?=__('Details')?></a></li>
@@ -55,24 +55,23 @@
         </div>
         <div class="tab-pane" id="details">
             <ul class="mini-info">
+                <p><?=__('Hits')?> : <?=$hits?></p>
+
                 <?if (!empty($product->file_name)):?>
-                    <li>
-                        <?=strtoupper(strrchr($product->file_name, '.'))?> <?=__('file')?> 
-                        <?=round(filesize(DOCROOT.'data/'.$product->file_name)/pow(1024, 2),2)?>MB
-                    </li>
+                    <p><?=__('Product format')?> : <?=strtoupper(strrchr($product->file_name, '.'))?> <?=__('file')?> </p>
+                    <p><?=__('Product size')?> : <?=round(filesize(DOCROOT.'data/'.$product->file_name)/pow(1024, 2),2)?>MB</p>
                 <?endif?>
+
                 <?if ($product->support_days>0):?>
-                    <li>
-                        <?=$product->support_days?> <?=__('days professional support')?>
-                    </li>
+                    <p><?=__('Professional support')?> : <?=$product->support_days?> <?=__('days')?></p>
                 <?endif?>
+
                 <?if ($product->licenses>0):?>
-                    <li>
-                    <?=$product->licenses?> <?=__('licenses')?> 
-                        <?if ($product->license_days>0):?>
-                            <?=$product->license_days?> <?=__('days valid')?>
-                        <?endif?>
-                    </li>
+                <p><?=__('Licenses')?> : <?=$product->licenses?>  
+                    <?if ($product->license_days>0):?>
+                        <?=__('valid')?> <?=$product->license_days?> <?=__('days')?>
+                    <?endif?>
+                </p>
                 <?endif?>
             </ul>
             <div class="mt-20">

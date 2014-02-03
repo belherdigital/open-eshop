@@ -1,12 +1,12 @@
 body {
 /*padding-top: 5px;
-padding-bottom: 5px;
-background-color: #f5f5f5;*/
+padding-bottom: 5px;*/
+background-color: #f5f5f5;
 }
 
 .centered-box {
-width: 480px;
-height: 600px;
+width: 480px !important;
+height: 600px !important;
 /*padding: 19px 29px 29px;*/
 margin: 0 auto 20px;
 background-color: #fff;
@@ -22,3 +22,5 @@ background-color: #fff;
 .button-space{ margin-top: 30px;margin-left: 20%; margin-right: 20%;}
 .pay-btn{ float:left; padding: 10px; font-size: 19px; margin-right: 10px;}
 /*.mini-info li{}*/
+h2{text-align: center;}
+.thumbnail{border: none;}
