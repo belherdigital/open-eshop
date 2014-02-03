@@ -46,7 +46,7 @@
 
     <div class="row">
         <div class="col-md-2">
-            <img class="ticket_image" src="<?=$ticket->user->get_profile_image()?>">
+            <img class="ticket_image" src="<?=$ticket->user->get_profile_image()?>" width="120px" height="120px">
             <p>
                 <?=$ticket->user->name?><br>
                 <?=Date::fuzzy_span(Date::mysql2unix($ticket->created))?><br>
@@ -61,7 +61,7 @@
     <?foreach ($replies as $reply):?>
     <div class="row <?=($ticket->id_user!==$reply->id_user)?'well':''?>" >
         <div class="col-md-2">
-            <img class="ticket_image" src="<?=$reply->user->get_profile_image()?>">
+            <img class="ticket_image" src="<?=$reply->user->get_profile_image()?>" width="120px" height="120px">
             <p>
                 <?=$reply->user->name?><br>
                 <?=Date::fuzzy_span(Date::mysql2unix($reply->created))?><br>
