@@ -69,6 +69,7 @@
 	    
 		<?=View::factory('oc-panel/sidebar',array('user'=>$user))?>
     <div class="bs-docs-nav">
+    <div class="alert alert-warning off-line" style="display:none;"><strong><?=__('Warning')?>!</strong> <?=__('We detected you are currently off-line, please connect to gain full experience.')?></div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main pull-left">
 				<?=Breadcrumbs::render('oc-panel/breadcrumbs')?>      
 				<?=Alert::show()?>
