@@ -43,12 +43,15 @@
 	<div class="page-header">
 		<h3><?=$product->title?>
 	    <?if ($product->rate!==NULL):?>
-    	    <a class="btn-xs" href="<?=Route::url('product-review', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" >
-    		   	<?for ($i=0; $i < round($product->rate,1); $i++):?>
-    		   		<span class="glyphicon glyphicon-star"></span>
-    		   	<?endfor?>
-                <span class="rating"><?=round($product->rate,2)?></span>
-    	    </a>
+	    
+    	    <div class="rating">
+    	    <h1 class="rating-num"><?=round($product->rate,2)?>.0</h1>
+	    	    <a class="" href="<?=Route::url('product-review', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" >
+	    		   	<?for ($i=0; $i < round($product->rate,1); $i++):?>
+	    		   		<span class="glyphicon glyphicon-star"></span>
+	    		   	<?endfor?>
+	    	    </a>
+    	    </div>
 	   <?endif?></h3>
 	</div>
 
