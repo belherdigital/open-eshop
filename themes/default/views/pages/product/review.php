@@ -43,7 +43,7 @@
     <?foreach ($reviews as $review):?>
         <div class="row well" >
         <div class="span2">
-            <img src="<?=$review->user->get_profile_image()?>" width="120px">
+            <img src="<?=$review->user->get_profile_image()?>" width="120px" height="120px">
             <p>
                 <?=$review->user->name?><br>
                 <?=Date::fuzzy_span(Date::mysql2unix($review->created))?><br>

@@ -208,7 +208,7 @@ class Controller_Panel_Support extends Auth_Controller {
         }
 
         //marking it as read if wasnt from moderators
-        if ($ticket->status==Model_Ticket::STATUS_CREATED AND $user->id_role==Model_Role::ROLE_ADMIN)
+        if ($ticket->status==Model_Ticket::STATUS_CREATED AND $user->id_role==Model_Role::ROLE_ADMIN AND !is_numeric($ticket->id_user_support))
         {
             //modify status of parent ticket
             $ticket->id_user_support = $user->id_user;
