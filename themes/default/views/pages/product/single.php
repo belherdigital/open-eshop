@@ -1,42 +1,42 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
 <div class="col-md-6">
-    <?if($images):?>
-        <img class="main-image" src="<?=URL::base()?><?=current($images)['image']?>">
-    <?else:?>
-        <img src="http://www.placehold.it/300x300&text=No Image">
-    <?endif?>
-    <?if($images):?>
-        <div class="clearfix"></div><br>
-        <div id="slider-fixed-products" class="carousel slide">
-            <div class="carousel-inner">
-                <div class="active item">
-                    <?$i=0;
-                    foreach ($images as $path => $value):?>
-                    <?if ($i%3==0 AND $i!=0):?></div><div class="item"><?endif?>
-                        <?if($images = $product->get_images()):?>
-                            <div class="picture">
-                                <?if( isset($value['thumb']) AND isset($value['image']) ):?>
-                                    <a rel="prettyPhoto[gallery]" href="<?=URL::base()?><?= $value['image']?>">
-                                        <figure><img src="<?=URL::base()?><?= $value['thumb']?>" ></figure>
-                                    </a>
-                                <?endif?>   
-                            </div>
-                        <?endif?>
-                    <?$i++;
-                    endforeach?>
-                </div>
-            </div>
-            <?if($i > 4):?>
-            <a class="left carousel-control" href="#slider-fixed-products" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-            <a class="right carousel-control" href="#slider-fixed-products" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-            </a>
-            <?endif?>
-        </div>
-    <?endif?>
+	<?if($images):?>
+		<div class="carousel slide article-slide" id="article-photo-carousel">
+		  	<!-- Wrapper for slides -->
+		  	<div class="carousel-inner cont-slider">
+			    <?$i=0;
+	            foreach ($images as $path => $value):?>
+	                <?if($images = $product->get_images()):?>
+                        <?if( isset($value['thumb']) AND isset($value['image']) ):?>
+	                        <div class="item <?=($i == 0)?'active':''?>">
+		                        <a rel="prettyPhoto[gallery]" href="<?=URL::base()?><?= $value['image']?>">             
+		                            <img class="main-image" src="<?=URL::base()?><?= $value['image']?>" >
+		                        </a>
+	                        </div>               
+                        <?endif?>   
+	                <?endif?>
+	            <?$i++;
+	            endforeach?>
+		  	</div>
+		  	<!-- Indicators -->
+		  	<ol class="carousel-indicators">
+		  		<?$j=0;
+		        foreach ($images as $path => $value):?>
+			        <li class="<?=($j == 0)?'active':'item'?>" data-slide-to="<?=$j?>" data-target="#article-photo-carousel">
+			            <?if($images = $product->get_images()):?>        
+			                <?if( isset($value['thumb']) AND isset($value['image']) ):?>
+			                    <img src="<?=URL::base()?><?= $value['thumb']?>" >
+			                <?endif?>   
+			            <?endif?>
+			        </li>
+		        <?$j++;
+		        endforeach?>
+		  	</ol>
+		</div>
+	<?else:?>
+		<img src="http://www.placehold.it/300x300&text=No Image">
+	<?endif?>
 </div>
 
 <div class="col-md-6">

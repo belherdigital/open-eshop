@@ -88,9 +88,48 @@ a > i { margin-right:5px; margin-top:1px; }
 #listing-list .list ul li { line-height:21px; }
 .pagination li.active a { font-weight:bold; }
 /*====================== Single ========================*/
-.main-image{width: 100%; min-height: 280px;}
+.main-image{width: 100%; min-height: 300px; max-height: 300px;}
 .offer-valid{font-size: 12px;}
 .offer del{font-size: 13px;}
+
+/* Main carousel style */
+.carousel {
+    width: 100%;
+}
+
+/* Indicators list style */
+.article-slide .carousel-indicators {
+    bottom: 0;
+    left: 0;
+    margin-left: 5px;
+    width: 100%;
+    bottom: -120px;
+}
+/* Indicators list style */
+.article-slide .carousel-indicators li {
+    border: medium none;
+    border-radius: 0;
+    float: left;
+    height: 54px;
+    margin-bottom: 5px;
+    margin-left: 0;
+    margin-right: 5px !important;
+    margin-top: 0;
+    width: 100px;
+}
+/* Indicators images style */
+.article-slide .carousel-indicators img {
+    border: 2px solid #FFFFFF;
+    float: left;
+    height: 54px;
+    left: 0;
+    width: 100px;
+}
+/* Indicators active image style */
+.article-slide .carousel-indicators .active img {
+    border: 2px solid #428BCA;
+    opacity: 0.7;
+}
 /*================= Sitemap ==========================*/
 #sitemap ul { margin-bottom:18px; }
 #sitemap ul li { line-height:28px; }
