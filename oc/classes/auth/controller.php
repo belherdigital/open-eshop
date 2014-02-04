@@ -95,6 +95,7 @@ class Auth_Controller extends Controller
                 Theme::$styles                    = array('http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css' => 'screen',
                                                         'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
                                                         'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css'=>'screen',
+                                                        'css/bootstrap-tagsinput.css'=>'screen',
                                                         'css/admin-styles.css' => 'screen');
                
             }
@@ -106,6 +107,7 @@ class Auth_Controller extends Controller
                                                 // 'http://cdn.jsdelivr.net/bootstrap/3.0.3/css/bootstrap-responsive.min.css' => 'screen',
                                                 'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen', 
                                                 'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
+                                                'css/bootstrap-tagsinput.css'=>'screen',
                                                 'css/admin-styles.css' => 'screen',
                                                 );
             }
@@ -119,6 +121,7 @@ class Auth_Controller extends Controller
                                                       'js/jquery.sceditor.min.js?v=144',
                                                       'js/jquery.validate.min.js',
                                                       'js/oc-panel/sidebar.js',
+                                                      'js/bootstrap-tagsinput.min.js',
                                                       'js/form.js',
                                                       );
 		}

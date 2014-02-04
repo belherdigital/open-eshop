@@ -97,13 +97,10 @@
             <div class="form-group">
                 <?= FORM::label('skins', __('Skins'), array('class'=>'col-md-3 control-label', 'for'=>'skins'))?>
                 <div class="col-md-5">
-                    <?= FORM::input('skins', Request::current()->post('skins'), array('placeholder' => 'Comma separated', 'class' => 'form-control', 'id' => 'skins', 'type' => 'text'))?>
+                    <?= FORM::input('skins', Request::current()->post('skins'), array('placeholder' => 'Hit enter to confirm', 'class' => 'form-control', 'id' => 'skins', 'type' => 'text','data-role'=>'tagsinput'))?>
                 </div>
             </div>
 			
-			<div class="col-md-5">
-				<?= FORM::input('skins', Request::current()->post('skins'), array('placeholder' => __('skins'), 'class' => 'form-control', 'type' => 'hidden'))?>
-			</div>
 			<div class="clearfix"></div>
 			<div class="form-group">
 				<?= FORM::label('price', __('Price'), array('class'=>'col-md-3 control-label', 'for'=>'price'))?>

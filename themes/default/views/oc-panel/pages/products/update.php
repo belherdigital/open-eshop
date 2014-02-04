@@ -153,7 +153,7 @@
              <div class="form-group">
                 <?= FORM::label('skins', __('Skins'), array('class'=>'col-md-3 control-label', 'for'=>'skins'))?>
                 <div class="col-md-5">
-                    <?= FORM::input('skins', $product->skins, array('placeholder' => 'Comma separated', 'class' => 'form-control', 'id' => 'skins', 'type' => 'text'))?>
+                    <?= FORM::input('skins', $product->skins, array('placeholder' => 'Hit enter to confirm', 'class' => 'form-control', 'id' => 'skins', 'type' => 'text','data-role'=>'tagsinput'))?>
                 </div>
             </div>
 
