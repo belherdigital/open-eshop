@@ -94,7 +94,8 @@ a > i { margin-right:5px; margin-top:1px; }
 
 .glyphicon { margin-right:5px;}
 .rating{margin-top: 20px;}
-.rating .glyphicon {font-size: 22px; }
+.rating a {text-decoration: none;}
+.rating .glyphicon {font-size: 17px; }
 .rating-num { margin-top:0px;font-size: 54px; margin-bottom: 0px;}
 .progress { margin-bottom: 5px;}
 .progress-bar { text-align: left; }
@@ -112,7 +113,7 @@ a > i { margin-right:5px; margin-top:1px; }
     left: 0;
     margin-left: 5px;
     width: 100%;
-    bottom: -120px;
+    position: relative;
 }
 /* Indicators list style */
 .article-slide .carousel-indicators li {

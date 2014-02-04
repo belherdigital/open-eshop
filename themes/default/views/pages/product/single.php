@@ -45,7 +45,6 @@
 	    <?if ($product->rate!==NULL):?>
 	    
     	    <div class="rating">
-    	    <h1 class="rating-num"><?=round($product->rate,2)?>.0</h1>
 	    	    <a class="" href="<?=Route::url('product-review', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" >
 	    		   	<?for ($i=0; $i < round($product->rate,1); $i++):?>
 	    		   		<span class="glyphicon glyphicon-star"></span>
@@ -104,8 +103,11 @@
 	<?endif?>
 		<div class="clearfix"></div><br>
 	</div>
-        
-	<ul class="nav nav-tabs mb-30">
+
+</div>
+
+<div class="col-md-12">
+<ul class="nav nav-tabs mb-30">
 	  	<li class="active">
 	  		<a href="#description" data-toggle="tab"><?=__('Description')?></a>	
 	  	</li>
@@ -136,9 +138,7 @@
 		    <?endif?>
 		</div>
 	</div>
-
 </div>
-
 <div class="clearfix"></div>
 <br/>
 <div class="coupon">
