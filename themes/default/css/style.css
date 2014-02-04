@@ -97,7 +97,7 @@ a > i { margin-right:5px; margin-top:1px; }
 .rating a {text-decoration: none;}
 .rating .glyphicon {font-size: 17px; }
 .rating-num { margin-top:0px;font-size: 54px; margin-bottom: 0px;}
-.progress { margin-bottom: 5px;}
+.progress { margin-bottom: 5px; height: 21px;}
 .progress-bar { text-align: left; }
 .rating-desc .col-md-3 {padding-right: 0px;}
 .sr-only { margin-left: 5px;overflow: visible;clip: auto; }
