@@ -1,30 +1,38 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
      
 <?if ($category!==NULL):?>
-<?if (strlen($category->description>0)):?>
-<div class="well advise clearfix" id="advise">
-    <p><?=Text::bb2html($category->description,TRUE)?></p> 
-</div><!--end of advise-->
-<?endif?>
+    <?if (strlen($category->description>0)):?>
+    <div class="well advise clearfix" id="advise">
+        <p><?=Text::bb2html($category->description,TRUE)?></p> 
+    </div><!--end of advise-->
+    <?endif?>
 <?endif?>
 
-    <?if(count($products)):?>
 
+<div class="btn-group pull-right">
+    <a href="#" id="list" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-th-list"></span><?=__('List')?>
+    </a> 
+    <a href="#" id="grid" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-th"></span><?=__('Grid')?>
+    </a>
+</div>
+<div class="clearfix"></div><br>
+<?if(count($products)):?>
+    <div id="products" class="row list-group">
         <?$i=1;
-        foreach($products as $product ):?>
-            <div class="col-md-4 col-sm-4 col-xs-12">
+        foreach($products as $product ):?>    
+            <div class="item  col-xs-4 col-lg-4">
                 <div class="thumbnail">
-
+                    <a title="<?= $product->title;?>" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                     <?if($product->get_first_image() !== NULL):?>
-                        <a title="<?= $product->title;?>" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
-                            <img width="300px" height="200px" src="<?=URL::base()?><?=$product->get_first_image()?>" class="" >
-                        </a>
+                        <img width="300px" height="200px" src="<?=URL::base()?><?=$product->get_first_image()?>" class="" >
                     <?else:?>
-                        <img src="http://www.placehold.it/200x200&text=<?=$product->category->name?>"> 
+                        <img src="http://www.placehold.it/200x200&text=<?=$product->category->name?>">  
                     <?endif?>
-
+                    </a>
                     <div class="caption">
-                        <h5><a href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"><?=substr($product->title, 0, 30)?></a></h5>
+                        <h4><a href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"><?=substr($product->title, 0, 30)?></a></h4>
                         <p><?=Text::limit_chars(Text::removebbcode($product->description), 30, NULL, TRUE)?></p>
                         <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                         <?if ($product->final_price()>0):?>
@@ -38,10 +46,9 @@
                     </div>
                 </div>
             </div>
-            <?if ($i%3==0):?><div class="clearfix"></div> <?endif?>
         <?$i++?>
-    <?endforeach?>
-
+        <?endforeach?>
+    </div>
 
 <?=$pagination?>
 <?elseif (count($products) == 0):?>
