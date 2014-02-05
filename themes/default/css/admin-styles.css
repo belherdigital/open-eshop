@@ -140,6 +140,7 @@ li.sbp:hover{border-right: none;}
 
 .chosen-container-single .chosen-single{height: 27px !important;}
 .chosen-container.chosen-container-multi ul.chosen-choices li.search-field input{height: 27px !important;}
+.chosen-container { min-width: 220px !important; }
 
 .ml-20{margin-left: 20px;}
 .edit_ad_form{margin-left: 150px;}
