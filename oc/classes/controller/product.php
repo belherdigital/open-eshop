@@ -67,9 +67,19 @@ class Controller_Product extends Controller{
 
             $this->template->bind('content', $content);
             $this->template->bind('product', $product);
+
+            $skins = NULL;
+            if ($product->skins!='')
+                $skins = explode(',',$product->skins);
+            if (!is_array($skins) OR count($skins)<=0)
+                $skins = NULL;
+
+            $this->template->bind('skins', $skins);
+
             $this->template->content = View::factory($product_view,array('product'=>$product,
                                                                          'hits'=>$hits, 
-                                                                         'images'=>$images = $product->get_images()));
+                                                                         'images'=>$images = $product->get_images(),
+                                                                         'skins'=>$skins));
 
 		}
 		else

@@ -71,8 +71,22 @@
 	<?endif?>
 
 	<?if (!empty($product->url_demo)):?>
-	    <a class="btn btn-warning btn-xs pull-right" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" >
+	    <?if (count($skins)>0):?>
+            <div class="btn-group pull-right">
+              	<a class="btn btn-warning btn-xs" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"><?=__('Demo')?></a>
+			    <button class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown">
+			        <span class="caret"></span>
+			    </button>
+              	<ul class="dropdown-menu" id="menu_type">
+	                <?foreach ($skins as $s):?>
+	                    <li><a title="<?=$s?>" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>?skin=<?=$s?>"><?=$s?></a></li>
+	                <?endforeach?>
+              	</ul>
+            </div>
+        <?else:?>
+        	<a class="btn btn-warning btn-xs pull-right" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" >
 	        <i class="glyphicon glyphicon-eye-open"></i> <?=__('Demo')?></a>
+        <?endif?>
 	<?endif?>
 
 	<div class="button-space">
