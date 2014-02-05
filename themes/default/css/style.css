@@ -36,7 +36,7 @@ h1, h2, h3 { margin-bottom:.5em; }
 .subnav .nav > li:last-child > a { border-right: 0 none; }
 .subnav .dropdown-menu { border-radius: 0 0 4px 4px; }
 .subnav .nav > li:first-child > a, .subnav .nav > li:first-child > a:hover { border-radius: 0 0 0 0; }
-.nav.navbar-nav:first-child{ margin-left: -17px;}
+
 /*#logo { margin-bottom:20px; }*/
 #logo img { margin-top:10px; }
 #logo .span4 { text-align:right; }
@@ -195,7 +195,7 @@ a > i { margin-right:5px; margin-top:1px; }
 .accordion-body {margin-left: 15px;}
 
 .navbar-nav li{border-right: 1px solid rgba(255,255,255,0.1) !important;}
-.navbar-nav li:first-child{border-left: 1px solid rgba(255,255,255,0.1) !important; margin-left: 17px;}
+.navbar-nav li:first-child{border-left: 1px solid rgba(255,255,255,0.1) !important;}
 
 /* no different badge styles in boot3*/
 .badge-success{background-color: #5cb85c;}
