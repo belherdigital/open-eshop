@@ -7,7 +7,7 @@
 </div>
 
 <div class="table-responsive">
-    <table class="table table-striped">
+    <table class="table table-bordered table-condensed">
     <thead>
          <tr>
             <th>#</th>
@@ -44,7 +44,7 @@
             <?if ($order->licenses->count_all()>0):?>
             <tr>
                 <td colspan="5">
-                    <table class="table table-striped">
+                    <table class="table table-bordered table-condensed">
                         <th><?=__('License')?></th>
                         <th><?=__('Created')?></th>
                         <th><?=__('Domain')?></th>
