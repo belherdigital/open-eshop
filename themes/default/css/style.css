@@ -124,7 +124,7 @@ a > i { margin-right:5px; margin-top:1px; }
 {
     padding: 9px 9px 0px 9px;
     height: 200px;
-    float: left;
+    /*float: left;*/
 }
 
 .item.list-group-item:before, .item.list-group-item:after
@@ -137,6 +137,7 @@ a > i { margin-right:5px; margin-top:1px; }
 {
     float: left;
     max-width: 200px;
+    margin-right: 20px;
 }
 .item.list-group-item:after
 {

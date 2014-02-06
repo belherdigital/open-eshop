@@ -47,6 +47,7 @@
                     </div>
                 </div>
             </div>
+            <?if($i%3==0):?><div class="clearfix"></div><?endif?>
         <?$i++?>
         <?endforeach?>
     </div>
