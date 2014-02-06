@@ -10,19 +10,20 @@
 
 
 <div class="btn-group pull-right">
-    <a href="#" id="list" class="btn btn-default btn-sm">
+    <a href="#" id="list" class="btn btn-default btn-sm <?=($_COOKIE['list/grid']==1)?'active':''?>">
         <span class="glyphicon glyphicon-th-list"></span><?=__('List')?>
     </a> 
-    <a href="#" id="grid" class="btn btn-default btn-sm">
+    <a href="#" id="grid" class="btn btn-default btn-sm <?=($_COOKIE['list/grid']==0)?'active':''?>">
         <span class="glyphicon glyphicon-th"></span><?=__('Grid')?>
     </a>
 </div>
 <div class="clearfix"></div><br>
 <?if(count($products)):?>
+
     <div id="products" class="row list-group">
         <?$i=1;
         foreach($products as $product ):?>    
-            <div class="item  col-xs-4 col-lg-4">
+            <div class="item <?=($_COOKIE['list/grid']==1)?'list-group-item':'grid-group-item'?> col-xs-4 col-lg-4">
                 <div class="thumbnail">
                     <a title="<?= $product->title;?>" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                     <?if($product->get_first_image() !== NULL):?>
@@ -46,6 +47,7 @@
                     </div>
                 </div>
             </div>
+            <?if($i%3==0):?><div class="clearfix"></div><?endif?>
         <?$i++?>
         <?endforeach?>
     </div>

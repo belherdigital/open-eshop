@@ -26,38 +26,40 @@
         </div>
     </div>
 <?= FORM::close()?>
-<table class="table table-bordered">
-    <tr>
-        <th><?=__('Title')?></th>
-        <th><?=__('locale')?></th>
-        <th><?=__('created')?></th>
-        <th><?=__('seotitle')?></th>
-        <th><?=__('status')?></th>
-        <th></th>
-    </tr>
-<?foreach ($contents as $content):?>
- 
-    <tr>
-        <td><?=$content->title?></td>
-        <td><?=$content->locale?></td>
-        <td><?=$content->created?></td>
-        <td><?=$content->seotitle?></td>
-        <td><?=$content->status?></td>
-        <td width="5%">
-            
-            <a class="btn btn-primary" 
-                href="<?=Route::url('oc-panel', array('controller'=>'content','action'=>'edit','id'=>$content))?>" 
-                rel"tooltip" title="<?=__('Edit')?>">
-                <i class="glyphicon glyphicon-edit"></i>
-            </a>
-            <a class="btn btn-danger" 
-                href="<?=Route::url('oc-panel', array('controller'=>'content','action'=>'delete','id'=>$content))?>" 
-                rel"tooltip" title="<?=__('Delete')?>">
-                <i class="glyphicon glyphicon-trash"></i>
-            </a>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr>
+            <th><?=__('Title')?></th>
+            <th><?=__('locale')?></th>
+            <th><?=__('created')?></th>
+            <th><?=__('seotitle')?></th>
+            <th><?=__('status')?></th>
+            <th></th>
+        </tr>
+    <?foreach ($contents as $content):?>
+     
+        <tr>
+            <td><?=$content->title?></td>
+            <td><?=$content->locale?></td>
+            <td><?=$content->created?></td>
+            <td><?=$content->seotitle?></td>
+            <td><?=$content->status?></td>
+            <td width="5%">
+                
+                <a class="btn btn-primary" 
+                    href="<?=Route::url('oc-panel', array('controller'=>'content','action'=>'edit','id'=>$content))?>" 
+                    rel"tooltip" title="<?=__('Edit')?>">
+                    <i class="glyphicon glyphicon-edit"></i>
+                </a>
+                <a class="btn btn-danger" 
+                    href="<?=Route::url('oc-panel', array('controller'=>'content','action'=>'delete','id'=>$content))?>" 
+                    rel"tooltip" title="<?=__('Delete')?>">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
 
-        </td>
-    </tr>
-    
-<?endforeach?>
-</table>
+            </td>
+        </tr>
+        
+    <?endforeach?>
+    </table>
+</div>

@@ -30,7 +30,10 @@ $(function(){
     //list / grit swap
     
     $('#list').click(function(event){
-      event.preventDefault();$('#products .item').addClass('list-group-item');
+      event.preventDefault();
+      $('#products .item').addClass('list-group-item');
+      $(this).addClass('active');
+      $('#grid').removeClass('active');
       setCookie('list/grid',1,10);
     });
 
@@ -38,13 +41,10 @@ $(function(){
       event.preventDefault();
       $('#products .item').removeClass('list-group-item');
       $('#products .item').addClass('grid-group-item');
+      $(this).addClass('active');
+      $('#list').removeClass('active');
       setCookie('list/grid',0,10);
     });
-
-    if(getCookie('list/grid') == 0)
-      $('#grid').trigger('click');
-    else if(getCookie('list/grid') == 1)
-      $('#list').trigger('click');
 
     // fix sub nav on scroll
     var $win = $(window)
