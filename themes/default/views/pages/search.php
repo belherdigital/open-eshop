@@ -1,15 +1,14 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
-<div class="well advise clearfix">
-    <h3><?=__('Advanced Search')?></h3>
+<div class="well clearfix">
     <?= FORM::open(Route::url('search'), array('class'=>'form-search', 'method'=>'GET', 'action'=>''))?>
-        <div class="form-group">
+        <div class="">
             <div class="col-md-3">
                 <label><?=__('Name')?></label>
                 <input type="text" id="search" name="search" class="form-control" value="<?=core::get('search')?>" placeholder="<?=__('Search')?>">  
             </div>
         </div>
-        <div class="form-group">
+        <div class="">
             <div class="col-md-3">
                 <label><?=__('Category')?></label>
                 <select name="category" id="category" class="form-control remove_chzn" >
@@ -25,13 +24,13 @@
                 </select>
             </div>
         </div>
-        <div class="form-group">
+        <div class="">
             <div class="col-md-2">
                 <label><?=__('Price from')?></label>
                 <input type="text" id="price-min" name="price-min" class="form-control" value="<?=core::get('price-min')?>" placeholder="0">
             </div>
         </div>   
-        <div class="form-group">
+        <div class="">
             <div class="col-md-2">
                 <label><?=__('to')?></label>
                 <input type="text" id="price-max" name="price-max" class="form-control" value="<?=core::get('price-max')?>" placeholder="100">
