@@ -53,11 +53,13 @@
         </div>
     </div>
     <div class="col-md-9">
+    <?if(Auth::instance()->logged_in()):?>
         <?if(Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN):?>
             <a class="label label-warning pull-right" href="<?=Route::url('oc-panel', array('controller'=> 'topic', 'action'=>'update','id'=>$reply->id_post)) ?>">
                 <i class="glyphicon glyphicon-edit"></i>
             </a>
         <?endif?>
+    <?endif?>
         <p><?=Text::bb2html($reply->description,TRUE)?></p>
     </div>
 
