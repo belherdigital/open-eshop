@@ -4,8 +4,8 @@
   '1.2' => 
   array (
     'codename' => 'nungwi',
-    'released' => '2014-01-xx',
-    'blog' => 'http://market.open-eshop.com/blog/open-eshop-12.html',
+    'released' => '2014-02-06',
+    'blog' => 'http://open-eshop.com/2014/02/06/open-eshop-1-2',
     'changelog' => 'https://github.com/open-classifieds/open-eshop/commits/1.2',
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=4&page=1&state=closed',
     'download' => 'http://j.mp/oe_12',
