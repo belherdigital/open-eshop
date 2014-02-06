@@ -102,6 +102,17 @@ class Core {
     }
 
     /**
+     * shortcut for $_COOKIE[]
+     * @param  [type] $key     [description]
+     * @param  [type] $default [description]
+     * @return [type]          [description]
+     */
+    public static function cookie($key,$default=NULL)
+    {
+        return (isset($_COOKIE[$key]))?$_COOKIE[$key]:$default;
+    }
+
+    /**
      * shortcut for the cache instance
      * 
      * @param   string  $name       name of the cache
