@@ -142,7 +142,7 @@ class Controller_Panel_Support extends Auth_Controller {
                 }
 
                 $user->email('newticket',array('[TITLE]'=>$ticket->title,
-                                              '[URL.QL]'=>$user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE)));
+                                              '[URL.QL]'=>$user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))));
 
                 
                 Alert::set(Alert::SUCCESS, __('Ticket created.'));
@@ -231,7 +231,7 @@ class Controller_Panel_Support extends Auth_Controller {
                 $agent = new Model_User(core::post('agent'));
                 $agent->email('assignagent',array('[TITLE]'=>$ticket->title,
                                                     '[DESCRIPTION]'=>$ticket->description,
-                                                    '[URL.QL]'=>$agent->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE)));
+                                                    '[URL.QL]'=>$agent->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))));
 
                 Alert::set(Alert::SUCCESS, __('Agent assigned.'));
             }
@@ -268,7 +268,7 @@ class Controller_Panel_Support extends Auth_Controller {
                         //send email to creator of the ticket
                         $ticket->user->email('new.reply',array('[TITLE]'=>$ticket->title,
                                                         '[DESCRIPTION]'=> $user->signature,
-                                                        '[URL.QL]'=>$ticket->user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE))
+                                                        '[URL.QL]'=>$ticket->user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket)))
                                                 );
 
                     }
@@ -279,7 +279,7 @@ class Controller_Panel_Support extends Auth_Controller {
                         $agent = new Model_User($ticket->id_user_support);
                         $agent->email('new.reply',array('[TITLE]'=>$ticket->title,
                                                         '[DESCRIPTION]'=>$ticketr->description,
-                                                        '[URL.QL]'=>$agent->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket),TRUE))
+                                                        '[URL.QL]'=>$agent->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket)))
                                                 );
 
                     }
