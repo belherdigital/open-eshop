@@ -29,12 +29,12 @@ Theme::load();
 if (Theme::get('cdn_files') == FALSE)
 {
                    
-    Theme::$styles = array('css/yeti-bootstrap.min.css' => 'screen',
-                        'css/style.css?v=1.2' => 'screen',
-                        'css/yeti-style.css' => 'screen',
-                        'css/prettyPhoto.css' => 'screen',
-                        'css/chosen.min.css' => 'screen',
-                        'css/slider.css' => 'screen',
+    Theme::$styles = array( 'css/yeti-bootstrap.min.css' => 'screen',
+                            'css/style.css?v=1.2' => 'screen',
+                            'css/yeti-style.css' => 'screen',
+                            'css/prettyPhoto.css' => 'screen',
+                            'css/chosen.min.css' => 'screen',
+                            'css/slider.css' => 'screen',
                         );
 
     Theme::$scripts['footer']   = array('js/jquery-1.10.2.js',
