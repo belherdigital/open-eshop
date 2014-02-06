@@ -26,28 +26,7 @@ Theme::load();
 
 
 //local files
-if (Theme::get('cdn_files') == FALSE)
-{
-                   
-    Theme::$styles = array( 'css/yeti-bootstrap.min.css' => 'screen',
-                            'css/style.css?v=1.2' => 'screen',
-                            'css/yeti-style.css' => 'screen',
-                            'css/prettyPhoto.css' => 'screen',
-                            'css/chosen.min.css' => 'screen',
-                            'css/slider.css' => 'screen',
-                        );
 
-    Theme::$scripts['footer']   = array('js/jquery-1.10.2.js',
-                                        'js/bootstrap.min.js',
-                                        'js/bootstrap-slider.js',
-                                        'js/jquery.validate.min.js',
-                                        'js/jquery.prettyPhoto.js',
-                                        'js/chosen.jquery.min.js',
-                                        'js/theme.init.js?v=1.2',
-                                        );
-}
-else
-{
     Theme::$styles = array(
                         'http://netdna.bootstrapcdn.com/bootswatch/3.0.3/yeti/bootstrap.min.css' => 'screen',
                         'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen',
@@ -65,7 +44,6 @@ else
                                         'js/jquery.validate.min.js',
                                         'js/theme.init.js?v=1.2',
                                         );
-}
 
 
 
