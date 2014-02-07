@@ -134,7 +134,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".$_POST['TABLE_PREFIX']."products` (
   `support_days` int(10)  NOT NULL DEFAULT '0',
   `licenses` int(10)  NOT NULL DEFAULT '1',
   `license_days` int(10)  NOT NULL DEFAULT '0',
-  `rate` FLOAT( 4, 2 ) NOT NULL DEFAULT NULL,
+  `rate` FLOAT( 4, 2 ) NULL DEFAULT NULL,
   PRIMARY KEY (`id_product`),
   KEY `".$_POST['TABLE_PREFIX']."products_IK_id_user` (`id_user`),
   KEY `".$_POST['TABLE_PREFIX']."products_IK_id_category` (`id_category`)
