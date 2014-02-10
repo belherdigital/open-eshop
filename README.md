@@ -1,7 +1,8 @@
-#  Open eShop 1.2
+#  Open eShop 1.3
 
 
 # Description
+With this new PHP script you will be able to start selling any digital goods, such as MP3s, eBooks, Movies, Software, or any other service you offer. Just within minutes in your own hosting. Just post a new product in your site, share the URL and get paid via Paypal or Card (Paymill). No cards stored, and simple setup. With OE you will be able to give support to your customers from the panel.
 
 
 # License GPL v3

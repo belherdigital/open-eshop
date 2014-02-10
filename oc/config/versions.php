@@ -1,5 +1,14 @@
 <?php defined('SYSPATH') or die('No direct script access.');
                 return array (
+  '1.3' => 
+  array (
+    'codename' => 'paje',
+    'released' => '2014-',
+    'blog' => 'http://open-eshop.com/',
+    'changelog' => 'https://github.com/open-classifieds/open-eshop/commits/1.3',
+    'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=5&page=1&state=closed',
+    'download' => 'http://j.mp/oe_12',
+  ),
 
   '1.2' => 
   array (
