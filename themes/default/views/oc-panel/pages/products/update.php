@@ -219,35 +219,36 @@
 				</div>
 			</div>
 			<!-- images -->
-			<div class="form-group">
-					<div class="col-md-5">
-						<?$images = $product->get_images()?>
-						<?if($images):?>
-						<ul class="thumbnails">
-							<?php foreach ($images as $path => $value):?>
-							<?if(isset($value['thumb'])): // only formated images (not originals)?>
-							<?$img_name = str_replace(".jpg", "", substr(strrchr($value['thumb'], "/"), 1 ));?>
-							<li>
-								<a class="thumbnail">
-									<img src="<?=URL::base()?><?= $value['thumb']?>" class="img-rounded" alt="">
-								</a>
-								
-								<button class="btn btn-danger index-delete"
-								   onclick="return confirm('<?=__('Delete?')?>');" 
-								   type="submit" 
-								   name="img_delete"
-								   value="<?=$img_name?>" 
-								   rel"tooltip" 
-								   title="<?=__('Delete image')?>">
-									<?=__('Delete')?>
-								</button>
-							</li>
-							<?endif?>
-							<?endforeach?>
-						</ul>
+			
+				<div class="form-group">
+					<?$images = $product->get_images()?>
+					<?if($images):?>
+					
+						<?php foreach ($images as $path => $value):?>
+						<?if(isset($value['thumb'])): // only formated images (not originals)?>
+						<?$img_name = str_replace(".jpg", "", substr(strrchr($value['thumb'], "/"), 1 ));?>
+						<div class="col-md-3">
+							<a class="thumbnail">
+								<img src="<?=URL::base()?><?= $value['thumb']?>" class="img-rounded" alt="">
+							</a>
+							
+							<button class="btn btn-danger index-delete"
+							   onclick="return confirm('<?=__('Delete?')?>');" 
+							   type="submit" 
+							   name="img_delete"
+							   value="<?=$img_name?>" 
+							   rel"tooltip" 
+							   title="<?=__('Delete image')?>">
+								<?=__('Delete')?>
+							</button>
+						</div>
 						<?endif?>
-					</div>	
+						<?endforeach?>
+					
+					<?endif?>
 				</div>
+				<div class="clearfix"></div>	
+				
 				<!-- ./end images -->
 				<div class="form-group">
 					<?if (core::config('product.num_images') > count($images)):?> <!-- permition to add more images-->
