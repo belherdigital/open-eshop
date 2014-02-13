@@ -19,7 +19,39 @@ class Controller_Panel_Support extends Auth_Controller {
 
         $tickets = new Model_Ticket();
 
-     
+        //search box
+        if (core::get('search')!==NULL)
+        {
+            $this->template->title.= ' '.core::get('search') ;
+
+            //email seted
+            if ($user->id_role==Model_Role::ROLE_ADMIN AND Valid::email(core::get('search')))
+            {
+                $users = new Model_User();
+                $users->where('email','=',core::get('search'))->limit(1)->find();
+                if ($users->loaded())
+                   $tickets->where('id_user','=',$users->id_user);
+
+                $tickets->where('id_ticket_parent', 'IS', NULL);
+            }
+            //any user search by ticket ID
+            elseif(is_numeric(core::get('search')))
+                $tickets->where('id_ticket','=',core::get('search'));
+            
+            //any user we let him search at any of his tickets
+            elseif(strlen(core::get('search'))>3)
+            {
+                $tickets->where_open()
+                        ->where('title', 'like', '%'.core::get('search').'%')
+                        ->or_where('description', 'like', '%'.core::get('search').'%')
+                        ->where_close();
+            }
+        }
+        //theres no search so lets limit the filter only to the parent ticket
+        else
+            $tickets->where('id_ticket_parent', 'IS', NULL);
+
+        //by type filter 
         switch ($this->request->param('id'))
         {
             case 'assigned':
@@ -47,6 +79,7 @@ class Controller_Panel_Support extends Auth_Controller {
             break;
         }       
 
+        //filter by status
         if (is_numeric(core::get('status')))
         {
             $filter_status = core::get('status');
@@ -56,8 +89,6 @@ class Controller_Panel_Support extends Auth_Controller {
                 $tickets->where('status','=',$filter_status);
             }
         }
-
-        $tickets = $tickets->where('id_ticket_parent', 'IS', NULL);
 
         $pagination = Pagination::factory(array(
                     'view'           => 'pagination',
@@ -70,8 +101,7 @@ class Controller_Panel_Support extends Auth_Controller {
 
         $pagination->title($this->template->title);
 
-        $tickets = $tickets->where('id_ticket_parent', 'IS', NULL)
-                        ->order_by('status','asc')
+        $tickets = $tickets->order_by('status','asc')
                         ->order_by('created','desc')
                         ->limit($pagination->items_per_page)
                         ->offset($pagination->offset)

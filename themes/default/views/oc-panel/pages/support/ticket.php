@@ -32,12 +32,18 @@
             <a href="<?=Route::url('oc-panel', array('controller'=> 'user', 'action'=>'update','id'=>$ticket->id_user)) ?>">
                 <?=$ticket->user->email?>
             </a>
+            - <a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'index','id'=>'admin'))?>?search=<?=$ticket->user->email?>">
+                <?=__('Tickets')?></a>
 
             <?if ($ticket->order->licenses->count_all()>0):?>
             <?foreach ($ticket->order->licenses->find_all() as $license):?>
                 <br>
+                <a href="http://<?=$license->domain?>" target="_blank">
+                    <?=$license->domain?>
+                </a>
+                -
                 <a href="<?=Route::url('oc-panel', array('controller'=> 'license', 'action'=>'update','id'=>$license->id_license)) ?>">
-                    <?=(empty($license->domain))?__('Inactive license'):'http://'.$license->domain?>
+                    <?=(empty($license->domain))?__('Inactive license'):__('Active license')?>
                 </a>
             <?endforeach?>
             <?endif?>

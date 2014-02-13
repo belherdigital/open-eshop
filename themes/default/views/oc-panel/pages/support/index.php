@@ -1,5 +1,12 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
+<form class="form-inline" method="get" action="<?=URL::current();?>">
+    <div class="form-group pull-right">
+        <div class="">
+            <input type="text" class="form-control search-query" name="search" placeholder="<?=__('search')?>" value="<?=core::get('search')?>">
+        </div>
+    </div>
+</form>
 
 <div class="page-header">
 	<h1><?=$title?></h1>
@@ -36,7 +43,7 @@
             <tr class="<?=($ticket->status==Model_Ticket::STATUS_CLOSED)?'danger':''?>
                 <?=($ticket->status==Model_Ticket::STATUS_HOLD)?'warning':''?>
                 <?=($ticket->status==Model_Ticket::STATUS_READ)?'success':''?>">
-                <td><span class="ww"><?=$ticket->title;?></span></td>
+                <td><span class="ww"><?=($ticket->title!='')?$ticket->title:Text::limit_chars(Text::removebbcode($ticket->description), 45, NULL, TRUE);?></span></td>
                 <td><?=$ticket->created?></td>
                 <td><?=(empty($ticket->read_date))?__('None'):$ticket->read_date?></td>
                 <td><?=(!$ticket->agent->loaded())?__('None'):$ticket->agent->name?></td>
@@ -47,7 +54,7 @@
                     <?=(Model_Ticket::$statuses[$ticket->status])?></span>
                 </td>
                 <td>
-                    <a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>" class="btn btn-success">
+                    <a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>($ticket->id_ticket_parent!=NULL)?$ticket->id_ticket_parent:$ticket->id_ticket))?>" class="btn btn-success">
                         <i class="glyphicon glyphicon-envelope"></i></a>
                 </td>
             </tr>
