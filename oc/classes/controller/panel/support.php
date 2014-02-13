@@ -207,7 +207,7 @@ class Controller_Panel_Support extends Auth_Controller {
             $this->request->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
         }
 
-        //marking it as read if wasnt from moderators
+        //marking it as read if was not assign we assign an agent.
         if ($ticket->status==Model_Ticket::STATUS_CREATED AND $user->id_role==Model_Role::ROLE_ADMIN AND !is_numeric($ticket->id_user_support))
         {
             //modify status of parent ticket
@@ -217,91 +217,91 @@ class Controller_Panel_Support extends Auth_Controller {
             $ticket->save();
         }
 
+        //Change the agent assigned to this ticket
+        if (core::post('agent') AND $user->id_role==Model_Role::ROLE_ADMIN)
+        {
+            //modify ticket 
+            $ticket->id_user_support = core::post('agent');
+            $ticket->status = Model_Ticket::STATUS_CREATED;
+            $ticket->save();
+
+            //send notification to agent
+            $agent = new Model_User(core::post('agent'));
+            $agent->email('assignagent',array('[TITLE]'=>$ticket->title,
+                                                '[DESCRIPTION]'=>$ticket->description,
+                                                '[URL.QL]'=>$agent->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))));
+
+            Alert::set(Alert::SUCCESS, __('Agent assigned.'));
+            $this->request->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index','id'=>'admin')));
+        }
+
         //create new reply
         if($this->request->post() AND Form::token('reply_ticket',TRUE))
         {
-            //Change the agent assigned to this ticket
-            if (core::post('agent') AND $user->id_role==Model_Role::ROLE_ADMIN)
+
+            $validation = Validation::factory($this->request->post())
+            ->rule('description', 'not_empty')
+            ->rule('description', 'min_length', array(':value', 5));
+
+            if ($validation->check())
             {
-                //modify ticket 
-                $ticket->id_user_support = core::post('agent');
+                //creates the answer ticket
+                $ticketr = new Model_Ticket();
+                $ticketr->id_user           = $user->id_user;
+                $ticketr->id_order          = $ticket->id_order;
+                $ticketr->id_ticket_parent  = $ticket->id_ticket;
+                $ticketr->description       = core::post('description');
+                $ticketr->save();
+                unset($_POST['description']);
+
+                //modify status of parent ticket
+                $ticket->status = Model_Ticket::STATUS_CREATED;
                 $ticket->save();
 
-                //send notification to agent
-                $agent = new Model_User(core::post('agent'));
-                $agent->email('assignagent',array('[TITLE]'=>$ticket->title,
-                                                    '[DESCRIPTION]'=>$ticket->description,
-                                                    '[URL.QL]'=>$agent->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))));
-
-                Alert::set(Alert::SUCCESS, __('Agent assigned.'));
-            }
-            //leave a reply
-            else
-            {
-                $validation = Validation::factory($this->request->post())
-                ->rule('description', 'not_empty')
-                ->rule('description', 'min_length', array(':value', 5));
-
-                if ($validation->check())
+                //an admin answer so we send email to owner of ticket
+                if ($user->id_role==Model_Role::ROLE_ADMIN)
                 {
-                    //creates the answer ticket
-                    $ticketr = new Model_Ticket();
-                    $ticketr->id_user           = $user->id_user;
-                    $ticketr->id_order          = $ticket->id_order;
-                    $ticketr->id_ticket_parent  = $ticket->id_ticket;
-                    $ticketr->description       = core::post('description');
-                    $ticketr->save();
-                    unset($_POST['description']);
-
-                    //modify status of parent ticket
-                    $ticket->status = Model_Ticket::STATUS_CREATED;
+                    $ticket->id_user_support = $user->id_user;
+                    $ticket->read_date = Date::unix2mysql();
+                    $ticket->status = Model_Ticket::STATUS_HOLD;
                     $ticket->save();
 
-                    //an admin answer so we send email to owner of ticket
-                    if ($user->id_role==Model_Role::ROLE_ADMIN)
-                    {
-                        $ticket->id_user_support = $user->id_user;
-                        $ticket->read_date = Date::unix2mysql();
-                        $ticket->status = Model_Ticket::STATUS_HOLD;
-                        $ticket->save();
+                    //send email to creator of the ticket
+                    $ticket->user->email('new.reply',array('[TITLE]'=>$ticket->title,
+                                                    '[DESCRIPTION]'=> $user->signature,
+                                                    '[URL.QL]'=>$ticket->user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket)))
+                                            );
 
-                        //send email to creator of the ticket
-                        $ticket->user->email('new.reply',array('[TITLE]'=>$ticket->title,
-                                                        '[DESCRIPTION]'=> $user->signature,
-                                                        '[URL.QL]'=>$ticket->user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket)))
-                                                );
-
-                    }
-                    //client answers so sending email to agent assigned to this ticket.
-                    elseif(is_numeric($ticket->id_user_support))
-                    {
-                        //send notification to agent
-                        $agent = new Model_User($ticket->id_user_support);
-                        $agent->email('new.reply',array('[TITLE]'=>$ticket->title,
-                                                        '[DESCRIPTION]'=>$ticketr->description,
-                                                        '[URL.QL]'=>$agent->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket)))
-                                                );
-
-                    }
-                    //client answers so send email to notify_url /admin since we dont have the agent
-                    elseif(core::config('email.new_sale_notify'))
-                    {
-
-                        Email::content(core::config('email.notify_email'), NULL, NULL,NULL, 'new.reply', array('[TITLE]'=>$ticket->title,
-                                                        '[DESCRIPTION]'=>$ticketr->description,
-                                                        '[URL.QL]'=>Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket)))
-                                                    );
-                       
-                    }
-                    
-                    Alert::set(Alert::SUCCESS, __('Reply created.'));
                 }
-                else
+                //client answers so sending email to agent assigned to this ticket.
+                elseif(is_numeric($ticket->id_user_support))
                 {
-                    $errors = $validation->errors('ad');
+                    //send notification to agent
+                    $agent = new Model_User($ticket->id_user_support);
+                    $agent->email('new.reply',array('[TITLE]'=>$ticket->title,
+                                                    '[DESCRIPTION]'=>$ticketr->description,
+                                                    '[URL.QL]'=>$agent->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket)))
+                                            );
+
                 }
+                //client answers so send email to notify_url /admin since we dont have the agent
+                elseif(core::config('email.new_sale_notify'))
+                {
+
+                    Email::content(core::config('email.notify_email'), NULL, NULL,NULL, 'new.reply', array('[TITLE]'=>$ticket->title,
+                                                    '[DESCRIPTION]'=>$ticketr->description,
+                                                    '[URL.QL]'=>Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket)))
+                                                );
+                   
+                }
+                
+                Alert::set(Alert::SUCCESS, __('Reply created.'));
             }
-            
+            else
+            {
+                $errors = $validation->errors('ad');
+            }
+                        
         }
 
         //getting all the ticket replies
