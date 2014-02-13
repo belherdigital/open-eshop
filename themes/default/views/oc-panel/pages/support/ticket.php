@@ -94,7 +94,7 @@
         </div>
       </div>
 
-                
+      <?=Form::token('reply_ticket')?>
       <div class="form-actions">
       	<a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'index'))?>" class="btn btn-default"><?=__('Cancel')?></a>
         <button type="submit" class="btn btn-primary"><?=__('Reply')?></button>

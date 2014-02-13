@@ -218,7 +218,7 @@ class Controller_Panel_Support extends Auth_Controller {
         }
 
         //create new reply
-        if($_POST)
+        if($this->request->post() AND Form::token('reply_ticket',TRUE))
         {
             //Change the agent assigned to this ticket
             if (core::post('agent') AND $user->id_role==Model_Role::ROLE_ADMIN)

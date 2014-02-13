@@ -21,15 +21,16 @@ class CSRF {
          */
         public static function token($namespace='default')
         {
-                $token = Session::instance()->get('csrf-token-'.$namespace);
+                
+            $token = Session::instance()->get('csrf-token-'.$namespace);
 
-                // Generate a new token if no token is found
-                if ($token === NULL)
-                {
-                	$token = Text::random('alnum', rand(20, 30));
-                    Session::instance()->set('csrf-token-'.$namespace, $token);
-                }
-                return $token;
+            // Generate a new token if no token is found
+            if ($token === NULL)
+            {
+            	$token = Text::random('alnum', rand(20, 30));
+                Session::instance()->set('csrf-token-'.$namespace, $token);
+            }
+            return $token;
         }
 
         /**

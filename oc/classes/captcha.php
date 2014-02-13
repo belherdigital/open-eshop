@@ -80,12 +80,6 @@ class captcha{
      */
     public static function check($name = '')
     { 
-        //d(strtolower(core::post('captcha')));
-        //d(Session::instance()->get('captcha_'.$name));
-        //d(Session::instance()->get('captcha_'.$name) == strtolower(core::post('captcha')));
-
-        if (core::config('advertisement.captcha') == FALSE) // Captchas are disabled
-            return TRUE;
 
         if (Session::instance()->get('captcha_'.$name) == strtolower(core::post('captcha'))) 
         {

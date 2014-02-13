@@ -156,6 +156,26 @@ class Form extends Kohana_Form {
         return Form::hidden('auth_redirect',$url);
     }
 
+    /**
+     * Generates a token to avoid duplicates, if second parameter set says if its validated.
+     * @uses    Form
+     * @param   string  $namespace
+     * @return  string  generated HTML
+     */
+    public static function token($namespace='default', $validate = FALSE)
+    {
+        //generate form tag
+        if ($validate===FALSE)
+        {
+            $token = Text::random('alnum', rand(20, 30));
+            Session::instance()->set('form_token_'.$namespace, $token);
+            return Form::hidden('form_token_'.$namespace, $token);
+        }
+
+        //validate!
+        return (Session::instance()->get('form_token_'.$namespace) == core::post('form_token_'.$namespace));
+    }
+
 
     /**
      * get the html tag code for a field
