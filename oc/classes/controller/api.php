@@ -4,12 +4,15 @@ class Controller_Api extends Controller {
 
 
 
-
+    /**
+     * action to verify a license name with a domain as post
+     * @return [type] [description]
+     */
     public function action_license()
     {
         $this->auto_render = FALSE;
         $license = $this->request->param('id');
-        $domain  = Core::post('domain');
+        $domain  = Core::request('domain');
         if ($license!=NULL AND $domain!=NULL)
             $result = Model_License::verify($license,$domain); 
         else
@@ -19,6 +22,31 @@ class Controller_Api extends Controller {
         $this->response->body(json_encode($result));
     }
 
+    /**
+     * action to download a zip file directly form the API
+     * @return [type] [description]
+     */
+    public function action_download()
+    {
+        $this->auto_render = FALSE;
+        $license = $this->request->param('id');
+        $domain  = Core::request('domain');
+
+        if ($license!=NULL AND $domain!=NULL)
+        {
+            //ok, let's download the zip file if validated license
+            if (Model_License::verify($license,$domain) === TRUE)
+            {
+                $license = Model_License::get($license);
+                if ($license->loaded())
+                    $license->order->download();
+            }
+        }
+
+        //by default
+        $this->response->headers('Content-type','application/javascript');
+        $this->response->body(json_encode(FALSE));
+    }
 
     public function action_products()
     {

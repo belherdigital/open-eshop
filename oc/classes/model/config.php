@@ -116,6 +116,24 @@ class Model_Config extends ORM {
         return $return;
     }
 
+    public static function set_value($group_name,$config_key,$value)
+    {
+        $confp = new self();
+        $confp->where('config_key','=',$config_key)
+              ->where('group_name','=',$group_name)
+              ->limit(1)->find();
+
+        // if do not exist (not loaded) create
+        if (!$confp->loaded())
+        {
+            $confp->config_key = $config_key;
+            $confp->group_name = $group_name;    
+        }
+        
+        $confp->config_value = $value;
+        $confp->save();
+    }
+
     protected $_table_columns =    
 array (
   'group_name' => 

@@ -57,19 +57,30 @@ class Model_License extends ORM {
     }
 
     /**
-     * verifies a licese @todo
+     * get a licese @todo
      * @param  string $license 
-     * @return bool          
+     * @return model_license          
      */
-    public static function verify($license_num,$domain)
+    public static function get($license_num)
     {
-        //removing the www. so we accept both for same domain
-        $domain = preg_replace('#^www\.(.+\.)#i', '$1', $domain);
-
         $license = new self();
         $license->where('license','=',$license_num)
                 ->where('status', '=', Model_License::STATUS_ACTIVE)
                 ->limit(1)->find();
+
+        return $license;
+    }
+
+
+    /**
+     * verifies a licese @todo
+     * @param  string $license 
+     * @param  string $domain name 
+     * @return bool          
+     */
+    public static function verify($license_num,$domain)
+    {
+        $license = self::get($license_num);
 
         if ($license->loaded())
         {
@@ -99,6 +110,8 @@ class Model_License extends ORM {
 
         return FALSE;
     }
+
+
 
     /**
      * creates the licenses for the purchase

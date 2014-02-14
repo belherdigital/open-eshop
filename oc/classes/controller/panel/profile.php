@@ -194,7 +194,10 @@ class Controller_Panel_Profile extends Auth_Controller {
    }
 
 
-
+   /**
+    * returns file attached to the order, if theres file...
+    * @return void 
+    */
     public function action_download()
     {
         $this->auto_render = FALSE;
@@ -211,19 +214,7 @@ class Controller_Panel_Profile extends Auth_Controller {
             ->limit(1)
             ->find();
         if ($order->loaded())
-        {
-            $file = DOCROOT.'data/'.$order->product->file_name;
-            if (is_readable($file) AND  !empty($order->product->file_name))
-            {
-                //create a download
-                Model_Download::generate($user, $order);
-
-                //how its called the downloaded file
-                $file_name = $order->id_order.'-'.$order->product->seotitle.'-'.$order->product->version.strrchr($file, '.');
-
-                $this->response->send_file($file,$file_name);
-            }
-        }
+            $order->download();
         
         Alert::set(Alert::ERROR, __('Download not found.'));
         $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));

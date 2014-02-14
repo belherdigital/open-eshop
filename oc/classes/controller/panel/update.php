@@ -184,13 +184,25 @@ class Controller_Panel_Update extends Auth_Controller {
         // returns TRUE if some config is saved 
         $return_conf = Model_Config::config_array($configs);
         $return_cont = Model_Content::content_array($contents);
+       
+    }
 
+    /**
+     * This function will upgrate configs  
+     */
+    public function action_13()
+    {
+        //previous updates of DB
         $this->action_11();
+        $this->action_12();
 
         //clean cache
         Cache::instance()->delete_all();
         Theme::delete_minified();
-            
+        
+        //deactivate maintenance mode
+        Model_Config::set_value('general','maintenance',0);
+
         Alert::set(Alert::SUCCESS, __('Updated'));
         $this->request->redirect(Route::url('oc-panel', array('controller'=>'update', 'action'=>'index'))); 
     }
@@ -201,16 +213,15 @@ class Controller_Panel_Update extends Auth_Controller {
      */
     public function action_latest()
     {
+        //activate maintenance mode
+        Model_Config::set_value('general','maintenance',1);
         
         $versions = core::config('versions'); //loads OC software version array 
         $download_link = $versions[key($versions)]['download']; //get latest download link
         $version = key($versions); //get latest version
 
-    //@todo do a walidation of downloaded file and if its downloaded, trow error if something is worong
-    // review all to be automatic
-
-        $update_src_dir = DOCROOT."update"; // update dir 
-        $fname = $update_src_dir."/".$version.".zip"; //full file name
+        $update_src_dir = DOCROOT.'update'; // update dir 
+        $fname = $update_src_dir.'/'.$version.'.zip'; //full file name
         $folder_prefix = 'open-eshop-';
         $dest_dir = DOCROOT; //destination directory
         
@@ -221,9 +232,17 @@ class Controller_Panel_Update extends Auth_Controller {
         //create dir if doesnt exists
         if (!is_dir($update_src_dir))  
             mkdir($update_src_dir, 0775); 
-          
-        //download file
-        $download = file_put_contents($fname, fopen($download_link, 'r'));
+        
+        //verify we could get the zip file
+        $file_content = core::curl_get_contents($download_link);
+        if ($file_content == FALSE)
+        {
+            Alert::set(Alert::ALERT, __('We had a problem downloading latest version, try later please.'));
+            $this->request->redirect(Route::url('oc-panel',array('controller'=>'update', 'action'=>'index')));
+        }
+
+        //Write the file
+        file_put_contents($fname, $file_content);
 
         //unpack zip
         $zip = new ZipArchive;
@@ -259,10 +278,67 @@ class Controller_Panel_Update extends Auth_Controller {
             File::copy($source, $dest, TRUE);
         }
           
-        //delete file when all finished
+        //delete files when all finished
         File::delete($update_src_dir);
-        $this->request->redirect(Route::url('oc-panel', array('controller'=>'update', 'action'=>str_replace('.', '', $version))));
+
+        //update themes
+        $this->request->redirect(Route::url('oc-panel', array('controller'=>'update', 'action'=>'themes','id'=>str_replace('.', '', $version)))); 
+        
     }
 
+    /**
+     * updates all themes to latest version from API license
+     * @return void 
+     */
+    public function action_themes()
+    {
+        $licenses = array();
+
+        //getting the licenses unique. to avoid downloading twice
+        $themes = core::config('theme');
+        foreach ($themes as $theme) 
+        {
+            $settings = json_decode($theme,TRUE);
+            if (isset($settings['license']))
+            {
+                if (!in_array($settings['license'], $licenses))
+                    $licenses[] = $settings['license'];
+            }
+        }
+
+        //for each unique license then download!
+        $api_url = (Kohana::$environment!== Kohana::DEVELOPMENT)? 'market.open-eshop.com':'eshop.lo';
+        foreach ($licenses as $license) 
+        {
+            $download_url = 'http://'.$api_url.'/api/download/'.$license.'/?domain='.parse_url(URL::base(), PHP_URL_HOST);
+            $file_content = core::curl_get_contents($download_url);
+            if ($file_content!=FALSE)
+            {
+                // saving zip file to dir.
+                $fname = DOCROOT.'themes/'.$license.'.zip'; //root folder
+            
+                file_put_contents($fname, $file_content);
+
+                $zip = new ZipArchive;
+                if ($zip_open = $zip->open($fname)) 
+                {
+                    $zip->extractTo(DOCROOT.'themes/');
+                    $zip->close();  
+                    unlink($fname);
+                }   
+            }
+            
+        }
+        
+        Alert::set(Alert::SUCCESS, __('Themes Updated'));
+
+        //if theres version passed we redirect here to finish the update, if no version means was called directly
+        if ( ($version = $this->request->param('id')) !==NULL)
+            $this->request->redirect(Route::url('oc-panel', array('controller'=>'update', 'action'=>$version)));   
+        else
+            $this->request->redirect(Route::url('oc-panel', array('controller'=>'theme', 'action'=>'index'))); 
+        
+        
+    }
     
 }

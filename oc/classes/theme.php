@@ -632,20 +632,23 @@ class Theme {
         //{
             //@todo review URL
             $api_url = (Kohana::$environment!== Kohana::DEVELOPMENT)? 'market.open-eshop.com':'eshop.lo';
-            $api_url = 'http://'.$api_url.'/api/license/';
-            $ch = curl_init();
-            if ($ch)
-            {
-                curl_setopt($ch, CURLOPT_URL,$api_url.$l) ;
-                curl_setopt($ch, CURLOPT_POST, 1 ) ;
-                curl_setopt($ch, CURLOPT_POSTFIELDS,'&domain='.parse_url(URL::base(), PHP_URL_HOST));
-                curl_setopt($ch, CURLOPT_TIMEOUT,10); 
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-                $out = curl_exec ($ch);
-                curl_close ($ch); //d(json_decode($out));
-                return json_decode($out);
-            }
-            return FALSE;
+            $api_url = 'http://'.$api_url.'/api/license/'.$l.'/?domain='.parse_url(URL::base(), PHP_URL_HOST);
+
+            return json_decode(Core::curl_get_contents($api_url));
+
+            // $ch = curl_init();
+            // if ($ch)
+            // {
+            //     curl_setopt($ch, CURLOPT_URL,$api_url.$l) ;
+            //     curl_setopt($ch, CURLOPT_POST, 1 ) ;
+            //     curl_setopt($ch, CURLOPT_POSTFIELDS,'&domain='.parse_url(URL::base(), PHP_URL_HOST));
+            //     curl_setopt($ch, CURLOPT_TIMEOUT,10); 
+            //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            //     $out = curl_exec ($ch);
+            //     curl_close ($ch); //d(json_decode($out));
+            //     return json_decode($out);
+            // }
+            // return FALSE;
         //}
         //return TRUE;
     }

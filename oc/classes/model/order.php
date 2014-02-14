@@ -174,6 +174,29 @@ class Model_Order extends ORM {
 
     }
 
+    /**
+     * downloads product attached to this order if there's
+     * @return [type] [description]
+     */
+    public function download()
+    {
+        if ($this->loaded())
+        {
+            $file = DOCROOT.'data/'.$this->product->file_name;
+            if (is_readable($file) AND  !empty($this->product->file_name))
+            {
+                //create a download
+                Model_Download::generate($this->user, $this);
+
+                //how its called the downloaded file
+                $file_name = $this->id_order.'-'.$this->product->seotitle.'-'.$this->product->version.strrchr($file, '.');
+
+                Request::$current->response()->send_file($file,$file_name);
+            }
+        }
+        
+    }
+
 
     /**
      * 
