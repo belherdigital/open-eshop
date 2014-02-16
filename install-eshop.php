@@ -12,6 +12,8 @@ ob_start();
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set('display_errors', 1);
 @set_time_limit(0);
+// Set the full path to the docroot
+define('DOCROOT', realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);
 
 define('VERSION','1.3');
 
@@ -102,7 +104,8 @@ class OC{
         $c = curl_init();
         curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($c, CURLOPT_URL, $url);
-        curl_setopt($c, CURLOPT_TIMEOUT,5); 
+        curl_setopt($c, CURLOPT_TIMEOUT,30); 
+        curl_setopt($c, CURLOPT_FOLLOWLOCATION, TRUE);
         $contents = curl_exec($c);
         curl_close($c);
 
@@ -150,7 +153,7 @@ class OC{
                                         ),
                     'Write DIR'       =>array('message'   => 'Can\'t write to the current directory. Please fix this by giving the webserver user write access to the directory.',
                                         'mandatory' => TRUE,
-                                        'result'    => (is_writable('.'))
+                                        'result'    => (is_writable(DOCROOT))
                                         ),
                     'PHP'   =>array('message'   => 'PHP 5.3 or newer required, this version is '. PHP_VERSION,
                                         'mandatory' => TRUE,
@@ -248,10 +251,9 @@ function hostingAd()
         <p>We have partnership with hosting companies to assure compatibility. And we include:
             <ul>
                 <li>100% Compatible High Speed Hosting</li>
-                <li>1 Premium Theme, of your choice worth $99.99</li>
+                <li>1 Premium Theme, of your choice worth $49.99</li>
                 <li>Professional Installation and Support worth $89</li>
-                <li>Free Domain name, worth $10</li>
-            <a class="btn btn-primary btn-large" href="http://open-eshop.com/#Section-4">
+            <a class="btn btn-primary btn-large" href="http://open-eshop.com/hosting">
                 <i class=" icon-shopping-cart icon-white"></i> Get Hosting! Less than $5 Month</a>
         </p>
     </div>
@@ -380,10 +382,10 @@ $succeed    = TRUE;
                         
                     </ul>
                     
-                    <a href="https://twitter.com/openclassifieds"
+                    <a href="https://twitter.com/openeshop"
                             onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"
                             class="twitter-follow-button" data-show-count="false"
-                            data-size="large">Follow @openclassifieds</a><br />
+                            data-size="large">Follow @openeshop</a><br />
                         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
                     
                     
@@ -397,19 +399,22 @@ $succeed    = TRUE;
     <?php
         //theres post, download latest version, unzip and rediret to install
         //download file
-        file_put_contents('oc.zip', fopen($versions[$last_version]['download'], 'r'));
-        $fname = 'openclassifieds2-'.$last_version;
+        $file_content = OC::curl_get_contents($versions[$last_version]['download']);
+        file_put_contents('oe.zip', $file_content);
+        $fname = 'open-eshop-'.$last_version;
 
         $zip = new ZipArchive;
         // open zip file, extract to dir
-        if ($zip_open = $zip->open('oc.zip')) 
+        if ($zip_open = $zip->open('oe.zip')) 
         {
-            $zip->extractTo('./');
+            $zip->extractTo(DOCROOT);
             $zip->close();  
-            @unlink('oc.zip');
-            OC::copy($fname, './');
+
+            OC::copy($fname, DOCROOT);
+            
+            // delete files
             OC::delete($fname);
-            // delete own file
+            @unlink('oe.zip');
             @unlink($_SERVER['SCRIPT_FILENAME']);
             
             // redirect to install

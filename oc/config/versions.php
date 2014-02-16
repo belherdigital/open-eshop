@@ -2,7 +2,7 @@
                 return array (
   '1.3' => 
   array (
-    'codename' => 'paje',
+    'codename' => 'Ngorongoro',
     'released' => '2014-',
     'blog' => 'http://open-eshop.com/',
     'changelog' => 'https://github.com/open-classifieds/open-eshop/commits/1.3',
@@ -12,7 +12,7 @@
 
   '1.2' => 
   array (
-    'codename' => 'nungwi',
+    'codename' => 'Nungwi',
     'released' => '2014-02-06',
     'blog' => 'http://open-eshop.com/2014/02/06/open-eshop-1-2',
     'changelog' => 'https://github.com/open-classifieds/open-eshop/commits/1.2',
@@ -22,7 +22,7 @@
 
   '1.1' => 
   array (
-    'codename' => 'serengeti',
+    'codename' => 'Serengeti',
     'released' => '2013-11-14',
     'blog' => 'http://market.open-eshop.com/blog/open-eshop-11.html',
     'changelog' => 'https://github.com/open-classifieds/open-eshop/commits/1.1',
@@ -31,7 +31,7 @@
   ),
   '1.0' => 
   array (
-    'codename' => 'zanzibar',
+    'codename' => 'Zanzibar',
     'released' => '2013-11-08',
     'blog' => 'http://open-classifieds.com/2013/11/08/open-eshop/',
     'changelog' => 'https://github.com/open-classifieds/open-eshop/commits/1.0',

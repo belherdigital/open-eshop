@@ -6,18 +6,29 @@
     <p><?=__('You can change the look and feel of your website here.')?><a href="http://open-classifieds.com/2013/08/21/how-to-change-theme/" target="_blank"><?=__('Read more')?></a></p>
 </div>
 <!-- install theme form -->
-<?= FORM::open(Route::url('oc-panel',array('controller'=>'theme','action'=>'install_theme')), array('class'=>'form-horizontal', 'enctype'=>'multipart/form-data'))?>
-<div class="well pull-right">
-    <span class="badge badge-info"><?=__('Install theme')?></span><p><?=__('To install new theme choose zip file.')?></p>
+<div class="well col-md-5 col-sm-10 col-xs-12">
+    <span class="label label-info"><?=__('Install theme')?></span>
+<?= FORM::open(Route::url('oc-panel',array('controller'=>'theme','action'=>'download')), array('class'=>'form-inline'))?>
+    <p><?=__('Install theme from license.')?></p>
     
-    <div class="controll-group">
+    <div class="form-group">
+        <input type="text" name="license" id="licese" placeholder="<?=__('license')?>"/>
+    </div>
+        <?= FORM::button('submit', __('Download'), array('type'=>'submit', 'class'=>'btn btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'theme','action'=>'download'))))?>
+
+<?= FORM::close()?>
+
+<?= FORM::open(Route::url('oc-panel',array('controller'=>'theme','action'=>'install_theme')), array('class'=>'form-inline', 'enctype'=>'multipart/form-data'))?>
+
+    <p><?=__('To install new theme choose zip file.')?></p>
+    <div class="form-group">
         <input type="file" name="theme_file" id="theme_file" />
     </div>
-    <div class="controll-group">
-        <?= FORM::button('submit', __('Submit'), array('type'=>'submit', 'class'=>'btn btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'theme','action'=>'install_theme'))))?>
-    </div>
-</div>
+        <?= FORM::button('submit', __('Upload'), array('type'=>'submit', 'class'=>'btn btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'theme','action'=>'install_theme'))))?>
 <?= FORM::close()?>
+
+</div>
+
 <!-- end install themeform -->
 <div class="media">
     <?if ($scr = Theme::get_theme_screenshot(Theme::$theme))?>

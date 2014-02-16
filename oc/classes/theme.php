@@ -628,29 +628,36 @@ class Theme {
 
     public static function license($l)
     {  
-        //if (Kohana::$environment!== Kohana::DEVELOPMENT)
-        //{
-            //@todo review URL
-            $api_url = (Kohana::$environment!== Kohana::DEVELOPMENT)? 'market.open-eshop.com':'eshop.lo';
-            $api_url = 'http://'.$api_url.'/api/license/'.$l.'/?domain='.parse_url(URL::base(), PHP_URL_HOST);
+        $api_url = (Kohana::$environment!== Kohana::DEVELOPMENT)? 'market.open-eshop.com':'eshop.lo';
+        $api_url = 'http://'.$api_url.'/api/license/'.$l.'/?domain='.parse_url(URL::base(), PHP_URL_HOST);
 
-            return json_decode(Core::curl_get_contents($api_url));
+        return json_decode(Core::curl_get_contents($api_url));
+    }
 
-            // $ch = curl_init();
-            // if ($ch)
-            // {
-            //     curl_setopt($ch, CURLOPT_URL,$api_url.$l) ;
-            //     curl_setopt($ch, CURLOPT_POST, 1 ) ;
-            //     curl_setopt($ch, CURLOPT_POSTFIELDS,'&domain='.parse_url(URL::base(), PHP_URL_HOST));
-            //     curl_setopt($ch, CURLOPT_TIMEOUT,10); 
-            //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-            //     $out = curl_exec ($ch);
-            //     curl_close ($ch); //d(json_decode($out));
-            //     return json_decode($out);
-            // }
-            // return FALSE;
-        //}
-        //return TRUE;
+    public static function download($l)
+    {  
+        $api_url = (Kohana::$environment!== Kohana::DEVELOPMENT)? 'market.open-eshop.com':'eshop.lo';
+        $download_url = 'http://'.$api_url.'/api/download/'.$l.'/?domain='.parse_url(URL::base(), PHP_URL_HOST);
+        $fname = DOCROOT.'themes/'.$l.'.zip'; //root folder
+        $file_content = core::curl_get_contents($download_url);
+
+        if ($file_content!=FALSE)
+        {
+            // saving zip file to dir.
+            file_put_contents($fname, $file_content);
+            $zip = new ZipArchive;
+            if ($zip_open = $zip->open($fname)) 
+            {
+                $theme_name = (substr($zip->getNameIndex(0), 0,-1));
+                $zip->extractTo(DOCROOT.'themes/');
+                $zip->close();  
+                unlink($fname);
+
+                return $theme_name;
+            }   
+        }
+
+        return FALSE;
     }
 
     /**

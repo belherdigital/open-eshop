@@ -116,6 +116,12 @@ class Model_Config extends ORM {
         return $return;
     }
 
+    /**
+     * sets the value for 1 key
+     * @param [type] $group_name [description]
+     * @param [type] $config_key [description]
+     * @param [type] $value      [description]
+     */
     public static function set_value($group_name,$config_key,$value)
     {
         $confp = new self();

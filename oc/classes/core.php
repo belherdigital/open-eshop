@@ -250,11 +250,16 @@ class Core {
         $c = curl_init();
         curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($c, CURLOPT_URL, $url);
-        curl_setopt($c, CURLOPT_TIMEOUT,5); 
+        curl_setopt($c, CURLOPT_TIMEOUT,30); 
+        curl_setopt($c, CURLOPT_FOLLOWLOCATION, TRUE);
         $contents = curl_exec($c);
-        curl_close($c);
 
-        return ($contents)? $contents : FALSE;
+        if(!curl_errno($c))
+            return ($contents)? $contents : FALSE;
+        else 
+            throw new Kohana_Exception('Curl '.$url.' error: ' . curl_error($c));
+
+        curl_close($c);
     }
 
     /**

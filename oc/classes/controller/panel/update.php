@@ -46,7 +46,7 @@ class Controller_Panel_Update extends Auth_Controller {
     }
 
     /**
-     * This function will upgrate configs  
+     * This function will upgrade configs  
      */
     public function action_11()
     {
@@ -69,7 +69,7 @@ class Controller_Panel_Update extends Auth_Controller {
     }
 
     /**
-     * This function will upgrate configs  
+     * This function will upgrade configs  
      */
     public function action_12()
     {
@@ -188,7 +188,7 @@ class Controller_Panel_Update extends Auth_Controller {
     }
 
     /**
-     * This function will upgrate configs  
+     * This function will upgrade configs  
      */
     public function action_13()
     {
@@ -203,13 +203,12 @@ class Controller_Panel_Update extends Auth_Controller {
         //deactivate maintenance mode
         Model_Config::set_value('general','maintenance',0);
 
-        Alert::set(Alert::SUCCESS, __('Updated'));
+        Alert::set(Alert::SUCCESS, __('Software Updated to latest version!'));
         $this->request->redirect(Route::url('oc-panel', array('controller'=>'update', 'action'=>'index'))); 
     }
 
     /**
-     * This function will upgrate DB that didn't existed in verisons below 2.0.6
-     * changes added: config for custom field
+     * This function will upgrade DB that didn't existed in verisons below 2.0.6
      */
     public function action_latest()
     {
@@ -281,7 +280,7 @@ class Controller_Panel_Update extends Auth_Controller {
         //delete files when all finished
         File::delete($update_src_dir);
 
-        //update themes
+        //update themes, different request so doesnt time out
         $this->request->redirect(Route::url('oc-panel', array('controller'=>'update', 'action'=>'themes','id'=>str_replace('.', '', $version)))); 
         
     }
@@ -292,6 +291,9 @@ class Controller_Panel_Update extends Auth_Controller {
      */
     public function action_themes()
     {
+        //activate maintenance mode
+        Model_Config::set_value('general','maintenance',1);
+
         $licenses = array();
 
         //getting the licenses unique. to avoid downloading twice
@@ -307,28 +309,8 @@ class Controller_Panel_Update extends Auth_Controller {
         }
 
         //for each unique license then download!
-        $api_url = (Kohana::$environment!== Kohana::DEVELOPMENT)? 'market.open-eshop.com':'eshop.lo';
         foreach ($licenses as $license) 
-        {
-            $download_url = 'http://'.$api_url.'/api/download/'.$license.'/?domain='.parse_url(URL::base(), PHP_URL_HOST);
-            $file_content = core::curl_get_contents($download_url);
-            if ($file_content!=FALSE)
-            {
-                // saving zip file to dir.
-                $fname = DOCROOT.'themes/'.$license.'.zip'; //root folder
-            
-                file_put_contents($fname, $file_content);
-
-                $zip = new ZipArchive;
-                if ($zip_open = $zip->open($fname)) 
-                {
-                    $zip->extractTo(DOCROOT.'themes/');
-                    $zip->close();  
-                    unlink($fname);
-                }   
-            }
-            
-        }
+            Theme::download($license);   
         
         Alert::set(Alert::SUCCESS, __('Themes Updated'));
 
@@ -336,7 +318,12 @@ class Controller_Panel_Update extends Auth_Controller {
         if ( ($version = $this->request->param('id')) !==NULL)
             $this->request->redirect(Route::url('oc-panel', array('controller'=>'update', 'action'=>$version)));   
         else
+        {
+            //deactivate maintenance mode
+            Model_Config::set_value('general','maintenance',0);
             $this->request->redirect(Route::url('oc-panel', array('controller'=>'theme', 'action'=>'index'))); 
+        }
+            
         
         
     }

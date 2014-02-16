@@ -148,9 +148,9 @@ class Controller_Panel_Theme extends Auth_Controller {
         $theme = $this->request->param('id');
 
         // save only changed values
-        if($this->request->post('license'))
+        if(core::request('license'))
         {
-            if (Theme::license($this->request->post('license'))==TRUE)
+            if (Theme::license(core::request('license'))==TRUE)
             {
                 //activating a mobile theme
                 if (in_array($theme, array_keys(Theme::get_installed_themes(TRUE))) )
@@ -161,7 +161,7 @@ class Controller_Panel_Theme extends Auth_Controller {
                 Theme::$options = Theme::get_options($theme);       
                 Theme::load($theme);
 
-                Theme::$data['license']      = $this->request->post('license');
+                Theme::$data['license']      = core::request('license');
                 Theme::$data['license_date'] = time()+7*24*60*60;
                 Theme::save($theme);
 
@@ -244,5 +244,27 @@ class Controller_Panel_Theme extends Auth_Controller {
 
        
     }
+
+
+    /**
+     * download theme from license key
+     * @return [view] 
+     */
+    public function action_download()
+    {
+        // save only changed values
+        if($license = core::request('license'))
+        {
+            if (($theme = Theme::download($license))!=FALSE)
+            {
+                Alert::set(Alert::SUCCESS, __('Theme downloaded').' '.$theme);
+                $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'license','id'=>$theme)).'?license='.$license);
+            }
+        }
+
+        Alert::set(Alert::ALERT, __('Theme could not be downloaded'));
+        $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'index')));
+    }
+
 
 }//end of controller

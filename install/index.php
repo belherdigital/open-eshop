@@ -131,10 +131,10 @@ include 'install.php';
             			
             		</ul>
             		
-            		<a href="https://twitter.com/openclassifieds"
+            		<a href="https://twitter.com/openeshop"
             				onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"
             				class="twitter-follow-button" data-show-count="false"
-            				data-size="large">Follow @openclassifieds</a><br />
+            				data-size="large">Follow @openeshop</a><br />
             			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
             		
             		
@@ -300,7 +300,7 @@ include 'install.php';
 	
 	<div class="col-md-6">
     <label class="control-label"><?php echo __("Database name")?>:</label>
-	<input type="text" name="DB_NAME" value="<?php echo cP('DB_NAME','openclassifieds')?>"  class="form-control"  />
+	<input type="text" name="DB_NAME" value="<?php echo cP('DB_NAME','openeshop')?>"  class="form-control"  />
 	</div>
 </div>
 
