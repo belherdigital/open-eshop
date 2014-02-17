@@ -628,6 +628,18 @@ class Theme {
 
     public static function license($l)
     {  
+        $licenses = array();
+
+        //getting the licenses unique. to avoid downloading twice
+        $themes = core::config('theme');
+        foreach ($themes as $theme) 
+        {
+            $settings = json_decode($theme,TRUE);
+            if (isset($settings['license']))
+                if ($settings['license'] == $l)
+                    return FALSE;
+        }
+
         $api_url = (Kohana::$environment!== Kohana::DEVELOPMENT)? 'market.open-eshop.com':'eshop.lo';
         $api_url = 'http://'.$api_url.'/api/license/'.$l.'/?domain='.parse_url(URL::base(), PHP_URL_HOST);
 
