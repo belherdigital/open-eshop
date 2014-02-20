@@ -1,5 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
+<?=View::factory('oc-panel/elasticemail')?>
 
 <div class="page-header">
 	<h1><?=__('Newsletter')?></h1>
