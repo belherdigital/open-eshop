@@ -48,7 +48,10 @@ class Controller_Error extends Controller
             // Set the requested page accordingly
             $this->_requested_page = Arr::get($_SERVER, 'REQUEST_URI');
         }
- 
+        
+        //sanitize the url....
+        $this->_requested_page = Kohana::sanitize($this->_requested_page);
+
         $this->response->status((int) $this->request->action());
     }
  
