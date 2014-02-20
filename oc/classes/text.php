@@ -58,8 +58,8 @@ class Text extends Kohana_Text {
          * @var array $advanced_bbcode
          */
         static $advanced_bbcode = array(
-                                 '#\[color=([a-zA-Z]*|\#?[0-9a-fA-F]{6})](.+)\[/color\]#Usi',
-                                 '#\[size=([0-9][0-9]?)](.+)\[/size\]#Usi',
+                                 '#\[color=(.+)](.+)\[/color\]#Usi',
+                                 '#\[size=(.+)](.+)\[/size\]#Usi',
                                  '#\[quote](\r\n)?(.+?)\[/quote]#si',
                                  '#\[quote=(.*?)](\r\n)?(.+?)\[/quote]#si',
                                  '#\[url](.+)\[/url]#Usi',
@@ -80,8 +80,7 @@ class Text extends Kohana_Text {
          */
         static $advanced_html = array(
                                  '<span style="color: $1">$2</span>',
-                                 // '<span style="font-size: $1px">$2</span>',
-                                 '$2',
+                                 '$2',// '<span style="font-size: $1px">$2</span>',
                                  "<blockquote>$2</blockquote>",
                                  "<blockquote>$3</blockquote>",
                                  '<a rel="nofollow" target="_blank" href="$1">$1</a>',
@@ -96,41 +95,41 @@ class Text extends Kohana_Text {
                                  '<font face="$1">$2</font>'
         );
 
-	/**
-	 *
-	 * This function parses BBcode tag to HTML code (XHTML transitional 1.0)
-	 *
-	 * It parses (only if it is in valid format e.g. an email must to be
-	 * as example@example.ext or similar) the text with BBcode and
-	 * translates in the relative html code.
-	 *
-	 * @param string $text
-	 * @param boolean $advanced his var describes if the parser run in advanced mode (only *simple* bbcode is parsed)..
+    /**
+     *
+     * This function parses BBcode tag to HTML code (XHTML transitional 1.0)
+     *
+     * It parses (only if it is in valid format e.g. an email must to be
+     * as example@example.ext or similar) the text with BBcode and
+     * translates in the relative html code.
+     *
+     * @param string $text
+     * @param boolean $advanced his var describes if the parser run in advanced mode (only *simple* bbcode is parsed)..
      * @param boolean $specialchars if true transform specal chars
-	 * @return string
-	 */
-	public static function bb2html($text,$advanced = FALSE, $specialchars = TRUE)
+     * @return string
+     */
+    public static function bb2html($text,$advanced = FALSE, $specialchars = TRUE)
     {
 
-		//special chars
-		if ($specialchars === TRUE)
+        //special chars
+        if ($specialchars === TRUE)
             $text  = htmlspecialchars($text, ENT_QUOTES, Kohana::$charset);
 
-		/**
-		 *
-		 * Parses basic bbcode, used str_replace since seems to be the fastest
-		 */
-		$text = str_replace(self::$basic_bbcode, self::$basic_html, $text);
+        /**
+         *
+         * Parses basic bbcode, used str_replace since seems to be the fastest
+         */
+        $text = str_replace(self::$basic_bbcode, self::$basic_html, $text);
 
-		//advanced BBCODE
-		if ($advanced)
-		{
-			$text = preg_replace(self::$advanced_bbcode, self::$advanced_html, $text);
-		}
+        //advanced BBCODE
+        if ($advanced)
+        {
+            $text = preg_replace(self::$advanced_bbcode, self::$advanced_html, $text);
+        }
        
-		//before return convert line breaks to HTML
-		return Text::nl2br($text);
-	}
+        //before return convert line breaks to HTML
+        return Text::nl2br($text);
+    }
 
     /**
      * html 2 bbcode basic, usage for migration tool
@@ -154,25 +153,25 @@ class Text extends Kohana_Text {
         return strip_tags($text);
     }
 
-	/**
-	 *
-	 * removes bbcode from text
-	 * @param string $text
-	 * @return string text cleaned
-	 */
-	public static function removebbcode($text)
-	{
-		return strip_tags(str_replace(array('[',']'), array('<','>'), $text));
-	}
+    /**
+     *
+     * removes bbcode from text
+     * @param string $text
+     * @return string text cleaned
+     */
+    public static function removebbcode($text)
+    {
+        return strip_tags(str_replace(array('[',']'), array('<','>'), $text));
+    }
 
-	/**
-	 *
-	 * Inserts HTML line breaks before all newlines in a string
-	 * @param string $var
-	 */
-	public static function nl2br($var)
-	{
-		return str_replace(array('\\r\\n','\r\\n','r\\n','\r\n', '\n', '\r'), '<br />', nl2br($var));
-	}
+    /**
+     *
+     * Inserts HTML line breaks before all newlines in a string
+     * @param string $var
+     */
+    public static function nl2br($var)
+    {
+        return str_replace(array('\\r\\n','\r\\n','r\\n','\r\n', '\n', '\r'), '<br />', nl2br($var));
+    }
 
 }
