@@ -108,16 +108,18 @@ class Controller extends Kohana_Controller
 
     		$this->template->title.= $concat.core::config('general.site_name');
 
-    		 //auto generate keywords and description from content
-    		$seo = new seo($this->template->meta_description, Kohana::$charset);
-    		
-    		if ($this->template->meta_keywords == '')//not meta keywords given
-    		{
-    	       $this->template->meta_keywords = $seo->getKeyWords(12);
-    		}
-
-    		$this->template->meta_description = $seo->getMetaDescription(150);//die($this->template->meta_description);
-    		
+            //auto generate keywords and description from content
+            seo::$charset = Kohana::$charset;
+            
+    		$this->template->title = seo::text($this->template->title, 70);
+            
+            //not meta keywords given
+            //remember keywords are useless :( http://googlewebmastercentral.blogspot.com/2009/09/google-does-not-use-keywords-meta-tag.html
+            if ($this->template->meta_keywords == '')
+                $this->template->meta_keywords = seo::keywords($this->template->meta_description);
+            
+            $this->template->meta_description = seo::text($this->template->meta_description);
+            	
     		
     	}
     	$this->response->body($this->template->render());
