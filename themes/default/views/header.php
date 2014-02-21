@@ -20,22 +20,22 @@
             <?else:?>
                 <li class="<?=(Request::current()->controller()=='home')?'active':''?>" >
                     <a href="<?=Route::url('default')?>"><i class="glyphicon glyphicon-home "></i> <?=__('Home')?></a> </li>
-                <?kam_link(__('Listing'),'ad', 'glyphicon glyphicon-list ' ,'listing', 'list')?>
+                <?=Theme::nav_link(__('Listing'),'ad', 'glyphicon glyphicon-list ' ,'listing', 'list')?>
                 <?if (core::config('general.blog')==1):?>
-                    <?kam_link(__('Blog'),'blog','glyphicon glyphicon-file','index','blog')?>
+                    <?=Theme::nav_link(__('Blog'),'blog','glyphicon glyphicon-file','index','blog')?>
                 <?endif?>
                 <?if (core::config('general.faq')==1):?>
-                    <?kam_link(__('FAQ'),'faq','glyphicon glyphicon-question-sign','index','faq')?>
+                    <?=Theme::nav_link(__('FAQ'),'faq','glyphicon glyphicon-question-sign','index','faq')?>
                 <?endif?>
                 <?if (core::config('general.forums')==1):?>
-                    <?kam_link(__('Forums'),'forum','glyphicon glyphicon-tag','index','forum-home')?>
+                    <?=Theme::nav_link(__('Forums'),'forum','glyphicon glyphicon-tag','index','forum-home')?>
                 <?endif?>
-                <?kam_link(__('Search'),'ad', 'glyphicon glyphicon-search ', 'advanced_search', 'search')?>
+                <?=Theme::nav_link(__('Search'),'ad', 'glyphicon glyphicon-search ', 'advanced_search', 'search')?>
                 <?if (core::config('advertisement.map')==1):?>
-                    <?kam_link('','map', 'glyphicon glyphicon-globe ', 'index', 'map')?>
+                    <?=Theme::nav_link('','map', 'glyphicon glyphicon-globe ', 'index', 'map')?>
                 <?endif?>
-                <?kam_link(__('Contact'),'contact', 'glyphicon glyphicon-envelope ', 'index', 'contact')?>
-                <?kam_link('','rss', 'glyphicon glyphicon-signal ', 'index', 'rss')?>
+                <?=Theme::nav_link(__('Contact'),'contact', 'glyphicon glyphicon-envelope ', 'index', 'contact')?>
+                <?=Theme::nav_link('','rss', 'glyphicon glyphicon-signal ', 'index', 'rss')?>
             </ul>
         <?endif?>
             

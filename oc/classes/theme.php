@@ -503,7 +503,6 @@ class Theme {
         return FALSE;
     }
 
-
     /**
      * this belongs to the admin, so needs to be loaded no matter, the theme. not a good place here?? not nice...
      * generates a link used in the admin HTML
@@ -513,22 +512,43 @@ class Theme {
      * @param  string $route      
      * @param  string $icon         class name of bootstrap icon to append with nav-link 
      */
-    public static function admin_link($name,$controller,$action='index',$route='oc-panel', $icon=NULL, $id=NULL)
+    public static function admin_link($name,$controller,$action='index',$route='oc-panel', $icon = NULL, $id=NULL)
     {   
         if (Auth::instance()->get_user()->has_access($controller))
         {
-        ?>
-            <li <?=(Request::current()->controller()==$controller 
-                    && Request::current()->action()==$action && Request::current()->param('id')==$id)?'class="active"':''?> >
-                <a href="<?=Route::url($route,array('controller'=>$controller,
-                                                    'action'=>$action,'id'=>$id))?>">
-                    <?if($icon!==NULL)?>
-                        <i class="<?=$icon?>"></i>
-                    <span class="side-name-link"><?=$name?></span>
-                </a>
-            </li>
-        <?
+            $data = array('name'=>$name,
+                            'controller'=> $controller,
+                            'action'    => $action,
+                            'route'     => $route,
+                            'icon'      => $icon,
+                            'id'        => $id,);
+            return View::factory('oc-panel/admin_link',$data);
         }
+    }
+
+
+
+    /**
+     * nav_link generates a link for main nav-bar
+     * @param  string $name       translated name in the A
+     * @param  string $controller
+     * @param  string $action  
+     * @param  string $icon         class name of bootstrap icon to append with nav-link   
+     * @param  string $route      
+     * @param  string $style extra class div 
+     * @param  mixed  $id id for the route
+     */
+    public static function nav_link($name, $controller, $icon=NULL, $action='index', $route='default' , $style = NULL, $id=NULL)
+    {   
+        $data = array('name'=>$name,
+                        'controller'=> $controller,
+                        'action'    => $action,
+                        'route'     => $route,
+                        'icon'      => $icon,
+                        'style'     => $style,
+                        'id'        => $id,);
+
+        return View::factory('nav_link',$data);
     }
 
 

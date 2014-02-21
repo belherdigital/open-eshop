@@ -62,35 +62,3 @@ Alert::$tpl     =   '<div class="alert alert-%s">
                     <a class="close" data-dismiss="alert" href="#">×</a>
                     <h4 class="alert-heading">%s</h4>%s
                     </div>';
-
-
-/**
- * Theme Functions
- * 
- */
-
-
-/**
- * nav_link generates a link for main nav-bar
- * @param  string $name       translated name in the A
- * @param  string $controller
- * @param  string $action  
- * @param  string $icon         class name of bootstrap icon to append with nav-link   
- * @param  string $route      
- * @param  string $style extra class div 
- */
-function kam_link($name, $controller, $icon=NULL, $action='index', $route='default' , $style = NULL)
-{   
-    
-    ?>
-        <li alt="<?=$route?>" title="<?=$route?>" class="<?=(Request::current()->controller()==$controller 
-                && Request::current()->action()==$action)?'active':''?> <?=$style?>" >
-            <a href="<?=Route::url($route,array('controller'=>$controller,
-                                                'action'=>$action))?>">
-                <?if($icon!==NULL)?>
-                    <i class="<?=$icon?>"></i>
-                <?=$name?>
-            </a>
-        </li>
-    <?
-}
