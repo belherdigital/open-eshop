@@ -46,7 +46,7 @@ class Controller extends Kohana_Controller
         /**
          * selected category
          */
-        if($this->request->param('category',NULL) != 'all' )
+        if($this->request->param('category',NULL) != URL::title(__('all')) )
         {
             $slug_cat   = new Model_Category();
             $seo_cat = $slug_cat->where('seoname', '=', $this->request->param('category'))->limit(1)->cached()->find();

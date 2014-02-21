@@ -217,7 +217,7 @@ Route::set('product', '<category>/<seotitle>.html')
  */
 Route::set('list', '<category>')
 ->defaults(array(
-        'category'   => 'all',
+        'category'   => URL::title(__('all')),
         'controller' => 'product',    
         'action'     => 'listing',
 ));
