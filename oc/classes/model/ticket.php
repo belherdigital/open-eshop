@@ -2,7 +2,7 @@
 /**
  * User tickets
  *
- * @author      Chema <chema@garridodiaz.com>
+ * @author      Chema <chema@open-classifieds.com>
  * @package     Core
  * @copyright   (c) 2009-2013 Open Classifieds Team
  * @license     GPL v3

@@ -5,7 +5,7 @@
 *
 * @package    OC
 * @category   Exception
-* @author     Lysender && Chema <chema@garridodiaz.com>
+* @author     Lysender && Chema <chema@open-classifieds.com>
 * @copyright  (c) 2009-2013 Open Classifieds Team
 * @license    GPL v3
 */

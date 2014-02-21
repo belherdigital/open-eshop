@@ -14,7 +14,7 @@
  * do_action('unique_name_hook');//you can use too Hook::do_action(); 
  * @package    OC/Plugin
  * @category   Helper
- * @author     Chema <chema@garridodiaz.com>
+ * @author     Chema <chema@open-classifieds.com>
  * @copyright  (c) 2009-2013 Open Classifieds Team
  * @license    GPL v3
  */

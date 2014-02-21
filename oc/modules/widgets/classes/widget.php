@@ -3,7 +3,7 @@
 /**
  * Abstract class Widget to use in all the other widgets
  *
- * @author      Chema <chema@garridodiaz.com>
+ * @author      Chema <chema@open-classifieds.com>
  * @package     Widget
  * @copyright   (c) 2009-2013 Open Classifieds Team
  * @license     GPL v3

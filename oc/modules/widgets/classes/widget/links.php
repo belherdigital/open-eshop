@@ -2,7 +2,7 @@
 /**
  * Ads widget reader
  *
- * @author      Slobodan <slobodan.josifovic@gmail.com>
+ * @author      Slobodan <slobodan@open-classifieds.com>
  * @package     Widget
  * @copyright   (c) 2009-2013 Open Classifieds Team
  * @license     GPL v3

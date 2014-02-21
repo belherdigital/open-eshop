@@ -2,7 +2,7 @@
 /**
  * 
  *
- * @author		Chema <chema@garridodiaz.com>
+ * @author		Chema <chema@open-classifieds.com>
  * @package		OC
  * @copyright	(c) 2009-2013 Open Classifieds Team
  * @license		GPL v3

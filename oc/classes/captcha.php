@@ -6,7 +6,7 @@
  * @package Open Classifieds
  * @subpackage Core
  * @category Helper
- * @author Chema Garrido <chema@garridodiaz.com>
+ * @author Chema Garrido <chema@open-classifieds.com>
  * @license GPL v3
  */
 

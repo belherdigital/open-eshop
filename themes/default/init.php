@@ -4,7 +4,7 @@
   * Description: Free theme, HTML5. Default base, link on footer.
   * Tags: HTML5, Advanced Confiuration, prettyPhoto, Slider.
   * Version: 1.3
-  * Author: Chema <chema@garridodiaz.com>
+  * Author: Chema <chema@open-classifieds.com>
   * License: GPL v3
   */
 
