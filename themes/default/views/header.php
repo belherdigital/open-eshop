@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
-<div class="navbar navbar-default <?=(Theme::get('fixed_toolbar')==1)?'navbar-fixed-top':''?>">
+<div class="navbar navbar-default <?=((Request::current()->controller()!=='faq') AND Theme::get('fixed_toolbar')==1)?'navbar-fixed-top':''?>">
     <div class="container resiz-cont">
 
         <div class="btn-group pull-right btn-header-group">
@@ -76,7 +76,7 @@
 </div>
 
 <!-- end navbar top-->
-<div class="subnav navbar <?=(Theme::get('fixed_toolbar')==1)?'':'fixed_header'?>">
+<div class="subnav navbar <?=((Request::current()->controller()!=='faq') AND Theme::get('fixed_toolbar')==1)?'':'fixed_header'?>">
   <div class="container">
 
     <ul class="nav nav-pills">

@@ -267,6 +267,7 @@ div.sceditor-group{padding: 1px 15px 5px 5px!important;}
 .sceditor-button, .sceditor-button div{margin-top: 3px!important;}
 .fixed_header{position: relative!important; top:0px!important;}
 .container{width: 970px!important;}
+.navbar-collapse.bs-navbar-collapse.collapse{padding-left: 0;padding-right: 0px;}
 /*================= Media Queries ==========================*/
 
 
