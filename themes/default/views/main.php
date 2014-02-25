@@ -49,7 +49,7 @@
     <?endif?>
     </head>
 
-    <body data-spy="scroll" data-target=".subnav" data-offset="50" class="<?=(Theme::get('fixed_toolbar')==1)?'':'body_fixed'?>">
+    <body data-spy="scroll" data-target=".subnav" data-offset="50" class="<?=((Request::current()->controller()!=='faq') AND Theme::get('fixed_toolbar')==1)?'':'body_fixed'?>">
     <?if(!isset($_COOKIE['accept_terms']) AND core::config('general.alert_terms') != ''):?>
         <?=View::factory('alert_terms')?>
     <?endif?>
