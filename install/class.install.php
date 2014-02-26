@@ -106,14 +106,10 @@ class install{
          * all the install checks
          */
         return     array(
-
+                
                 'robots.txt'=>array('message'   => 'The <code>'.DOCROOT.'robots.txt</code> file is not writable.',
                                     'mandatory' => FALSE,
                                     'result'    => is_writable(DOCROOT.'robots.txt')
-                                    ),
-                '.htaccess' =>array('message'   => 'The <code>'.DOCROOT.'.htaccess</code> file is not writable.',
-                                    'mandatory' => TRUE,
-                                    'result'    => is_writable(DOCROOT.'.htaccess')
                                     ),
                 'sitemap'   =>array('message'   => 'The <code>'.DOCROOT.'sitemap.xml.gz</code> file is not writable.',
                                     'mandatory' => FALSE,
