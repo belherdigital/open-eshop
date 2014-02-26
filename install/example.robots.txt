@@ -1,3 +1,0 @@
-User-agent: *
-Allow: [SITE_FOLDER]images/*
-Sitemap: [SITE_URL]sitemap.xml.gz
