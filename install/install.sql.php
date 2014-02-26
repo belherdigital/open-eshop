@@ -276,7 +276,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS ".$_POST['TABLE_PREFIX']."reviews (
     KEY ".$_POST['TABLE_PREFIX']."reviews_IK_id_user (id_user),
     KEY ".$_POST['TABLE_PREFIX']."reviews_IK_id_order (id_order),
     KEY ".$_POST['TABLE_PREFIX']."reviews_IK_id_product (id_product)
-    ) ENGINE=MyISAM DEFAULT CHARSET=".$POST['DBCHARSET'].";");
+    ) ENGINE=MyISAM DEFAULT CHARSET=".$_POST['DB_CHARSET'].";");
 
 
 /**
