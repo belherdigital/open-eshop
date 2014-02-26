@@ -56,6 +56,12 @@ class install{
     public static $error_msg  = '';
 
     /**
+      * used to hash the password and set in the  
+      * @var string
+      */
+    public static $hash_key  = '';
+
+    /**
      * initializes the install class and process
      * @return void
      */
@@ -106,7 +112,7 @@ class install{
          * all the install checks
          */
         return     array(
-                
+
                 'robots.txt'=>array('message'   => 'The <code>'.DOCROOT.'robots.txt</code> file is not writable.',
                                     'mandatory' => FALSE,
                                     'result'    => is_writable(DOCROOT.'robots.txt')
@@ -347,17 +353,16 @@ class install{
             $to_file = $orig_file;
 
         //check file is writable
-        if (is_writable($to_file))
-        {
+        // if (is_writable($to_file))
+        // {
             //read file content
             $content = file_get_contents($orig_file);
             //replace fields
             $content = str_replace($search, $replace, $content);
             //save file
             return core::write_file($to_file,$content);
-        }
-        
-        return FALSE;
+        // }
+        // return FALSE;
     }
 
     /**
@@ -366,8 +371,9 @@ class install{
      */
     public static function execute()
     {
-        $error_msg = '';
+        $error_msg  = '';
         $install    = TRUE;
+        $TABLE_PREFIX = '';
     
         ///////////////////////////////////////////////////////
         //check DB connection
@@ -420,6 +426,8 @@ class install{
         {
             //clean prefix
             $TABLE_PREFIX = core::slug(core::request('TABLE_PREFIX'));
+            $_POST['TABLE_PREFIX'] = $TABLE_PREFIX;
+            $_GET['TABLE_PREFIX']  = $TABLE_PREFIX;
             $search  = array('[DB_HOST]', '[DB_USER]','[DB_PASS]','[DB_NAME]','[TABLE_PREFIX]','[DB_CHARSET]');
             $replace = array(core::request('DB_HOST'), core::request('DB_USER'), core::request('DB_PASS'),core::request('DB_NAME'),$TABLE_PREFIX,core::request('DB_CHARSET'));
             $install = install::replace_file(INSTALLROOT.'samples/database.php',$search,$replace,APPPATH.'config/database.php');
@@ -432,7 +440,7 @@ class install{
         if ($install === TRUE)
         {
             //check if has key is posted if not generate
-            $hash_key = ((core::request('HASH_KEY')!='')?core::request('HASH_KEY'): core::generate_password() );
+            self::$hash_key = ((core::request('HASH_KEY')!='')?core::request('HASH_KEY'): core::generate_password() );
            
             //check if DB was already installed, I use content since is the last table to be created
             $installed = (mysql_num_rows(mysql_query("SHOW TABLES LIKE '".$TABLE_PREFIX."content'"))==1) ? TRUE:FALSE;
@@ -446,7 +454,7 @@ class install{
         if ($install === TRUE)
         {
             $search  = array('[HASH_KEY]', '[COOKIE_SALT]','[QL_KEY]');
-            $replace = array($hash_key,$hash_key,$hash_key);
+            $replace = array(self::$hash_key,self::$hash_key,self::$hash_key);
             $install = install::replace_file(INSTALLROOT.'samples/auth.php',$search,$replace,APPPATH.'config/auth.php');
             if (!$install === TRUE)
                 $error_msg = __('Problem saving '.APPPATH.'config/auth.php');
@@ -487,10 +495,12 @@ class install{
         //not succeded :( delete all the tables with that prefix
         else
         {
-            $table_list = @mysql_query("SHOW TABLES LIKE '".$TABLE_PREFIX."%'");
-                
-            while ($row = mysql_fetch_assoc($table_list)) 
-                mysql_query("DROP TABLE ".$row[0]);
+            $table_list = mysql_query("SHOW TABLES LIKE '".$TABLE_PREFIX."%'");
+            if($table_list)
+            {
+                while ($row = mysql_fetch_row($table_list)) 
+                    mysql_query("DROP TABLE ".$row[0]);
+            }   
         }
         
 
