@@ -233,9 +233,11 @@ class Controller_Panel_Product extends Auth_Crud {
                     $obj_product->save();
                     Alert::set(Alert::SUCCESS, __('Product saved.'));
                     Sitemap::generate();
+
+                    //notify users of new update
                     if($this->request->post('notify'))
                     {
-
+                        //get users with that product
                         $query = DB::select('email')->select('name')
                             ->from(array('users', 'u'))
                             ->join(array('orders', 'o'),'INNER')
@@ -248,11 +250,34 @@ class Controller_Panel_Product extends Auth_Crud {
                         $users = $query->as_array();
                         if (count($users)>0)
                         { 
+                            //download link
+                            $download = '';
+                            if ($obj_product->has_file()==TRUE)
+                                $download = '\n\n==== '.__('Download').' ====\n'.Route::url('oc-panel', array('controller'  =>'profile','action'=>'orders'));
+                            
+                            //theres an expire? 0 = unlimited
+                            $expire = '';
+                            $expire_hours = Core::config('product.download_hours');
+                            $expire_times = Core::config('product.download_times');
+                            if ($expire_hours > 0 OR $expire_times > 0)
+                            {
+                                if ($expire_hours > 0 AND $expire_times > 0)
+                                    $expire = sprintf(__('Your download expires in %u hours and can be downloaded %u times.'),$expire_hours,$expire_times);
+                                elseif ($expire_hours > 0)
+                                    $expire = sprintf(__('Your download expires in %u hours.'),$expire_hours);
+                                elseif ( $expire_times > 0)
+                                    $expire = sprintf(__('Can be downloaded %u times.'),$expire_times);
+
+                                $expire = '\n'.$expire;
+                            }
+
+
                             if ( !Email::content($users, '', NULL, NULL, 'product.update', 
-                                                        array('[TITLE]'=>$obj_product->title,
-                                                              '[URL.PRODUCT]'=> Route::url('product', array('seotitle'=>$obj_product->seotitle,'category'=>$obj_product->category->seoname)),
-                                                              '[URL.PURCHASES]'=>Route::url('oc-panel', array('controller'  =>'profile','action'=>'orders')),
-                                                              '[VERSION]'=>$obj_product->version)))
+                                                        array('[TITLE]'         => $obj_product->title,
+                                                              '[URL.PRODUCT]'   => Route::url('product', array('seotitle'=>$obj_product->seotitle,'category'=>$obj_product->category->seoname)),
+                                                              '[DOWNLOAD]'      => $download,
+                                                              '[EXPIRE]'        => $expire,
+                                                              '[VERSION]'       => $obj_product->version)))
                                 Alert::set(Alert::ERROR,__('Error on mail delivery, not sent'));
                             else 
                                 Alert::set(Alert::SUCCESS,__('Email sent to all the users'));

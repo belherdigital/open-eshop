@@ -136,10 +136,35 @@ class Model_Order extends ORM {
             //generate licenses
             $licenses = Model_License::generate($user,$order,$product);
 
-            //loop all the licenses to an string
             $license = '';
-            foreach ($licenses as $l) 
-                $license.=$l->license.'\n';
+            //loop all the licenses to an string
+            if (count($licenses)>0)
+            {
+                $license = '\n\n==== '.__('Your Licenses').' ====';
+                foreach ($licenses as $l) 
+                    $license.='\n'.$l->license;
+            }
+
+            //download link
+            $download = '';
+            if ($product->has_file()==TRUE)
+                $download = '\n\n==== '.__('Download').' ====\n'.$user->ql('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order));
+            
+            //theres an expire? 0 = unlimited
+            $expire = '';
+            $expire_hours = Core::config('product.download_hours');
+            $expire_times = Core::config('product.download_times');
+            if ($expire_hours > 0 OR $expire_times > 0)
+            {
+                if ($expire_hours > 0 AND $expire_times > 0)
+                    $expire = sprintf(__('Your download expires in %u hours and can be downloaded %u times.'),$expire_hours,$expire_times);
+                elseif ($expire_hours > 0)
+                    $expire = sprintf(__('Your download expires in %u hours.'),$expire_hours);
+                elseif ( $expire_times > 0)
+                    $expire = sprintf(__('Can be downloaded %u times.'),$expire_times);
+
+                $expire = '\n'.$expire;
+            }
             
             //param for sale email
             $params = array(
@@ -150,7 +175,8 @@ class Model_Order extends ORM {
                             '[PRODUCT.TITLE]'   => $product->title,
                             '[PRODUCT.PRICE]'   => $order->amount.' '.$order->currency,
                             '[PRODUCT.NOTES]'   => $product->email_purchase_notes,
-                            '[URL.DOWNLOAD]'    => ($product->has_file()==TRUE)?$user->ql('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order)):'',
+                            '[DOWNLOAD]'        => $download,
+                            '[EXPIRE]'          => $expire,
                             '[LICENSE]'         => $license,
                         );
             

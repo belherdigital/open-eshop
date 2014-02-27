@@ -285,16 +285,16 @@ mysql_query("CREATE TABLE IF NOT EXISTS ".core::request('TABLE_PREFIX')."reviews
  */
 mysql_query("INSERT INTO `".core::request('TABLE_PREFIX')."content` (`order`, `title`, `seotitle`, `description`, `from_email`, `type`, `status`) 
     VALUES
-(0, 'Change Password [SITE.NAME]', 'auth.remember', 'Hello [USER.NAME],\n\nFollow this link  [URL.QL]\n\nThanks!!', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
-(0, 'Welcome to [SITE.NAME]!', 'auth.register', 'Welcome [USER.NAME],\n\nWe are really happy that you have joined us! [URL.QL]\n\nRemember your user details:\nEmail: [USER.EMAIL]\nPassword: [USER.PWD]\n\nWe do not have your original password anymore.\n\nRegards!', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
-(0, '[EMAIL.SENDER] wants to contact you!', 'contactadmin', 'Hello Admin,\n\n [EMAIL.SENDER]: [EMAIL.FROM], have a message for you:\n\n [EMAIL.BODY] \n\n Regards!', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
-(0, 'Hello [USER.NAME]!', 'user.new', 'Welcome to [SITE.NAME]. \n\n We are really happy that you have joined us! , \n\n you can log in with you email : [USER.EMAIL], \n\n with password: [USER.PWD]. Password is generated for you, to change it you can visit this link [URL.PWCH]. \n\n Thank you for trusting us! \n\n Regards!', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
-(0, 'New reply: [TITLE]', 'new.reply', '[URL.QL]\n\n[DESCRIPTION]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
-(0, 'Purchase Receipt for [PRODUCT.TITLE]', 'new.sale', '==== ORDER DETAILS ====\nDate: [DATE]\nOrder ID: [ORDER.ID]\nName: [USER.NAME]\nEmail: [USER.EMAIL]\n\n==== Your Order ====\nProduct: [PRODUCT.TITLE]\nProduct Price: [PRODUCT.PRICE]\n\n[PRODUCT.NOTES]\n\n==== Download ====\n[URL.DOWNLOAD]\n\n==== Your Licenses ====\n[LICENSE]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
-(0, 'Product updated [TITLE]', 'product.update', '==== UPDATE DETAILS ====\nVersion: [VERSION]\nProduct name: [TITLE]\n\n==== DOWNLOAD ====\n[URL.PURCHASES]\n\n==== PRODUCT PAGE ====\n[URL.PRODUCT]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
-(0, 'Ticket assigned to you: [TITLE]', 'assignagent', '[URL.QL]\n\n[DESCRIPTION]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
-(0, 'New review for [TITLE] [RATE]', 'reviewproduct', '[URL.QL]\n\n[RATE]\n\n[DESCRIPTION]', '".$_POST['ADMIN_EMAIL']."', 'email', 1),
-(0, 'New support ticket created `[TITLE]`', 'newticket', 'We have received your support inquiry. We will try to answer you within the next 24 working hours, thank you for your patience.\n\n[URL.QL]', '".$_POST['ADMIN_EMAIL']."', 'email', 1)
+(0, 'Change Password [SITE.NAME]', 'auth.remember', 'Hello [USER.NAME],\n\nFollow this link  [URL.QL]\n\nThanks!!', '".core::request('ADMIN_EMAIL')."', 'email', 1),
+(0, 'Welcome to [SITE.NAME]!', 'auth.register', 'Welcome [USER.NAME],\n\nWe are really happy that you have joined us! [URL.QL]\n\nRemember your user details:\nEmail: [USER.EMAIL]\nPassword: [USER.PWD]\n\nWe do not have your original password anymore.\n\nRegards!', '".core::request('ADMIN_EMAIL')."', 'email', 1),
+(0, '[EMAIL.SENDER] wants to contact you!', 'contactadmin', 'Hello Admin,\n\n [EMAIL.SENDER]: [EMAIL.FROM], have a message for you:\n\n [EMAIL.BODY] \n\n Regards!', '".core::request('ADMIN_EMAIL')."', 'email', 1),
+(0, 'Hello [USER.NAME]!', 'user.new', 'Welcome to [SITE.NAME]. \n\n We are really happy that you have joined us! , \n\n you can log in with you email : [USER.EMAIL], \n\n with password: [USER.PWD]. Password is generated for you, to change it you can visit this link [URL.PWCH]. \n\n Thank you for trusting us! \n\n Regards!', '".core::request('ADMIN_EMAIL')."', 'email', 1),
+(0, 'New reply: [TITLE]', 'new.reply', '[URL.QL]\n\n[DESCRIPTION]', '".core::request('ADMIN_EMAIL')."', 'email', 1),
+(0, 'Purchase Receipt for [PRODUCT.TITLE]', 'new.sale', '==== Order Details ====\nDate: [DATE]\nOrder ID: [ORDER.ID]\nName: [USER.NAME]\nEmail: [USER.EMAIL]\n\n==== Your Order ====\nProduct: [PRODUCT.TITLE]\nProduct Price: [PRODUCT.PRICE]\n\n[PRODUCT.NOTES][DOWNLOAD][EXPIRE][LICENSE]', '".core::request('ADMIN_EMAIL')."', 'email', 1),
+(0, 'Product updated [TITLE]', 'product.update', '==== Update Details ====\nVersion: [VERSION]\nProduct name: [TITLE][DOWNLOAD][EXPIRE]\n\n==== Product Page ====\n[URL.PRODUCT]', '".core::request('ADMIN_EMAIL')."', 'email', 1),
+(0, 'Ticket assigned to you: [TITLE]', 'assignagent', '[URL.QL]\n\n[DESCRIPTION]', '".core::request('ADMIN_EMAIL')."', 'email', 1),
+(0, 'New review for [TITLE] [RATE]', 'reviewproduct', '[URL.QL]\n\n[RATE]\n\n[DESCRIPTION]', '".core::request('ADMIN_EMAIL')."', 'email', 1),
+(0, 'New support ticket created `[TITLE]`', 'newticket', 'We have received your support inquiry. We will try to answer you within the next 24 working hours, thank you for your patience.\n\n[URL.QL]', '".core::request('ADMIN_EMAIL')."', 'email', 1)
 ");
 
 /**
@@ -309,9 +309,9 @@ mysql_query("INSERT INTO `".core::request('TABLE_PREFIX')."access` (`id_access`,
 /**
  * Create user God/Admin 
  */
-$password = hash_hmac('sha256', $_POST['ADMIN_PWD'], install::$hash_key);
+$password = hash_hmac('sha256', core::request('ADMIN_PWD'), install::$hash_key);
 mysql_query("INSERT INTO `".core::request('TABLE_PREFIX')."users` (`id_user`, `name`, `seoname`, `email`, `password`, `status`, `id_role`) 
-VALUES (1, 'admin', 'admin', '".$_POST['ADMIN_EMAIL']."', '$password', 1, 10)");
+VALUES (1, 'admin', 'admin', '".core::request('ADMIN_EMAIL')."', '$password', 1, 10)");
 
 /**
  * Configs to make the app work
@@ -326,8 +326,8 @@ mysql_query("INSERT INTO `".core::request('TABLE_PREFIX')."config` (`group_name`
 ('appearance', 'theme_mobile', ''),
 ('appearance', 'allow_query_theme', 0),
 ('i18n', 'charset', 'utf-8'),
-('i18n', 'timezone', '".$_POST['TIMEZONE']."'),
-('i18n', 'locale', '".$_POST['LANGUAGE']."'),
+('i18n', 'timezone', '".core::request('TIMEZONE')."'),
+('i18n', 'locale', '".core::request('LANGUAGE')."'),
 ('i18n', 'allow_query_language', 0),
 ('payment', 'thanks_page', ''),
 ('payment', 'sandbox', 0),
@@ -340,13 +340,13 @@ mysql_query("INSERT INTO `".core::request('TABLE_PREFIX')."config` (`group_name`
 ('payment', 'alternative', ''),
 ('general', 'number_format', '%n'),
 ('general', 'date_format', 'd-m-y'),
-('general', 'base_url', '".$_POST['SITE_URL']."'),
+('general', 'base_url', '".core::request('SITE_URL')."'),
 ('general', 'maintenance', 0),
 ('general', 'analytics', ''),
 ('general', 'translate', ''),
 ('general', 'menu', ''),
 ('general', 'feed_elements', '20'),
-('general', 'site_name', '".$_POST['SITE_NAME']."'),
+('general', 'site_name', '".core::request('SITE_NAME')."'),
 ('general', 'site_description', ''),
 ('general', 'products_per_page', '12'),
 ('general', 'akismet_key', ''),
@@ -379,7 +379,7 @@ mysql_query("INSERT INTO `".core::request('TABLE_PREFIX')."config` (`group_name`
 ('product', 'demo_resize', '1'),
 ('product', 'download_hours', 72),
 ('product', 'download_times', 3),
-('email', 'notify_email', '".$_POST['ADMIN_EMAIL']."'),
+('email', 'notify_email', '".core::request('ADMIN_EMAIL')."'),
 ('email', 'smtp_active', 0),
 ('email', 'new_sale_notify', 0),
 ('email', 'smtp_host', ''),
