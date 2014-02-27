@@ -31,7 +31,7 @@
 		<fieldset>
 		<!-- file -->
 			<div class="form-group">
-				<?if (is_file(DOCROOT.'data/'.$product->file_name)):?>
+				<?if ($product->has_file()==TRUE):?>
 				<div class="col-sm-offset-3">
 					<h4>
 					    <span class="label label-info">

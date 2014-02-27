@@ -32,7 +32,7 @@
         <a class="btn btn-info pay-btn full-w"
             href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'free','id'=>$product->seotitle))?>">
         <?endif?>
-            <?if(!empty($product->file_name)):?>
+            <?if($product->has_file()==TRUE):?>
                 <?=__('Free Download')?>
             <?else:?>
                 <?=__('Get it for Free')?>
@@ -57,7 +57,7 @@
             <ul class="mini-info">
                 <p><?=__('Hits')?> : <?=$hits?></p>
 
-                <?if (!empty($product->file_name)):?>
+                <?if ($product->has_file()==TRUE):?>
                     <p><?=__('Product format')?> : <?=strtoupper(strrchr($product->file_name, '.'))?> <?=__('file')?> </p>
                     <p><?=__('Product size')?> : <?=round(filesize(DOCROOT.'data/'.$product->file_name)/pow(1024, 2),2)?>MB</p>
                 <?endif?>

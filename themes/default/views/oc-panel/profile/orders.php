@@ -33,7 +33,7 @@
                             class="btn btn-mini btn-warning">
                             <i class="glyphicon glyphicon-star-empty"></i></a>
                     <?endif?>
-                    <?if(!empty($order->product->file_name)):?>
+                    <?if($order->product->has_file()==TRUE):?>
                     <a title="<?=__('Download')?>" href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order))?>" 
                     class="btn btn-mini btn-success">
                     <i class="glyphicon glyphicon-download"></i> <?=__('Download')?> <?=$order->product->version?></a>

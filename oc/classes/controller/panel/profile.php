@@ -201,22 +201,21 @@ class Controller_Panel_Profile extends Auth_Controller {
     public function action_download()
     {
         $this->auto_render = FALSE;
+        $err_msg = __('Download not found.');
 
         $order_id = $this->request->param('id',0);
-
         $user = Auth::instance()->get_user();
 
         $order = new Model_Order();
-
         $order->where('id_user','=',$user->id_user)
             ->where('id_order','=',$order_id)
             ->where('status', '=', Model_Order::STATUS_PAID)
             ->limit(1)
             ->find();
         if ($order->loaded())
-            $order->download();
+            $err_msg = $order->download();
         
-        Alert::set(Alert::ERROR, __('Download not found.'));
+        Alert::set(Alert::ERROR, $err_msg);
         $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
     
     }
@@ -261,7 +260,7 @@ class Controller_Panel_Profile extends Auth_Controller {
                     $order = Model_Order::sale(NULL,$user,$product,NULL,'free');
 
                 //if theres download redirect him to the file
-                if (!empty($product->file_name))
+                if ($product->has_file()==TRUE)
                     $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order)));
                 else
                     $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));

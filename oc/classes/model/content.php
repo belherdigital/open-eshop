@@ -169,7 +169,6 @@ class Model_Content extends ORM {
                         ->where('type','=', $type)
                         ->where('locale','=', $locale)
                         ->order_by('order','asc')
-                        ->cached()
                         ->find_all();
       return $pages;
     }

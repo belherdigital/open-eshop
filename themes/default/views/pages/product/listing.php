@@ -38,7 +38,7 @@
                         <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                         <?if ($product->final_price()>0):?>
                             <?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?>
-                        <?elseif(!empty($product->file_name)):?>
+                        <?elseif($product->has_file()==TRUE):?>
                             <?=__('Free Download')?>
                         <?else:?>
                             <?=__('Get it for Free')?>
