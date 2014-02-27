@@ -43,7 +43,7 @@ class Controller_Api extends Controller {
             }
         }
 
-        //by default
+        //by default return false since downlaod could not be done
         $this->response->headers('Content-type','application/javascript');
         $this->response->body(json_encode(FALSE));
     }

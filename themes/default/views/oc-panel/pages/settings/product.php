@@ -32,6 +32,38 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <?= FORM::label($forms['download_hours']['key'], __('Hours to download'), array('class'=>'col-md-3 control-label', 'for'=>$forms['download_hours']['key']))?>
+                <div class="col-md-5">
+                    <?= FORM::input($forms['download_hours']['key'], $forms['download_hours']['value'], array(
+                    'placeholder' => "4", 
+                    'class' => 'tips form-control', 
+                    'id' => $forms['download_hours']['key'], 
+                    'data-content'=> __("Hours between downloads, 0 = unlimited"),
+                    'data-trigger'=>"hover",
+                    'data-placement'=>"right",
+                    'data-toggle'=>"popover",
+                    'data-original-title'=>__("Hours between downloads"),
+                    ))?> 
+                </div>
+            </div>
+
+            <div class="form-group">
+                <?= FORM::label($forms['download_times']['key'], __('Times to download'), array('class'=>'col-md-3 control-label', 'for'=>$forms['download_times']['key']))?>
+                <div class="col-md-5">
+                    <?= FORM::input($forms['download_times']['key'], $forms['download_times']['value'], array(
+                    'placeholder' => "4", 
+                    'class' => 'tips form-control', 
+                    'id' => $forms['download_times']['key'], 
+                    'data-content'=> __("Times the file can be downloaded, 0 = unlimited"),
+                    'data-trigger'=>"hover",
+                    'data-placement'=>"right",
+                    'data-toggle'=>"popover",
+                    'data-original-title'=>__("Times between downloads"),
+                    ))?> 
+                </div>
+            </div>
+
 			<div class="form-group">
 				<?= FORM::label($forms['num_images']['key'], __('Number of images'), array('class'=>'col-md-3 control-label', 'for'=>$forms['num_images']['key']))?>
 				<div class="col-md-5">
@@ -55,7 +87,7 @@
                     'placeholder' => $forms['related']['value'], 
                     'class' => 'tips form-control ', 
                     'id' => $forms['related']['key'],
-                    'data-content'=> __("You can choose if theres random related products displayed at the prduct page"),
+                    'data-content'=> __("You can choose if theres random related products displayed at the product page"),
                     'data-trigger'=>"hover",
                     'data-placement'=>"right",
                     'data-toggle'=>"popover",

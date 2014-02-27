@@ -192,6 +192,22 @@ class Controller_Panel_Update extends Auth_Controller {
      */
     public function action_13()
     {
+        $prefix = Database::instance()->table_prefix();
+        mysql_query("ALTER TABLE  `".$prefix."products` ADD  `updated` DATETIME NULL AFTER  `created`;");
+
+        // build array with new (missing) configs
+        $configs = array(array('config_key'     =>'download_hours',
+                               'group_name'     =>'product', 
+                               'config_value'   =>'72'), 
+                         array('config_key'     =>'download_times',
+                               'group_name'     =>'product', 
+                               'config_value'   =>'3'));
+        
+
+        
+        // returns TRUE if some config is saved 
+        $return_conf = Model_Config::config_array($configs);
+
         //previous updates of DB
         $this->action_11();
         $this->action_12();

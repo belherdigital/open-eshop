@@ -18,7 +18,7 @@
 <?endif?>
 
 <?if (isset($order) AND Auth::instance()->logged_in()):?>
-    <?if(!empty($order->product->file_name)):?>
+    <?if($order->product->has_file()==TRUE):?>
         <hr>
         <a title="<?=__('Download')?>" href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order))?>" 
         class="btn btn-success">

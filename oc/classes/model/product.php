@@ -76,6 +76,20 @@ class Model_Product extends ORM {
         else
             return FALSE;
     }
+
+    /**
+     * returns if the product has a file to download
+     * @return bool 
+     */
+    public function has_file()
+    {
+        if(!empty($this->file_name))
+        {
+            if (is_readable(DOCROOT.'data/'.$this->file_name))
+                return TRUE;
+        }
+        return FALSE;
+    }
     
     /**
      * returns the price of the product checking if there's an offer or coupon

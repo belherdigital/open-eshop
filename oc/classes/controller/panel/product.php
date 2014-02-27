@@ -74,6 +74,7 @@ class Controller_Panel_Product extends Auth_Crud {
         	$obj_product->id_user = $id_user;
         	$obj_product->seotitle = $seotitle;
         	$obj_product->status = (core::post('status')===NULL)?Model_Product::STATUS_NOACTIVE:Model_Product::STATUS_ACTIVE;
+            $obj_product->updated = Date::unix2mysql();
 
             // save product file
             if($file = $_FILES['file_name'] AND $_FILES['file_name']['size'] != 0)
@@ -205,7 +206,8 @@ class Controller_Panel_Product extends Auth_Crud {
                                                                               'id'          =>$obj_product->id_product)));
                     }
                 }
-                $product['status'] = (core::post('status')===NULL)?Model_Product::STATUS_NOACTIVE:Model_Product::STATUS_ACTIVE;
+                $product['status']  = (core::post('status')===NULL)?Model_Product::STATUS_NOACTIVE:Model_Product::STATUS_ACTIVE;
+                $product['updated'] = Date::unix2mysql();
                 // each field in edit product
                 foreach ($product as $field => $value) 
                 {

@@ -47,7 +47,7 @@
         <a class="btn btn-info review-pay-btn"
             href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'free','id'=>$product->seotitle))?>">
         <?endif?>
-            <?if(!empty($product->file_name)):?>
+            <?if($product->has_file()==TRUE):?>
                 <?=__('Free Download')?>
             <?else:?>
                 <?=__('Get it for Free')?>

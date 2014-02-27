@@ -159,7 +159,7 @@
                 <a class="btn btn-success btn-sm" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"
                     title="<?if ($product->final_price()>0):?>
                     <?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?>
-                    <?elseif(!empty($product->file_name)):?><?else:?><?=__('Get it for Free')?><?endif?>">
+                    <?elseif($product->has_file()==TRUE):?><?else:?><?=__('Get it for Free')?><?endif?>">
                     <span class="fa fa-shopping-cart fa-2x"></span>
                 </a> 
                 <a class="btn btn-default btn-sm" title="<?=__('Full screen demo, removes the bar')?>" href="<?=$product->url_demo?><?=(count($skins)>0)?'&skin='.$skin:''?>">

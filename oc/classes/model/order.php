@@ -150,7 +150,7 @@ class Model_Order extends ORM {
                             '[PRODUCT.TITLE]'   => $product->title,
                             '[PRODUCT.PRICE]'   => $order->amount.' '.$order->currency,
                             '[PRODUCT.NOTES]'   => $product->email_purchase_notes,
-                            '[URL.DOWNLOAD]'    => (!empty($product->file_name))?$user->ql('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order)):'',
+                            '[URL.DOWNLOAD]'    => ($product->has_file()==TRUE)?$user->ql('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order)):'',
                             '[LICENSE]'         => $license,
                         );
             
@@ -182,9 +182,39 @@ class Model_Order extends ORM {
     {
         if ($this->loaded())
         {
-            $file = DOCROOT.'data/'.$this->product->file_name;
-            if (is_readable($file) AND  !empty($this->product->file_name))
+            $expire_hours = Core::config('product.download_hours');
+            $expire_times = Core::config('product.download_times');
+
+            //theres an expire? 0 = unlimited
+            if ($expire_hours > 0 OR $expire_times > 0)
             {
+                //getting the downloads query for this order without filtering
+                $downloads = $this->downloads;
+                
+                //verify hours to expire download
+                if ($expire_hours > 0)
+                {
+                    //last date, can be last updated the product or the day he paid the order
+                    $last_date = (Date::mysql2unix($this->product->updated) > Date::mysql2unix($this->pay_date))? $this->product->updated : $this->pay_date;
+
+                    //checking if expired
+                    if ( (Date::mysql2unix($last_date)+($expire_hours*60*60)) < time() )
+                        return sprintf(__('Download expired after %u hours'),$expire_hours);
+                    
+                    //filter with that date for the count
+                    $downloads->where('created','>=',$last_date);
+                }
+                
+                //checking if he exceeded the downloads
+                if ($expire_times > 0 AND $downloads->count_all() >= $expire_times)
+                    return sprintf(__('You reached the limit of %u downloads'),$expire_times);
+            }
+
+            
+            if ($product->has_file()==TRUE)
+            {
+                $file = DOCROOT.'data/'.$this->product->file_name;
+                
                 //create a download
                 Model_Download::generate($this->user, $this);
 
@@ -194,7 +224,8 @@ class Model_Order extends ORM {
                 Request::$current->response()->send_file($file,$file_name);
             }
         }
-        
+
+        return __('Can not download');
     }
 
 
