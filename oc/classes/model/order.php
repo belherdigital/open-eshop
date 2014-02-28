@@ -237,7 +237,7 @@ class Model_Order extends ORM {
             }
 
             
-            if ($product->has_file()==TRUE)
+            if ($this->product->has_file()==TRUE)
             {
                 $file = DOCROOT.'data/'.$this->product->file_name;
                 
