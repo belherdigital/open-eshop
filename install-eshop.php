@@ -16,6 +16,7 @@ ini_set('display_errors', 1);
 // Set the full path to the docroot
 define('DOCROOT', realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);
 
+if (file_exists(DOCROOT.'oc/config/database.php')) die('Seems Open eShop it is already insalled');
 
 //read from oc/versions.json on CDN
 $versions       = install::versions();
