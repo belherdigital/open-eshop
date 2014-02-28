@@ -28,10 +28,11 @@ class URL extends Kohana_URL {
          * this hack is to add tohse languages that are not in ascii, so we add them to the array
          * @var boolean
          */
-        if ($ascii_only === NULL)
-            $ascii_only = ( in_array(i18n::$locale, array('hi_IN','ar','ur_PK','ru_RU','bn_BD','ml_IN','ja_JP')) )? FALSE:TRUE;
+        // if ($ascii_only === NULL)
+        //     $ascii_only = ( in_array(i18n::$locale, array('hi_IN','ar','ur_PK','ru_RU','bn_BD','ml_IN','ja_JP')) )? FALSE:TRUE;
 
-                
+        $ascii_only = (mb_detect_encoding($title,'ASCII')===FALSE)? FALSE:TRUE;
+        
         return parent::title($title, $separator, $ascii_only);
     }
 
