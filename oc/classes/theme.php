@@ -680,6 +680,10 @@ class Theme {
             $zip = new ZipArchive;
             if ($zip_open = $zip->open($fname)) 
             {
+                //if theres nothing in that ZIP file...zip corrupted :(
+                if ($zip->getNameIndex(0)===FALSE)
+                    return FALSE;
+
                 $theme_name = (substr($zip->getNameIndex(0), 0,-1));
                 $zip->extractTo(DOCROOT.'themes/');
                 $zip->close();  

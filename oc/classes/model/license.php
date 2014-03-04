@@ -80,6 +80,9 @@ class Model_License extends ORM {
      */
     public static function verify($license_num,$domain)
     {
+        //removing the www. so we accept both for same domain
+        $domain = preg_replace('#^www\.(.+\.)#i', '$1', $domain);
+        
         $license = self::get($license_num);
 
         if ($license->loaded())
@@ -153,43 +156,4 @@ class Model_License extends ORM {
 
 
 
-}
-
-/*
- * Name:    Open eShop API
- * URL:     http://open-eshop.com
- * Version: 0.1
- * Date:    18/10/2013
- * Author:  Chema Garrido
- * License: GPL v3
- * Notes:   API Class for open-eshop.com
- */
-class eshop{
-    
-    /**
-     * URL where we check the license @todo modify this!!!
-     * @var string
-     */
-    private static $api_url = 'http://eshop.lo/api/license/';
-    private static $timeout = 5;//timeout for the request
-    
-    //sends the request to the server, uses curl
-    public static function license($license)
-    {
-        $ch = curl_init();
-        if ($ch)
-        {
-            curl_setopt($ch, CURLOPT_URL,self::$api_url.$license) ;
-            curl_setopt($ch, CURLOPT_POST, 1 ) ;
-            curl_setopt($ch, CURLOPT_POSTFIELDS,'&domain='.$_SERVER['SERVER_NAME']);
-            curl_setopt($ch, CURLOPT_TIMEOUT,self::$timeout); 
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-            $server_output = curl_exec ($ch);
-            curl_close ($ch); 
-            
-            return $server_output;
-        }
-        else return FALSE;
-    }
-    //end send request
 }

@@ -45,8 +45,9 @@
                 <?endif?>
 
                 <?=Theme::admin_link(__('Themes'), 'theme','index','oc-panel','glyphicon glyphicon-picture')?>
-                <?if (Theme::has_options()) 
-                        Theme::admin_link(__('Theme Options'), 'theme','options','oc-panel','glyphicon glyphicon-wrench')?>     
+                <?if (Theme::has_options()):?>
+                    <?=Theme::admin_link(__('Theme Options'), 'theme','options','oc-panel','glyphicon  glyphicon-wrench')?>     
+                <?endif?>  
                 <?=Theme::admin_link(__('Widgets'), 'widget','index','oc-panel','glyphicon glyphicon-move')?>
                 <?=Theme::admin_link(__('Menu'), 'menu','index','oc-panel','glyphicon glyphicon-list')?>   
                 <?=Theme::admin_link(__('Social Auth'), 'social','index','oc-panel','glyphicon glyphicon-thumbs-up')?>

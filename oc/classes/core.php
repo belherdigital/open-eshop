@@ -251,16 +251,83 @@ class Core {
         curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($c, CURLOPT_URL, $url);
         curl_setopt($c, CURLOPT_TIMEOUT,30); 
-        curl_setopt($c, CURLOPT_FOLLOWLOCATION, TRUE);
-        $contents = curl_exec($c);
+        // curl_setopt($c, CURLOPT_FOLLOWLOCATION, TRUE);
+        // $contents = curl_exec($c);
+        $contents = core::curl_exec_follow($c);
 
+        curl_close($c);
         if(!curl_errno($c))
             return ($contents)? $contents : FALSE;
         else 
             throw new Kohana_Exception('Curl '.$url.' error: ' . curl_error($c));
-
-        curl_close($c);
     }
+
+    /**
+     * [curl_exec_follow description] http://us2.php.net/manual/en/function.curl-setopt.php#102121
+     * @param  curl  $ch          handler
+     * @param  integer $maxredirect hoe many redirects we allow
+     * @return contents
+     */
+    public static function curl_exec_follow($ch, $maxredirect = 5) 
+    { 
+        //using normal curl redirect
+        if (ini_get('open_basedir') == '' AND ini_get('safe_mode' == 'Off')) 
+        { 
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, $maxredirect > 0); 
+            curl_setopt($ch, CURLOPT_MAXREDIRS, $maxredirect); 
+        } 
+        //using safemode...WTF!
+        else 
+        { 
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, FALSE); 
+            if ($maxredirect > 0) 
+            { 
+                $newurl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL); 
+
+                $rch = curl_copy_handle($ch); 
+                curl_setopt($rch, CURLOPT_HEADER, TRUE); 
+                curl_setopt($rch, CURLOPT_NOBODY, TRUE); 
+                curl_setopt($rch, CURLOPT_FORBID_REUSE, FALSE); 
+                curl_setopt($rch, CURLOPT_RETURNTRANSFER, TRUE); 
+
+                do 
+                { 
+                    curl_setopt($rch, CURLOPT_URL, $newurl); 
+                    $header = curl_exec($rch); 
+                    if (curl_errno($rch))
+                        $code = 0; 
+                    else 
+                    { 
+                        $code = curl_getinfo($rch, CURLINFO_HTTP_CODE); 
+                        if ($code == 301 OR $code == 302) 
+                        { 
+                            preg_match('/Location:(.*?)\n/', $header, $matches); 
+                            $newurl = trim(array_pop($matches)); 
+                        }
+                        else 
+                            $code = 0; 
+                    } 
+                } 
+                while ($code AND --$maxredirect); 
+
+                curl_close($rch); 
+
+                if (!$maxredirect) 
+                { 
+                    if ($maxredirect === NULL) 
+                        trigger_error('Too many redirects. When following redirects, libcurl hit the maximum amount.', E_USER_WARNING); 
+                    else  
+                        $maxredirect = 0; 
+
+                    return FALSE; 
+                } 
+
+                curl_setopt($ch, CURLOPT_URL, $newurl); 
+            } 
+        } 
+
+        return curl_exec($ch); 
+    } 
 
     /**
      * Akismet spam check. Invokes akismet class to get response is spam.

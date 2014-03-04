@@ -192,8 +192,17 @@ class Controller_Panel_Update extends Auth_Controller {
      */
     public function action_13()
     {
+        //add new fields
         $prefix = Database::instance()->table_prefix();
         mysql_query("ALTER TABLE  `".$prefix."products` ADD  `updated` DATETIME NULL AFTER  `created`;");
+
+        //updating emails
+        $text =  '==== Order Details ====\nDate: [DATE]\nOrder ID: [ORDER.ID]\nName: [USER.NAME]\nEmail: [USER.EMAIL]\n\n==== Your Order ====\nProduct: [PRODUCT.TITLE]\nProduct Price: [PRODUCT.PRICE]\n\n[PRODUCT.NOTES][DOWNLOAD][EXPIRE][LICENSE]';
+        DB::update('content')->set(array('description' => $text))->where('seotitle', '=', 'new.sale')->where('locale', '=', 'en_US')->execute();
+
+        $text = '==== Update Details ====\nVersion: [VERSION]\nProduct name: [TITLE][DOWNLOAD][EXPIRE]\n\n==== Product Page ====\n[URL.PRODUCT]';
+        DB::update('content')->set(array('description' => $text))->where('seotitle', '=', 'product.update')->where('locale', '=', 'en_US')->execute();
+
 
         // build array with new (missing) configs
         $configs = array(array('config_key'     =>'download_hours',
@@ -202,8 +211,6 @@ class Controller_Panel_Update extends Auth_Controller {
                          array('config_key'     =>'download_times',
                                'group_name'     =>'product', 
                                'config_value'   =>'3'));
-        
-
         
         // returns TRUE if some config is saved 
         $return_conf = Model_Config::config_array($configs);
