@@ -26,9 +26,11 @@ Theme::load();
 
 
 //local files
+$rtl = (Theme::get('rtl'))?'css/bootstrap-rtl.min.css':'';
 
     Theme::$styles = array(
                         'http://netdna.bootstrapcdn.com/bootswatch/3.1.0/yeti/bootstrap.min.css' => 'screen',
+                        $rtl => 'screen',
                         'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen',
                         'http://cdn.jsdelivr.net/prettyphoto/3.1.5/css/prettyPhoto.css' => 'screen',
                         'css/style.css?v=1.3' => 'screen',
