@@ -11,7 +11,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-folder-close">
-                                    </span>Content</a>
+                                    </span><?=__('Product')?></a>
                                 </h4>
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse">
@@ -37,7 +37,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-folder-close">
-                                    </span>Content</a>
+                                    </span><?=__('Content')?></a>
                                 </h4>
                             </div>
                             <div id="collapseTwo" class="panel-collapse collapse">
@@ -62,7 +62,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="glyphicon glyphicon-folder-close">
-                                    </span>Content</a>
+                                    </span><?=__('Content')?></a>
                                 </h4>
                             </div>
                             <div id="collapseThree" class="panel-collapse collapse">
@@ -79,7 +79,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-folder-close">
-                                    </span>Content</a>
+                                    </span><?=__('Theme')?></a>
                                 </h4>
                             </div>
                             <div id="collapseFour" class="panel-collapse collapse">
@@ -101,7 +101,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseSettings"><span class="glyphicon glyphicon-folder-close">
-                                    </span>Settings</a>
+                                    </span><?=__('Settings')?></a>
                                 </h4>
                             </div>
                             <div id="collapseSettings" class="panel-collapse collapse">
@@ -121,7 +121,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseUser"><span class="glyphicon glyphicon-folder-close">
-                                    </span>Users</a>
+                                    </span><?=__('Users')?></a>
                                 </h4>
                             </div>
                             <div id="collapseUser" class="panel-collapse collapse">
@@ -140,7 +140,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseTools"><span class="glyphicon glyphicon-folder-close">
-                                    </span>Tools</a>
+                                    </span><?=__('Tools')?></a>
                                 </h4>
                             </div>
                             <div id="collapseTools" class="panel-collapse collapse">
@@ -163,7 +163,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><span class="glyphicon glyphicon-folder-close">
-                                    </span>Tools</a>
+                                    </span><?=__('Edit')?></a>
                                 </h4>
                             </div>
                             <div id="collapseFive" class="panel-collapse collapse">
