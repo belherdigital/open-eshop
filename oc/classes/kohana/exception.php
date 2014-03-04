@@ -40,8 +40,13 @@ class Kohana_Exception extends Kohana_Kohana_Exception
                     $params['action'] = $e->getCode();
                 }
 
+                //only for error 500 just kill execution, ugly but works
+                if ($params['action']==500)
+                {
+                    die(View::factory('pages/error/500',array('message'=>$e->getMessage())));
+                }
+
                 //d($params);
- 
                 // Error sub-request.
                 echo Request::factory(Route::get('error')->uri($params))
                     ->execute()
