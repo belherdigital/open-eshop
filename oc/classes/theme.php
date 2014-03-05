@@ -652,12 +652,16 @@ class Theme {
 
         //getting the licenses unique. to avoid downloading twice
         $themes = core::config('theme');
-        foreach ($themes as $theme) 
+        foreach ($themes as $theme=>$settings) 
         {
-            $settings = json_decode($theme,TRUE);
-            if (isset($settings['license']))
-                if ($settings['license'] == $l)
-                    return FALSE;
+            if ($theme != Theme::$theme)
+            {
+                $settings = json_decode($settings,TRUE);
+                //theme has a license and already is in use...so do not activate
+                if (isset($settings['license']))
+                    if ($settings['license'] == $l)
+                        return FALSE;
+            }
         }
 
         $api_url = (Kohana::$environment!== Kohana::DEVELOPMENT)? 'market.open-eshop.com':'eshop.lo';
@@ -673,7 +677,7 @@ class Theme {
         $fname = DOCROOT.'themes/'.$l.'.zip'; //root folder
         $file_content = core::curl_get_contents($download_url);
 
-        if ($file_content!=FALSE)
+        if ($file_content!='false')
         {
             // saving zip file to dir.
             file_put_contents($fname, $file_content);
