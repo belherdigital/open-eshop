@@ -74,6 +74,7 @@ ul.plholder li.placeholder:before {
 .dropdown-menu li a{color:#000!important;}
 
 /*Sidebar*/
+td li a{padding: 0!important;}
 .panel-group .panel+.panel{margin-top: 0px;}
 .panel-collapse .panel-body .table li {list-style: none;}
 .btn-colapse-sidebar{cursor: pointer;}
@@ -86,7 +87,7 @@ li.sbp:hover{border-right: none;}
 .respon-left-panel {
 	z-index: 1;
 	position: absolute;
-    margin-top: -15px;
+    margin-top: -9px;
     min-width: 185px;
     padding: 0px;
     /*background-color: inherit;*/
@@ -137,8 +138,12 @@ li.sbp:hover{border-right: none;}
 .submenu.active{display: block;}
 .submenu li.active a{text-decoration: underline; font-weight:bold;list-style-type: amharic;}
 .submenu li a{border-right: 0px !important;}
-.mini-col .submenu.active{ list-style: none; position: absolute;top: 7px; left: -14px; border: 1px solid #e3e3e3; background: #fff; padding: 4px 0px 3px 2px;margin-left: 47px; min-width: 155px; border-radius: 0px 5px 5px 0px;}
-.mini-col .submenu.active li {padding-right: 50px;}
+.mini-col{max-width: 45px;}
+.aside-table{position: absolute;
+left: 45px;
+margin-top: -40px;
+background: #eee;
+border: 1px solid #eee;}
 .btn-sidebar-menu{display: none;}
 .dropdown-toggle i{margin-right: 5px;}
 

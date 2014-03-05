@@ -7,11 +7,12 @@
             <div class="row">
                 <div class="col-md-1 col-sm-1 col-xs-1 respon-left-panel">
                     <div class="panel-group" id="accordion">
+                    <? if($user->id_role==Model_Role::ROLE_ADMIN):?>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-folder-close">
-                                    </span><?=__('Product')?></a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-th">
+                                    </span> <span class="title-txt"><?=__('Product Settings')?></span></a>
                                 </h4>
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse">
@@ -36,8 +37,8 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-folder-close">
-                                    </span><?=__('Content')?></a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-folder-open">
+                                    </span> <span class="title-txt"><?=__('Page Content')?></span></a>
                                 </h4>
                             </div>
                             <div id="collapseTwo" class="panel-collapse collapse">
@@ -53,33 +54,20 @@
                                         <?endif?>
                                         <tr><td><?=Theme::admin_link(__('Translations'), 'translations','index','oc-panel','glyphicon glyphicon-globe')?></td></tr>
                                         <tr><td><?=Theme::admin_link(__('Newsletters'), 'newsletter','index','oc-panel','glyphicon glyphicon-envelope')?></td></tr>
+                                        <? if($user->id_role==Model_Role::ROLE_ADMIN AND core::config('general.forums')==1):?>
+                                            <tr><td><?=Theme::admin_link(__('Forums'),'forum','index','oc-panel','glyphicon glyphicon-tags')?></td></tr>
+                                            <tr><td><?=Theme::admin_link(__('Topics'), 'topic','index','oc-panel','glyphicon glyphicon-pencil')?></td></tr>
+                                        <?endif?>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        <? if($user->id_role==Model_Role::ROLE_ADMIN AND core::config('general.forums')==1):?>
+                        
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="glyphicon glyphicon-folder-close">
-                                    </span><?=__('Content')?></a>
-                                </h4>
-                            </div>
-                            <div id="collapseThree" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <table class="table">
-                                        <tr><td><?=Theme::admin_link(__('Forums'),'forum','index','oc-panel','glyphicon glyphicon-tags')?></td></tr>
-                                        <tr><td><?=Theme::admin_link(__('Topics'), 'topic','index','oc-panel','glyphicon glyphicon-pencil')?></td></tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <?endif?>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-folder-close">
-                                    </span><?=__('Theme')?></a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-picture">
+                                    </span> <span class="title-txt"><?=__('Theme Options')?></span></a>
                                 </h4>
                             </div>
                             <div id="collapseFour" class="panel-collapse collapse">
@@ -100,8 +88,8 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseSettings"><span class="glyphicon glyphicon-folder-close">
-                                    </span><?=__('Settings')?></a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseSettings"><span class="glyphicon glyphicon-wrench">
+                                    </span> <span class="title-txt"><?=__('Settings')?></span></a>
                                 </h4>
                             </div>
                             <div id="collapseSettings" class="panel-collapse collapse">
@@ -120,13 +108,13 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseUser"><span class="glyphicon glyphicon-folder-close">
-                                    </span><?=__('Users')?></a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseUser"><span class="glyphicon glyphicon-user">
+                                    </span> <span class="title-txt"><?=__('Users')?></span></a>
                                 </h4>
                             </div>
                             <div id="collapseUser" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <table class="table">
+                                    <table class="table no-hide">
                                         <tr><td><?=Theme::admin_link(__('Users'),'user')?></td></tr>
                                         <tr><td><?=Theme::admin_link(__('User Roles'),'role')?></td></tr>
                                         <tr><td><?=Theme::admin_link(__('Roles access'),'access')?></td></tr>
@@ -139,8 +127,8 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTools"><span class="glyphicon glyphicon-folder-close">
-                                    </span><?=__('Tools')?></a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTools"><span class="glyphicon glyphicon-filter">
+                                    </span> <span class="title-txt"><?=__('Tools')?></span></a>
                                 </h4>
                             </div>
                             <div id="collapseTools" class="panel-collapse collapse">
@@ -158,12 +146,13 @@
                             </div>
                         </div>
                         <?endif?>
+                    <?endif?>
                         <? if($user->has_access_to_any('profile')):?>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><span class="glyphicon glyphicon-folder-close">
-                                    </span><?=__('Edit')?></a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><span class="glyphicon glyphicon-align-justify">
+                                    </span> <span class="title-txt"><?=__('Profile Options')?></span></a>
                                 </h4>
                             </div>
                             <div id="collapseFive" class="panel-collapse collapse">
@@ -180,14 +169,14 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a  class=" btn-colapse-sidebar"><i class="glyphicon glyphicon-circle-arrow-left"></i>
-                                    <span class="side-name-link"><?=__('Collapse menu')?></span>
+                                    <a  class=" btn-colapse-sidebar"><span class="glyphicon glyphicon-circle-arrow-left"></span>
+                                    <span class="title-txt"><?=__('Collapse menu')?></span>
                                     </a>
                                 </h4>
                             </div>
                         </div>
                         <?if (Theme::get('premium')!=1):?>
-                        <div class="panel panel-default">
+                        <div class="panel panel-default no-prem">
                             <div class="panel-heading">
                                 <a href="http://open-eshop.com/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>">by Open eShop</a>
                                 <a href="https://twitter.com/openeshop"

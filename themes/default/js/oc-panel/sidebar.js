@@ -10,7 +10,7 @@ if($(window).width() > '750'){
   }
   // on click triger
   $('.btn-colapse-sidebar').on('click', function(){
-    colapse_sidebar($('.nav.nav-list.side-ul').hasClass('active'));
+    colapse_sidebar($('.table').hasClass('active'));
   });
 
   if(collapsed_bar == 'collapsed')
@@ -41,19 +41,23 @@ if($(window).width() > '750'){
 */
 
 function colapse_sidebar(event){  
-// $('.submenu.active > .side-name-link').removeClass('hide');
+
   if(event)
   {
     //set localstorage to be avare of current state of sidebar
     localStorage.setItem('sidebar_state', 'collapsed');
 
-    $('.nav.nav-list.side-ul li').each(function(){
-      $('a span.side-name-link', this).removeClass('active').addClass('hide'); // hide links in sidebar
-      $('i', this).addClass('pos'); // remove class with padding
+    $('.panel-body table.table').each(function(){
+      $('tbody',this).addClass('aside-table');; // hide links in sidebar
     });
-    $('.nav.nav-list.side-ul').removeClass('active').addClass('colapsed');
-    $('.nav.nav-list.side-ul').closest('aside').addClass('respones-colapse');
-    $('.dropdown-sidebar.sbp').addClass('mini-col');
+
+    $('.panel-title ').each(function(){
+      $('a span.title-txt', this).removeClass('active').addClass('hide'); // hide links in sidebar
+      $('span', this).show(); // remove class with padding
+      $('#accordion').addClass('mini-col');
+    });
+
+    $('.table').removeClass('active').addClass('colapsed');
     $('.main').css('padding-left','50px');
     $('.no-prem').hide(); // hide adverts
     
@@ -69,14 +73,17 @@ function colapse_sidebar(event){
     //set localstorage to be avare of current state of sidebar
     localStorage.setItem('sidebar_state', 'not-collapsed');
 
-    $('.nav.nav-list.side-ul li').each(function(){
-      $('a span.side-name-link', this).removeClass('hide').addClass('active');
-      $('i', this).removeClass('pos'); // remove class with padding
+    $('.panel-body table.table').each(function(){
+      $('tbody', this).removeClass('aside-table');
     });
 
-    $('.nav.nav-list.side-ul').removeClass('colapsed').addClass('active');
-    $('.nav.nav-list.side-ul').closest('aside').removeClass('respones-colapse');
-    $('.dropdown-sidebar.sbp').removeClass('mini-col');
+    $('.panel-title').each(function(){
+      $('a span.title-txt', this).removeClass('hide').addClass('active');
+      $('span', this).show(); // remove class with padding
+      $('#accordion').removeClass('mini-col');
+    });
+
+    $('.table').removeClass('colapsed').addClass('active');
     $('.main').css('padding-left','205px');
     $('.no-prem').show(); // show adverts
     
@@ -103,9 +110,6 @@ $(function() {
       }
     });
   
-  
-
-  
 });
 
 function dropdown(event){
@@ -122,5 +126,10 @@ function dropdown(event){
     $('.submenu .side-name-link',event).removeClass('hide');
   }
 }
+
+// when reloaded keep acordion colapsed
+if(!$('.panel-group').hasClass('mini-col'))
+$('li.active').closest('.panel-collapse').addClass('in');
+
 
 // position: absolute;top: 7px;left: 21px;border: 1px solid;padding: 4px 20px 3px 2px;margin-left: 47px;
