@@ -21,7 +21,7 @@
 
     <tbody>
         <?foreach ($orders as $order):?>
-            <tr class="info">
+            <tr class="label-success">
                 <td><?=$order->id_order;?></td>
                 <td><?=$order->product->title?> <?=$order->product->version?></td>
                 <td><?=Date::format($order->pay_date);?></td>
@@ -39,29 +39,27 @@
                     <i class="glyphicon glyphicon-download"></i> <?=__('Download')?> <?=$order->product->version?></a>
                     <?endif?>
                 </td>
-            </tr>
-
-            <?if ($order->licenses->count_all()>0):?>
-            <tr>
-                <td colspan="5">
-                    <table class="table table-bordered table-condensed">
-                        <th><?=__('License')?></th>
-                        <th><?=__('Created')?></th>
-                        <th><?=__('Domain')?></th>
-                    <?foreach ($licenses as $license):?>
-                        <?if($license->id_order == $order->id_order):?>
-                        <tr>
-                            <td><?=$license->license?></td>
-                            <td><?=$license->created?></td>
-                            <td><?=($license->status==Model_License::STATUS_NOACTIVE)?__('Inactive'):$license->domain?></td>
-                        <tr>
-                        <?endif?>
-                    <?endforeach?>    
-                    </table>
-                </td>
-            </tr>
+                <?if ($order->licenses->count_all()>0):?>
+                <tr>
+                    <td colspan="6">
+                        <table class="table table-condensed">
+                            <th><?=__('License')?></th>
+                            <th><?=__('Created')?></th>
+                            <th><?=__('Domain')?></th>
+                        <?foreach ($licenses as $license):?>
+                            <?if($license->id_order == $order->id_order):?>
+                            <tr>
+                                <td><?=$license->license?></td>
+                                <td><?=$license->created?></td>
+                                <td><?=($license->status==Model_License::STATUS_NOACTIVE)?__('Inactive'):$license->domain?></td>
+                            <tr>
+                            <?endif?>
+                        <?endforeach?>    
+                        </table>
+                    </td>
+                </tr>
             <?endif?>
-
+            </tr>
         <?endforeach?> 
         </tbody>
 
