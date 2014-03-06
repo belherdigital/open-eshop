@@ -41,7 +41,7 @@
                 </td>
                 <?if ($order->licenses->count_all()>0):?>
                 <tr>
-                    <td colspan="6">
+                    <td class="label-default" colspan="6">
                         <table class="table table-condensed">
                             <th><?=__('License')?></th>
                             <th><?=__('Created')?></th>

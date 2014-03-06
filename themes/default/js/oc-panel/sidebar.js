@@ -130,6 +130,8 @@ function dropdown(event){
 // when reloaded keep acordion colapsed
 if(!$('.panel-group').hasClass('mini-col'))
 $('li.active').closest('.panel-collapse').addClass('in');
+//active link
+$('li.active').closest('.br').addClass('active');
 
 
 // position: absolute;top: 7px;left: 21px;border: 1px solid;padding: 4px 20px 3px 2px;margin-left: 47px;

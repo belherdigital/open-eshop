@@ -74,13 +74,22 @@ ul.plholder li.placeholder:before {
 .dropdown-menu li a{color:#000!important;}
 
 /*Sidebar*/
+.panel-title a {color:#000;text-decoration: none;}
 td li a{padding: 0!important;}
-.panel-group .panel+.panel{margin-top: 0px;}
+.panel-group .panel{border-radius: 0px;}
+
+.br li a{text-decoration: none;}
+.br.active {background-color: #eee!important;}
+.br:hover {background-color: #eee;}
+.panel-default>.panel-heading{background-color: #222!important;border-bottom: 1px solid #101010;border-radius: 0px;}
+.panel-default>.panel-heading+.panel-collapse .panel-body{border:none;}
+.panel-heading a{color:#fff!important;}
+.panel-group .panel+.panel{margin-top: 0px;border:#222;}
 .panel-collapse .panel-body .table li {list-style: none;}
 .btn-colapse-sidebar{cursor: pointer;}
 .side-ul li.active{border-right: 3px solid #46b8da;}
 .side-ul li:hover{border-right: 3px solid #46b8da;}
-
+.panel{border:none;}
 li.sbp.active{border-right: none;}
 li.sbp:hover{border-right: none;}
 
@@ -131,7 +140,8 @@ li.sbp:hover{border-right: none;}
 	float: left;
 }
 .panel-body { padding:0px; }
-.panel-body table tr td { padding-left: 15px }
+.panel-body table tr td { padding-left: 15px; }
+.panel-body table tbody.aside-table tr td { padding-left: 25px; padding-right: 25px; }
 .panel-body .table {margin-bottom: 0px; }
 .submenu {display: none; list-style: disc;}
 
@@ -142,7 +152,7 @@ li.sbp:hover{border-right: none;}
 .aside-table{position: absolute;
 left: 45px;
 margin-top: -40px;
-background: #eee;
+background-color: #fff;
 border: 1px solid #eee;}
 .btn-sidebar-menu{display: none;}
 .dropdown-toggle i{margin-right: 5px;}
