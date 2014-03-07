@@ -79,6 +79,7 @@ td li a{padding: 0!important;}
 .panel-group .panel{border-radius: 0px;}
 
 .br li a{text-decoration: none;}
+.br li {min-width: 110px;}
 .br.active {background-color: #eee!important;}
 .br:hover {background-color: #eee;}
 .panel-default>.panel-heading{background-color: #222!important;border-bottom: 1px solid #101010;border-radius: 0px;}

@@ -133,5 +133,9 @@ $('li.active').closest('.panel-collapse').addClass('in');
 //active link
 $('li.active').closest('.br').addClass('active');
 
-
-// position: absolute;top: 7px;left: 21px;border: 1px solid;padding: 4px 20px 3px 2px;margin-left: 47px;
+//minified sidebar,when click outside close dropdown
+$(".respon-left-panel").click(function(e) {
+});
+$(document).click(function() {
+  $(".respon-left-panel .mini-col .panel-collapse").removeClass('in').addClass('collapse'); //click came from somewhere else
+});
