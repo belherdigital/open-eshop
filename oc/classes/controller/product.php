@@ -242,6 +242,11 @@ class Controller_Product extends Controller{
 
     public function action_listing()
     {
+        if(Theme::get('infinite_scroll'))
+        {
+            $this->template->scripts['footer'][] = 'http://cdn.jsdelivr.net/jquery.infinitescroll/2.0b2/jquery.infinitescroll.js';
+            $this->template->scripts['footer'][] = 'js/listing.js';
+        }
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Home'))->set_url(Route::url('default')));
         
         /**

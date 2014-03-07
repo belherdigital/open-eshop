@@ -72,11 +72,11 @@ for ($i = $n7; $i <= $n8; $i++)
         <?php endforeach ?>
 
 		<li <?=(!$next_page)?'class="disabled"':''?>>
-			<a title="<?=__('Next')?> <?=$page->title()?>" href="<?=HTML::chars($page->url($next_page)) ?>" rel="next"><i class="glyphicon glyphicon-forward"></i></a>
-		</li>
+      <a title="<?=__('Next')?> <?=$page->title()?>" href="<?=HTML::chars($page->url($next_page)) ?>" rel="next" id="next"><i class="glyphicon glyphicon-forward"></i></a>
+    </li>
 
-		<li <?=(!$last_page)?'class="disabled"':''?>>
-			<a title="<?=__('Last')?> <?=$page->title()?>" href="<?=HTML::chars($page->url($last_page)) ?>" rel="last"><i class="glyphicon glyphicon-step-forward"></i></a>
-		</li>
+    <li <?=(!$last_page)?'class="disabled"':''?>>
+      <a title="<?=__('Last')?> <?=$page->title()?>" href="<?=HTML::chars($page->url($last_page)) ?>" rel="last" id="last" data-last="<?=$last_page?>"><i class="glyphicon glyphicon-step-forward"></i></a>
+    </li>
 
   </ul>
