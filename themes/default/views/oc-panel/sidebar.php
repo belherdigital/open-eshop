@@ -12,7 +12,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-th">
-                                    </span> <span class="title-txt"><?=__('Product Settings')?></span></a>
+                                    </span> <span class="title-txt">eShop</span></a>
                                 </h4>
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse">
@@ -38,7 +38,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-folder-open">
-                                    </span> <span class="title-txt"><?=__('Page Content')?></span></a>
+                                    </span> <span class="title-txt"><?=__('Content')?></span></a>
                                 </h4>
                             </div>
                             <div id="collapseTwo" class="panel-collapse collapse">
@@ -67,7 +67,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-picture">
-                                    </span> <span class="title-txt"><?=__('Theme Options')?></span></a>
+                                    </span> <span class="title-txt"><?=__('Appearance')?></span></a>
                                 </h4>
                             </div>
                             <div id="collapseFour" class="panel-collapse collapse">
