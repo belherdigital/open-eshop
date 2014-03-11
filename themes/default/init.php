@@ -26,17 +26,19 @@ Theme::load();
 
 
 //local files
-$rtl = (Theme::get('rtl'))?'css/bootstrap-rtl.min.css':'';
-
-    Theme::$styles = array(
+    $theme_css = array(
                         'http://netdna.bootstrapcdn.com/bootswatch/3.1.1/yeti/bootstrap.min.css' => 'screen',
-                        $rtl => 'screen',
+                        
                         'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen',
                         'http://cdn.jsdelivr.net/prettyphoto/3.1.5/css/prettyPhoto.css' => 'screen',
                         'css/style.css?v=1.3' => 'screen',
                         'css/yeti-style.css' => 'screen',
                         'css/slider.css' => 'screen',
                         );
+    if(Theme::get('rtl'))
+      $theme_css = array_merge($theme_css, array('css/bootstrap-rtl.min.css' => 'screen'));
+
+    Theme::$styles = $theme_css;
 
     Theme::$scripts['footer']   = array('http://code.jquery.com/jquery-1.10.2.min.js',
                                         'http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js',
