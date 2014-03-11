@@ -318,9 +318,45 @@ class Controller_Product extends Controller{
            
             Breadcrumbs::add(Breadcrumb::factory()->set_title(__("Page ").$pagination->current_page));
 
+
+            /**
+             * order depending on the sort parameter
+             */
+            switch (core::request('sort','featured')) 
+            {
+                //title z->a
+                case 'title-asc':
+                    $products->order_by('title','asc')->order_by('created','desc');
+                    break;
+                //title a->z
+                case 'title-desc':
+                    $products->order_by('title','desc')->order_by('created','desc');
+                    break;
+                //cheaper first
+                case 'price-asc':
+                    $products->order_by('price','asc')->order_by('created','desc');
+                    break;
+                //expensive first
+                case 'price-desc':
+                    $products->order_by('price','desc')->order_by('created','desc');
+                    break;
+                //featured
+                case 'featured':
+                default:
+                    $products->order_by('featured','desc')->order_by('created','desc');
+                    break;
+                //oldest first
+                case 'published-asc':
+                    $products->order_by('created','asc');
+                    break;
+                //newest first
+                case 'published-desc':
+                    $products->order_by('created','desc');
+                    break;
+            }
+
             //we sort all products with few parameters
-            $products = $products->order_by('created','desc')
-                                ->limit($pagination->items_per_page)
+            $products = $products->limit($pagination->items_per_page)
                                 ->offset($pagination->offset)
                                 ->find_all();
 
