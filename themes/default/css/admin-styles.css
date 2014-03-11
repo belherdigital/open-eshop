@@ -6,7 +6,7 @@
 .hidden-phone .nav > li > a {padding: 6px 15px;}
 .thumbnail {margin-right: 20px; margin-bottom: 20px;}
 .divider{border: 1px solid #e3e3e3;margin-top: 10px;margin-bottom: 10px;}
-
+.star-required{color:red;}
 .edit-image{margin-bottom: 20px;}
 .index-delete{margin-top: 10px;}
 .js .collapsed{display: block !important;}
@@ -14,6 +14,19 @@
 li.sbp .caret{float: right;margin-top: 7px;}
 .thumbnails{list-style: none;}
 .mobile-head-menu{display: none;}
+
+/*PRODUCT PAGE*/
+.file-description{
+	word-wrap: break-word;
+	display: block!important;
+	padding-top: 60px;
+}
+.btn-drag-drop{
+	min-width: 500px;
+	height: 200px;
+	border: 2px dotted;
+}
+
 /*MAIN CONTENT*/
 .bs-docs-nav{
 }
@@ -91,6 +104,9 @@ td li a{padding: 0!important;}
 .side-ul li.active{border-right: 3px solid #46b8da;}
 .side-ul li:hover{border-right: 3px solid #46b8da;}
 .panel{border:none;}
+
+.product-panel{border:1px solid #428bca!important;}
+.product-panel .panel-body{padding: 15px;}
 li.sbp.active{border-right: none;}
 li.sbp:hover{border-right: none;}
 

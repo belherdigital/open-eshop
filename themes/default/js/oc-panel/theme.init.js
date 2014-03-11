@@ -48,7 +48,6 @@ $(function (){
     $('input').each(function(){
         if(!$(this).hasClass('form-control')){
             if($(this).attr('type') != "checkbox" && $(this).attr('type') != "radio"){
-                console.log($(this).attr('type'));
                 $(this).addClass('form-control');
             }
         }
