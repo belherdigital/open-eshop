@@ -1,7 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 <div class="page-header">
     <h1><?=Core::config('general.site_name')?> <?=__('Blog')?></h1>
-    <?if(core::config('general.sort_by')):?>
     <div class="btn-group pull-right">
         <a href="#" id="list" class="btn btn-default btn-sm <?=(core::cookie('list/grid')==1)?'active':''?>">
             <span class="glyphicon glyphicon-th-list"></span><?=__('List')?>
@@ -22,7 +21,6 @@
             <li><a href="?sort=published-desc"><?=__('Oldest')?></a></li>
         </ul>
     </div>
-    <?endif?>
     <div class="clearfix"></div>
 </div>
 

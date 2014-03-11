@@ -213,7 +213,7 @@ class Controller_Panel_Update extends Auth_Controller {
                                'config_value'   =>'3'),
                          array('config_key'     =>'sort_by',
                                'group_name'     =>'general', 
-                               'config_value'   =>'1'));
+                               'config_value'   =>'published-asc'));
         
         // returns TRUE if some config is saved 
         $return_conf = Model_Config::config_array($configs);
