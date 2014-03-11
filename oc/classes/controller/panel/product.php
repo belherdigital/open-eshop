@@ -77,7 +77,7 @@ class Controller_Panel_Product extends Auth_Crud {
         	$obj_product->seotitle = $seotitle;
         	$obj_product->status = (core::post('status')===NULL)?Model_Product::STATUS_NOACTIVE:Model_Product::STATUS_ACTIVE;
             // $obj_product->updated = Date::unix2mysql();
-            
+
             // save product file
             if($file = $_FILES['file_name'] AND $_FILES['file_name']['size'] != 0)
             {
@@ -123,8 +123,10 @@ class Controller_Panel_Product extends Auth_Crud {
 
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Edit Product')));
         $this->template->styles              = array('css/sortable.css' => 'screen',
-                                                     'http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
-        $this->template->scripts['footer']   = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
+                                                     'http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen',
+                                                     'css/jasny-bootstrap.min.css'=>'screen');
+        $this->template->scripts['footer'] = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
+                                                    'js/jasny-bootstrap.min.js',
                                                      'js/oc-panel/products.js',
                                                      'js/jquery-sortable-min.js');
                                                      
@@ -209,7 +211,7 @@ class Controller_Panel_Product extends Auth_Crud {
                     }
                 }
                 $product['status']  = (core::post('status')===NULL)?Model_Product::STATUS_NOACTIVE:Model_Product::STATUS_ACTIVE;
-                $product['updated'] = Date::unix2mysql();
+                // $product['updated'] = Date::unix2mysql();
                 // each field in edit product
                 foreach ($product as $field => $value) 
                 {
