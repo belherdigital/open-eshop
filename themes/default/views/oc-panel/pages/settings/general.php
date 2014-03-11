@@ -461,6 +461,22 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <?= FORM::label($forms['sort_by']['key'], __("Sort by"), array('class'=>'control-label col-sm-3', 'for'=>$forms['sort_by']['key']))?>
+            <div class="col-sm-4">
+                <?= FORM::select($forms['sort_by']['key'], array(FALSE=>'FALSE',TRUE=>'TRUE'), $forms['sort_by']['value'], array(
+                'placeholder' => "TRUE or FALSE", 
+                'class' => 'tips form-control input-sm', 
+                'id' => $forms['sort_by']['key'], 
+                'data-content'=> __("Enables Sort option in listing"),
+                'data-trigger'=>"hover",
+                'data-placement'=>"right",
+                'data-toggle'=>"popover",
+                'data-original-title'=>__("Sort by"),
+                ))?> 
+            </div>
+        </div>
+
 		<div class="form-actions">
 			<?= FORM::button('submit', 'Update', array('type'=>'submit', 'class'=>'btn btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'settings', 'action'=>'general'))))?>
 		</div>

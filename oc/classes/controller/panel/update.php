@@ -210,7 +210,10 @@ class Controller_Panel_Update extends Auth_Controller {
                                'config_value'   =>'72'), 
                          array('config_key'     =>'download_times',
                                'group_name'     =>'product', 
-                               'config_value'   =>'3'));
+                               'config_value'   =>'3'),
+                         array('config_key'     =>'sort_by',
+                               'group_name'     =>'general', 
+                               'config_value'   =>'1'));
         
         // returns TRUE if some config is saved 
         $return_conf = Model_Config::config_array($configs);
