@@ -255,9 +255,12 @@ class Core {
         // $contents = curl_exec($c);
         $contents = core::curl_exec_follow($c);
 
-        curl_close($c);
+        
         if(!curl_errno($c))
+        {
+            curl_close($c);
             return ($contents)? $contents : FALSE;
+        }
         else 
             throw new Kohana_Exception('Curl '.$url.' error: ' . curl_error($c));
     }
