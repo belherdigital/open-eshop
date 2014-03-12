@@ -648,7 +648,26 @@ class Theme {
 
     public static function license($l)
     {  
-        return true;
+        $licenses = array();
+
+        //getting the licenses unique. to avoid downloading twice
+        $themes = core::config('theme');
+        foreach ($themes as $theme=>$settings) 
+        {
+            if ($theme != Theme::$theme)
+            {
+                $settings = json_decode($settings,TRUE);
+                //theme has a license and already is in use...so do not activate
+                if (isset($settings['license']))
+                    if ($settings['license'] == $l)
+                        return FALSE;
+            }
+        }
+
+        $api_url = (Kohana::$environment!== Kohana::DEVELOPMENT)? 'market.open-eshop.com':'eshop.lo';
+        $api_url = 'http://'.$api_url.'/api/license/'.$l.'/?domain='.parse_url(URL::base(), PHP_URL_HOST);
+
+        return json_decode(Core::curl_get_contents($api_url));
     }
 
     public static function download($l)
