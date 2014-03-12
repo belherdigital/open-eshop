@@ -322,7 +322,7 @@ class Controller_Product extends Controller{
             /**
              * order depending on the sort parameter
              */
-            switch (core::request('sort','featured')) 
+            switch (core::request('sort',core::config('general.sort_by'))) 
             {
                 //title z->a
                 case 'title-asc':
