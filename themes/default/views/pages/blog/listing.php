@@ -8,10 +8,10 @@
         <a href="#" id="grid" class="btn btn-default btn-sm <?=(core::cookie('list/grid')==0)?'active':''?>">
             <span class="glyphicon glyphicon-th"></span><?=__('Grid')?>
         </a>
-        <button type="button" id="sort" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
+        <button type="button" id="sort" data-sort="<?=core::request('sort')?>" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
             <span class="glyphicon glyphicon-list-alt"></span><?=__('Sort')?> <span class="caret"></span>
         </button>
-        <ul class="dropdown-menu" role="menu">
+        <ul class="dropdown-menu" role="menu" id="sort-list">
             <li><a href="?sort=title-asc"><?=__('Name (A-Z)')?></a></li>
             <li><a href="?sort=title-desc"><?=__('Name (Z-A)')?></a></li>
             <li><a href="?sort=price-asc"><?=__('Price (Low)')?></a></li>
