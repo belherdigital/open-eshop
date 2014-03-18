@@ -58,13 +58,13 @@
 	    <span class="offer">
 	    	<h4><span class="label label-success">
 	    		<i class="glyphicon glyphicon-bullhorn"></i>
-	    	</span> <?=__('Offer')?> <?=$product->final_price().' '.$product->currency?> 
+	    	</span> <?=__('Offer')?> <?=$product->formated_price()?> 
 	    	<del><?=$product->price.' '.$product->currency?></del> </h4>
 	    </span>
 		<span class="offer-valid"><?=__('Offer valid until')?> <?=(Date::format((Controller::$coupon!==NULL)?Controller::$coupon->valid_date:$product->offer_valid))?></span>
 	<?else:?>
 	    <?if($product->final_price() != 0):?>
-	        <h4><?=__('Price')?> : <?=$product->final_price().' '.$product->currency?></span></h4>
+	        <h4><?=__('Price')?> : <?=$product->formated_price()?></span></h4>
 	    <?else:?>
 	        <h4><?=__('Free')?></h4>
 	    <?endif?>

@@ -37,7 +37,7 @@
                     <select name="product" id="product" class="form-control" REQUIRED>
                         <option></option>
                         <?foreach ($products as $p):?>
-                            <option value="<?=$p->id_product?>"><?=$p->title?> <?=$p->final_price()?> <?=$p->currency?></option>
+                            <option value="<?=$p->id_product?>"><?=$p->title?> <?=$p->formated_price()?></option>
                         <?endforeach?>
                     </select>
                 </div>
