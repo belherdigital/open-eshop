@@ -1,7 +1,6 @@
 oc/cache/*
 oc/logs/*
 images/*
-!images/favicon.ico
 themes/*
 data/*
 !themes/default/
