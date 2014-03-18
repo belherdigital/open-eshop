@@ -44,6 +44,11 @@
                             <?=__('Get it for Free')?>
                         <?endif?>
                         </a>
+                        <?if(core::config('product.number_of_orders')):?>
+                            <div class="pull-right">
+                                <p><span class="glyphicon glyphicon-shopping-cart"></span> <?=Model_Order::number_of_orders($product->id_product)?></p>
+                            </div>
+                        <?endif?>
                     </div>
                 </div>
             </div>

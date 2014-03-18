@@ -134,6 +134,9 @@
 			<?=Text::bb2html($product->description,TRUE)?>
 		</div>
 		<div class="tab-pane" id="details">
+			<?if(core::config('product.number_of_orders')):?>
+				<p><span class="glyphicon glyphicon-shopping-cart"></span> <?=$number_orders?></p>
+			<?endif?>
 			<p><?=__('Hits')?> : <?=$hits?></p>
 
 		    <?if ($product->has_file()==TRUE):?>

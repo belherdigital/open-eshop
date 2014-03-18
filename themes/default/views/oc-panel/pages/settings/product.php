@@ -208,7 +208,21 @@
                     ))?> 
                 </div>
             </div>
-
+            <div class="form-group">
+                <?= FORM::label($forms['number_of_orders']['key'], __("Number of products"), array('class'=>'col-md-3 control-label', 'for'=>$forms['number_of_orders']['key']))?>
+                <div class="col-md-5">
+                    <?= FORM::select($forms['number_of_orders']['key'], array(FALSE=>'FALSE',TRUE=>'TRUE'), $forms['number_of_orders']['value'], array(
+                    'placeholder' => "TRUE or FALSE", 
+                    'class' => 'tips form-control', 
+                    'id' => $forms['number_of_orders']['key'], 
+                    'data-content'=> __("Enables users to review purchased products"),
+                    'data-trigger'=>"hover",
+                    'data-placement'=>"right",
+                    'data-toggle'=>"popover",
+                    'data-original-title'=>__("Number of products"),
+                    ))?> 
+                </div>
+            </div>
 			<div class="page-header"></div>
 				<?= FORM::button('submit', 'Update', array('type'=>'submit', 'class'=>'btn btn-primary col-md-offset-3', 'action'=>Route::url('oc-panel',array('controller'=>'settings', 'action'=>'product'))))?>
 	

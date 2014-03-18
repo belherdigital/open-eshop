@@ -76,10 +76,15 @@ class Controller_Product extends Controller{
 
             $this->template->bind('skins', $skins);
 
+            //number of orders
+            // $orders = new Model_Order();
+            $number_of_orders = Model_Order::number_of_orders($product->id_product);
+
             $this->template->content = View::factory($product_view,array('product'=>$product,
                                                                          'hits'=>$hits, 
                                                                          'images'=>$images = $product->get_images(),
-                                                                         'skins'=>$skins));
+                                                                         'skins'=>$skins,
+                                                                         'number_orders'=>$number_of_orders));
 
 		}
 		else
