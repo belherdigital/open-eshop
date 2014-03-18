@@ -22,7 +22,7 @@
     
     <?=Theme::styles($styles,'default')?>	
 	<?=Theme::scripts($scripts,'header','default')?>
-    <link rel="shortcut icon" href="<?=Theme::public_path('img/favicon.ico')?>">
+    <link rel="shortcut icon" href="<?=DOCROOT.'images/favicon.ico'?>">
 
 	<style type="text/css">
       body {

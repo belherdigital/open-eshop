@@ -73,7 +73,7 @@
         }
     </style>
 
-    <link rel="shortcut icon" href="<?=Theme::public_path('img/favicon.ico')?>">
+    <link rel="shortcut icon" href="<?=DOCROOT.'images/favicon.ico'?>">
 
     <?if ( core::config('general.analytics')!='' AND Kohana::$environment === Kohana::PRODUCTION ): ?>
     <script type="text/javascript">
