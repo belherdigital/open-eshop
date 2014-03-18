@@ -318,29 +318,20 @@
 						<div class="clearfix"></div><br>
 					<?endif?>	
 				</div>
-				<div class="form-group">
-				    <div class="col-sm-10">
-				      	<div class="checkbox">
-					        <label>
-					          	<input type="checkbox" name="status" value="<?=($product->status==Model_Product::STATUS_ACTIVE)?'checked="checked"':''?>" checked="checked">  &nbsp; <?=__('Active')?>?
-					        </label>
-				      	</div>
-				    </div>
-				</div>
-				<div class="form-group">
-				    <div class="col-sm-10">
-				    	<div class="checkbox">				
-							<label>
-						      <input type="checkbox" name="notify"> <?=__('Notify all buyers on this update')?>
-						    </label>
-						</div>
-					</div>
-				</div>
-
 			    
 				<div class="clearfix"></div>
 				<div class="pull-right">
 					<?= FORM::button('submit', __('Save'), array('type'=>'submit', 'class'=>'btn btn-lg btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'product','action'=>'update','id'=>$product->id_product))))?>
+					<div class="checkbox">				
+						<label>
+					      <input type="checkbox" name="notify"> <?=__('Notify all buyers on this update')?>
+					    </label>
+					</div>
+					<div class="checkbox">
+				        <label>
+				          	<input type="checkbox" name="status" value="<?=($product->status==Model_Product::STATUS_ACTIVE)?'checked="checked"':''?>" checked="checked">  &nbsp; <?=__('Active')?>?
+				        </label>
+			      	</div>
 				</div>
   			</div>
   		</div>

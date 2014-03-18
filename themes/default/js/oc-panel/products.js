@@ -47,7 +47,6 @@ $(function () {
                 });
         },
         done: function (e, data) {
-            console.log(data);
             file_name = data.result;
             $('#uploadedfile').val(file_name);
              
