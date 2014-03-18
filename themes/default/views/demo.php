@@ -158,7 +158,7 @@
                 <?endif?>
                 <a class="btn btn-success btn-sm" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"
                     title="<?if ($product->final_price()>0):?>
-                    <?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?>
+                    <?=__('Buy Now')?> <?=$product->formated_price()?>
                     <?elseif($product->has_file()==TRUE):?><?else:?><?=__('Get it for Free')?><?endif?>">
                     <span class="fa fa-shopping-cart fa-2x"></span>
                 </a> 

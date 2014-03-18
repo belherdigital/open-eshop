@@ -116,6 +116,15 @@ class Model_Product extends ORM {
     }
 
     /**
+     * returns the price of the product formated using the product currency
+     * @return float 
+     */
+    public function formated_price()
+    {
+        return i18n::format_currency($this->final_price(), $this->currency);
+    }
+
+    /**
      * validates if a coupon its added and valid for that product
      * @return bool 
      */
