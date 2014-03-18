@@ -416,14 +416,6 @@ class Model_Product extends ORM {
 
         if ($file !== NULL)
         {
-
-            $id = $this->id_product;
-            $obj_product = new self($id);
-            if($obj_product->loaded())
-                $created = $obj_product->created;
-            else
-                $created = NULL;
-
             
             $directory = DOCROOT.'/data/';
 

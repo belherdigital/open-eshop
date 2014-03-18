@@ -19,7 +19,8 @@ class Controller_Forum extends Controller {
         //template header
         $this->template->title            = __('Forum');
         $this->template->meta_description = __('Forum');
-        
+        $this->template->styles              = array('css/forums.css' => 'screen');
+        $this->template->scripts['footer'][] = 'js/forums.js';
         $forums = Model_Forum::get_forum_count();
             
         $this->template->bind('content', $content);
@@ -32,6 +33,8 @@ class Controller_Forum extends Controller {
      */
     public function action_list()
     {
+        $this->template->styles              = array('css/forums.css' => 'screen');
+        $this->template->scripts['footer'][] = 'js/forums.js';
         $forum = new Model_Forum();
         $forum->where('seoname','=',$this->request->param('forum',NULL))
             ->cached()->limit(1)->find();

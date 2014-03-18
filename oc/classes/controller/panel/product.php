@@ -42,12 +42,17 @@ class Controller_Panel_Product extends Auth_Crud {
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('New Product')));
         $this->template->styles              = array('css/sortable.css' => 'screen',
         											 'http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen',
-                                                     'css/jasny-bootstrap.min.css'=>'screen');
+                                                     'http://cdn.jsdelivr.net/jquery.fileupload/9.5.2/css/jquery.fileupload.css'=>'screen',
+                                                     'css/jasny-bootstrap.min.css'=>'screen',
+                                                     );
         $this->template->scripts['footer'] = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
                                                     'js/jasny-bootstrap.min.js',
         											 'js/oc-panel/products.js',
-        											 'js/jquery-sortable-min.js');
-        											 
+        											 'js/jquery-sortable-min.js',
+                                                     'http://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/vendor/jquery.ui.widget.js',
+                                                     'http://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.iframe-transport.js',
+                                                     'http://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.fileupload.js',
+                                                     );											 
         											 
 
         list($cats,$order)  = Model_Category::get_all();
@@ -62,6 +67,7 @@ class Controller_Panel_Product extends Auth_Crud {
 
         if($product = $this->request->post())
         {
+            // d($_FILES);
         	$id_user = Auth::instance()->get_user()->id_user;
         	
         	// set custom values from POST
@@ -78,15 +84,8 @@ class Controller_Panel_Product extends Auth_Crud {
         	$obj_product->status = (core::post('status')===NULL)?Model_Product::STATUS_NOACTIVE:Model_Product::STATUS_ACTIVE;
             // $obj_product->updated = Date::unix2mysql();
 
-            // save product file
-            if($file = $_FILES['file_name'] AND $_FILES['file_name']['size'] != 0)
-            {
-                $file = $obj_product->save_product($file);
-                if($file != FALSE)
-                    $obj_product->file_name = $file;
-                else
-                    Alert::set(Alert::WARNING, __('Product is not uploaded.'));
-            }
+            if($file = $product['file_name'])
+                $obj_product->file_name = $file;
         	
             // save product or trow exeption
         	try 
@@ -124,11 +123,16 @@ class Controller_Panel_Product extends Auth_Crud {
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Edit Product')));
         $this->template->styles              = array('css/sortable.css' => 'screen',
                                                      'http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen',
+                                                     'http://cdn.jsdelivr.net/jquery.fileupload/9.5.2/css/jquery.fileupload.css'=>'screen',
                                                      'css/jasny-bootstrap.min.css'=>'screen');
         $this->template->scripts['footer'] = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
                                                     'js/jasny-bootstrap.min.js',
                                                      'js/oc-panel/products.js',
-                                                     'js/jquery-sortable-min.js');
+                                                     'js/jquery-sortable-min.js',
+                                                     'http://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/vendor/jquery.ui.widget.js',
+                                                     'http://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.iframe-transport.js',
+                                                     'http://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.fileupload.js',
+                                                     );
                                                      
                                                      
 
@@ -166,7 +170,7 @@ class Controller_Panel_Product extends Auth_Crud {
                 if($deleted_image)
                 {
                     $img_path = $obj_product->gen_img_path($obj_product->id_product, $obj_product->created);
-                    
+
                     if (!is_dir($img_path)) 
                     {
                         return FALSE;
@@ -309,6 +313,73 @@ class Controller_Panel_Product extends Auth_Crud {
                 }
             }
         }
+    }
+
+    public function action_upload()
+    {   
+
+        try 
+        {
+            if($file = $_FILES['fileupload'])
+            {
+                $obj_product = new Model_Product();
+                $file = $obj_product->save_product($file);
+                if($file !== FALSE)
+                    echo $file;
+                // else 
+                    // echo false; 
+            }
+            exit();
+        } 
+        catch (Exception $e) 
+        {
+            // echo 'error';
+            exit();
+        }
+        
+    }
+    public function action_delete_file()
+    {
+        //delete product file
+        
+            $file_name = $_POST['file_name'];
+            $obj_product = new Model_Product();
+            $p_path = $obj_product->get_file($file_name); 
+            
+            if (!is_file($p_path)) 
+            {
+                echo $p_path;
+                // echo $p_path;
+                exit();
+            }
+            else
+            {
+                chmod($p_path, 0775);
+                //delete product
+                unlink($p_path);
+            }        
+        // $product_delete = core::post('product_delete');
+        // if($product_delete)
+        // {
+        //     $p_path = $obj_product->get_file($obj_product->file_name);
+        //     if (!is_file($p_path)) 
+        //     {
+        //         return FALSE;
+        //     }
+        //     else
+        //     {   
+        //         chmod($p_path, 0775);
+        //         //delete product
+        //         unlink($p_path);
+
+        //         $obj_product->file_name = '';
+        //         $obj_product->save();
+
+        //         $this->request->redirect(Route::url('oc-panel', array('controller'  =>'product',
+        //                                                               'action'      =>'update',
+        //                                                               'id'          =>$obj_product->id_product)));
+        //     }
+        // }
     }
 
 }

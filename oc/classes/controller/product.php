@@ -166,7 +166,9 @@ class Controller_Product extends Controller{
     public function action_reviews()
     {
 
+        $this->template->styles = array('css/review.css' => 'screen');
         $product = new Model_product();
+
         $product->where('seotitle','=',$this->request->param('seotitle'))
             ->where('status','=',Model_Product::STATUS_ACTIVE)
             ->limit(1)->find();

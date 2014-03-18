@@ -292,17 +292,30 @@
 						</button>
 					
 					<?else:?>
-						<div class="fileinput fileinput-new" data-provides="fileinput">
-						  	<span class="btn btn-default btn-file btn-drag-drop">
-						  		<span class="fileinput-new"><?=__('Click or Drag & Drop to upload the file')?></span>
-						  		<span class="fileinput-exists"><?=__('Change')?></span>
-						  		<input type="file" name="file_name" id="fileupload">
-						  		<span class="fileinput-filename file-description" id="file-output"></span>
-						  	</span>
-						  	
-						  	<a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+						<div class="col-md-6">
+						    <div class="clearfix"></div> <br>
+							<span class="btn btn-success fileinput-button">
+						        <i class="glyphicon glyphicon-plus"></i>
+						        <span><?=__('Add File')?></span>
+						        
+						        <input id="fileupload" type="file" name="fileupload" data-url="../upload" data-size="<?=core::config('product.max_size')*1024*1024?>">
+						    </span>
+						    
+							<div class="clearfix"></div> <br>
+							<div id="progress" class="progress">
+						        <div class="bar progress-bar progress-bar-success" style="width: 0%;"></div>
+						    </div>
 
+							<input id="uploadedfile" type="hidden" name="file_name">
+							<div id="name-files" class="name-files"></div>
+							<div id="files" class="files"></div>
+							<button id="delete-button-file" class="hide btn btn-danger"><?=__('Delete')?></button>
 						</div>
+						<div class="col-md-6">
+							<div class="drop-down-box"><span class="fileinput-new"><?=__('Drag & Drop file here')?></span></div>
+						</div>
+
+						<div class="clearfix"></div><br>
 					<?endif?>	
 				</div>
 				<div class="form-group">

@@ -178,7 +178,7 @@
 		            </div>
 
 					<div class="form-group">
-						<?= FORM::label('email_purchase_notes', __('Notes'), array('class'=>'col-md-12 ', 'for'=>'email_purchase_notes', 'spellcheck'=>TRUE))?>
+						<?= FORM::label('email_purchase_notes', __('Purchase notes, sent via email'), array('class'=>'col-md-12 ', 'for'=>'email_purchase_notes', 'spellcheck'=>TRUE))?>
 						<div class="col-md-12">
 							<?= FORM::textarea('email_purchase_notes', Request::current()->post('email_purchase_notes'), array('class'=>'form-control', 'name'=>'email_purchase_notes', 'id'=>'email_purchase_notes' , 'rows'=>10))?>
 						</div>
@@ -218,30 +218,54 @@
 					<div class="panel-title">
 				    	<h4><small><?=__('Digital file')?></small></h4> 
 				  	</div>
-					<div class="fileinput fileinput-new" data-provides="fileinput">
+					<!-- <div class="fileinput fileinput-new" data-provides="fileinput">
 					  	<span class="btn btn-default btn-file btn-drag-drop">
 					  		<span class="fileinput-new"><?=__('Click or Drag & Drop to upload the file')?></span>
 					  		<span class="fileinput-exists"><?=__('Change')?></span>
-					  		<input type="file" name="file_name" id="fileupload">
+					  		<input type="file" name="file_name" >
 					  		<span class="fileinput-filename file-description" id="file-output"></span>
 					  	</span>
 					  	
 					  	<a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
-						
-						<div class="checkbox">
-					        <label>
-					          	<input type="checkbox" name="status" value="" checked="checked">  &nbsp; <?=__('Active')?>?
-					        </label>
-				      	</div>
+
+					</div> -->
+					
+				    <div class="col-md-6">
+					    <div class="clearfix"></div> <br>
+						<span class="btn btn-success fileinput-button">
+					        <i class="glyphicon glyphicon-plus"></i>
+					        <span><?=__('Add File')?></span>
+					        
+					        <input id="fileupload" type="file" data-url="upload" name="fileupload" data-size="<?=core::config('product.max_size')*1024*1024?>">
+					    </span>
+					    
+						<div class="clearfix"></div> <br>
+						<div id="progress" class="progress">
+					        <div class="bar progress-bar progress-bar-success" style="width: 0%;"></div>
+					    </div>
+
+						<input id="uploadedfile" type="hidden" name="file_name">
+						<div id="name-files" class="name-files"></div>
+						<div id="files" class="files"></div>
+						<button id="delete-button-file" class="hide btn btn-danger"><?=__('Delete')?></button>
 					</div>
-					<div class="clearfix"></div>
+					<div class="col-md-6">
+						<div class="drop-down-box"><span class="fileinput-new"><?=__('Drag & Drop file here')?></span></div>
+					</div>
+
+					<div class="clearfix"></div><br>
 					<div class="pull-right">
 						<?= FORM::button('submit', __('Save'), array('type'=>'submit', 'class'=>'btn btn-primary btn-lg', 'action'=>Route::url('oc-panel',array('controller'=>'product','action'=>'create'))))?>
+						<div class="">
+							<div class="checkbox ">
+						        <label>
+						          	<input type="checkbox" name="status" value="" checked="checked">  &nbsp; <?=__('Active')?>?
+						        </label>
+					      	</div>
+				      	</div>
 					</div>
 				</div>
-				
 			</div>
 		</div>
-		<!-- /end PRODUCT FILES -->
 	</fieldset>
 <?= FORM::close()?>

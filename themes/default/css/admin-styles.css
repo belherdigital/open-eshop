@@ -16,6 +16,13 @@ li.sbp .caret{float: right;margin-top: 7px;}
 .mobile-head-menu{display: none;}
 
 /*PRODUCT PAGE*/
+.drop-down-box{
+	min-height: 190px;
+	border:3px dotted #ccc;
+	background: #eee;
+	border-radius: 5px;
+	text-align: center;
+}
 .file-description{
 	word-wrap: break-word;
 	display: block!important;
