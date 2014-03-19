@@ -7,7 +7,7 @@
 </div>
 
 <div class="table-responsive">
-    <table class="table table-bordered table-condensed">
+    <table class="table table-striped">
     <thead>
          <tr>
             <th>#</th>
@@ -21,7 +21,7 @@
 
     <tbody>
         <?foreach ($orders as $order):?>
-            <tr class="label-success">
+            <tr>
                 <td><?=$order->id_order;?></td>
                 <td><?=$order->product->title?> <?=$order->product->version?></td>
                 <td><?=Date::format($order->pay_date);?></td>
@@ -38,11 +38,16 @@
                     class="btn btn-mini btn-success">
                     <i class="glyphicon glyphicon-download"></i> <?=__('Download')?> <?=$order->product->version?></a>
                     <?endif?>
+                    <?if ($order->licenses->count_all()>0):?>
+                        <a class="btn btn-mini btn-info btn-licenses" data-licenses="id_<?=$order->id_order;?>">
+                            <span class="glyphicon glyphicon-list-alt "></span>
+                        </a>
+                    <?endif?>
                 </td>
                 <?if ($order->licenses->count_all()>0):?>
-                <tr>
-                    <td class="label-default" colspan="6">
-                        <table class="table table-condensed">
+                <tr class="hide" id="id_<?=$order->id_order;?>">
+                    <td colspan="6">
+                        <table class="table table-striped custab">
                             <th><?=__('License')?></th>
                             <th><?=__('Created')?></th>
                             <th><?=__('Domain')?></th>
