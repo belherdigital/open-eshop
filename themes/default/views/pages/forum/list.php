@@ -13,7 +13,7 @@
 </div>
 
 <div class="panel-body">
-    <input type="text" class="form-control" id="task-table-filter" data-action="filter" data-filters="#task-table" placeholder="Filter Tasks" />
+    <input type="text" class="form-control" id="task-table-filter" data-action="filter" data-filters="#task-table" placeholder="<?=('Search')?>" />
 </div>
 <table class="table table-hover" id="task-table">
     <thead>
