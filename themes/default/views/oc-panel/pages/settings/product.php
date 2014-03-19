@@ -209,7 +209,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <?= FORM::label($forms['number_of_orders']['key'], __("Number of products"), array('class'=>'col-md-3 control-label', 'for'=>$forms['number_of_orders']['key']))?>
+                <?= FORM::label($forms['number_of_orders']['key'], __("Number of sales"), array('class'=>'col-md-3 control-label', 'for'=>$forms['number_of_orders']['key']))?>
                 <div class="col-md-5">
                     <?= FORM::select($forms['number_of_orders']['key'], array(FALSE=>'FALSE',TRUE=>'TRUE'), $forms['number_of_orders']['value'], array(
                     'placeholder' => "TRUE or FALSE", 
@@ -219,7 +219,7 @@
                     'data-trigger'=>"hover",
                     'data-placement'=>"right",
                     'data-toggle'=>"popover",
-                    'data-original-title'=>__("Number of products"),
+                    'data-original-title'=>__("Number of sales"),
                     ))?> 
                 </div>
             </div>

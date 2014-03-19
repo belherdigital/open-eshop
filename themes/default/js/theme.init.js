@@ -8,7 +8,7 @@ $(function(){
     
     $("a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_rounded',slideshow:3000, autoplay_slideshow: false});
  
-    $('input, select, textarea, .btn').tooltip();
+    $('input, select, textarea, .btn , img').tooltip();
 
     $('.radio > input:checked').parentsUntil('div .accordion').addClass('in');
 
