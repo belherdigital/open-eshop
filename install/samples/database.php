@@ -2,7 +2,7 @@
 return array
 (
     'default' => array(
-        'type'       => 'mysql',
+        'type'       => 'mysqli',
         'connection' => array(
             'hostname'   => '[DB_HOST]',
             'username'   => '[DB_USER]',
