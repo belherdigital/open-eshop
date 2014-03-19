@@ -204,6 +204,7 @@ div.sceditor-group{padding: 1px 15px 5px 5px!important;}
 .sceditor-button{padding: 0px 0px 0px 2px!important; width: 20px!important;}
 .sceditor-button, .sceditor-button div{margin-top: 3px!important;}
 /*col-md*/
+
 @media screen and (max-width: 979px) {
 	.navbar .nav{float: left!important;}
 	.btn-sidebar-menu{display: block; margin-left: 10px;}
