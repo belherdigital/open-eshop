@@ -213,9 +213,9 @@ class install{
                                     'mandatory' => TRUE,
                                     'result'    => (function_exists('gd_info'))
                                     ),
-                'MySQL'     =>array('message'   => 'Install requires the <a href="http://php.net/mysql">MySQL</a> extension to support MySQL databases.',
+                'MySQL'     =>array('message'   => 'Install requires the <a href="http://php.net/mysqli">MySQL</a> extension to support MySQL databases.',
                                     'mandatory' => TRUE,
-                                    'result'    => (function_exists('mysql_connect'))
+                                    'result'    => (function_exists('mysqli_connect'))
                                     ),
                 'ZipArchive'   =>array('message'   => 'PHP module zip not installed. You will need this to auto update the software.',
                                     'mandatory' => FALSE,
@@ -377,10 +377,10 @@ class install{
     
         ///////////////////////////////////////////////////////
         //check DB connection
-        $link = @mysql_connect(core::request('DB_HOST'), core::request('DB_USER'), core::request('DB_PASS'));
+        $link = @mysqli_connect(core::request('DB_HOST'), core::request('DB_USER'), core::request('DB_PASS'));
         if (!$link) 
         {
-            $error_msg = __('Cannot connect to server').' '. core::request('DB_HOST').' '. mysql_error();
+            $error_msg = __('Cannot connect to server').' '. core::request('DB_HOST').' '. mysqli_error();
             $install = FALSE;
         }
         
@@ -390,27 +390,27 @@ class install{
             {
                 //they selected to create the DB
                 if (core::request('DB_CREATE'))
-                    @mysql_query("CREATE DATABASE IF NOT EXISTS `".core::request('DB_NAME')."`");
+                    @mysqli_query("CREATE DATABASE IF NOT EXISTS `".core::request('DB_NAME')."`");
 
-                $dbcheck = @mysql_select_db(core::request('DB_NAME'));
+                $dbcheck = @mysqli_select_db(core::request('DB_NAME'));
                 if (!$dbcheck)
                 {
-                    $error_msg.= __('Database name').': ' . mysql_error();
+                    $error_msg.= __('Database name').': ' . mysqli_error();
                     $install = FALSE;
                 }
             }
             else 
             {
                 $error_msg.= '<p>'.__('No database name was given').'. '.__('Available databases').':</p>';
-                $db_list = @mysql_query('SHOW DATABASES');
+                $db_list = @mysqli_query('SHOW DATABASES');
                 $error_msg.= '<pre>';
                 if (!$db_list) 
                 {
-                    $error_msg.= __('Invalid query'). ':<br>' . mysql_error();
+                    $error_msg.= __('Invalid query'). ':<br>' . mysqli_error();
                 }
                 else 
                 {
-                    while ($row = mysql_fetch_assoc($db_list)) 
+                    while ($row = mysqli_fetch_assoc($db_list)) 
                     {
                         $error_msg.= $row['Database'] . '<br>';
                     }
@@ -443,7 +443,7 @@ class install{
             self::$hash_key = ((core::request('HASH_KEY')!='')?core::request('HASH_KEY'): core::generate_password() );
            
             //check if DB was already installed, I use content since is the last table to be created
-            $installed = (mysql_num_rows(mysql_query("SHOW TABLES LIKE '".$TABLE_PREFIX."content'"))==1) ? TRUE:FALSE;
+            $installed = (mysqli_num_rows(mysqli_query("SHOW TABLES LIKE '".$TABLE_PREFIX."content'"))==1) ? TRUE:FALSE;
 
             if ($installed===FALSE)//if was installed do not launch the SQL. 
                 include INSTALLROOT.'samples/install.sql'.EXT;
@@ -495,11 +495,11 @@ class install{
         //not succeded :( delete all the tables with that prefix
         else
         {
-            $table_list = mysql_query("SHOW TABLES LIKE '".$TABLE_PREFIX."%'");
+            $table_list = mysqli_query("SHOW TABLES LIKE '".$TABLE_PREFIX."%'");
             if($table_list)
             {
-                while ($row = mysql_fetch_row($table_list)) 
-                    mysql_query("DROP TABLE ".$row[0]);
+                while ($row = mysqli_fetch_row($table_list)) 
+                    mysqli_query("DROP TABLE ".$row[0]);
             }   
         }
         

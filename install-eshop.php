@@ -160,9 +160,9 @@ class install{
                                     'mandatory' => TRUE,
                                     'result'    => (function_exists('gd_info'))
                                     ),
-                'MySQL'     =>array('message'   => 'Install requires the <a href="http://php.net/mysql">MySQL</a> extension to support MySQL databases.',
+                'MySQL'     =>array('message'   => 'Install requires the <a href="http://php.net/mysqli">MySQL</a> extension to support MySQL databases.',
                                     'mandatory' => TRUE,
-                                    'result'    => (function_exists('mysql_connect'))
+                                    'result'    => (function_exists('mysqli_connect'))
                                     ),
                 'ZipArchive'   =>array('message'   => 'PHP module zip not installed. You will need this to auto update the software.',
                                     'mandatory' => FALSE,

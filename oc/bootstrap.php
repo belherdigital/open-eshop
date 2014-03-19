@@ -93,6 +93,7 @@ $modules = array(
 			   'breadcrumbs'  => MODPATH.'breadcrumbs',// breadcrumb view
 			   'formmanager'  => MODPATH.'formmanager',// forms to objects ORM
                'widgets'      => MODPATH.'widgets',    // loads default widgets
+               'mysqli'       => MODPATH.'mysqli',    // mysqli driver
 );
 
 //modules for development environment, not included in distribution KO with OC, so you need to place them in your environment

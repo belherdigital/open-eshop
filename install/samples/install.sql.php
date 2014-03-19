@@ -11,10 +11,10 @@
 
 defined('SYSPATH') or exit('Install must be loaded from within index.php!');
 
-mysql_query('SET NAMES '.core::request('DB_CHARSET'));
-mysql_query("SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO';");
+mysqli_query('SET NAMES '.core::request('DB_CHARSET'));
+mysqli_query("SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO';");
 
-mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."roles` (
+mysqli_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."roles` (
   `id_role` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `description` varchar(245) DEFAULT NULL,
@@ -24,7 +24,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."roles`
 ) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
 
-mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."access` (
+mysqli_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."access` (
   `id_access` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_role` int(10) unsigned NOT NULL,
   `access` varchar(100) NOT NULL,
@@ -32,7 +32,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."access
 ) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
 
-mysql_query("CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')."users` (
+mysqli_query("CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')."users` (
   `id_user` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(145) DEFAULT NULL,
   `seoname` varchar(145) DEFAULT NULL,
@@ -60,7 +60,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')."users
 ) ENGINE=InnoDB DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
 
-mysql_query("CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')."categories` (
+mysqli_query("CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')."categories` (
   `id_category` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(145) NOT NULL,
   `order` int(2) unsigned NOT NULL DEFAULT '0',
@@ -74,7 +74,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')."categ
 ) ENGINE=InnoDB DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
 
-mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."visits` (
+mysqli_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."visits` (
   `id_visit` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_product` int(10) unsigned DEFAULT NULL,
   `id_user` int(10) unsigned DEFAULT NULL,
@@ -86,7 +86,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."visits
 ) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
 
-mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."config` ( 
+mysqli_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."config` ( 
   `group_name` VARCHAR(128)  NOT NULL, 
   `config_key` VARCHAR(128)  NOT NULL, 
   `config_value` TEXT,
@@ -94,7 +94,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."config
 ) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET')." ;");
 
 
-mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."content` (
+mysqli_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."content` (
   `id_content` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `locale` varchar(8) NOT NULL DEFAULT 'en_US',
   `order` int(2) unsigned NOT NULL DEFAULT '0',
@@ -111,7 +111,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."conten
 
 //////////////Tables for eShop
 
-mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."products` (
+mysqli_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."products` (
   `id_product` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(10) unsigned DEFAULT NULL,
   `id_category` int(10) unsigned DEFAULT NULL,
@@ -142,7 +142,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."produc
 ) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
 
-mysql_query("CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')."orders` (
+mysqli_query("CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')."orders` (
   `id_order` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(10) unsigned NOT NULL,
   `id_product` int(10) unsigned NULL,
@@ -163,7 +163,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')."order
 )ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
 
-mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."licenses` (
+mysqli_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."licenses` (
   `id_license` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_product` int(10) unsigned NOT NULL,
   `id_user` int(10) unsigned NOT NULL,
@@ -182,7 +182,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."licens
 ) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
 
-mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."downloads` (
+mysqli_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."downloads` (
   `id_download` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_order` int(10) unsigned NOT NULL,
   `id_user` int(10) unsigned NOT NULL,
@@ -195,7 +195,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."downlo
 
 
 
-mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."tickets` (
+mysqli_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."tickets` (
   `id_ticket` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_ticket_parent` int(10) unsigned NULL,
   `id_product` int(10) unsigned NOT NULL,
@@ -215,7 +215,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."ticket
 ) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
 
-mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."coupons` (
+mysqli_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."coupons` (
   `id_coupon` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_product` int(10) unsigned NULL DEFAULT NULL,
   `name` varchar(145) NOT NULL,
@@ -231,7 +231,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."coupon
 ) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
 
-mysql_query("CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')."posts` (
+mysqli_query("CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')."posts` (
   `id_post` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(10) unsigned NOT NULL,
   `id_post_parent` int(10) unsigned NULL DEFAULT NULL,
@@ -250,7 +250,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')."posts
 ) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
 
-mysql_query("CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')."forums` (
+mysqli_query("CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')."forums` (
   `id_forum` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(145) NOT NULL,
   `order` int(2) unsigned NOT NULL DEFAULT '0',
@@ -263,7 +263,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')."forum
   UNIQUE KEY `".core::request('TABLE_PREFIX')."forums_IK_seo_name` (`seoname`)
 ) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
-mysql_query("CREATE TABLE IF NOT EXISTS ".core::request('TABLE_PREFIX')."reviews (
+mysqli_query("CREATE TABLE IF NOT EXISTS ".core::request('TABLE_PREFIX')."reviews (
     id_review int(10) unsigned NOT NULL AUTO_INCREMENT,
     id_user int(10) unsigned NOT NULL,
     id_order int(10) unsigned NOT NULL,
@@ -283,7 +283,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS ".core::request('TABLE_PREFIX')."reviews
 /**
  * add basic content like emails
  */
-mysql_query("INSERT INTO `".core::request('TABLE_PREFIX')."content` (`order`, `title`, `seotitle`, `description`, `from_email`, `type`, `status`) 
+mysqli_query("INSERT INTO `".core::request('TABLE_PREFIX')."content` (`order`, `title`, `seotitle`, `description`, `from_email`, `type`, `status`) 
     VALUES
 (0, 'Change Password [SITE.NAME]', 'auth.remember', 'Hello [USER.NAME],\n\nFollow this link  [URL.QL]\n\nThanks!!', '".core::request('ADMIN_EMAIL')."', 'email', 1),
 (0, 'Welcome to [SITE.NAME]!', 'auth.register', 'Welcome [USER.NAME],\n\nWe are really happy that you have joined us! [URL.QL]\n\nRemember your user details:\nEmail: [USER.EMAIL]\nPassword: [USER.PWD]\n\nWe do not have your original password anymore.\n\nRegards!', '".core::request('ADMIN_EMAIL')."', 'email', 1),
@@ -300,8 +300,8 @@ mysql_query("INSERT INTO `".core::request('TABLE_PREFIX')."content` (`order`, `t
 /**
  * Access
  */
-mysql_query("INSERT INTO `".core::request('TABLE_PREFIX')."roles` (`id_role`, `name`, `description`) VALUES (1, 'user', 'Normal user'), (5, 'translator', 'User + Translations'), (10, 'admin', 'Full access');");
-mysql_query("INSERT INTO `".core::request('TABLE_PREFIX')."access` (`id_access`, `id_role`, `access`) VALUES 
+mysqli_query("INSERT INTO `".core::request('TABLE_PREFIX')."roles` (`id_role`, `name`, `description`) VALUES (1, 'user', 'Normal user'), (5, 'translator', 'User + Translations'), (10, 'admin', 'Full access');");
+mysqli_query("INSERT INTO `".core::request('TABLE_PREFIX')."access` (`id_access`, `id_role`, `access`) VALUES 
             (1, 10, '*.*'),
             (2, 1, 'profile.*'),(3, 1, 'stats.user'),(8, 1, 'support.*'),
             (4, 5, 'translations.*'),(5, 5, 'profile.*'),(6, 5, 'stats.user'),(7, 5, 'content.*');");
@@ -310,7 +310,7 @@ mysql_query("INSERT INTO `".core::request('TABLE_PREFIX')."access` (`id_access`,
  * Create user God/Admin 
  */
 $password = hash_hmac('sha256', core::request('ADMIN_PWD'), install::$hash_key);
-mysql_query("INSERT INTO `".core::request('TABLE_PREFIX')."users` (`id_user`, `name`, `seoname`, `email`, `password`, `status`, `id_role`) 
+mysqli_query("INSERT INTO `".core::request('TABLE_PREFIX')."users` (`id_user`, `name`, `seoname`, `email`, `password`, `status`, `id_role`) 
 VALUES (1, 'admin', 'admin', '".core::request('ADMIN_EMAIL')."', '$password', 1, 10)");
 
 /**
@@ -319,7 +319,7 @@ VALUES (1, 'admin', 'admin', '".core::request('ADMIN_EMAIL')."', '$password', 1,
  * @todo widgets examples? at least at sidebar, rss, text advert, pages, locations...
  *
  */
-mysql_query("INSERT INTO `".core::request('TABLE_PREFIX')."config` (`group_name`, `config_key`, `config_value`) VALUES
+mysqli_query("INSERT INTO `".core::request('TABLE_PREFIX')."config` (`group_name`, `config_key`, `config_value`) VALUES
 ('sitemap', 'expires', '43200'),
 ('sitemap', 'on_post', 1),
 ('appearance', 'theme', 'default'),
@@ -395,11 +395,11 @@ mysql_query("INSERT INTO `".core::request('TABLE_PREFIX')."config` (`group_name`
 
 
 //base category
-mysql_query("INSERT INTO `".core::request('TABLE_PREFIX')."categories` 
+mysqli_query("INSERT INTO `".core::request('TABLE_PREFIX')."categories` 
   (`id_category` ,`name` ,`order` ,`id_category_parent` ,`parent_deep` ,`seoname` ,`description` )
 VALUES (1, 'Home category', 0 , 0, 0, 'all', 'root category');");
 
  
 
 
-mysql_close();
+mysqli_close();
