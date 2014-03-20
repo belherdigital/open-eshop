@@ -21,7 +21,7 @@ class Widget_Reviews extends Widget
         $this->fields = array(  'reviews_limit' => array(  'type'      => 'text',
                                                         'display'   => 'text',
                                                         'label'     => __('Review Limit, if none display all'),
-                                                        'default'   => '',
+                                                        'default'   => '5',
                                                         'required'  => FALSE),
 
                                 'review_title'  => array(  'type'      => 'text',

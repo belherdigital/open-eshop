@@ -192,8 +192,14 @@ class Controller_Product extends Controller{
                                 ->where('status', '=', Model_Review::STATUS_ACTIVE)->find_all();
 
 
+            $skins = NULL;
+            if ($product->skins!='')
+                $skins = explode(',',$product->skins);
+            if (!is_array($skins) OR count($skins)<=0)
+                $skins = NULL;
+
             $this->template->bind('content', $content);
-            $this->template->content = View::factory('pages/product/review',array('product'=>$product,'reviews'=>$reviews));
+            $this->template->content = View::factory('pages/product/review',array('product'=>$product,'reviews'=>$reviews, 'skins'=>$skins));
 
         }
         else

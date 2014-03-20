@@ -20,17 +20,20 @@
         </div>
     </div>
     
-    <div class="button-space pull-left">
+    <div class="button-space-review pull-left">
         <?if ($product->final_price()>0):?>
-            <a class="btn btn-success review-pay-btn" 
-                href="<?=Route::url('product-paypal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
-                <?=__('Pay with Paypal')?></a>
-            <?=$product->alternative_pay_button()?>
             <?if (Theme::get('premium')==1):?>
                 <?=StripeKO::button($product)?>
+                <div class="clearfix"></div>
                 <?=Paymill::button($product)?>
             <?endif?>
+
+            <a class="btn btn-success full-w" 
+                href="<?=Route::url('product-paypal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
+                <?=__('Pay with Paypal')?></a>
             
+            <?=$product->alternative_pay_button()?>
+
         <?else:?>
             <?if (!Auth::instance()->logged_in()):?>
             <a class="btn btn-info btn-large" data-toggle="modal" data-dismiss="modal" 
@@ -47,8 +50,24 @@
             </a>
         <?endif?>
     </div>
+
     <?if (!empty($product->url_demo)):?>
-        <a target="_blank" class="btn btn-warning btn-small pull-right" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" ><?=__('Demo')?></a>
+        <?if (count($skins)>0):?>
+            <div class="btn-group pull-right">
+                <a class="btn btn-warning btn-xs" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"><?=__('Demo')?></a>
+                <button class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" id="menu_type">
+                    <?foreach ($skins as $s):?>
+                        <li><a title="<?=$s?>" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>?skin=<?=$s?>"><?=$s?></a></li>
+                    <?endforeach?>
+                </ul>
+            </div>
+        <?else:?>
+            <a class="btn btn-warning btn-xs pull-right" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" >
+            <i class="glyphicon glyphicon-eye-open"></i> <?=__('Demo')?></a>
+        <?endif?>
     <?endif?>
     
     <div class="clearfix"></div>
@@ -83,7 +102,7 @@
         </div>
         <span class="clearfix borda"></span>
     </article>
-
+    <hgroup class="mb20 mt20"></hgroup>
     <?endforeach?>
 
 <?elseif (count($reviews) == 0):?>

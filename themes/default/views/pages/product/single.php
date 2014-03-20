@@ -40,19 +40,6 @@
 </div>
 
 <div class="col-md-6">
-	<div class="page-header">
-		<h3><?=$product->title?>
-	    <?if ($product->rate!==NULL):?>
-	    
-    	    <div class="rating">
-	    	    <a class="" href="<?=Route::url('product-review', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" >
-	    		   	<?for ($i=0; $i < round($product->rate,1); $i++):?>
-	    		   		<span class="glyphicon glyphicon-star"></span>
-	    		   	<?endfor?>
-	    	    </a>
-    	    </div>
-	   <?endif?></h3>
-	</div>
 
 	<?if ($product->has_offer()):?>
 	    <span class="offer">
@@ -89,7 +76,7 @@
         <?endif?>
 	<?endif?>
 
-	<div class="button-space">
+	<div class="button-space-review">
 	<?if ($product->final_price()>0):?>
 		<div class="clearfix"></div><br>
 	    <a class="btn btn-success pay-btn full-w" 
@@ -97,10 +84,6 @@
 	        <?=__('Pay with Paypal')?></a>
 
 	    <?=$product->alternative_pay_button()?>
-	    <?if (Theme::get('premium')==1):?>
-	    <?=StripeKO::button($product)?>
-	    <?=Paymill::button($product)?>
-	    <?endif?>
 	<?else:?>
 	    <?if (!Auth::instance()->logged_in()):?>
 	    <a class="btn btn-info btn-large" data-toggle="modal" data-dismiss="modal" 
