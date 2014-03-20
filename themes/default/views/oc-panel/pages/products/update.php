@@ -311,6 +311,7 @@
 							<div id="files" class="files"></div>
 							<button id="delete-button-file" class="hide btn btn-danger"><?=__('Delete')?></button>
 						</div>
+						<div class="clearfix"></div>
 						<div class="col-md-6">
 							<div class="drop-down-box"><span class="fileinput-new"><?=__('Drag & Drop file here')?></span></div>
 						</div>

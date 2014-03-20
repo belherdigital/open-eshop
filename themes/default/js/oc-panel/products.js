@@ -6,6 +6,17 @@ if($('#featured').length != 0){
 
 $('.fileinput').fileinput();
 
+// PREVENTS droping files in browser, if already something was uploaded 
+window.addEventListener("dragover",function(e){
+  e = e || event;
+  e.preventDefault();
+},false);
+window.addEventListener("drop",function(e){
+  e = e || event;
+  e.preventDefault();
+},false);
+// end preventnts drop
+
 $(function () {
 
     var jqXHR = null;
@@ -30,27 +41,15 @@ $(function () {
         add: function (e, data) {
 
             data.context = $('<p/>').text(data.files[0]['name']).appendTo('#files');
-            data.context = $('<button/>').addClass('btn btn-primary')
-                .text('Upload')
-                .appendTo('#files')
-                .click(function () {
-                    data.context = $('<p/>').text('Uploading...').replaceAll($(this)); 
-                    jqXHR = data.submit();
-                });
-                
-            data.context = $('<button/>').addClass('btn btn-warning')
-                .text('Remove')
-                .addClass('cancel')
-                .appendTo('#files')
-                .click(function () {
-                    $('#files').text(''); 
-                });
+            jqXHR = data.submit();
         },
         done: function (e, data) {
             file_name = data.result;
             $('#uploadedfile').val(file_name);
              
             $('#fileupload').fileupload('disable');
+            
+           
             
             data.context = $('#files').text('Upload finished.');
             $('#delete-button-file').removeClass('hide');

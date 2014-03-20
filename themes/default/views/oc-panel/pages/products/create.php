@@ -218,17 +218,6 @@
 					<div class="panel-title">
 				    	<h4><small><?=__('Digital file')?></small></h4> 
 				  	</div>
-					<!-- <div class="fileinput fileinput-new" data-provides="fileinput">
-					  	<span class="btn btn-default btn-file btn-drag-drop">
-					  		<span class="fileinput-new"><?=__('Click or Drag & Drop to upload the file')?></span>
-					  		<span class="fileinput-exists"><?=__('Change')?></span>
-					  		<input type="file" name="file_name" >
-					  		<span class="fileinput-filename file-description" id="file-output"></span>
-					  	</span>
-					  	
-					  	<a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
-
-					</div> -->
 					
 				    <div class="col-md-6">
 					    <div class="clearfix"></div> <br>
@@ -249,6 +238,7 @@
 						<div id="files" class="files"></div>
 						<button id="delete-button-file" class="hide btn btn-danger"><?=__('Delete')?></button>
 					</div>
+					<div class="clearfix"></div>
 					<div class="col-md-6">
 						<div class="drop-down-box"><span class="fileinput-new"><?=__('Drag & Drop file here')?></span></div>
 					</div>
