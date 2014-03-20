@@ -50,29 +50,3 @@
 .offer-content{
 	padding:0 20px 10px;
 }
-@media (min-width: 487px) {
-  .container {
-    max-width: 750px;
-  }
-  .col-sm-6 {
-    width: 50%;
-  }
-}
-@media (min-width: 900px) {
-  .container {
-    max-width: 970px;
-  }
-  .col-md-4 {
-    width: 33.33333333333333%;
-  }
-}
-
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1170px;
-  }
-  .col-lg-3 {
-    width: 25%;
-  }
-  }
-}
