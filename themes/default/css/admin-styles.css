@@ -27,12 +27,23 @@ li.sbp .caret{float: right;margin-top: 7px;}
 }
 
 /*PRODUCT PAGE*/
+.drag-drop-header{position: absolute;
+}
 .drop-down-box{
 	min-height: 190px;
 	border:3px dotted #ccc;
-	background: #eee;
+	background: #fff;
 	border-radius: 5px;
 	text-align: center;
+}
+.drop-down-box span{
+position: relative;
+top: 75px;
+font-size: 20px;	
+}
+
+.drop-down-box:hover{
+	background: #eee;
 }
 .file-description{
 	word-wrap: break-word;

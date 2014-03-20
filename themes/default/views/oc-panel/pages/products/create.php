@@ -196,7 +196,7 @@
 	  			<div class="panel-body">
 					
 					<div class="panel-title">
-				    	<h4><small><?=__('Product images')?></small></h4> 
+				    	<h2><small><?=__('Select product images')?></small></h2> 
 				  	</div>
 					<?for ($i=0; $i < core::config('product.num_images') ; $i++):?>
 					
@@ -214,20 +214,22 @@
 						  	</div>
 						</div>
 					<?endfor?>
-
+					<hr>
 					<div class="panel-title">
-				    	<h4><small><?=__('Digital file')?></small></h4> 
+				    	<h2><small><?=__('Digital file')?></small></h2> 
 				  	</div>
 					
-				    <div class="col-md-6">
+				    <div class="col-md-12">
 					    <div class="clearfix"></div> <br>
 						<span class="btn btn-success fileinput-button">
 					        <i class="glyphicon glyphicon-plus"></i>
-					        <span><?=__('Add File')?></span>
-					        
+					        <span><?=__('Add File')?></span>  
 					        <input id="fileupload" type="file" data-url="upload" name="fileupload" data-size="<?=core::config('product.max_size')*1024*1024?>">
 					    </span>
-					    
+					    <div class="clearfix"></div><br>
+					
+						<div class="drop-down-box"><span class="fileinput-new"><?=__('Drag & Drop file here')?></span></div>
+					
 						<div class="clearfix"></div> <br>
 						<div id="progress" class="progress">
 					        <div class="bar progress-bar progress-bar-success" style="width: 0%;"></div>
@@ -238,10 +240,7 @@
 						<div id="files" class="files"></div>
 						<button id="delete-button-file" class="hide btn btn-danger"><?=__('Delete')?></button>
 					</div>
-					<div class="clearfix"></div>
-					<div class="col-md-6">
-						<div class="drop-down-box"><span class="fileinput-new"><?=__('Drag & Drop file here')?></span></div>
-					</div>
+					
 
 					<div class="clearfix"></div><br>
 					<div class="pull-right">
