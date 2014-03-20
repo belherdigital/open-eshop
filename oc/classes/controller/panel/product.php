@@ -82,7 +82,7 @@ class Controller_Panel_Product extends Auth_Crud {
         	$obj_product->id_user = $id_user;
         	$obj_product->seotitle = $seotitle;
         	$obj_product->status = (core::post('status')===NULL)?Model_Product::STATUS_NOACTIVE:Model_Product::STATUS_ACTIVE;
-            // $obj_product->updated = Date::unix2mysql();
+            $obj_product->updated = Date::unix2mysql();
 
             if($file = $product['file_name'])
                 $obj_product->file_name = $file;
@@ -202,6 +202,7 @@ class Controller_Panel_Product extends Auth_Crud {
                     }
                     else
                     {   
+                        @chmod($p_path, 0755);
                         //delete product
                         unlink($p_path);
 
@@ -214,7 +215,7 @@ class Controller_Panel_Product extends Auth_Crud {
                     }
                 }
                 $product['status']  = (core::post('status')===NULL)?Model_Product::STATUS_NOACTIVE:Model_Product::STATUS_ACTIVE;
-                // $product['updated'] = Date::unix2mysql();
+                $product['updated'] = Date::unix2mysql();
                 // each field in edit product
                 foreach ($product as $field => $value) 
                 {
