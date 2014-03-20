@@ -202,7 +202,6 @@ class Controller_Panel_Product extends Auth_Crud {
                     }
                     else
                     {   
-                        chmod($p_path, 0775);
                         //delete product
                         unlink($p_path);
 
