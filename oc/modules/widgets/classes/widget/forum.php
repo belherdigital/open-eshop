@@ -15,16 +15,16 @@ class Widget_Forum extends Widget
     public function __construct()
     {   
 
-        $this->title        = __('Forum');
-        $this->description  = __('Forum reader');
+        $this->title        = __('Forum Topics');
+        $this->description  = __('Forum topic reader');
 
-        $this->fields = array(  'forums_limit' => array(  'type'      => 'text',
+        $this->fields = array(  'topics_limit' => array(  'type'      => 'text',
                                                         'display'   => 'text',
                                                         'label'     => __('Forum Limit, if none display all'),
-                                                        'default'   => '',
+                                                        'default'   => '5',
                                                         'required'  => FALSE),
 
-                                'forum_title'  => array(  'type'      => 'text',
+                                'topic_title'  => array(  'type'      => 'text',
                                                         'display'   => 'text',
                                                         'label'     => __('forum title displayed'),
                                                         'default'   => 'Latest forum',
@@ -39,7 +39,7 @@ class Widget_Forum extends Widget
      */
     public function title($title = NULL)
     {
-        return parent::title($this->forum_title);
+        return parent::title($this->topic_title);
     }
 
     /**
@@ -50,15 +50,16 @@ class Widget_Forum extends Widget
      */
     public function before()
     {
-        $forum = new Model_Forum();
-        $forum->order_by('created','desc');
+        $topic = new Model_Post();
+        $topic = $topic->where('status','=',Model_Post::STATUS_ACTIVE);
+        $topic = $topic->order_by('created','desc');
         
-        if($this->forums_limit != NULL OR $this->forums_limit != '')
-        $forum = $forum->limit($this->forums_limit)->cached()->find_all();
+        if($this->topics_limit != NULL OR $this->topics_limit != '')
+        $topic = $topic->limit($this->topics_limit)->cached()->find_all();
         else
-        $forum = $forum->cached()->find_all();
-        //die(print_r($forum));
-        $this->forum = $forum;
+        $topic = $topic->cached()->find_all();
+        //die(print_r($topic));
+        $this->topic = $topic;
     }
 
 
