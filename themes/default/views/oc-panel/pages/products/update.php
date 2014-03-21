@@ -329,7 +329,7 @@
 					</div>
 					<div class="checkbox">
 				        <label>
-				          	<input type="checkbox" name="status" value="<?=($product->status==Model_Product::STATUS_ACTIVE)?'checked="checked"':''?>" checked="checked">  &nbsp; <?=__('Active')?>?
+				          	<input type="checkbox" name="status" value="<?=($product->status==Model_Product::STATUS_ACTIVE)?'checked="checked"':''?>">  &nbsp; <?=__('Active')?>?
 				        </label>
 			      	</div>
 				</div>
