@@ -26,7 +26,7 @@
 </div>
 
 <?=Form::errors()?>
-<?= FORM::open(Route::url('oc-panel',array('controller'=>'product','action'=>'update','id'=>$product->id_product)), array('class'=>'form-horizontal product_form_update', 'enctype'=>'multipart/form-data'))?>
+<?= FORM::open(Route::url('oc-panel',array('controller'=>'product','action'=>'update','id'=>$product->id_product)), array('class'=>'form-horizontal product_form', 'enctype'=>'multipart/form-data'))?>
 	<fieldset>
 	<!-- file -->
 	<div class="col-md-4 col-sm-6 col-xs-6">

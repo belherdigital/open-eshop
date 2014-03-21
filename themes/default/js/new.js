@@ -22,7 +22,7 @@
     $params['rules']['price'] = {regex: "^[0-9]{1,18}([,.]{1}[0-9]{1,3})?$"};
     $params['messages']['price'] = "Format is incorect";
 
-    var $form = $(".post_new");
+    var $form = $(".product_form");
     $form.validate($params
         // {
         // errorLabelContainer: $(".post_new div.error"),
@@ -40,8 +40,7 @@
 
     //chosen fix
     var settings = $.data($form[0], 'validator').settings;
-    settings.ignore += ':not(.cf_select_fields)'; // post_new location(any chosen) texarea
-    // settings.ignore += ':not(.sceditor-container)'; // post_new description texarea
+    settings.ignore += ':not(.sceditor-container)'; // post_new description texarea
      settings.ignore += ':not(#description)'; // post_new description texarea
     // end VALIDATION
 
