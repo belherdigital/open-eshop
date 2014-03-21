@@ -136,7 +136,6 @@
                                     <table class="table">
                                         <tr><td class="br"><?=Theme::admin_link(__('Updates'), 'update','index')?></td></tr>
                                         <tr><td class="br"><?=Theme::admin_link(__('Sitemap'), 'tools','sitemap')?></td></tr>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Migration'), 'tools','migration')?></td></tr>
                                         <tr><td class="br"><?=Theme::admin_link(__('Optimize'), 'tools','optimize')?></td></tr>
                                         <tr><td class="br"><?=Theme::admin_link(__('Cache'), 'tools','cache')?></td></tr>
                                         <tr><td class="br"><?=Theme::admin_link(__('Logs'), 'tools','logs')?></td></tr>
