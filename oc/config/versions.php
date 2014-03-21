@@ -3,8 +3,8 @@
   '1.3' => 
   array (
     'codename' => 'Ngorongoro',
-    'released' => '2014-',
-    'blog' => 'http://open-eshop.com/',
+    'released' => '2014-03-21',
+    'blog' => 'http://open-eshop.com/2014/03/21/open-eshop-1-3-3-new-premium-themes/',
     'changelog' => 'https://github.com/open-classifieds/open-eshop/commits/1.3',
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=5&page=1&state=closed',
     'download' => 'http://j.mp/oe_13',
