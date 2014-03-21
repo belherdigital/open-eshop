@@ -32,7 +32,7 @@
                             <p><?=Text::limit_chars(Text::removebbcode($product->description), 30, NULL, TRUE)?></p>
                             <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                                 <?if ($product->final_price()>0):?>
-                                    <?=__('Buy Now')?> <?=$product->final_price().' '.$product->currency?>
+                                    <?=$product->formated_price()?>
                                 <?elseif(!empty($product->file_name)):?>
                                     <?=__('Free Download')?>
                                 <?else:?>
