@@ -269,28 +269,28 @@
 			  	</div>
 				<div class="form-group alert alert-primary">
 					<?if ($product->has_file()==TRUE):?>
-					<div class="pull-left">
-					<a class="thumbnail">
-						<img src="http://www.placehold.it/100x100&text=<?=strtoupper(strrchr($product->file_name, '.'))?>" alt="<?=strtoupper(strrchr($product->file_name, '.'))?>">
-					</a>
-					</div>	
-						<h4>
-						    <span class="label label-info"> 
-						        <?=round(filesize(DOCROOT.'data/'.$product->file_name)/pow(1024, 2),2)?>MB
-						    </span>
-						    <span class="label label-info">
-						        <?=__('Uploaded').' '.Date::unix2mysql(filemtime(DOCROOT.'data/'.$product->file_name))?> 
-						    </span>
-						</h4>
-						<button class="btn btn-danger index-delete "
-								onclick="return confirm('<?=__('Delete?')?>');" 
-							   	type="submit" 
-							   	name="product_delete"
-							   	value="<?=$product->id_product?>" 
-							   	rel"tooltip" 
-							   	title="<?=__('Delete product')?>">
-						<?=__('Delete')?>
-						</button>
+						<div class="pull-left">
+						<a class="thumbnail">
+							<img src="http://www.placehold.it/100x100&text=<?=strtoupper(strrchr($product->file_name, '.'))?>" alt="<?=strtoupper(strrchr($product->file_name, '.'))?>">
+						</a>
+						</div>	
+							<h4>
+							    <span class="label label-info"> 
+							        <?=round(filesize(DOCROOT.'data/'.$product->file_name)/pow(1024, 2),2)?>MB
+							    </span>
+							    <span class="label label-info">
+							        <?=__('Uploaded').' '.Date::unix2mysql(filemtime(DOCROOT.'data/'.$product->file_name))?> 
+							    </span>
+							</h4>
+							<button class="btn btn-danger index-delete "
+									onclick="return confirm('<?=__('Delete?')?>');" 
+								   	type="submit" 
+								   	name="product_delete"
+								   	value="<?=$product->id_product?>" 
+								   	rel"tooltip" 
+								   	title="<?=__('Delete product')?>">
+							<?=__('Delete')?>
+							</button>
 					
 					<?else:?>
 						<div class="col-md-12">
@@ -298,7 +298,7 @@
 							<span class="btn btn-success fileinput-button">
 						        <i class="glyphicon glyphicon-plus"></i>
 						        <span><?=__('Add File')?></span>  
-						        <input id="fileupload" type="file" data-url="upload" name="fileupload" data-size="<?=core::config('product.max_size')*1024*1024?>">
+						        <input id="fileupload" type="file" data-url="../upload" name="fileupload" data-size="<?=core::config('product.max_size')*1024*1024?>">
 						    </span>
 						    <div class="clearfix"></div><br>
 						
