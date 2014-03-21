@@ -67,7 +67,7 @@ class Controller_Panel_Product extends Auth_Crud {
 
         if($product = $this->request->post())
         {
-            // d($_FILES);
+            
         	$id_user = Auth::instance()->get_user()->id_user;
         	
         	// set custom values from POST
@@ -214,7 +214,8 @@ class Controller_Panel_Product extends Auth_Crud {
                                                                               'id'          =>$obj_product->id_product)));
                     }
                 }
-                $product['status']  = (core::post('status')===NULL)?Model_Product::STATUS_NOACTIVE:Model_Product::STATUS_ACTIVE;
+                
+                $product['status']  = (!isset($_POST['status']) OR core::post('status')===NULL)?Model_Product::STATUS_NOACTIVE:Model_Product::STATUS_ACTIVE;
                 $product['updated'] = Date::unix2mysql();
                 // each field in edit product
                 foreach ($product as $field => $value) 
