@@ -75,13 +75,37 @@ class Controller_Panel_Update extends Auth_Controller {
     {
         //coupons product
         $prefix = Database::instance()->table_prefix();
-        mysql_query("ALTER TABLE  `".$prefix."coupons` ADD  `id_product` INT NULL DEFAULT NULL AFTER  `id_coupon`");
-        mysql_query("ALTER TABLE  `".$prefix."orders` ADD  `notes` VARCHAR( 245 ) NULL DEFAULT NULL");
-        mysql_query("ALTER TABLE  `".$prefix."users` ADD  `signature` VARCHAR( 245 ) NULL DEFAULT NULL");
-        mysql_query("ALTER TABLE  `".$prefix."visits` DROP  `contacted`");
-        mysql_query("ALTER TABLE  `".$prefix."posts` ADD  `id_post_parent` INT NULL DEFAULT NULL AFTER  `id_user`");
-        mysql_query("ALTER TABLE  `".$prefix."posts` ENGINE = MYISAM ");
-        mysql_query("CREATE TABLE IF NOT EXISTS  `".$prefix."forums` (
+
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."coupons` ADD  `id_product` INT NULL DEFAULT NULL AFTER  `id_coupon`")->execute();
+        }catch (exception $e) {}
+        try
+        {    
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."orders` ADD  `notes` VARCHAR( 245 ) NULL DEFAULT NULL")->execute();
+        }catch (exception $e) {}
+        try
+        {    
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."users` ADD  `signature` VARCHAR( 245 ) NULL DEFAULT NULL")->execute();
+        }catch (exception $e) {}
+        try
+        {    
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."visits` DROP  `contacted`")->execute();
+        }catch (exception $e) {}
+        try
+        {    
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."posts` ADD  `id_post_parent` INT NULL DEFAULT NULL AFTER  `id_user`")->execute();
+        }catch (exception $e) {}
+        try
+        {    
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."posts` ENGINE = MYISAM ")->execute();
+        }catch (exception $e) {}
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."products` ADD `rate` FLOAT( 4, 2 ) NULL DEFAULT NULL ;")->execute();
+        }catch (exception $e) {}
+
+        DB::query(Database::UPDATE,"CREATE TABLE IF NOT EXISTS  `".$prefix."forums` (
                       `id_forum` int(10) unsigned NOT NULL AUTO_INCREMENT,
                       `name` varchar(145) NOT NULL,
                       `order` int(2) unsigned NOT NULL DEFAULT '0',
@@ -92,9 +116,9 @@ class Controller_Panel_Update extends Auth_Controller {
                       `description` varchar(255) NULL,
                       PRIMARY KEY (`id_forum`) USING BTREE,
                       UNIQUE KEY `".$prefix."forums_IK_seo_name` (`seoname`)
-                    ) ENGINE=MyISAM");
-        mysql_query("ALTER TABLE  `".$prefix."products` ADD `rate` FLOAT( 4, 2 ) NULL DEFAULT NULL ;");
-        mysql_query("CREATE TABLE IF NOT EXISTS ".$prefix."reviews (
+                    ) ENGINE=MyISAM")->execute();
+        
+        DB::query(Database::UPDATE,"CREATE TABLE IF NOT EXISTS ".$prefix."reviews (
                     id_review int(10) unsigned NOT NULL AUTO_INCREMENT,
                     id_user int(10) unsigned NOT NULL,
                     id_order int(10) unsigned NOT NULL,
@@ -108,7 +132,7 @@ class Controller_Panel_Update extends Auth_Controller {
                     KEY ".$prefix."reviews_IK_id_user (id_user),
                     KEY ".$prefix."reviews_IK_id_order (id_order),
                     KEY ".$prefix."reviews_IK_id_product (id_product)
-                    ) ENGINE=MyISAM;");
+                    ) ENGINE=MyISAM;")->execute();
 
         // build array with new (missing) configs
         $configs = array(
@@ -194,7 +218,12 @@ class Controller_Panel_Update extends Auth_Controller {
     {
         //add new fields
         $prefix = Database::instance()->table_prefix();
-        mysql_query("ALTER TABLE  `".$prefix."products` ADD  `updated` DATETIME NULL AFTER  `created`;");
+        
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."products` ADD  `updated` DATETIME NULL AFTER  `created`;")->execute();
+        } catch (exception $e) {}
+        
 
         //updating emails
         $text =  '==== Order Details ====\nDate: [DATE]\nOrder ID: [ORDER.ID]\nName: [USER.NAME]\nEmail: [USER.EMAIL]\n\n==== Your Order ====\nProduct: [PRODUCT.TITLE]\nProduct Price: [PRODUCT.PRICE]\n\n[PRODUCT.NOTES][DOWNLOAD][EXPIRE][LICENSE]';
