@@ -3,7 +3,7 @@
   * Theme Name: Kamaleon Free
   * Description: Free theme, HTML5. Default base, link on footer.
   * Tags: HTML5, Advanced Confiuration, prettyPhoto, Slider.
-  * Version: 1.3
+  * Version: 1.4
   * Author: Chema <chema@open-classifieds.com>
   * License: GPL v3
   */
@@ -31,7 +31,7 @@ Theme::load();
                         
                         'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen',
                         'http://cdn.jsdelivr.net/prettyphoto/3.1.5/css/prettyPhoto.css' => 'screen',
-                        'css/style.css?v=1.3' => 'screen',
+                        'css/style.css?v=1.4' => 'screen',
                         'css/yeti-style.css' => 'screen',
                         'css/slider.css' => 'screen',
                         );
@@ -46,7 +46,7 @@ Theme::load();
                                         'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
                                         'js/bootstrap-slider.js',
                                         'js/jquery.validate.min.js',
-                                        'js/theme.init.js?v=1.3',
+                                        'js/theme.init.js?v=1.4',
                                         );
 
 

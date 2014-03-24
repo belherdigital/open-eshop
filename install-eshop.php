@@ -45,7 +45,7 @@ class install{
      * Software install settings
      * @var string
      */
-    const version   = '1.3';
+    const version   = '1.4';
 
     /**
      * message to notify
