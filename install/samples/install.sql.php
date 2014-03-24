@@ -380,7 +380,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('product', 'demo_resize', '1'),
 ('product', 'download_hours', 72),
 ('product', 'download_times', 3),
-('product', 'download_timesnumber_of_orders', 0),
+('product', 'number_of_orders', 0),
 ('email', 'notify_email', '".core::request('ADMIN_EMAIL')."'),
 ('email', 'smtp_active', 0),
 ('email', 'new_sale_notify', 0),
