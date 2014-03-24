@@ -34,6 +34,9 @@ class Controller_Product extends Controller{
 
         if ($product->loaded())
         {
+            //product image
+            if($product->get_first_image() !== NULL)
+                Controller::$image = $product->get_first_image();   
 
             //stripe button @todo not working we dont receive the stripeEmail as post
             // if ( Core::config('payment.stripe_private')!='' AND Core::config('payment.stripe_public')!='' )
@@ -198,6 +201,10 @@ class Controller_Product extends Controller{
             if (!is_array($skins) OR count($skins)<=0)
                 $skins = NULL;
 
+            //product image
+            if($product->get_first_image() !== NULL)
+                Controller::$image = $product->get_first_image();   
+
             $this->template->bind('content', $content);
             $this->template->content = View::factory('pages/product/review',array('product'=>$product,'reviews'=>$reviews, 'skins'=>$skins));
 
@@ -244,7 +251,11 @@ class Controller_Product extends Controller{
             $this->template->bind('skins', $skins);
 
             $skin = core::get('skin');
-            $this->template->bind('skin', $skin);           
+            $this->template->bind('skin', $skin);     
+
+            //product image
+            if($product->get_first_image() !== NULL)
+                Controller::$image = $product->get_first_image();      
         }
         else
         {
@@ -266,7 +277,6 @@ class Controller_Product extends Controller{
         /**
          * we get the model of category from controller to filter and generate urls titles etc...
          */
-
         $category = NULL;
         $category_parent = NULL;
         if (Controller::$category!==NULL)
@@ -277,6 +287,10 @@ class Controller_Product extends Controller{
                 //adding the category parent
                 if ($category->id_category_parent!=1 AND $category->parent->loaded())
                     $category_parent = $category->parent;
+
+                //category image
+                if(file_exists(DOCROOT.'images/categories/'.$category->seoname.'.png'))
+                    Controller::$image = URL::base().'images/categories/'.$category->seoname.'.png';
             }
         }
 

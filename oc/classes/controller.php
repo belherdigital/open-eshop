@@ -30,6 +30,11 @@ class Controller extends Kohana_Controller
      */
     public static $coupon = NULL;
 
+    /**
+     * global image get from controller so we can access from anywhere like Controller::$image; used for facebook metas
+     */
+    public static $image = NULL;
+
 
     /**
      * Initialize properties before running the controller methods (actions),

@@ -12,7 +12,15 @@
     <meta name="keywords" content="<?=$meta_keywords?>" >
     <meta name="description" content="<?=$meta_description?>" >
     <meta name="copyright" content="<?=$meta_copywrite?>" >
-	<meta name="author" content="open-classifieds.com">
+	<meta name="author" content="open-eshop.com">
+
+    <?if (Controller::$image!==NULL):?>
+    <meta property="og:image"   content="<?=core::config('general.base_url').Controller::$image?>"/>
+    <?endif?>
+    <meta property="og:title"   content="<?=$title?>"/>
+    <meta property="og:description"   content="<?=$meta_description?>"/>
+    <meta property="og:url"     content="<?=URL::current()?>"/>
+    <meta property="og:site_name" content="<?=core::config('general.site_name')?>"/>
 
     <?if (core::config('general.blog')==1):?>
     <link rel="alternate" type="application/atom+xml" title="RSS Blog <?=Core::config('general.site_name')?>" href="<?=Route::url('rss-blog')?>" />
