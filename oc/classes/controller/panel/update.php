@@ -241,7 +241,7 @@ class Controller_Panel_Update extends Auth_Controller {
                                'group_name'     =>'product', 
                                'config_value'   =>'3'),
                          array('config_key'     =>'sort_by',
-                               'group_name'     =>'general', 
+                               'group_name'     =>'product', 
                                'config_value'   =>'published-asc'),
                          array('config_key'     =>'number_of_orders',
                                'group_name'     =>'product', 
