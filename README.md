@@ -38,3 +38,4 @@ Please read CONTRIBUTING.md
 * Hybrid Auth http://hybridauth.sourceforge.net/
 * Switcheroo https://github.com/OriginalEXE/Switcheroo
 * Raty https://github.com/wbotelhos/raty
+* MySQLi Kohana https://github.com/Azuka/Kohana-Database-MySQLi

@@ -214,21 +214,16 @@ class Model_Order extends ORM {
             //theres an expire? 0 = unlimited
             if ($expire_hours > 0 OR $expire_times > 0)
             {
+                //last date, can be last updated the product or the day he paid the order
+                $last_date = (Date::mysql2unix($this->product->updated) > Date::mysql2unix($this->pay_date))? $this->product->updated : $this->pay_date;
+
                 //getting the downloads query for this order without filtering
-                $downloads = $this->downloads;
+                $downloads = $this->downloads->where('created','>=',$last_date);
                 
                 //verify hours to expire download
-                if ($expire_hours > 0)
+                if ($expire_hours > 0 AND  ( (Date::mysql2unix($last_date)+($expire_hours*60*60)) < time() ) )
                 {
-                    //last date, can be last updated the product or the day he paid the order
-                    $last_date = (Date::mysql2unix($this->product->updated) > Date::mysql2unix($this->pay_date))? $this->product->updated : $this->pay_date;
-
-                    //checking if expired
-                    if ( (Date::mysql2unix($last_date)+($expire_hours*60*60)) < time() )
-                        return sprintf(__('Download expired after %u hours'),$expire_hours);
-                    
-                    //filter with that date for the count
-                    $downloads->where('created','>=',$last_date);
+                    return sprintf(__('Download expired after %u hours'),$expire_hours);
                 }
                 
                 //checking if he exceeded the downloads
