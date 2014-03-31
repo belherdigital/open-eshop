@@ -31,6 +31,15 @@ class Controller_Home extends Controller {
 
             switch (core::config('product.products_in_home')) 
             {
+                case 3:
+                    $id_products = Model_Review::best_rated();
+                    $array_ids = array();
+                    foreach ($id_products as $id => $id_product) {
+                        $array_ids = $id_product;
+                    }
+                    if (count($id_products)>0)
+                        $products->where('id_product','IN', $array_ids);
+                    break;
                 case 2:
                     $id_products = array_keys(Model_Visit::popular_products());
                     if (count($id_products)>0)

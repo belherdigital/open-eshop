@@ -8,6 +8,8 @@
             <h2><?=__('Featured')?></h2>
         <?elseif(core::config('product.products_in_home') == 2):?>
             <h2><?=__('Most popular')?></h2>
+        <?elseif(core::config('product.products_in_home') == 3):?>
+            <h2><?=__('Best rated')?></h2>
         <?endif?>
           <div id="slider-fixed-products" class="carousel slide">
             <div class="carousel-inner">

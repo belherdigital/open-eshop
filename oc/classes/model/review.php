@@ -89,6 +89,24 @@ class Model_Review extends ORM {
 
     }
 
+    /**
+     * returns best rated products
+     * @param  Model_Product $product [description]
+     * @return [type]                 [id]
+     */
+    public static function best_rated()
+    {
+        $query = DB::select('id_product',DB::expr('ROUND(SUM(rate)/COUNT(id_product)) rate'))
+                        // ->select(DB::expr('COUNT(id_product) total'))
+                        ->from('reviews')
+                        ->where('status','=',Model_Review::STATUS_ACTIVE)
+                        ->group_by(DB::expr('id_product'))
+                        ->order_by('rate','desc')
+                        ->execute();
+
+        return $rates = $query->as_array();
+    }
+
 
 
 

@@ -19,7 +19,7 @@
             <div class="form-group">
                 <?= FORM::label($forms['products_in_home']['key'], __('Products in home'), array('class'=>'col-md-3 control-label', 'for'=>$forms['products_in_home']['key']))?>
                 <div class="col-md-5">
-                    <?= FORM::select($forms['products_in_home']['key'], array(0=>__('Latest'),1=>__('Featured'),2=>__('Popular last month')), $forms['products_in_home']['value'], array(
+                    <?= FORM::select($forms['products_in_home']['key'], array(0=>__('Latest'),1=>__('Featured'),2=>__('Popular last month'),3=>__('Best rated')), $forms['products_in_home']['value'], array(
                     'placeholder' => $forms['products_in_home']['value'], 
                     'class' => 'tips form-control', 
                     'id' => $forms['products_in_home']['key'],
