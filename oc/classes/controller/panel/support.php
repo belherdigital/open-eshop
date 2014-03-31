@@ -213,6 +213,7 @@ class Controller_Panel_Support extends Auth_Controller {
     //if post create a reply ticket
     public function action_ticket()
     {
+        $this->template->scripts['footer'] = array('js/oc-panel/ticket.js');
         //after creating the reply we redirect to the ticket view
         $errors = NULL;
 

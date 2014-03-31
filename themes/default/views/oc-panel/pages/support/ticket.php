@@ -48,38 +48,73 @@
             <?endforeach?>
             <?endif?>
         <?endif?> 
+         <a class="btn btn-default pull-right" id="collapse-all-tickets"><?=__('Collapse all')?></a>
+         <div class="clearfix"></div>
 	</div>
 
-    <div class="row">
-        <div class="col-md-2">
-            <img class="ticket_image" src="<?=$ticket->user->get_profile_image()?>" width="120px" height="120px">
-            <p>
-                <?=$ticket->user->name?><br>
-                <?=Date::fuzzy_span(Date::mysql2unix($ticket->created))?><br>
-                <?=$ticket->created?>
-            </p>
+    <div class="col-md-12 user-ticket">
+        <div class="dropdown-user pull-right btn btn-primary btn-xs" data-for=".<?=$ticket->user->name?>">
+            <i class="glyphicon glyphicon-chevron-down"></i>
         </div>
-        <div class="col-md-10 col-sm-10 col-xs-10">
-            <p><?=Text::bb2html($ticket->description,TRUE)?></p>
+        <div class="<?=$ticket->user->name?> short-text">
+            <div class="col-md-2 pull-left">
+                <div class="pull-left">
+                    <span class="text-muted"><?=$ticket->user->name?></span><br>
+                    <span class="text-muted"><?=$ticket->created?></span>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-9 col-xs-9 ">
+                <p><?=Text::limit_chars(Text::bb2html($ticket->description,TRUE), 100, NULL, TRUE)?></p>
+            </div>
+        </div>
+        <div class="<?=$ticket->user->name?> user-infos long-text">
+            <div class="col-md-2 pull-left">
+                <img class="ticket_image img-circle" src="<?=$ticket->user->get_profile_image()?>" style="max-width:120px; max-height:120px;">
+                <div class="pull-left">
+                    <span class="text-muted"><?=$ticket->user->name?></span><br>
+                    <span class="text-muted"><?=Date::fuzzy_span(Date::mysql2unix($ticket->created))?></span><br>
+                    <span class="text-muted"><?=$ticket->created?></span>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-9 col-xs-9 ">
+                <p><?=Text::bb2html($ticket->description,TRUE)?></p>
+            </div>
         </div>
     </div>
-    <hr>
-    <?foreach ($replies as $reply):?>
-    <div class="row <?=($ticket->id_user!==$reply->id_user)?'well':''?>" >
-        <div class="col-md-2">
-            <img class="ticket_image" src="<?=$reply->user->get_profile_image()?>" width="120px" height="120px">
-            <p>
-                <?=$reply->user->name?><br>
-                <?=Date::fuzzy_span(Date::mysql2unix($reply->created))?><br>
-                <?=$reply->created?>
-            </p>
+    <div class="clearfix"></div><hr>
+
+    <?$i=0;foreach ($replies as $reply):?>
+    <div class="col-md-12 user-ticket">
+        <div class="dropdown-user pull-right btn btn-primary btn-xs" data-for=".<?=$reply->user->name.'_'.$i?>">
+            <i class="glyphicon glyphicon-chevron-down"></i>
         </div>
-        <div class="col-md-9">
-            <p><?=Text::bb2html($reply->description,TRUE)?></p>
+        <div class="<?=$reply->user->name.'_'.$i?> short-text">
+            <div class="col-md-2 pull-left">
+                <div class="pull-left">
+                    <span class="text-muted"><?=$reply->user->name?></span><br>
+                    <span class="text-muted"><?=$reply->created?></span>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-9 col-xs-9 ">
+                <p><?=Text::limit_chars(Text::bb2html($reply->description,TRUE), 100, NULL, TRUE)?></p>
+            </div>
+        </div>
+        <div class="<?=$reply->user->name.'_'.$i?> user-infos long-text <?=($ticket->id_user!==$reply->id_user)?'well':''?>" >
+            <div class="col-md-2">
+                <img class="ticket_image img-circle" src="<?=$reply->user->get_profile_image()?>" style="max-width:120px; max-height:120px;">
+                <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10">
+                    <span class="text-muted"><?=$reply->user->name?></span><br>
+                    <span class="text-muted"><?=Date::fuzzy_span(Date::mysql2unix($reply->created))?></span><br>
+                    <span class="text-muted"><?=$reply->created?></span><br>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <p><?=Text::bb2html($reply->description,TRUE)?></p>
+            </div>
         </div>
     </div>
-    <hr>
-    <?endforeach?>
+    <div class="clearfix"></div><hr>
+    <?$i++;endforeach?>
 
     <?if($ticket->status!=Model_Ticket::STATUS_CLOSED):?>
 	<form class="well form-horizontal"  method="post" action="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>">         
@@ -107,3 +142,5 @@
       </div>
 	</form>  
     <?endif?>  
+
+    <br><br>
