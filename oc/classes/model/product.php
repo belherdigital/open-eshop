@@ -546,6 +546,25 @@ class Model_Product extends ORM {
     }
 
     /**
+     * prints the QR code script from the view
+     * @return string HTML or false in case not loaded
+     */
+    public function qr($url,$size ='150',$EC_level='L',$margin='0')
+    {
+        if($this->loaded())
+        {
+            if ($this->status == self::STATUS_ACTIVE AND core::config('product.qr_code')==1 )
+            {
+                $url = urlencode($url);
+                return '<img src="https://chart.googleapis.com/chart?chs='.$size.'x'.$size.'&cht=qr&chld='.$EC_level.'|'.$margin.'&chl='.$url.'" alt="QR code" width="'.$size.'" height="'.$size.'"/>';
+                 
+            }
+        }
+    
+        return FALSE;
+    }
+
+    /**
      * prints the disqus script from the view
      * @return string HTML or false in case not loaded
      */

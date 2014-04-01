@@ -254,6 +254,28 @@ class Controller_Panel_Update extends Auth_Controller {
         $this->action_11();
         $this->action_12();
 
+    }
+
+    /**
+     * This function will upgrade configs  
+     */
+    public function action_14()
+    {
+
+        // build array with new (missing) configs
+        $configs = array(array('config_key'     =>'qr_code',
+                               'group_name'     =>'product', 
+                               'config_value'   =>'0'), 
+                         );
+        
+        // returns TRUE if some config is saved 
+        $return_conf = Model_Config::config_array($configs);
+
+        //previous updates of DB
+        $this->action_11();
+        $this->action_12();
+        $this->action_13();
+
         //clean cache
         Cache::instance()->delete_all();
         Theme::delete_minified();
