@@ -5,6 +5,6 @@ if($('#to_date').length != 0){
         $('#to_date').datepicker();}
 
 $('#statsTabs a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
+  e.preventDefault();
+  $(this).tab('show');
 })

@@ -326,7 +326,6 @@ class Controller_Panel_Stats extends Auth_Controller {
         } 
         $content->stats_orders_by_month =  $stats_orders_by_month;
 
-
         //////////////////////////GROUP BY PRODUCT TOTAL///////////////////
         //visits
         $query = DB::select(DB::expr('COUNT(id_visit) count'))
@@ -349,6 +348,28 @@ class Controller_Panel_Stats extends Auth_Controller {
                         ->execute();
         $content->orders_product = $query->as_array('id_product');
 
+        //downloads
+        $query = DB::select('id_product')
+                        ->select(array(DB::select('COUNT("id_download")')
+                            ->from(array('downloads','d'))
+                            ->where('d.id_order','=',DB::expr(core::config('database.default.table_prefix').'o.id_order'))
+                            ->group_by('id_order'), 'count'))
+                        ->from(array('orders','o'))
+                        ->group_by('id_product')
+                        ->order_by('count','desc')
+                        ->execute();
+        $content->downloads_product = $query->as_array('id_product');
+
+        //licenses
+        $query = DB::select('id_product')
+                        ->select(DB::expr('COUNT(id_license) count'))
+                        ->from('licenses')
+                        ->where('status','=',Model_License::STATUS_ACTIVE)
+                        ->group_by('id_product')
+                        ->order_by('count','desc')
+                        ->execute();
+        $content->licenses_product = $query->as_array('id_product');
+
         $products = new Model_Product();
         $content->products = $products->find_all();
 
@@ -357,7 +378,263 @@ class Controller_Panel_Stats extends Auth_Controller {
         foreach ($content->products as $p) 
             $products_total[] = array('name'=>$p->title,'$'=>(isset($content->orders_product[$p->id_product]))?round($content->orders_product[$p->id_product]['total'],2):0);
         
-        $content->products_total = $products_total;   
+        $content->products_total = $products_total;
+
+        //////////////////////////DOWNLOADS STATS///////////////////
+
+        //downloads created last XX days
+        $query = DB::select(DB::expr('DATE(created) date'))
+                        ->select(DB::expr('COUNT(id_download) count'))
+                        ->from('downloads')
+                        ->where('created','between',array($my_from_date,$my_to_date));
+        // if ($content->product!==NULL)
+        //         $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query
+                        ->group_by(DB::expr('DATE( created )'))
+                        ->order_by('date','asc')
+                        ->execute();
+
+        $downloads = $query->as_array('date');
+
+        $stats_downloads = array();
+        foreach ($dates as $date) 
+        {
+            $count_downloads = (isset($downloads[$date['date']]['count']))?$downloads[$date['date']]['count']:0;
+            
+            $stats_downloads[] = array('date'=>$date['date'],'#downloads'=> $count_downloads);
+        } 
+        $content->stats_downloads =  $stats_downloads;
+
+
+        //Today 
+        $query = DB::select(DB::expr('COUNT(id_download) count'))
+                        ->from('downloads')
+                        ->where(DB::expr('DATE( created )'),'=',DB::expr('CURDATE()'));
+        // if ($content->product!==NULL)
+        //         $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query
+                        ->group_by(DB::expr('DATE( created )'))
+                        ->order_by('created','asc')
+                        ->execute();
+
+        $ads = $query->as_array();
+        $content->downloads_today = (isset($ads[0]['count']))?$ads[0]['count']:0;
+
+        //Yesterday
+        $query = DB::select(DB::expr('COUNT(id_download) count'))
+                        ->from('downloads')
+                        ->where(DB::expr('DATE( created )'),'=',date('Y-m-d',strtotime('-1 day')));
+        // if ($content->product!==NULL)
+        //         $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query
+                        ->group_by(DB::expr('DATE( created )'))
+                        ->order_by('created','asc')
+                        ->execute();
+
+        $ads = $query->as_array();
+        $content->downloads_yesterday     = (isset($ads[0]['count']))?$ads[0]['count']:0;
+
+        //current month
+        $query = DB::select(DB::expr('COUNT(id_download) count'))
+                        ->from('downloads')
+                        ->where(DB::expr('MONTH( created )'),'=',DB::expr('MONTH(CURDATE())'))
+                        ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
+        // if ($content->product!==NULL)
+        //         $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
+                        ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
+                        ->order_by('created','asc')
+                        ->execute();
+
+
+        $downloads = $query->as_array();
+        $content->downloads_month = (isset($downloads[0]['count']))?$downloads[0]['count']:0;
+
+
+        //current year
+        $query = DB::select(DB::expr('COUNT(id_download) count'))
+                        ->from('downloads')
+                        ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
+        // if ($content->product!==NULL)
+        //         $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query->group_by(DB::expr('YEAR(`created`)'))
+                        ->order_by(DB::expr('YEAR(`created`)'),'asc')
+                        ->order_by('created','asc')
+                        ->execute();
+
+
+        $downloads = $query->as_array();
+        $content->downloads_year = (isset($downloads[0]['count']))?$downloads[0]['count']:0;
+
+
+        //total downloads
+        $query = DB::select(DB::expr('COUNT(id_download) count'))
+                        ->from('downloads');
+        // if ($content->product!==NULL)
+        //         $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query
+                        ->execute();
+
+        $downloads = $query->as_array();
+        $content->downloads_total = (isset($downloads[0]['count']))?$downloads[0]['count']:0;
+
+        //downloads per month
+        $query = DB::select(DB::expr('DATE_FORMAT(`created`, "%Y-%m") date'))
+                        ->select(DB::expr('COUNT(id_download) count'))
+                        ->from('downloads');
+        // if ($content->product!==NULL)
+        //         $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
+                        ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
+                        ->execute();
+
+        $downloads = $query->as_array('date');
+
+        $stats_downloads_by_month = array();
+        foreach ($dates_year as $date) 
+        {
+            $count_downloads = (isset($downloads[$date['date']]['count']))?$downloads[$date['date']]['count']:0;
+            
+            $stats_downloads_by_month[] = array('date'=>$date['date'],'#downloads'=> $count_downloads);
+        } 
+        $content->stats_downloads_by_month =  $stats_downloads_by_month;
+
+        //////////////////////////LICENSES STATS///////////////////
+
+        //licenses created last XX days
+        $query = DB::select(DB::expr('DATE(created) date'))
+                        ->select(DB::expr('COUNT(id_license) count'))
+                        ->from('licenses')
+                        ->where('created','between',array($my_from_date,$my_to_date));
+        if ($content->product!==NULL)
+            $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query
+                        ->group_by(DB::expr('DATE( created )'))
+                        ->order_by('date','asc')
+                        ->execute();
+
+        $licenses = $query->as_array('date');
+
+        $stats_licenses = array();
+        foreach ($dates as $date) 
+        {
+
+            $count_licenses = (isset($licenses[$date['date']]['count']))?$licenses[$date['date']]['count']:0;
+
+            $stats_licenses[] = array('date'=>$date['date'],'#licenses'=> $count_licenses);
+        } 
+        $content->stats_licenses =  $stats_licenses;
+
+
+        //Today 
+        $query = DB::select(DB::expr('COUNT(id_license) count'))
+                        ->from('licenses')
+                        ->where(DB::expr('DATE( created )'),'=',DB::expr('CURDATE()'));
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query
+                        ->group_by(DB::expr('DATE( created )'))
+                        ->order_by('created','asc')
+                        ->execute();
+
+        $ads = $query->as_array();
+        $content->licenses_today = (isset($ads[0]['count']))?$ads[0]['count']:0;
+        $content->amount_today = (isset($ads[0]['total']))?$ads[0]['total']:0;
+
+        //Yesterday
+        $query = DB::select(DB::expr('COUNT(id_license) count'))
+                        ->from('licenses')
+                        ->where(DB::expr('DATE( created )'),'=',date('Y-m-d',strtotime('-1 day')));
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query
+                        ->group_by(DB::expr('DATE( created )'))
+                        ->order_by('created','asc')
+                        ->execute();
+
+        $ads = $query->as_array();
+        $content->licenses_yesterday     = (isset($ads[0]['count']))?$ads[0]['count']:0;
+        $content->amount_yesterday     = (isset($ads[0]['total']))?$ads[0]['total']:0;
+
+
+        //current month
+        $query = DB::select(DB::expr('COUNT(id_license) count'))
+                        ->from('licenses')
+                        ->where(DB::expr('MONTH( created )'),'=',DB::expr('MONTH(CURDATE())'))
+                        ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
+                        ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
+                        ->order_by('created','asc')
+                        ->execute();
+
+
+        $licenses = $query->as_array();
+        $content->licenses_month = (isset($licenses[0]['count']))?$licenses[0]['count']:0;
+        $content->amount_month = (isset($licenses[0]['total']))?$licenses[0]['total']:0;
+
+
+        //current year
+        $query = DB::select(DB::expr('COUNT(id_license) count'))
+                        ->from('licenses')
+                        ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query->group_by(DB::expr('YEAR(`created`)'))
+                        ->order_by(DB::expr('YEAR(`created`)'),'asc')
+                        ->order_by('created','asc')
+                        ->execute();
+
+
+        $licenses = $query->as_array();
+        $content->licenses_year = (isset($licenses[0]['count']))?$licenses[0]['count']:0;
+
+        //total licenses
+        $query = DB::select(DB::expr('COUNT(id_license) count'))
+                        ->from('licenses');
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query
+                        ->execute();
+
+        $licenses = $query->as_array();
+        $content->licenses_total = (isset($licenses[0]['count']))?$licenses[0]['count']:0;
+
+        //active licenses
+        $query = DB::select(DB::expr('COUNT(id_license) count'))
+                        ->where(DB::expr('DATE(active_date)'),'<=', DB::expr('DATE(valid_date)'))
+                        ->from('licenses');
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query
+                        ->execute();
+
+        $licenses = $query->as_array();
+        $content->licenses_active = (isset($licenses[0]['count']))?$licenses[0]['count']:0;
+
+        //licenses per month
+        $query = DB::select(DB::expr('DATE_FORMAT(`created`, "%Y-%m") date'))
+                        ->select(DB::expr('COUNT(id_license) count'))
+                        ->select(DB::expr('COUNT(active_date) activated '))
+                        ->from('licenses');
+        if ($content->product!==NULL)
+                $query = $query->where('id_product','=',$content->product->id_product);
+        $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
+                        ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
+                        ->execute();
+
+        $licenses = $query->as_array('date');
+
+        $stats_licenses_by_month = array();
+        foreach ($dates_year as $date) 
+        {
+            $count_licenses = (isset($licenses[$date['date']]['count']))?$licenses[$date['date']]['count']:0;
+            
+            $activated_licenses = (isset($licenses[$date['date']]['activated']))?$licenses[$date['date']]['activated']:0;
+            $stats_licenses_by_month[] = array('date'=>$date['date'],'#licenses'=> $count_licenses,'#activated'=>$activated_licenses);
+        } 
+        $content->stats_licenses_by_month =  $stats_licenses_by_month;      
         
     }
 
