@@ -80,8 +80,7 @@ class Controller_Product extends Controller{
             $this->template->bind('skins', $skins);
 
             //number of orders
-            // $orders = new Model_Order();
-            $number_of_orders = Model_Order::number_of_orders($product->id_product);
+            $number_of_orders = $product->number_of_orders();
 
             $this->template->content = View::factory($product_view,array('product'=>$product,
                                                                          'hits'=>$hits, 

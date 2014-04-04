@@ -546,6 +546,26 @@ class Model_Product extends ORM {
     }
 
     /**
+     * Number of product purchased
+     * @return int
+     */
+
+    public function number_of_orders()
+    {
+        //get all orders
+        if($this->loaded())
+        {
+            $orders = new Model_Order();
+            $number_of_orders = $orders->where('id_product', '=', $this->id_product)->find_all()->count();
+            
+            return $number_of_orders;
+        }
+
+        return FALSE;
+        
+    }
+
+    /**
      * prints the QR code script from the view
      * @return string HTML or false in case not loaded
      */

@@ -269,13 +269,4 @@ class Model_Order extends ORM {
 
     }
 
-    public static function number_of_orders($product)
-    {
-        //get all orders
-        $orders = new self;
-        $number_of_orders = $orders->where('id_product', '=', $product)->find_all()->count();
-
-        return $number_of_orders;
-    }
-
 }
