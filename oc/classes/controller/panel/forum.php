@@ -83,7 +83,85 @@ class Controller_Panel_Forum extends Auth_Crud {
 
     }
 
+    /**
+     * Create new forum
+     */
+    public function action_create()
+    {
 
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Create new forum')));
+        
+        $forum = new Model_Forum();
+
+        $get_all = Model_Forum::get_all();
+
+        //get all forums to build forum parents in select
+        $forum_parents = array();
+        foreach ($get_all[0] as $parent )
+            $forum_parents[$parent['id']] = $parent['name'];
+        
+        $this->template->content = View::factory('oc-panel/pages/forum/create', array('forum_parents'=>$forum_parents));
+        
+        if ($_POST)
+        {
+            
+            $forum->name = core::post('name');
+            $forum->id_forum_parent = core::post('id_forum_parent');
+            $forum->description = core::post('description');
+            if(core::post('seoname') != "")
+                $forum->seoname = $forum->gen_seoname(core::post('name'));
+            else
+                $forum->seoname = $forum->gen_seoname(core::post('seoname'));
+            
+            try {
+                $forum->save();
+                Alert::set(Alert::SUCCESS, __('Forum is created.'));
+                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index')));  
+            } catch (Exception $e) {
+                Alert::set(Alert::ERROR, $e->getMessage());
+                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index'))); 
+            }
+        }
+    }
+
+    /**
+     * Create new forum
+     */
+    public function action_update()
+    {
+
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Edit new forum')));
+
+        $forum = new Model_Forum($this->request->param('id'));
+
+        $get_all = Model_Forum::get_all();
+
+        //get all forums to build forum parents in select
+        $forum_parents = array();
+        foreach ($get_all[0] as $parent )
+            $forum_parents[$parent['id']] = $parent['name'];
+        
+        $this->template->content = View::factory('oc-panel/pages/forum/update', array('forum_parents'=>$forum_parents,
+                                                                                      'forum'=>$forum));
+        if ($_POST)
+        {
+            
+            $forum->name = core::post('name');
+            $forum->id_forum_parent = core::post('id_forum_parent');
+            $forum->description = core::post('description');
+            if(core::post('seoname') != $forum->seoname)
+                $forum->seoname = $forum->gen_seoname(core::post('seoname'));
+            
+            try {
+                $forum->save();
+                Alert::set(Alert::SUCCESS, __('Forum is updated.'));
+                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index')));  
+            } catch (Exception $e) {
+                Alert::set(Alert::ERROR, $e->getMessage());
+                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index'))); 
+            }
+        }
+    }
 
     /**
      * CRUD controller: DELETE
