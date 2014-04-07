@@ -355,6 +355,21 @@ class Core {
             return FALSE;
     }
 
+    /**
+     * prints the QR code script from the view
+     * @param $url is the URL for your QRCode
+     * @param $size in pixels for image
+     * @param $EC_level Error Correction Level
+     * @param $margin around image
+     * @return string HTML or false in case not loaded
+     */
+    public static function generate_qr($url = NULL, $size ='150',$EC_level='L',$margin='0')
+    {
+        $url = ($url == NULL)?URL::current():$url;
+        $url = urlencode($url);
+        return '<img src="https://chart.googleapis.com/chart?chs='.$size.'x'.$size.'&cht=qr&chld='.$EC_level.'|'.$margin.'&chl='.$url.'" alt="QR code" width="'.$size.'" height="'.$size.'"/>';
+    }
+
 } //end core
 
 /**
