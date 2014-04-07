@@ -26,6 +26,7 @@
                 <?=StripeKO::button($product)?>
                 <div class="clearfix"></div>
                 <?=Paymill::button($product)?>
+                <?=Bitpay::button($product)?>
             <?endif?>
 
             <a class="btn btn-success full-w" 

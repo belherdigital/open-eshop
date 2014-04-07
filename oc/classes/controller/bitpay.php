@@ -76,13 +76,10 @@ class Controller_Bitpay extends Controller{
         //ipn result validated
         $ipn_result = self::bpVerifyNotification();
 
-
         if (isset($ipn_result['error']))
             Kohana::$log->add(Log::ERROR, $response);
         else
         {
-            d($ipn_result);
-
             if (!Auth::instance()->logged_in())
                 $user = Model_User::create_email($ipn_result['buyerFields']['buyerEmail'],$ipn_result['buyerFields']['buyerName']);
             else//he was loged so we use his user
