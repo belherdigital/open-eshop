@@ -20,7 +20,8 @@ define('DOCROOT', realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);
 if (! ((bool) ini_get('short_open_tag')) )
     die('<a href="http://www.php.net/manual/en/ini.core.php#ini.short-open-tag">short_open_tag</a> must be enabled in your php.ini.');
 
-if (file_exists(DOCROOT.'oc/config/database.php')) die('Seems Open eShop it is already insalled');
+if (file_exists(DOCROOT.'oc/config/database.php')) 
+    die('Seems Open eShop it is already insalled');
 
 //read from oc/versions.json on CDN
 $versions       = install::versions();
