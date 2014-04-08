@@ -147,6 +147,6 @@
 <?=View::factory('coupon')?>
 </div>
 <div class="clearfix"></div><br>
-<?=$product->qr(URL::current())?>
+<?=$product->qr()?>
 <?=$product->related()?>
 <?=$product->disqus()?>
