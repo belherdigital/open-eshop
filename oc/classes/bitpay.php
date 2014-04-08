@@ -36,6 +36,12 @@ class Bitpay {
     }
 
     /**
+     * from here to down are the functions provided by bitpay I've tried to modify them as little as possible.
+     *  I added them as static functions so they can be used in a class and removed the global options, super ugly code...
+     *  see https://github.com/bitpay/php-client 
+     */
+
+    /**
      * returns bitpay options, this is just sooo ugly, I mean they were using a global variable and I replaced it with this static..
      * @return array 
      */
