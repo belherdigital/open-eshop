@@ -53,16 +53,67 @@ class Controller_Panel_Newsletter extends Auth_Controller {
                         ->execute();
         $products = $query->as_array();
 
-        if($this->request->post())
+        //post done sending newsletter
+        if($this->request->post() AND Core::post('subject')!=NULL)
         {
-            $query = DB::select('email')->select('name')
+            $users = array();
+
+            if (core::post('send_all')=='on')
+            {
+                $query = DB::select('email')->select('name')
                         ->from('users')
                         ->where('status','=',Model_User::STATUS_ACTIVE)
                         ->execute();
 
-            $users = $query->as_array();
+                $users = array_merge($users,$query->as_array());
+            }
+            
+            if (core::post('send_expired_support')=='on')
+            {
+                $query = DB::select('email')->select('name')
+                        ->from(array('users','u'))
+                        ->join(array('orders','o'))
+                        ->using('id_user')
+                        ->where('o.status','=',Model_Order::STATUS_PAID)
+                        ->where('o.support_date','<',DB::expr('NOW()'))
+                        ->group_by('u.id_user')
+                        ->execute();
 
-            if (count($users)>0 OR Core::post('subject')!=NULL)
+                $users = array_merge($users,$query->as_array());
+            }
+
+            if (core::post('send_expired_license')=='on')
+            {
+                $query = DB::select('email')->select('name')
+                        ->from(array('licenses','l'))
+                        ->join(array('users','u'))
+                        ->using('id_user')
+                        ->where('l.valid_date','IS NOT',NULL)
+                        ->where('l.valid_date','<',DB::expr('NOW()'))
+                        ->group_by('u.id_user')
+                        ->execute();
+
+                $users = array_merge($users,$query->as_array());
+            }
+
+            if (is_numeric(core::post('send_product')))
+            {
+                $query = DB::select('email')->select('name')
+                        ->join(array('users','u'))
+                        ->join(array('orders','o'))
+                        ->using('id_user')
+                        ->where('o.id_product','=',core::post('send_product'))
+                        ->where('o.status','=',Model_Order::STATUS_PAID)
+                        ->group_by('u.id_user')
+                        ->execute();
+
+                $users = array_merge($users,$query->as_array());
+            }
+
+            //NOTE $users may have duplicated emails, but phpmailer takes care of not sending the email 2 times to same recipient
+            
+            //sending!
+            if (count($users)>0)
             {
                 if ( !Email::send($users,'',Core::post('subject'),Core::post('description'),Core::post('from'), Core::post('from_email') ) )
                     Alert::set(Alert::ERROR,__('Error on mail delivery, not sent'));
