@@ -99,7 +99,7 @@ class Controller_Panel_Newsletter extends Auth_Controller {
             if (is_numeric(core::post('send_product')))
             {
                 $query = DB::select('email')->select('name')
-                        ->join(array('users','u'))
+                        ->from(array('users','u'))
                         ->join(array('orders','o'))
                         ->using('id_user')
                         ->where('o.id_product','=',core::post('send_product'))
