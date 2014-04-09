@@ -104,8 +104,8 @@ class Controller_Panel_Category extends Auth_Crud {
                         ->where('id_category_parent','=',$category->id_category)
                         ->execute();
 
-            //update all the ads this category has and set the category parent
-            $query = DB::update('ads')
+            //update all the products this category has and set the category parent
+            $query = DB::update('products')
                         ->set(array('id_category' => $category->id_category_parent))
                         ->where('id_category','=',$category->id_category)
                         ->execute();
