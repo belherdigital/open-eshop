@@ -33,6 +33,10 @@ class Paypal {
      */
     public static function validate_ipn()
     {
+        //on local testing always OK!
+        if(Kohana::$environment === Kohana::DEVELOPMENT)
+            return TRUE;
+        
         if (core::config('payment.sandbox'))
             $ipn_url  = self::ipn_sandbox_url;
         else
