@@ -41,7 +41,7 @@ class Controller_Panel_Newsletter extends Auth_Controller {
         $count_license_expired = $count_license_expired[0]['count'];
         
         
-        //users per product //wrong!!!! @todo
+        //orders per product, not accuarate since 1 user could buy more than 1 product but will do
         $query = DB::select(DB::expr('COUNT(id_order) count'))
                         ->select('p.title')
                         ->select('p.id_product')
@@ -50,7 +50,6 @@ class Controller_Panel_Newsletter extends Auth_Controller {
                         ->using('id_product')
                         ->where('o.status','=',Model_Order::STATUS_PAID)
                         ->group_by('p.id_product')
-                        ->group_by('o.id_user')
                         ->execute();
         $products = $query->as_array();
 
