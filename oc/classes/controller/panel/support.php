@@ -272,7 +272,8 @@ class Controller_Panel_Support extends Auth_Controller {
 
             $validation = Validation::factory($this->request->post())
             ->rule('description', 'not_empty')
-            ->rule('description', 'min_length', array(':value', 5));
+            ->rule('description', 'min_length', array(':value', 5))
+            ->rule('description', 'max_length', array(':value', 1000));
 
             if ($validation->check())
             {
