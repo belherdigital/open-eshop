@@ -51,9 +51,18 @@ class Controller_Product extends Controller{
             else
                 $visitor_id = Auth::instance()->get_user()->id_user;
 
+            //adding affiliate if any
+            $id_affiliate = NULL;
+            if(Controller::$affiliate!=NULL)
+            {
+                if (Controller::$affiliate->loaded())
+                    $id_affiliate = Controller::$affiliate->id_user;
+            }
+
+            //new visit
             if ($product->id_user!=$visitor_id)
-                $new_hit = DB::insert('visits', array('id_product', 'id_user', 'ip_address'))
-                        ->values(array($product->id_product, $visitor_id, ip2long(Request::$client_ip)))
+                $new_hit = DB::insert('visits', array('id_product', 'id_user','id_affiliate', 'ip_address'))
+                        ->values(array($product->id_product, $visitor_id, $id_affiliate, ip2long(Request::$client_ip)))
                         ->execute();
 
             //count how many visits has

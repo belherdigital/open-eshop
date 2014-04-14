@@ -237,7 +237,7 @@ class Controller_Panel_Settings extends Auth_Controller {
                 }
             }
             
-            Alert::set(Alert::SUCCESS, __('General Configuration updated'));
+            Alert::set(Alert::SUCCESS, __('Payment Configuration updated'));
             $this->request->redirect(Route::url('oc-panel',array('controller'=>'settings','action'=>'payment')));
         }
 
@@ -248,6 +248,54 @@ class Controller_Panel_Settings extends Auth_Controller {
         $this->template->content = View::factory('oc-panel/pages/settings/payment', array('config'          => $config,
                                                                                            'pages'          => $pages,
                                                                                           'paypal_currency' => $paypal_currency));
+    }
+
+
+    /**
+     * affiliate configuration can be configured here
+     * @return [view] Renders view with form inputs
+     */
+    public function action_affiliates()
+    {
+
+        
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Affiliates')));
+        $this->template->title = __('Affiliates');
+
+        // all form config values
+        $paymentconf = new Model_Config();
+        $config = $paymentconf->where('group_name', '=', 'affiliate')->find_all();
+        
+
+
+        // save only changed values
+        if($this->request->post())
+        {
+            foreach ($config as $c) 
+            {
+                $config_res = $this->request->post($c->config_key); 
+
+                if($config_res != $c->config_value)
+                {
+                    $c->config_value = $config_res;
+                    try {
+                        $c->save();
+                    } catch (Exception $e) {
+                        echo $e;
+                    }
+                }
+            }
+            
+            Alert::set(Alert::SUCCESS, __('Affiliate Configuration updated'));
+            $this->request->redirect(Route::url('oc-panel',array('controller'=>'settings','action'=>'affiliates')));
+        }
+
+        $pages = array(''=>__('Deactivated'));
+        foreach (Model_Content::get_pages() as $key => $value) 
+            $pages[$value->seotitle] = $value->title;
+
+        $this->template->content = View::factory('oc-panel/pages/settings/affiliates', array('config'          => $config,
+                                                                                           'pages'          => $pages));
     }
 
 

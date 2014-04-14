@@ -257,6 +257,39 @@ class Controller_Panel_Update extends Auth_Controller {
      */
     public function action_14()
     {
+        $prefix = Database::instance()->table_prefix();
+
+        //affiliates
+        DB::query(Database::UPDATE,"CREATE TABLE IF NOT EXISTS ".$prefix."affiliates (
+                    id_affiliate int(10) unsigned NOT NULL AUTO_INCREMENT,
+                    id_user int(10) unsigned NOT NULL,
+                    id_order int(10) unsigned NOT NULL,
+                    id_order_payment int(10) unsigned,
+                    id_product int(10) unsigned NOT NULL,
+                    percentage decimal(14,3) NOT NULL DEFAULT '0',
+                    amount decimal(14,3) NOT NULL DEFAULT '0',
+                    currency char(3) NOT NULL,
+                    created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    date_paid datetime DEFAULT NULL,
+                    ip_address float DEFAULT NULL,
+                    status tinyint(1) NOT NULL DEFAULT '0',
+                    PRIMARY KEY (id_affiliate) USING BTREE,
+                    KEY ".$prefix."affiliates_IK_id_user (id_user),
+                    KEY ".$prefix."affiliates_IK_id_order (id_order),
+                    KEY ".$prefix."affiliates_IK_id_product (id_product)
+                    ) ENGINE=MyISAM;")->execute();
+
+        //paypal for user
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."users` ADD  `paypal_email` varchar(145) DEFAULT NULL AFTER  `email`;")->execute();
+        } catch (exception $e) {}
+       
+        //visits id affiliate
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."visits` ADD  `id_affiliate` int(10) unsigned DEFAULT NULL AFTER  `id_user`;")->execute();
+        } catch (exception $e) {}
 
         // build array with new (missing) configs
         $configs = array(array('config_key'     =>'qr_code',
@@ -264,6 +297,21 @@ class Controller_Panel_Update extends Auth_Controller {
                                'config_value'   =>'0'), 
                         array('config_key'     =>'bitpay_apikey',
                                'group_name'     =>'payment', 
+                               'config_value'   =>''), 
+                        array('config_key'     =>'active',
+                               'group_name'     =>'affiliate', 
+                               'config_value'   =>'0'), 
+                        array('config_key'     =>'cookie',
+                               'group_name'     =>'affiliate', 
+                               'config_value'   =>'90'), 
+                        array('config_key'     =>'payment_days',
+                               'group_name'     =>'affiliate', 
+                               'config_value'   =>'30'), 
+                        array('config_key'     =>'payment_min',
+                               'group_name'     =>'affiliate', 
+                               'config_value'   =>'50'),
+                        array('config_key'     =>'tos',
+                               'group_name'     =>'affiliate', 
                                'config_value'   =>''), 
                          );
         

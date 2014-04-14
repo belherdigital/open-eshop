@@ -37,6 +37,7 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')
   `name` varchar(145) DEFAULT NULL,
   `seoname` varchar(145) DEFAULT NULL,
   `email` varchar(145) NOT NULL,
+  `paypal_email` varchar(145) DEFAULT NULL,
   `password` varchar(64) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '0',
   `id_role` int(10) unsigned DEFAULT '1',
@@ -78,6 +79,7 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX').
   `id_visit` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_product` int(10) unsigned DEFAULT NULL,
   `id_user` int(10) unsigned DEFAULT NULL,
+  `id_affiliate` int(10) unsigned DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ip_address` float DEFAULT NULL,
   PRIMARY KEY (`id_visit`),
@@ -279,6 +281,25 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS ".core::request('TABLE_PREFIX')."
     KEY ".core::request('TABLE_PREFIX')."reviews_IK_id_product (id_product)
     ) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
+mysqli_query($link,"CREATE TABLE IF NOT EXISTS ".core::request('TABLE_PREFIX')."affiliates (
+    id_affiliate int(10) unsigned NOT NULL AUTO_INCREMENT,
+    id_user int(10) unsigned NOT NULL,
+    id_order int(10) unsigned NOT NULL,
+    id_order_payment int(10) unsigned,
+    id_product int(10) unsigned NOT NULL,
+    percentage decimal(14,3) NOT NULL DEFAULT '0',
+    amount decimal(14,3) NOT NULL DEFAULT '0',
+    currency char(3) NOT NULL,
+    created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    date_paid datetime DEFAULT NULL,
+    ip_address float DEFAULT NULL,
+    status tinyint(1) NOT NULL DEFAULT '0',
+    PRIMARY KEY (id_affiliate) USING BTREE,
+    KEY ".core::request('TABLE_PREFIX')."affiliates_IK_id_user (id_user),
+    KEY ".core::request('TABLE_PREFIX')."affiliates_IK_id_order (id_order),
+    KEY ".core::request('TABLE_PREFIX')."affiliates_IK_id_product (id_product)
+    ) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET').";");
+
 
 /**
  * add basic content like emails
@@ -392,6 +413,11 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('email', 'smtp_ssl', 0),
 ('email', 'smtp_user', ''),
 ('email', 'smtp_pass', ''),
+('affiliate', 'active', '0'),
+('affiliate', 'cookie', '90'),
+('affiliate', 'payment_days', '30'),
+('affiliate', 'payment_min', '50'),
+('affiliate', 'tos', ''),
 ('social', 'config', '{\"debug_mode\":\"0\",\"providers\":{\"OpenID\":{\"enabled\":\"1\"},\"Yahoo\":{\"enabled\":\"0\",\"keys\":{\"id\":\"\",\"secret\":\"\"}},
 \"AOL\":{\"enabled\":\"1\"},\"Google\":{\"enabled\":\"0\",\"keys\":{\"id\":\"\",\"secret\":\"\"}},\"Facebook\":{\"enabled\":\"0\",\"keys\":{\"id\":\"\",\"secret\":\"\"}},
 \"Twitter\":{\"enabled\":\"0\",\"keys\":{\"key\":\"\",\"secret\":\"\"}},\"Live\":{\"enabled\":\"0\",\"keys\":{\"id\":\"\",\"secret\":\"\"}},\"MySpace\":{\"enabled\":\"0\",\"keys\":{\"key\":\"\",\"secret\":\"\"}},
