@@ -138,6 +138,7 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX').
   `licenses` int(10)  NOT NULL DEFAULT '1',
   `license_days` int(10)  NOT NULL DEFAULT '0',
   `rate` FLOAT( 4, 2 ) NULL DEFAULT NULL,
+  `affiliate_percentage` decimal(14,3) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_product`),
   KEY `".core::request('TABLE_PREFIX')."products_IK_id_user` (`id_user`),
   KEY `".core::request('TABLE_PREFIX')."products_IK_id_category` (`id_category`)
@@ -316,6 +317,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."content` (`ord
 (0, 'Ticket assigned to you: [TITLE]', 'assignagent', '[URL.QL]\n\n[DESCRIPTION]', '".core::request('ADMIN_EMAIL')."', 'email', 1),
 (0, 'New review for [TITLE] [RATE]', 'reviewproduct', '[URL.QL]\n\n[RATE]\n\n[DESCRIPTION]', '".core::request('ADMIN_EMAIL')."', 'email', 1),
 (0, 'New support ticket created `[TITLE]`', 'newticket', 'We have received your support inquiry. We will try to answer you within the next 24 working hours, thank you for your patience.\n\n[URL.QL]', '".core::request('ADMIN_EMAIL')."', 'email', 1)
+(0, 'Congratulations! New affiliate commission [AMOUNT]', 'affiliatecommission', 'Congratulations!,\n\n We just registered a sale from your affiliate link for the amount of [AMOUNT], check them all at your affiliate panel [URL.AFF]. \n\n Thanks for using our affiliate program!', '".core::request('ADMIN_EMAIL')."', 'email', 1)
 ");
 
 /**

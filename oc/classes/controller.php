@@ -35,12 +35,6 @@ class Controller extends Kohana_Controller
      */
     public static $image = NULL;
 
-    /**
-     * global affiliate get from controller so we can access from anywhere like Controller::$affiliate;
-     * @var Model_Category
-     */
-    public static $affiliate = NULL;
-
 
     /**
      * Initialize properties before running the controller methods (actions),
@@ -68,8 +62,8 @@ class Controller extends Kohana_Controller
         //Gets a coupon if selected
         self::$coupon = Model_Coupon::get_coupon();
 
-        //get the affiliate if some
-        self::$affiliate = Model_Affiliate::get_affiliate();
+        //get the affiliate if any
+        Model_Affiliate::current();
 
         if($this->auto_render===TRUE)
         {

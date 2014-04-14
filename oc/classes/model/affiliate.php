@@ -50,32 +50,102 @@ class Model_Affiliate extends ORM {
     );
 
     /**
+     * global Model user affiliate instance get from controller so we can access from anywhere like Model_Affiliate::current()
+     * @var Model_User
+     */
+    protected static $_current = NULL;
+
+    /**
+     * returns the current affiliate user
+     * @return Model_User 
+     */
+    public static function current()
+    {
+        //we don't have so let's retrieve
+        if (self::$_current === NULL)
+            self::$_current = self::get_affiliate();
+
+        return self::$_current;
+    }
+
+    /**
      * @var string cookie name
      */
     protected static $_cookie_name = 'affiliate';
 
     /**
      * get the affiliate from the query or from the cookie
-     * @return Model_Affiliate or null if not found
+     * @return Model_Affiliate
      */
     public static function get_affiliate()
     {
         $id_affiliate = core::request('aff',Cookie::get(self::$_cookie_name));
+        $affiliate    = new Model_User();
 
         if (Core::config('affiliate.active')==1 AND is_numeric($id_affiliate) AND Theme::get('premium')==1)
         {
             $affiliate = new Model_User($id_affiliate);
 
+            //the user exists so we set again the cookie, just in case it's a different user or to renew it
             if ($affiliate->loaded())
-            {
-                //the user exists so we set again the cookie, just in case it's a different user or to renew it
-                Cookie::set(self::$_cookie_name,$id_affiliate, time() + (24*60*60*Core::config('affiliate.cookie')) );
-                return $affiliate;
-            }
-                
+                Cookie::set(self::$_cookie_name,$id_affiliate, time() + (24*60*60*Core::config('affiliate.cookie')) );                
         }
 
-        return NULL;
+        return $affiliate;
+    }
+
+    /**
+     * generates a new commission for the affiliate
+     * @param  Model_Order $order   
+     * @param  Model_Product      $product [description]
+     * @return void               
+     */
+    public static function sale(Model_Order $order, Model_Product $product = NULL)
+    {
+        //do we have an affiliate?
+        if (self::current()->loaded())
+        {
+            if ($product === NULL)
+                $product = $order->product;
+
+            //this is how much we actually pay to the affiliate
+            $commission = ($product->price/100)*$product->affiliate_percentage;
+
+            //doesnt make sense to add a commission of 0,no?
+            if ($commission>0)
+            {
+                $aff = new self();
+                $aff->id_order      = $order->id_order;
+                $aff->id_product    = $product->id_product;
+                $aff->id_user       = self::current()->id_user;
+                $aff->percentage    = $product->affiliate_percentage;
+                $aff->currency      = $product->currency;
+                $aff->amount        = $commission;
+                $aff->ip_address    = ip2long(Request::$client_ip);
+                $aff->status        = Model_Affiliate::STATUS_CREATED;
+
+                try
+                {
+                    $aff->save();
+
+                    //send email to affiliate
+                    $params = array(
+                                    '[AMOUNT]'        => i18n::format_currency($commission, $product->currency),
+                                    '[URL.AFF]'       => self::current()->ql('oc-panel',array('controller'=>'profile','action'=>'affiliate')),
+                                );
+                    self::current()->email('affiliatecommission',$params);
+                    
+                }
+                catch (Exception $e)
+                {
+                    Kohana::$log->add(Log::ERROR,$e->getMessage());
+                } 
+            }
+            
+                    
+        }
+
+        
     }
 
 

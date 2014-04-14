@@ -278,6 +278,12 @@ class Controller_Panel_Update extends Auth_Controller {
                     KEY ".$prefix."affiliates_IK_id_order (id_order),
                     KEY ".$prefix."affiliates_IK_id_product (id_product)
                     ) ENGINE=MyISAM;")->execute();
+        
+        //product affiliate_percentage
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."products` ADD  affiliate_percentage decimal(14,3) NOT NULL DEFAULT '0' AFTER  `rate`;")->execute();
+        } catch (exception $e) {}
 
         //paypal for user
         try 
@@ -315,8 +321,18 @@ class Controller_Panel_Update extends Auth_Controller {
                                'config_value'   =>''), 
                          );
         
+         $contents = array(array('order'=>'0',
+                               'title'=>'Congratulations! New affiliate commission [AMOUNT]',
+                               'seotitle'=>'affiliatecommission',
+                               'description'=>"Congratulations!,\n\n We just registered a sale from your affiliate link for the amount of [AMOUNT], check them all at your affiliate panel [URL.AFF]. \n\n Thanks for using our affiliate program!",
+                               'from_email'=>core::config('email.notify_email'),
+                               'type'=>'email',
+                               'status'=>'1'),
+                        );
+        
         // returns TRUE if some config is saved 
         $return_conf = Model_Config::config_array($configs);
+        $return_cont = Model_Content::content_array($contents);
 
         //previous updates of DB
         $this->action_11();

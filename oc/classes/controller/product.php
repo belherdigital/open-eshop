@@ -53,11 +53,8 @@ class Controller_Product extends Controller{
 
             //adding affiliate if any
             $id_affiliate = NULL;
-            if(Controller::$affiliate!=NULL)
-            {
-                if (Controller::$affiliate->loaded())
-                    $id_affiliate = Controller::$affiliate->id_user;
-            }
+            if (Model_Affiliate::current()->loaded())
+                $id_affiliate = Model_Affiliate::current()->id_user;
 
             //new visit
             if ($product->id_user!=$visitor_id)

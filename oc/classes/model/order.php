@@ -132,6 +132,9 @@ class Model_Order extends ORM {
             $order->save();
             //if saved delete coupon from session and -- number of coupons.
             Model_Coupon::sale(Controller::$coupon);
+
+            //add affiliate commision
+            Model_Affiliate::sale($order,$product);
             
             //generate licenses
             $licenses = Model_License::generate($user,$order,$product);
