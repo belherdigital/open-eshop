@@ -135,7 +135,7 @@
 				<div class="form-group">
 					<?= FORM::label('offer_valid', __('Offer Valid'), array('class'=>'col-md-12', 'for'=>'offer_valid'))?>
 					<div class="col-md-8">	
-						<input  type="text" size="16" id="offer_valid" name="offer_valid"  value="<?=$product->offer_valid?>" class="form-control" data-date="" data-date-format="yyyy-mm-dd">
+						<input  type="text" size="16" id="offer_valid" name="offer_valid"  value="<?=Date::format($product->offer_valid,'Y-m-d')?>" class="form-control" data-date="" data-date-format="yyyy-mm-dd">
 		            </div>
 		        </div>
 
@@ -196,7 +196,7 @@
 				<div class="form-group">
 		            <?= FORM::label('featured', __('Feature product'), array('class'=>'col-md-12', 'for'=>'featured'))?>
 		            <div class="col-md-8">  
-		                <input  type="text" size="16" id="featured" name="featured"  value="<?=$product->featured?>" class="form-control" data-date="" data-date-format="yyyy-mm-dd">
+		                <input  type="text" size="16" id="featured" name="featured"  value="<?=Date::format($product->featured,'Y-m-d')?>" class="form-control" data-date="" data-date-format="yyyy-mm-dd">
 		            </div>
 		        </div>
 

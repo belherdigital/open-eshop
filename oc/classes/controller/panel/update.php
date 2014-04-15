@@ -257,6 +257,11 @@ class Controller_Panel_Update extends Auth_Controller {
      */
     public function action_14()
     {
+        //previous updates of DB
+        $this->action_11();
+        $this->action_12();
+        $this->action_13();
+
         $prefix = Database::instance()->table_prefix();
 
         //affiliates
@@ -334,10 +339,7 @@ class Controller_Panel_Update extends Auth_Controller {
         $return_conf = Model_Config::config_array($configs);
         $return_cont = Model_Content::content_array($contents);
 
-        //previous updates of DB
-        $this->action_11();
-        $this->action_12();
-        $this->action_13();
+
 
         //clean cache
         Cache::instance()->delete_all();
