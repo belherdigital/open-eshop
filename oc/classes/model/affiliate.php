@@ -109,7 +109,7 @@ class Model_Affiliate extends ORM {
                 $product = $order->product;
 
             //this is how much we actually pay to the affiliate
-            $commission = ($product->price/100)*$product->affiliate_percentage;
+            $commission = ($order->amount/100)*$product->affiliate_percentage;
 
             //doesnt make sense to add a commission of 0,no?
             if ($commission>0)

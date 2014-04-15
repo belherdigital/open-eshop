@@ -49,31 +49,29 @@ class Widget_Categories extends Widget
 		$cat = new Model_Category();
 
 		// loaded category
-		if (Controller::$category!==NULL)
-        {
-            if (Controller::$category->loaded())
-            {
-        	    $category = Controller::$category->id_category; // id_category
-        	    
-        	    //list of children of current category
-                // if list_cat dosent have siblings take brothers
-                $list_cat = $cat->where('id_category_parent','=',$category)->order_by('order','asc')->cached()->find_all();
-        	    if(count($list_cat) == 0)
-                {
-                    $list_cat = $cat->where('id_category_parent','=',Controller::$category->id_category_parent)->order_by('order','asc')->cached()->find_all();
-                }
-                //parent of current category
-        	   	$cat_parent_deep = $cat->where('id_category','=',Controller::$category->id_category_parent)->limit(1)->find();
 
-                // array with name and seoname of a category and his parent. Is to build breadcrumb in widget
-        	   	$current_and_parent = array('name'			=> Controller::$category->name,
-                                            'id'            => Controller::$category->id_category,
-        	    					        'seoname'		=> Controller::$category->seoname,
-        	    					        'parent_name'	=> $cat_parent_deep->name,
-                                            'id_parent'     => $cat_parent_deep->id_category_parent,
-        	    					        'parent_seoname'=> $cat_parent_deep->seoname);
-           	}
-        }
+        if (Model_Category::current()->loaded())
+        {
+    	    $category = Model_Category::current()->id_category; // id_category
+    	    
+    	    //list of children of current category
+            // if list_cat dosent have siblings take brothers
+            $list_cat = $cat->where('id_category_parent','=',$category)->order_by('order','asc')->cached()->find_all();
+    	    if(count($list_cat) == 0)
+            {
+                $list_cat = $cat->where('id_category_parent','=',Model_Category::current()->id_category_parent)->order_by('order','asc')->cached()->find_all();
+            }
+            //parent of current category
+    	   	$cat_parent_deep = $cat->where('id_category','=',Model_Category::current()->id_category_parent)->limit(1)->find();
+
+            // array with name and seoname of a category and his parent. Is to build breadcrumb in widget
+    	   	$current_and_parent = array('name'			=> Model_Category::current()->name,
+                                        'id'            => Model_Category::current()->id_category,
+    	    					        'seoname'		=> Model_Category::current()->seoname,
+    	    					        'parent_name'	=> $cat_parent_deep->name,
+                                        'id_parent'     => $cat_parent_deep->id_category_parent,
+    	    					        'parent_seoname'=> $cat_parent_deep->seoname);
+       	}
         else
         {
 			$list_cat = $cat->where('id_category_parent','=',1)->order_by('order','asc')->cached()->find_all();

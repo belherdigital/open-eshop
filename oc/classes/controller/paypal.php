@@ -115,7 +115,7 @@ class Controller_Paypal extends Controller{
 	                             'paypal_account'    	=> core::config('payment.paypal_account'),
 	                             'paypal_currency'    	=> $product->currency,
 	                             'item_name'			=> $product->title,
-                                 'coupon'               => (Controller::$coupon!==NULL)?Controller::$coupon->name:'',
+                                 'coupon'               => (Model_Coupon::current()->loaded())?Model_Coupon::current()->name:'',
                                  );
 			
 			$this->template = View::factory('paypal', $paypal_data);

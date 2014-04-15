@@ -48,7 +48,7 @@
 	    	</span> <?=__('Offer')?> <?=$product->formated_price()?> 
 	    	<del><?=$product->price.' '.$product->currency?></del> </h4>
 	    </span>
-		<span class="offer-valid"><?=__('Offer valid until')?> <?=(Date::format((Controller::$coupon!==NULL)?Controller::$coupon->valid_date:$product->offer_valid))?></span>
+		<span class="offer-valid"><?=__('Offer valid until')?> <?=(Date::format((Model_Coupon::current()->loaded())?Model_Coupon::current()->valid_date:$product->offer_valid))?></span>
 	<?else:?>
 	    <?if($product->final_price() != 0):?>
 	        <h4><?=__('Price')?> : <?=$product->formated_price()?></span></h4>

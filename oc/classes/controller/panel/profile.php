@@ -356,4 +356,13 @@ class Controller_Panel_Profile extends Auth_Controller {
 
     }
 
+
+    //affiliate panel for the users
+    public function action_affiliate()
+    {
+        //see links
+        //change paypal account
+        //see stats
+        //see terms
+    }
 }

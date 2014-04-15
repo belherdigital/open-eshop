@@ -30,7 +30,12 @@ class Model_Coupon extends ORM {
             ),
     );
 
-
+    /**
+     * global Model Coupon instance get from controller so we can access from anywhere like Model_Coupon::current()
+     * @var Model_User
+     */
+    protected static $_current = NULL;
+    
 
     public function exclude_fields()
     {
@@ -54,18 +59,34 @@ class Model_Coupon extends ORM {
      * @param  model_coupon $coupon 
      * @return void         
      */
-    public static function sale($coupon = NULL)
+    public static function sale(Model_Coupon $coupon = NULL)
     {
-        if ($coupon!=NULL)
+        if ($coupon===NULL)
+            $coupon = self::current();
+
+        if ($coupon->loaded())
         {
-            if ($coupon->loaded())
-            {
-                $coupon->number_coupons--;
-                $coupon->save();
-                Session::instance()->set('coupon','');
-            }
+            $coupon->number_coupons--;
+            $coupon->save();
+            Session::instance()->set('coupon','');
         }
     }
+
+
+
+    /**
+     * returns the current category
+     * @return Model_Category
+     */
+    public static function current()
+    {
+        //we don't have so let's retrieve
+        if (self::$_current === NULL)
+            self::$_current = self::get_coupon();
+
+        return self::$_current;
+    }
+
 
     /**
      * get the coupon from the query or from the sesion or the post in paypal
@@ -73,6 +94,8 @@ class Model_Coupon extends ORM {
      */
     public static function get_coupon()
     {
+        $coupon = new self();
+
         /**
          * Deletes a coupon in use
          */
@@ -84,7 +107,7 @@ class Model_Coupon extends ORM {
         //selected coupon Paypal custom field, or coupon via get/post or session
         elseif(core::post('custom') != NULL OR core::request('coupon') != NULL OR Session::instance()->get('coupon')!='' )
         {
-            $slug_coupon   = new Model_Coupon();
+            $slug_coupon   = new self();
             $coupon = $slug_coupon->where('name', '=', core::post('custom',core::request('coupon',Session::instance()->get('coupon'))) )
                     ->where('number_coupons','>',0)
                     ->where('valid_date','>',DB::expr('NOW()'))
@@ -98,8 +121,7 @@ class Model_Coupon extends ORM {
                     Alert::set(Alert::SUCCESS, __('Coupon added!'));
                     Session::instance()->set('coupon',$coupon->name);
                 }
-                //return coupon
-                return $coupon;
+                
             }
             else
             {
@@ -109,7 +131,7 @@ class Model_Coupon extends ORM {
                 
         }
 
-        return NULL;
+        return $coupon;
     }
 
 

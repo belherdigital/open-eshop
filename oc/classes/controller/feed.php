@@ -26,11 +26,9 @@ class Controller_Feed extends Controller {
                 ->limit(Core::config('general.feed_elements'));
 
         //filter by category aor location
-        if (Controller::$category!==NULL)
-        {
-            if (Controller::$category->loaded())
-                $products->where('p.id_category','=',Controller::$category->id_category);
-        }
+        if (Model_Category::current()->loaded())
+            $products->where('p.id_category','=',Model_Category::current()->id_category);
+        
 
        
         $products = $products->as_object()->cached()->execute();

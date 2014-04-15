@@ -284,20 +284,19 @@ class Controller_Product extends Controller{
          */
         $category = NULL;
         $category_parent = NULL;
-        if (Controller::$category!==NULL)
+     
+        if (Model_Category::current()->loaded())
         {
-            if (Controller::$category->loaded())
-            {
-                $category = Controller::$category;
-                //adding the category parent
-                if ($category->id_category_parent!=1 AND $category->parent->loaded())
-                    $category_parent = $category->parent;
+            $category = Model_Category::current();
+            //adding the category parent
+            if ($category->id_category_parent!=1 AND $category->parent->loaded())
+                $category_parent = $category->parent;
 
-                //category image
-                if(file_exists(DOCROOT.'images/categories/'.$category->seoname.'.png'))
-                    Controller::$image = URL::base().'images/categories/'.$category->seoname.'.png';
-            }
+            //category image
+            if(file_exists(DOCROOT.'images/categories/'.$category->seoname.'.png'))
+                Controller::$image = URL::base().'images/categories/'.$category->seoname.'.png';
         }
+        
 
         //base title
         if ($category!==NULL)

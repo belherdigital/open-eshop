@@ -85,16 +85,12 @@
 
             $cat_id = NULL;
             $cat_parent = NULL;
-            if (Controller::$category!==NULL)
+
+            if (Model_Category::current()->loaded())
             {
-                if (Controller::$category->loaded())
-                {
-                    $cat_id = Controller::$category->id_category;
-                    $cat_parent =  Controller::$category->id_category_parent;
-                }
+                $cat_id = Model_Category::current()->id_category;
+                $cat_parent =  Model_Category::current()->id_category_parent;
             }
-
-
         ?>
         <?foreach($cats as $c ):?>
             <?if($c['id_category_parent'] == 1 && $c['has_siblings'] == FALSE):?>

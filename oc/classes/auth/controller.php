@@ -68,7 +68,7 @@ class Auth_Controller extends Controller
         $this->maintenance();
 
         //Gets a coupon if selected
-        self::$coupon = Model_Coupon::get_coupon();
+        Model_Coupon::current();
 	
 		if($this->auto_render===TRUE)
 		{
