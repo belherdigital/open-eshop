@@ -83,8 +83,8 @@ class Controller_Panel_Product extends Auth_Crud {
         	$obj_product->seotitle     = $seotitle;
         	$obj_product->status       = (core::post('status')===NULL)?Model_Product::STATUS_NOACTIVE:Model_Product::STATUS_ACTIVE;
             $obj_product->updated      = Date::unix2mysql();
-            $obj_product->offer_valid  = core::post('offer_valid').' 23:59:59';
-            $obj_product->fatured      = core::post('featured').' 23:59:59';
+            $obj_product->offer_valid  = (core::post('offer_valid')!=NULL)? core::post('offer_valid').' 23:59:59' : NULL;
+            $obj_product->featured     = (core::post('featured')!=NULL)? core::post('featured').' 23:59:59'  : NULL;
 
             if($file = $product['file_name'])
                 $obj_product->file_name = $file;

@@ -102,6 +102,15 @@
 						</div>
 					</div>
 
+                    <?if(Core::config('affiliate.active')==1 AND Theme::get('premium')==1):?>
+                    <div class="form-group">
+                        <?= FORM::label('affiliate_percentage', __('Affiliate commission %'), array('class'=>'col-md-12 ', 'for'=>'affiliate_percentage'))?>
+                        <div class="col-md-12">
+                            <?= FORM::input('affiliate_percentage', Request::current()->post('affiliate_percentage'), array('placeholder' => i18n::money_format(1), 'class' => 'form-control', 'id' => 'affiliate_percentage', 'type'=>'text'))?>
+                        </div>
+                    </div>
+                    <?endif?>
+
 					<div class="form-group">
 						<?= FORM::label('price_offer', __('Price Offer'), array('class'=>'col-md-12 ', 'for'=>'price_offer'))?>
 						<div class="col-md-12">

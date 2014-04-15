@@ -20,6 +20,16 @@ class Model_Affiliate extends ORM {
     const STATUS_FRAUD          = 66;  //fraud!!!!
     const STATUS_REFUND         = 99;  //we refunded the money
 
+    /**
+     * @var  array  Available statuses array
+     */
+    public static $statuses = array(
+        self::STATUS_CREATED      =>  'Created',
+        self::STATUS_PAID         =>  'Paid',
+        self::STATUS_REFUSED      =>  'Refused',
+        self::STATUS_FRAUD       =>  'Fraud',
+        self::STATUS_REFUND       =>  'Refund',
+    );
     
     /**
      * @var  string  Table name
@@ -121,6 +131,7 @@ class Model_Affiliate extends ORM {
                 $aff->percentage    = $product->affiliate_percentage;
                 $aff->currency      = $product->currency;
                 $aff->amount        = $commission;
+                $aff->date_to_pay   = Date::unix2mysql(time()+(24*60*60*core::config('affiliate.payment_days')));
                 $aff->ip_address    = ip2long(Request::$client_ip);
                 $aff->status        = Model_Affiliate::STATUS_CREATED;
 

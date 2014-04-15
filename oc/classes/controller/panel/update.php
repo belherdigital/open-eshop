@@ -275,6 +275,7 @@ class Controller_Panel_Update extends Auth_Controller {
                     amount decimal(14,3) NOT NULL DEFAULT '0',
                     currency char(3) NOT NULL,
                     created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    date_to_pay datetime DEFAULT NULL,
                     date_paid datetime DEFAULT NULL,
                     ip_address float DEFAULT NULL,
                     status tinyint(1) NOT NULL DEFAULT '0',
