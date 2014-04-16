@@ -271,6 +271,7 @@
 				<hr>
 				<div class="panel-title">
 			    	<h2><small><?=__('Digital file')?></small></h2> 
+                    <p>upload_max_filesize: <?=ini_get('upload_max_filesize')?>, max_execution_time:<?=ini_get('max_execution_time')?></p>
 			  	</div>
 				<div class="form-group alert alert-primary">
 					<?if ($product->has_file()==TRUE):?>
