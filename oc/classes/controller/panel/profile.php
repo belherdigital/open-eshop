@@ -362,7 +362,16 @@ class Controller_Panel_Profile extends Auth_Controller {
     {
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Affiliate')));
         $this->template->title   = __('Affiliate Panel');
+
         $user = Auth::instance()->get_user();
+
+        //Hack so the admin can see the stats for any user! cool!
+        if ($user->id_role==Model_Role::ROLE_ADMIN)
+        {
+            $id_user = $this->request->param('id');
+            if (is_numeric($id_user))
+                $user = new Model_User($id_user);
+        }
 
         $this->template->styles = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
         $this->template->scripts['footer'] = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
@@ -372,16 +381,62 @@ class Controller_Panel_Profile extends Auth_Controller {
         $this->template->content = View::factory('oc-panel/profile/affiliate');
         $content->user = $user;
 
-        //@todo 
+        //@todo !!!
         //see links per product
 
         //change paypal account
-        
+                        
         //see stats
-        //total earned
-        //total paid
+        ////////////////////
+        //total earned commissions
+        $query = DB::select(DB::expr('SUM(amount) total'))
+                        ->from('affiliates')
+                        ->where('id_user','=',$user->id_user)
+                        ->group_by('id_user')
+                        ->execute();
+
+        $total_earnings = $query->as_array();
+        $content->total_earnings = (isset($total_earnings[0]['total']))?$total_earnings[0]['total']:0;
+        
         //total since last payment
-        //request payment
+        $last_payment_date = DB::select('pay_date')
+                        ->from('orders')
+                        ->where('id_user','=',$user->id_user)
+                        ->where('id_product','is',NULL)
+                        ->where('status','=',Model_Order::STATUS_PAID)
+                        ->order_by('pay_date','ASC')
+                        ->limit(1)->execute();
+
+        $last_payment_date = $last_payment_date->as_array();
+        $content->last_payment_date = (isset($last_payment_date[0]['pay_date']))?$last_payment_date[0]['pay_date']:NULL;
+        $content->last_earnings = 0;
+        if ($content->last_payment_date!=NULL)
+        {
+            //commissions since last payment
+            $query = DB::select(DB::expr('SUM(amount) total'))
+                            ->from('affiliates')
+                            ->where('id_user','=',$user->id_user)
+                            ->where('created','between',array($content->last_payment_date,Date::unix2mysql()))
+                            ->where('status','=',Model_Affiliate::STATUS_CREATED)
+                            ->group_by('id_user')
+                            ->execute();
+
+            $last_earnings = $query->as_array();
+            $content->last_earnings = (isset($last_earnings[0]['total']))?$last_earnings[0]['total']:0;
+        }
+        
+        //due to pay, is commisions with to pay date bigger than today
+        //commissions due to pay
+        $query = DB::select(DB::expr('SUM(amount) total'))
+                        ->from('affiliates')
+                        ->where('id_user','=',$user->id_user)
+                        ->where('date_to_pay','>',Date::unix2mysql())
+                        ->where('status','=',Model_Affiliate::STATUS_CREATED)
+                        ->group_by('id_user')
+                        ->execute();
+
+        $due_to_pay = $query->as_array();
+        $content->due_to_pay = (isset($due_to_pay[0]['total']))?$due_to_pay[0]['total']:0;
         
         //Getting the dates and range
         $from_date = Core::post('from_date',strtotime('-1 month'));

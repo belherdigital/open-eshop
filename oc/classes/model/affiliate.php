@@ -172,6 +172,13 @@ class Model_Affiliate extends ORM {
         $form->fields['id_product']['caption']      = 'title';  
         $form->fields['id_user']['display_as']      = 'text';
         $form->fields['id_order']['display_as']      = 'text';
+        $form->fields['status']['display_as']       = 'select';
+        $form->fields['status']['options']           = array_keys(self::$statuses);
+    }
+
+    public function exclude_fields()
+    {
+        return array();
     }
 
 

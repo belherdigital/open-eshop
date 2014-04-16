@@ -6,6 +6,13 @@
     <p><?=__('Your affiliate ID is')?> <?=$user->id_user?>, 
         <?=__('example link')?> <a target="_blank" href="<?=Route::url('default')?>?aff=<?=$user->id_user?>"><?=Route::url('default')?>?aff=<?=$user->id_user?></a>
     </p>
+    <h2><?=__('Total')?>: <?=i18n::format_currency($total_earnings)?></h2>
+    <?if($last_payment_date!==NULL):?>
+    <h3><?=__('Since last payment')?> <?=$last_payment_date?> <?=i18n::format_currency($last_earnings)?></h3>
+    <?endif?>
+    <?if ($due_to_pay>core::config('affiliate.payment_min')):?>
+    <h3><?=__('Due to pay next cicle')?>: <?=i18n::format_currency($total_earnings)?></h3>
+    <?endif?>
 </div>
 
 

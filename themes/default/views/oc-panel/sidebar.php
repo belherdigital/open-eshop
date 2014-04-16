@@ -21,6 +21,9 @@
                                         <tr><td class="br"><?=Theme::admin_link(__('Products'), 'product','index','oc-panel','glyphicon glyphicon-inbox')?></td></tr>
                                         <tr><td class="br"><?=Theme::admin_link(__('Categories'),'category','index','oc-panel','glyphicon glyphicon-tags')?></td></tr>
                                         <tr><td class="br"><?=Theme::admin_link(__('Orders'), 'order','index','oc-panel','glyphicon glyphicon-shopping-cart')?></td></tr>
+                                        <?if(Core::config('affiliate.active')==1 AND Theme::get('premium')==1):?>
+                                            <tr><td class="br"><?=Theme::admin_link(__('Affiliates'), 'affiliate','index','oc-panel','glyphicon glyphicon-usd')?></td></tr>
+                                        <?endif?>
                                         <tr><td class="br"><?=Theme::admin_link(__('Coupons'), 'coupon','index','oc-panel','glyphicon glyphicon-tag')?></td></tr>
                                         <tr><td class="br"><?=Theme::admin_link(__('Downloads'), 'download','index','oc-panel','glyphicon glyphicon-download-alt')?></td></tr>
                                         <?if (core::config('product.reviews')==1):?>
