@@ -142,7 +142,7 @@ li.sbp:hover{border-right: none;}
 
 .respon-left-panel {
 	z-index: 1;
-	position: absolute;
+	position: fixed;
     margin-top: -9px;
     min-width: 185px;
     padding: 0px;
