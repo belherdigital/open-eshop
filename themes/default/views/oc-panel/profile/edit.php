@@ -18,6 +18,12 @@
 				<?= FORM::input('email', $user->email, array('class'=>'form-control', 'id'=>'email', 'type'=>'email' ,'required','placeholder'=>__('Email')))?>
 			</div>
 		</div>
+        <div class="form-group">
+            <?= FORM::label('paypal_email', __('Paypal email'), array('class'=>'col-md-2 control-label', 'for'=>'paypal_email'))?>
+            <div class="col-md-5">
+                <?= FORM::input('paypal_email', $user->paypal_email, array('class'=>'form-control', 'id'=>'paypal_email', 'type'=>'paypal_email' ,'required','placeholder'=>__('Paypal email')))?>
+            </div>
+        </div>
 		<div class="form-group">
             <?= FORM::label('signature', __('Email Signature'), array('class'=>'col-md-2 control-label', 'for'=>'signature'))?>
             <div class="col-md-5">

@@ -145,6 +145,7 @@ class Controller_Panel_Profile extends Auth_Controller {
             
             $user->name = core::post('name');
             $user->email = core::post('email');
+            $user->paypal_email = core::post('paypal_email');
             $user->signature = core::post('signature');
             $user->seoname = $user->gen_seo_title(core::post('name'));
 
@@ -380,11 +381,17 @@ class Controller_Panel_Profile extends Auth_Controller {
         $this->template->bind('content', $content);
         $this->template->content = View::factory('oc-panel/profile/affiliate');
         $content->user = $user;
-
-        //@todo !!!
-        //see links per product
-
-        //change paypal account
+        
+        //change paypal account->profile, put a warning if he didnt set it yet with a link
+        if (!valid::email($user->paypal_email))
+            Alert::set(Alert::INFO, __('Please set your paypal email at your profile'));
+        
+        //list all his payments->orders paid
+        $payments = new Model_Order();
+        $content->payments = $payments->where('id_user','=',$user->id_user)
+                        ->where('id_product','is',NULL)
+                        ->where('status','=',Model_Order::STATUS_PAID)
+                        ->order_by('pay_date','DESC')->find_all();
                         
         //see stats
         ////////////////////
@@ -430,7 +437,7 @@ class Controller_Panel_Profile extends Auth_Controller {
         $query = DB::select(DB::expr('SUM(amount) total'))
                         ->from('affiliates')
                         ->where('id_user','=',$user->id_user)
-                        ->where('date_to_pay','>',Date::unix2mysql())
+                        ->where('date_to_pay','<',Date::unix2mysql())
                         ->where('status','=',Model_Affiliate::STATUS_CREATED)
                         ->group_by('id_user')
                         ->execute();
@@ -505,6 +512,7 @@ class Controller_Panel_Profile extends Auth_Controller {
         $pagination = Pagination::factory(array(
                     'view'           => 'pagination',
                     'total_items'    => $commissions->count_all(),
+                    'items_per_page' => 100,
         ))->route_params(array(
                     'controller' => $this->request->controller(),
                     'action'     => $this->request->action(),

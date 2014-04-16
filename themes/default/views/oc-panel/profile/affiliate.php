@@ -6,9 +6,9 @@
     <p><?=__('Your affiliate ID is')?> <?=$user->id_user?>, 
         <?=__('example link')?> <a target="_blank" href="<?=Route::url('default')?>?aff=<?=$user->id_user?>"><?=Route::url('default')?>?aff=<?=$user->id_user?></a>
     </p>
-    <h2><?=__('Total')?>: <?=i18n::format_currency($total_earnings)?></h2>
+    <h2><?=__('Total earned')?> <?=i18n::format_currency($total_earnings)?></h2>
     <?if($last_payment_date!==NULL):?>
-    <h3><?=__('Since last payment')?> <?=$last_payment_date?> <?=i18n::format_currency($last_earnings)?></h3>
+    <h3><?=__('Since last payment')?> <?=i18n::format_currency($last_earnings)?> (<?=$last_payment_date?>)</h3>
     <?endif?>
     <?if ($due_to_pay>core::config('affiliate.payment_min')):?>
     <h3><?=__('Due to pay next cicle')?>: <?=i18n::format_currency($total_earnings)?></h3>
@@ -43,14 +43,15 @@
                                     'width'=>'100%',
                                     'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>
 
+<h2><?=__('Commissions')?></h2>
 <div class="table-responsive">
     <table class="table table-striped">
     <thead>
          <tr>
             <th>#</th>
             <th><?=__('Date')?></th>
-            <th><?=__('Expected payment')?></th>
-            <th><?=__('Paid')?></th>
+            <th><?=__('Clear commission')?></th>
+            <th><?=__('Date Paid')?></th>
             <th><?=__('Product')?></th>
             <th><?=__('Commission')?></th>
             <th><?=__('Status')?></th>
@@ -76,6 +77,36 @@
 </div>
 
 <?=$pagination?>
+
+<?if(count($payments)):?>
+<h2><?=__('Payments')?></h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+    <thead>
+         <tr>
+            <th>#</th>
+            <th><?=__('Method')?></th>
+            <th><?=__('Date')?></th>
+            <th><?=__('Amount')?></th>
+            <th><?=__('Status')?></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <?foreach ($payments as $p):?>
+            <tr>
+                <td><?=$p->id_order?></td>
+                <td><?=$p->paymethod?></td>
+                <td><?=$p->pay_date?></td>
+                <td><?=i18n::format_currency($p->amount, $p->currency)?></td>
+                <td><?=Model_Order::$statuses[$p->status]?></td>
+            </tr>
+        <?endforeach?> 
+        </tbody>
+
+    </table>
+</div>
+<?endif?>
 
 
 <p><?=__('Payout of commissions is after')?> <?=core::config('affiliate.payment_days')?> 

@@ -66,12 +66,61 @@ class Controller_Panel_Affiliate extends Auth_Crud {
      */
     public function action_pay()
     {
+        //create an order and mark it as paid to the user_id
+        if (is_numeric($this->request->param('id')))
+        {
+            //get the user
+            $user = new Model_User($this->request->param('id'));
+            if ($user->loaded())
+            {
+                //commissions due to pay
+                $query = DB::select(DB::expr('SUM(amount) total'))
+                                ->from('affiliates')
+                                ->where('id_user','=',$user->id_user)
+                                ->where('date_to_pay','<',Date::unix2mysql())
+                                ->where('status','=',Model_Affiliate::STATUS_CREATED)
+                                ->group_by('id_user')
+                                ->execute();
+
+                $due_to_pay = $query->as_array();
+                $due_to_pay = (isset($due_to_pay[0]['total']))?$due_to_pay[0]['total']:0;
+
+                if ($due_to_pay>0)
+                {
+                    //create the order
+                    $order = new Model_Order();
+                    $order->id_user  = $user->id_user;
+                    $order->amount   = $due_to_pay*-1;//we add the order as a negative, since we pay, we don't get paid.
+                    $order->currency = 'USD';
+                    $order->paymethod= 'paypal';
+                    $order->pay_date = Date::unix2mysql();
+                    $order->notes    = 'Affiliate Commissions';
+                    $order->status   = Model_Order::STATUS_PAID;
+
+                    try 
+                    {
+                        $order->save();
+                        //update the commissions
+                        DB::update('affiliates')
+                            ->set(array(  'date_paid' =>Date::unix2mysql(),
+                                          'status'    => Model_Affiliate::STATUS_PAID,
+                                          'id_order_payment' => $order->id_order))
+                            ->where('id_user','=',$user->id_user)
+                            ->where('date_to_pay','<',Date::unix2mysql())
+                            ->where('status','=',Model_Affiliate::STATUS_CREATED)
+                            ->execute();
+                        Alert::set(Alert::SUCCESS, __('Commission Paid'));
+                    } catch (Exception $e) {}
+                }
+            }
+        }
+
         $this->template->title = __('Affiliates Payments');
         
         $query = DB::select(DB::expr('SUM(amount) total'))
                         ->select('id_user')
                         ->from('affiliates')
-                        ->where('date_to_pay','>',Date::unix2mysql())
+                        ->where('date_to_pay','<',Date::unix2mysql())
                         ->where('status','=',Model_Affiliate::STATUS_CREATED)
                         ->group_by('id_user')
                         ->execute();
@@ -83,10 +132,15 @@ class Controller_Panel_Affiliate extends Auth_Crud {
         
 
         $users = new Model_User();
-        $users = $users
+
+        if (count($users_to_pay))
+        {
+            $users = $users
                 ->where('id_user','in',array_keys($users_to_pay))
                 ->where('status','=',Model_User::STATUS_ACTIVE)
                 ->find_all();
+        }
+        
         
         $this->render('oc-panel/pages/affiliate/pay', array('users' => $users,'total_to_pay'=>$total_to_pay,'users_to_pay'=>$users_to_pay));
     }    
