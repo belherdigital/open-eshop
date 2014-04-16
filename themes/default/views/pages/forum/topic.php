@@ -34,6 +34,7 @@
             <?endif?>
         <?endif?>
         <p><?=Text::bb2html($topic->description,TRUE)?></p>
+        <a  class="btn btn-primary" href="#reply_form"><?=__('Reply')?></a>
     </div>
 <div class="clearfix"></div>
 <div class="page-header"></div>
@@ -61,15 +62,17 @@
         <?endif?>
     <?endif?>
         <p><?=Text::bb2html($reply->description,TRUE)?></p>
+        <a  class="btn btn-xs btn-primary" href="#reply_form"><?=__('Reply')?></a>
     </div>
 
 <div class="clearfix"></div>
 <div class="page-header"></div>
 <?endforeach?>
+<?=$pagination?>
 
 
 <?if($topic->status==Model_POST::STATUS_ACTIVE AND Auth::instance()->logged_in()):?>
-<form class="well form-horizontal"  method="post" action="<?=Route::url('forum-topic',array('seotitle'=>$topic->seotitle,'forum'=>$forum->seoname))?>"> 
+<form class="well form-horizontal" id="reply_form" method="post" action="<?=Route::url('forum-topic',array('seotitle'=>$topic->seotitle,'forum'=>$forum->seoname))?>"> 
 <h3><?=__('Reply')?></h3>
   <?php if ($errors): ?>
     <p class="message"><?=__('Some errors were encountered, please check the details you entered.')?></p>

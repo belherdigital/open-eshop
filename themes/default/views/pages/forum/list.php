@@ -20,7 +20,8 @@
         <tr>
             <th><?=__('Topic')?></th>
             <th><?=__('Created')?></th>
-            <th><?=__('Topics')?></th>
+            <th><?=__('Last Message')?></th>
+            <th><?=__('Replies')?></th>
             <?if (Auth::instance()->logged_in()):?>
                 <?if(Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN):?>
                     <th><?=__('Edit')?></th>
@@ -31,9 +32,23 @@
     <tbody>
         <?foreach($topics as $topic):?>
             <tr class="success">
-                <td width="70%"><a title="<?=$topic->title?>" href="<?=Route::url('forum-topic', array('forum'=>$forum->seoname,'seotitle'=>$topic->seotitle))?>"><?=strtoupper($topic->title);?></a></td>
-                <td width="5%"><span class="label label-info pull-right"><?=Date::format($topic->created)?></span></td>
-                <td width="5%"><span class="label label-success pull-right"><?=$topic->replies->count_all()?></span></td>
+                <?
+                //amount answers a topic got
+                $replies = ($topic->count_replies>0)?$topic->count_replies:0;
+
+                //lets drive the user to the last page
+                if ($replies>0)
+                {
+                    $last_page = round($replies/Controller_Forum::$items_per_page,0);
+                    $page = ($last_page>0) ?'?page=' . $last_page : '';
+                }
+                   
+                ?>
+
+                <td><a title="<?=$topic->title?>" href="<?=Route::url('forum-topic', array('forum'=>$forum->seoname,'seotitle'=>$topic->seotitle))?><?=$page?>"><?=strtoupper($topic->title);?></a></td>
+                <td width="10%"><span class="label label-info pull-right"><?=Date::format($topic->created)?></span></td>
+                <td width="15%"><span class="label label-warning pull-right"><?=Date::format($topic->last_message)?></span></td>
+                <td width="5%"><span class="label label-success pull-right"><?=$replies?></span></td>
                 <?if (Auth::instance()->logged_in()):?>
                     <?if(Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN):?>
                         <td width="10%">
@@ -47,3 +62,5 @@
         <?endforeach?>
     </tbody>
 </table>
+
+<?=$pagination?>

@@ -2,6 +2,8 @@
 
 class Controller_Forum extends Controller {
 
+    public static $items_per_page = 20;
+
     public function __construct($request, $response)
     {
         parent::__construct($request, $response);
@@ -45,16 +47,59 @@ class Controller_Forum extends Controller {
             $this->template->title            = $forum->name.' - '.__('Forum');
             $this->template->meta_description = $forum->description;
             Breadcrumbs::add(Breadcrumb::factory()->set_title($forum->name));
-            
-            //getting all the topic for the forum
-            $topics = new Model_Post();
-            $topics = $topics->where('id_post_parent','IS',NULL)
+                        
+            //count all topics
+            $count = DB::select(array(DB::select('COUNT("id_post")'),'count'))
+                        ->from(array('posts', 'p'))
+                        ->where('id_post_parent','IS',NULL)
                         ->where('id_forum','=',$forum->id_forum)
-                        ->order_by('created','asc')
-                        ->find_all();
+                        ->cached()
+                        ->execute();
+              
+            $count = array_keys($count->as_array('count'));
+       
+
+            $pagination = Pagination::factory(array(
+                        'view'           => 'pagination',
+                        'total_items'    => $count[0],
+            ))->route_params(array(
+                        'controller' => $this->request->controller(),
+                        'action'     => $this->request->action(),
+                        'forum'         => $this->request->param('forum'),
+            ));
+
+            $pagination->title($this->template->title);
+
+            //getting all the topic for the forum
+            $topics =   DB::select('p.*')
+                        ->select(array(DB::select('COUNT("id_post")')
+                            ->from(array('posts','pc'))
+                            ->where('pc.id_post_parent','=',DB::expr(core::config('database.default.table_prefix').'p.id_post'))
+                            ->where('pc.id_forum','=',$forum->id_forum)
+                            ->where('pc.status','=',Model_Post::STATUS_ACTIVE)
+                            ->group_by('pc.id_post_parent'), 'count_replies'))
+                        ->select(array(DB::select('ps.created')
+                            ->from(array('posts','ps'))
+                            ->where('ps.id_post','=',DB::expr(core::config('database.default.table_prefix').'p.id_post'))
+                            ->or_where('ps.id_post_parent','=',DB::expr(core::config('database.default.table_prefix').'p.id_post'))
+                            ->where('ps.id_forum','=',$forum->id_forum)
+                            ->where('ps.status','=',Model_Post::STATUS_ACTIVE)
+                            ->order_by('ps.created','DESC')
+                            ->limit(1), 'last_message'))
+                        ->from(array('posts', 'p'))
+                        ->where('id_post_parent','IS',NULL)
+                        ->where('id_forum','=',$forum->id_forum)
+                        ->order_by('last_message','DESC')
+                        ->limit($pagination->items_per_page)
+                        ->offset($pagination->offset)
+                        ->as_object()
+                        //->cached()
+                        ->execute();
+
+            $pagination = $pagination->render(); 
 
             $this->template->bind('content', $content);
-            $this->template->content = View::factory('pages/forum/list',array('topics'=>$topics,'forum'=>$forum));
+            $this->template->content = View::factory('pages/forum/list',array('topics'=>$topics,'forum'=>$forum,'pagination'=>$pagination));
         }
         //not found in DB
         else
@@ -168,11 +213,30 @@ class Controller_Forum extends Controller {
             $this->template->title            = $topic->title.' - '.$forum->name.' - '.__('Forum');
             $this->template->meta_description = $topic->description;
 
-            //getting all the topic replies, @todo pagination
+            //getting all the topic replies, pagination
             $replies = new Model_Post();
-            $replies = $replies->where('id_post_parent','=',$topic->id_post)
-                        ->order_by('created','asc')
-                        ->find_all();
+            $replies = $replies->where('id_post_parent','=',$topic->id_post);
+
+            $pagination = Pagination::factory(array(
+                        'view'           => 'pagination',
+                        'total_items'    => $replies->count_all(),
+                        'items_per_page' => self::$items_per_page,
+            ))->route_params(array(
+                        'controller' => $this->request->controller(),
+                        'action'     => $this->request->action(),
+                        'seotitle'   => $this->request->param('seotitle'),
+                        'forum'      => $forum->seoname,
+            ));
+
+            $pagination->title($this->template->title);
+
+            $replies = $replies->order_by('created','asc')
+                            ->limit($pagination->items_per_page)
+                            ->offset($pagination->offset)
+                            ->find_all();
+
+            $pagination = $pagination->render(); 
+
 
             $previous = new Model_Post();
             $previous = $previous->where('status','=',Model_Post::STATUS_ACTIVE)
@@ -195,7 +259,8 @@ class Controller_Forum extends Controller {
                                                                                 'previous'=>$previous,
                                                                                 'replies'=>$replies,
                                                                                 'errors'=>$errors,
-                                                                                'forum'=>$forum));
+                                                                                'forum'=>$forum,
+                                                                                'pagination'=>$pagination));
         }
         //not found in DB
         else
