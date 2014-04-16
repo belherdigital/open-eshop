@@ -51,9 +51,15 @@ class Controller_Product extends Controller{
             else
                 $visitor_id = Auth::instance()->get_user()->id_user;
 
+            //adding affiliate if any
+            $id_affiliate = NULL;
+            if (Model_Affiliate::current()->loaded())
+                $id_affiliate = Model_Affiliate::current()->id_user;
+
+            //new visit
             if ($product->id_user!=$visitor_id)
-                $new_hit = DB::insert('visits', array('id_product', 'id_user', 'ip_address'))
-                        ->values(array($product->id_product, $visitor_id, ip2long(Request::$client_ip)))
+                $new_hit = DB::insert('visits', array('id_product', 'id_user','id_affiliate', 'ip_address'))
+                        ->values(array($product->id_product, $visitor_id, $id_affiliate, ip2long(Request::$client_ip)))
                         ->execute();
 
             //count how many visits has
@@ -278,20 +284,19 @@ class Controller_Product extends Controller{
          */
         $category = NULL;
         $category_parent = NULL;
-        if (Controller::$category!==NULL)
+     
+        if (Model_Category::current()->loaded())
         {
-            if (Controller::$category->loaded())
-            {
-                $category = Controller::$category;
-                //adding the category parent
-                if ($category->id_category_parent!=1 AND $category->parent->loaded())
-                    $category_parent = $category->parent;
+            $category = Model_Category::current();
+            //adding the category parent
+            if ($category->id_category_parent!=1 AND $category->parent->loaded())
+                $category_parent = $category->parent;
 
-                //category image
-                if(file_exists(DOCROOT.'images/categories/'.$category->seoname.'.png'))
-                    Controller::$image = URL::base().'images/categories/'.$category->seoname.'.png';
-            }
+            //category image
+            if(file_exists(DOCROOT.'images/categories/'.$category->seoname.'.png'))
+                Controller::$image = URL::base().'images/categories/'.$category->seoname.'.png';
         }
+        
 
         //base title
         if ($category!==NULL)

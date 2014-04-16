@@ -19,18 +19,6 @@ class Controller extends Kohana_Controller
     public $auto_render = TRUE;
 
     /**
-     * global category get form controller so we can access form anywhere like Controller::$category;
-     * @var Model_Category
-     */
-    public static $category = NULL;
-
-    /**
-     * global coupon get form controller so we can access form anywhere like Controller::$coupon;
-     * @var Model_Category
-     */
-    public static $coupon = NULL;
-
-    /**
      * global image get from controller so we can access from anywhere like Controller::$image; used for facebook metas
      */
     public static $image = NULL;
@@ -47,20 +35,12 @@ class Controller extends Kohana_Controller
         Theme::checker();
 
         $this->maintenance();
-
-        /**
-         * selected category
-         */
-        if($this->request->param('category',NULL) != URL::title(__('all')) )
-        {
-            $slug_cat   = new Model_Category();
-            $seo_cat = $slug_cat->where('seoname', '=', $this->request->param('category'))->limit(1)->cached()->find();
-            if ($seo_cat->loaded())
-                self::$category = $seo_cat;
-        }
         
         //Gets a coupon if selected
-        self::$coupon = Model_Coupon::get_coupon();
+        Model_Coupon::current();
+
+        //get the affiliate if any
+        Model_Affiliate::current();
 
         if($this->auto_render===TRUE)
         {

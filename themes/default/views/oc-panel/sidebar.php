@@ -99,6 +99,7 @@
                                         <tr><td class="br"><?=Theme::admin_link(__('Payment'), 'settings','payment')?></td></tr>
                                         <tr><td class="br"><?=Theme::admin_link(__('Email'), 'settings','email')?></td></tr>
                                         <tr><td class="br"><?=Theme::admin_link(__('Product'), 'settings','product')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Affiliates'), 'settings','affiliates')?></td></tr>
                                     </table>
                                 </div>
                             </div>
@@ -160,6 +161,9 @@
                                         <tr><td class="br"><?=Theme::admin_link(__('Purchases'), 'profile','orders','oc-panel','glyphicon glyphicon-shopping-cart')?></td></tr>
                                         <tr><td class="br"><?=Theme::admin_link(__('Support'), 'support','index','oc-panel','glyphicon glyphicon-comment')?></td></tr>
                                         <tr><td class="br"><?=Theme::admin_link(__('Edit profile'), 'profile','edit','oc-panel','glyphicon glyphicon-user')?></td></tr>
+                                        <?if(Core::config('affiliate.active')==1 AND Theme::get('premium')==1):?>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Affiliates'), 'profile','affiliate','oc-panel','glyphicon glyphicon-usd')?></td></tr>
+                                        <?endif?>
                                     </table>
                                 </div>
                             </div>

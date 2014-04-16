@@ -13,7 +13,23 @@
 
 <?if ( core::config('general.analytics')!='' AND Kohana::$environment === Kohana::PRODUCTION AND is_numeric($price_paid)): ?>
     <script type="text/javascript">
-    _gaq.push(['_trackEvent', 'Purchase', '<?=$product->seotitle?>', <?=round($price_paid,2)?>]);
+        _gaq.push(['_addTrans',
+        '<?=session_id()?>',           // order ID - required
+        '<?=$product->title?>',  // affiliation or store name
+        '<?=round($price_paid,2)?>',          // total - required
+        '0',           // tax
+        '',       // city
+        ]);
+
+        _gaq.push(['_addItem',
+        '<?=session_id()?>',           // order ID - required
+        '<?=$product->seotitle?>',           // SKU/code - required
+        '<?=$product->title?>',        // product name
+        '<?=round($price_paid,2)?>',          // unit price - required
+        '1'               // quantity - required
+        ]);
+        _gaq.push(['_set', 'currencyCode', '<?=$product->curency?>']);
+        _gaq.push(['_trackTrans']);
     </script>
 <?endif?>
 

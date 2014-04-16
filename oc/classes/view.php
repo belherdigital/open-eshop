@@ -56,12 +56,10 @@ class View extends Kohana_View{
     public static function fragment_name($name)
     {
         $cat_seoname = '';
-        if (Controller::$category!==NULL)
-        {
-            if (Controller::$category->loaded())
-                $cat_seoname = '_category_'.Controller::$category->seoname;
-        }
 
+        if (Model_Category::current()->loaded())
+            $cat_seoname = '_category_'.Model_Category::current()->seoname;
+        
         return 'fragment_'.$name.'_'.i18n::lang().'_'.Theme::$theme.$cat_seoname; //.Theme::$skin
     }
 

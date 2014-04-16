@@ -15,6 +15,10 @@ defined('SYSPATH') or exit('Install must be loaded from within index.php!');
 //were the install files are located
 define('INSTALLROOT', DOCROOT.'install/');
 
+//we check first short tags if not we can not even load the installer
+if (! ((bool) ini_get('short_open_tag')) )
+    die('<a href="http://www.php.net/manual/en/ini.core.php#ini.short-open-tag">short_open_tag</a> must be enabled in your php.ini.');
+
 //prevents from new install to be done
 if(!file_exists(INSTALLROOT.'install.lock')) 
     die('Installation seems to be done, please remove /install/ folder');

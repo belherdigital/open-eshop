@@ -27,8 +27,8 @@
     <?endif?>
     <link rel="alternate" type="application/atom+xml" title="RSS <?=Core::config('general.site_name')?>" href="<?=Route::url('rss')?>" />
     
-    <?if (Controller::$category!==NULL):?>
-    <link rel="alternate" type="application/atom+xml"  title="RSS <?=Core::config('general.site_name')?> - <?=Controller::$category->name?>"  href="<?=Route::url('rss',array('category'=>Controller::$category->seoname))?>" />
+    <?if (Model_Category::current()->loaded()):?>
+    <link rel="alternate" type="application/atom+xml"  title="RSS <?=Core::config('general.site_name')?> - <?=Model_Category::current()->name?>"  href="<?=Route::url('rss',array('category'=>Model_Category::current()->seoname))?>" />
     <?endif?>     
         
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->

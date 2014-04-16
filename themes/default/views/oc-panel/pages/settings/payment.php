@@ -176,6 +176,30 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="col-md-5 col-md-offset-3">
+                        <p>Accept bitcoins using Bitpay</p>
+                        <a class="btn btn-success" target="_blank" href="https://bitpay.com">
+                            <i class="glyphicon glyphicon-pencil"></i> Register for free at Bitpay</a>
+                    </label>
+                </div>
+                <div class="form-group">
+                    
+                    <?= FORM::label($forms['bitpay_apikey']['key'], __('Bitpa api key'), array('class'=>'col-md-3 control-label', 'for'=>$forms['bitpay_apikey']['key']))?>
+                    <div class="col-md-5">
+                        <?= FORM::input($forms['bitpay_apikey']['key'], $forms['bitpay_apikey']['value'], array(
+                        'placeholder' => "", 
+                        'class' => 'tips form-control', 
+                        'id' => $forms['bitpay_apikey']['key'],
+                        'data-content'=> __("Bitpa api key"),
+                        'data-trigger'=>"hover",
+                        'data-placement'=>"right",
+                        'data-toggle'=>"popover",
+                        'data-original-title'=>'', 
+                        ))?> 
+                        </div>
+                </div>
+
                
 				<div class="form-actions">
 					<?= FORM::button('submit', 'Update', array('type'=>'submit', 'class'=>'btn btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'settings', 'action'=>'payment'))))?>

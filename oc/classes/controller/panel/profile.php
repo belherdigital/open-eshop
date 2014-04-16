@@ -356,4 +356,119 @@ class Controller_Panel_Profile extends Auth_Controller {
 
     }
 
+
+    //affiliate panel for the users
+    public function action_affiliate()
+    {
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Affiliate')));
+        $this->template->title   = __('Affiliate Panel');
+        $user = Auth::instance()->get_user();
+
+        $this->template->styles = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
+        $this->template->scripts['footer'] = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
+                                                    'js/oc-panel/stats/dashboard.js');
+
+        $this->template->bind('content', $content);
+        $this->template->content = View::factory('oc-panel/profile/affiliate');
+        $content->user = $user;
+
+        //@todo 
+        //see links per product
+
+        //change paypal account
+        
+        //see stats
+        //total earned
+        //total paid
+        //total since last payment
+        //request payment
+        
+        //Getting the dates and range
+        $from_date = Core::post('from_date',strtotime('-1 month'));
+        $to_date   = Core::post('to_date',time());
+
+        //we assure is a proper time stamp if not we transform it
+        if (is_string($from_date) === TRUE) 
+            $from_date = strtotime($from_date);
+        if (is_string($to_date) === TRUE) 
+            $to_date   = strtotime($to_date);
+
+        //mysql formated dates
+        $my_from_date = Date::unix2mysql($from_date);
+        $my_to_date   = Date::unix2mysql($to_date);
+
+        //dates range we are filtering
+        $dates     = Date::range($from_date, $to_date,'+1 day','Y-m-d',array('date'=>0,'count'=> 0),'date');
+
+        //dates displayed in the form
+        $content->from_date = date('Y-m-d',$from_date);
+        $content->to_date   = date('Y-m-d',$to_date) ;
+
+        //visits created last XX days
+        $query = DB::select(DB::expr('DATE(created) date'))
+                        ->select(DB::expr('COUNT(id_visit) count'))
+                        ->from('visits')
+                        ->where('id_affiliate','=',$user->id_user)
+                        ->where('created','between',array($my_from_date,$my_to_date))
+                        ->group_by(DB::expr('DATE( created )'))
+                        ->order_by('date','asc')
+                        ->execute();
+
+        $visits = $query->as_array('date');
+
+        //commissions created last XX days
+        $query = DB::select(DB::expr('DATE(created) date'))
+                        ->select(DB::expr('SUM(amount) total'))
+                        ->from('affiliates')
+                        ->where('id_user','=',$user->id_user)
+                        ->where('created','between',array($my_from_date,$my_to_date))
+                        ->group_by(DB::expr('DATE( created )'))
+                        ->order_by('date','asc')
+                        ->execute();
+
+        $earnings = $query->as_array('date');
+
+        $stats_daily = array();
+        foreach ($dates as $date) 
+        {
+            $count_views = (isset($visits[$date['date']]['count']))?$visits[$date['date']]['count']:0;  
+            $earned      = (isset($earnings[$date['date']]['total']))?$earnings[$date['date']]['total']:0;  
+            $stats_daily[] = array('date'=>$date['date'],'views'=> $count_views,'$'=>$earned);
+        } 
+
+        $content->stats_daily =  $stats_daily;
+
+        ////////////////////////////////////////////////
+        
+        
+        //list paginated with commissions
+        /////////////////////////////////
+        $commissions = new Model_Affiliate();
+
+        $commissions = $commissions->where('id_user','=',$user->id_user);
+
+        $pagination = Pagination::factory(array(
+                    'view'           => 'pagination',
+                    'total_items'    => $commissions->count_all(),
+        ))->route_params(array(
+                    'controller' => $this->request->controller(),
+                    'action'     => $this->request->action(),
+                    'id'         => $this->request->param('id'),
+        ));
+
+        $pagination->title($this->template->title);
+
+        $commissions = $commissions->order_by('created','desc')
+                        ->limit($pagination->items_per_page)
+                        ->offset($pagination->offset)
+                        ->find_all();
+
+        $pagination = $pagination->render(); 
+        $content->pagination  = $pagination;
+        $content->commissions = $commissions;
+        //////////////////////////////////
+
+
+        
+    }
 }

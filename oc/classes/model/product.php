@@ -102,10 +102,10 @@ class Model_Product extends ORM {
         if ($this->valid_coupon())
         {
             //calculating price
-            if (Controller::$coupon->discount_amount>0)
-                $calc_price = round($this->price - Controller::$coupon->discount_amount,2);
-            elseif (Controller::$coupon->discount_percentage>0)
-                $calc_price = round($this->price - ( ($this->price*Controller::$coupon->discount_percentage)/100),2);
+            if (Model_Coupon::current()->discount_amount>0)
+                $calc_price = round($this->price - Model_Coupon::current()->discount_amount,2);
+            elseif (Model_Coupon::current()->discount_percentage>0)
+                $calc_price = round($this->price - ( ($this->price*Model_Coupon::current()->discount_percentage)/100),2);
 
             //in case calculated price is negative
             return ($calc_price>0)? $calc_price : 0;
@@ -131,10 +131,10 @@ class Model_Product extends ORM {
     public function valid_coupon()
     {
         //coupon added
-        if ( Controller::$coupon!=NULL)
+        if ( Model_Coupon::current()->loaded())
         {
             // only calculate price if coupon is NULL or for that poroduct
-            if (Controller::$coupon->id_product == $this->id_product OR Controller::$coupon->id_product == NULL)
+            if (Model_Coupon::current()->id_product == $this->id_product OR Model_Coupon::current()->id_product == NULL)
             {
                 return TRUE;
             }

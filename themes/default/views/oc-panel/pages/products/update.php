@@ -16,11 +16,7 @@
 	<textarea class="col-md-4" onclick="this.select()"><script src="<?=Core::config('general.base_url')?>embed.js?v=<?=core::version?>"></script>
 		<a class="oe_button" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)) ?>"><?=__('Buy Now')?> <?=$product->formated_price()?></a></textarea>
 
-	<div class="clearfix"></div><br>
-		<a class="btn btn-primary" target="_blank" 
-		        href="http://panel.adserum.com/new-advertisement.html?name=<?=$product->user->name?>&email=<?=$product->user->email?>&title=<?=$product->title?>&desc=<?=$product->description?>&desc2=<?=__('Buy Now')?> <?=$product->formated_price()?>&url=<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>&durl=<?=core::config('general.base_url')?>">
-		        <i class="glyphicon glyphglyphicon glyphicon-globe"></i> <?=__('Promote at Adserum')?>
-		</a>
+	<div class="clearfix"></div>
 	
 	</p>
 </div>
@@ -125,6 +121,15 @@
 					</div>
 				</div>
 
+                <?if(Core::config('affiliate.active')==1 AND Theme::get('premium')==1):?>
+                    <div class="form-group">
+                        <?= FORM::label('affiliate_percentage', __('Affiliate commission %'), array('class'=>'col-md-12 ', 'for'=>'affiliate_percentage'))?>
+                        <div class="col-md-12">
+                            <?= FORM::input('affiliate_percentage', $product->affiliate_percentage, array('placeholder' => i18n::money_format(1), 'class' => 'form-control', 'id' => 'affiliate_percentage', 'type'=>'text'))?>
+                        </div>
+                    </div>
+                <?endif?>
+
 				<div class="form-group">
 					<?= FORM::label('price_offer', __('Price Offer'), array('class'=>'col-md-12', 'for'=>'price_offer'))?>
 					<div class="col-md-12">
@@ -135,7 +140,7 @@
 				<div class="form-group">
 					<?= FORM::label('offer_valid', __('Offer Valid'), array('class'=>'col-md-12', 'for'=>'offer_valid'))?>
 					<div class="col-md-8">	
-						<input  type="text" size="16" id="offer_valid" name="offer_valid"  value="<?=$product->offer_valid?>" class="form-control" data-date="" data-date-format="yyyy-mm-dd">
+						<input  type="text" size="16" id="offer_valid" name="offer_valid"  value="<?=($product->offer_valid!=NULL)?Date::format($product->offer_valid,'Y-m-d'):''?>" class="form-control" data-date="" data-date-format="yyyy-mm-dd">
 		            </div>
 		        </div>
 
@@ -196,7 +201,7 @@
 				<div class="form-group">
 		            <?= FORM::label('featured', __('Feature product'), array('class'=>'col-md-12', 'for'=>'featured'))?>
 		            <div class="col-md-8">  
-		                <input  type="text" size="16" id="featured" name="featured"  value="<?=$product->featured?>" class="form-control" data-date="" data-date-format="yyyy-mm-dd">
+		                <input  type="text" size="16" id="featured" name="featured"  value="<?=($product->featured!=NULL)?Date::format($product->featured,'Y-m-d'):''?>" class="form-control" data-date="" data-date-format="yyyy-mm-dd">
 		            </div>
 		        </div>
 

@@ -111,8 +111,8 @@ class Model_Order extends ORM {
             $order->paymethod   = $method;
             $order->currency    = ($currency_paid==NULL)?$product->currency:$currency_paid;
             //add coupon ID and discount
-            if (Controller::$coupon!=NULL)
-                $order->id_coupon = Controller::$coupon->id_coupon;
+            if (Model_Coupon::current()->loaded())
+                $order->id_coupon = Model_Coupon::current()->id_coupon;
             $order->amount      = ($amount_paid==NULL)?$product->final_price():$amount_paid;
             
             //paypal will put here his ip adress thats why we do not add it
@@ -131,7 +131,10 @@ class Model_Order extends ORM {
         try {
             $order->save();
             //if saved delete coupon from session and -- number of coupons.
-            Model_Coupon::sale(Controller::$coupon);
+            Model_Coupon::sale(Model_Coupon::current());
+
+            //add affiliate commision
+            Model_Affiliate::sale($order,$product);
             
             //generate licenses
             $licenses = Model_License::generate($user,$order,$product);

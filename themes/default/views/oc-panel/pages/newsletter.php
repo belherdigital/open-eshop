@@ -7,12 +7,45 @@
   <a href="http://open-classifieds.com/2013/08/23/how-to-send-the-newsletter/" target="_blank"><?=__('Read more')?></a>
     <a class="btn btn-primary pull-right" href="<?=Route::url('oc-panel',array('controller'=>'settings','action'=>'email'))?>?force=1">
   <?=__('Email Settings')?></a>
-<p><?=__('You can send a mass email to all active users.')?> <span class="badge badge-info"><?=$count?></span></p>
+
     </div>
 
-    <form class="well form-horizontal"  method="post" action="<?=Route::url('oc-panel',array('controller'=>'newsletter','action'=>'index'))?>">         
-          <?=Form::errors()?>        
-    
+    <form class="well form-horizontal"  method="post" action="<?=Route::url('oc-panel',array('controller'=>'newsletter','action'=>'index'))?>">  
+
+        <?=Form::errors()?> 
+
+        <div class="form-group">
+            <label class="col-md-2"><?=__('To')?>:</label>
+            <div class="col-md-5">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="send_all" checked >
+                        <?=__('All active users.')?> <span class="badge badge-info"><?=$count_all_users?></span>
+                    </label>
+                </div> 
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="send_expired_support"  >
+                        <?=__('Expired support.')?> <span class="badge badge-info"><?=$count_support_expired?></span>
+                    </label>
+                </div> 
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="send_expired_license"  >
+                        <?=__('Expired license.')?> <span class="badge badge-info"><?=$count_license_expired?></span>
+                    </label>
+                </div> 
+                <select name="send_product" class="form-control">
+                    <option><?=__('Users who bought the product')?></option>
+                    <?foreach ($products as $p):?>
+                        <option value="<?=$p['id_product']?>" <?=(core::request('send_product')==$p['id_product'])?'selected':''?>>
+                            <?=$p['title']?> (<?=$p['count']?>)</option>
+                    <?endforeach?>
+                </select>
+
+            </div> 
+        </div>
+       
 
         <div class="form-group">
         <label class="col-md-2"><?=__('From')?>:</label>
