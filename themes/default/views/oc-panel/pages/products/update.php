@@ -102,7 +102,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<?= FORM::label('price', __('Price'), array('class'=>'col-md-12', 'for'=>'price'))?>
+					<label for="price" class="col-md-12"><?=__('Price')?> <span class="star-required">*</span></label>
 					<div class="col-md-12">
 						<?= FORM::input('price', $product->price, array('placeholder' => i18n::money_format(1), 'class' => 'form-control', 'id' => 'price', 'type'=>'text', 'required'))?>
 					</div>

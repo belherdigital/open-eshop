@@ -29,8 +29,8 @@
 
 <ul class="nav nav-pills" id="statsTabs">
     
+    <li class="active"><a href="#sales" data-toggle="tab"><?=__('Sales')?></a></li>
     <li><a href="#visits" data-toggle="tab"><?=__('Visits')?></a></li>
-    <li><a href="#sales" data-toggle="tab"><?=__('Sales')?></a></li>
     <li><a href="#downloads" data-toggle="tab"><?=__('Downloads')?></a></li>
     <li><a href="#licenses" data-toggle="tab"><?=__('Licenses')?></a></li>
     <li><a href="#products" data-toggle="tab"><?=__('Products')?></a></li>
@@ -38,40 +38,6 @@
 </ul>
 
 <div class="tab-content">
-    <!-- VISITS TAB -->
-    <div class="tab-pane active" id="visits">
-        <div class="clearfix"></div><br>
-        <table class="table table-bordered table-condensed">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th><?=__('Today')?> <?=date('d-m')?></th>
-                    <th><?=__('Yesterday')?> <?=date('d-m',strtotime('-1 day'))?></th>
-                    <th><?=__('Month')?> <?=date('M Y')?></th>
-                    <th><?=__('Year')?> <?=date('Y')?></th>
-                    <th><?=__('Total')?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><b><?=__('Visits')?></b></td>
-                    <td><?=$visits_today?></td>
-                    <td><?=$visits_yesterday?></td>
-                    <td><?=$visits_month?></td>
-                    <td><?=$visits_year?></td>
-                    <td><?=$visits_total?></td>
-                </tr>
-            </tbody>
-        </table>
-            <?=Chart::column($stats_daily,array('title'=>__('Visits per day'),
-                                        'height'=>400,
-                                        'width'=>'100%',
-                                        ))?> 
-
-            <?=Chart::column($stats_by_month,array('title'=>__('Visits per month'),
-                                        'height'=>400,
-                                        'width'=>'100%'))?> 
-    </div>
     <!-- SALES TAB -->
     <div class="tab-pane active" id="sales">
         <div class="clearfix"></div><br>
@@ -106,6 +72,40 @@
                                     'height'=>400,
                                     'width'=>'100%',
                                     'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>          
+    </div>
+    <!-- VISITS TAB -->
+    <div class="tab-pane active" id="visits">
+        <div class="clearfix"></div><br>
+        <table class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th><?=__('Today')?> <?=date('d-m')?></th>
+                    <th><?=__('Yesterday')?> <?=date('d-m',strtotime('-1 day'))?></th>
+                    <th><?=__('Month')?> <?=date('M Y')?></th>
+                    <th><?=__('Year')?> <?=date('Y')?></th>
+                    <th><?=__('Total')?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b><?=__('Visits')?></b></td>
+                    <td><?=$visits_today?></td>
+                    <td><?=$visits_yesterday?></td>
+                    <td><?=$visits_month?></td>
+                    <td><?=$visits_year?></td>
+                    <td><?=$visits_total?></td>
+                </tr>
+            </tbody>
+        </table>
+            <?=Chart::column($stats_daily,array('title'=>__('Visits per day'),
+                                        'height'=>400,
+                                        'width'=>'100%',
+                                        ))?> 
+
+            <?=Chart::column($stats_by_month,array('title'=>__('Visits per month'),
+                                        'height'=>400,
+                                        'width'=>'100%'))?> 
     </div>
     <!-- DOWNLOADS TAB -->
     <div class="tab-pane active" id="downloads">
