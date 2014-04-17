@@ -7,4 +7,14 @@ if($('#to_date').length != 0){
 $('#statsTabs a').click(function (e) {
   e.preventDefault();
   $(this).tab('show');
-})
+});
+// after loading page, make sales active
+$(window).load(function(){
+	$('.tab-content').ready(function(){
+		$('.tab-pane').each(function(){
+			if($(this).attr('id') != 'sales'){
+				$(this).removeClass('active');
+			}
+		});
+	});
+});
