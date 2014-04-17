@@ -123,6 +123,7 @@ class Controller_Panel_Affiliate extends Auth_Crud {
                         ->where('date_to_pay','<',Date::unix2mysql())
                         ->where('status','=',Model_Affiliate::STATUS_CREATED)
                         ->group_by('id_user')
+                        ->having('total','>=',core::config('affiliate.payment_min'))
                         ->execute();
         $users_to_pay = $query->as_array('id_user');
 

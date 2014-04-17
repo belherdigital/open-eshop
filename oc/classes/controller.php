@@ -23,6 +23,17 @@ class Controller extends Kohana_Controller
      */
     public static $image = NULL;
 
+    /**
+     * global category get form controller so we can access form anywhere like Controller::$category;
+     * @var Model_Category DEPRECATED
+     */
+    public static $category = NULL;
+
+    /**
+     * global coupon get form controller so we can access form anywhere like Controller::$coupon;
+     * @var Model_Coupon DEPRECATED
+     */
+    public static $coupon = NULL;
 
     /**
      * Initialize properties before running the controller methods (actions),
@@ -36,8 +47,11 @@ class Controller extends Kohana_Controller
 
         $this->maintenance();
         
+        //get category, deprecated, to keep backwards compatibility with themes
+        self::$category = Model_Category::current();
+                
         //Gets a coupon if selected
-        Model_Coupon::current();
+        self::$coupon = Model_Coupon::current();
 
         //get the affiliate if any
         Model_Affiliate::current();

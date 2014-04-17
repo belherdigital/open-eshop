@@ -3,7 +3,7 @@
 
   '1.4' => 
   array (
-    'codename' => 'Canary',
+    'codename' => 'Fuerteventura',
     'released' => '2014-04',
     'blog' => '',
     'changelog' => 'https://github.com/open-classifieds/open-eshop/commits/1.4',

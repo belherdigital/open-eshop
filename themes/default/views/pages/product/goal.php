@@ -28,7 +28,7 @@
         '<?=round($price_paid,2)?>',          // unit price - required
         '1'               // quantity - required
         ]);
-        _gaq.push(['_set', 'currencyCode', '<?=$product->curency?>']);
+        _gaq.push(['_set', 'currencyCode', '<?=$product->currency?>']);
         _gaq.push(['_trackTrans']);
     </script>
 <?endif?>
