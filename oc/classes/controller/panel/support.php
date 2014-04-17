@@ -102,7 +102,7 @@ class Controller_Panel_Support extends Auth_Controller {
         $pagination->title($this->template->title);
 
         $tickets = $tickets->order_by('status','asc')
-                        ->order_by('created','desc')
+                        ->order_by('read_date','desc')
                         ->limit($pagination->items_per_page)
                         ->offset($pagination->offset)
                         ->find_all();
