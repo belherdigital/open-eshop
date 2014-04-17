@@ -13,7 +13,8 @@
     <li data-id="<?=$key?>" id="li_<?=$key?>"><i class="glyphicon glyphicon-move"></i> <?=$cats[$key]['name']?>
         
         <a data-text="<?=__('Are you sure you want to delete? We will move the siblings categories and ads to the parent of this category.')?>" 
-           data-id="li_<?=$key?>" 
+           data-id="li_<?=$key?>"
+           onclick="return confirm('<?=__('Delete?')?>');" 
            class="btn btn-xs btn-danger pull-right"  
            href="<?=Route::url('oc-panel', array('controller'=> 'category', 'action'=>'delete','id'=>$key))?>">
                     <i class="glyphicon glyphicon-trash"></i>
