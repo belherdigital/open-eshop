@@ -118,13 +118,19 @@ class Controller_Panel_Order extends Auth_Crud {
             {
                 $form->save_object();
 
-                //if fraud or refunded....disable licenses!!
+                //if fraud or refunded....disable licenses!! AND commissions
                 if ($form->object->status == Model_Order::STATUS_FRAUD OR $form->object->status == Model_Order::STATUS_REFUND)
                 {
                     foreach ($form->object->licenses->find_all() as $l) 
                     {
                         $l->status = Model_License::STATUS_NOACTIVE;
                         $l->save();
+                    }
+                    //change affiliate commision
+                    if ($form->object->affiliate->loaded())
+                    {
+                        $form->object->affiliate->status = $form->object->status;
+                        $form->object->affiliate->save();
                     }
                 }
 

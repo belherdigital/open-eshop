@@ -63,6 +63,14 @@ class Model_Order extends ORM {
                 'model'       => 'coupon',
                 'foreign_key' => 'id_coupon',
             ),
+        
+    );
+
+    protected $_has_one = array(
+        'affiliate' => array(
+                'model'       => 'affiliate',
+                'foreign_key' => 'id_order',
+            ),
     );
 
     protected $_has_many = array(
