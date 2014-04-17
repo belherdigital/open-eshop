@@ -46,7 +46,7 @@ class Model_Category extends ORM {
 
 	/**
      * global Model Category instance get from controller so we can access from anywhere like Model_Category::current()
-     * @var Model_User
+     * @var Model_Location
      */
     protected static $_current = NULL;
 
