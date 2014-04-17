@@ -79,6 +79,12 @@
 		            </div>
 		            </div>
 		        </div>
+		        <div class="form-group">
+					<label for="price" class="col-md-12"><?=__('Price')?> <span class="star-required">*</span></label>
+					<div class="col-md-12">
+						<?= FORM::input('price', $product->price, array('placeholder' => i18n::money_format(1), 'class' => 'form-control', 'id' => 'price', 'type'=>'text', 'required'))?>
+					</div>
+				</div>
 		        <!-- /categories -->
 			  	<div class="form-group">
 			    	<label for="currency" class="col-md-12"><?=__('Currency')?> <span class="star-required">*</span></label>
@@ -99,12 +105,6 @@
 					<label for="title" class="col-md-12"><?=__('Title')?> <span class="star-required">*</span></label>
 					<div class="col-md-12">
 						<?= FORM::input('title', $product->title, array('placeholder' => __('Title'), 'class' => 'form-control', 'id' => 'title', 'required'))?>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="price" class="col-md-12"><?=__('Price')?> <span class="star-required">*</span></label>
-					<div class="col-md-12">
-						<?= FORM::input('price', $product->price, array('placeholder' => i18n::money_format(1), 'class' => 'form-control', 'id' => 'price', 'type'=>'text', 'required'))?>
 					</div>
 				</div>
 				<div class="form-group">
