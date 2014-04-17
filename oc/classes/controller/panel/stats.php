@@ -387,8 +387,7 @@ class Controller_Panel_Stats extends Auth_Controller {
                         ->select(DB::expr('COUNT(id_download) count'))
                         ->from('downloads')
                         ->where('created','between',array($my_from_date,$my_to_date));
-        // if ($content->product!==NULL)
-        //         $query = $query->where('id_product','=',$content->product->id_product);
+        
         $query = $query
                         ->group_by(DB::expr('DATE( created )'))
                         ->order_by('date','asc')
@@ -410,8 +409,7 @@ class Controller_Panel_Stats extends Auth_Controller {
         $query = DB::select(DB::expr('COUNT(id_download) count'))
                         ->from('downloads')
                         ->where(DB::expr('DATE( created )'),'=',DB::expr('CURDATE()'));
-        // if ($content->product!==NULL)
-        //         $query = $query->where('id_product','=',$content->product->id_product);
+        
         $query = $query
                         ->group_by(DB::expr('DATE( created )'))
                         ->order_by('created','asc')
@@ -424,8 +422,7 @@ class Controller_Panel_Stats extends Auth_Controller {
         $query = DB::select(DB::expr('COUNT(id_download) count'))
                         ->from('downloads')
                         ->where(DB::expr('DATE( created )'),'=',date('Y-m-d',strtotime('-1 day')));
-        // if ($content->product!==NULL)
-        //         $query = $query->where('id_product','=',$content->product->id_product);
+        
         $query = $query
                         ->group_by(DB::expr('DATE( created )'))
                         ->order_by('created','asc')
@@ -439,8 +436,7 @@ class Controller_Panel_Stats extends Auth_Controller {
                         ->from('downloads')
                         ->where(DB::expr('MONTH( created )'),'=',DB::expr('MONTH(CURDATE())'))
                         ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
-        // if ($content->product!==NULL)
-        //         $query = $query->where('id_product','=',$content->product->id_product);
+        
         $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
                         ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
                         ->order_by('created','asc')
@@ -455,8 +451,7 @@ class Controller_Panel_Stats extends Auth_Controller {
         $query = DB::select(DB::expr('COUNT(id_download) count'))
                         ->from('downloads')
                         ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
-        // if ($content->product!==NULL)
-        //         $query = $query->where('id_product','=',$content->product->id_product);
+        
         $query = $query->group_by(DB::expr('YEAR(`created`)'))
                         ->order_by(DB::expr('YEAR(`created`)'),'asc')
                         ->order_by('created','asc')
@@ -470,8 +465,7 @@ class Controller_Panel_Stats extends Auth_Controller {
         //total downloads
         $query = DB::select(DB::expr('COUNT(id_download) count'))
                         ->from('downloads');
-        // if ($content->product!==NULL)
-        //         $query = $query->where('id_product','=',$content->product->id_product);
+        
         $query = $query
                         ->execute();
 
@@ -482,8 +476,7 @@ class Controller_Panel_Stats extends Auth_Controller {
         $query = DB::select(DB::expr('DATE_FORMAT(`created`, "%Y-%m") date'))
                         ->select(DB::expr('COUNT(id_download) count'))
                         ->from('downloads');
-        // if ($content->product!==NULL)
-        //         $query = $query->where('id_product','=',$content->product->id_product);
+        
         $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
                         ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
                         ->execute();
@@ -620,7 +613,7 @@ class Controller_Panel_Stats extends Auth_Controller {
                         ->from('licenses');
         if ($content->product!==NULL)
                 $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
+                $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
                         ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
                         ->execute();
 
@@ -634,7 +627,146 @@ class Controller_Panel_Stats extends Auth_Controller {
             $activated_licenses = (isset($licenses[$date['date']]['activated']))?$licenses[$date['date']]['activated']:0;
             $stats_licenses_by_month[] = array('date'=>$date['date'],'#licenses'=> $count_licenses,'#activated'=>$activated_licenses);
         } 
-        $content->stats_licenses_by_month =  $stats_licenses_by_month;      
+        $content->stats_licenses_by_month =  $stats_licenses_by_month;
+
+        //////////////////////////TICKETS STATS///////////////////
+
+        //Today 
+        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
+                        ->from('tickets')
+                        ->where(DB::expr('DATE( created )'),'=',DB::expr('CURDATE()'));
+        
+        $query = $query
+                        ->group_by(DB::expr('DATE( created )'))
+                        ->order_by('created','asc')
+                        ->execute();
+
+        $ads = $query->as_array();
+        $content->tickets_today = (isset($ads[0]['count']))?$ads[0]['count']:0;
+
+        //Yesterday
+        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
+                        ->from('tickets')
+                        ->where(DB::expr('DATE( created )'),'=',date('Y-m-d',strtotime('-1 day')));
+        
+        $query = $query
+                        ->group_by(DB::expr('DATE( created )'))
+                        ->order_by('created','asc')
+                        ->execute();
+
+        $ads = $query->as_array();
+        $content->tickets_yesterday     = (isset($ads[0]['count']))?$ads[0]['count']:0;
+
+        //current month
+        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
+                        ->from('tickets')
+                        ->where(DB::expr('MONTH( created )'),'=',DB::expr('MONTH(CURDATE())'))
+                        ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
+        
+        $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
+                        ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
+                        ->order_by('created','asc')
+                        ->execute();
+
+
+        $tickets = $query->as_array();
+        $content->tickets_month = (isset($tickets[0]['count']))?$tickets[0]['count']:0;
+
+
+        //current year
+        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
+                        ->from('tickets')
+                        ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
+        
+        $query = $query->group_by(DB::expr('YEAR(`created`)'))
+                        ->order_by(DB::expr('YEAR(`created`)'),'asc')
+                        ->order_by('created','asc')
+                        ->execute();
+
+        $tickets = $query->as_array();
+        $content->tickets_year = (isset($tickets[0]['count']))?$tickets[0]['count']:0;
+
+        //read tickets
+        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
+                        ->from('tickets')
+                        ->where('status','=', Model_Ticket::STATUS_READ);
+        
+        $query = $query->execute();
+
+        $tickets = $query->as_array();
+        $content->tickets_read = (isset($tickets[0]['count']))?$tickets[0]['count']:0;
+
+        //hold tickets
+        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
+                        ->from('tickets')
+                        ->where('status','=', Model_Ticket::STATUS_HOLD);
+        
+        $query = $query->execute();
+
+        $tickets = $query->as_array();
+        $content->tickets_hold = (isset($tickets[0]['count']))?$tickets[0]['count']:0;
+
+        //closed tickets
+        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
+                        ->from('tickets')
+                        ->where('status','=', Model_Ticket::STATUS_CLOSED);
+        
+        $query = $query->execute();
+
+        $tickets = $query->as_array();
+        $content->tickets_closed = (isset($tickets[0]['count']))?$tickets[0]['count']:0;
+
+        //total tickets
+        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
+                        ->from('tickets');
+        
+        $query = $query->execute();
+
+        $tickets = $query->as_array();
+        $content->tickets_total = (isset($tickets[0]['count']))?$tickets[0]['count']:0;
+
+        //tickets created last XX days
+        //total
+        $query = DB::select(DB::expr('DATE(created) date'))
+                        ->select(DB::expr('COUNT(id_ticket) count'))
+                        ->from('tickets')
+                        ->where('created','between',array($my_from_date,$my_to_date));
+        $query = $query
+                        ->group_by(DB::expr('DATE( created )'))
+                        ->order_by('date','asc')
+                        ->execute();
+
+        $tickets = $query->as_array('date');
+
+
+
+        $stats_tickets = array();
+        foreach ($dates as $date) 
+        {
+            $count_tickets = (isset($tickets[$date['date']]['count']))?$tickets[$date['date']]['count']:0;
+            $stats_tickets[] = array('date'=>$date['date'],'#tickets'=> $count_tickets);
+        } 
+        $content->stats_tickets =  $stats_tickets;
+
+        //tickets per month
+        $query = DB::select(DB::expr('DATE_FORMAT(`created`, "%Y-%m") date'))
+                        ->select(DB::expr('COUNT(id_ticket) count'))
+                        ->from('tickets');
+        
+        $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
+                        ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
+                        ->execute();
+
+        $tickets = $query->as_array('date');
+
+        $stats_tickets_by_month = array();
+        foreach ($dates_year as $date) 
+        {
+            $count_tickets = (isset($tickets[$date['date']]['count']))?$tickets[$date['date']]['count']:0;
+            
+            $stats_tickets_by_month[] = array('date'=>$date['date'],'#tickets'=> $count_tickets);
+        } 
+        $content->stats_tickets_by_month =  $stats_tickets_by_month;      
         
     }
 

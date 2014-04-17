@@ -33,6 +33,7 @@
     <li><a href="#visits" data-toggle="tab"><?=__('Visits')?></a></li>
     <li><a href="#downloads" data-toggle="tab"><?=__('Downloads')?></a></li>
     <li><a href="#licenses" data-toggle="tab"><?=__('Licenses')?></a></li>
+    <li><a href="#tickets" data-toggle="tab"><?=__('tickets')?></a></li>
     <li><a href="#products" data-toggle="tab"><?=__('Products')?></a></li>
     
 </ul>
@@ -73,8 +74,9 @@
                                     'width'=>'100%',
                                     'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>          
     </div>
-    <!-- VISITS TAB -->
-    <div class="tab-pane active" id="visits">
+    
+    <!-- tickets TAB -->
+    <div class="tab-pane active" id="tickets">
         <div class="clearfix"></div><br>
         <table class="table table-bordered table-condensed">
             <thead>
@@ -84,95 +86,31 @@
                     <th><?=__('Yesterday')?> <?=date('d-m',strtotime('-1 day'))?></th>
                     <th><?=__('Month')?> <?=date('M Y')?></th>
                     <th><?=__('Year')?> <?=date('Y')?></th>
+                    <th><?=__('Read')?></th>
+                    <th><?=__('On Hold')?></th>
+                    <th><?=__('Closed')?></th>
                     <th><?=__('Total')?></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><b><?=__('Visits')?></b></td>
-                    <td><?=$visits_today?></td>
-                    <td><?=$visits_yesterday?></td>
-                    <td><?=$visits_month?></td>
-                    <td><?=$visits_year?></td>
-                    <td><?=$visits_total?></td>
+                    <td><b><?=__('tickets')?></b></td>
+                    <td><?=$tickets_today?></td>
+                    <td><?=$tickets_yesterday?></td>
+                    <td><?=$tickets_month?></td>
+                    <td><?=$tickets_year?></td>
+                    <td><?=$tickets_read?></td>
+                    <td><?=$tickets_hold?></td>
+                    <td><?=$tickets_closed?></td>
+                    <td><?=$tickets_total?></td>
                 </tr>
             </tbody>
         </table>
-            <?=Chart::column($stats_daily,array('title'=>__('Visits per day'),
-                                        'height'=>400,
-                                        'width'=>'100%',
-                                        ))?> 
-
-            <?=Chart::column($stats_by_month,array('title'=>__('Visits per month'),
-                                        'height'=>400,
-                                        'width'=>'100%'))?> 
-    </div>
-    <!-- DOWNLOADS TAB -->
-    <div class="tab-pane active" id="downloads">
-        <div class="clearfix"></div><br>
-        <table class="table table-bordered table-condensed">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th><?=__('Today')?> <?=date('d-m')?></th>
-                    <th><?=__('Yesterday')?> <?=date('d-m',strtotime('-1 day'))?></th>
-                    <th><?=__('Month')?> <?=date('M Y')?></th>
-                    <th><?=__('Year')?> <?=date('Y')?></th>
-                    <th><?=__('Total')?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><b><?=__('Downloads')?></b></td>
-                    <td><?=$downloads_today?></td>
-                    <td><?=$downloads_yesterday?></td>
-                    <td><?=$downloads_month?></td>
-                    <td><?=$downloads_year?></td>
-                    <td><?=$downloads_total?></td>
-                </tr>
-            </tbody>
-        </table>
-        <?=Chart::column($stats_downloads,array('title'=>__('Downloads statistics per day'),
+        <?=Chart::column($stats_tickets,array('title'=>__('tickets statistics per day'),
                             'height'=>400,
                             'width'=>'100%',
                             'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>       
-        <?=Chart::column($stats_downloads_by_month,array('title'=>__('Downloads statistics per month'),
-                            'height'=>400,
-                            'width'=>'100%',
-                            'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>
-    </div>
-    <!-- Licenses TAB -->
-    <div class="tab-pane active" id="licenses">
-        <div class="clearfix"></div><br>
-        <table class="table table-bordered table-condensed">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th><?=__('Today')?> <?=date('d-m')?></th>
-                    <th><?=__('Yesterday')?> <?=date('d-m',strtotime('-1 day'))?></th>
-                    <th><?=__('Month')?> <?=date('M Y')?></th>
-                    <th><?=__('Year')?> <?=date('Y')?></th>
-                    <th><?=__('Total')?></th>
-                    <th><?=__('Active')?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><b><?=__('Licenses')?></b></td>
-                    <td><?=$licenses_today?></td>
-                    <td><?=$licenses_yesterday?></td>
-                    <td><?=$licenses_month?></td>
-                    <td><?=$licenses_year?></td>
-                    <td><?=$licenses_total?></td>
-                    <td><?=$licenses_active?></td>
-                </tr>
-            </tbody>
-        </table>
-        <?=Chart::column($stats_licenses,array('title'=>__('Licenses statistics per day'),
-                            'height'=>400,
-                            'width'=>'100%',
-                            'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>       
-        <?=Chart::column($stats_licenses_by_month,array('title'=>__('Licenses statistics per month'),
+        <?=Chart::column($stats_tickets_by_month,array('title'=>__('tickets statistics per month'),
                             'height'=>400,
                             'width'=>'100%',
                             'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>
