@@ -102,6 +102,12 @@
 					</div>
 				</div>
 				<div class="form-group">
+					<?= FORM::label('price', __('Price'), array('class'=>'col-md-12', 'for'=>'price'))?>
+					<div class="col-md-12">
+						<?= FORM::input('price', $product->price, array('placeholder' => i18n::money_format(1), 'class' => 'form-control', 'id' => 'price', 'type'=>'text', 'required'))?>
+					</div>
+				</div>
+				<div class="form-group">
 					<label for="description" class="col-md-12"><?=__('Description')?> <span class="star-required">*</span></label>
 					<div class="col-md-12">
 						<?= FORM::textarea('description', $product->description, array('class'=>'form-control', 'name'=>'description', 'id'=>'description' ,  'rows'=>10, 'required'))?>
@@ -114,13 +120,7 @@
 		<div class="panel panel-primary product-panel">
 			<div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span> <?=__('Details')?></div>
   			<div class="panel-body">
-	  			<div class="form-group">
-					<?= FORM::label('price', __('Price'), array('class'=>'col-md-12', 'for'=>'price'))?>
-					<div class="col-md-12">
-						<?= FORM::input('price', $product->price, array('placeholder' => i18n::money_format(1), 'class' => 'form-control', 'id' => 'price', 'type'=>'text'))?>
-					</div>
-				</div>
-
+	  			
                 <?if(Core::config('affiliate.active')==1 AND Theme::get('premium')==1):?>
                     <div class="form-group">
                         <?= FORM::label('affiliate_percentage', __('Affiliate commission %'), array('class'=>'col-md-12 ', 'for'=>'affiliate_percentage'))?>
