@@ -32,7 +32,7 @@ class Model_Coupon extends ORM {
 
     /**
      * global Model Coupon instance get from controller so we can access from anywhere like Model_Coupon::current()
-     * @var Model_User
+     * @var Model_Coupon
      */
     protected static $_current = NULL;
     
