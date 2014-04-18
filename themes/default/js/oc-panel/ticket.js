@@ -1,9 +1,7 @@
 $(document).ready(function() {
     var trigger = false;
     var panels = $('.user-infos');
-    $(panels).each(function(){
-        $(this).hide();
-    });
+    
     
 
     //Click dropdown
@@ -30,7 +28,16 @@ $(document).ready(function() {
             }
         })
     });
-
+    $(panels).each(function(index, element){
+        $(this).hide();
+        if(index == panels.length -1){
+            $('.dropdown-user').each(function(i, e){
+                if(i == $('.dropdown-user').length -1){
+                    $(this).trigger("click");  
+                }
+            });
+        }    
+    });
     $('#collapse-all-tickets').on('click',function(){
         $('.user-ticket').each(function(){
             if(!trigger)
