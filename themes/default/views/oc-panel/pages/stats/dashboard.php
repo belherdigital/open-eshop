@@ -27,18 +27,18 @@
 
 <div class="clearfix"></div><br><hr>
 
-<ul class="nav nav-pills" id="statsTabs">
+<ul class="nav nav-pills invisible" id="statsTabs">
     
     <li class="active"><a href="#sales" data-toggle="tab"><?=__('Sales')?></a></li>
     <li><a href="#visits" data-toggle="tab"><?=__('Visits')?></a></li>
     <li><a href="#downloads" data-toggle="tab"><?=__('Downloads')?></a></li>
     <li><a href="#licenses" data-toggle="tab"><?=__('Licenses')?></a></li>
-    <li><a href="#tickets" data-toggle="tab"><?=__('tickets')?></a></li>
+    <li><a href="#tickets" data-toggle="tab"><?=__('Tickets')?></a></li>
     <li><a href="#products" data-toggle="tab"><?=__('Products')?></a></li>
     
 </ul>
 
-<div class="tab-content">
+<div class="tab-content" >
     <!-- SALES TAB -->
     <div class="tab-pane active" id="sales">
         <div class="clearfix"></div><br>
@@ -176,11 +176,11 @@
         <?=Chart::column($stats_tickets,array('title'=>__('tickets statistics per day'),
                             'height'=>400,
                             'width'=>'100%',
-                            'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>       
+                            ))?>       
         <?=Chart::column($stats_tickets_by_month,array('title'=>__('tickets statistics per month'),
                             'height'=>400,
                             'width'=>'100%',
-                            'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>
+                            ))?>
     </div>
     <!-- Licenses TAB -->
     <div class="tab-pane active" id="licenses">
@@ -230,9 +230,12 @@
                         <th><?=__('Views')?></th>
                         <th><?=__('Downloads')?></th>
                         <th><?=__('Licenses')?></th>
+                        <th><?=__('Open tickets')?></th>
+                        <th><?=__('Closed tickets')?></th>
                     </tr>
                 </thead>
                 <tbody>
+<?var_dump($tickets_open_product)?>
                     <?foreach ($products as $p):?>
                     
                     <tr>
@@ -243,6 +246,8 @@
                         <td><?=(isset($visits_product[$p->id_product]))?$visits_product[$p->id_product]['count']:0?></td>
                         <td><?=(isset($downloads_product[$p->id_product]))?$downloads_product[$p->id_product]['count']:0?></td>
                         <td><?=(isset($licenses_product[$p->id_product]))?$licenses_product[$p->id_product]['count']:0?></td>
+                        <td><?=(isset($tickets_open_product[$p->id_product]))?$tickets_open_product[$p->id_product]['count']:0?></td>
+                        <td><?=(isset($tickets_closed_product[$p->id_product]))?$tickets_closed_product[$p->id_product]['count']:0?></td>
                     </tr>
                     <?endforeach?>
                 </tbody>

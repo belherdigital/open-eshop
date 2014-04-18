@@ -370,6 +370,29 @@ class Controller_Panel_Stats extends Auth_Controller {
                         ->execute();
         $content->licenses_product = $query->as_array('id_product');
 
+        //tickets closed
+        $query = DB::select('id_product')
+                        ->select(DB::expr('COUNT(id_ticket) count'))
+                        ->from('tickets')
+                        ->where('status','=',Model_Ticket::STATUS_CLOSED)
+                        ->where('id_ticket_parent','=',NULL)
+                        ->group_by('id_product')
+                        ->order_by('count','desc')
+                        ->execute();
+
+        $content->tickets_closed_product = $query->as_array('id_product');
+
+        //tickets open
+        $query = DB::select('id_product')
+                        ->select(DB::expr('COUNT(id_ticket) count'))
+                        ->from('tickets')
+                        ->where('id_ticket_parent','=',NULL)
+                        ->group_by('id_product')
+                        ->order_by('count','desc')
+                        ->execute();
+
+        $content->tickets_open_product = $query->as_array('id_product');
+
         $products = new Model_Product();
         $content->products = $products->find_all();
 
@@ -726,25 +749,49 @@ class Controller_Panel_Stats extends Auth_Controller {
         $content->tickets_total = (isset($tickets[0]['count']))?$tickets[0]['count']:0;
 
         //tickets created last XX days
-        //total
+        //open/created
         $query = DB::select(DB::expr('DATE(created) date'))
                         ->select(DB::expr('COUNT(id_ticket) count'))
                         ->from('tickets')
+                        ->where('id_ticket_parent','=',NULL)
                         ->where('created','between',array($my_from_date,$my_to_date));
         $query = $query
                         ->group_by(DB::expr('DATE( created )'))
                         ->order_by('date','asc')
                         ->execute();
 
+        $query_closed = DB::select(DB::expr('DATE(read_date) date'))
+                        ->select(DB::expr('COUNT(id_ticket) count'))
+                        ->from('tickets')
+                        ->where('read_date', '!=', 'NULL')
+                        ->where('status', '=', Model_Ticket::STATUS_CLOSED)
+                        ->where('read_date','between',array($my_from_date,$my_to_date));
+        $query_closed = $query_closed
+                        ->group_by(DB::expr('DATE( read_date )'))
+                        ->order_by('date','asc')
+                        ->execute();
+
+        $query_answers = DB::select(DB::expr('DATE(created) date'))
+                        ->select(DB::expr('COUNT(id_ticket) count'))
+                        ->from('tickets')
+                        ->where('id_ticket_parent','!=',NULL)
+                        ->where('created','between',array($my_from_date,$my_to_date));
+        $query_answers = $query_answers
+                        ->group_by(DB::expr('DATE( created )'))
+                        ->order_by('date','asc')
+                        ->execute();
+
+        $answers = $query_answers->as_array('date');
+        $closed = $query_closed->as_array('date');
         $tickets = $query->as_array('date');
-
-
 
         $stats_tickets = array();
         foreach ($dates as $date) 
         {
-            $count_tickets = (isset($tickets[$date['date']]['count']))?$tickets[$date['date']]['count']:0;
-            $stats_tickets[] = array('date'=>$date['date'],'#tickets'=> $count_tickets);
+            $count_open = (isset($tickets[$date['date']]['count']))?$tickets[$date['date']]['count']:0;
+            $count_closed = (isset($closed[$date['date']]['count']))?$closed[$date['date']]['count']:0;
+            $count_answers = (isset($answers[$date['date']]['count']))?$answers[$date['date']]['count']:0;
+            $stats_tickets[] = array('date'=>$date['date'],'#open'=> $count_open, '#closed' => $count_closed, '#answers'=>$count_answers);
         } 
         $content->stats_tickets =  $stats_tickets;
 

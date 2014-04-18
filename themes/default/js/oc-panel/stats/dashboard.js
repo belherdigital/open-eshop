@@ -11,6 +11,7 @@ $('#statsTabs a').click(function (e) {
 // after loading page, make sales active
 $(window).load(function(){
 	$('.tab-content').ready(function(){
+		$('#statsTabs').removeClass('invisible');
 		$('.tab-pane').each(function(){
 			if($(this).attr('id') != 'sales'){
 				$(this).removeClass('active');
