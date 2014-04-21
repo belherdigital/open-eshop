@@ -32,7 +32,7 @@
     </li>
 </ul>
 <?else:?>
-<a class="btn btn-primary-white" data-toggle="modal" title="<?=__('Login')?>"
+<a class="btn btn-primary-white" data-toggle="modal" 
 	href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'login'))?>#login-modal">
 	<i class="glyphicon glyphicon-user"></i> <?=__('Login')?>
 </a>
