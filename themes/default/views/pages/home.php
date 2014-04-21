@@ -1,4 +1,5 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
+<?if(core::config('product.products_in_home') != 4):?>
 <?if (count($products)>0):?>
 
     <section class="well featured-posts">
@@ -59,7 +60,7 @@
     </section>
 
 <?endif?>
-
+<?endif?>
 
 <section class="well categories clearfix">
    <h2><?=__("Categories")?></h2>
