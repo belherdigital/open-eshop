@@ -45,7 +45,7 @@
                    
                 ?>
 
-                <td><a title="<?=$topic->title?>" href="<?=Route::url('forum-topic', array('forum'=>$forum->seoname,'seotitle'=>$topic->seotitle))?><?=$page?>"><?=strtoupper($topic->title);?></a></td>
+                <td><a title="<?=$topic->title?>" href="<?=Route::url('forum-topic', array('forum'=>$forum->seoname,'seotitle'=>$topic->seotitle))?><?=$page?>"><?=mb_strtoupper($topic->title);?></a></td>
                 <td width="10%"><span class="label label-info pull-right"><?=Date::format($topic->created)?></span></td>
                 <td width="15%"><span class="label label-warning pull-right"><?=Date::format($topic->last_message)?></span></td>
                 <td width="5%"><span class="label label-success pull-right"><?=$replies?></span></td>

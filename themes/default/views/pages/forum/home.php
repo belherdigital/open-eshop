@@ -28,7 +28,7 @@
         <?foreach($forums as $f):?>
         <?if($f['id_forum_parent'] == 0):?>
             <tr class="success">
-                <td><a title="<?=$f['name']?>" href="<?=Route::url('forum-list', array('forum'=>$f['seoname']))?>"><?=strtoupper($f['name']);?></a></td>
+                <td><a title="<?=$f['name']?>" href="<?=Route::url('forum-list', array('forum'=>$f['seoname']))?>"><?=mb_strtoupper($f['name']);?></a></td>
                 <td width="15%"><span class="label label-warning pull-right"><?=(isset($f['last_message'])?Date::format($f['last_message']):'')?></span></td>
                 <td width="5%"><span class="label label-success pull-right"><?=$f['count']?></span></td>
             </tr>

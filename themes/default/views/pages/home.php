@@ -76,7 +76,7 @@
                 <img src="<?=URL::base().'images/categories/'.$c['seoname'].'.png'?>" >
                 </a>
                 <?endif?>
-                <a title="<?=$c['name']?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>"><?=strtoupper($c['name']);?> <span class="badge badge-success pull-right"><?=$c['count']?></span></a>
+                <a title="<?=$c['name']?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>"><?=mb_strtoupper($c['name']);?> <span class="badge badge-success pull-right"><?=$c['count']?></span></a>
             </li>
             
             <?foreach($categs as $chi):?>

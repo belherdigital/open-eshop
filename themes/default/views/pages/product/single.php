@@ -123,7 +123,7 @@
 			<p><?=__('Hits')?> : <?=$hits?></p>
 
 		    <?if ($product->has_file()==TRUE):?>
-			    <p><?=__('Product format')?> : <?=strtoupper(strrchr($product->file_name, '.'))?> <?=__('file')?> </p>
+			    <p><?=__('Product format')?> : <?=mb_strtoupper(strrchr($product->file_name, '.'))?> <?=__('file')?> </p>
 			    <p><?=__('Product size')?> : <?=round(filesize(DOCROOT.'data/'.$product->file_name)/pow(1024, 2),2)?>MB</p>
 		    <?endif?>
 

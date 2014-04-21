@@ -277,7 +277,7 @@
 					<?if ($product->has_file()==TRUE):?>
 						<div class="pull-left">
 						<a class="thumbnail">
-							<img src="http://www.placehold.it/100x100&text=<?=strtoupper(strrchr($product->file_name, '.'))?>" alt="<?=strtoupper(strrchr($product->file_name, '.'))?>">
+							<img src="http://www.placehold.it/100x100&text=<?=mb_strtoupper(strrchr($product->file_name, '.'))?>" alt="<?=mb_strtoupper(strrchr($product->file_name, '.'))?>">
 						</a>
 						</div>	
 							<h4>
