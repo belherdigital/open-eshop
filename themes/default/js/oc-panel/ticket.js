@@ -2,12 +2,11 @@ $(document).ready(function() {
     var trigger = false;
     var panels = $('.user-infos');
     
-    //Click dropdown
-    $('.dropdown-user').click(function() {
-        //get data-for attribute
-        var dataFor = $(this).attr('data-for');
+    $('div.user-ticket').click(function(){
+        $('.dropdown-user', this)
+        var dataFor = $('.dropdown-user', this).attr('data-for');
         //current button
-        var currentButton = $(this);
+        var currentButton = $('.dropdown-user', this);
         $(dataFor).slideToggle(0, function() {
             //Completed slidetoggle
             if($(this).is(':visible'))
@@ -37,27 +36,7 @@ $(document).ready(function() {
         }    
     });
     
-    $('div.user-ticket').click(function(){
-        $('.dropdown-user', this)
-        var dataFor = $('.dropdown-user', this).attr('data-for');
-        //current button
-        var currentButton = $('.dropdown-user', this);
-        $(dataFor).slideToggle(0, function() {
-            //Completed slidetoggle
-            if($(this).is(':visible'))
-            {
-                currentButton.html('<i class="glyphicon glyphicon-chevron-up"></i>');
-                $('.short-text', this).hide();
-                $('.long-text', this).show();
-            }
-            else
-            {
-                currentButton.html('<i class="glyphicon glyphicon-chevron-down"></i>');
-                $('.short-text', this).show();
-                $('.long-text', this).hide();
-            }
-        });
-    });
+    
 
     //collapse all button
     $('#collapse-all-tickets').on('click',function(){

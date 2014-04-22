@@ -53,7 +53,7 @@
 	</div>
 
     <div class="col-md-12 user-ticket">
-        <div class="dropdown-user pull-right btn btn-primary btn-xs" data-for=".<?=$ticket->user->name?>">
+        <div class="dropdown-user invisible pull-right btn btn-primary btn-xs" data-for=".<?=$ticket->user->name?>">
             <i class="glyphicon glyphicon-chevron-down"></i>
         </div>
         <div class="<?=$ticket->user->name?> short-text">
@@ -85,7 +85,7 @@
 
     <?foreach ($replies as $reply):?>
     <div class="col-md-12 user-ticket">
-        <div class="dropdown-user pull-right btn btn-primary btn-xs" data-for=".<?=$reply->user->name.'_'.$reply->id_ticket?>">
+        <div class="dropdown-user invisible pull-right btn btn-primary btn-xs" data-for=".<?=$reply->user->name.'_'.$reply->id_ticket?>">
             <i class="glyphicon glyphicon-chevron-down"></i>
         </div>
         <div class="<?=$reply->user->name.'_'.$reply->id_ticket?> short-text">
