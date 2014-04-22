@@ -235,7 +235,7 @@
                     </tr>
                 </thead>
                 <tbody>
-<?var_dump($tickets_open_product)?>
+
                     <?foreach ($products as $p):?>
                     
                     <tr>
