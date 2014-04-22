@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
 
-	<div class="page-header">
+    <div class="page-header">
         <h1><?=$ticket->title?></h1>
         <p><?=$ticket->user->name?> <?=Date::fuzzy_span(Date::mysql2unix($ticket->created))?> - <?=$ticket->product->title?></p>
 
@@ -50,7 +50,7 @@
         <?endif?> 
          <a class="btn btn-default pull-right" id="collapse-all-tickets"><?=__('Collapse all')?></a>
          <div class="clearfix"></div>
-	</div>
+    </div>
 
     <div class="col-md-12 user-ticket">
         <div class="dropdown-user pull-right btn btn-primary btn-xs" data-for=".<?=$ticket->user->name?>">
@@ -117,7 +117,7 @@
     <?endforeach?>
 
     <?if($ticket->status!=Model_Ticket::STATUS_CLOSED):?>
-	<form class="well form-horizontal"  method="post" action="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>">         
+    <form class="well form-horizontal"  method="post" action="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>">         
       <?php if ($errors): ?>
         <p class="message"><?=__('Some errors were encountered, please check the details you entered.')?></p>
         <ul class="errors">
@@ -137,10 +137,10 @@
 
       <?=Form::token('reply_ticket')?>
       <div class="form-actions">
-      	<a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'index'))?>" class="btn btn-default"><?=__('Cancel')?></a>
+        <a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'index'))?>" class="btn btn-default"><?=__('Cancel')?></a>
         <button type="submit" class="btn btn-primary"><?=__('Reply')?></button>
       </div>
-	</form>  
+    </form>  
     <?endif?>  
 
     <br><br>
