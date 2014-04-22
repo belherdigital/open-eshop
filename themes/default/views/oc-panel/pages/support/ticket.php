@@ -48,12 +48,12 @@
             <?endforeach?>
             <?endif?>
         <?endif?> 
-         <a class="btn btn-default pull-right" id="collapse-all-tickets"><?=__('Collapse all')?></a>
+         <a class="btn btn-default pull-right" id="collapse-all-tickets"><?=__('Collapse')?> <i class="glyphicon glyphicon-chevron-down"></i></a>
          <div class="clearfix"></div>
     </div>
 
     <div class="col-md-12 user-ticket">
-        <div class="dropdown-user pull-right btn btn-primary btn-xs" data-for=".<?=$ticket->user->name?>">
+        <div class="dropdown-user invisible pull-right btn btn-primary btn-xs" data-for=".<?=$ticket->user->name?>">
             <i class="glyphicon glyphicon-chevron-down"></i>
         </div>
         <div class="<?=$ticket->user->name?> short-text">
@@ -85,7 +85,7 @@
 
     <?foreach ($replies as $reply):?>
     <div class="col-md-12 user-ticket">
-        <div class="dropdown-user pull-right btn btn-primary btn-xs" data-for=".<?=$reply->user->name.'_'.$reply->id_ticket?>">
+        <div class="dropdown-user invisible pull-right btn btn-primary btn-xs" data-for=".<?=$reply->user->name.'_'.$reply->id_ticket?>">
             <i class="glyphicon glyphicon-chevron-down"></i>
         </div>
         <div class="<?=$reply->user->name.'_'.$reply->id_ticket?> short-text">
@@ -102,7 +102,7 @@
         <div class="<?=$reply->user->name.'_'.$reply->id_ticket?> user-infos long-text <?=($ticket->id_user!==$reply->id_user)?'well':''?>" >
             <div class="col-md-2">
                 <img class="ticket_image img-circle" src="<?=$reply->user->get_profile_image()?>" style="max-width:120px; max-height:120px;">
-                <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-0">
                     <span class="text-muted"><?=$reply->user->name?></span><br>
                     <span class="text-muted"><?=Date::fuzzy_span(Date::mysql2unix($reply->created))?></span><br>
                     <span class="text-muted"><?=$reply->created?></span><br>

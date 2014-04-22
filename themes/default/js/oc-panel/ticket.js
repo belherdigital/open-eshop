@@ -2,12 +2,11 @@ $(document).ready(function() {
     var trigger = false;
     var panels = $('.user-infos');
     
-    //Click dropdown
-    $('.dropdown-user').click(function() {
-        //get data-for attribute
-        var dataFor = $(this).attr('data-for');
+    $('div.user-ticket').click(function(){
+        $('.dropdown-user', this)
+        var dataFor = $('.dropdown-user', this).attr('data-for');
         //current button
-        var currentButton = $(this);
+        var currentButton = $('.dropdown-user', this);
         $(dataFor).slideToggle(0, function() {
             //Completed slidetoggle
             if($(this).is(':visible'))
@@ -22,7 +21,7 @@ $(document).ready(function() {
                 $('.short-text', this).show();
                 $('.long-text', this).hide();
             }
-        })
+        });
     });
 
     //when loading collaps all, except last one 
@@ -36,6 +35,8 @@ $(document).ready(function() {
             });
         }    
     });
+    
+    
 
     //collapse all button
     $('#collapse-all-tickets').on('click',function(){
@@ -44,12 +45,14 @@ $(document).ready(function() {
             {
                 $('.short-text').hide();
                 $('.long-text').show();
+                $('#collapse-all-tickets i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
 
             }
             else
             {
                 $('.short-text').show();
                 $('.long-text').hide();
+                $('#collapse-all-tickets i').addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
             }
         });
         if(trigger)
@@ -59,3 +62,4 @@ $(document).ready(function() {
     });
     $('[data-toggle="tooltip"]').tooltip();
 });
+    
