@@ -22,7 +22,7 @@ $(document).ready(function() {
                 $('.short-text', this).show();
                 $('.long-text', this).hide();
             }
-        })
+        });
     });
 
     //when loading collaps all, except last one 
@@ -36,6 +36,28 @@ $(document).ready(function() {
             });
         }    
     });
+    
+    $('div.user-ticket').click(function(){
+        $('.dropdown-user', this)
+        var dataFor = $('.dropdown-user', this).attr('data-for');
+        //current button
+        var currentButton = $('.dropdown-user', this);
+        $(dataFor).slideToggle(0, function() {
+            //Completed slidetoggle
+            if($(this).is(':visible'))
+            {
+                currentButton.html('<i class="glyphicon glyphicon-chevron-up"></i>');
+                $('.short-text', this).hide();
+                $('.long-text', this).show();
+            }
+            else
+            {
+                currentButton.html('<i class="glyphicon glyphicon-chevron-down"></i>');
+                $('.short-text', this).show();
+                $('.long-text', this).hide();
+            }
+        });
+    });
 
     //collapse all button
     $('#collapse-all-tickets').on('click',function(){
@@ -44,12 +66,14 @@ $(document).ready(function() {
             {
                 $('.short-text').hide();
                 $('.long-text').show();
+                $('#collapse-all-tickets i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
 
             }
             else
             {
                 $('.short-text').show();
                 $('.long-text').hide();
+                $('#collapse-all-tickets i').addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
             }
         });
         if(trigger)
@@ -59,3 +83,4 @@ $(document).ready(function() {
     });
     $('[data-toggle="tooltip"]').tooltip();
 });
+    

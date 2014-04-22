@@ -3,6 +3,7 @@
 .mt25{margin-top: 25px;}
 .widget-boxes{margin-right: 20px; }
 .sbp{cursor: pointer;}
+.p-0{padding: 0;}
 /*.hidden-phone .nav > li a:hover,.hidden-phone .nav > li.active a, .dropdown-sidebar.sbp.active a{border-right: 2px solid;}*/
 .hidden-phone .nav > li > a {padding: 6px 15px;}
 .thumbnail {margin-right: 20px; margin-bottom: 20px;}
