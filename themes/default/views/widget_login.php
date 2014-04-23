@@ -16,6 +16,9 @@
     <li><a href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'orders'))?>"><i
            class="glyphicon glyphicon-shopping-cart"></i> <?=__('My Purchases')?></a></li>
 	
+    <li><a href="<?=Route::url('oc-panel',array('controller'=>'support'))?>"><i
+               class="glyphicon glyphicon-comment"></i> <?=__('Support')?></a></li>
+               
 	<li><a href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'edit'))?>"><i
 		   class="glyphicon glyphicon-lock"></i> <?=__('Edit profile')?></a></li>
 
