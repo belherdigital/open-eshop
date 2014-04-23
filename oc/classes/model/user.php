@@ -367,6 +367,7 @@ class Model_User extends ORM {
         $form->fields['email']['caption'] = 'email';
         $form->fields['status']['display_as'] = 'select';
         $form->fields['status']['options'] = array('0','1','5');
+        $form->fields['id_role']['caption'] = 'name';
     }
 
     public function exclude_fields()

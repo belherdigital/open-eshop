@@ -184,6 +184,17 @@
                         <div class="panel panel-default no-prem">
                             <div class="panel-heading">
                                 <a href="http://open-eshop.com/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>">by Open eShop</a>
+
+                                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                                <!-- oc_admin_sidebar -->
+                                <ins class="adsbygoogle"
+                                     style="display:inline-block;width:180px;height:150px"
+                                     data-ad-client="ca-pub-9967797131457349"
+                                     data-ad-slot="7696973310"></ins>
+                                <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                                </script>
+
                                 <a href="https://twitter.com/openeshop"
                                     onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"
                                     class="twitter-follow-button" data-show-count="false"
