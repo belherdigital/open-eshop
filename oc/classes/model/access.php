@@ -34,7 +34,6 @@ class Model_Access extends ORM {
         foreach ($controllers as $controller) 
         {
             $controller = basename($controller,'.php');
-            $list_controllers[] = $controller;
 
             $class      = new ReflectionClass('Controller_Panel_'.$controller);
             $methods    = $class->getMethods();

@@ -32,7 +32,7 @@ class Model_Role extends ORM {
         ),
     );
 
-     public function form_setup($form)
+    public function form_setup($form)
     {
       
         $form->fields['description']['display_as'] = 'textarea';

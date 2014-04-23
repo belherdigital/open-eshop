@@ -18,9 +18,11 @@ class Controller_Panel_Role extends Auth_Crud {
      */
     public function action_update()
     {
-        $this->template->title = __('Update').' '.__($this->_orm_model).' '.$this->request->param('id');
+        $id_role = $this->request->param('id');
+
+        $this->template->title = __('Update').' '.__($this->_orm_model).' '.$id_role;
     
-        $form = new FormOrm($this->_orm_model,$this->request->param('id'));
+        $form = new FormOrm($this->_orm_model,$id_role);
         
         if ($this->request->post())
         {
@@ -39,8 +41,23 @@ class Controller_Panel_Role extends Auth_Crud {
         }
 
         $controllers = Model_Access::list_controllers();
+
+        
+
+        //count license expired
+        $query = DB::select('access')
+                        ->from('access')
+                        ->where('id_role','=',$id_role)                        
+                        ->execute();
+
+        $access_in_use = array_keys($query->as_array('access'));
     
-        return $this->render('oc-panel/pages/role/update', array('form' => $form, 'controllers' => $controllers));
+    // d(in_array('profile.*',$access_in_use));
+    //     d($access_in_use);
+
+        return $this->render('oc-panel/pages/role/update', array('form' => $form, 
+                                                                'controllers' => $controllers,
+                                                                'access_in_use'=>$access_in_use));
     }
 
 	

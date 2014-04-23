@@ -120,8 +120,7 @@
                                 <div class="panel-body">
                                     <table class="table no-hide">
                                         <tr><td class="br"><?=Theme::admin_link(__('Users'),'user')?></td></tr>
-                                        <tr><td class="br"><?=Theme::admin_link(__('User Roles'),'role')?></td></tr>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Roles access'),'access')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Roles'),'role')?></td></tr>
                                     </table>
                                 </div>
                             </div>

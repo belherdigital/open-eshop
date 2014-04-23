@@ -7,7 +7,7 @@ class Controller_Feed extends Controller {
         $this->auto_render = FALSE;
 
 		$info = array(
-						'title' 	=> 'RSS '.Core::config('general.site_name'),
+						'title' 	=> 'RSS '.htmlspecialchars(Core::config('general.site_name')),
 						'pubDate' => date("D, d M Y H:i:s T"),
 						'description' => __('Latest published'),
 						'generator' 	=> 'Open eShop',
@@ -17,12 +17,12 @@ class Controller_Feed extends Controller {
 
   		//last products, you can modify this value at: general.feed_elements
         $products = DB::select('p.seotitle')
-                ->select(array('c.seoname','category'),'p.title','p.description','p.created')
+                ->select(array('c.seoname','category'),'p.title','p.description','p.created','p.updated')
                 ->from(array('products', 'p'))
                 ->join(array('categories', 'c'),'INNER')
                 ->on('p.id_category','=','c.id_category')
                 ->where('p.status','=',Model_Product::STATUS_ACTIVE)
-                ->order_by('created','desc')
+                ->order_by('updated','desc')
                 ->limit(Core::config('general.feed_elements'));
 
         //filter by category aor location
@@ -38,10 +38,10 @@ class Controller_Feed extends Controller {
             $url= Route::url('product',  array('category'=>$p->category,'seotitle'=>$p->seotitle));
 
             $items[] = array(
-			                	'title'         => htmlspecialchars($a->title,ENT_QUOTES),
+			                	'title'         => htmlspecialchars($p->title,ENT_QUOTES),
                                 'link'          => $url,
-                                'pubDate'       => Date::mysql2unix($a->published),
-                                'description'   => Text::removebbcode(htmlspecialchars($a->description,ENT_QUOTES)),
+                                'pubDate'       => Date::mysql2unix($p->updated),
+                                'description'   => htmlspecialchars(Text::removebbcode($p->description),ENT_QUOTES),
 			              );
         }
   
