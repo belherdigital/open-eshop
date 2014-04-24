@@ -642,25 +642,38 @@ class Theme {
                 return TRUE;
             }
             elseif (Auth::instance()->get_user()->id_role == Model_Role::ROLE_ADMIN )
+            {
+                Alert::set(Alert::INFO, __('License validation error, please insert again.'));
                 Request::current()->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'license')));
+            }
         } 
     }
 
-    public static function license($l)
+    public static function license($l, $current_theme = NULL)
     {  
+        if ($current_theme === NULL)
+            $current_theme = Theme::$theme;
+
         $licenses = array();
 
         //getting the licenses unique. to avoid downloading twice
         $themes = core::config('theme');
+
         foreach ($themes as $theme=>$settings) 
         {
-            if ($theme != Theme::$theme)
+            //do not check the license for current theme
+            if ($theme != $current_theme)
             {
                 $settings = json_decode($settings,TRUE);
                 //theme has a license and already is in use...so do not activate
                 if (isset($settings['license']))
+                {
                     if ($settings['license'] == $l)
+                    {
+                        Alert::set(Alert::INFO, __('This license is in use in the theme ').$theme);
                         return FALSE;
+                    }
+                }
             }
         }
 
