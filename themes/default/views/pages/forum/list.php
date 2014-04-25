@@ -35,7 +35,7 @@
                 <?
                 //amount answers a topic got
                 $replies = ($topic->count_replies>0)?$topic->count_replies:0;
-
+                $page = '';
                 //lets drive the user to the last page
                 if ($replies>0)
                 {
