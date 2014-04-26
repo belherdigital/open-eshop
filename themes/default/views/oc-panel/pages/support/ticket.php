@@ -24,25 +24,28 @@
             </form>
 
 
-            <a href="<?=Route::url('oc-panel', array('controller'=> 'order', 'action'=>'update','id'=>$ticket->order->pk())) ?>">
+            <a target="_blank" href="<?=Route::url('oc-panel', array('controller'=> 'order', 'action'=>'update','id'=>$ticket->order->pk())) ?>">
                 <?=round($ticket->order->amount,2)?><?=$ticket->order->currency?> <?=Date::format($ticket->order->pay_date,'d-m-y')?>
             </a>
 
             <br>
-            <a href="<?=Route::url('oc-panel', array('controller'=> 'user', 'action'=>'update','id'=>$ticket->id_user)) ?>">
+            <a target="_blank" href="<?=Route::url('oc-panel', array('controller'=> 'user', 'action'=>'update','id'=>$ticket->id_user)) ?>">
                 <?=$ticket->user->email?>
             </a>
-            - <a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'index','id'=>'admin'))?>?search=<?=$ticket->user->email?>">
+            - <a target="_blank" href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'index','id'=>'admin'))?>?search=<?=$ticket->user->email?>">
                 <?=__('Tickets')?></a>
+            - <a target="_blank" href="<?=Route::url('oc-panel',array('controller'=>'order','action'=>'index'))?>?email=<?=$ticket->user->email?>">
+                <?=__('Orders')?></a>
+
 
             <?if ($ticket->order->licenses->count_all()>0):?>
             <?foreach ($ticket->order->licenses->find_all() as $license):?>
                 <br>
-                <a href="http://<?=$license->domain?>" target="_blank">
+                <a target="_blank" href="http://<?=$license->domain?>" target="_blank">
                     <?=$license->domain?>
                 </a>
                 -
-                <a href="<?=Route::url('oc-panel', array('controller'=> 'license', 'action'=>'update','id'=>$license->id_license)) ?>">
+                <a target="_blank" href="<?=Route::url('oc-panel', array('controller'=> 'license', 'action'=>'update','id'=>$license->id_license)) ?>">
                     <?=(empty($license->domain))?__('Inactive license'):__('Active license')?>
                 </a>
             <?endforeach?>
