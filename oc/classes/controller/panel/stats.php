@@ -555,7 +555,6 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $ads = $query->as_array();
         $content->licenses_today = (isset($ads[0]['count']))?$ads[0]['count']:0;
-        $content->amount_today = (isset($ads[0]['total']))?$ads[0]['total']:0;
 
         //Yesterday
         $query = DB::select(DB::expr('COUNT(id_license) count'))
@@ -570,8 +569,6 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $ads = $query->as_array();
         $content->licenses_yesterday     = (isset($ads[0]['count']))?$ads[0]['count']:0;
-        $content->amount_yesterday     = (isset($ads[0]['total']))?$ads[0]['total']:0;
-
 
         //current month
         $query = DB::select(DB::expr('COUNT(id_license) count'))
@@ -588,8 +585,6 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $licenses = $query->as_array();
         $content->licenses_month = (isset($licenses[0]['count']))?$licenses[0]['count']:0;
-        $content->amount_month = (isset($licenses[0]['total']))?$licenses[0]['total']:0;
-
 
         //current year
         $query = DB::select(DB::expr('COUNT(id_license) count'))
