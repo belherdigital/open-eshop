@@ -4,8 +4,8 @@
   '1.4' => 
   array (
     'codename' => 'Fuerteventura',
-    'released' => '2014-04',
-    'blog' => '',
+    'released' => '2014-04-28',
+    'blog' => 'http://open-eshop.com/2014/04/28/open-eshop-1-4/',
     'changelog' => 'https://github.com/open-classifieds/open-eshop/commits/1.4',
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=7&page=1&state=closed',
     'download' => 'http://j.mp/oe_14',
