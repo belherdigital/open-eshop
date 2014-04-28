@@ -14,6 +14,7 @@ $(document).ready(function() {
             currentButton.html('<i class="glyphicon glyphicon-chevron-up"></i>');
             $('.short-text', this).hide();
             $('.long-text', this).show();
+            $(this).css('cursor','auto')
         }
         else
         {

@@ -16,6 +16,7 @@
 li.sbp .caret{float: right;margin-top: 7px;}
 .thumbnails{list-style: none;}
 .mobile-head-menu{display: none;}
+.user-ticket{cursor: pointer;}
 /*ORDER PAGE*/
 .custab{
     border: 1px solid #ccc;
