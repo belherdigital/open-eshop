@@ -3,25 +3,24 @@ $(document).ready(function() {
     var panels = $('.user-infos');
     
     $('div.user-ticket').click(function(){
-        $('.dropdown-user', this)
+        $('.dropdown-user', this);
         var dataFor = $('.dropdown-user', this).attr('data-for');
         //current button
         var currentButton = $('.dropdown-user', this);
-        $(dataFor).slideToggle(0, function() {
-            //Completed slidetoggle
-            if($(this).is(':visible'))
-            {
-                currentButton.html('<i class="glyphicon glyphicon-chevron-up"></i>');
-                $('.short-text', this).hide();
-                $('.long-text', this).show();
-            }
-            else
-            {
-                currentButton.html('<i class="glyphicon glyphicon-chevron-down"></i>');
-                $('.short-text', this).show();
-                $('.long-text', this).hide();
-            }
-        });
+        
+        //Completed slidetoggle
+        if($(this).is(':visible'))
+        {
+            currentButton.html('<i class="glyphicon glyphicon-chevron-up"></i>');
+            $('.short-text', this).hide();
+            $('.long-text', this).show();
+        }
+        else
+        {
+            currentButton.html('<i class="glyphicon glyphicon-chevron-down"></i>');
+            $('.short-text', this).show();
+            $('.long-text', this).hide();
+        }
     });
 
     //when loading collaps all, except last one 

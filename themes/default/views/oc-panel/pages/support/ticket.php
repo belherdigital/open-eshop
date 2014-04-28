@@ -99,7 +99,7 @@
                 <p><?=Text::limit_chars(Text::removebbcode($reply->description,TRUE), 100, NULL, TRUE)?></p>
             </div>
         </div>
-        <div class="<?=$reply->user->name.'_'.$reply->id_ticket?> user-infos long-text <?=($ticket->id_user!==$reply->id_user)?'well':''?>" >
+        <div class="<?=$reply->user->name.'_'.$reply->id_ticket?> user-infos long-text " >
             <div class="col-md-2">
                 <img class="ticket_image img-circle" src="<?=$reply->user->get_profile_image()?>" style="max-width:120px; max-height:120px;">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-0">
@@ -117,7 +117,7 @@
     <?endforeach?>
 
     <?if($ticket->status!=Model_Ticket::STATUS_CLOSED):?>
-	<form class="well form-horizontal"  method="post" action="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>">         
+	<form class="form-horizontal"  method="post" action="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>">         
       <?php if ($errors): ?>
         <p class="message"><?=__('Some errors were encountered, please check the details you entered.')?></p>
         <ul class="errors">
