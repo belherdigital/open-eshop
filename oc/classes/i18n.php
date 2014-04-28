@@ -168,7 +168,16 @@ class I18n extends Kohana_I18n {
      */
     public static function money_format($number)
     {
-        return money_format(core::config('general.number_format'), $number);
+        $format = core::config('general.number_format');
+
+        //in case not any format standard
+        if ($format == NULL)
+            $format = '%n';
+
+        if (in_array($format, array_keys(self::$currencies)))
+            return self::format_currency($number,$format);
+        else
+            return money_format($format, $number);
     }
 
     /**
@@ -221,6 +230,7 @@ class I18n extends Kohana_I18n {
         'EGP' => array(NULL,2,'.',',',0),          //  Egyptian Pound
         'SVC' => array(NULL,2,'.',',',0),          //  El Salvador Colon
         'EUR' => array('&euro;',2,',','.',0),          //  Euro
+        'ESP' => array('&euro;',2,',','.',1),          //  Euro in spanish format
         'GHC' => array(NULL,2,'.',',',0),          //  Ghana, Cedi
         'GIP' => array(NULL,2,'.',',',0),          //  Gibraltar Pound
         'GTQ' => array(NULL,2,'.',',',0),          //  Guatemala, Quetzal

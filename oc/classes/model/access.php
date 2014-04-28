@@ -21,6 +21,35 @@ class Model_Access extends ORM {
     protected $_primary_key = 'id_access';
 
 
+    /**
+     * get all the controllers and the actions that can be used
+     * @return array 
+     */
+    public static function list_controllers()
+    {
+        $list_controllers = array();
+
+        $controllers = Kohana::list_files('classes/controller/panel');
+
+        foreach ($controllers as $controller) 
+        {
+            $controller = basename($controller,'.php');
+
+            $class      = new ReflectionClass('Controller_Panel_'.$controller);
+            $methods    = $class->getMethods();
+            foreach ($methods as $obj => $val) 
+            {
+                if (strpos( $val->name , 'action_') !== FALSE )
+                {
+                    $list_controllers[$controller][] = str_replace('action_', '', $val->name);
+                }
+            }
+        }
+
+        return $list_controllers;
+    }
+
+
     public function form_setup($form)
     {
        

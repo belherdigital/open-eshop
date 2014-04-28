@@ -10,7 +10,7 @@ class Controller_Panel_Topic extends Auth_Crud {
     /**
      * @var $_orm_model ORM model name
      */
-    protected $_orm_model = 'post';
+    protected $_orm_model = 'topic';
 
     /**
      *

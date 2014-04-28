@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
 
-	<div class="page-header">
+    <div class="page-header">
         <h1><?=$ticket->title?></h1>
         <p><?=$ticket->user->name?> <?=Date::fuzzy_span(Date::mysql2unix($ticket->created))?> - <?=$ticket->product->title?></p>
 
@@ -24,25 +24,28 @@
             </form>
 
 
-            <a href="<?=Route::url('oc-panel', array('controller'=> 'order', 'action'=>'update','id'=>$ticket->order->pk())) ?>">
+            <a target="_blank" href="<?=Route::url('oc-panel', array('controller'=> 'order', 'action'=>'update','id'=>$ticket->order->pk())) ?>">
                 <?=round($ticket->order->amount,2)?><?=$ticket->order->currency?> <?=Date::format($ticket->order->pay_date,'d-m-y')?>
             </a>
 
             <br>
-            <a href="<?=Route::url('oc-panel', array('controller'=> 'user', 'action'=>'update','id'=>$ticket->id_user)) ?>">
+            <a target="_blank" href="<?=Route::url('oc-panel', array('controller'=> 'user', 'action'=>'update','id'=>$ticket->id_user)) ?>">
                 <?=$ticket->user->email?>
             </a>
-            - <a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'index','id'=>'admin'))?>?search=<?=$ticket->user->email?>">
+            - <a target="_blank" href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'index','id'=>'admin'))?>?search=<?=$ticket->user->email?>">
                 <?=__('Tickets')?></a>
+            - <a target="_blank" href="<?=Route::url('oc-panel',array('controller'=>'order','action'=>'index'))?>?email=<?=$ticket->user->email?>">
+                <?=__('Orders')?></a>
+
 
             <?if ($ticket->order->licenses->count_all()>0):?>
             <?foreach ($ticket->order->licenses->find_all() as $license):?>
                 <br>
-                <a href="http://<?=$license->domain?>" target="_blank">
+                <a target="_blank" href="http://<?=$license->domain?>" target="_blank">
                     <?=$license->domain?>
                 </a>
                 -
-                <a href="<?=Route::url('oc-panel', array('controller'=> 'license', 'action'=>'update','id'=>$license->id_license)) ?>">
+                <a target="_blank" href="<?=Route::url('oc-panel', array('controller'=> 'license', 'action'=>'update','id'=>$license->id_license)) ?>">
                     <?=(empty($license->domain))?__('Inactive license'):__('Active license')?>
                 </a>
             <?endforeach?>
@@ -50,7 +53,7 @@
         <?endif?> 
          <a class="btn btn-default pull-right" id="collapse-all-tickets"><?=__('Collapse')?> <i class="glyphicon glyphicon-chevron-down"></i></a>
          <div class="clearfix"></div>
-	</div>
+    </div>
 
     <div class="col-md-12 user-ticket">
         <div class="dropdown-user invisible pull-right btn btn-primary btn-xs" data-for=".<?=$ticket->user->name?>">
@@ -117,7 +120,9 @@
     <?endforeach?>
 
     <?if($ticket->status!=Model_Ticket::STATUS_CLOSED):?>
-	<form class="form-horizontal"  method="post" action="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>">         
+
+    <form class="well form-horizontal"  method="post" action="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>">         
+
       <?php if ($errors): ?>
         <p class="message"><?=__('Some errors were encountered, please check the details you entered.')?></p>
         <ul class="errors">
@@ -137,10 +142,10 @@
 
       <?=Form::token('reply_ticket')?>
       <div class="form-actions">
-      	<a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'index'))?>" class="btn btn-default"><?=__('Cancel')?></a>
+        <a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'index'))?>" class="btn btn-default"><?=__('Cancel')?></a>
         <button type="submit" class="btn btn-primary"><?=__('Reply')?></button>
       </div>
-	</form>  
+    </form>  
     <?endif?>  
 
     <br><br>

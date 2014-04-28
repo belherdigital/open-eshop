@@ -362,7 +362,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('payment', 'stripe_public', ''),
 ('payment', 'stripe_address', '0'),
 ('payment', 'alternative', ''),
-('payment', 'bitpay_apikey, ''),
+('payment', 'bitpay_apikey', ''),
 ('general', 'number_format', '%n'),
 ('general', 'date_format', 'd-m-y'),
 ('general', 'base_url', '".core::request('SITE_URL')."'),

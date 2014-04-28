@@ -69,7 +69,7 @@ class Model_Post extends ORM {
 
     public function exclude_fields()
     {
-        return array('created','ip_address','id_forum');
+        return array('created','ip_address','id_forum','id_post_parent');
     }
 
 
