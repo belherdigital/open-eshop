@@ -56,6 +56,13 @@ class Controller_Panel_Product extends Auth_Crud {
         											 
 
         list($cats,$order)  = Model_Category::get_all();
+
+        if(count($cats) <= 1)
+        {
+            Alert::set(Alert::WARNING, __('Please create a category first!'));
+            $this->request->redirect(Route::url('oc-panel', array('controller'=>'product','action'=>'index')));
+        }
+
         $obj_product = new Model_Product();
 
         // get currencies from product, returns array
