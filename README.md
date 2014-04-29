@@ -1,4 +1,4 @@
-#  Open eShop 1.4
+#  Open eShop 1.5
 
 
 # Description
