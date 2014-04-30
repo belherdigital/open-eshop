@@ -61,7 +61,7 @@ class Controller_Panel_Stats extends Auth_Controller {
         $dates     = Date::range($from_date, $to_date,'+1 day','Y-m-d',array('date'=>0,'count'=> 0),'date');
 
         //dates range we are filtering, 1 year back from the to date.
-        $dates_year     = Date::range($from_date-(365*24*60*60),$to_date,'+1 month','Y-m',array('date'=>0,'count'=> 0),'date');
+        $dates_year     = Date::range(strtotime('-1 year',$from_date),$to_date,'+1 month','Y-m',array('date'=>0,'count'=> 0),'date');
 
         //dates displayed in the form
         $content->from_date = date('Y-m-d',$from_date);
