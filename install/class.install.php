@@ -380,7 +380,7 @@ class install{
         $link = @mysqli_connect(core::request('DB_HOST'), core::request('DB_USER'), core::request('DB_PASS'));
         if (!$link) 
         {
-            $error_msg = __('Cannot connect to server').' '. core::request('DB_HOST').' '. mysqli_error($link);
+            $error_msg = __('Cannot connect to server').' '. core::request('DB_HOST');
             $install = FALSE;
         }
         
@@ -493,7 +493,7 @@ class install{
             //core::delete(INSTALLROOT);//prevents from performing a new install
         }
         //not succeded :( delete all the tables with that prefix
-        else
+        elseif($link!=FALSE)
         {
             $table_list = mysqli_query($link,"SHOW TABLES LIKE '".$TABLE_PREFIX."%'");
             if($table_list)
