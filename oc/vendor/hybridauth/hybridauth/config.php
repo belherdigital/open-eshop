@@ -15,12 +15,6 @@ return
       "base_url" => core::config('general.base_url').'social/loggin/', 
  
       "providers" => array ( 
-      
-         // twitter
-            "Twitter" => array ( // 'key' is your twitter application consumer key
-               "enabled" => true,
-               "keys" => array ( "key" => "H7SfbyEBnHoDuB320olgvQ", "secret" => "cS57GpOZMI1jpiQ4DOnajerOzcLPTZhhzEfROY9OHss" )
-            )
       ),
       
       "debug_mode" => TRUE , 
