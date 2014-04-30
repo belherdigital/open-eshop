@@ -20,18 +20,18 @@ class View extends Kohana_View{
      */
     public static function fragment($name, $file = NULL, array $data = NULL)
     {
+        //loged in users we do not return cached version
+        if ( Auth::instance()->logged_in() AND $file!==NULL)
+            return View::factory($file,$data)->render();
+
+        //name of fragment
         $name = self::fragment_name($name);
 
-        if ( ($fragment = Core::cache($name))===NULL ) 
+        //if file is set and we dont have the cache we render.
+        if ( ($fragment = Core::cache($name))===NULL AND $file!==NULL)
         {
-            //if file is set and we dont have the cache we render.
-            if ($file!==NULL)
-            {
-                $view = View::factory($file,$data);
-                $fragment = $view->render();
-                Core::cache($name,$fragment);
-            }
-            
+            $fragment = View::factory($file,$data)->render();
+            Core::cache($name,$fragment);
         }   
 
         return $fragment;
