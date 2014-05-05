@@ -1,9 +1,9 @@
-# Contributing to Open eShop Market
+# Contributing to Open eShop
 
 Looking to contribute something to Open eShop? **Here's how you can help.**
 
 ## Environment
-Recommended PHP 5.4 , MySQL 5.5, Apache 2.2, Linux
+Recommended PHP 5.5 , MySQL 5.5, Apache 2.2, Linux
 
 For development and to enable debug and disable cache and minify you can create a vhost:
 
@@ -13,16 +13,16 @@ Host file:
 Vhost apache:
 <VirtualHost *:80>
 ServerName eshop.lo
-DocumentRoot /var/www/open-eshop/
+DocumentRoot /var/www/eshop/
 </VirtualHost>
 
 ## Git usage
 Example to clone project on local:
 
-git clone git@github.com:open-classifieds/open-eshop.git reoc
-cd reoc
+git clone git@github.com:open-classifieds/open-eshop.git eshop
+cd eshop
 git branch -a (lists all the branches)
-git checkout -b 1.0 origin/1.0 (or latest branch)
+git checkout -b master origin/master (or any other branch)
 
 
 GIT files to ignore changes, DO NOT COMMIT THIS FILES:
@@ -35,6 +35,9 @@ git update-index --assume-unchanged sitemap.xml.gz
 git update-index --assume-unchanged sitemap.xml
 git update-index --assume-unchanged install/install.lock
 git update-index --assume-unchanged oc/cache/.empty
+git update-index --assume-unchanged oc/logs/.empty
+git update-index --assume-unchanged images/.empty
+git update-index --assume-unchanged data/.empty
 
 ## Reporting issues
 
@@ -51,13 +54,14 @@ We only accept issues that are bug reports or feature requests. Bugs must be iso
 
 ## Key branches
 
-- In the home page 2.0.x showed branch is the current development branch.
-- The previous branch 2.0.x is the latest, deployed version.
+- master is the development branch.
+- We create tags per release from master branch.
+ -We have many ther branches not in use since we changed the way we use the git flow.
 
 
 ## Pull requests
 
-- Try to submit pull requests against the latest branch for easier merging
+- Try to submit pull requests against master branch for easier merging
 - Try not to pollute your pull request with unintended changes--keep them simple and small
 - Try to share which browsers your code has been tested in before submitting a pull request
 
