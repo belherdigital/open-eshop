@@ -1,4 +1,4 @@
-<? 
+<?php 
 /**
  * HTML template for the install
  *
@@ -50,7 +50,7 @@ class install{
      * Software install settings
      * @var string
      */
-    const version   = '1.5';
+    const VERSION   = '1.5';
 
     /**
      * message to notify
@@ -457,7 +457,7 @@ function __($msgid)
     <title>Open eShop <?=__("Installation")?></title>
     <meta name="keywords" content="" >
     <meta name="description" content="" >
-    <meta name="copyright" content="Open eShop <?=install::version?>" >
+    <meta name="copyright" content="Open eShop <?=install::VERSION?>" >
     <meta name="author" content="Open Classifieds">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
@@ -609,7 +609,7 @@ function __($msgid)
                 <div class="page-header">
                     <h1><?=__('Welcome')?> </h1>
                     <p><?=__('Thanks for using Open eShop.')?> 
-                        <?=__('Your installation version is')?> <span class="label label-info"><?=install::version?></span> 
+                        <?=__('Your installation version is')?> <span class="label label-info"><?=install::VERSION?></span> 
                     </p>
                     
                     <div class="clearfix"></div>

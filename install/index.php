@@ -1,4 +1,4 @@
-<? 
+<?php 
 /**
  * HTML template for the install
  *
@@ -56,7 +56,7 @@ else
     <title>Open eShop <?=__("Installation")?></title>
     <meta name="keywords" content="" >
     <meta name="description" content="" >
-    <meta name="copyright" content="Open eShop <?=install::version?>" >
+    <meta name="copyright" content="Open eShop <?=install::VERSION?>" >
     <meta name="author" content="Open eShop">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 

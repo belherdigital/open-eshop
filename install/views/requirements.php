@@ -2,7 +2,7 @@
 
 <div class="page-header">
     <a class="btn btn-primary pull-right" id="phpinfobutton" >phpinfo()</a>
-    <h1><?=__("Software Requirements")?>  v.<?=install::version?></h1>
+    <h1><?=__("Software Requirements")?>  v.<?=install::VERSION?></h1>
     <p><?=__('In this page you can see the requirements checks we do before we install.')?></p>
     <div class="clearfix"></div>
 </div>
