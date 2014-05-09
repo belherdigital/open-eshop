@@ -119,7 +119,7 @@ class Model_Category extends ORM {
                               ),
                 'id_category_parent' => array(
                                 array(array($this, 'check_parent'))
-                              )
+                              ),
         );
     }
 
@@ -302,8 +302,6 @@ class Model_Category extends ORM {
         $form->fields['id_category_parent']['display_as']   = 'select';
         $form->fields['id_category_parent']['caption']      = 'name';   
 
-        $form->fields['parent_deep']['display_as']   = 'select';
-        $form->fields['parent_deep']['options']      = range(0, 10);
         $form->fields['order']['display_as']   = 'select';
         $form->fields['order']['options']      = range(1, 100);
 	}
@@ -366,6 +364,34 @@ class Model_Category extends ORM {
         
 
         return $seoname;
+    }
+
+    /**
+     * returns the deep of parents of this category
+     * @return integer
+     */
+    public function get_deep()
+    {
+        //initial deep
+        $deep = 0;
+
+        if ($this->loaded())
+        {
+            //getting all the cats as array
+            list($cats_arr,$cats_m) = Model_Category::get_all();
+
+            //getin the parent of this category
+            $id_category_parent = $cats_arr[$this->id_category]['id_category_parent'];
+
+            //counting till we find the begining
+            while ($id_category_parent != 1 AND $id_category_parent != 0 AND $deep<100) 
+            {
+                $id_category_parent = $cats_arr[$id_category_parent]['id_category_parent'];
+                $deep++;
+            }
+        }
+        
+        return $deep;
     }
 
     /**
