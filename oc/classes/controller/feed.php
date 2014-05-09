@@ -124,7 +124,7 @@ class Controller_Feed extends Controller {
                             'created'       => $first_product,   
                             'updated'       => $last_product,   
                             'email'         => Core::config('email.notify_email'),
-                            'version'       => Core::version,
+                            'version'       => Core::VERSION,
                             'theme'         => Core::config('appearance.theme'),
                             'theme_mobile'  => Core::config('appearance.theme_mobile'),
                             'charset'       => Kohana::$charset,

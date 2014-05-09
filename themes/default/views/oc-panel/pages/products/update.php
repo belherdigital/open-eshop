@@ -13,7 +13,7 @@
 
 	<br>
 	<p><?=__('Button with overlay')?>:</p>
-	<textarea class="col-md-4" onclick="this.select()"><script src="<?=Core::config('general.base_url')?>embed.js?v=<?=core::version?>"></script>
+	<textarea class="col-md-4" onclick="this.select()"><script src="<?=Core::config('general.base_url')?>embed.js?v=<?=core::VERSION?>"></script>
 		<a class="oe_button" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)) ?>"><?=__('Buy Now')?> <?=$product->formated_price()?></a></textarea>
 
 	<div class="clearfix"></div>

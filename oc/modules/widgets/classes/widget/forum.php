@@ -51,13 +51,15 @@ class Widget_Forum extends Widget
     public function before()
     {
         $topic = new Model_Post();
-        $topic = $topic->where('status','=',Model_Post::STATUS_ACTIVE);
-        $topic = $topic->order_by('created','desc');
+        $topic = $topic->where('status','=',Model_Post::STATUS_ACTIVE)
+                ->where('id_post_parent','IS',NULL)
+                ->where('id_forum','IS NOT', NULL)
+                ->order_by('created','desc');
         
         if($this->topics_limit != NULL OR $this->topics_limit != '')
-        $topic = $topic->limit($this->topics_limit)->cached()->find_all();
+            $topic = $topic->limit($this->topics_limit)->cached()->find_all();
         else
-        $topic = $topic->cached()->find_all();
+            $topic = $topic->cached()->find_all();
         //die(print_r($topic));
         $this->topic = $topic;
     }

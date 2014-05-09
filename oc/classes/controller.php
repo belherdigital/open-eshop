@@ -67,7 +67,7 @@ class Controller extends Kohana_Controller
             $this->template->title            = core::config('general.site_name');
             $this->template->meta_keywords    = '';
             $this->template->meta_description = '';
-            $this->template->meta_copywrite   = 'Open eShop '.Core::version;
+            $this->template->meta_copyright   = 'Open eShop '.Core::VERSION;
             $this->template->content          = '';
             $this->template->styles           = array();
             $this->template->scripts          = array();
@@ -97,20 +97,23 @@ class Controller extends Kohana_Controller
     	if ($this->auto_render === TRUE)
     	{
     		// Add defaults to template variables.
-    		$this->template->styles  = array_merge_recursive(Theme::$styles, $this->template->styles);
-    		$this->template->scripts = array_reverse(array_merge_recursive(Theme::$scripts,$this->template->scripts));
-    		
-            if ($this->template->title!='')
-                $concat = ' - ';
-            else
-                $concat = '';
+            $this->template->styles  = array_merge_recursive(Theme::$styles, $this->template->styles);
+            $this->template->scripts = array_reverse(array_merge_recursive(Theme::$scripts,$this->template->scripts));
+            
+            //in case theres no description given
+            if ($this->template->meta_description == '')
+                $this->template->meta_description = $this->template->title;
 
-    		$this->template->title.= $concat.core::config('general.site_name');
+            //title concatenate the site name
+            if ($this->template->title != '')
+                $this->template->title .= ' - ';
+
+            $this->template->title .= core::config('general.site_name');
 
             //auto generate keywords and description from content
             seo::$charset = Kohana::$charset;
-            
-    		$this->template->title = seo::text($this->template->title, 70);
+
+            $this->template->title = seo::text($this->template->title, 70);
             
             //not meta keywords given
             //remember keywords are useless :( http://googlewebmastercentral.blogspot.com/2009/09/google-does-not-use-keywords-meta-tag.html
@@ -118,10 +121,9 @@ class Controller extends Kohana_Controller
                 $this->template->meta_keywords = seo::keywords($this->template->meta_description);
             
             $this->template->meta_description = seo::text($this->template->meta_description);
-            	
-    		
-    	}
-    	$this->response->body($this->template->render());
+            
+        }
+        $this->response->body($this->template->render());    	
        
     }
 

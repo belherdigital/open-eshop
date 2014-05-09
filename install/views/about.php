@@ -3,7 +3,7 @@
 <div class="page-header">
     <h1><?=__('Welcome')?> </h1>
     <p><?=__('Thanks for using Open eShop.')?> 
-        <?=__('Your installation version is')?> <span class="label label-info"><?=install::version?></span> 
+        <?=__('Your installation version is')?> <span class="label label-info"><?=install::VERSION?></span> 
     </p>
     
     <div class="clearfix"></div>

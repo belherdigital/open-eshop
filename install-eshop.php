@@ -1,4 +1,4 @@
-<? 
+<?php 
 /**
  * HTML template for the install
  *
@@ -18,7 +18,7 @@ define('DOCROOT', realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);
 
 //we check first short tags if not we can not even load the installer
 if (! ((bool) ini_get('short_open_tag')) )
-    die('<a href="http://www.php.net/manual/en/ini.core.php#ini.short-open-tag">short_open_tag</a> must be enabled in your php.ini.');
+    die('<strong><u>OE Installation requirement</u></strong>: Before you proceed with your OE installation: Keep in mind OE uses the short tag "short cut" syntax.<br><br> Thus the <a href="http://php.net/manual/ini.core.php#ini.short-open-tag" target="_blank">short_open_tag</a> directive must be enabled in your php.ini.<br><br><u>Easy Solution</u>:<ol><li>Open php.ini file and look for line short_open_tag = Off</li><li>Replace it with short_open_tag = On</li><li>Restart then your PHP server</li><li>Refresh this page to resume your OE installation</li><li>Enjoy OE ;)</li></ol>');
 
 if (file_exists(DOCROOT.'oc/config/database.php')) 
     die('Seems Open eShop it is already insalled');
@@ -50,7 +50,7 @@ class install{
      * Software install settings
      * @var string
      */
-    const version   = '1.5';
+    const VERSION   = '1.5';
 
     /**
      * message to notify
@@ -457,7 +457,7 @@ function __($msgid)
     <title>Open eShop <?=__("Installation")?></title>
     <meta name="keywords" content="" >
     <meta name="description" content="" >
-    <meta name="copyright" content="Open eShop <?=install::version?>" >
+    <meta name="copyright" content="Open eShop <?=install::VERSION?>" >
     <meta name="author" content="Open Classifieds">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
@@ -609,7 +609,7 @@ function __($msgid)
                 <div class="page-header">
                     <h1><?=__('Welcome')?> </h1>
                     <p><?=__('Thanks for using Open eShop.')?> 
-                        <?=__('Your installation version is')?> <span class="label label-info"><?=install::version?></span> 
+                        <?=__('Your installation version is')?> <span class="label label-info"><?=install::VERSION?></span> 
                     </p>
                     
                     <div class="clearfix"></div>

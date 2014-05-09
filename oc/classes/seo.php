@@ -64,8 +64,14 @@ class seo{
      */
     public static function keywords($text, $max_keys = 15)
     {
+        $text = self::clean(mb_strtolower($text));
+        $text = str_replace (array('–','(',')','+',':','.','?','!','_','*','-','"'), '', $text);//replace not valid character 
+        $text = str_replace (array(' ','.',';'), ',', $text);//replace for comas 
+
+        $wordcount = array_count_values(explode(',',$text)); 
+
         //array to keep word->number of repetitions 
-        $wordcount = array_count_values(str_word_count(self::clean($text),1));
+        //$wordcount = array_count_values(str_word_count(self::clean($text),1));
 
         //remove small words
         foreach ($wordcount as $key => $value) 

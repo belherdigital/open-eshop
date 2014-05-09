@@ -3,7 +3,7 @@
 <div class="page-header">
     <h1><?=__('Versions')?></h1>
     <p><?=__('Open eShop release history information.')?> 
-        <?=__('Your installation version is')?> <span class="label label-info"><?=core::version?></span>
+        <?=__('Your installation version is')?> <span class="label label-info"><?=core::VERSION?></span>
     </p>
     <p><?=__('Your Hash Key for this installation is')?> 
          <span class="label label-info"><?=core::config('auth.hash_key')?></span>
@@ -23,7 +23,7 @@
             <td>
                 <?=$version?>
                 <?=($version==$latest_version)? '<span class="label label-success">'.__('Latest').'</span>':''?>
-                <?=($version==core::version)? '<span class="label label-info">'.__('Current').'</span>':''?>
+                <?=($version==core::VERSION)? '<span class="label label-info">'.__('Current').'</span>':''?>
                 <br /><br />
             </td>
             

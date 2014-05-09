@@ -57,7 +57,7 @@
                                         <?endif?>
                                         <tr><td class="br"><?=Theme::admin_link(__('Translations'), 'translations','index','oc-panel','glyphicon glyphicon-globe')?></td></tr>
                                         <tr><td class="br"><?=Theme::admin_link(__('Newsletters'), 'newsletter','index','oc-panel','glyphicon glyphicon-envelope')?></td></tr>
-                                        <? if($user->id_role==Model_Role::ROLE_ADMIN AND core::config('general.forums')==1):?>
+                                        <?if(core::config('general.forums')==1):?>
                                             <tr><td class="br"><?=Theme::admin_link(__('Forums'),'forum','index','oc-panel','glyphicon glyphicon-tags')?></td></tr>
                                             <tr><td class="br"><?=Theme::admin_link(__('Topics'), 'topic','index','oc-panel','glyphicon glyphicon-pencil')?></td></tr>
                                         <?endif?>

@@ -32,7 +32,7 @@ class Controller_Panel_Update extends Auth_Controller {
             $this->template->title = __('Updates');
         
             //check if we have latest version of OC
-            if (key($versions)!=core::version)
+            if (key($versions)!=core::VERSION)
                 Alert::set(Alert::ALERT,__('You are not using latest version of OC, please update.').
                     '<br/><br/><a class="btn btn-primary update_btn" href="'.Route::url('oc-panel',array('controller'=>'update','action'=>'latest')).'">
                 '.__('Update').'</a>');
