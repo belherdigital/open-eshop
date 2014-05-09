@@ -146,6 +146,7 @@ class Model_Forum extends ORM {
         $forums = DB::select('f.*')
                 ->select(array(DB::select('COUNT("id_post")')
                         ->from(array('posts','p'))
+                        ->where('p.id_post_parent','IS NOT', NULL)
                         ->where('p.id_forum','=',DB::expr(core::config('database.default.table_prefix').'f.id_forum'))
                         ->where('p.status','=',Model_Post::STATUS_ACTIVE)
                         ->group_by('id_forum'), 'count'))
