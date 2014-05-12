@@ -345,7 +345,7 @@ VALUES (1, 'admin', 'admin', '".core::request('ADMIN_EMAIL')."', '$password', 1,
  */
 mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`group_name`, `config_key`, `config_value`) VALUES
 ('sitemap', 'expires', '43200'),
-('sitemap', 'on_post', 1),
+('sitemap', 'on_post', 0),
 ('appearance', 'theme', 'default'),
 ('appearance', 'theme_mobile', ''),
 ('appearance', 'allow_query_theme', 0),
