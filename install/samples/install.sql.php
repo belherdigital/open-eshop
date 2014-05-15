@@ -384,6 +384,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('general', 'forums', '0'),
 ('general', 'minify', 0),
 ('general', 'sort_by', 'published-asc'),
+('general', 'ocacu', '0'),
 ('image', 'allowed_formats', 'jpeg,jpg,png,'),
 ('image', 'max_image_size', '5'),
 ('image', 'height', ''),

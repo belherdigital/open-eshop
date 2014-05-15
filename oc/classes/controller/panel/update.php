@@ -354,6 +354,15 @@ class Controller_Panel_Update extends Auth_Controller {
         //set sitemap to 0
         Model_Config::set_value('sitemap','on_post',0);     
 
+        $configs = array( 
+                         array('config_key'     =>'ocacu',
+                               'group_name'     =>'general', 
+                               'config_value'   =>'0'), 
+                        );
+
+        // returns TRUE if some config is saved 
+        $return_conf = Model_Config::config_array($configs);
+
 
         //clean cache
         Cache::instance()->delete_all();
