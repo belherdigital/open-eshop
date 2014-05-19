@@ -248,7 +248,9 @@ class Core {
      */
     public static function curl_get_contents($url, $timeout = 30)
     {
-        $c = curl_init();
+        $c = curl_init(); 
+        if ($c === FALSE) 
+            return FALSE;
         curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($c, CURLOPT_URL, $url);
         curl_setopt($c, CURLOPT_TIMEOUT,$timeout); 
