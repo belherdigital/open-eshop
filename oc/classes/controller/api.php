@@ -53,15 +53,37 @@ class Controller_Api extends Controller {
         $this->auto_render = FALSE;
         $seo_category = $this->request->param('id');
 
+        $sort_allowed   = array('asc','desc');
+        $order_allowed  = array('id_category','created','updated','price','title');
+
+        $order1 = Core::get('order1');
+        //default value
+        if (!in_array($order1, $order_allowed) OR $order1===NULL)
+            $order1 = 'id_category';
+
+        $sort1 = Core::get('sort1');
+        //default value
+        if (!in_array($sort1, $sort_allowed) OR $sort1===NULL)
+            $sort1 = 'asc';
+
+        $order2 = Core::get('order2');
+        //default value
+        if (!in_array($order2, $order_allowed) OR $order2===NULL)
+            $order2 = 'price';
+
+        $sort2 = Core::get('sort2');
+        //default value
+        if (!in_array($sort2, $sort_allowed) OR $sort2===NULL)
+            $sort2 = 'asc';
        
-       $items = array();
+        $items = array();
 
         //last products, you can modify this value at: general.feed_elements
         $products = new Model_Product();
         $products = $products 
                 ->where('status','=',Model_Product::STATUS_ACTIVE)
-                ->order_by('id_category','asc')
-                ->order_by('price','asc')
+                ->order_by($order1,$sort1)
+                ->order_by($order2,$sort2)
                 ->limit(Core::config('general.feed_elements'));
 
         //filter by category 
