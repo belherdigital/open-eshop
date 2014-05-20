@@ -434,7 +434,7 @@ class Controller_Panel_Update extends Auth_Controller {
                           'oc/modules/',
                           'oc/vendor/',
                           'oc/bootstrap.php',
-                          'oc/ko323/',
+                          'oc/kohana/',
                           'themes/',
                           'languages/',
                           'index.php',
