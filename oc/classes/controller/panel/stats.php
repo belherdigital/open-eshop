@@ -350,11 +350,10 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         //downloads
         $query = DB::select('id_product')
-                        ->select(array(DB::select('COUNT("id_download")')
-                            ->from(array('downloads','d'))
-                            ->where('d.id_order','=',DB::expr(core::config('database.default.table_prefix').'o.id_order'))
-                            ->group_by('id_order'), 'count'))
+                        ->select(DB::expr('COUNT(id_product) count'))                      
                         ->from(array('orders','o'))
+                        ->join(array('downloads','d'))
+                        ->using('id_order')
                         ->group_by('id_product')
                         ->order_by('count','desc')
                         ->execute();
