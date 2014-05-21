@@ -106,9 +106,20 @@ class Controller_Feed extends Controller {
         
         $items = array();
 
-        $forums = new Model_Forum();
-        $forums = $forums
+        $forums = new Model_Topic();
+        if($name = $this->request->param('name'))
+        {
+            $topic = new Model_Forum();
+            $topic = $topic->where('seoname','=', $name)->limit(1)->find();
+
+                if($topic->loaded())
+                    $forums->where('id_forum','=',$topic->id_forum);
+
+        }
+        
+        $forums = $forums->where('status','=',1)
                 ->order_by('created','desc')
+                ->where('id_forum','!=',NULL)
                 ->limit(Core::config('general.feed_elements'))
                 ->cached()
                 ->find_all();
@@ -116,10 +127,10 @@ class Controller_Feed extends Controller {
 
         foreach($forums as $forum)
         {
-            $url= Route::url('forum-list',  array('forum'=>$forum->seoname));
+            $url= Route::url('forum-list',  array('forum'=>$forum->seotitle));
 
             $items[] = array(
-                                'title'         => preg_replace('/&(?!\w+;)/', '&amp;', $forum->name),
+                                'title'         => preg_replace('/&(?!\w+;)/', '&amp;', $forum->title),
                                 'link'          => $url,
                                 'pubDate'       => Date::mysql2unix($forum->created),
                                 'description'   => Text::removebbcode(preg_replace('/&(?!\w+;)/', '&amp;',$forum->description)),

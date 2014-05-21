@@ -25,6 +25,9 @@
     <?if (core::config('general.blog')==1):?>
     <link rel="alternate" type="application/atom+xml" title="RSS Blog <?=Core::config('general.site_name')?>" href="<?=Route::url('rss-blog')?>" />
     <?endif?>
+    <?if (core::config('general.forums')==1):?>
+    <link rel="alternate" type="application/atom+xml" title="RSS Forum <?=Core::config('general.site_name')?>" href="<?=Route::url('rss-forum')?>" />
+    <?endif?>
     <link rel="alternate" type="application/atom+xml" title="RSS <?=Core::config('general.site_name')?>" href="<?=Route::url('rss')?>" />
     
     <?if (Model_Category::current()->loaded()):?>
