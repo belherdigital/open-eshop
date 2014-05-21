@@ -106,34 +106,29 @@ class Controller_Feed extends Controller {
         
         $items = array();
 
-        $forums = new Model_Topic();
-        if($seoname = $this->request->param('seoname'))
-        {
-            $topic = new Model_Forum();
-            $topic = $topic->where('seoname','=', $seoname)->limit(1)->find();
+        $topics = new Model_Topic();
 
-                if($topic->loaded())
-                    $forums->where('id_forum','=',$topic->id_forum);
-
-        }
+        if(Model_Forum::current()->loaded())
+            $topics->where('id_forum','=',Model_Forum::current()->id_forum);
+        else
+            $topics->where('id_forum','!=',NULL);//any forum
         
-        $forums = $forums->where('status','=',1)
+        $topics = $topics->where('status','=', Model_Topic::STATUS_ACTIVE)
+                ->where('id_post_parent','IS',NULL)
                 ->order_by('created','desc')
-                ->where('id_forum','!=',NULL)
                 ->limit(Core::config('general.feed_elements'))
                 ->cached()
                 ->find_all();
            
-
-        foreach($forums as $forum)
+        foreach($topics as $topic)
         {
-            $url= Route::url('forum-list',  array('forum'=>$forum->seotitle));
+            $url= Route::url('forum-topic',  array('seotitle'=>$topic->seotitle,'forum'=>$topic->forum->seoname));
 
             $items[] = array(
-                                'title'         => preg_replace('/&(?!\w+;)/', '&amp;', $forum->title),
+                                'title'         => preg_replace('/&(?!\w+;)/', '&amp;', $topic->title),
                                 'link'          => $url,
-                                'pubDate'       => Date::mysql2unix($forum->created),
-                                'description'   => Text::removebbcode(preg_replace('/&(?!\w+;)/', '&amp;',$forum->description)),
+                                'pubDate'       => Date::mysql2unix($topic->created),
+                                'description'   => Text::removebbcode(preg_replace('/&(?!\w+;)/', '&amp;',$topic->description)),
                           );
         }
   

@@ -25,10 +25,11 @@
     <?if (core::config('general.blog')==1):?>
     <link rel="alternate" type="application/atom+xml" title="RSS Blog <?=Core::config('general.site_name')?>" href="<?=Route::url('rss-blog')?>" />
     <?endif?>
+
     <?if (core::config('general.forums')==1):?>
     <link rel="alternate" type="application/atom+xml" title="RSS Forum <?=Core::config('general.site_name')?>" href="<?=Route::url('rss-forum')?>" />
-      <?if (Request::current()->param('forum')):?>
-      <link rel="alternate" type="application/atom+xml" title="RSS Forum <?=Core::config('general.site_name')?> - <?=Request::current()->param('forum')?>" href="<?=Route::url('rss-forum', array('seoname'=>Request::current()->param('forum')))?>" />
+      <?if (Model_Forum::current()->loaded()):?>
+      <link rel="alternate" type="application/atom+xml" title="RSS Forum <?=Core::config('general.site_name')?> - <?=Model_Forum::current()->name?>" href="<?=Route::url('rss-forum', array('forum'=>Model_Forum::current()->seoname))?>" />
       <?endif?>
     <?endif?>
     <link rel="alternate" type="application/atom+xml" title="RSS <?=Core::config('general.site_name')?>" href="<?=Route::url('rss')?>" />

@@ -65,6 +65,33 @@ class Model_Forum extends ORM {
     }
 
     /**
+     * global Model Category instance get from controller so we can access from anywhere like Model_Category::current()
+     * @var Model_Location
+     */
+    protected static $_current = NULL;
+
+    /**
+     * returns the current forum
+     * @return Model_Category
+     */
+    public static function current()
+    {
+        //we don't have so let's retrieve
+        if (self::$_current === NULL)
+        {
+            self::$_current = new self();
+            if(Request::current()->param('forum') != NULL)
+            {
+                self::$_current = self::$_current->where('seoname', '=', Request::current()->param('forum'))
+                                                    ->limit(1)->cached()->find();
+            }
+        }
+
+        return self::$_current;
+    }
+
+
+    /**
      * we get the forums in an array and a multidimensional array to know the deep
      * @return array 
      */
