@@ -93,6 +93,46 @@ class Controller_Feed extends Controller {
     
     }
 
+    public function action_forum()
+    {
+        $this->auto_render = FALSE;
+
+        $info = array(
+                        'title'     => 'RSS Forum '.Core::config('general.site_name'),
+                        'pubDate' => date("D, d M Y H:i:s T"),
+                        'description' => __('Latest post published'),
+                        'generator'     => 'Open Classifieds',
+        ); 
+        
+        $items = array();
+
+        $forums = new Model_Forum();
+        $forums = $forums
+                ->order_by('created','desc')
+                ->limit(Core::config('general.feed_elements'))
+                ->cached()
+                ->find_all();
+           
+
+        foreach($forums as $forum)
+        {
+            $url= Route::url('forum-list',  array('forum'=>$forum->seoname));
+
+            $items[] = array(
+                                'title'         => preg_replace('/&(?!\w+;)/', '&amp;', $forum->name),
+                                'link'          => $url,
+                                'pubDate'       => Date::mysql2unix($forum->created),
+                                'description'   => Text::removebbcode(preg_replace('/&(?!\w+;)/', '&amp;',$forum->description)),
+                          );
+        }
+  
+        $xml = Feed::create($info, $items);
+
+        $this->response->headers('Content-type','text/xml');
+        $this->response->body($xml);
+    
+    }
+
     public function action_info()
     {
 
