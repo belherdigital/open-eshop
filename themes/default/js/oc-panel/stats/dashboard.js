@@ -19,3 +19,9 @@ $(window).load(function(){
 		});
 	});
 });
+
+// affiliate link generator
+$('#affiliate_percentage').change(function(){
+	var url = $('option:selected', this).data('url');
+	$( ".affi-example-link" ).html( '<a target="_blank" href="'+url+'">'+url+'</a>' )
+});

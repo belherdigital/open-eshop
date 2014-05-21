@@ -382,6 +382,12 @@ class Controller_Panel_Profile extends Auth_Controller {
         $this->template->content = View::factory('oc-panel/profile/affiliate');
         $content->user = $user;
         
+        // list of all products to build affiliate links
+        $products = new Model_Product();
+        $products = $products->where('status','=',1)->find_all();
+
+        $content->products = $products;
+
         //change paypal account->profile, put a warning if he didnt set it yet with a link
         if (!valid::email($user->paypal_email))
             Alert::set(Alert::INFO, __('Please set your paypal email at your profile'));

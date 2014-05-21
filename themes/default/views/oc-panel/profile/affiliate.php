@@ -3,8 +3,20 @@
 
 <div class="page-header">
 	<h1><?=__('Affiliate Panel')?></h1>
+    <div class="col-xs-3 pl-0">
+        <label><?=__('Select Product')?></label>
+        <select name="affiliate_percentage" id="affiliate_percentage" data-user="<?=$user->id_user?>">
+            <option></option>
+            <?foreach ($products as $prod):?>
+                <?var_dump($prod->title)?>
+                <option value="<?=$prod->id_product?>" 
+                        data-url="<?=Route::url('product', array('seotitle'=>$prod->seotitle,'category'=>$prod->category->seoname)) ?>?aff=<?=$user->id_user?>"><?=$prod->title?> <strong>%<?=$prod->affiliate_percentage?></strong></option>
+            <?endforeach?>
+        </select>
+    </div>
+    <div class="clearfix"></div><br>
     <p><?=__('Your affiliate ID is')?> <?=$user->id_user?>, 
-        <?=__('example link')?> <a target="_blank" href="<?=Route::url('default')?>?aff=<?=$user->id_user?>"><?=Route::url('default')?>?aff=<?=$user->id_user?></a>
+        <?=__('example link')?> <span class="affi-example-link"><a target="_blank" href="<?=Route::url('default')?>?aff=<?=$user->id_user?>"><?=Route::url('default')?>?aff=<?=$user->id_user?></a></span>
     </p>
     <h2><?=__('Total earned')?> <?=i18n::format_currency($total_earnings)?></h2>
     <?if($last_payment_date!==NULL):?>
