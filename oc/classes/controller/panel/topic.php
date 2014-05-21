@@ -53,5 +53,49 @@ class Controller_Panel_Topic extends Auth_Crud {
             $view = 'oc-panel/crud/index';
         
         $this->render($view, array('elements' => $elements,'pagination'=>$pagination));
-    }    
+    }
+
+    /**
+     * Update new forum
+     */
+    public function action_update()
+    {
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Edit Topic')));
+
+        $topic = new Model_Topic($this->request->param('id'));
+
+        $get_all = Model_Forum::get_all();
+
+        //get all forums to build forum parents in select
+        $forum_parents = array();
+        foreach ($get_all[0] as $parent )
+            $forum_parents[$parent['id']] = $parent['name'];
+
+        $this->template->content = View::factory('oc-panel/pages/topic/update', array('topic'=>$topic, 'forum_parents'=>$forum_parents));
+        
+        if ($_POST)
+        {
+
+            $topic->title = core::post('title');
+            $topic->id_forum = core::post('id_forum');
+            $topic->description = core::post('description');
+            if(core::post('seotitle') != $topic->seotitle)
+                $topic->seotitle = $topic->gen_seotitle(core::post('seotitle'));
+
+            if(core::post('status') == 'on')
+                $topic->status = 1;
+            else
+                $topic->status = 0;
+
+
+            try {
+                $topic->save();
+                Alert::set(Alert::SUCCESS, __('Topic is updated.'));
+                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'topic','action'=>'index')));  
+            } catch (Exception $e) {
+                Alert::set(Alert::ERROR, $e->getMessage());
+                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'topic','action'=>'index'))); 
+            }
+        }
+    }
 }

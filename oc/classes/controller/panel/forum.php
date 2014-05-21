@@ -125,7 +125,7 @@ class Controller_Panel_Forum extends Auth_Crud {
     }
 
     /**
-     * Create new forum
+     * Update new forum
      */
     public function action_update()
     {
