@@ -243,26 +243,30 @@ class Core {
     /**
      * gets the html content from a URL
      * @param  string $url 
+     * @param  integer seconds to timeout the request
      * @return string      
      */
-    public static function curl_get_contents($url)
+    public static function curl_get_contents($url, $timeout = 30)
     {
-        $c = curl_init();
+        $c = curl_init(); 
+        if ($c === FALSE) 
+            return FALSE;
         curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($c, CURLOPT_URL, $url);
-        curl_setopt($c, CURLOPT_TIMEOUT,30); 
+        curl_setopt($c, CURLOPT_TIMEOUT,$timeout); 
         // curl_setopt($c, CURLOPT_FOLLOWLOCATION, TRUE);
         // $contents = curl_exec($c);
         $contents = core::curl_exec_follow($c);
 
-        
-        if(!curl_errno($c))
+
+        if( ! curl_errno($c))
         {
             curl_close($c);
             return ($contents)? $contents : FALSE;
         }
         else 
-            throw new Kohana_Exception('Curl '.$url.' error: ' . curl_error($c));
+            return FALSE;
+            //throw new Kohana_Exception('Curl '.$url.' error: ' . curl_error($c));
     }
 
     /**
@@ -368,6 +372,22 @@ class Core {
         $url = ($url == NULL)?URL::current():$url;
         $url = urlencode($url);
         return '<img src="https://chart.googleapis.com/chart?chs='.$size.'x'.$size.'&cht=qr&chld='.$EC_level.'|'.$margin.'&chl='.$url.'" alt="QR code" width="'.$size.'" height="'.$size.'"/>';
+    }
+
+    /**
+     * [ocacu description]
+     * @return void
+     */
+    public static function ocacu()
+    {
+        //first time install notify of installation to ocacu once month
+        if (Core::config('general.ocacu') < strtotime('-1 second'))
+        {
+            $url = (Kohana::$environment!== Kohana::DEVELOPMENT)? 'ocacu.com':'ocacu.lo';
+            $url = 'http://'.$url.'/api/new/?siteUrl='.URL::base();
+            if (Core::curl_get_contents($url,5))
+                Model_Config::set_value('general','ocacu',time());
+        }
     }
 
 } //end core

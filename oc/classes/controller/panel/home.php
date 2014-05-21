@@ -9,7 +9,8 @@ class Controller_Panel_Home extends Auth_Controller {
         if (Auth::instance()->get_user()->id_role!=Model_Role::ROLE_ADMIN)
             Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'profile','action'=>'index')));  
 
-
+        Core::ocacu();
+        
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Welcome')));
 		$this->template->title = 'Welcome';
 

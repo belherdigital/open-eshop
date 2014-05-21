@@ -129,7 +129,6 @@ class Controller_Panel_Forum extends Auth_Crud {
      */
     public function action_update()
     {
-
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Edit new forum')));
 
         $forum = new Model_Forum($this->request->param('id'));
@@ -139,11 +138,12 @@ class Controller_Panel_Forum extends Auth_Crud {
         //get all forums to build forum parents in select
         $forum_parents = array();
         foreach ($get_all[0] as $parent )
-            $forum_parents[$parent['id']] = $parent['name'];
+        {
+            if ($parent['id']!=$forum->id_forum)
+                $forum_parents[$parent['id']] = $parent['name'];
+        }
         
-        $this->template->content = View::factory('oc-panel/pages/forum/update', array('forum_parents'=>$forum_parents,
-                                                                                      'forum'=>$forum));
-        if ($_POST)
+        if ($_POST AND $forum->loaded())
         {
             
             $forum->name = core::post('name');
@@ -153,7 +153,7 @@ class Controller_Panel_Forum extends Auth_Crud {
                 $forum->seoname = $forum->gen_seoname(core::post('seoname'));
             
             try {
-                $forum->save();
+                $forum->update();
                 Alert::set(Alert::SUCCESS, __('Forum is updated.'));
                 Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index')));  
             } catch (Exception $e) {
@@ -161,6 +161,10 @@ class Controller_Panel_Forum extends Auth_Crud {
                 Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index'))); 
             }
         }
+        else
+            $this->template->content = View::factory('oc-panel/pages/forum/update', array('forum_parents'=>$forum_parents,
+                                                                                      'forum'=>$forum));
+        
     }
 
     /**

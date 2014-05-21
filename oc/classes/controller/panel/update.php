@@ -257,10 +257,6 @@ class Controller_Panel_Update extends Auth_Controller {
      */
     public function action_14()
     {
-        //previous updates of DB
-        $this->action_11();
-        $this->action_12();
-        $this->action_13();
 
         $prefix = Database::instance()->table_prefix();
 
@@ -339,7 +335,33 @@ class Controller_Panel_Update extends Auth_Controller {
         // returns TRUE if some config is saved 
         $return_conf = Model_Config::config_array($configs);
         $return_cont = Model_Content::content_array($contents);
+    }
 
+        /**
+     * This function will upgrade configs  
+     */
+    public function action_15()
+    {
+        //previous updates of DB
+        $this->action_11();
+        $this->action_12();
+        $this->action_13();
+        $this->action_14();
+
+        $prefix = Database::instance()->table_prefix();
+
+             
+        //set sitemap to 0
+        Model_Config::set_value('sitemap','on_post',0);     
+
+        $configs = array( 
+                         array('config_key'     =>'ocacu',
+                               'group_name'     =>'general', 
+                               'config_value'   =>'0'), 
+                        );
+
+        // returns TRUE if some config is saved 
+        $return_conf = Model_Config::config_array($configs);
 
 
         //clean cache
@@ -352,6 +374,9 @@ class Controller_Panel_Update extends Auth_Controller {
         Alert::set(Alert::SUCCESS, __('Software Updated to latest version!'));
         $this->request->redirect(Route::url('oc-panel', array('controller'=>'update', 'action'=>'index'))); 
     }
+
+
+
 
     /**
      * This function will upgrade DB that didn't existed in verisons below 2.0.6
@@ -409,6 +434,7 @@ class Controller_Panel_Update extends Auth_Controller {
                           'oc/modules/',
                           'oc/vendor/',
                           'oc/bootstrap.php',
+                          'oc/kohana/',
                           'themes/',
                           'languages/',
                           'index.php',

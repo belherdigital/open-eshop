@@ -345,7 +345,7 @@ VALUES (1, 'admin', 'admin', '".core::request('ADMIN_EMAIL')."', '$password', 1,
  */
 mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`group_name`, `config_key`, `config_value`) VALUES
 ('sitemap', 'expires', '43200'),
-('sitemap', 'on_post', 1),
+('sitemap', 'on_post', 0),
 ('appearance', 'theme', 'default'),
 ('appearance', 'theme_mobile', ''),
 ('appearance', 'allow_query_theme', 0),
@@ -384,6 +384,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('general', 'forums', '0'),
 ('general', 'minify', 0),
 ('general', 'sort_by', 'published-asc'),
+('general', 'ocacu', '0'),
 ('image', 'allowed_formats', 'jpeg,jpg,png,'),
 ('image', 'max_image_size', '5'),
 ('image', 'height', ''),

@@ -47,6 +47,12 @@ class Controller_Panel_Category extends Auth_Crud {
         {
             if ( $success = $form->submit() )
             {
+                if ($form->object->id_category == $form->object->id_category_parent)
+                {
+                    Alert::set(Alert::INFO, __('You can not set as parent the same category'));
+                    $this->request->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$form->object->id_category)));
+                }
+                
                 $form->save_object();
                 $form->object->parent_deep =  $form->object->get_deep();
                 $form->object->save();
