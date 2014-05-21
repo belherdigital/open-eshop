@@ -38,7 +38,7 @@
     	<div class="col-md-offset-3">
 		    <div class="checkbox">
 		        <label>
-		          	<input type="checkbox" name="status" <?=($topic->status==Model_Product::STATUS_ACTIVE)?'checked="checked"':''?>>&nbsp;<?=__('Activate')?>
+		          	<input type="checkbox" name="status" <?=($topic->status==Model_Post::STATUS_ACTIVE)?'checked="checked"':''?>>&nbsp;<?=__('Activate')?>
 		        </label>
 	      	</div>
       	</div>
