@@ -27,6 +27,9 @@
     <?endif?>
     <?if (core::config('general.forums')==1):?>
     <link rel="alternate" type="application/atom+xml" title="RSS Forum <?=Core::config('general.site_name')?>" href="<?=Route::url('rss-forum')?>" />
+      <?if (Request::current()->param('forum')):?>
+      <link rel="alternate" type="application/atom+xml" title="RSS Forum <?=Core::config('general.site_name')?> - <?=Request::current()->param('forum')?>" href="<?=Route::url('rss-forum', array('seoname'=>Request::current()->param('forum')))?>" />
+      <?endif?>
     <?endif?>
     <link rel="alternate" type="application/atom+xml" title="RSS <?=Core::config('general.site_name')?>" href="<?=Route::url('rss')?>" />
     

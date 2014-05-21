@@ -107,10 +107,10 @@ class Controller_Feed extends Controller {
         $items = array();
 
         $forums = new Model_Topic();
-        if($name = $this->request->param('name'))
+        if($seoname = $this->request->param('seoname'))
         {
             $topic = new Model_Forum();
-            $topic = $topic->where('seoname','=', $name)->limit(1)->find();
+            $topic = $topic->where('seoname','=', $seoname)->limit(1)->find();
 
                 if($topic->loaded())
                     $forums->where('id_forum','=',$topic->id_forum);

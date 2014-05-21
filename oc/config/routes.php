@@ -63,7 +63,7 @@ Route::set('rss-blog','rss/blog.xml')
 /**
  * rss for forum
  */
-Route::set('rss-forum','rss/rss-forum(/<name>).xml')
+Route::set('rss-forum','rss-forum(/<seoname>).xml')
 ->defaults(array(
         'controller' => 'feed',    
         'action'     => 'forum',
@@ -72,7 +72,7 @@ Route::set('rss-forum','rss/rss-forum(/<name>).xml')
 /**
  * rss
  */
-Route::set('rss','rss(/<category>(/<location>)).xml')
+Route::set('rss','rss(/<category>).xml')
 ->defaults(array(
         'controller' => 'feed',    
         'action'     => 'index',
