@@ -2,7 +2,7 @@
 
 <div class="page-header">
     <h1><?=__('Versions')?></h1>
-    <p><?=__('Open eShop release history information.')?> 
+    <p><?=__('Open Classifieds release history information.')?> 
         <?=__('Your installation version is')?> <span class="label label-info"><?=core::VERSION?></span>
     </p>
     <p><?=__('Your Hash Key for this installation is')?> 
@@ -12,32 +12,27 @@
             <?=__('Check for updates')?></a>
 
 </div>
-<div class="table-responsive">
-    <table class="table table-striped">
-    <tr>
-        <th><?=__('Version')?></th>
-        <th><?=__('Information')?></th>
-    </tr>
-    <?foreach ($versions as $version=>$values):?> 
-    <tr>
-            <td>
-                <?=$version?>
-                <?=($version==$latest_version)? '<span class="label label-success">'.__('Latest').'</span>':''?>
-                <?=($version==core::VERSION)? '<span class="label label-info">'.__('Current').'</span>':''?>
-                <br /><br />
-            </td>
-            
-        <td>
-            <table class="table">
-                <?foreach ($values as $key => $value):?>
-                    <tr>
-                        <th><?=ucfirst($key)?></th>
-                        <td><?=(strpos($value, 'http')===FALSE? $value: HTML::anchor($value,substr($value, 0,40)) )?></td>
-                    </tr>
-                <?endforeach?>
-            </table>
-        </td>
-    </tr>
-    <?endforeach?>
-    </table>
-</div>
+
+<table class="table table-striped">
+<tr>
+    <th><?=__('Version')?></th>
+    <th><?=__('Name')?></th>
+    <th><?=__('Date')?></th>
+    div>
+</tr>
+<?foreach ($versions as $version=>$values):?> 
+<tr>
+    <td>
+        <?=$version?>
+        <?=($version==$latest_version)? '<span class="label label-success">'.__('Latest').'</span>':''?>
+        <?=($version==core::VERSION)? '<span class="label label-info">'.__('Current').'</span>':''?>
+    </td>
+    <td>
+        <?=$values['codename']?>    
+    </td>
+    <td>
+        <a target="_blank" href="<?=$values['blog']?>"><?=$values['released']?></a>
+    </td>
+</tr>
+<?endforeach?>
+</table>

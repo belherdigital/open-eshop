@@ -28,15 +28,25 @@ class Controller_Panel_Update extends Auth_Controller {
         }
         else
         {
-            Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Updates')));
             $this->template->title = __('Updates');
-        
-            //check if we have latest version of OC
-            if (key($versions)!=core::VERSION)
-                Alert::set(Alert::ALERT,__('You are not using latest version of OC, please update.').
+            Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title));
+
+            //version numbers in a key value
+            $version_nums = array();
+            foreach ($versions as $version=>$values)
+                $version_nums[] = $version;
+
+            $latest_version = current($version_nums);
+            $latest_version_update = next($version_nums);
+
+
+            //check if we have latest version of OC and using the previous version then we allow to auto update
+            if ($latest_version!=core::VERSION AND core::VERSION == $latest_version_update )
+                Alert::set(Alert::ALERT,__('You are not using latest version, please update.').
                     '<br/><br/><a class="btn btn-primary update_btn" href="'.Route::url('oc-panel',array('controller'=>'update','action'=>'latest')).'">
                 '.__('Update').'</a>');
-            
+            elseif ($latest_version!=core::VERSION AND core::VERSION != $latest_version_update )
+                Alert::set(Alert::ALERT,__('You are using an old version, can not update automatically, please update manually.'));
 
             //pass to view from local versions.php         
             $this->template->content = View::factory('oc-panel/pages/tools/versions',array('versions'       =>$versions,
