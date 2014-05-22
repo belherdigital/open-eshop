@@ -39,16 +39,22 @@ class Controller_Panel_Auth extends Controller {
 	    $this->template->content = View::factory('pages/auth/login');
 	}
 	
-	/**
-	 * 
-	 * Logout user session
-	 */
-	public function action_logout()
-	{
-	    Auth::instance()->logout(TRUE);    
-	    $this->request->redirect(Route::url('oc-panel',array('controller'=>'auth','action'=>'login')));
-	
-	}
+    /**
+     * 
+     * Logout user session
+     */
+    public function action_logout()
+    {
+        Auth::instance()->logout(TRUE);    
+
+        if(empty($this->request->referrer()))
+            $redir = Route::url('oc-panel',array('controller'=>'auth','action'=>'login'));
+        else
+            $redir  = $this->request->referrer();
+
+        $this->request->redirect($redir);
+    
+    }
 	
 	/**
 	 * Sends an email with a link to change your password
