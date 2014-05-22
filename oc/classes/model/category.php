@@ -133,29 +133,39 @@ class Model_Category extends ORM {
         $cats = $cats->order_by('order','asc')->find_all()->cached()->as_array('id_category');
 
         //transform the cats to an array
-        $cats_arr = array();
-        foreach ($cats as $cat) 
+        if ( ($cats_arr = Core::cache('cats_arr'))===NULL)
         {
-            $cats_arr[$cat->id_category] =  array('name'               => $cat->name,
-                                                  'order'              => $cat->order,
-                                                  'id_category_parent' => $cat->id_category_parent,
-                                                  'parent_deep'        => $cat->parent_deep,
-                                                  'seoname'            => $cat->seoname,
-                                                  'id'                 => $cat->id_category,
-                                                );
+            //transform the cats to an array
+            $cats_arr = array();
+            foreach ($cats as $cat) 
+            {
+                $cats_arr[$cat->id_category] =  array('name'               => $cat->name,
+                                                      'order'              => $cat->order,
+                                                      'id_category_parent' => $cat->id_category_parent,
+                                                      'parent_deep'        => $cat->parent_deep,
+                                                      'seoname'            => $cat->seoname,
+                                                      'id'                 => $cat->id_category,
+                                                    );
+            }
+            Core::cache('cats_arr',$cats_arr);
+        }   
+
+        //multidimensional array
+        if ( ($cats_m = Core::cache('cats_m'))===NULL)
+        {
+            //for each category we get his siblings
+            $cats_s = array();
+            foreach ($cats as $cat) 
+                 $cats_s[$cat->id_category_parent][] = $cat->id_category;
+            
+
+            //last build multidimensional array
+            if (count($cats_s)>1)
+                $cats_m = self::multi_cats($cats_s);
+            else
+                $cats_m = array();
+            Core::cache('cats_m',$cats_m);
         }
-
-        //for each category we get his siblings
-        $cats_s = array();
-        foreach ($cats as $cat) 
-             $cats_s[$cat->id_category_parent][] = $cat->id_category;
-        
-
-        //last build multidimensional array
-        if (count($cats_s)>1)
-            $cats_m = self::multi_cats($cats_s);
-        else
-            $cats_m = array();
         
         return array($cats_arr,$cats_m);
     }
