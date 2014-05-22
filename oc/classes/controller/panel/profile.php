@@ -384,7 +384,7 @@ class Controller_Panel_Profile extends Auth_Controller {
         
         // list of all products to build affiliate links
         $products = new Model_Product();
-        $products = $products->where('status','=',1)->find_all();
+        $products = $products->where('status','=',Model_Product::STATUS_ACTIVE)->find_all();
 
         $content->products = $products;
 
