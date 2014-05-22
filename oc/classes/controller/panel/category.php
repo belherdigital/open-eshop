@@ -111,13 +111,7 @@ class Controller_Panel_Category extends Auth_Crud {
             }
 
             //recalculating the deep of all the categories
-            $cats = new Model_Category();
-            $cats = $cats->order_by('order','asc')->find_all()->cached()->as_array('id_category');
-            foreach ($cats as $cat) 
-            {
-                $cat->parent_deep = $cat->get_deep();
-                $cat->save();
-            }
+            $this->action_deep();
 
             $this->template->content = __('Saved');
         }
@@ -203,6 +197,36 @@ class Controller_Panel_Category extends Auth_Crud {
         }
         
         Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'category','action'=>'index'))); 
+    }
+
+    /**
+     * recalculating the deep of all the locations
+     * @return [type] [description]
+     */
+    public function action_deep()
+    {
+        //getting all the cats as array
+        list($cats_arr,$cats_m) = Model_Category::get_all();
+
+        $cats = new Model_Category();
+        $cats = $cats->order_by('order','asc')->find_all()->cached()->as_array('id_category');
+        foreach ($cats as $cat) 
+        {
+            $deep = 0;
+
+            //getin the parent of this category
+            $id_category_parent = $cats_arr[$cat->id_category]['id_category_parent'];
+
+            //counting till we find the begining
+            while ($id_category_parent != 1 AND $id_category_parent != 0) 
+            {
+                $id_category_parent = $cats_arr[$id_category_parent]['id_category_parent'];
+                $deep++;
+            }
+        }
+
+        //Alert::set(Alert::INFO, __('Success'));
+        //Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'location','action'=>'index'))); 
     }
 
 }
