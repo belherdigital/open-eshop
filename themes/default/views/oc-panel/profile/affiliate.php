@@ -9,8 +9,11 @@
             <option></option>
             <?foreach ($products as $prod):?>
                 <?var_dump($prod->title)?>
-                <option value="<?=$prod->id_product?>" 
-                        data-url="<?=Route::url('product', array('seotitle'=>$prod->seotitle,'category'=>$prod->category->seoname)) ?>?aff=<?=$user->id_user?>"><?=$prod->title?> <strong>%<?=$prod->affiliate_percentage?></strong></option>
+                <option value="<?=$prod->id_product?>"
+                        data-price="<?=__('Buy Now')?> <?=$prod->formated_price()?>" 
+                        data-url="<?=Route::url('product', array('seotitle'=>$prod->seotitle,'category'=>$prod->category->seoname)) ?>?aff=<?=$user->id_user?>"
+                        data-embed="<?=Core::config('general.base_url')?>embed.js?v=<?=core::VERSION?>">
+                        <?=$prod->title?> <strong>%<?=$prod->affiliate_percentage?></strong></option>
             <?endforeach?>
         </select>
     </div>
@@ -18,6 +21,22 @@
     <p><?=__('Your affiliate ID is')?> <?=$user->id_user?>, 
         <?=__('example link')?> <span class="affi-example-link"><a target="_blank" href="<?=Route::url('default')?>?aff=<?=$user->id_user?>"><?=Route::url('default')?>?aff=<?=$user->id_user?></a></span>
     </p>
+
+    <br>
+        <p><?=__('Button with overlay')?>:</p>
+            <textarea id="embed_button" class="col-md-4" onclick="this.select()"><script src="<?=Core::config('general.base_url')?>embed.js?v=<?=core::VERSION?>"></script>
+                <a class="oe_button" href="<?=Core::config('general.base_url')?>"><?=__('Buy Now')?></a></textarea>
+
+            <div class="clearfix"></div>
+        
+        </p>
+    <br>
+        <p><?=__('Button without overlay')?>:</p>
+            <textarea id="no_embed_button" class="col-md-4" onclick="this.select()">
+                <a class="oe_button" href="<?=Core::config('general.base_url')?>"><?=__('Buy Now')?></a></textarea>
+
+            <div class="clearfix"></div>
+        </p>
     <h2><?=__('Total earned')?> <?=i18n::format_currency($total_earnings)?></h2>
     <?if($last_payment_date!==NULL):?>
     <h3><?=__('Since last payment')?> <?=i18n::format_currency($last_earnings)?> (<?=$last_payment_date?>)</h3>
