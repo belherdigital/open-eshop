@@ -121,6 +121,23 @@ class Controller_Forum extends Controller {
             Alert::set(Alert::ALERT, __('Please login before posting'));
             $this->request->redirect(Route::url('oc-panel',array('controller'=>'auth','action'=>'login')));
         }
+
+        $forums = Model_Forum::get_forum_count();
+
+        if(count($forums) == 0)
+        {
+        	if(Auth::instance()->logged_in() AND Auth::instance()->get_user()->id_role == Model_Role::ROLE_ADMIN)
+        	{
+        		Alert::set(Alert::INFO, __('Please, first create some Forums.'));
+        		$this->request->redirect(Route::url('oc-panel',array('controller'=>'forum','action'=>'index')));
+        	}
+			else
+			{
+				Alert::set(Alert::INFO, __('New Topic is not available as a feature.'));
+				$this->request->redirect('default');
+			}
+        }
+        
         $errors = NULL;
         if($this->request->post()) //message submition  
         {
@@ -175,8 +192,6 @@ class Controller_Forum extends Controller {
 
         $this->template->styles              = array('css/jquery.sceditor.min.css' => 'screen');
         $this->template->scripts['footer']   = array('js/jquery.sceditor.min.js?v=144','js/forum-new.js');
-        
-        $forums = Model_Forum::get_forum_count();
             
         $this->template->bind('content', $content);
         $this->template->content = View::factory('pages/forum/new',array('forums'=>$forums));
