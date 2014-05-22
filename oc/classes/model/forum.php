@@ -100,30 +100,38 @@ class Model_Forum extends ORM {
         $forums = new self;
         $forums = $forums->order_by('order','asc')->find_all()->cached()->as_array('id_forum');
 
-        //transform the forums to an array
-        $forums_arr = array();
-
-        foreach ($forums as $forum) 
+        if ( ($forums_arr = Core::cache('forums_arr'))===NULL)
         {
-            $forums_arr[$forum->id_forum] =  array('name'              => $forum->name,
-                                                  'order'              => $forum->order,
-                                                  'id_forum_parent'    => $forum->id_forum_parent,
-                                                  'parent_deep'        => $forum->parent_deep,
-                                                  'seoname'            => $forum->seoname,
-                                                  'id'                 => $forum->id_forum,
-                                                );
+            //transform the forums to an array
+            $forums_arr = array();
+
+            foreach ($forums as $forum) 
+            {
+                $forums_arr[$forum->id_forum] =  array('name'              => $forum->name,
+                                                      'order'              => $forum->order,
+                                                      'id_forum_parent'    => $forum->id_forum_parent,
+                                                      'parent_deep'        => $forum->parent_deep,
+                                                      'seoname'            => $forum->seoname,
+                                                      'id'                 => $forum->id_forum,
+                                                    );
+            }
+            Core::cache('forums_arr',$forums_arr);
         }
 
-        //for each forum we get his siblings
-        $forums_s = array();
-        foreach ($forums as $forum) 
-             $forums_s[$forum->id_forum_parent][] = $forum->id_forum;
-        
-        //last build multidimensional array
-        if (count($forums_s)>0)
-            $forums_m = self::multi_forums($forums_s);
-        else
-            $forums_m = array();
+        if ( ($forums_m = Core::cache('forums_m'))===NULL)
+        {
+            //for each forum we get his siblings
+            $forums_s = array();
+            foreach ($forums as $forum) 
+                 $forums_s[$forum->id_forum_parent][] = $forum->id_forum;
+            
+            //last build multidimensional array
+            if (count($forums_s)>0)
+                $forums_m = self::multi_forums($forums_s);
+            else
+                $forums_m = array();
+            Core::cache('forums_m',$forums_m);
+        }
         
         //array of forum info and array order
         return array($forums_arr,$forums_m);
