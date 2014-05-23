@@ -13,7 +13,7 @@
                         data-price="<?=__('Buy Now')?> <?=$prod->formated_price()?>" 
                         data-url="<?=Route::url('product', array('seotitle'=>$prod->seotitle,'category'=>$prod->category->seoname)) ?>?aff=<?=$user->id_user?>"
                         data-embed="<?=Core::config('general.base_url')?>embed.js?v=<?=core::VERSION?>">
-                        <?=$prod->title?> <strong>%<?=$prod->affiliate_percentage?></strong></option>
+                        <?=$prod->title?> <strong>%<?=round($prod->affiliate_percentage,1)?></strong></option>
             <?endforeach?>
         </select>
     </div>
