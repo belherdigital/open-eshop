@@ -40,10 +40,14 @@
         class="btn btn-success">
         <i class="icon-download icon-white"></i> <?=__('Download')?> <?=$order->product->version?></a>
     <?endif?>
-<?else:?>
+<?elseif(!Auth::instance()->logged_in()):?>
     <hr>
     <a class="btn btn-info btn-large" data-toggle="modal" data-dismiss="modal" 
         href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'Login'))?>#login-modal">
         <?=__('Login to proceed')?>
     </a>
+<?elseif(Auth::instance()->logged_in()):?>
+    <hr>
+        <a title="<?=__('Purchases')?>" href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'orders'))?>" 
+        class="btn btn-success"> <?=__('Purchases')?> </a>
 <?endif?>
