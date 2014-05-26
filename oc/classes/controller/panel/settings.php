@@ -125,7 +125,8 @@ class Controller_Panel_Settings extends Auth_Controller {
         $generalconfig = new Model_Config();
         $config = $generalconfig->where('group_name', '=', 'general')->find_all();
         $config_img = $generalconfig->where('group_name', '=', 'image')->find_all();
-
+        $config_i18n = $generalconfig->where('group_name', '=', 'i18n')->find_all();
+        
         foreach ($config as $c) 
         {
             $forms[$c->config_key] = array('key'=>$c->config_key, 'value'=>$c->config_value);
@@ -135,15 +136,23 @@ class Controller_Panel_Settings extends Auth_Controller {
         {
             $forms_img[$c->config_key] = array('key'=>$c->config_key, 'value'=>$c->config_value);
         }
+        // config i18n configs
+        foreach ($config_i18n as $c)
+        {
+            $i18n[$c->config_key] = array('key'=>$c->config_key, 'value'=>$c->config_value);
+        }
         
+        //not updatable fields
+        $do_nothing = array('menu','locale','allow_query_language','charset');
+
         // save only changed values
         if($this->request->post())
         {
+            //save general
         	foreach ($config as $c) 
             {   
-                
                 $config_res = $this->request->post($c->config_key);
-                if($config_res != $c->config_value)
+                if($config_res != $c->config_value AND !in_array($c->config_key, $do_nothing))
                 {
                     $c->config_value = $config_res;
                     try {
@@ -154,6 +163,7 @@ class Controller_Panel_Settings extends Auth_Controller {
                 }
                   
             }
+            //save image config
             foreach ($config_img as $ci) 
             {   
                 
@@ -181,6 +191,21 @@ class Controller_Panel_Settings extends Auth_Controller {
                     }
                 }
             }
+            //save i18n
+            foreach ($config_i18n as $cn) 
+            {   
+                $config_res = $this->request->post($cn->config_key);
+
+                if($config_res != $cn->config_value AND !in_array($cn->config_key, $do_nothing))
+                {
+                    $cn->config_value = $config_res;
+                    try {
+                        $cn->save();
+                    } catch (Exception $e) {
+                        echo $e;
+                    }
+                }
+            }
 
             
             Alert::set(Alert::SUCCESS, __('General Configuration updated'));
@@ -191,7 +216,7 @@ class Controller_Panel_Settings extends Auth_Controller {
         foreach (Model_Content::get_pages() as $key => $value) 
             $pages[$value->seotitle] = $value->title;
 
-        $this->template->content = View::factory('oc-panel/pages/settings/general', array('pages'=>$pages, 'forms'=>$forms, 'forms_img'=>$forms_img));
+        $this->template->content = View::factory('oc-panel/pages/settings/general', array('pages'=>$pages, 'forms'=>$forms, 'forms_img'=>$forms_img,'i18n'=>$i18n));
     }
 
     /**
