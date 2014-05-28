@@ -180,29 +180,6 @@
                                 </h4>
                             </div>
                         </div>
-                        <?if (Theme::get('premium')!=1):?>
-                        <div class="panel panel-default no-prem">
-                            <div class="panel-heading">
-                                <a href="http://open-eshop.com/?utm_source=<?=URL::base()?>&utm_medium=oc_sidebar&utm_campaign=<?=date('Y-m-d')?>">by Open eShop</a>
-
-                                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                                <!-- oc_admin_sidebar -->
-                                <ins class="adsbygoogle"
-                                     style="display:inline-block;width:180px;height:150px"
-                                     data-ad-client="ca-pub-9967797131457349"
-                                     data-ad-slot="7696973310"></ins>
-                                <script>
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                                </script>
-
-                                <a href="https://twitter.com/openeshop"
-                                    onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com']);"
-                                    class="twitter-follow-button" data-show-count="false"
-                                    data-size="large">Follow @openeshop</a><br />
-                                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-                            </div>
-                        </div>
-                        <?endif?>
                     </div>
                 </div>
             </div>
