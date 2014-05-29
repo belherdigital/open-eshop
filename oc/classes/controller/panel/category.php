@@ -110,8 +110,8 @@ class Controller_Panel_Category extends Auth_Crud {
                 $order++;
             }
 
-            //recalculating the deep of all the categories
-            $this->action_deep();
+            //recalculating the deep of all the categories, we dont use tihs on eshop
+            //$this->action_deep();
 
             $this->template->content = __('Saved');
         }
@@ -222,6 +222,13 @@ class Controller_Panel_Category extends Auth_Crud {
             {
                 $id_category_parent = $cats_arr[$id_category_parent]['id_category_parent'];
                 $deep++;
+            }
+
+            //saving the category only if different deep
+            if ($cat->parent_deep != $deep)
+            {
+                $cat->parent_deep = $deep;
+                $cat->save();
             }
         }
 

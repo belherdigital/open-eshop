@@ -1,13 +1,20 @@
 <?php defined('SYSPATH') or die('No direct script access.');
                 return array (
-
-
+   '1.6' => 
+  array (
+    'codename' => 'La Gomera',
+    'released' => '2014-05-26',
+    'blog' => 'http://open-eshop.com/2014/',
+    'changelog' => '',
+    'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=9&page=1&state=closed',
+    'download' => 'http://j.mp/oe_16',
+  ),
   '1.5' => 
   array (
-    'codename' => '',
-    'released' => '2014-',
-    'blog' => 'http://open-eshop.com/2014/',
-    'changelog' => 'https://github.com/open-classifieds/open-eshop/commits/1.5',
+    'codename' => 'El Hierro',
+    'released' => '2014-05-26',
+    'blog' => 'http://open-eshop.com/2014/05/26/open-eshop-1-5/',
+    'changelog' => 'https://github.com/open-classifieds/open-eshop/commits/master',
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=8&page=1&state=closed',
     'download' => 'http://j.mp/oe_15',
   ),

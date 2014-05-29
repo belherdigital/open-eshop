@@ -46,13 +46,6 @@ class Widget_Pages extends Widget
 	 */
 	public function before()
 	{
-		$pages = new Model_Content();
-        $pages = $pages ->select('seotitle','title')
-                        ->where('type','=', 'page')
-                        ->where('status','=', 1)
-                        ->order_by('order','asc')
-                        ->cached()
-                        ->find_all();
 		$this->page_items = Model_Content::get_pages();
 	}
 
