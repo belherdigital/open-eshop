@@ -1,6 +1,22 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 class Controller_Panel_Content extends Auth_Controller {
+    
+    //list index email
+    public function action_email()
+    {
+        $this->action_list('email');
+    }
+    //list index page
+    public function action_page()
+    {
+        $this->action_list('page');
+    }
+    //list index FAQ
+    public function action_help()
+    {
+        $this->action_list('help');
+    }
 
     /**
      * action: LIST
@@ -8,8 +24,9 @@ class Controller_Panel_Content extends Auth_Controller {
     public function action_list()
     {
         
-        $type = $this->request->query('type');
-        //$site = ($type == 'page')?__('Page'):__('Email');
+        if($type == NULL)
+            $type = core::get('type');
+
         switch ($type) {
             case 'email':
                 $site = __('Email');
@@ -23,7 +40,7 @@ class Controller_Panel_Content extends Auth_Controller {
                 break;
         }
 
-        $locale = core::get('locale_select');
+        $locale = core::get('locale_select', core::config('i18n.locale'));
 
         // validation active 
         Breadcrumbs::add(Breadcrumb::factory()->set_title($site));  
@@ -51,7 +68,8 @@ class Controller_Panel_Content extends Auth_Controller {
         
         $this->template->content = View::factory('oc-panel/pages/content/list',array('contents'=>$contents, 
                                                                                         'type'=>$type, 
-                                                                                        'locale_list'=>$l_locale));
+                                                                                        'locale_list'=>$l_locale,
+                                                                                        'locale' => $locale));
     }
 
     /**

@@ -50,10 +50,10 @@
                                         <?if (core::config('general.blog')==1):?>
                                             <tr><td class="br"><?=Theme::admin_link(__('Blog'), 'blog','index','oc-panel','glyphicon glyphicon-pencil')?></td></tr>
                                         <?endif?>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Page'), 'content','list?type=page&locale_select='.core::config('i18n.locale'),'oc-panel','glyphicon glyphicon-file')?></td></tr>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Email'), 'content','list?type=email&locale_select='.core::config('i18n.locale'),'oc-panel','glyphicon glyphicon-envelope')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Page'), 'content','page','oc-panel','glyphicon glyphicon-file')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Email'), 'content','email','oc-panel','glyphicon glyphicon-envelope')?></td></tr>
                                         <?if (core::config('general.faq')==1):?>
-                                            <tr><td class="br"><?=Theme::admin_link(__('FAQ'), 'content','list?type=help&locale_select='.core::config('i18n.locale'),'oc-panel',' glyphicon glyphicon-question-sign')?></td></tr>
+                                            <tr><td class="br"><?=Theme::admin_link(__('FAQ'), 'content','help','oc-panel',' glyphicon glyphicon-question-sign')?></td></tr>
                                         <?endif?>
                                         <tr><td class="br"><?=Theme::admin_link(__('Translations'), 'translations','index','oc-panel','glyphicon glyphicon-globe')?></td></tr>
                                         <tr><td class="br"><?=Theme::admin_link(__('Newsletters'), 'newsletter','index','oc-panel','glyphicon glyphicon-envelope')?></td></tr>

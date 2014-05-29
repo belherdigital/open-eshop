@@ -20,7 +20,7 @@
         
         <div class="col-sm-4">
             <?= FORM::label('locale', __('Locale'), array('class'=>'control-label', 'for'=>'locale'))?>
-            <?= FORM::select('locale_select', $locale_list, core::request('locale_select') )?> 
+            <?= FORM::select('locale_select', $locale_list, $locale )?> 
         </div>
         <div class="col-sm-4">
             <?= FORM::hidden('type', $type )?> 
