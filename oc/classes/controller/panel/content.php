@@ -21,7 +21,7 @@ class Controller_Panel_Content extends Auth_Controller {
     /**
      * action: LIST
      */
-    public function action_list()
+    public function action_list($type = NULL)
     {
         
         if($type == NULL)
