@@ -491,8 +491,9 @@ class Model_User extends ORM {
         try
         {
             $user->save();
-            //send welcome email
-            $user->email('auth.register',array('[USER.PWD]'=>$password,
+            //send welcome email only if its new
+            if (isset($password))
+                $user->email('auth.register',array('[USER.PWD]'=>$password,
                                                     '[URL.QL]'=>$user->ql('default',NULL,TRUE))
                                             );
         }
