@@ -88,7 +88,7 @@ class Model_Content extends ORM {
      * @param  string $seotitle
      * @param  string $type
      */
-    public static function get($seotitle, $type = 'page')
+    public static function get_by_title($seotitle, $type = 'page')
     {   
         $content = new self();
         $content = $content->where('seotitle','=', $seotitle)

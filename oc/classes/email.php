@@ -114,7 +114,7 @@ class Email {
     public static function content($to, $to_name='', $from = NULL, $from_name =NULL, $content, $replace, $file=NULL)
     {
         
-        $email = Model_Content::get($content,'email');
+        $email = Model_Content::get_by_title($content,'email');
         //content found
         if ($email->loaded())
         { 

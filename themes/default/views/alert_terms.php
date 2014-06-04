@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
 <div id="accept_terms_modal" class="modal fade" data-backdrop="static">
-	<?$content = Model_Content::get(core::config('general.alert_terms'))?>
+	<?$content = Model_Content::get_by_title(core::config('general.alert_terms'))?>
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">

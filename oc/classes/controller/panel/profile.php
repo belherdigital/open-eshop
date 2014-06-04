@@ -48,11 +48,11 @@ class Controller_Panel_Profile extends Auth_Controller {
 					}
 					catch (ORM_Validation_Exception $e)
 					{
-						throw new HTTP_Exception_500($e->getMessage());
+						throw HTTP_Exception::factory(500,$e->getMessage());
 					}
 					catch (Exception $e)
 					{
-						throw new HTTP_Exception_500($e->getMessage());
+						throw HTTP_Exception::factory(500,$e->getMessage());
 					}
 
 					Alert::set(Alert::SUCCESS, __('Password is changed'));
@@ -86,15 +86,15 @@ class Controller_Panel_Profile extends Auth_Controller {
         	if ( Upload::not_empty($image) && ! Upload::type($image, explode(',',core::config('image.allowed_formats'))))
             {
                 Alert::set(Alert::ALERT, $image['name'].' '.__('Is not valid format, please use one of this formats "jpg, jpeg, png"'));
-                $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'edit')));
+                $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'edit')));
             } 
             if(!Upload::size($image, core::config('image.max_image_size').'M'))
             {
                 Alert::set(Alert::ALERT, $image['name'].' '.__('Is not of valid size. Size is limited on '.core::config('general.max_image_size').'MB per image'));
-                $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'edit')));
+                $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'edit')));
             }
             Alert::set(Alert::ALERT, $image['name'].' '.__('Image is not valid. Please try again.'));
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'edit')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'edit')));
         }
         else
         {
@@ -123,7 +123,7 @@ class Controller_Panel_Profile extends Auth_Controller {
                 }
                 
                 Alert::set(Alert::SUCCESS, $image['name'].' '.__('Image is uploaded.'));
-                $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile', 'action'=>'edit')));
+                $this->redirect(Route::url('oc-panel',array('controller'=>'profile', 'action'=>'edit')));
             }
             
         }
@@ -152,11 +152,11 @@ class Controller_Panel_Profile extends Auth_Controller {
             try {
                 $user->save();
                 Alert::set(Alert::SUCCESS, __('You have successfuly changed your data'));
-                $this->request->redirect(Route::url('oc-panel', array('controller'=>'profile','action'=>'edit')));
+                $this->redirect(Route::url('oc-panel', array('controller'=>'profile','action'=>'edit')));
                 
             } catch (Exception $e) {
                 //throw 500
-                throw new HTTP_Exception_500();
+                throw HTTP_Exception::factory(500,$e->getMessage());
             }   
         }
     }
@@ -167,7 +167,7 @@ class Controller_Panel_Profile extends Auth_Controller {
     */ 
    public function action_public()
    {
-        $this->request->redirect(Route::url('profile',array('seoname'=>Auth::instance()->get_user()->seoname)));
+        $this->redirect(Route::url('profile',array('seoname'=>Auth::instance()->get_user()->seoname)));
    }
 
 
@@ -217,7 +217,7 @@ class Controller_Panel_Profile extends Auth_Controller {
             $err_msg = $order->download();
         
         Alert::set(Alert::ERROR, $err_msg);
-        $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
+        $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
     
     }
 
@@ -244,7 +244,7 @@ class Controller_Panel_Profile extends Auth_Controller {
             if ($product->final_price()>0)
             {
                 Alert::set(Alert::ERROR, __('Not a free product.'));
-                $this->request->redirect(Route::url('product',array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+                $this->redirect(Route::url('product',array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
             }
             else
             {
@@ -262,9 +262,9 @@ class Controller_Panel_Profile extends Auth_Controller {
 
                 //if theres download redirect him to the file
                 if ($product->has_file()==TRUE)
-                    $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order)));
+                    $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order)));
                 else
-                    $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
+                    $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
 
             }
         }
@@ -343,7 +343,7 @@ class Controller_Panel_Profile extends Auth_Controller {
 
                     $product->recalculate_rate();
                     Alert::set(Alert::SUCCESS, __('Thanks for your review!'));
-                    $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
+                    $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
                 }
                 else
                     $errors = $validation->errors('ad');
@@ -353,7 +353,7 @@ class Controller_Panel_Profile extends Auth_Controller {
             $this->template->content = View::factory('oc-panel/profile/review',array('order'=>$order,'product'=>$product,'errors'=>$errors,'review'=>$review));
         }
         else
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
 
     }
 

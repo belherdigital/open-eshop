@@ -104,7 +104,7 @@ class Controller_Blog extends Controller {
             else
             {
                 //throw 404
-                throw new HTTP_Exception_404();
+                throw HTTP_Exception::factory(404,__('Page not found'));
             }
 
 

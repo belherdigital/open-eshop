@@ -49,7 +49,7 @@ class Controller_Forum extends Controller {
             Breadcrumbs::add(Breadcrumb::factory()->set_title($forum->name));
                         
             //count all topics
-            $count = DB::select(array(DB::select('COUNT("id_post")'),'count'))
+            $count = DB::select(array(DB::select(DB::expr('COUNT("id_post")')),'count'))
                         ->from(array('posts', 'p'))
                         ->where('id_post_parent','IS',NULL)
                         ->where('id_forum','=',$forum->id_forum)
@@ -72,7 +72,7 @@ class Controller_Forum extends Controller {
 
             //getting all the topic for the forum
             $topics =   DB::select('p.*')
-                        ->select(array(DB::select('COUNT("id_post")')
+                        ->select(array(DB::select(DB::expr('COUNT("id_post")'))
                             ->from(array('posts','pc'))
                             ->where('pc.id_post_parent','=',DB::expr(core::config('database.default.table_prefix').'p.id_post'))
                             ->where('pc.id_forum','=',$forum->id_forum)
@@ -105,7 +105,7 @@ class Controller_Forum extends Controller {
         else
         {
             //throw 404
-            throw new HTTP_Exception_404();
+            throw HTTP_Exception::factory(404,__('Page not found'));
         }
         
     }
@@ -119,7 +119,7 @@ class Controller_Forum extends Controller {
         if (!Auth::instance()->logged_in())
         {
             Alert::set(Alert::ALERT, __('Please login before posting'));
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'auth','action'=>'login')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'auth','action'=>'login')));
         }
 
         $forums = Model_Forum::get_forum_count();
@@ -129,12 +129,12 @@ class Controller_Forum extends Controller {
         	if(Auth::instance()->logged_in() AND Auth::instance()->get_user()->id_role == Model_Role::ROLE_ADMIN)
         	{
         		Alert::set(Alert::INFO, __('Please, first create some Forums.'));
-        		$this->request->redirect(Route::url('oc-panel',array('controller'=>'forum','action'=>'index')));
+        		$this->redirect(Route::url('oc-panel',array('controller'=>'forum','action'=>'index')));
         	}
 			else
 			{
 				Alert::set(Alert::INFO, __('New Topic is not available as a feature.'));
-				$this->request->redirect('default');
+				$this->redirect('default');
 			}
         }
         
@@ -168,7 +168,7 @@ class Controller_Forum extends Controller {
                         $topic->ip_address   = ip2long(Request::$client_ip);
                         $topic->save();
 
-                        $this->request->redirect(Route::url('forum-topic',array('forum'=>$topic->forum->seoname,'seotitle'=>$topic->seotitle)));
+                        $this->redirect(Route::url('forum-topic',array('forum'=>$topic->forum->seoname,'seotitle'=>$topic->seotitle)));
                     }
                     else
                     {
@@ -281,7 +281,7 @@ class Controller_Forum extends Controller {
         else
         {
             //throw 404
-            throw new HTTP_Exception_404();
+            throw HTTP_Exception::factory(404,__('Page not found'));
         }
 
     }

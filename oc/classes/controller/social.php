@@ -21,7 +21,7 @@ class Controller_Social extends Controller {
             catch (Exception $e) 
             {
                 Alert::set(Alert::ERROR, $e->getMessage());
-                $this->request->redirect(Route::url('default'));
+                $this->redirect(Route::url('default'));
             }
                 
         }
@@ -61,7 +61,7 @@ class Controller_Social extends Controller {
                         {
                             Alert::set(Alert::INFO, __('We need your email address to complete'));
                             //redirect him to select the email to register
-                            $this->request->redirect(Route::url('default',array('controller'=>'social',
+                            $this->redirect(Route::url('default',array('controller'=>'social',
                                                                                 'action'=>'register',
                                                                                 'id'    =>$provider_name)).'?uid='.$user_profile->identifier.'&name='.$name);
                         }
@@ -74,17 +74,16 @@ class Controller_Social extends Controller {
                         }
                     }
 
-                    Alert::set(Alert::SUCCESS, __('Welcome!'));
-                    //$this->request->redirect(Route::url('default'));
-                    $this->request->redirect(Session::instance()->get_once('auth_redirect',Route::url('default')));
-                    
+                    Alert::set(Alert::SUCCESS, __('Welcome!'));                    
                 }
             }
             catch( Exception $e )
             {
                 Alert::set(Alert::ERROR, __('Error: please try again!')." ".$e->getMessage());
-                $this->request->redirect(Route::url('default'));
             }
+
+            $this->redirect(Session::instance()->get_once('auth_redirect',Route::url('default')));
+            
         } 
     }
 
@@ -114,8 +113,8 @@ class Controller_Social extends Controller {
                 Alert::set(Alert::SUCCESS, __('Welcome!'));
 
                 //change the redirect
-                //$this->request->redirect(Route::url('default'));
-                $this->request->redirect(Session::instance()->get_once('auth_redirect',Route::url('default')));
+                //$this->redirect(Route::url('default'));
+                $this->redirect(Session::instance()->get_once('auth_redirect',Route::url('default')));
             }
             else
             {

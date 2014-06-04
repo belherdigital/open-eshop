@@ -158,7 +158,7 @@ class Model_User extends ORM {
 			}
 			catch(Exception $e)
 			{
-				throw new HTTP_Exception_500($e->getMessage());
+				throw HTTP_Exception::factory(500,$e->getMessage());
 			}
 			
 		}
@@ -198,7 +198,7 @@ class Model_User extends ORM {
 			}
 			catch(Exception $e)
 			{
-				throw new HTTP_Exception_500($e->getMessage());
+				throw HTTP_Exception::factory(500,$e->getMessage());
 			}
 		}
 		

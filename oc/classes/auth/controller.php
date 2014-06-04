@@ -39,7 +39,7 @@ class Auth_Controller extends Controller
 				$url = Route::get('oc-panel')->uri(array(
 													 'controller' => 'auth', 
 													 'action'     => 'login'));
-				$this->request->redirect($url);
+				$this->redirect($url);
 			}
 
             //in case we are loading another theme since we use the allow query we force the configs of the selected theme

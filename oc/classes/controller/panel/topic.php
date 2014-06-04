@@ -91,10 +91,10 @@ class Controller_Panel_Topic extends Auth_Crud {
             try {
                 $topic->save();
                 Alert::set(Alert::SUCCESS, __('Topic is updated.'));
-                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'topic','action'=>'index')));  
+                HTTP::redirect(Route::url('oc-panel',array('controller'  => 'topic','action'=>'index')));  
             } catch (Exception $e) {
                 Alert::set(Alert::ERROR, $e->getMessage());
-                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'topic','action'=>'index'))); 
+                HTTP::redirect(Route::url('oc-panel',array('controller'  => 'topic','action'=>'index'))); 
             }
         }
     }
@@ -127,7 +127,7 @@ class Controller_Panel_Topic extends Auth_Crud {
              Alert::set(Alert::SUCCESS, __('Topic not deleted'));
 
         
-        Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'topic','action'=>'index')));  
+        HTTP::redirect(Route::url('oc-panel',array('controller'  => 'topic','action'=>'index')));  
 
     }
 }

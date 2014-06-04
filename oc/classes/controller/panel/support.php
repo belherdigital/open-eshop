@@ -176,7 +176,7 @@ class Controller_Panel_Support extends Auth_Controller {
 
                 
                 Alert::set(Alert::SUCCESS, __('Ticket created.'));
-                $this->request->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
+                $this->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
             }
             else
             {
@@ -201,7 +201,7 @@ class Controller_Panel_Support extends Auth_Controller {
         if ($orders->count() == 0)
         {
             Alert::set(Alert::ALERT, __('You do not have any purchase with support active.'));
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
         }
 
         $this->template->bind('content', $content);
@@ -235,7 +235,7 @@ class Controller_Panel_Support extends Auth_Controller {
         if (!$ticket->loaded())
         {
             Alert::set(Alert::ERROR, __('Not your ticket.'));
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
         }
 
         //marking it as read if was not assign we assign an agent.
@@ -263,7 +263,7 @@ class Controller_Panel_Support extends Auth_Controller {
                                                 '[URL.QL]'=>$agent->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))));
 
             Alert::set(Alert::SUCCESS, __('Agent assigned.'));
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index','id'=>'admin')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index','id'=>'admin')));
         }
 
         //create new reply
@@ -387,7 +387,7 @@ class Controller_Panel_Support extends Auth_Controller {
         if (!$ticket->loaded())
         {
             Alert::set(Alert::ERROR, __('Not your ticket.'));
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
         }
         else
         {
@@ -396,7 +396,7 @@ class Controller_Panel_Support extends Auth_Controller {
             $ticket->save();
 
             Alert::set(Alert::SUCCESS, __('Ticket closed.'));
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
         }
         
     }

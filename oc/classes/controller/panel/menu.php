@@ -63,7 +63,7 @@ class Controller_Panel_Menu extends Auth_Crud {
         
         Alert::set(Alert::SUCCESS, __('Menu deleted'));
         
-        Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'menu','action'=>'index')));  
+        HTTP::redirect(Route::url('oc-panel',array('controller'  => 'menu','action'=>'index')));  
 
     }
 
@@ -76,6 +76,6 @@ class Controller_Panel_Menu extends Auth_Crud {
         else
             Alert::set(Alert::ERROR, __('Menu not created'));
 
-        Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'menu','action'=>'index')));  
+        HTTP::redirect(Route::url('oc-panel',array('controller'  => 'menu','action'=>'index')));  
     }
 }

@@ -13,7 +13,7 @@ class Controller_Page extends Controller {
         
         if ($seotitle!==NULL)
         {
-            $page = Model_Content::get($seotitle);
+            $page = Model_Content::get_by_title($seotitle);
 
             if ($page->loaded())
             {
@@ -30,14 +30,14 @@ class Controller_Page extends Controller {
             else
             {
                 //throw 404
-                throw new HTTP_Exception_404();
+                throw HTTP_Exception::factory(404,__('Page not found'));
             }
 
         }
         else//this should never happen
         {
             //throw 404
-            throw new HTTP_Exception_404();
+            throw HTTP_Exception::factory(404,__('Page not found'));
         }
     }
 

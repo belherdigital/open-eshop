@@ -125,7 +125,7 @@ class Controller_Paypal extends Controller{
 		else
 		{
 			Alert::set(Alert::INFO, __('Product could not be loaded'));
-            $this->request->redirect(Route::url('default'));
+            $this->redirect(Route::url('default'));
 		}
 	}
 

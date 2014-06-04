@@ -17,7 +17,7 @@ class Controller_Panel_Settings extends Auth_Controller {
 
     public function action_index()
     {
-        Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'settings','action'=>'general')));  
+        HTTP::redirect(Route::url('oc-panel',array('controller'  => 'settings','action'=>'general')));  
     }
 
     /**
@@ -63,7 +63,7 @@ class Controller_Panel_Settings extends Auth_Controller {
                     }
                 }
             }
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'settings','action'=>'product')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'settings','action'=>'product')));
             
         }
 
@@ -103,7 +103,7 @@ class Controller_Panel_Settings extends Auth_Controller {
             }
             // Cache::instance()->delete_all();
             Alert::set(Alert::SUCCESS, __('Email Configuration updated'));
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'settings','action'=>'email')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'settings','action'=>'email')));
         }
 
         $this->template->content = View::factory('oc-panel/pages/settings/email', array('config'=>$config));
@@ -209,7 +209,7 @@ class Controller_Panel_Settings extends Auth_Controller {
 
             
             Alert::set(Alert::SUCCESS, __('General Configuration updated'));
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'settings','action'=>'general')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'settings','action'=>'general')));
         }
 
         $pages = array(''=>__('Deactivated'));
@@ -263,7 +263,7 @@ class Controller_Panel_Settings extends Auth_Controller {
             }
             
             Alert::set(Alert::SUCCESS, __('Payment Configuration updated'));
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'settings','action'=>'payment')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'settings','action'=>'payment')));
         }
 
         $pages = array(''=>__('Deactivated'));
@@ -312,7 +312,7 @@ class Controller_Panel_Settings extends Auth_Controller {
             }
             
             Alert::set(Alert::SUCCESS, __('Affiliate Configuration updated'));
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'settings','action'=>'affiliates')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'settings','action'=>'affiliates')));
         }
 
         $pages = array(''=>__('Deactivated'));

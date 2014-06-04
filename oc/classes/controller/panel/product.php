@@ -60,7 +60,7 @@ class Controller_Panel_Product extends Auth_Crud {
         if(count($cats) <= 1)
         {
             Alert::set(Alert::WARNING, __('Please create a category first!'));
-            $this->request->redirect(Route::url('oc-panel', array('controller'=>'product','action'=>'index')));
+            $this->redirect(Route::url('oc-panel', array('controller'=>'product','action'=>'index')));
         }
 
         $obj_product = new Model_Product();
@@ -106,7 +106,7 @@ class Controller_Panel_Product extends Auth_Crud {
         	} 
         	catch (Exception $e) 
         	{
-        		throw new HTTP_Exception_500($e->getMessage());
+        		throw HTTP_Exception::factory(500,$e->getMessage());
         	}
 
         	// save images
@@ -119,7 +119,7 @@ class Controller_Panel_Product extends Auth_Crud {
         		}
         	}
 
-        	$this->request->redirect(Route::url('oc-panel', array('controller'=>'product','action'=>'index')));  	
+        	$this->redirect(Route::url('oc-panel', array('controller'=>'product','action'=>'index')));  	
         }
 
     }
@@ -195,7 +195,7 @@ class Controller_Panel_Product extends Auth_Crud {
                         $orig_img = str_replace('thumb_', '', $deleted_image);
                         unlink($img_path.$orig_img.".jpg");
 
-                        $this->request->redirect(Route::url('oc-panel', array('controller'  =>'product',
+                        $this->redirect(Route::url('oc-panel', array('controller'  =>'product',
                                                                               'action'      =>'update',
                                                                               'id'          =>$obj_product->id_product)));
                     }
@@ -219,7 +219,7 @@ class Controller_Panel_Product extends Auth_Crud {
                         $obj_product->file_name = '';
                         $obj_product->save();
 
-                        $this->request->redirect(Route::url('oc-panel', array('controller'  =>'product',
+                        $this->redirect(Route::url('oc-panel', array('controller'  =>'product',
                                                                               'action'      =>'update',
                                                                               'id'          =>$obj_product->id_product)));
                     }
@@ -314,7 +314,7 @@ class Controller_Panel_Product extends Auth_Crud {
                 } 
                 catch (Exception $e) 
                 {
-                    throw new HTTP_Exception_500($e->getMessage());
+                    throw HTTP_Exception::factory(500,$e->getMessage());
                 }
 
                 // save images
@@ -390,7 +390,7 @@ class Controller_Panel_Product extends Auth_Crud {
         //         $obj_product->file_name = '';
         //         $obj_product->save();
 
-        //         $this->request->redirect(Route::url('oc-panel', array('controller'  =>'product',
+        //         $this->redirect(Route::url('oc-panel', array('controller'  =>'product',
         //                                                               'action'      =>'update',
         //                                                               'id'          =>$obj_product->id_product)));
         //     }

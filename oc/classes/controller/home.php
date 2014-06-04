@@ -7,7 +7,7 @@ class Controller_Home extends Controller {
 
         if (core::config('general.landing_page')!='')
         {
-            $page = Model_Content::get(core::config('general.landing_page'));
+            $page = Model_Content::get_by_title(core::config('general.landing_page'));
 
             if ($page->loaded())
             {

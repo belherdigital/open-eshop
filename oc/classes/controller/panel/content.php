@@ -123,12 +123,12 @@ class Controller_Panel_Content extends Auth_Controller {
             {
                 $content->save();
                 Alert::set(Alert::SUCCESS, $this->request->post('type').' '.__('is created'));
-                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'list')).'?type='.$p['type'].'&locale_select='.$p['locale']);
+                HTTP::redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'list')).'?type='.$p['type'].'&locale_select='.$p['locale']);
             } 
             catch (Exception $e) 
             {
                 Alert::set(Alert::ERROR, $e->getMessage());
-                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'list')).'?type='.$p['type'].'&locale_select='.$p['locale']);
+                HTTP::redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'list')).'?type='.$p['type'].'&locale_select='.$p['locale']);
             }
         }
 
@@ -190,7 +190,7 @@ class Controller_Panel_Content extends Auth_Controller {
                 {
                     $content->save();
                     Alert::set(Alert::SUCCESS, $content->type.' '.__('is edited'));
-                    Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'edit', 'id'=>$content->id_content)));
+                    HTTP::redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'edit', 'id'=>$content->id_content)));
                 } 
                 catch (Exception $e) 
                 {
@@ -201,7 +201,7 @@ class Controller_Panel_Content extends Auth_Controller {
         else
         {
             Alert::set(Alert::INFO, __('Failed to load content'));
-            Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'edit')).'?type='.$type.'&locale_select='.$locale); 
+            HTTP::redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'edit')).'?type='.$type.'&locale_select='.$locale); 
         }
     }
 
@@ -234,7 +234,7 @@ class Controller_Panel_Content extends Auth_Controller {
         else
              Alert::set(Alert::INFO, __('Content is not deleted'));
 
-        Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'list')).'?type='.$type.'&locale_select='.$locale);  
+        HTTP::redirect(Route::url('oc-panel',array('controller'  => 'content','action'=>'list')).'?type='.$type.'&locale_select='.$locale);  
     }
 
 }

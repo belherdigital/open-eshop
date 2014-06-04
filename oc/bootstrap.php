@@ -3,16 +3,23 @@
 // -- Environment setup --------------------------------------------------------
 
 // Load the core Kohana class
-require SYSPATH.'classes/kohana/core'.EXT;
+require SYSPATH.'classes/Kohana/Core'.EXT;
 require APPPATH.'classes/kohana'.EXT;
-
 /**
  * Enable the Kohana auto-loader.
  *
  * @see  http://kohanaframework.org/guide/using.autoloading
  * @see  http://php.net/spl_autoload_register
  */
-spl_autoload_register(array('Kohana', 'auto_load'));
+//spl_autoload_register(array('Kohana', 'auto_load'));
+
+/**
+ * Optionally, you can enable a compatibility auto-loader for use with
+ * older modules that have not been updated for PSR-0.
+ *
+ * It is recommended to not enable this unless absolutely necessary.
+ */
+spl_autoload_register(array('Kohana', 'auto_load_lowercase'));
 
 /**
  * Enable the Kohana auto-loader for unserialization.
@@ -66,12 +73,17 @@ Kohana::init(array(
 //Kohana::$log->attach(new Log_File(APPPATH.'logs'));
 if ((Kohana::$environment !== Kohana::DEVELOPMENT) AND (Kohana::$environment !== Kohana::STAGING))
 {
-    Kohana::$log->attach(new Log_File(APPPATH.'logs'), array(LOG_ERR));
+    //$LEVELS = array();
+    $LEVELS = array(LOG_ERR);
 }
 else
 {
-    Kohana::$log->attach(new Log_File(APPPATH.'logs'), array(LOG_INFO,LOG_ERR,LOG_DEBUG));
+    $LEVELS = array(LOG_INFO,LOG_ERR,LOG_DEBUG);
 }
+/**
+ * Attach the file write to logging. Multiple writers are supported.
+ */
+Kohana::$log->attach(new Log_File(APPPATH.'logs'),$LEVELS);
 
 /**
  * Attach a file reader to config. Multiple readers are supported.
@@ -83,17 +95,20 @@ Kohana::$config->attach(new Config_File);
  * Enable modules. Modules are referenced by a relative or absolute path.
  */
 $modules = array(
-        	   'themes'	      => DOCROOT.'themes',     // we load it as a module so we can later search file using kohana find_file
-        	   'auth'         => MODPATH.'auth',       // Basic authentication
-        	   'cache'        => MODPATH.'cache',      // Caching with multiple backends
-        	   'database'     => MODPATH.'database',   // Database access
-        	   'image'        => MODPATH.'image',      // Image manipulation
-        	   'orm'          => MODPATH.'orm',        // Object Relationship Mapping
-			   'pagination'   => MODPATH.'pagination', // ORM Pagination
-			   'breadcrumbs'  => MODPATH.'breadcrumbs',// breadcrumb view
-			   'formmanager'  => MODPATH.'formmanager',// forms to objects ORM
-               'widgets'      => MODPATH.'widgets',    // loads default widgets
-               'mysqli'       => MODPATH.'mysqli',    // mysqli driver
+    'themes'        => DOCROOT.'themes',     // loaded as a module so we can search file using kohana find_file
+    //KO Modules
+    'auth'          => KOMODPATH.'auth',       // Basic authentication
+    'cache'         => KOMODPATH.'cache',      // Caching with multiple backends
+    'database'      => KOMODPATH.'database',   // Database access
+    'image'         => KOMODPATH.'image',      // Image manipulation
+    'orm'           => KOMODPATH.'orm',        // Object Relationship Mapping
+    //external modules not included on the KO package
+    'pagination'    => MODPATH.'pagination', // ORM Pagination
+    'breadcrumbs'   => MODPATH.'breadcrumbs',// breadcrumb view
+    //'plugin'  => MODPATH.'plugin',     // hooks used for the plugin system
+    'formmanager'   => MODPATH.'formmanager',// forms to objects ORM
+    'widgets'       => MODPATH.'widgets',    // loads default widgets
+    'mysqli'        => MODPATH.'mysqli',     // mysqli driver
 );
 
 //modules for development environment, not included in distribution KO with OC, so you need to place them in your environment

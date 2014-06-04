@@ -89,7 +89,7 @@ class Controller_Panel_Order extends Auth_Crud {
 
                 //redirect to orders
                 Alert::set(Alert::SUCCESS, __('Order created'));
-                $this->request->redirect(Route::url('oc-panel',array('controller'=>'order','action'=>'index')));
+                $this->redirect(Route::url('oc-panel',array('controller'=>'order','action'=>'index')));
 
             }
 
@@ -137,7 +137,7 @@ class Controller_Panel_Order extends Auth_Crud {
                 Alert::set(Alert::SUCCESS, __('Item updated').'. '.__('Please to see the changes delete the cache')
                     .'<br><a class="btn btn-primary btn-mini" href="'.Route::url('oc-panel',array('controller'=>'tools','action'=>'cache')).'?force=1">'
                     .__('Delete All').'</a>');
-                $this->request->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller())));
+                $this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller())));
             }
             else
             {
@@ -187,7 +187,7 @@ class Controller_Panel_Order extends Auth_Crud {
 
             //redirect to orders
             Alert::set(Alert::SUCCESS, __('Import correct'));
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'order','action'=>'index')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'order','action'=>'index')));
 
         }
 

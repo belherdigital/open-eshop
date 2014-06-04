@@ -179,7 +179,7 @@ class Model_Forum extends ORM {
 	public static function get_forum_count()
 	{
         $forums = DB::select('f.*')
-                ->select(array(DB::select('COUNT("id_post")')
+                ->select(array(DB::select(DB::expr('COUNT("id_post")'))
                         ->from(array('posts','p'))
                         ->where('p.id_post_parent','IS', NULL)
                         ->where('p.id_forum','=',DB::expr(core::config('database.default.table_prefix').'f.id_forum'))

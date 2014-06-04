@@ -98,7 +98,7 @@ class Controller_Product extends Controller{
 		else
 		{
 			Alert::set(Alert::INFO, __('Product not found.'));
-            $this->request->redirect(Route::url('default'));
+            $this->redirect(Route::url('default'));
 		}
 	}
 
@@ -127,7 +127,7 @@ class Controller_Product extends Controller{
 
             if (core::config('payment.thanks_page')!='')
             {
-                $thanks_message = Model_Content::get(core::config('payment.thanks_page'));
+                $thanks_message = Model_Content::get_by_title(core::config('payment.thanks_page'));
             }
 
             $order = NULL;
@@ -168,7 +168,7 @@ class Controller_Product extends Controller{
         else
         {
             Alert::set(Alert::INFO, __('Product not found.'));
-            $this->request->redirect(Route::url('default'));
+            $this->redirect(Route::url('default'));
         }
     }
 
@@ -217,7 +217,7 @@ class Controller_Product extends Controller{
         else
         {
             Alert::set(Alert::INFO, __('Product not found.'));
-            $this->request->redirect(Route::url('default'));
+            $this->redirect(Route::url('default'));
         }
     }
 
@@ -265,7 +265,7 @@ class Controller_Product extends Controller{
         else
         {
             Alert::set(Alert::INFO, __('Product not found.'));
-            $this->request->redirect(Route::url('default'));
+            $this->redirect(Route::url('default'));
         }
     }
 

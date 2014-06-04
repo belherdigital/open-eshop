@@ -241,7 +241,7 @@ abstract class Widget{
    			return TRUE;
    		} 
    		catch (Exception $e) {
-  			throw new HTTP_Exception_500();		
+  			throw HTTP_Exception::factory(500,$e->getMessage());		
    		}
 
    		return FALSE;
@@ -293,7 +293,7 @@ abstract class Widget{
                     return TRUE;
                 } 
                 catch (Exception $e) {
-                    throw new HTTP_Exception_500($e);     
+                    throw HTTP_Exception::factory(500,$e->getMessage());     
                 }
             }
         }

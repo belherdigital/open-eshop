@@ -1,69 +1,47 @@
-<?php defined('SYSPATH') or die('No direct script access.');
-
+<?php defined('SYSPATH') OR die('No direct script access.');
 /**
-* Custom exception handler for typical 404/500 error
-*
-* @package    OC
-* @category   Exception
-* @author     Lysender && Chema <chema@open-classifieds.com>
-* @copyright  (c) 2009-2013 Open Classifieds Team
-* @license    GPL v3
-*/
+ * Kohana exception class. Translates exceptions using the [I18n] class.
+ *
+ * @package    Kohana
+ * @category   Exceptions
+ * @author     Kohana Team
+ * @copyright  (c) 2008-2012 Kohana Team
+ * @license    http://kohanaframework.org/license
+ */
+class Kohana_Exception extends Kohana_Kohana_Exception {
 
 
-class Kohana_Exception extends Kohana_Kohana_Exception
-{
- 
-    public static function handler(Exception $e)
+
+    /**
+     * Get a Response object representing the exception
+     *
+     * @uses    Kohana_Exception::text
+     * @param   Exception  $e
+     * @return  Response
+     */
+    public static function response(Exception $e)
     {
-        if (Kohana::$environment !== Kohana::PRODUCTION)
+
+        if (Kohana::$environment === Kohana::DEVELOPMENT)
         {
-            parent::handler($e);
+            // Show the normal Kohana error page.
+            return parent::response($e);
         }
         else
         {
-            try
-            {
-                //not saving 404 as error
-                if ($e->getCode()!=404)
-                    Kohana::$log->add(Log::ERROR, parent::text($e));
- 
-                $params = array
-                (
-                    'action'  => 500,
-                    'origuri'   => rawurlencode(Arr::get($_SERVER, 'REQUEST_URI')),
-                    'message' => rawurlencode($e->getMessage())
-                );
- 
-                if ($e instanceof HTTP_Exception)
-                {
-                    $params['action'] = $e->getCode();
-                }
+            // Lets log the Exception, Just in case it's important!
+            Kohana_Exception::log($e);
 
-                //only for error 500 just kill execution, ugly but works
-                if ($params['action']==500)
-                {
-                    die(View::factory('pages/error/500',array('message'=>$e->getMessage())));
-                }
-
-                //d($params);
-                // Error sub-request.
-                echo Request::factory(Route::get('error')->uri($params))
-                    ->execute()
-                    ->send_headers()
-                    ->body();
-            }
-            catch (Exception $e)
-            {
-                // Clean the output buffer if one exists
-                ob_get_level() and ob_clean();
+            // Generate a nicer looking "Oops" page.
+            $view = View::factory('pages/error/default', array('message'=>$e->getMessage()) );
  
-                // Display the exception text
-                echo parent::text($e);
+            $response = Response::factory()
+                ->status(500)
+                ->body($view->render());
  
-                // Exit with an error status
-                exit(1);
-            }
+            return $response;
         }
+        
     }
+
 }

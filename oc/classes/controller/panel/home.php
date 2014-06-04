@@ -7,7 +7,7 @@ class Controller_Panel_Home extends Auth_Controller {
 	{
         //if not god redirect him to the normal profile page
         if (Auth::instance()->get_user()->id_role!=Model_Role::ROLE_ADMIN)
-            Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'profile','action'=>'index')));  
+            HTTP::redirect(Route::url('oc-panel',array('controller'  => 'profile','action'=>'index')));  
 
         Core::ocacu();
         

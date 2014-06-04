@@ -5,9 +5,8 @@
 $application = '/oc';
 
 /**
- * The directory in which your modules are located.
+ * The directory in which your external modules are located.
  *
- * @see  http://kohanaframework.org/guide/about.install#modules
  */
 $modules = $application.'/modules';
 
@@ -17,7 +16,14 @@ $modules = $application.'/modules';
  *
  * @see  http://kohanaframework.org/guide/about.install#system
  */
-$system = $application.'/ko322';
+$system = $application.'/kohana/system';
+
+/**
+ * The directory in which KO modules are located.
+ *
+ * @see  http://kohanaframework.org/guide/about.install#modules
+ */
+$komodules = $application.'/kohana/modules';
 
 /**
  * The default extension of resource files. If you change this, all resources
@@ -63,12 +69,17 @@ if ( ! is_dir($application) AND is_dir(DOCROOT.$application))
 if ( ! is_dir($modules) AND is_dir(DOCROOT.$modules))
 	$modules = DOCROOT.$modules;
 
+// Make the modules relative to the docroot, for symlink'd index.php
+if ( ! is_dir($komodules) AND is_dir(DOCROOT.$komodules))
+    $komodules = DOCROOT.$komodules;
+
 // Make the system relative to the docroot, for symlink'd index.php
 if ( ! is_dir($system) AND is_dir(DOCROOT.$system))
 	$system = DOCROOT.$system;
 
 // Define the absolute paths for configured directories
 define('APPPATH', realpath($application).DIRECTORY_SEPARATOR);
+define('KOMODPATH', realpath($komodules).DIRECTORY_SEPARATOR);
 define('MODPATH', realpath($modules).DIRECTORY_SEPARATOR);
 define('SYSPATH', realpath($system).DIRECTORY_SEPARATOR);
 

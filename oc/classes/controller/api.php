@@ -37,7 +37,7 @@ class Controller_Api extends Controller {
             //ok, let's download the zip file if validated license
             if (Model_License::verify($license,$domain) === TRUE)
             {
-                $license = Model_License::get($license);
+                $license = Model_License::get_license($license);
                 if ($license->loaded())
                     $license->order->download();
             }

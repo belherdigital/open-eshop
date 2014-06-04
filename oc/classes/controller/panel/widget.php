@@ -87,10 +87,10 @@ class Controller_Panel_Widget extends Auth_Controller {
                 else
                     Alert::set(Alert::SUCCESS,__('Widget created in '.$placeholder));
 
-                $this->request->redirect(Route::url('oc-panel', array('controller'=>'widget', 'action'=>'index')));
+                $this->redirect(Route::url('oc-panel', array('controller'=>'widget', 'action'=>'index')));
             } catch (Exception $e) {
                 //throw 500
-                throw new HTTP_Exception_500();     
+                throw HTTP_Exception::factory(500,$e->getMessage());     
             }
         }
   
@@ -116,7 +116,7 @@ class Controller_Panel_Widget extends Auth_Controller {
         else
             Alert::set(Alert::ERROR,__('Widget parameter missing'));
 
-        $this->request->redirect(Route::url('oc-panel', array('controller'=>'widget', 'action'=>'index')));
+        $this->redirect(Route::url('oc-panel', array('controller'=>'widget', 'action'=>'index')));
     }
 
 

@@ -633,7 +633,7 @@ class Model_Product extends ORM {
         {
             if (core::config('payment.alternative')!='' )
             {
-                $content = Model_Content::get(core::config('payment.alternative'));
+                $content = Model_Content::get_by_title(core::config('payment.alternative'));
                 return View::factory('pages/product/alternative_button',array('content'=>$content))->render();
             }
         }

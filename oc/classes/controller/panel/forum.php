@@ -116,10 +116,10 @@ class Controller_Panel_Forum extends Auth_Crud {
             try {
                 $forum->save();
                 Alert::set(Alert::SUCCESS, __('Forum is created.'));
-                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index')));  
+                HTTP::redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index')));  
             } catch (Exception $e) {
                 Alert::set(Alert::ERROR, $e->getMessage());
-                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index'))); 
+                HTTP::redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index'))); 
             }
         }
     }
@@ -155,10 +155,10 @@ class Controller_Panel_Forum extends Auth_Crud {
             try {
                 $forum->update();
                 Alert::set(Alert::SUCCESS, __('Forum is updated.'));
-                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index')));  
+                HTTP::redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index')));  
             } catch (Exception $e) {
                 Alert::set(Alert::ERROR, $e->getMessage());
-                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index'))); 
+                HTTP::redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index'))); 
             }
         }
         else
@@ -207,7 +207,7 @@ class Controller_Panel_Forum extends Auth_Crud {
              Alert::set(Alert::SUCCESS, __('Forum not deleted'));
 
         
-        Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index')));  
+        HTTP::redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index')));  
 
     }
 

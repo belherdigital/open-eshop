@@ -37,7 +37,7 @@ class Controller_Bitpay extends Controller{
             else
             {
                 Alert::set(Alert::INFO, __('Please login before purchasing'));
-                $this->request->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+                $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
             }
 
             //we save a once session with how much you pay later used in the goal
@@ -54,18 +54,18 @@ class Controller_Bitpay extends Controller{
             $invoice = Bitpay::bpCreateInvoice($product->id_product, $product->final_price(), '', $options);
             
             if (!isset($invoice['error']) AND valid::url($invoice['url']))
-                $this->request->redirect($invoice['url']);
+                $this->redirect($invoice['url']);
             else
             {
                 Alert::set(Alert::INFO, __('Could not create bitpay invoice'));
-                $this->request->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+                $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
             }
             
         }
         else
         {
             Alert::set(Alert::INFO, __('Product could not be loaded'));
-            $this->request->redirect(Route::url('default'));
+            $this->redirect(Route::url('default'));
         }
     }
 

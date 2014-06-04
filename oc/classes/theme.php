@@ -385,7 +385,7 @@ class Theme {
         } 
         catch (Exception $e) 
         {
-            throw new HTTP_Exception_500();     
+            throw HTTP_Exception::factory(500,$e->getMessage());     
         }   
 
     }
@@ -420,7 +420,7 @@ class Theme {
         } 
         catch (Exception $e) 
         {
-            throw new HTTP_Exception_500();     
+            throw HTTP_Exception::factory(500,$e->getMessage());     
         }   
 
     }
@@ -644,7 +644,7 @@ class Theme {
             elseif (Auth::instance()->get_user()->id_role == Model_Role::ROLE_ADMIN )
             {
                 Alert::set(Alert::INFO, __('License validation error, please insert again.'));
-                Request::current()->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'license')));
+                HTTP::redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'license')));
             }
         } 
     }
@@ -748,7 +748,7 @@ class Theme {
         } 
         catch (Exception $e) 
         {
-            throw new HTTP_Exception_500();     
+            throw HTTP_Exception::factory(500,$e->getMessage());     
         }   
     }
 

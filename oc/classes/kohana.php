@@ -3,6 +3,11 @@
 class Kohana extends Kohana_Core {
 
     /**
+     * @var  boolean  True if Kohana is running from the command line
+     */
+    public static $is_cli = FALSE;
+
+    /**
      * original requested data
      * @var array
      */
@@ -27,6 +32,42 @@ class Kohana extends Kohana_Core {
 
         parent::init($settings);
 
+    }
+
+    /**
+     * Provides auto-loading support of classes that follow Kohana's old class
+     * naming conventions.
+     *
+     * This is included for compatibility purposes with older modules.
+     *
+     * @param   string  $class      Class name
+     * @param   string  $directory  Directory to load from
+     * @return  boolean
+     */
+    public static function auto_load_lowercase($class, $directory = 'classes')
+    {
+        // Transform the class name into a path
+        $file = str_replace('_', DIRECTORY_SEPARATOR, $class);
+
+        //try find file in lower
+        $path = Kohana::find_file($directory, strtolower($file));
+        
+        //shit not found, try normal...
+        if (!$path)
+            $path = Kohana::find_file($directory, $file);
+
+        //oh yeah baby fund you!
+        if ($path)
+        {
+             // Load the class file
+            require $path;
+
+            // Class has been found
+            return TRUE;
+        }
+
+        // Class is not in the filesystem @todo throw exception?    
+        return FALSE;
     }
 
     /**

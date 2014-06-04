@@ -63,7 +63,7 @@ class Controller_Panel_Theme extends Auth_Controller {
             Theme::save($this->request->param('id'),$data);
             
             Alert::set(Alert::SUCCESS, __('Theme configuration updated'));
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=>'options','id'=>$this->request->param('id'))));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=>'options','id'=>$this->request->param('id'))));
         }
 
         $this->template->content = View::factory('oc-panel/pages/themes/options', array('options' => $options, 'data'=>$data));
@@ -114,7 +114,7 @@ class Controller_Panel_Theme extends Auth_Controller {
             //if premium theme validate license
             if (isset($opt['premium']) AND Theme::get('license')==NULL)
             {
-                 $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=> 'license','id'=>$theme) ));
+                 $this->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=> 'license','id'=>$theme) ));
             }
 
             //activating a mobile theme
@@ -129,7 +129,7 @@ class Controller_Panel_Theme extends Auth_Controller {
                 Alert::set(Alert::SUCCESS, __('Appearance configuration updated'));
             }
 
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=> (!isset($opt['premium']))?'index':'options')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=> (!isset($opt['premium']))?'index':'options')));
         }
 
         $this->template->content = View::factory('oc-panel/pages/themes/theme', array('market' => $market,
@@ -166,7 +166,7 @@ class Controller_Panel_Theme extends Auth_Controller {
                 Theme::save($theme);
 
                 Alert::set(Alert::SUCCESS, __('Theme activated, thanks.'));
-                $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=> 'options')));
+                $this->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=> 'options')));
             }
             else
             {
@@ -192,7 +192,7 @@ class Controller_Panel_Theme extends Auth_Controller {
         if (!Upload::type($zip_theme, array('zip'))) //check if it si of a right type
         {
             Alert::set(Alert::ALERT, $zip_theme['name'].' '.__('Is not valid format, please use ZIP format'));
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'index')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'index')));
         }
         else
         {
@@ -216,11 +216,11 @@ class Controller_Panel_Theme extends Auth_Controller {
                 else 
                 {
                     Alert::set(Alert::ALERT, $zip_theme['name'].' '.__('Zip file faild to extract, please try again.'));
-                    $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'index')));
+                    $this->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'index')));
                 }
 
                 Alert::set(Alert::SUCCESS, $zip_theme['name'].' '.__('You have succesfully installed the theme!'));
-                $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'index')));
+                $this->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'index')));
             }
             
         }
@@ -239,7 +239,7 @@ class Controller_Panel_Theme extends Auth_Controller {
             Theme::set_mobile_theme($this->request->param('id'));
             
             Alert::set(Alert::SUCCESS, __('Mobile Theme updated'));
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=>'index')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'theme','action'=>'index')));
         }
 
        
@@ -258,12 +258,12 @@ class Controller_Panel_Theme extends Auth_Controller {
             if (($theme = Theme::download($license))!=FALSE)
             {
                 Alert::set(Alert::SUCCESS, __('Theme downloaded').' '.$theme);
-                $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'license','id'=>$theme)).'?license='.$license);
+                $this->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'license','id'=>$theme)).'?license='.$license);
             }
         }
 
         Alert::set(Alert::ALERT, __('Theme could not be downloaded'));
-        $this->request->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'index')));
+        $this->redirect(Route::url('oc-panel',array('controller'=>'theme', 'action'=>'index')));
     }
 
 

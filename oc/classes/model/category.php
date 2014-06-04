@@ -229,7 +229,7 @@ class Model_Category extends ORM {
 	{
 
         $cats = DB::select('c.*')
-                ->select(array(DB::select('COUNT("id_product")')
+                ->select(array(DB::select(DB::expr('COUNT("id_product")'))
                         ->from(array('products','a'))
                         ->where('a.id_category','=',DB::expr(core::config('database.default.table_prefix').'c.id_category'))
                         ->where('a.status','=',Model_Product::STATUS_ACTIVE)

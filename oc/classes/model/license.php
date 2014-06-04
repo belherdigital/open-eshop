@@ -61,7 +61,7 @@ class Model_License extends ORM {
      * @param  string $license 
      * @return model_license          
      */
-    public static function get($license_num)
+    public static function get_license($license_num)
     {
         $license = new self();
         $license->where('license','=',$license_num)

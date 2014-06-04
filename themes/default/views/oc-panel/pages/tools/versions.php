@@ -18,7 +18,6 @@
     <th><?=__('Version')?></th>
     <th><?=__('Name')?></th>
     <th><?=__('Date')?></th>
-    div>
 </tr>
 <?foreach ($versions as $version=>$values):?> 
 <tr>

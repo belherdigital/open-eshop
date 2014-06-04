@@ -59,11 +59,11 @@ class Controller_Panel_Social extends Auth_Controller {
 				try 
 				{
 					$conf->save();
-					$this->request->redirect(Route::url('oc-panel',array('controller'=>'social','action'=>'index')));	
+					$this->redirect(Route::url('oc-panel',array('controller'=>'social','action'=>'index')));	
 				} 
 				catch (Exception $e) 
 				{
-					throw new HTTP_Exception_500($e->getMessage());
+					throw HTTP_Exception::factory(500,$e->getMessage());
 				}
 			
 			}

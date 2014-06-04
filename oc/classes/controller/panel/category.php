@@ -20,7 +20,7 @@ class Controller_Panel_Category extends Auth_Crud {
      */
     public function action_index($view = NULL)
     {
-        //Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'category','action'=>'dashboard')));  
+        //HTTP::redirect(Route::url('oc-panel',array('controller'  => 'category','action'=>'dashboard')));  
         //template header
         $this->template->title  = __('Categories');
 
@@ -50,7 +50,7 @@ class Controller_Panel_Category extends Auth_Crud {
                 if ($form->object->id_category == $form->object->id_category_parent)
                 {
                     Alert::set(Alert::INFO, __('You can not set as parent the same category'));
-                    $this->request->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$form->object->id_category)));
+                    $this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$form->object->id_category)));
                 }
                 
                 $form->save_object();
@@ -59,7 +59,7 @@ class Controller_Panel_Category extends Auth_Crud {
                 Alert::set(Alert::SUCCESS, __('Item updated').'. '.__('Please to see the changes delete the cache')
                     .'<br><a class="btn btn-primary btn-mini" href="'.Route::url('oc-panel',array('controller'=>'tools','action'=>'cache')).'?force=1">'
                     .__('Delete All').'</a>');
-                $this->request->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller())));
+                $this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller())));
             }
             else
             {
@@ -163,7 +163,7 @@ class Controller_Panel_Category extends Auth_Crud {
              Alert::set(Alert::SUCCESS, __('Category not deleted'));
 
         
-        Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'category','action'=>'index')));  
+        HTTP::redirect(Route::url('oc-panel',array('controller'  => 'category','action'=>'index')));  
 
     }
 
@@ -196,7 +196,7 @@ class Controller_Panel_Category extends Auth_Crud {
                 Alert::set(Alert::INFO, __('Select some categories first.'));
         }
         
-        Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'category','action'=>'index'))); 
+        HTTP::redirect(Route::url('oc-panel',array('controller'  => 'category','action'=>'index'))); 
     }
 
     /**
@@ -233,7 +233,7 @@ class Controller_Panel_Category extends Auth_Crud {
         }
 
         //Alert::set(Alert::INFO, __('Success'));
-        //Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'location','action'=>'index'))); 
+        //HTTP::redirect(Route::url('oc-panel',array('controller'  => 'location','action'=>'index'))); 
     }
 
 }

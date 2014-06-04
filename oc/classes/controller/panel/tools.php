@@ -20,7 +20,7 @@ class Controller_Panel_Tools extends Auth_Controller {
     public function action_index()
     {
         //@todo just a view with links?
-        Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'update','action'=>'index')));  
+        HTTP::redirect(Route::url('oc-panel',array('controller'  => 'update','action'=>'index')));  
     }
 
 
@@ -178,7 +178,7 @@ class Controller_Panel_Tools extends Auth_Controller {
             }
             // Cache::instance()->delete_all();
             Alert::set(Alert::SUCCESS, __('Sitemap Configuration updated'));
-            $this->request->redirect(Route::url('oc-panel',array('controller'=>'tools','action'=>'sitemap')));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'tools','action'=>'sitemap')));
         }
 
         //force regenerate sitemap

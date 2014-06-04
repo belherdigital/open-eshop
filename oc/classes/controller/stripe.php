@@ -66,7 +66,7 @@ class Controller_Stripe extends Controller{
                     $order = Model_Order::sale(NULL,$user,$product,Core::post('stripeToken'),'stripe');
                     
                     //redirect him to the thanks page
-                    $this->request->redirect(Route::url('product-goal', array('seotitle'=>$product->seotitle,
+                    $this->redirect(Route::url('product-goal', array('seotitle'=>$product->seotitle,
                                                                               'category'=>$product->category->seoname,
                                                                               'order'   =>$order->id_order)));
                 }
@@ -75,21 +75,21 @@ class Controller_Stripe extends Controller{
                     // The card has been declined
                     Kohana::$log->add(Log::ERROR, 'Stripe The card has been declined');
                     Alert::set(Alert::ERROR, 'Stripe The card has been declined');
-                    $this->request->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+                    $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
                 }
                 
             }
             else
             {
                 Alert::set(Alert::INFO, __('Please fill your card details.'));
-                $this->request->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+                $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
             }
 			
 		}
 		else
 		{
 			Alert::set(Alert::INFO, __('Product could not be loaded'));
-            $this->request->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+            $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
 		}
 	}
 
@@ -116,7 +116,7 @@ class Controller_Stripe extends Controller{
         else
         {
             Alert::set(Alert::INFO, __('Product could not be loaded'));
-            $this->request->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+            $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
         }
     }
 

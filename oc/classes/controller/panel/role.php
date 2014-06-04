@@ -44,7 +44,7 @@ class Controller_Panel_Role extends Auth_Crud {
 
             Alert::set(Alert::SUCCESS, __('Item updated'));
            
-            $this->request->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller())));
+            $this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller())));
            
         }
 

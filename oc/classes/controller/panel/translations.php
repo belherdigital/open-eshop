@@ -59,7 +59,7 @@ class Controller_Panel_Translations extends Auth_Controller {
             try {
                 $locale->save();
                 Alert::set(Alert::SUCCESS,'');
-                Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'translations')));  
+                HTTP::redirect(Route::url('oc-panel',array('controller'  => 'translations')));  
 
 
             } catch (Exception $e) {
@@ -82,7 +82,7 @@ class Controller_Panel_Translations extends Auth_Controller {
             $default_mo = DOCROOT.'languages/'.$language.'/LC_MESSAGES/messages.mo';
         }
         else
-             Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'translations')));  
+             HTTP::redirect(Route::url('oc-panel',array('controller'  => 'translations')));  
 
 
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Edit Translation')));  
@@ -142,7 +142,7 @@ class Controller_Panel_Translations extends Auth_Controller {
             phpmo_convert($default);
 
              Alert::set(Alert::SUCCESS, $this->request->param('id').' '.__('Language saved'));
-            Request::current()->redirect(Route::url('oc-panel',array('controller'  => 'translations','action'=>'edit','id'=>$this->request->param('id'))));  
+            HTTP::redirect(Route::url('oc-panel',array('controller'  => 'translations','action'=>'edit','id'=>$this->request->param('id'))));  
         }
 
 
