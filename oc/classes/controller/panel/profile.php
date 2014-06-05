@@ -151,13 +151,13 @@ class Controller_Panel_Profile extends Auth_Controller {
 
             try {
                 $user->save();
-                Alert::set(Alert::SUCCESS, __('You have successfuly changed your data'));
-                $this->redirect(Route::url('oc-panel', array('controller'=>'profile','action'=>'edit')));
-                
+                Alert::set(Alert::SUCCESS, __('You have successfuly changed your data'));                
             } catch (Exception $e) {
                 //throw 500
                 throw HTTP_Exception::factory(500,$e->getMessage());
             }   
+
+            $this->redirect(Route::url('oc-panel', array('controller'=>'profile','action'=>'edit')));
         }
     }
 

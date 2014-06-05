@@ -21,7 +21,7 @@
         <div class="form-group">
             <?= FORM::label('paypal_email', __('Paypal email'), array('class'=>'col-md-2 control-label', 'for'=>'paypal_email'))?>
             <div class="col-md-5">
-                <?= FORM::input('paypal_email', $user->paypal_email, array('class'=>'form-control', 'id'=>'paypal_email', 'type'=>'paypal_email' ,'required','placeholder'=>__('Paypal email')))?>
+                <?= FORM::input('paypal_email', $user->paypal_email, array('class'=>'form-control', 'id'=>'paypal_email', 'type'=>'paypal_email','placeholder'=>__('Paypal email')))?>
             </div>
         </div>
 		<div class="form-group">
