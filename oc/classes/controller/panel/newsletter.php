@@ -23,7 +23,7 @@ class Controller_Panel_Newsletter extends Auth_Controller {
         $query = DB::select(DB::expr('COUNT(id_order) count'))
                         ->from('orders')
                         ->where('status','=',Model_Order::STATUS_PAID)
-                        ->where('support_date','<',DB::expr('NOW()'))
+                        ->where('support_date','<',Date::unix2mysql())
                         ->execute();
 
         $count_support_expired = $query->as_array();
@@ -34,7 +34,7 @@ class Controller_Panel_Newsletter extends Auth_Controller {
         $query = DB::select(DB::expr('COUNT(id_license) count'))
                         ->from('licenses')
                         ->where('valid_date','IS NOT',NULL)
-                        ->where('valid_date','<',DB::expr('NOW()'))
+                        ->where('valid_date','<',Date::unix2mysql())
                         ->execute();
 
         $count_license_expired = $query->as_array();
@@ -77,7 +77,7 @@ class Controller_Panel_Newsletter extends Auth_Controller {
                             ->join(array('orders','o'))
                             ->using('id_user')
                             ->where('o.status','=',Model_Order::STATUS_PAID)
-                            ->where('o.support_date','<',DB::expr('NOW()'))
+                            ->where('o.support_date','<',Date::unix2mysql())
                             ->group_by('u.id_user')
                             ->execute();
 
@@ -91,7 +91,7 @@ class Controller_Panel_Newsletter extends Auth_Controller {
                             ->join(array('users','u'))
                             ->using('id_user')
                             ->where('l.valid_date','IS NOT',NULL)
-                            ->where('l.valid_date','<',DB::expr('NOW()'))
+                            ->where('l.valid_date','<',Date::unix2mysql())
                             ->group_by('u.id_user')
                             ->execute();
 

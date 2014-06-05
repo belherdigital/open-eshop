@@ -134,7 +134,7 @@ class Controller_Panel_Support extends Auth_Controller {
 
             $order->where('id_order','=',$id_order)
                 ->where('id_user','=',$user->id_user)
-                ->where('support_date','>',DB::expr('NOW()'))
+                ->where('support_date','>',Date::unix2mysql())
                 ->where('status', '=', Model_Order::STATUS_PAID)
                 ->limit(1)->find();
             
@@ -193,7 +193,7 @@ class Controller_Panel_Support extends Auth_Controller {
         $orders = new Model_Order();
 
         $orders = $orders->where('id_user','=',$user->id_user)
-                        ->where('support_date','>',DB::expr('NOW()'))
+                        ->where('support_date','>',Date::unix2mysql())
                         ->where('status', '=', Model_Order::STATUS_PAID)
                         ->find_all();
 

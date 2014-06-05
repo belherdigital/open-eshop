@@ -131,7 +131,7 @@ class Auth_OC extends Kohana_Auth {
 			$user = new Model_User;
 			$user ->where('token', '=', $token)
 			->where('status','=',Model_User::STATUS_ACTIVE)
-			->where('token_expires','>',DB::expr('NOW()'))
+			->where('token_expires','>',Date::unix2mysql())
 			->limit(1)
 			->find();
 

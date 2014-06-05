@@ -74,7 +74,7 @@ class Widget_Products extends Widget
                 break;
             case 'featured':
                 $products->where('featured','IS NOT', NULL)
-                ->where('featured','>', DB::expr('NOW()'))
+                ->where('featured','>', Date::unix2mysql())
                 ->order_by('featured','desc');
                 break;
             case 'latest':

@@ -110,7 +110,7 @@ class Model_Coupon extends ORM {
             $slug_coupon   = new self();
             $coupon = $slug_coupon->where('name', '=', core::post('custom',core::request('coupon',Session::instance()->get('coupon'))) )
                     ->where('number_coupons','>',0)
-                    ->where('valid_date','>',DB::expr('NOW()'))
+                    ->where('valid_date','>',Date::unix2mysql())
                     ->where('status','=',1)
                     ->limit(1)->find();
             if ($coupon->loaded())
