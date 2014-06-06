@@ -83,7 +83,7 @@ class Model_License extends ORM {
         //removing the www. so we accept both for same domain
         $domain = preg_replace('#^www\.(.+\.)#i', '$1', $domain);
         
-        $license = self::get($license_num);
+        $license = self::get_license($license_num);
 
         if ($license->loaded())
         {

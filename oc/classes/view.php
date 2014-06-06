@@ -74,24 +74,25 @@ class View extends Kohana_View{
      * @throws  View_Exception
      */
     public function set_filename($file)
-    {
-        //folder loaded as module in the bootstrap :D
-        if (($path = Kohana::find_file(Theme::views_path(), $file)) === FALSE)
-        {
-            //in case view not found try to read from default theme
-            if (($path = Kohana::find_file(Theme::default_views_path(), $file)) === FALSE)
-            {
-                //still not found :(, try from cascading system
-                if (($path = Kohana::find_file('views', $file)) === FALSE)
-                {
-                    //d($file);
-                    throw new View_Exception('The requested view :file could not be found', array(
-                                            ':file' => $file,
-                    ));
-                }
-            }
+    {   
+        //try to load the file from the selected theme
+        $path = Kohana::find_file(Theme::views_path(), $file);
+
+        //if file does not exists on this theme and theme has a parent (its a child theme)
+        if ($path === FALSE AND Theme::get('parent_theme')!==NULL)
+            $path = Kohana::find_file(Theme::views_parent_path(), $file);
     
-        }
+        //in case view not found try to read from default theme
+        if ($path === FALSE)
+            $path = Kohana::find_file(Theme::default_views_path(), $file);
+        
+        //still not found :(, try from cascading system
+        if ($path === FALSE)
+            $path = Kohana::find_file('views', $file);
+
+        //ok not found too bad :'(
+        if ($path === FALSE)
+            throw new View_Exception('The requested view :file could not be found', array(':file' => $file));
     
         // Store the file path locally
         $this->_file = $path;

@@ -38,15 +38,18 @@ class Theme {
         if (isset($scripts[$type])===TRUE)
         {
 
-            if (Kohana::$environment == Kohana::DEVELOPMENT OR Core::config('general.minify') == FALSE)//@todo
+            if (Kohana::$environment == Kohana::DEVELOPMENT OR Core::config('general.minify') == FALSE)
             {
+                //for each type (header/footer etc) we print the script tag
                 foreach($scripts[$type] as $file)
                 {
                     $file = self::public_path($file, $theme);
-                    $ret .= HTML::script($file, NULL, TRUE);
+               
+                    if ($file !== FALSE)
+                        $ret .= HTML::script($file, NULL, TRUE);
                 }
             }
-            //only minify in production or stagging
+            //only minify in production or stagging OR if specfied
             else
             {
                 $files = array();
@@ -61,7 +64,6 @@ class Theme {
                     //externals do nothing...
                     else
                         $ret .= HTML::script($file, NULL, TRUE); 
-                    
                 }
 
                 //name for the minify js file
@@ -78,11 +80,9 @@ class Theme {
                     //getting the content form files
                     foreach ($files as $file) 
                     {
-                        
-                        if ( ($version = strpos($file, '?'))>0 )
-                            $file = substr($file, 0, $version );
-                        if (file_exists(self::theme_folder($theme).'/'.$file))
-                            $min.=file_get_contents(self::theme_folder($theme).'/'.$file);
+                        $file = self::file_path($file,$theme);
+                        if ($file !== FALSE)
+                            $min.=file_get_contents($file);
                     }
 
                     File::write($file_name,JSMin::minify($min));
@@ -110,11 +110,13 @@ class Theme {
         $ret = '';
 
         if (Kohana::$environment == Kohana::DEVELOPMENT OR Core::config('general.minify') == FALSE)
-        {
+        {   
+            //for each style we add a HTML tag to include the CSS
             foreach($styles as $file => $type)
             {
                 $file = self::public_path($file, $theme);
-                $ret .= HTML::style($file, array('media' => $type));
+                if ($file !== FALSE)
+                    $ret .= HTML::style($file, array('media' => $type));
             }
         }
         //only minify in production or stagging
@@ -149,13 +151,9 @@ class Theme {
                 //getting the content from files
                 foreach ($files as $file) 
                 {
-                    
-                    if ( ($version = strpos($file, '?'))>0 )
-                        $file = substr($file, 0, $version );
-
-                    if (file_exists(self::theme_folder($theme).'/'.$file))
-                        $min.=file_get_contents(self::theme_folder($theme).'/'.$file);
-
+                    $file = self::file_path($file,$theme);
+                    if ($file !== FALSE)
+                        $min.=file_get_contents($file);
                 }
 
                 File::write($file_name,Minify_CSS_Compressor::process($min));
@@ -181,20 +179,26 @@ class Theme {
         $js_folder   = self::theme_folder($theme).'/js/';
         $match       = 'minified-';
 
-        //check directory for files
-        foreach (new DirectoryIterator($css_folder) as $file) 
+        //check directory for files and delete them
+        if (is_writable($css_folder))
         {
-            if($file->isFile() AND !$file->isDot() AND  strpos($file->getFilename(), $match) === 0 )
+            foreach (new DirectoryIterator($css_folder) as $file) 
             {
-                unlink($css_folder.$file->getFilename());
+                if($file->isFile() AND !$file->isDot() AND  strpos($file->getFilename(), $match) === 0 )
+                {
+                    unlink($css_folder.$file->getFilename());
+                }
             }
         }
 
-        foreach (new DirectoryIterator($js_folder) as $file) 
+        if (is_writable($js_folder))
         {
-            if($file->isFile() AND !$file->isDot() AND  strpos($file->getFilename(), $match) === 0 )
+            foreach (new DirectoryIterator($js_folder) as $file) 
             {
-                unlink($js_folder.$file->getFilename());
+                if($file->isFile() AND !$file->isDot() AND  strpos($file->getFilename(), $match) === 0 )
+                {
+                    unlink($js_folder.$file->getFilename());
+                }
             }
         }
     }
@@ -221,6 +225,17 @@ class Theme {
     {
         return self::$theme.DIRECTORY_SEPARATOR.self::$views_path;
     }
+
+    /**
+     *
+     * gets  where the views are located in the parent theme
+     * @return string path
+     *
+     */
+    public static function views_parent_path()
+    {
+        return Theme::get('parent_theme').DIRECTORY_SEPARATOR.self::$views_path;
+    }
     
     /**
      *
@@ -234,16 +249,70 @@ class Theme {
         if ($theme === NULL)
             $theme = self::$theme;
 
-        //not external file we need the public link
+        //getting the public url only if was not external
         if (!Valid::url($file))
         {
-            //@todo add a hook here in case we want to use a CDN
-            return URL::base().'themes'.DIRECTORY_SEPARATOR.$theme.DIRECTORY_SEPARATOR.$file;
+            //copy of the file
+            $file_check = $file;
+
+            //public URI
+            $uri = URL::base().'themes'.DIRECTORY_SEPARATOR;
+
+            //remove the query from the uri
+            if ( ($version = strpos($file, '?'))>0 )
+                    $file_check = substr($file, 0, $version );
+
+            //check file exists in the theme folder
+            if (file_exists(self::theme_folder($theme).'/'.$file_check))
+            {
+                return $uri.$theme.DIRECTORY_SEPARATOR.$file;
+            }
+            //check if the parent has the file
+            elseif (Theme::get('parent_theme')!==NULL AND file_exists(self::theme_folder(Theme::get('parent_theme')).'/'.$file_check))
+            {
+                return $uri.Theme::get('parent_theme').DIRECTORY_SEPARATOR.$file;
+            }
+                   
         }
-         
-        //seems an external url
-        return $file;
+        //seems an external url, we return it directly
+        else
+        {
+            return $file;
+        }
+
+        return FALSE;          
+        
     }
+
+    /**
+     *
+     * given a file returns it's full path relative to the selected theme
+     * @param string $file
+     * @param string $theme optional
+     * @return string
+     */
+    public static function file_path($file, $theme = NULL)
+    {
+        if ($theme === NULL)
+            $theme = self::$theme;
+
+        //remove the query from the uri
+        if ( ($version = strpos($file, '?'))>0 )
+            $file = substr($file, 0, $version );
+
+        //get the contents of the file, if not found read from parent
+        if (file_exists(self::theme_folder($theme).'/'.$file))
+        {
+            return self::theme_folder($theme).'/'.$file;
+        }
+        //reading form parent
+        elseif (Theme::get('parent_theme')!==NULL AND file_exists(self::theme_folder(Theme::get('parent_theme')).'/'.$file))
+        {
+            return self::theme_folder(Theme::get('parent_theme')).'/'.$file;
+        }    
+
+        return FALSE;
+    }   
     
     /**
      * get the full path folder for the theme
