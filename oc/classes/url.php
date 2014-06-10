@@ -68,7 +68,7 @@ class URL extends Kohana_URL {
      */
     public static function current()
     {
-        $query_string = ($_SERVER['QUERY_STRING']!='')? '?'.$_SERVER['QUERY_STRING']:'';
+        $query_string = (isset($_SERVER['QUERY_STRING']))? '?'.$_SERVER['QUERY_STRING']:'';
 
         return URL::base().Request::current()->uri().$query_string;
     }
