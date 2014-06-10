@@ -13,6 +13,7 @@ class Theme {
     
     
     public static $theme        = 'default';
+    public static $parent_theme = NULL; //used for child themes
     public static $skin         = ''; //skin that the theme is using, used in premium themes
     private static $views_path  = 'views';
     public  static $scripts     = array();
@@ -234,7 +235,7 @@ class Theme {
      */
     public static function views_parent_path()
     {
-        return Theme::get('parent_theme').DIRECTORY_SEPARATOR.self::$views_path;
+        return Theme::$parent_theme.DIRECTORY_SEPARATOR.self::$views_path;
     }
     
     /**
@@ -268,9 +269,14 @@ class Theme {
                 return $uri.$theme.DIRECTORY_SEPARATOR.$file;
             }
             //check if the parent has the file
-            elseif (Theme::get('parent_theme')!==NULL AND file_exists(self::theme_folder(Theme::get('parent_theme')).'/'.$file_check))
+            elseif (Theme::$parent_theme!==NULL AND file_exists(self::theme_folder(Theme::$parent_theme).'/'.$file_check))
             {
-                return $uri.Theme::get('parent_theme').DIRECTORY_SEPARATOR.$file;
+                return $uri.Theme::$parent_theme.DIRECTORY_SEPARATOR.$file;
+            }
+            //lastly check at default theme as last resource
+            elseif (file_exists(self::theme_folder('default').'/'.$file_check))
+            {
+                return $uri.Theme::$parent_theme.DIRECTORY_SEPARATOR.$file;
             }
                    
         }
@@ -306,9 +312,9 @@ class Theme {
             return self::theme_folder($theme).'/'.$file;
         }
         //reading form parent
-        elseif (Theme::get('parent_theme')!==NULL AND file_exists(self::theme_folder(Theme::get('parent_theme')).'/'.$file))
+        elseif (Theme::$parent_theme!==NULL AND file_exists(self::theme_folder(Theme::$parent_theme).'/'.$file))
         {
-            return self::theme_folder(Theme::get('parent_theme')).'/'.$file;
+            return self::theme_folder(Theme::$parent_theme).'/'.$file;
         }    
 
         return FALSE;
@@ -564,10 +570,7 @@ class Theme {
         if ($theme === NULL)
             $theme = self::$theme;
 
-        $file = self::theme_folder($theme).DIRECTORY_SEPARATOR.'screenshot.png';
-
-        if (file_exists($file))
-            return self::public_path('screenshot.png',$theme);
+        return self::public_path('screenshot.png',$theme);
 
         return FALSE;
     }
