@@ -160,6 +160,7 @@ class Controller_Panel_Support extends Auth_Controller {
                 $ticket->id_product = $order->product->id_product;
                 $ticket->title    = core::post('title');
                 $ticket->description    = core::post('description');
+                $ticket->ip_address   = ip2long(Request::$client_ip);
 
                 $ticket->save();
 
@@ -283,6 +284,7 @@ class Controller_Panel_Support extends Auth_Controller {
                 $ticketr->id_order          = $ticket->id_order;
                 $ticketr->id_ticket_parent  = $ticket->id_ticket;
                 $ticketr->description       = core::post('description');
+                $ticketr->ip_address        = ip2long(Request::$client_ip);
                 $ticketr->save();
                 unset($_POST['description']);
 
