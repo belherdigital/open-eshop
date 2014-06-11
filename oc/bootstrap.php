@@ -4,7 +4,7 @@
 
 // Load the core Kohana class
 require SYSPATH.'classes/Kohana/Core'.EXT;
-require APPPATH.'classes/kohana'.EXT;
+require COMMONPATH.'classes/kohana'.EXT;
 /**
  * Enable the Kohana auto-loader.
  *
@@ -102,13 +102,14 @@ $modules = array(
     'database'      => KOMODPATH.'database',   // Database access
     'image'         => KOMODPATH.'image',      // Image manipulation
     'orm'           => KOMODPATH.'orm',        // Object Relationship Mapping
-    //external modules not included on the KO package
-    'pagination'    => MODPATH.'pagination', // ORM Pagination
-    'breadcrumbs'   => MODPATH.'breadcrumbs',// breadcrumb view
-    //'plugin'  => MODPATH.'plugin',     // hooks used for the plugin system
-    'formmanager'   => MODPATH.'formmanager',// forms to objects ORM
+    //modules not included on the KO package but in the common module
+    'common'        => COMMONPATH, // common classes open classifieds project
+    'pagination'    => COMMONPATH.'modules/pagination', // ORM Pagination
+    'breadcrumbs'   => COMMONPATH.'modules/breadcrumbs',// breadcrumb view
+    'formmanager'   => COMMONPATH.'modules/formmanager',// forms to objects ORM
+    'mysqli'        => COMMONPATH.'modules/mysqli',     // mysqli driver
+    //modules unique for open classifieds
     'widgets'       => MODPATH.'widgets',    // loads default widgets
-    'mysqli'        => MODPATH.'mysqli',     // mysqli driver
 );
 
 //modules for development environment, not included in distribution KO with OC, so you need to place them in your environment

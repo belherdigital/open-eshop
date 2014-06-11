@@ -10,94 +10,9 @@
  */
 
 
-class Email {
-
-    /**
-     * sends an email using our configs
-     * @param  string/array $to       array(array('name'=>'chema','email'=>'chema@'),)
-     * @param  [type] $to_name   [description]
-     * @param  [type] $subject   [description]
-     * @param  [type] $body      [description]
-     * @param  [type] $reply     [description]
-     * @param  [type] $replyName [description]
-     * @param  [type] $file      [description]
-     * @return boolean
-     */
-    public static function send($to,$to_name='',$subject,$body,$reply,$replyName,$file = NULL)
-    {
-        require_once Kohana::find_file('vendor', 'php-mailer/phpmailer','php');
-
-        $body = Text::bb2html($body,TRUE);
-        //get the template from the html email boilerplate
-        $body = View::factory('email',array('title'=>$subject,'content'=>$body))->render();
-
-        $mail= new PHPMailer();
-        $mail->CharSet = Kohana::$charset;
-
-        if(core::config('email.smtp_active') == TRUE)
-        { 
-            $mail->IsSMTP();
-
-            //SMTP HOST config
-            if (core::config('email.smtp_host')!="")
-            {
-                $mail->Host       = core::config('email.smtp_host');              // sets custom SMTP server
-            }
-
-            //SMTP PORT config
-            if (core::config('email.smtp_port')!="")
-            {
-                $mail->Port       = core::config('email.smtp_port');              // set a custom SMTP port
-            }
-
-            //SMTP AUTH config
-
-            if (core::config('email.smtp_auth') == TRUE)
-            {
-                $mail->SMTPAuth   = TRUE;                                                  // enable SMTP authentication
-                $mail->Username   = core::config('email.smtp_user');              // SMTP username
-                $mail->Password   = core::config('email.smtp_pass');              // SMTP password
-               
-
-                if (core::config('email.smtp_ssl') == TRUE)
-                {
-                    $mail->SMTPSecure = "ssl";                  // sets the prefix to the server
-                }
-                    
-            }
-        }
-
-        $mail->From       = core::config('email.notify_email');
-        $mail->FromName   = "no-reply ".core::config('general.site_name');
-        $mail->Subject    = $subject;
-        $mail->MsgHTML($body);
-
-        if($file !== NULL) 
-            $mail->AddAttachment($file['tmp_name'],$file['name']);
-
-        $mail->AddReplyTo($reply,$replyName);//they answer here
-
-        if (is_array($to))
-        {
-            foreach ($to as $contact) 
-                $mail->AddBCC($contact['email'],$contact['name']);               
-        }
-        else
-            $mail->AddAddress($to,$to_name);
+class Email extends OC_Email{
 
 
-        $mail->IsHTML(TRUE); // send as HTML
-
-        if(!$mail->Send()) 
-        {//to see if we return a message or a value bolean
-            Alert::set(Alert::ALERT,"Mailer Error: " . $mail->ErrorInfo);
-            return FALSE;
-        } 
-        else 
-            return TRUE;
-        
- 
-    }
 
 
     /**

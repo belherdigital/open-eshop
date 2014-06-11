@@ -1,6 +1,6 @@
 <?php
 /**
- * Where the application for Open eShop is installed.
+ * Where the application for Open Classifieds is installed.
  */
 $application = '/oc';
 
@@ -24,6 +24,12 @@ $system = $application.'/kohana/system';
  * @see  http://kohanaframework.org/guide/about.install#modules
  */
 $komodules = $application.'/kohana/modules';
+
+/**
+ * The directory where common Open Classifieds files are
+ *
+ */
+$common = $modules.'/common';
 
 /**
  * The default extension of resource files. If you change this, all resources
@@ -63,34 +69,40 @@ define('DOCROOT', realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);
 
 // Make the application relative to the docroot, for symlink'd index.php
 if ( ! is_dir($application) AND is_dir(DOCROOT.$application))
-	$application = DOCROOT.$application;
+    $application = DOCROOT.$application;
 
 // Make the modules relative to the docroot, for symlink'd index.php
 if ( ! is_dir($modules) AND is_dir(DOCROOT.$modules))
-	$modules = DOCROOT.$modules;
+    $modules = DOCROOT.$modules;
 
 // Make the modules relative to the docroot, for symlink'd index.php
 if ( ! is_dir($komodules) AND is_dir(DOCROOT.$komodules))
     $komodules = DOCROOT.$komodules;
 
+// Make the common module relative to the docroot, for symlink'd index.php
+if ( ! is_dir($common) AND is_dir(DOCROOT.$common))
+    $common = DOCROOT.$common;
+
 // Make the system relative to the docroot, for symlink'd index.php
 if ( ! is_dir($system) AND is_dir(DOCROOT.$system))
-	$system = DOCROOT.$system;
+    $system = DOCROOT.$system;
+
 
 // Define the absolute paths for configured directories
 define('APPPATH', realpath($application).DIRECTORY_SEPARATOR);
 define('KOMODPATH', realpath($komodules).DIRECTORY_SEPARATOR);
 define('MODPATH', realpath($modules).DIRECTORY_SEPARATOR);
+define('COMMONPATH', realpath($common).DIRECTORY_SEPARATOR);
 define('SYSPATH', realpath($system).DIRECTORY_SEPARATOR);
 
 // Clean up the configuration vars
-unset($application, $modules, $system);
+unset($application, $modules, $komodules,$common, $system);
 
 // OC install
 if (file_exists(DOCROOT.'install/install.lock'))
 {
-	// Load the installation check
-	return include DOCROOT.'install/index'.EXT;
+    // Load the installation check
+    return include DOCROOT.'install/index'.EXT;
 }
 
 
@@ -99,7 +111,7 @@ if (file_exists(DOCROOT.'install/install.lock'))
  */
 if ( ! defined('KOHANA_START_TIME'))
 {
-	define('KOHANA_START_TIME', microtime(TRUE));
+    define('KOHANA_START_TIME', microtime(TRUE));
 }
 
 /**
@@ -107,7 +119,7 @@ if ( ! defined('KOHANA_START_TIME'))
  */
 if ( ! defined('KOHANA_START_MEMORY'))
 {
-	define('KOHANA_START_MEMORY', memory_get_usage());
+    define('KOHANA_START_MEMORY', memory_get_usage());
 }
 
 // Bootstrap the application
@@ -118,6 +130,6 @@ require APPPATH.'bootstrap'.EXT;
  * If no source is specified, the URI will be automatically detected.
  */
 echo Request::factory()
-	->execute()
-	->send_headers()
-	->body();
+    ->execute()
+    ->send_headers()
+    ->body();
