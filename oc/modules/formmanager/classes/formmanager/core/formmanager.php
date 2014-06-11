@@ -76,6 +76,7 @@ abstract class FormManager_Core_FormManager
         $this->_load_belongs_to();
 		$this->_load_has_many();
         $this->_configure_fields();
+        $this->_load_labels();
         $this->_load_input_data();
 	}
 
@@ -170,6 +171,17 @@ abstract class FormManager_Core_FormManager
             // if the object has an updated column, throw it away
             if ($column = $this->object->updated_column()) {
                 $this->remove_field($column['column']);
+            }
+        }
+    }
+
+    private function _load_labels() {
+        if (isset($this->object)) {
+            $labels = $this->object->labels();
+            foreach ($this->fields as $key => $value) {
+                if (isset($labels[$key])) {
+                    $this->set_field_value($key, 'label', $labels[$key], true);
+                }
             }
         }
     }
@@ -625,10 +637,13 @@ abstract class FormManager_Core_FormManager
 				if (!$this->object->id) {
 					$this->object->save();
 				}
-				if (!is_dir($this->uploads . $this->object->id)) mkdir($this->uploads . $this->object->id, 0755, true);
+				$directory = $this->uploads . $this->object->id . '/' . $field['column_name'] . '/';
+				if (!is_dir($directory)) mkdir($directory, 0755, true);
+				
 				$file = $this->unbork_file($field);
-				$saved_path = Upload::save($file, preg_replace('/^.*?(\..*|$)/', $field['column_name'] . '$1', $file['name']), $this->uploads . $this->object->id . '/');
+				$saved_path = Upload::save($file, preg_replace('/[^a-zA-Z0-9-.]/', '_', $file['name']), $directory);
 				$saved_path = substr($saved_path, strlen(DOCROOT)-1);
+				$saved_path = str_replace('\\', '/', $saved_path);
 				$this->set_value($field['column_name'], $saved_path);
 			}
 		}
