@@ -71,7 +71,7 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')
   `seoname` varchar(145) NOT NULL,
   `description` varchar(255) NULL,
   PRIMARY KEY (`id_category`) USING BTREE,
-  UNIQUE KEY `".core::request('TABLE_PREFIX')."categories_IK_seo_name` (`seoname`)
+  UNIQUE KEY `".core::request('TABLE_PREFIX')."categories_UK_seo_name` (`seoname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
 
@@ -264,7 +264,7 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')
   `seoname` varchar(145) NOT NULL,
   `description` varchar(255) NULL,
   PRIMARY KEY (`id_forum`) USING BTREE,
-  UNIQUE KEY `".core::request('TABLE_PREFIX')."forums_IK_seo_name` (`seoname`)
+  UNIQUE KEY `".core::request('TABLE_PREFIX')."forums_UK_seo_name` (`seoname`)
 ) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
 mysqli_query($link,"CREATE TABLE IF NOT EXISTS ".core::request('TABLE_PREFIX')."reviews (
