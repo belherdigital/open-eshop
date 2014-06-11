@@ -116,11 +116,11 @@ class Controller_Panel_Forum extends Auth_Crud {
             try {
                 $forum->save();
                 Alert::set(Alert::SUCCESS, __('Forum is created.'));
-                HTTP::redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index')));  
             } catch (Exception $e) {
                 Alert::set(Alert::ERROR, $e->getMessage());
-                HTTP::redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index'))); 
             }
+
+            HTTP::redirect(Route::url('oc-panel',array('controller'  => 'forum','action'=>'index'))); 
         }
     }
 

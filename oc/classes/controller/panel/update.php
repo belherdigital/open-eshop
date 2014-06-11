@@ -400,6 +400,18 @@ class Controller_Panel_Update extends Auth_Controller {
 
         $prefix = Database::instance()->table_prefix();
 
+        $configs = array( 
+                         array('config_key'     =>'banned_words_replacement',
+                               'group_name'     =>'general', 
+                               'config_value'   =>'xxx'), 
+                         array('config_key'     =>'banned_words',
+                               'group_name'     =>'general', 
+                               'config_value'   =>''), 
+                        );
+
+        // returns TRUE if some config is saved 
+        $return_conf = Model_Config::config_array($configs);
+
 
         //clean cache
         Cache::instance()->delete_all();

@@ -61,7 +61,7 @@ class Controller_Forum extends Controller {
 
             $pagination = Pagination::factory(array(
                         'view'           => 'pagination',
-                        'total_items'    => $count[0],
+                        'total_items'    => isset($count[0])?$count[0]:0,
             ))->route_params(array(
                         'controller' => $this->request->controller(),
                         'action'     => $this->request->action(),
@@ -161,9 +161,9 @@ class Controller_Forum extends Controller {
                         $topic = new Model_Post();
                         $topic->id_user  =  $user->id_user;
                         $topic->id_forum = core::post('id_forum');
-                        $topic->title    = core::post('title');
+                        $topic->title    = Text::banned_words(core::post('title'));
                         $topic->seotitle = $topic->gen_seotitle($topic->title);
-                        $topic->description    = core::post('description');
+                        $topic->description    = Text::banned_words(core::post('description'));
                         $topic->status   = Model_Post::STATUS_ACTIVE;
                         $topic->ip_address   = ip2long(Request::$client_ip);
                         $topic->save();
@@ -231,10 +231,11 @@ class Controller_Forum extends Controller {
             //getting all the topic replies, pagination
             $replies = new Model_Post();
             $replies = $replies->where('id_post_parent','=',$topic->id_post);
+            $replies_count = clone $replies;
 
             $pagination = Pagination::factory(array(
                         'view'           => 'pagination',
-                        'total_items'    => $replies->count_all(),
+                        'total_items'    => $replies_count->count_all(),
                         'items_per_page' => self::$items_per_page,
             ))->route_params(array(
                         'controller' => $this->request->controller(),
@@ -322,7 +323,7 @@ class Controller_Forum extends Controller {
                             $reply->id_post_parent = $topic->id_post;
                             $reply->title    = substr(core::post('description'),0,145);
                             $reply->seotitle = $reply->gen_seotitle($reply->title);
-                            $reply->description    = core::post('description');
+                            $reply->description    = Text::banned_words(core::post('description'));
                             $reply->status   = Model_Post::STATUS_ACTIVE;
                             $reply->ip_address   = ip2long(Request::$client_ip);
                             $reply->save();

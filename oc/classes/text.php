@@ -174,4 +174,27 @@ class Text extends Kohana_Text {
         return str_replace(array('\\r\\n','\r\\n','r\\n','\r\n', '\n', '\r'), '<br />', nl2br($var));
     }
 
+    /**
+     * Receives a description as a string to replace all baned word
+     * with replacement provided.
+     * array of baned words and replacement is get fromconfig
+     * @param string text
+     * @return string 
+     */
+    public static function banned_words($text)
+    {
+
+        if (core::config('general.banned_words') != NULL AND core::config('general.banned_words') != '')
+        {
+            $banned_words = explode(',',core::config('general.banned_words'));
+            $banned_words = array_map('trim', $banned_words);
+            
+            // with provided array of baned words, replacement and string to be replaced
+            // returns string with replaced words
+            return str_replace($banned_words, core::config('general.banned_words_replacement'), $text);
+        }
+        else
+            return $text;
+    }
+
 }

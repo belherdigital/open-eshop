@@ -35,7 +35,7 @@
 		<div class="form-group">
 			<label class="control-label col-sm-3"><?=__("Time Zone")?>:</label>                
             <div class="col-sm-5">
-            <?= FORM::select($i18n['timezone']['key'], core::get_timezones(), core::request('TIMEZONE',date_default_timezone_get()), array(
+            <?= FORM::select($i18n['timezone']['key'], Date::get_timezones(), core::request('TIMEZONE',date_default_timezone_get()), array(
 					'placeholder' => "Madrid [+1:00]", 
 					'class' => 'tips form-control', 
 					'id' => $i18n['timezone']['key'], 
@@ -494,6 +494,40 @@
 				))?> 
 			</div>
 		</div>
+
+        <div class="form-group">
+            <?= FORM::label($forms['banned_words']['key'], __('Banned words'), array('class'=>'control-label col-sm-3', 'for'=>$forms['banned_words']['key']))?>
+            <div class="col-sm-4">
+                <?= FORM::input($forms['banned_words']['key'], $forms['banned_words']['value'], array(
+                'placeholder' => __('For banned word push enter.'), 
+                'class' => 'tips form-control', 
+                'id' => $forms['banned_words']['key'], 
+                'data-original-title'=> __("Banned words are separated with coma (,)"),
+                'data-trigger'=>"hover",
+                'data-placement'=>"right",
+                'data-toggle'=>"popover",
+                'data-role'=>'tagsinput',
+                'data-content'=>__("You need to write your banned words to enable the service."),
+                ))?> 
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <?= FORM::label($forms['banned_words_replacement']['key'], __('Banned words replacement'), array('class'=>'control-label col-sm-3', 'for'=>$forms['banned_words_replacement']['key']))?>
+            <div class="col-sm-4">
+                <?= FORM::input($forms['banned_words_replacement']['key'], $forms['banned_words_replacement']['value'], array(
+                'placeholder' => "xxx", 
+                'class' => 'tips form-control', 
+                'id' => $forms['banned_words_replacement']['key'], 
+                'data-original-title'=> __("Replacement of a banned word"),
+                'data-trigger'=>"hover",
+                'data-placement'=>"right",
+                'data-toggle'=>"popover",
+                'data-content'=>__("Banned word replacement replaces selected array with the string you provided."),
+                ))?> 
+            </div>
+        </div>
 
 		<div class="form-actions">
 			<?= FORM::button('submit', 'Update', array('type'=>'submit', 'class'=>'btn btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'settings', 'action'=>'general'))))?>
