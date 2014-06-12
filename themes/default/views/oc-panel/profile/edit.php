@@ -31,6 +31,14 @@
             </div>
         </div>
 
+         <div class="col-md-offset-4">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="subscriber" value="1" <?=($user->subscriber)?'checked':NULL?> > <?=__('Subscribed to emails')?>
+                </label>
+            </div>
+            </div>
+
         <button type="submit" class="btn btn-primary"><?=__('Update')?></button>    		
     <?= FORM::close()?>
 

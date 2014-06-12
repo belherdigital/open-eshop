@@ -78,6 +78,7 @@ class Controller_Panel_Newsletter extends Auth_Controller {
                             ->using('id_user')
                             ->where('o.status','=',Model_Order::STATUS_PAID)
                             ->where('o.support_date','<',Date::unix2mysql())
+                            ->where('u.subscriber','=',1)
                             ->group_by('u.id_user')
                             ->execute();
 
@@ -92,6 +93,7 @@ class Controller_Panel_Newsletter extends Auth_Controller {
                             ->using('id_user')
                             ->where('l.valid_date','IS NOT',NULL)
                             ->where('l.valid_date','<',Date::unix2mysql())
+                            ->where('u.subscriber','=',1)
                             ->group_by('u.id_user')
                             ->execute();
 
@@ -106,6 +108,7 @@ class Controller_Panel_Newsletter extends Auth_Controller {
                             ->using('id_user')
                             ->where('o.id_product','=',core::post('send_product'))
                             ->where('o.status','=',Model_Order::STATUS_PAID)
+                            ->where('u.subscriber','=',1)
                             ->group_by('u.id_user')
                             ->execute();
 

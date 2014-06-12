@@ -400,6 +400,12 @@ class Controller_Panel_Update extends Auth_Controller {
 
         $prefix = Database::instance()->table_prefix();
 
+        try
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."users` ADD `subscriber` tinyint(1) NOT NULL DEFAULT '1'")->execute();
+        }catch (exception $e) {}
+
+        
         $configs = array( 
                          array('config_key'     =>'banned_words_replacement',
                                'group_name'     =>'general', 
