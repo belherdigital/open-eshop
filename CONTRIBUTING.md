@@ -83,4 +83,4 @@ We only accept issues that are bug reports or feature requests. Bugs must be iso
 
 ## License
 
-By contributing your code, you agree to license your contribution under the terms of the GPLv3: Read LICENSE.md
+By contributing your code, you agree to license your contribution under the terms of the GPLv3: Read [LICENSE](LICENSE)
