@@ -5,14 +5,14 @@
 With this new PHP script you will be able to start selling any digital goods, such as MP3s, eBooks, Movies, Software, or any other service you offer. Just within minutes in your own hosting. Just post a new product in your site, share the URL and get paid via Paypal or Card (Paymill). No cards stored, and simple setup. With OE you will be able to give support to your customers from the panel.
 
 
-# License GPL v3
-Please read LICENSE.md
-
 # How to Install
-Please read INSTALL.md
+Please read [INSTALL.md](INSTALL.md)
+
+# License GPL v3
+Please read [LICENSE.md](LICENSE.md)
 
 # How to Contribute
-Please read CONTRIBUTING.md
+Please read [CONTRIBUTING.md](CONTRIBUTING.md)
 
 
 # OE works thanks to other GPL software
