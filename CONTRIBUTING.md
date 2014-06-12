@@ -5,28 +5,36 @@ Looking to contribute something to Open eShop? **Here's how you can help.**
 ## Environment
 Recommended PHP 5.5 , MySQL 5.5, Apache 2.2, Linux
 
-For development and to enable debug and disable cache and minify you can create a vhost:
+For development we recommend you to create a vhost called eshop.lo this will enable debug/profiler tools, disable cache and disable minify
 
+```
 Host file:
 127.0.0.1   eshop.lo
+```
 
+```
 Vhost apache:
 <VirtualHost *:80>
 ServerName eshop.lo
 DocumentRoot /var/www/eshop/
 </VirtualHost>
+```
 
 ## Git usage
 Example to clone project on local:
 
+```
 git clone git@github.com:open-classifieds/open-eshop.git eshop
 cd eshop
-git branch -a (lists all the branches)
-git checkout -b master origin/master (or any other branch)
+git submodule init
+git submodule update
+```
+
+This will clone the open-eshop project + submodule at oc/modules/common https://github.com/open-classifieds/common
 
 
 GIT files to ignore changes, DO NOT COMMIT THIS FILES:
-
+```
 git update-index --assume-unchanged robots.txt
 git update-index --assume-unchanged oc/config/auth.php
 git update-index --assume-unchanged oc/config/database.php
@@ -38,6 +46,7 @@ git update-index --assume-unchanged oc/cache/.empty
 git update-index --assume-unchanged oc/logs/.empty
 git update-index --assume-unchanged images/.empty
 git update-index --assume-unchanged data/.empty
+```
 
 ## Reporting issues
 
@@ -69,8 +78,8 @@ We only accept issues that are bug reports or feature requests. Bugs must be iso
 
 ## Coding standards
 
-PHP http://kohanaframework.org/3.2/guide/kohana/conventions
-SQL https://github.com/open-classifieds/openclassifieds2/wiki/SQL-Coding-Standard
+- PHP http://kohanaframework.org/3.2/guide/kohana/conventions
+- SQL https://github.com/open-classifieds/openclassifieds2/wiki/SQL-Coding-Standard
 
 ## License
 
