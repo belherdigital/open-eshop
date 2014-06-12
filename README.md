@@ -9,7 +9,7 @@ With this new PHP script you will be able to start selling any digital goods, su
 Please read [INSTALL.md](INSTALL.md)
 
 # License GPL v3
-Please read [LICENSE.md](LICENSE.md)
+Please read [LICENSE](LICENSE)
 
 # How to Contribute
 Please read [CONTRIBUTING.md](CONTRIBUTING.md)
