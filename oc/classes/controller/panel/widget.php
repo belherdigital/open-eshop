@@ -86,12 +86,13 @@ class Controller_Panel_Widget extends Auth_Controller {
                     Alert::set(Alert::SUCCESS,__('Widget '.$widget_name.' saved in '.$placeholder));
                 else
                     Alert::set(Alert::SUCCESS,__('Widget created in '.$placeholder));
-
-                $this->redirect(Route::url('oc-panel', array('controller'=>'widget', 'action'=>'index')));
+                
             } catch (Exception $e) {
                 //throw 500
                 throw HTTP_Exception::factory(500,$e->getMessage());     
             }
+
+            $this->redirect(Route::url('oc-panel', array('controller'=>'widget', 'action'=>'index')));
         }
   
         

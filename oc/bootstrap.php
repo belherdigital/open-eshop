@@ -108,8 +108,7 @@ $modules = array(
     'breadcrumbs'   => COMMONPATH.'modules/breadcrumbs',// breadcrumb view
     'formmanager'   => COMMONPATH.'modules/formmanager',// forms to objects ORM
     'mysqli'        => COMMONPATH.'modules/mysqli',     // mysqli driver
-    //modules unique for open classifieds
-    'widgets'       => MODPATH.'widgets',    // loads default widgets
+    'widgets'       => COMMONPATH.'modules/widgets',    // loads default widgets
 );
 
 //modules for development environment, not included in distribution KO with OC, so you need to place them in your environment
