@@ -83,8 +83,7 @@ class Controller_Api extends Controller {
         $products = $products 
                 ->where('status','=',Model_Product::STATUS_ACTIVE)
                 ->order_by($order1,$sort1)
-                ->order_by($order2,$sort2)
-                ->limit(Core::config('general.feed_elements'));
+                ->order_by($order2,$sort2);
 
         //filter by category 
         if ($seo_category!==NULL)
