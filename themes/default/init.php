@@ -28,10 +28,9 @@ Theme::load();
 //local files
     $theme_css = array(
                         'http://netdna.bootstrapcdn.com/bootswatch/3.1.1/yeti/bootstrap.min.css' => 'screen',
-                        
                         'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen',
                         'http://cdn.jsdelivr.net/prettyphoto/3.1.6/css/prettyPhoto.css' => 'screen',
-                        'css/style.css?v=1.6' => 'screen',
+                        'css/style.css?v='.Core::VERSION => 'screen',
                         'css/yeti-style.css' => 'screen',
                         'css/slider.css' => 'screen',
                         );
@@ -46,7 +45,7 @@ Theme::load();
                                         'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
                                         'js/bootstrap-slider.js',
                                         'js/jquery.validate.min.js',
-                                        'js/theme.init.js?v=1.6',
+                                        'js/theme.init.js?v='.Core::VERSION,
                                         );
 
 
