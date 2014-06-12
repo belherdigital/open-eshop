@@ -9,7 +9,7 @@
 * Working!
 
 More & some videos at:
-http://open-classifieds.com/documentation/install/
+http://market.open-eshop.com/faq/how-to-install.html
 
 
 # Themes Installation
@@ -17,13 +17,15 @@ http://open-classifieds.com/documentation/install/
 * Uncompress in the folder /themes/
 * Go to the admin area Themes and select the theme ;)
 
+More at
+http://market.open-eshop.com/faq/how-to-install-a-theme.html
 
 # Support
-If you have any doubts how to use different options of Open eShop please check how-tos listed below explaining some of the features. http://open-classifieds.com/faq/
+If you have any doubts how to use different options of Open eShop please check how-tos listed below explaining some of the features. http://market.open-eshop.com/faq
 
-If you still haven’t found an answer you can try to write in forums to get a help from community. http://forums.open-classifieds.com/
+If you still haven’t found an answer you can try to write in forums to get a help from community. http://market.open-eshop.com/forum
 
-You can also buy our Support Pack or by buying any of our Premium Themes or hosting plan you get professional support. http://open-classifieds.com/market/
+You can also buy our Support Pack or by buying any of our Premium Themes or hosting plan you get professional support. http://open-eshop.com/market/
 
 # FAQ
-http://open-classifieds.com/faq/
+http://market.open-eshop.com/faq

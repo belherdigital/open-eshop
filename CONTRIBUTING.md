@@ -78,7 +78,7 @@ We only accept issues that are bug reports or feature requests. Bugs must be iso
 
 ## Coding standards
 
-- PHP http://kohanaframework.org/3.2/guide/kohana/conventions
+- PHP http://kohanaframework.org/3.3/guide/kohana/conventions
 - SQL https://github.com/open-classifieds/openclassifieds2/wiki/SQL-Coding-Standard
 
 ## License
