@@ -53,24 +53,11 @@ class Widget_Search extends Widget
      */
     public function before()
     {
-
-       
         // get all categories
         if ($this->advanced != FALSE)
         {
-            // loaded category
-            list($categories,$order_categories)  = Model_Category::get_all();
-
-            $arr_cat = array();
-            foreach ($categories as $cat => $value) 
-            {
-                if($value['id'] != 1)
-                    $arr_cat[$value['id']] = $value['name'];
-            }
-            
-            $this->cat_items = $categories;
-            $this->cat_order_items = $order_categories;
-
+            $this->cat_items = Model_Category::get_as_array();
+            $this->cat_order_items = Model_Category::get_multidimensional();
         }
 
         if($this->custom != FALSE)

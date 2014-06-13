@@ -427,7 +427,8 @@ class Controller_Product extends Controller{
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Home'))->set_url(Route::url('default')));
         Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title ));
 
-        list($categories,$order_categories)  = Model_Category::get_all();
+        $categories       = Model_Category::get_as_array();
+        $order_categories = Model_Category::get_multidimensional();
 
         $pagination = NULL;
         $products   = NULL;

@@ -124,17 +124,17 @@ class Model_Category extends ORM {
     }
 
     /**
-     * we get the categories in an array and a multidimensional array to know the deep
+     * we get the categories in an array 
      * @return array 
      */
-    public static function get_all()
+    public static function get_as_array()
     {
-        $cats = new self;
-        $cats = $cats->order_by('order','asc')->find_all()->cached()->as_array('id_category');
-
         //transform the cats to an array
         if ( ($cats_arr = Core::cache('cats_arr'))===NULL)
         {
+            $cats = new self;
+            $cats = $cats->order_by('order','asc')->find_all()->cached()->as_array('id_category');
+
             //transform the cats to an array
             $cats_arr = array();
             foreach ($cats as $cat) 
@@ -150,10 +150,19 @@ class Model_Category extends ORM {
             Core::cache('cats_arr',$cats_arr);
         }   
 
+        return $cats_arr;
+    }
+
+    /**
+     * we get the categories in an array miltidimensional by deep.
+     * @return array 
+     */
+    public static function get_multidimensional()
+    {
         //multidimensional array
         if ( ($cats_m = Core::cache('cats_m'))===NULL)
         {
-            //for each category we get his siblings
+           //for each category we get his siblings
             $cats_s = array();
             foreach ($cats as $cat) 
                  $cats_s[$cat->id_category_parent][] = $cat->id_category;
@@ -166,8 +175,8 @@ class Model_Category extends ORM {
                 $cats_m = array();
             Core::cache('cats_m',$cats_m);
         }
-        
-        return array($cats_arr,$cats_m);
+
+        return $cats_m;
     }
 
     /**
@@ -201,6 +210,22 @@ class Model_Category extends ORM {
             }
         }
         return $ret;
+    }
+
+    /**
+     * we get the categories in an array and a multidimensional array to know the deep @todo refactor this, is a mess
+     * @deprecated function not in use, just here so we do not break the API to old themes
+     * @return array 
+     */
+    public static function get_all()
+    {
+        //as array
+        $cats_arr = self::get_as_array();
+
+        //multidimensional array
+        $cats_m = self::get_multidimensional();
+        
+        return array($cats_arr,$cats_m);
     }
 
 
@@ -388,7 +413,7 @@ class Model_Category extends ORM {
         if ($this->loaded())
         {
             //getting all the cats as array
-            list($cats_arr,$cats_m) = Model_Category::get_all();
+            $cats_arr = Model_Category::get_as_array();
 
             //getin the parent of this category
             $id_category_parent = $cats_arr[$this->id_category]['id_category_parent'];

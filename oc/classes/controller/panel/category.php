@@ -29,7 +29,9 @@ class Controller_Panel_Category extends Auth_Crud {
         $this->template->scripts['footer'][] = 'js/jquery-sortable-min.js';
         $this->template->scripts['footer'][] = 'js/oc-panel/categories.js';
 
-        list($cats,$order)  = Model_Category::get_all();
+        $cats  = Model_Category::get_as_array();
+        $order = Model_Category::get_multidimensional();
+
 
         $this->template->content = View::factory('oc-panel/pages/categories',array('cats' => $cats,'order'=>$order));
     }
@@ -206,7 +208,7 @@ class Controller_Panel_Category extends Auth_Crud {
     public function action_deep()
     {
         //getting all the cats as array
-        list($cats_arr,$cats_m) = Model_Category::get_all();
+        $cats_arr       = Model_Category::get_as_array();
 
         $cats = new Model_Category();
         $cats = $cats->order_by('order','asc')->find_all()->cached()->as_array('id_category');

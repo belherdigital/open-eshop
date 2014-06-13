@@ -55,7 +55,8 @@ class Controller_Panel_Product extends Auth_Crud {
                                                      );											 
         											 
 
-        list($cats,$order)  = Model_Category::get_all();
+        $cats   = Model_Category::get_as_array();
+        $order  = Model_Category::get_multidimensional();
 
         if(count($cats) <= 1)
         {
@@ -146,7 +147,8 @@ class Controller_Panel_Product extends Auth_Crud {
                                                      
                                                      
 
-        list($cats,$order)  = Model_Category::get_all();
+        $cats   = Model_Category::get_as_array();
+        $order  = Model_Category::get_multidimensional();
 
         $obj_product = new Model_Product($this->request->param('id'));
 

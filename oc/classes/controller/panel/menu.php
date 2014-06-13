@@ -21,7 +21,8 @@ class Controller_Panel_Menu extends Auth_Crud {
         $this->template->scripts['footer'][] = 'js/oc-panel/menu.js';
 
         //find all, for populating form select fields 
-        list($categories,$order_categories)  = Model_Category::get_all();
+        $categories       = Model_Category::get_as_array();
+        $order_categories = Model_Category::get_multidimensional();
 
         // d($categories);
         $this->template->content = View::factory('oc-panel/pages/menu',array('menu' => Menu::get(), 
