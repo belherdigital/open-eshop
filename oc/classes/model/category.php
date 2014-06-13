@@ -228,24 +228,6 @@ class Model_Category extends ORM {
         return array($cats_arr,$cats_m);
     }
 
-
-	/**
-	 * 
-	 */
-	
-	public static function category_parent()
-	{
-		$parent = new self;
-		$list = $parent->where('id_category_parent','=',1)->find_all();
-		
-		$list_parent = array();
-		foreach ($list as $l) 
-		{
-			$list_parent[$l->id_category] = $l->name;	
-		}
-		return $list_parent;
-	}
-
 	/**
 	 * counts the categories ads
 	 * @return array
@@ -301,28 +283,52 @@ class Model_Category extends ORM {
 		return $cats_count;
 	}
 
-    /**
+ /**
      * returns all the siblings ids+ the idcategory, used to filter the ads
      * @return array
      */
-	public function get_siblings_ids()
+    public function get_siblings_ids()
     {
-        $cats = array();
-
         if ($this->loaded())
         {
-            $cats[] = $this->id_category;
+            //name used in the cache for storage
+            $cache_name = 'get_siblings_ids_category_'.$this->id_category;
 
-            $cat_ids = new self();
-            $cat_ids = $cat_ids->where('id_category_parent','=',$this->id_category)->cached()->find_all();
-
-            foreach ($cat_ids as $c) 
+            if ( ($ids_siblings = Core::cache($cache_name))===NULL)
             {
-                $cats[] = $c->id_category;
+                //array that contains all the siblings as keys (1,2,3,4,..)
+                $ids_siblings = array();
+
+                //we add himself as we use the clause IN on the where
+                $ids_siblings[] = $this->id_category;
+
+                $categories = new self();
+                $categories = $categories->where('id_category_parent','=',$this->id_category)->cached()->find_all();
+
+                foreach ($categories as $category) 
+                {
+                    $ids_siblings[] = $category->id_category;
+
+                    //adding his children recursevely if they have any
+                    if ( count($siblings_cats = $category->get_siblings_ids())>1 ) 
+                        $ids_siblings = array_merge($ids_siblings,$siblings_cats);       
+                }
+
+                //removing repeated values
+                $ids_siblings = array_unique($ids_siblings);
+
+                //cache the result is expensive!
+                Core::cache($cache_name,$ids_siblings);
             }
+
+
+            return $ids_siblings;
+
         }
 
-        return $cats;
+        //not loaded
+        return NULL;
+        
     }
     
 	/**
