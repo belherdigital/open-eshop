@@ -47,7 +47,7 @@ class Controller_Panel_Auth extends Controller {
     {
         Auth::instance()->logout(TRUE);    
 
-        if(Valid::URL($this->request->referrer()))
+        if(Valid::URL($this->request->referrer()) AND strpos($this->request->referrer(), 'oc-panel')===FALSE)
             $redir  = $this->request->referrer();
         else
             $redir = Route::url('oc-panel',array('controller'=>'auth','action'=>'login'));
