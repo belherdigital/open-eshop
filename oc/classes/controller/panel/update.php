@@ -187,28 +187,28 @@ class Controller_Panel_Update extends Auth_Controller {
 
         $contents = array(array('order'=>'0',
                                'title'=>'[EMAIL.SENDER] wants to contact you!',
-                               'seotitle'=>'contactadmin',
+                               'seotitle'=>'contact_admin',
                                'description'=>"Hello Admin,\n\n [EMAIL.SENDER]: [EMAIL.FROM], have a message for you:\n\n [EMAIL.BODY] \n\n Regards!",
                                'from_email'=>core::config('email.notify_email'),
                                'type'=>'email',
                                'status'=>'1'),
                             array('order'=>'0',
                                'title'=>'Ticket assigned to you: [TITLE]',
-                               'seotitle'=>'assignagent',
+                               'seotitle'=>'assign_agent',
                                'description'=>'[URL.QL]\n\n[DESCRIPTION]',
                                'from_email'=>core::config('email.notify_email'),
                                'type'=>'email',
                                'status'=>'1'),
                             array('order'=>'0',
                                'title'=>'New review for [TITLE] [RATE]',
-                               'seotitle'=>'reviewproduct',
+                               'seotitle'=>'review_product',
                                'description'=>'[URL.QL]\n\n[RATE]\n\n[DESCRIPTION]',
                                'from_email'=>core::config('email.notify_email'),
                                'type'=>'email',
                                'status'=>'1'),
                             array('order'=>'0',
                                'title'=>'New support ticket created `[TITLE]`',
-                               'seotitle'=>'newticket',
+                               'seotitle'=>'new_ticket',
                                'description'=>'We have received your support inquiry. We will try to answer you within the next 24 working hours, thank you for your patience.\n\n[URL.QL]',
                                'from_email'=>core::config('email.notify_email'),
                                'type'=>'email',
@@ -237,10 +237,10 @@ class Controller_Panel_Update extends Auth_Controller {
 
         //updating emails
         $text =  '==== Order Details ====\nDate: [DATE]\nOrder ID: [ORDER.ID]\nName: [USER.NAME]\nEmail: [USER.EMAIL]\n\n==== Your Order ====\nProduct: [PRODUCT.TITLE]\nProduct Price: [PRODUCT.PRICE]\n\n[PRODUCT.NOTES][DOWNLOAD][EXPIRE][LICENSE]';
-        DB::update('content')->set(array('description' => $text))->where('seotitle', '=', 'new.sale')->where('locale', '=', 'en_US')->execute();
+        DB::update('content')->set(array('description' => $text))->where('seotitle', '=', 'new_sale')->where('locale', '=', 'en_US')->execute();
 
         $text = '==== Update Details ====\nVersion: [VERSION]\nProduct name: [TITLE][DOWNLOAD][EXPIRE]\n\n==== Product Page ====\n[URL.PRODUCT]';
-        DB::update('content')->set(array('description' => $text))->where('seotitle', '=', 'product.update')->where('locale', '=', 'en_US')->execute();
+        DB::update('content')->set(array('description' => $text))->where('seotitle', '=', 'product_update')->where('locale', '=', 'en_US')->execute();
 
 
         // build array with new (missing) configs
@@ -335,7 +335,7 @@ class Controller_Panel_Update extends Auth_Controller {
         
          $contents = array(array('order'=>'0',
                                'title'=>'Congratulations! New affiliate commission [AMOUNT]',
-                               'seotitle'=>'affiliatecommission',
+                               'seotitle'=>'affiliate_commission',
                                'description'=>"Congratulations!,\n\n We just registered a sale from your affiliate link for the amount of [AMOUNT], check them all at your affiliate panel [URL.AFF]. \n\n Thanks for using our affiliate program!",
                                'from_email'=>core::config('email.notify_email'),
                                'type'=>'email',
@@ -400,10 +400,43 @@ class Controller_Panel_Update extends Auth_Controller {
 
         $prefix = Database::instance()->table_prefix();
 
+        //subscriber field
         try
         {
             DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."users` ADD `subscriber` tinyint(1) NOT NULL DEFAULT '1'")->execute();
         }catch (exception $e) {}
+
+        //updating contents replacing . for _
+        try
+        {
+            DB::query(Database::UPDATE,"UPDATE ".$prefix."content SET seotitle=REPLACE(seotitle,'.','_') WHERE type='email'")->execute();
+        }catch (exception $e) {}
+
+        try
+        {
+            DB::query(Database::UPDATE,"UPDATE ".$prefix."content SET seotitle='affiliate_commission' WHERE seotitle='affiliatecommission' AND type='email'")->execute();
+        }catch (exception $e) {}
+
+        try
+        {
+            DB::query(Database::UPDATE,"UPDATE ".$prefix."content SET seotitle='new_ticket' WHERE seotitle='newticket' AND type='email'")->execute();
+        }catch (exception $e) {}
+
+        try
+        {
+            DB::query(Database::UPDATE,"UPDATE ".$prefix."content SET seotitle='review_product' WHERE seotitle='reviewproduct' AND type='email'")->execute();
+        }catch (exception $e) {}
+
+        try
+        {
+            DB::query(Database::UPDATE,"UPDATE ".$prefix."content SET seotitle='assign_agent' WHERE seotitle='assignagent' AND type='email'")->execute();
+        }catch (exception $e) {}
+
+        try
+        {
+            DB::query(Database::UPDATE,"UPDATE ".$prefix."content SET seotitle='contact_admin' WHERE seotitle='contactadmin' AND type='email'")->execute();
+        }catch (exception $e) {}
+        //end updating emails
 
         
         $configs = array( 

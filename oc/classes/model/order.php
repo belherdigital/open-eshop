@@ -192,7 +192,7 @@ class Model_Order extends ORM {
                         );
             
             //send email with order details download link and product notes 
-            $user->email('new.sale',$params);
+            $user->email('new_sale',$params);
 
             //notify to seller
             if(core::config('email.new_sale_notify'))

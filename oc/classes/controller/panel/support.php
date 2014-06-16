@@ -172,7 +172,7 @@ class Controller_Panel_Support extends Auth_Controller {
                         core::config('email.notify_email'), '');
                 }
 
-                $user->email('newticket',array('[TITLE]'=>$ticket->title,
+                $user->email('new_ticket',array('[TITLE]'=>$ticket->title,
                                               '[URL.QL]'=>$user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))));
 
                 
@@ -259,7 +259,7 @@ class Controller_Panel_Support extends Auth_Controller {
 
             //send notification to agent
             $agent = new Model_User(core::post('agent'));
-            $agent->email('assignagent',array('[TITLE]'=>$ticket->title,
+            $agent->email('assign_agent',array('[TITLE]'=>$ticket->title,
                                                 '[DESCRIPTION]'=>$ticket->description,
                                                 '[URL.QL]'=>$agent->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))));
 
@@ -301,7 +301,7 @@ class Controller_Panel_Support extends Auth_Controller {
                     $ticket->save();
 
                     //send email to creator of the ticket
-                    $ticket->user->email('new.reply',array('[TITLE]'=>$ticket->title,
+                    $ticket->user->email('new_reply',array('[TITLE]'=>$ticket->title,
                                                     '[DESCRIPTION]'=> $user->signature,
                                                     '[URL.QL]'=>$ticket->user->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket)))
                                             );
@@ -312,7 +312,7 @@ class Controller_Panel_Support extends Auth_Controller {
                 {
                     //send notification to agent
                     $agent = new Model_User($ticket->id_user_support);
-                    $agent->email('new.reply',array('[TITLE]'=>$ticket->title,
+                    $agent->email('new_reply',array('[TITLE]'=>$ticket->title,
                                                     '[DESCRIPTION]'=>$ticketr->description,
                                                     '[URL.QL]'=>$agent->ql('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket)))
                                             );
@@ -322,7 +322,7 @@ class Controller_Panel_Support extends Auth_Controller {
                 elseif(core::config('email.new_sale_notify'))
                 {
 
-                    Email::content(core::config('email.notify_email'), NULL, NULL,NULL, 'new.reply', array('[TITLE]'=>$ticket->title,
+                    Email::content(core::config('email.notify_email'), NULL, NULL,NULL, 'new_reply', array('[TITLE]'=>$ticket->title,
                                                     '[DESCRIPTION]'=>$ticketr->description,
                                                     '[URL.QL]'=>Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket)))
                                                 );

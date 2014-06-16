@@ -338,7 +338,7 @@ class Controller_Panel_Profile extends Auth_Controller {
                     $review->rate           = $rate;
                     $review->save();
                     //email product owner?? notify him of new review
-                    $product->user->email('reviewproduct',
+                    $product->user->email('review_product',
                                  array('[TITLE]'        =>$product->title,
                                         '[RATE]'        =>$review->rate,
                                         '[DESCRIPTION]' =>$review->description,
