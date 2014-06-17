@@ -108,6 +108,8 @@ $(function(){
                                     }).done(function(data) {
                                         document.title = button.attr('title');
                                         if ( history.replaceState ) history.pushState( {}, document.title, pageurl );
+                                        $('.br').removeClass('active');
+                                        button.closest('.br').addClass('active');
                                         $("#content").html(data);});
 
         return false;  
