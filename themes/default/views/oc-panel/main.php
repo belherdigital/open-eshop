@@ -24,44 +24,6 @@
 	<?=Theme::scripts($scripts,'header','default')?>
     <link rel="shortcut icon" href="<?=core::config('general.base_url').'images/favicon.ico'?>">
 
-	<style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
-      .error{color:#ff1a1a;}
-
-      .thumb_market{
-        height: 200px; width: 300px;
-        }
-
-        .market_item{
-          height:450px;
-        }
-
-        /* collapsable categories selector*/
-        .btn.btn-primary.btn-xs.collapsed {
-          display: inline-block !important;
-        }
-        .accordion-group {
-          border: none;
-          -webkit-border-radius: none;
-          -moz-border-radius: none;
-          border-radius: none;
-        }
-        .accordion-inner { border-top: none;}
-
-
-    @media screen and (max-width: 979px) {
-        body { padding-top:0; }
-        .navbar .nav { float:none; }
-        .navbar .nav > li { border:0; }
-    }
-    </style>
-
   </head>
 
   <body>
@@ -70,7 +32,7 @@
 		<?=View::factory('oc-panel/sidebar',array('user'=>$user))?>
     <div class="bs-docs-nav">
     <div class="alert alert-warning off-line" style="display:none;"><strong><?=__('Warning')?>!</strong> <?=__('We detected you are currently off-line, please connect to gain full experience.')?></div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main pull-left">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main pull-left" id="content">
 				<?=Breadcrumbs::render('oc-panel/breadcrumbs')?>      
 				<?=Alert::show()?>
                 <?if (!isset($_COOKIE['donation_alert'])  AND Theme::get('premium')!=1 AND $user->id_role==Model_Role::ROLE_ADMIN):?>
@@ -90,6 +52,7 @@
                   </div>
                 <?endif?>
 				<?=$content?>
+                <?=(Kohana::$environment === Kohana::DEVELOPMENT)? View::factory('profiler'):''?>
         </div><!--/span--> 
 
     </div><!--/.fluid-->
@@ -97,12 +60,6 @@
     <?=$footer?>
 
 	<?=Theme::scripts($scripts,'footer','default')?>
-
-	<!--[if lt IE 7 ]>
-		<?=HTML::script('http://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js')?>
-		<script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
-	<![endif]-->
-  <?=(Kohana::$environment === Kohana::DEVELOPMENT)? View::factory('profiler'):''?>
   </body>
 </html>
 

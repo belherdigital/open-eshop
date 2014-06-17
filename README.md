@@ -17,7 +17,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md)
 
 # OE works thanks to other GPL software
 
-* Kohana 3.2.3. http://kohanaframework.org/
+* Kohana 3.3.2. http://kohanaframework.org/
 * KO Formmanager https://github.com/colinbm/kohana-formmanager
 * PHP-Gettext https://launchpad.net/php-gettext/
 * Pear File_Gettext http://pear.php.net/package/File_Gettext
@@ -39,3 +39,4 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md)
 * Switcheroo https://github.com/OriginalEXE/Switcheroo
 * Raty https://github.com/wbotelhos/raty
 * MySQLi Kohana https://github.com/Azuka/Kohana-Database-MySQLi
+* JS Loading Bar https://github.com/peachananr/loading-bar
