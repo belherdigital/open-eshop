@@ -72,61 +72,93 @@ class Auth_Controller extends Controller
 	
 		if($this->auto_render===TRUE)
 		{
-			// Load the template
-			$this->template = ($template===NULL)?'oc-panel/main':$template;
-			$this->template = View::factory($this->template);
-				
-			// Initialize empty values
-			$this->template->title            = __('Panel').' - '.core::config('general.site_name');
-			$this->template->meta_keywords    = '';
-			$this->template->meta_description = '';
-			$this->template->meta_copyright   = 'Open eShop '.Core::VERSION;
-			$this->template->header           = View::factory('oc-panel/header');
-			$this->template->content          = '';
-			$this->template->footer           = View::factory('oc-panel/footer');
-			$this->template->styles           = array();
-			$this->template->scripts          = array();
-			$this->template->user 			  = Auth::instance()->get_user();
 
+            // Load the template
+            $this->template = ($template===NULL)?'oc-panel/main':$template;
+            //if its and ajx request I want only the content
+            if(Core::get('rel')=='ajax')
+                $this->template = 'oc-panel/content';
+            $this->template = View::factory($this->template);
+                
+            // Initialize empty values
+            $this->template->title            = __('Panel').' - '.core::config('general.site_name');
+            $this->template->meta_keywords    = '';
+            $this->template->meta_description = '';
+            $this->template->meta_copyright   = 'Open eShop '.Core::VERSION;
+            $this->template->header           = '';
+            $this->template->content          = '';
+            $this->template->footer           = '';
+            $this->template->styles           = array();
+            $this->template->scripts          = array();
+            $this->template->user             = Auth::instance()->get_user();
 
-            //other color
-            if (Theme::get('admin_theme')=='bootstrap')
+            //non ajax request
+            if (Core::get('rel')!='ajax')
             {
-                Theme::$styles                    = array('http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css' => 'screen',
-                                                        'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
-                                                        'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css'=>'screen',
-                                                        'css/bootstrap-tagsinput.css'=>'screen',
-                                                        'css/admin-styles.css?v='.Core::VERSION => 'screen');
-               
-            }
-            //default theme
-            else
-            {
-                 Theme::$styles               = array(  'http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css' => 'screen',                                
-                                                'http://netdna.bootstrapcdn.com/bootswatch/3.1.1/'.Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
-                                                'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen', 
-                                                'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
-                                                'css/bootstrap-tagsinput.css'=>'screen',
-                                                'css/admin-styles.css?v='.Core::VERSION => 'screen',
-                                                );
-            }
-        
+                $this->template->header           = View::factory('oc-panel/header');
+                $this->template->footer           = View::factory('oc-panel/footer');
 
 
-            Theme::$scripts['footer']		  = array('http://code.jquery.com/jquery-1.10.2.min.js',	
-													  'http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js', 
-												      'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
-                                                      'js/oc-panel/theme.init.js?v='.Core::VERSION,
-                                                      'js/jquery.sceditor.min.js?v=144',
-                                                      'js/jquery.validate.min.js',
-                                                      'js/oc-panel/sidebar.js?v='.Core::VERSION,
-                                                      'js/bootstrap-tagsinput.min.js',
-                                                      'js/form.js?v='.Core::VERSION,
-                                                      );
+
+                //other color
+                if (Theme::get('admin_theme')=='bootstrap')
+                {
+                    Theme::$styles                    = array('http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css' => 'screen',
+                                                            'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
+                                                            'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css'=>'screen',
+                                                            'css/bootstrap-tagsinput.css'=>'screen',
+                                                            'css/loadingbar.css'=>'screen', 
+                                                            'css/admin-styles.css?v='.Core::VERSION => 'screen');
+                   
+                }
+                //default theme
+                else
+                {
+                     Theme::$styles               = array(  'http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css' => 'screen',                                
+                                                    'http://netdna.bootstrapcdn.com/bootswatch/3.1.1/'.Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
+                                                    'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen', 
+                                                    'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
+                                                    'css/bootstrap-tagsinput.css'=>'screen',
+                                                    'css/loadingbar.css'=>'screen', 
+                                                    'css/admin-styles.css?v='.Core::VERSION => 'screen',
+                                                    );
+                }
+            
+
+
+                Theme::$scripts['footer']		  = array('http://code.jquery.com/jquery-1.10.2.min.js',	
+    													  'http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js', 
+    												      'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
+                                                          'js/oc-panel/theme.init.js?v='.Core::VERSION,
+                                                          'js/jquery.sceditor.min.js?v=144',
+                                                          'js/jquery.validate.min.js',
+                                                          'js/oc-panel/sidebar.js?v='.Core::VERSION,
+                                                          'js/bootstrap-tagsinput.min.js',
+                                                          'js/form.js?v='.Core::VERSION,
+                                                          );
+            }
 		}
 		
 		
 	}
+
+
+    /**
+     * Fill in default values for our properties before rendering the output.
+     */
+    public function after()
+    {
+        //ajax request
+        if (Core::get('rel')=='ajax')
+        {
+            // Add defaults to template variables.
+            $this->template->styles  = $this->template->styles;
+            $this->template->scripts = array_reverse($this->template->scripts);
+            $this->response->body($this->template->render());
+        }
+        else
+            parent::after();
+    }
 
 
 }
