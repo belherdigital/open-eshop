@@ -28,11 +28,11 @@
 						<td>
 							<a target="_blank" 
 								href="<?=Route::url('page',array('seotitle'=>$element->seotitle))?>">
-								<?=html::chars($element->$field)?> <i class="glyphicon glyphicon-share-alt"></i>
+								<?=HTML::chars($element->$field)?> <i class="glyphicon glyphicon-share-alt"></i>
 							</a>
 						</td>
 					<?else:?>
-						<td><?=html::chars($element->$field)?></td>
+						<td><?=HTML::chars($element->$field)?></td>
 					<?endif?>
 				<?endforeach?>
 				<?if ($controller->allowed_crud_action('delete') OR $controller->allowed_crud_action('update')):?>

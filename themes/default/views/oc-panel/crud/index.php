@@ -27,7 +27,7 @@
 		<?foreach($elements as $element):?>
 			<tr id="tr<?=$element->pk()?>">
 				<?foreach($fields as $field):?>
-					<td><?=html::chars($element->$field)?></td>
+					<td><?=HTML::chars($element->$field)?></td>
 				<?endforeach?>
 				<?if ($controller->allowed_crud_action('delete') OR $controller->allowed_crud_action('update')):?>
 				<td width="80px">

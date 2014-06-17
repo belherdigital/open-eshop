@@ -29,7 +29,7 @@
 		<?foreach($elements as $element):?>
 			<tr id="tr<?=$element->pk()?>">
 				<?foreach($fields as $field):?>
-					<td><?=html::chars($element->$field)?></td>
+					<td><?=HTML::chars($element->$field)?></td>
 				<?endforeach?>
                 <td>
                     <?=$element->formated_price()?>
