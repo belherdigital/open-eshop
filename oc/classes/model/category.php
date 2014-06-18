@@ -159,6 +159,9 @@ class Model_Category extends ORM {
      */
     public static function get_multidimensional()
     {
+        $cats = new self;
+        $cats = $cats->order_by('order','asc')->find_all()->cached()->as_array('id_category');
+
         //multidimensional array
         if ( ($cats_m = Core::cache('cats_m'))===NULL)
         {
