@@ -91,7 +91,7 @@ class Controller_Panel_Support extends Auth_Controller {
         }
 
         $pagination = Pagination::factory(array(
-                    'view'           => 'pagination',
+                    'view'           => 'oc-panel/crud/pagination',
                     'total_items'    => $tickets->count_all(),
         ))->route_params(array(
                     'controller' => $this->request->controller(),

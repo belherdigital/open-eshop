@@ -42,7 +42,7 @@ class Controller_Panel_Order extends Auth_Crud {
 
 
         $pagination = Pagination::factory(array(
-                    'view'           => 'pagination',
+                    'view'           => 'oc-panel/crud/pagination',
                     'total_items'    => $orders->count_all(),
         ))->route_params(array(
                     'controller' => $this->request->controller(),

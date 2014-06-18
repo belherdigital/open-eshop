@@ -43,7 +43,7 @@ class Controller_Panel_Download extends Auth_Crud {
         }
 
         $pagination = Pagination::factory(array(
-                    'view'           => 'pagination',
+                    'view'           => 'oc-panel/crud/pagination',
                     'total_items'    => $elements->count_all(),
         //'items_per_page' => 10// @todo from config?,
         ))->route_params(array(

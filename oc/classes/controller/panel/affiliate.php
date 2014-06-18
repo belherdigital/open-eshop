@@ -40,7 +40,7 @@ class Controller_Panel_Affiliate extends Auth_Crud {
 
 
         $pagination = Pagination::factory(array(
-                    'view'           => 'pagination',
+                    'view'           => 'oc-panel/crud/pagination',
                     'total_items'    => $commissions->count_all(),
         ))->route_params(array(
                     'controller' => $this->request->controller(),

@@ -519,7 +519,7 @@ class Controller_Panel_Profile extends Auth_Controller {
         $commissions = $commissions->where('id_user','=',$user->id_user);
 
         $pagination = Pagination::factory(array(
-                    'view'           => 'pagination',
+                    'view'           => 'oc-panel/crud/pagination',
                     'total_items'    => $commissions->count_all(),
                     'items_per_page' => 100,
         ))->route_params(array(
