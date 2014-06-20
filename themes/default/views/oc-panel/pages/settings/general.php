@@ -85,21 +85,7 @@
             </div>
         </div>
 
-		<div class="form-group">
-			<?= FORM::label($forms['base_url']['key'], __('Base URL'), array('class'=>'col-md-3 control-label', 'for'=>$forms['base_url']['key']))?>
-			<div class="col-md-5">
-				<?= FORM::input($forms['base_url']['key'], $forms['base_url']['value'], array(
-				'placeholder' => "http://foo.com/", 
-				'class' => 'tips form-control', 
-				'id' => $forms['base_url']['key'],
-				'data-content'=> __("Is a base path of your site (e.g. http://open-classifieds.com/). Everything else is built based on this field."),
-				'data-trigger'=>"hover",
-				'data-placement'=>"right",
-				'data-toggle'=>"popover",
-				'data-original-title'=>__("Base URL path"), 
-				))?> 
-			</div>
-		</div>
+		<?=FORM::hidden($forms['base_url']['key'], $forms['base_url']['value'])?>
 		
 		<div class="form-group">
 			<?= FORM::label($forms['products_per_page']['key'], __('Products per page'), array('class'=>'col-md-3 control-label', 'for'=>$forms['products_per_page']['key']))?>
