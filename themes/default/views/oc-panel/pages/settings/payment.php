@@ -39,16 +39,19 @@
 				<div class="form-group">
 					<?= FORM::label($forms['sandbox']['key'], __('Sandbox'), array('class'=>'col-md-3 control-label', 'for'=>$forms['sandbox']['key']))?>
 					<div class="col-md-5">
-						<?= FORM::select($forms['sandbox']['key'], array(FALSE=>"FALSE",TRUE=>"TRUE"),$forms['sandbox']['value'], array(
-						'placeholder' => "TRUE or FALSE", 
-						'class' => 'tips form-control', 
-						'id' => $forms['sandbox']['key'],
-						'data-content'=> '',
-						'data-trigger'=>"hover",
-						'data-placement'=>"right",
-						'data-toggle'=>"popover",
-						'data-original-title'=>'', 
-						))?> 
+                        <div class="onoffswitch">
+                            <?= Form::checkbox($forms['sandbox']['key'], 1, (bool) $forms['sandbox']['value'], array(
+                            'placeholder' => "TRUE or FALSE", 
+                            'class' => 'onoffswitch-checkbox', 
+							'id' => $forms['sandbox']['key'], 
+							'data-content'=> '',
+							'data-trigger'=>"hover",
+							'data-placement'=>"right",
+							'data-toggle'=>"popover",
+							'data-original-title'=>'',                     
+                            ))?>
+                            <?= FORM::label($forms['sandbox']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['sandbox']['key']))?>
+                        </div>
 					</div>
 				</div>
                  <div class="form-group">
@@ -163,16 +166,19 @@
                 <div class="form-group">
                     <?= FORM::label($forms['stripe_address']['key'], __('Requires address to pay for extra security'), array('class'=>'col-md-3 control-label', 'for'=>$forms['stripe_address']['key']))?>
                     <div class="col-md-5">
-                        <?= FORM::select($forms['stripe_address']['key'], array(FALSE=>"FALSE",TRUE=>"TRUE"),$forms['stripe_address']['value'], array(
-                        'placeholder' => "TRUE or FALSE", 
-                        'class' => 'tips form-control', 
-                        'id' => $forms['stripe_address']['key'],
-                        'data-content'=> '',
-                        'data-trigger'=>"hover",
-                        'data-placement'=>"right",
-                        'data-toggle'=>"popover",
-                        'data-original-title'=>'', 
-                        ))?> 
+                        <div class="onoffswitch">
+                            <?= Form::checkbox($forms['stripe_address']['key'], 1, (bool) $forms['stripe_address']['value'], array(
+                            'placeholder' => "TRUE or FALSE", 
+                            'class' => 'onoffswitch-checkbox', 
+							'id' => $forms['stripe_address']['key'], 
+							'data-content'=> '',
+							'data-trigger'=>"hover",
+							'data-placement'=>"right",
+							'data-toggle'=>"popover",
+							'data-original-title'=>'',                     
+                            ))?>
+                            <?= FORM::label($forms['stripe_address']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['stripe_address']['key']))?>
+                        </div>
                     </div>
                 </div>
 
