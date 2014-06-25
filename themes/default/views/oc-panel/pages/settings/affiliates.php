@@ -23,16 +23,19 @@
                 <div class="form-group">
                     <?= FORM::label($forms['active']['key'], __('Active'), array('class'=>'col-md-3 control-label', 'for'=>$forms['active']['key']))?>
                     <div class="col-md-5">
-                        <?= FORM::select($forms['active']['key'], array(FALSE=>"FALSE",TRUE=>"TRUE"),$forms['active']['value'], array(
-                        'placeholder' => "TRUE or FALSE", 
-                        'class' => 'tips form-control', 
-                        'id' => $forms['active']['key'],
-                        'data-content'=> '',
-                        'data-trigger'=>"hover",
-                        'data-placement'=>"right",
-                        'data-toggle'=>"popover",
-                        'data-original-title'=>__('Activates affiliate system'), 
-                        ))?> 
+                        <div class="onoffswitch">
+                            <?= Form::checkbox($forms['active']['key'], 1, (bool) $forms['active']['value'], array(
+                            'placeholder' => "TRUE or FALSE", 
+                            'class' => 'onoffswitch-checkbox', 
+							'id' => $forms['new_ad_notify']['key'], 
+							'data-content'=> '',
+							'data-trigger'=>"hover",
+							'data-placement'=>"right",
+							'data-toggle'=>"popover",
+							'data-original-title'=>'',                     
+                            ))?>
+                            <?= FORM::label($forms['active']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['active']['key']))?>
+                        </div>
                     </div>
                 </div>
 

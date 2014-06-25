@@ -153,16 +153,19 @@
             <div class="form-group">
                 <?= FORM::label($forms['reviews']['key'], __("Product Reviews"), array('class'=>'col-md-3 control-label', 'for'=>$forms['reviews']['key']))?>
                 <div class="col-md-5">
-                    <?= FORM::select($forms['reviews']['key'], array(FALSE=>'FALSE',TRUE=>'TRUE'), $forms['reviews']['value'], array(
-                    'placeholder' => "TRUE or FALSE", 
-                    'class' => 'tips form-control', 
-                    'id' => $forms['reviews']['key'], 
-                    'data-content'=> __("Enables users to review purchased products"),
-                    'data-trigger'=>"hover",
-                    'data-placement'=>"right",
-                    'data-toggle'=>"popover",
-                    'data-original-title'=>__("Product Reviews"),
-                    ))?> 
+                	<div class="onoffswitch">
+                		<?= Form::checkbox($forms['reviews']['key'], 1, (bool) $forms['reviews']['value'], array(
+                		'placeholder' => "TRUE or FALSE", 
+                		'class' => 'onoffswitch-checkbox', 
+                		'id' => $forms['reviews']['key'], 
+                		'data-content'=> '',
+                		'data-trigger'=>"hover",
+                		'data-placement'=>"right",
+                		'data-toggle'=>"popover",
+                		'data-original-title'=>'',                     
+                		))?>
+                		<?= FORM::label($forms['reviews']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['reviews']['key']))?>
+                	</div>
                 </div>
             </div>
 
@@ -196,46 +199,55 @@
             <div class="form-group">
                 <?= FORM::label($forms['demo_resize']['key'], __("Demo resize buttons"), array('class'=>'col-md-3 control-label', 'for'=>$forms['demo_resize']['key']))?>
                 <div class="col-md-5">
-                    <?= FORM::select($forms['demo_resize']['key'], array(FALSE=>'FALSE',TRUE=>'TRUE'), $forms['demo_resize']['value'], array(
-                    'placeholder' => "TRUE or FALSE", 
-                    'class' => 'tips form-control', 
-                    'id' => $forms['demo_resize']['key'], 
-                    'data-content'=> __("Enables buttons to resize the demo"),
-                    'data-trigger'=>"hover",
-                    'data-placement'=>"right",
-                    'data-toggle'=>"popover",
-                    'data-original-title'=>__("Demo resize"),
-                    ))?> 
+                	<div class="onoffswitch">
+                		<?= Form::checkbox($forms['demo_resize']['key'], 1, (bool) $forms['demo_resize']['value'], array(
+                		'placeholder' => "TRUE or FALSE", 
+                		'class' => 'onoffswitch-checkbox', 
+                		'id' => $forms['demo_resize']['key'], 
+                		'data-content'=> '',
+                		'data-trigger'=>"hover",
+                		'data-placement'=>"right",
+                		'data-toggle'=>"popover",
+                		'data-original-title'=>'',                     
+                		))?>
+                		<?= FORM::label($forms['demo_resize']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['demo_resize']['key']))?>
+                	</div>
                 </div>
             </div>
             <div class="form-group">
                 <?= FORM::label($forms['number_of_orders']['key'], __("Number of sales"), array('class'=>'col-md-3 control-label', 'for'=>$forms['number_of_orders']['key']))?>
                 <div class="col-md-5">
-                    <?= FORM::select($forms['number_of_orders']['key'], array(FALSE=>'FALSE',TRUE=>'TRUE'), $forms['number_of_orders']['value'], array(
-                    'placeholder' => "TRUE or FALSE", 
-                    'class' => 'tips form-control', 
-                    'id' => $forms['number_of_orders']['key'], 
-                    'data-content'=> __("Enables users to review purchased products"),
-                    'data-trigger'=>"hover",
-                    'data-placement'=>"right",
-                    'data-toggle'=>"popover",
-                    'data-original-title'=>__("Number of sales"),
-                    ))?> 
+                	<div class="onoffswitch">
+                		<?= Form::checkbox($forms['number_of_orders']['key'], 1, (bool) $forms['number_of_orders']['value'], array(
+                		'placeholder' => "TRUE or FALSE", 
+                		'class' => 'onoffswitch-checkbox', 
+                		'id' => $forms['number_of_orders']['key'], 
+                		'data-content'=> '',
+                		'data-trigger'=>"hover",
+                		'data-placement'=>"right",
+                		'data-toggle'=>"popover",
+                		'data-original-title'=>'',                     
+                		))?>
+                		<?= FORM::label($forms['number_of_orders']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['number_of_orders']['key']))?>
+                	</div>
                 </div>
             </div>
             <div class="form-group">
                 <?= FORM::label($forms['qr_code']['key'], __("Show QR code"), array('class'=>'col-md-3 control-label', 'for'=>$forms['qr_code']['key']))?>
                 <div class="col-md-5">
-                    <?= FORM::select($forms['qr_code']['key'], array(FALSE=>'FALSE',TRUE=>'TRUE'), $forms['qr_code']['value'], array(
-                    'placeholder' => "TRUE or FALSE", 
-                    'class' => 'tips form-control', 
-                    'id' => $forms['qr_code']['key'], 
-                    'data-content'=> __("Show QR code in Product"),
-                    'data-trigger'=>"hover",
-                    'data-placement'=>"right",
-                    'data-toggle'=>"popover",
-                    'data-original-title'=>__("Show QR code"),
-                    ))?> 
+                	<div class="onoffswitch">
+                		<?= Form::checkbox($forms['qr_code']['key'], 1, (bool) $forms['qr_code']['value'], array(
+                		'placeholder' => "TRUE or FALSE", 
+                		'class' => 'onoffswitch-checkbox', 
+                		'id' => $forms['qr_code']['key'], 
+                		'data-content'=> '',
+                		'data-trigger'=>"hover",
+                		'data-placement'=>"right",
+                		'data-toggle'=>"popover",
+                		'data-original-title'=>'',                     
+                		))?>
+                		<?= FORM::label($forms['qr_code']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['qr_code']['key']))?>
+                	</div>
                 </div>
             </div>
 			<div class="page-header"></div>
