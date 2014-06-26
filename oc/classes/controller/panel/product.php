@@ -297,7 +297,7 @@ class Controller_Panel_Product extends Auth_Crud {
                             }
 
 
-                            if ( !Email::content($users, '', NULL, NULL, 'product_update', 
+                            if ( !Email::content($users, '', NULL, NULL, 'product-update', 
                                                         array('[TITLE]'         => $obj_product->title,
                                                               '[URL.PRODUCT]'   => Route::url('product', array('seotitle'=>$obj_product->seotitle,'category'=>$obj_product->category->seoname)),
                                                               '[DOWNLOAD]'      => $download,

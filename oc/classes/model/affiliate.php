@@ -144,7 +144,7 @@ class Model_Affiliate extends ORM {
                                     '[AMOUNT]'        => i18n::format_currency($commission, $product->currency),
                                     '[URL.AFF]'       => self::current()->ql('oc-panel',array('controller'=>'profile','action'=>'affiliate')),
                                 );
-                    self::current()->email('affiliate_commission',$params);
+                    self::current()->email('affiliate-commission',$params);
                     
                 }
                 catch (Exception $e)
