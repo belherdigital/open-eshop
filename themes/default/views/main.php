@@ -81,9 +81,9 @@
                 <?=Alert::show()?>
 
                 <div class="row">
-                    <?foreach ( widgets::get('header') as $widget):?>
+                    <?foreach ( Widgets::render('header') as $widget):?>
                     <div class="col-lg-9">
-                        <?=$widget->render()?>
+                        <?=$widget?>
                     </div>
                     <?endforeach?>
                 </div>
@@ -95,9 +95,9 @@
             <?=(Theme::get('sidebar_position')=='right')?View::fragment('sidebar_front','sidebar'):''?>
             
             <div class="container">
-                <?foreach ( widgets::get('footer') as $widget):?>
+                <?foreach ( Widgets::render('footer') as $widget):?>
                 <div class="col-lg-3">
-                    <?=$widget->render()?>
+                    <?=$widget?>
                 </div>
                 <?endforeach?>
             </div>
