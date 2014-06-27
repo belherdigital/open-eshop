@@ -10,7 +10,7 @@
  * @license    GPL v3
  */
 
-class StripeKO {
+class StripeKO extends OC_StripeKO{
 	
 
     /**

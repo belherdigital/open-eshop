@@ -74,7 +74,7 @@ class Controller_Bitpay extends Controller{
         $this->auto_render = FALSE;
 
         //ipn result validated
-        $ipn_result = self::bpVerifyNotification();
+        $ipn_result = Bitpay::bpVerifyNotification();
 
         if (isset($ipn_result['error']))
             Kohana::$log->add(Log::ERROR, $response);
