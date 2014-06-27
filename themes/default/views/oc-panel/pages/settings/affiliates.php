@@ -27,7 +27,7 @@
                             <?= Form::checkbox($forms['active']['key'], 1, (bool) $forms['active']['value'], array(
                             'placeholder' => "TRUE or FALSE", 
                             'class' => 'onoffswitch-checkbox', 
-							'id' => $forms['new_ad_notify']['key'], 
+							'id' => $forms['active']['key'], 
 							'data-content'=> '',
 							'data-trigger'=>"hover",
 							'data-placement'=>"right",
