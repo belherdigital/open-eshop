@@ -191,13 +191,13 @@
                 </div>
                 <div class="form-group">
                     
-                    <?= FORM::label($forms['bitpay_apikey']['key'], __('Bitpa api key'), array('class'=>'col-md-3 control-label', 'for'=>$forms['bitpay_apikey']['key']))?>
+                    <?= FORM::label($forms['bitpay_apikey']['key'], __('Bitpay api key'), array('class'=>'col-md-3 control-label', 'for'=>$forms['bitpay_apikey']['key']))?>
                     <div class="col-md-5">
                         <?= FORM::input($forms['bitpay_apikey']['key'], $forms['bitpay_apikey']['value'], array(
                         'placeholder' => "", 
                         'class' => 'tips form-control', 
                         'id' => $forms['bitpay_apikey']['key'],
-                        'data-content'=> __("Bitpa api key"),
+                        'data-content'=> __("Bitpay api key"),
                         'data-trigger'=>"hover",
                         'data-placement'=>"right",
                         'data-toggle'=>"popover",
