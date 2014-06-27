@@ -95,29 +95,29 @@ class Controller_Stripe extends Controller{
 
 
     /**
-     * [action_form] generates the js for stripe
+     * [action_form] generates the js for stripe not in use see controller product-action single
      */
-    public function action_javascript()
-    { 
-        $this->auto_render = FALSE;
+    // public function action_javascript()
+    // { 
+    //     $this->auto_render = FALSE;
 
-        $seotitle = $this->request->param('id');
+    //     $seotitle = $this->request->param('id');
 
-        $product = new Model_product();
-        $product->where('seotitle','=',$seotitle)
-            ->where('status','=',Model_Product::STATUS_ACTIVE)
-            ->limit(1)->find();
+    //     $product = new Model_product();
+    //     $product->where('seotitle','=',$seotitle)
+    //         ->where('status','=',Model_Product::STATUS_ACTIVE)
+    //         ->limit(1)->find();
 
-        if ($product->loaded())
-        {
-            $this->template = View::factory('js');
-            $this->template->content = View::factory('pages/stripe/js',array('product'=>$product));
-        }
-        else
-        {
-            Alert::set(Alert::INFO, __('Product could not be loaded'));
-            $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
-        }
-    }
+    //     if ($product->loaded())
+    //     {
+    //         $this->template = View::factory('js');
+    //         $this->template->content = View::factory('pages/stripe/js',array('product'=>$product));
+    //     }
+    //     else
+    //     {
+    //         Alert::set(Alert::INFO, __('Product could not be loaded'));
+    //         $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+    //     }
+    // }
 
 }
