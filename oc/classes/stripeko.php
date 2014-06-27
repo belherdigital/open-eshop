@@ -4,9 +4,9 @@
  * Stripe helper class
  *
  * @package    OC
- * @category   Core
+ * @category   Payment
  * @author     Chema <chema@open-classifieds.com>
- * @copyright  (c) 2009-2013 Open Classifieds Team
+ * @copyright  (c) 2009-2014 Open Classifieds Team
  * @license    GPL v3
  */
 
@@ -30,18 +30,5 @@ class StripeKO {
 
         return '';
     }
-
-    /**
-     * formats an amount to the correct format for paymill. 2.50 == 250
-     * @param  float $amount 
-     * @return string         
-     */
-    public static function money_format($amount)
-    {
-        return $amount*100;
-        //return str_replace(array(',','.'), '', $amount);
-    }
-
-
 
 }
