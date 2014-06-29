@@ -447,6 +447,16 @@ class Controller_Panel_Update extends Auth_Controller {
                          array('config_key'     =>'banned_words',
                                'group_name'     =>'general', 
                                'config_value'   =>''), 
+                         array('config_key'     =>'authorize_sandbox',
+                               'group_name'     =>'payment', 
+                               'config_value'   =>'0'), 
+                         array('config_key'     =>'authorize_login',
+                               'group_name'     =>'payment', 
+                               'config_value'   =>''), 
+                         array('config_key'     =>'authorize_key',
+                               'group_name'     =>'payment', 
+                               'config_value'   =>''),
+
                         );
 
         // returns TRUE if some config is saved 

@@ -27,6 +27,7 @@
                 <div class="clearfix"></div>
                 <?=Paymill::button($product)?>
                 <?=Bitpay::button($product)?>
+                <?=Controller_Authorize::form($product)?>
             <?endif?>
 
             <a class="btn btn-success full-w" 
