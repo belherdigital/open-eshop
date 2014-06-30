@@ -45,27 +45,7 @@ class Controller_Product extends Controller{
             //     $this->template->scripts['footer'][] = Route::url('default',array('controller'=>'stripe','action'=>'javascript','id'=>$product->seotitle)).'?t='.time();
             // }    
             
-            //adding a visit only if not the owner
-            if(!Auth::instance()->logged_in())
-                $visitor_id = NULL;
-            else
-                $visitor_id = Auth::instance()->get_user()->id_user;
-
-            //adding affiliate if any
-            $id_affiliate = NULL;
-            if (Model_Affiliate::current()->loaded())
-                $id_affiliate = Model_Affiliate::current()->id_user;
-
-            //new visit
-            if ($product->id_user!=$visitor_id)
-                $new_hit = DB::insert('visits', array('id_product', 'id_user','id_affiliate', 'ip_address'))
-                        ->values(array($product->id_product, $visitor_id, $id_affiliate, ip2long(Request::$client_ip)))
-                        ->execute();
-
-            //count how many visits has
-            $hits = new Model_Visit();
-            $hits = $hits->where('id_product','=', $product->id_product)->count_all();
-
+            $hits = $product->count_hit();
 
             Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Home'))->set_url(Route::url('default')));
             Breadcrumbs::add(Breadcrumb::factory()->set_title($product->category->name)->set_url(Route::url('list',array('category'=>$product->category->seoname))));

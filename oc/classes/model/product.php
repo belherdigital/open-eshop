@@ -658,4 +658,36 @@ class Model_Product extends ORM {
         return FALSE;
     }
 
+    /**
+     * ads a new hit in visits DB and counts how many visits has
+     * @return integer count
+     */
+    public function count_hit()
+    {
+        if($this->loaded())
+        {
+            //adding a visit only if not the owner
+            if(!Auth::instance()->logged_in())
+                $visitor_id = NULL;
+            else
+                $visitor_id = Auth::instance()->get_user()->id_user;
+
+            //adding affiliate if any
+            $id_affiliate = NULL;
+            if (Model_Affiliate::current()->loaded())
+                $id_affiliate = Model_Affiliate::current()->id_user;
+
+            //new visit if not owner nad not bot
+            if ($this->id_user!=$visitor_id AND !Model_Visit::is_bot())
+                $new_hit = DB::insert('visits', array('id_product', 'id_user','id_affiliate', 'ip_address'))
+                        ->values(array($this->id_product, $visitor_id, $id_affiliate, ip2long(Request::$client_ip)))
+                        ->execute();
+
+            //count how many visits has
+            $hits = new Model_Visit();
+            return $hits->where('id_product','=', $this->id_product)->count_all();
+        }
+        return 0;
+    }
+
 }
