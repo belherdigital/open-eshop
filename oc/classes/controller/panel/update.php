@@ -439,6 +439,43 @@ class Controller_Panel_Update extends Auth_Controller {
         //end updating emails
 
 
+        //ip_address from float to bigint
+        try
+        {    
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."users` CHANGE last_ip last_ip BIGINT NULL DEFAULT NULL ")->execute();
+        }catch (exception $e) {}
+        try
+        {    
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."visits` CHANGE ip_address ip_address BIGINT NULL DEFAULT NULL ")->execute();
+        }catch (exception $e) {}
+        try
+        {    
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."posts` CHANGE ip_address ip_address BIGINT NULL DEFAULT NULL ")->execute();
+        }catch (exception $e) {}
+        try
+        {    
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."orders` CHANGE ip_address ip_address BIGINT NULL DEFAULT NULL ")->execute();
+        }catch (exception $e) {}
+        try
+        {    
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."licenses` CHANGE ip_address ip_address BIGINT NULL DEFAULT NULL ")->execute();
+        }catch (exception $e) {}
+        try
+        {    
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."downloads` CHANGE ip_address ip_address BIGINT NULL DEFAULT NULL ")->execute();
+        }catch (exception $e) {}
+        try
+        {    
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."tickets` CHANGE ip_address ip_address BIGINT NULL DEFAULT NULL ")->execute();
+        }catch (exception $e) {}
+        try
+        {    
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."reviews` CHANGE ip_address ip_address BIGINT NULL DEFAULT NULL ")->execute();
+        }catch (exception $e) {}
+        try
+        {    
+            DB::query(Database::UPDATE,"ALTER TABLE  `".$prefix."affiliates` CHANGE ip_address ip_address BIGINT NULL DEFAULT NULL ")->execute();
+        }catch (exception $e) {}
         
         $configs = array( 
                          array('config_key'     =>'banned_words_replacement',
