@@ -13,7 +13,7 @@
       <div class="modal-body">
         
 
-        <form class="form-horizontal" method="post" role="form" action="<?=Route::url('default', array('controller'=> 'authorize','action'=>'pay' , 'id' => $product->id_product))?>">
+        <form class="form-horizontal" method="post" role="form" action="<?=Route::url('default', array('controller'=> 'authorize','action'=>'pay' , 'id' => $product->seotitle))?>">
             <fieldset>
                 <legend><?=__('Pay with Credit Card')?></legend>
                 <div class="form-group">

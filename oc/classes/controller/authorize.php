@@ -52,7 +52,7 @@ class Controller_Authorize extends Controller{
             define('AUTHORIZENET_TRANSACTION_KEY', Core::config('payment.authorize_key'));
             define('AUTHORIZENET_SANDBOX', Core::config('payment.authorize_sandbox'));
             $sale           = new AuthorizeNetAIM;
-            $sale->amount   = $product->amount;
+            $sale->amount   = $product->final_price();
             $sale->card_num = Core::post('card-number');
             $sale->exp_date = Core::post('expiry-month').'/'.Core::post('expiry-year');
             $response = $sale->authorizeAndCapture();

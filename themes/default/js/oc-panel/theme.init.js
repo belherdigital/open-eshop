@@ -81,6 +81,7 @@ $(function (){
 $(function(){
     $("body").on( "click", "a.ajax-load",function(e){
         e.preventDefault(); 
+        $("html,body").scrollTop(0);
         button = $(this);
         //get the link location that was clicked
         pageurl = button.attr('href');
