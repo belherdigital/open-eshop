@@ -24,10 +24,11 @@
                     <?= FORM::label($forms['active']['key'], __('Active'), array('class'=>'col-md-3 control-label', 'for'=>$forms['active']['key']))?>
                     <div class="col-md-5">
                         <div class="onoffswitch">
-                            <?= Form::checkbox($forms['active']['key'], 1, (bool) $forms['active']['value'], array(
+                            <?= FORM::hidden($forms['active']['key'], 0);?>
+                            <?= FORM::checkbox($forms['active']['key'], 1, (bool) $forms['active']['value'], array(
                             'placeholder' => "TRUE or FALSE", 
                             'class' => 'onoffswitch-checkbox', 
-							'id' => $forms['new_ad_notify']['key'], 
+							'id' => $forms['active']['key'], 
 							'data-content'=> '',
 							'data-trigger'=>"hover",
 							'data-placement'=>"right",

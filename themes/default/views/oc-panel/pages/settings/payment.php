@@ -72,7 +72,8 @@
                     <?= FORM::label($forms['sandbox']['key'], __('Sandbox'), array('class'=>'col-md-3 control-label', 'for'=>$forms['sandbox']['key']))?>
                     <div class="col-md-5">
                         <div class="onoffswitch">
-                            <?= Form::checkbox($forms['sandbox']['key'], 1, (bool) $forms['sandbox']['value'], array(
+                            <?= FORM::hidden($forms['sandbox']['key'], 0);?>
+                            <?= FORM::checkbox($forms['sandbox']['key'], 1, (bool) $forms['sandbox']['value'], array(
                             'placeholder' => "TRUE or FALSE", 
                             'class' => 'onoffswitch-checkbox', 
                             'id' => $forms['sandbox']['key'], 
@@ -235,7 +236,8 @@
                     <?= FORM::label($forms['stripe_address']['key'], __('Requires address to pay for extra security'), array('class'=>'col-md-3 control-label', 'for'=>$forms['stripe_address']['key']))?>
                     <div class="col-md-5">
                         <div class="onoffswitch">
-                            <?= Form::checkbox($forms['stripe_address']['key'], 1, (bool) $forms['stripe_address']['value'], array(
+                            <?= FORM::hidden($forms['stripe_address']['key'], 0);?>
+                            <?= FORM::checkbox($forms['stripe_address']['key'], 1, (bool) $forms['stripe_address']['value'], array(
                             'placeholder' => "TRUE or FALSE", 
                             'class' => 'onoffswitch-checkbox', 
 							'id' => $forms['stripe_address']['key'], 

@@ -20,7 +20,8 @@
             <?= FORM::label($forms['maintenance']['key'], "<a target='_blank' href='http://open-classifieds.com/2013/10/11/activate-access-terms-alert/'>".__("Maintenance Mode")."</a>", array('class'=>'col-md-3 control-label', 'for'=>$forms['maintenance']['key']))?>
             <div class="col-md-5">
             	<div class="onoffswitch">
-            		<?= Form::checkbox($forms['maintenance']['key'], 1, (bool) $forms['maintenance']['value'], array(
+            		<?= FORM::hidden($forms['maintenance']['key'], 0);?>
+            		<?= FORM::checkbox($forms['maintenance']['key'], 1, (bool) $forms['maintenance']['value'], array(
             		'placeholder' => "TRUE or FALSE", 
             		'class' => 'onoffswitch-checkbox', 
             		'id' => $forms['maintenance']['key'], 
@@ -296,7 +297,8 @@
             <?= FORM::label($forms_img['watermark']['key'], __('Watermark'), array('class'=>'col-md-3 control-label', 'for'=>$forms_img['watermark']['key']))?>
             <div class="col-md-5">
             	<div class="onoffswitch">
-            		<?= Form::checkbox($forms_img['watermark']['key'], 1, (bool) $forms_img['watermark']['value'], array(
+            		<?= FORM::hidden($forms_img['watermark']['key'], 0);?>
+            		<?= FORM::checkbox($forms_img['watermark']['key'], 1, (bool) $forms_img['watermark']['value'], array(
             		'placeholder' => "TRUE or FALSE", 
             		'class' => 'onoffswitch-checkbox', 
             		'id' => $forms_img['watermark']['key'], 
@@ -376,7 +378,8 @@
             <?= FORM::label($forms['blog']['key'], __("Activates Blog posting"), array('class'=>'col-md-3 control-label', 'for'=>$forms['blog']['key']))?>
             <div class="col-md-5">
             	<div class="onoffswitch">
-            		<?= Form::checkbox($forms['blog']['key'], 1, (bool) $forms['blog']['value'], array(
+            		<?= FORM::hidden($forms['blog']['key'], 0);?>
+            		<?= FORM::checkbox($forms['blog']['key'], 1, (bool) $forms['blog']['value'], array(
             		'placeholder' => "TRUE or FALSE", 
             		'class' => 'onoffswitch-checkbox', 
             		'id' => $forms['blog']['key'], 
@@ -409,7 +412,8 @@
             <?= FORM::label($forms['faq']['key'], __("Activates FAQ"), array('class'=>'col-md-3 control-label', 'for'=>$forms['faq']['key']))?>
             <div class="col-md-5">
             	<div class="onoffswitch">
-            		<?= Form::checkbox($forms['faq']['key'], 1, (bool) $forms['faq']['value'], array(
+            		<?= FORM::hidden($forms['faq']['key'], 0);?>
+            		<?= FORM::checkbox($forms['faq']['key'], 1, (bool) $forms['faq']['value'], array(
             		'placeholder' => "TRUE or FALSE", 
             		'class' => 'onoffswitch-checkbox', 
             		'id' => $forms['faq']['key'], 
@@ -442,7 +446,8 @@
             <?= FORM::label($forms['forums']['key'], __("Activates Forums"), array('class'=>'col-md-3 control-label', 'for'=>$forms['forums']['key']))?>
             <div class="col-md-5">
             	<div class="onoffswitch">
-            		<?= Form::checkbox($forms['forums']['key'], 1, (bool) $forms['forums']['value'], array(
+            		<?= FORM::hidden($forms['forums']['key'], 0);?>
+            		<?= FORM::checkbox($forms['forums']['key'], 1, (bool) $forms['forums']['value'], array(
             		'placeholder' => "TRUE or FALSE", 
             		'class' => 'onoffswitch-checkbox', 
             		'id' => $forms['forums']['key'], 
@@ -461,7 +466,8 @@
             <?= FORM::label($forms['minify']['key'], __("Minify CSS/JS"), array('class'=>'col-md-3 control-label', 'for'=>$forms['minify']['key']))?>
             <div class="col-sm-5">
             	<div class="onoffswitch">
-            		<?= Form::checkbox($forms['minify']['key'], 1, (bool) $forms['minify']['value'], array(
+            		<?= FORM::hidden($forms['minify']['key'], 0);?>
+            		<?= FORM::checkbox($forms['minify']['key'], 1, (bool) $forms['minify']['value'], array(
             		'placeholder' => "TRUE or FALSE", 
             		'class' => 'onoffswitch-checkbox', 
             		'id' => $forms['minify']['key'], 

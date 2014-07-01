@@ -154,7 +154,8 @@
                 <?= FORM::label($forms['reviews']['key'], __("Product Reviews"), array('class'=>'col-md-3 control-label', 'for'=>$forms['reviews']['key']))?>
                 <div class="col-md-5">
                 	<div class="onoffswitch">
-                		<?= Form::checkbox($forms['reviews']['key'], 1, (bool) $forms['reviews']['value'], array(
+                        <?= FORM::hidden($forms['reviews']['key'], 0);?>
+                		<?= FORM::checkbox($forms['reviews']['key'], 1, (bool) $forms['reviews']['value'], array(
                 		'placeholder' => "TRUE or FALSE", 
                 		'class' => 'onoffswitch-checkbox', 
                 		'id' => $forms['reviews']['key'], 
@@ -200,7 +201,8 @@
                 <?= FORM::label($forms['demo_resize']['key'], __("Demo resize buttons"), array('class'=>'col-md-3 control-label', 'for'=>$forms['demo_resize']['key']))?>
                 <div class="col-md-5">
                 	<div class="onoffswitch">
-                		<?= Form::checkbox($forms['demo_resize']['key'], 1, (bool) $forms['demo_resize']['value'], array(
+                        <?= FORM::hidden($forms['demo_resize']['key'], 0);?>
+                		<?= FORM::checkbox($forms['demo_resize']['key'], 1, (bool) $forms['demo_resize']['value'], array(
                 		'placeholder' => "TRUE or FALSE", 
                 		'class' => 'onoffswitch-checkbox', 
                 		'id' => $forms['demo_resize']['key'], 
@@ -218,7 +220,8 @@
                 <?= FORM::label($forms['number_of_orders']['key'], __("Number of sales"), array('class'=>'col-md-3 control-label', 'for'=>$forms['number_of_orders']['key']))?>
                 <div class="col-md-5">
                 	<div class="onoffswitch">
-                		<?= Form::checkbox($forms['number_of_orders']['key'], 1, (bool) $forms['number_of_orders']['value'], array(
+                        <?= FORM::hidden($forms['number_of_orders']['key'], 0);?>
+                		<?= FORM::checkbox($forms['number_of_orders']['key'], 1, (bool) $forms['number_of_orders']['value'], array(
                 		'placeholder' => "TRUE or FALSE", 
                 		'class' => 'onoffswitch-checkbox', 
                 		'id' => $forms['number_of_orders']['key'], 
@@ -236,7 +239,8 @@
                 <?= FORM::label($forms['qr_code']['key'], __("Show QR code"), array('class'=>'col-md-3 control-label', 'for'=>$forms['qr_code']['key']))?>
                 <div class="col-md-5">
                 	<div class="onoffswitch">
-                		<?= Form::checkbox($forms['qr_code']['key'], 1, (bool) $forms['qr_code']['value'], array(
+                        <?= FORM::hidden($forms['qr_code']['key'], 0);?>
+                		<?= FORM::checkbox($forms['qr_code']['key'], 1, (bool) $forms['qr_code']['value'], array(
                 		'placeholder' => "TRUE or FALSE", 
                 		'class' => 'onoffswitch-checkbox', 
                 		'id' => $forms['qr_code']['key'], 
