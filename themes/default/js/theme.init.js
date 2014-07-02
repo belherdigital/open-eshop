@@ -78,6 +78,15 @@ $(function(){
 
 });
 
+//chosen fix in authorize modal
+  $('#authorize_modal').on('shown.bs.modal', function () {
+      $('select', this).chosen('destroy').chosen();
+  });
+
+//validate authorize form
+  $.validator.setDefaults({ ignore: ":hidden:not(select)" });
+  $(".authorize_form").validate();
+
 //widget_reviews slider
   $('.btn-vertical-slider').on('click', function () {
         
