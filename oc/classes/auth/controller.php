@@ -132,6 +132,7 @@ class Auth_Controller extends Controller
                                                           'js/oc-panel/theme.init.js?v='.Core::VERSION,
                                                           'js/jquery.sceditor.min.js?v=144',
                                                           'js/jquery.validate.min.js',
+                                                          'js/jquery.cookie.min.js',
                                                           'js/oc-panel/sidebar.js?v='.Core::VERSION,
                                                           'js/bootstrap-tagsinput.min.js',
                                                           'js/form.js?v='.Core::VERSION,
