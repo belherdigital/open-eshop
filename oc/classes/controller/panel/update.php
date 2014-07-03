@@ -493,6 +493,15 @@ class Controller_Panel_Update extends Auth_Controller {
                          array('config_key'     =>'authorize_key',
                                'group_name'     =>'payment', 
                                'config_value'   =>''),
+                         array('config_key'     =>'elastic_active',
+                               'group_name'     =>'email', 
+                               'config_value'   =>0),
+                         array('config_key'     =>'elastic_username',
+                               'group_name'     =>'email', 
+                               'config_value'   =>''),
+                         array('config_key'     =>'elastic_password',
+                               'group_name'     =>'email', 
+                               'config_value'   =>''),
 
                         );
 
