@@ -104,7 +104,9 @@ $(function(){
                                         if ( history.replaceState ) history.pushState( {}, document.title, pageurl );
                                         $('.br').removeClass('active');
                                         button.closest('.br').addClass('active');
-                                        $("#content").html(data);init_panel();});
+                                        $("#content").html(data);
+                                        $("#content").find("script").each(function(i) {eval($(this).text());
+                                        init_panel();});
 
         return false;  
     });
