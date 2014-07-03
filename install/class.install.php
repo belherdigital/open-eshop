@@ -288,7 +288,7 @@ class install{
              * We load php-gettext here since Kohana_I18n tries to create the function __() function when we extend it.
              * PHP-gettext already does this.
              */
-            include APPPATH.'vendor/php-gettext/gettext.inc';
+            include APPPATH.'modules/common/vendor/php-gettext/gettext.inc';
             
             T_setlocale(LC_ALL, $locale);
             T_bindtextdomain($domain,DOCROOT.'languages');
