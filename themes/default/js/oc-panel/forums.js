@@ -30,10 +30,14 @@ $(function  () {
                 url: $('#ajax_result').data('url'),
                 beforeSend: function(text) {
                     $('#ajax_result').text('Saving').removeClass().addClass("label label-warning");
+                    $("ol.plholder").sortable('disable');
+                    $('ol.plholder').animate({opacity: '0.5'});
                 },
                 data: data,
                 success: function(text) {
                     $('#ajax_result').text(text).removeClass().addClass("label label-success");
+                    $("ol.plholder").sortable('enable');
+                    $('ol.plholder').animate({opacity: '1'});
                 }               
             });
         
