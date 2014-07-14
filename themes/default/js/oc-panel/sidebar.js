@@ -1,6 +1,6 @@
 
 //go to the latest tab, if it exists:
-var collapsed_bar = localStorage.getItem('sidebar_state');
+var collapsed_bar = $.cookie('sidebar_state');
 
 /*Side bar colapse*/
 if($(window).width() > '750'){
@@ -44,8 +44,8 @@ function colapse_sidebar(event){
 
   if(event)
   {
-    //set localstorage to be avare of current state of sidebar
-    localStorage.setItem('sidebar_state', 'collapsed');
+    //set cookie to be avare of current state of sidebar
+    $.cookie('sidebar_state', 'collapsed', { expires: 7, path: '/' });
 
     $('.panel-body table.table').each(function(){
       $('tbody',this).addClass('aside-table');; // hide links in sidebar
@@ -61,7 +61,7 @@ function colapse_sidebar(event){
     $('.main').css('padding-left','50px');
     $('.no-prem').hide(); // hide adverts
     
-    $('.btn-colapse-sidebar i')
+    $('.btn-colapse-sidebar span.glyphicon')
       .removeClass('glyphicon-circle-arrow-left')
       .addClass('glyphicon-circle-arrow-right');
 
@@ -70,8 +70,8 @@ function colapse_sidebar(event){
   }
   else
   {
-    //set localstorage to be avare of current state of sidebar
-    localStorage.setItem('sidebar_state', 'not-collapsed');
+    //set cookie to be avare of current state of sidebar
+    $.cookie('sidebar_state', 'not-collapsed', { expires: 7, path: '/' });
 
     $('.panel-body table.table').each(function(){
       $('tbody', this).removeClass('aside-table');
@@ -87,7 +87,7 @@ function colapse_sidebar(event){
     $('.main').css('padding-left','205px');
     $('.no-prem').show(); // show adverts
     
-    $('.btn-colapse-sidebar i')
+    $('.btn-colapse-sidebar span.glyphicon')
       .removeClass('glyphicon-circle-arrow-right')
       .addClass('glyphicon-circle-arrow-left');
 

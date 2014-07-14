@@ -69,6 +69,12 @@ function init_panel()
         else
             $(id_order).addClass('hide');
     });
+
+	// Menu icon picker
+	$(".icon-picker").iconPicker();
+	
+	// Load google api
+	$.getScript("http://www.google.com/jsapi");
 }
 
 $(function (){
@@ -104,7 +110,8 @@ $(function(){
                                         if ( history.replaceState ) history.pushState( {}, document.title, pageurl );
                                         $('.br').removeClass('active');
                                         button.closest('.br').addClass('active');
-                                        $("#content").html(data);init_panel();});
+                                        $("#content").html(data);
+                                        init_panel();});
 
         return false;  
     });
