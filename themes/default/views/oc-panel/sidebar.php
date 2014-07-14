@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-1 col-sm-1 col-xs-1 respon-left-panel">
-                    <div class="panel-group" id="accordion">
+                    <div class="panel-group <?=(core::cookie('sidebar_state') == 'collapsed')? 'mini-col':NULL?>" id="accordion">
                     <? if($user->id_role==Model_Role::ROLE_ADMIN):?>
                         <div class="panel panel-default">
                             <div class="panel-heading">
