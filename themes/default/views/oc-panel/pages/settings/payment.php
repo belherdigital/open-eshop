@@ -91,8 +91,8 @@
                 <h2>Authorize.net</h2>
                 <div class="form-group">
                     <label class="col-md-5 col-md-offset-3">
-                        <p>To get paid via Credit card you need an Atuthorize.net account. It's free to register.  You will need also a SSL certificate, buy one here.</p>
-                        <a class="btn btn-success" target="_blank" href="https://authorize.net">
+                        <p>To get paid via Credit card you need an Atuthorize.net account. It's free to register.  You will need also a SSL certificate, buy one <a href="https://www.ssl.com/code/49" target="_blank">here</a>.</p>
+                        <a class="btn btn-success" target="_blank" href="http://reseller.authorize.net/application/?id=5561123">
                             <i class="glyphicon glyphicon-pencil"></i> Register for free at Authorize</a>
                     </label>
                 </div>
