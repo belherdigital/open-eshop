@@ -109,6 +109,7 @@ $modules = array(
     'formmanager'   => COMMONPATH.'modules/formmanager',// forms to objects ORM
     'mysqli'        => COMMONPATH.'modules/mysqli',     // mysqli driver
     'widgets'       => COMMONPATH.'modules/widgets',    // loads default widgets
+    'cron'          => COMMONPATH.'modules/cron',    // cron module
 );
 
 //modules for development environment, not included in distribution KO with OC, so you need to place them in your environment
