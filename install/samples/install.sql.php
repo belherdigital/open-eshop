@@ -304,6 +304,24 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS ".core::request('TABLE_PREFIX')."
     KEY ".core::request('TABLE_PREFIX')."affiliates_IK_id_product (id_product)
     ) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
+mysqli_query($link,"CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')."crontab` (
+  `id_crontab` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `period` varchar(50) NOT NULL,
+  `callback` varchar(140) NOT NULL,
+  `params` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_started` datetime  DEFAULT NULL,
+  `date_finished` datetime  DEFAULT NULL,
+  `date_next` datetime  DEFAULT NULL,
+  `times_executed`  bigint DEFAULT '0',
+  `output` varchar(50) DEFAULT NULL,
+  `running` tinyint(1) NOT NULL DEFAULT '0',
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id_crontab`),
+  UNIQUE KEY `".core::request('TABLE_PREFIX')."crontab_UK_name` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
 /**
  * add basic content like emails
@@ -321,6 +339,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."content` (`ord
 (0, 'New support ticket created `[TITLE]`', 'new-ticket', 'We have received your support inquiry. We will try to answer you within the next 24 working hours, thank you for your patience.\n\n[URL.QL]', '".core::request('ADMIN_EMAIL')."', 'email', 1),
 (0, 'Congratulations! New affiliate commission [AMOUNT]', 'affiliate-commission', 'Congratulations!,\n\n We just registered a sale from your affiliate link for the amount of [AMOUNT], check them all at your affiliate panel [URL.AFF]. \n\n Thanks for using our affiliate program!', '".core::request('ADMIN_EMAIL')."', 'email', 1)
 ");
+
 
 /**
  * Access
