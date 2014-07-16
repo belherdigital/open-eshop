@@ -499,6 +499,15 @@ class Controller_Panel_Update extends Auth_Controller {
                       UNIQUE KEY `".$prefix."crontab_UK_name` (`name`)
                   ) ENGINE=MyISAM;")->execute();
         }catch (exception $e) {}
+
+        //crontabs
+        try
+        {
+            DB::query(Database::UPDATE,"INSERT INTO `".$prefix."crontab` (`name`, `period`, `callback`, `params`, `description`, `active`) VALUES
+                                    ('Sitemap', '* 3 * * *', 'Sitemap::generate', 'TRUE', 'Regenerates the sitemap everyday at 3am',1),
+                                    ('Clean Cache', '* 5 * * *', 'Core::delete_cache', NULL, 'Once day force to flush all the cache.', 1),
+                                    ('Optimize DB', '* 4 1 * *', 'Core::optimize_db', NULL, 'once a month we optimize the DB', 1);")->execute();
+        }catch (exception $e) {}
         
         $configs = array( 
                          array('config_key'     =>'banned_words_replacement',
@@ -533,8 +542,7 @@ class Controller_Panel_Update extends Auth_Controller {
 
 
         //clean cache
-        Cache::instance()->delete_all();
-        Theme::delete_minified();
+        Core::delete_cache();
         
         //deactivate maintenance mode
         Model_Config::set_value('general','maintenance',0);
@@ -621,8 +629,7 @@ class Controller_Panel_Update extends Auth_Controller {
         File::delete($update_src_dir);
 
         //clean cache
-        Cache::instance()->delete_all();
-        Theme::delete_minified();
+        Core::delete_cache();
 
         //update themes, different request so doesnt time out
         $this->redirect(Route::url('oc-panel', array('controller'=>'update', 'action'=>'themes','id'=>str_replace('.', '', $version)))); 

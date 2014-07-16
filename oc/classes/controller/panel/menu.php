@@ -42,8 +42,7 @@ class Controller_Panel_Menu extends Auth_Crud {
 
         if (Menu::change_order(Core::get('order')))
         {
-            Cache::instance()->delete_all();
-            Theme::delete_minified();
+            Core::delete_cache();
             $this->template->content = __('Saved');
         }
         else

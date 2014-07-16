@@ -87,8 +87,7 @@ class Controller_Panel_Tools extends Auth_Controller {
         //force clean cache
         if (Core::get('force')==1)
         {
-            Cache::instance()->delete_all();
-            Theme::delete_minified();
+            Core::delete_cache();
             Alert::set(Alert::SUCCESS,__('All cache deleted'));
 
         }
