@@ -103,7 +103,7 @@ class Auth_Controller extends Controller
                 //other color
                 if (Theme::get('admin_theme')=='bootstrap')
                 {
-                    Theme::$styles                    = array('http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css' => 'screen',
+                    Theme::$styles                    = array('http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css' => 'screen',
                                                             'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
                                                             'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css'=>'screen',
                                                             'css/bootstrap-tagsinput.css'=>'screen',
@@ -115,8 +115,8 @@ class Auth_Controller extends Controller
                 //default theme
                 else
                 {
-                     Theme::$styles               = array(  'http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css' => 'screen',                                
-                                                    'http://netdna.bootstrapcdn.com/bootswatch/3.1.1/'.Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
+                     Theme::$styles               = array(  'http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css' => 'screen',                                
+                                                    'http://netdna.bootstrapcdn.com/bootswatch/3.2.0/'.Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
                                                     'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen', 
                                                     'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
                                                     'css/bootstrap-tagsinput.css'=>'screen',
@@ -129,7 +129,7 @@ class Auth_Controller extends Controller
 
 
                 Theme::$scripts['footer']		  = array('http://code.jquery.com/jquery-1.10.2.min.js',	
-    													  'http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js', 
+    													  'http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js', 
     												      'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
                                                           'js/oc-panel/theme.init.js?v='.Core::VERSION,
                                                           'js/jquery.sceditor.min.js?v=144',
