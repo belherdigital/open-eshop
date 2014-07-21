@@ -102,8 +102,6 @@ class Controller_Panel_Product extends Auth_Crud {
         	{
         		$obj_product->save();
         		Alert::set(Alert::SUCCESS, __('Product is created.'));
-                if (Core::config('sitemap.on_post') == TRUE)
-                    Sitemap::generate();
         	} 
         	catch (Exception $e) 
         	{

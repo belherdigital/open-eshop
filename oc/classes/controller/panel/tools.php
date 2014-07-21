@@ -182,7 +182,7 @@ class Controller_Panel_Tools extends Auth_Controller {
 
         //force regenerate sitemap
         if (Core::get('force')==1)
-            Alert::set(Alert::SUCCESS, Sitemap::generate(TRUE));
+            Alert::set(Alert::SUCCESS, Sitemap::generate());
 
         $this->template->content = View::factory('oc-panel/pages/tools/sitemap');
     }

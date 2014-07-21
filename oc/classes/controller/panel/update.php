@@ -10,8 +10,6 @@
  */
 class Controller_Panel_Update extends Controller_Panel_OC_Update {    
 
-    static $folder_prefix = 'open-eshop-';
-
     /**
      * This function will upgrade configs  
      */
@@ -121,9 +119,15 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
         try
         {
             DB::query(Database::UPDATE,"INSERT INTO `".self::$db_prefix."crontab` (`name`, `period`, `callback`, `params`, `description`, `active`) VALUES
-                                    ('Sitemap', '* 3 * * *', 'Sitemap::generate', 'TRUE', 'Regenerates the sitemap everyday at 3am',1),
+                                    ('Sitemap', '* 3 * * *', 'Sitemap::generate', NULL, 'Regenerates the sitemap everyday at 3am',1),
                                     ('Clean Cache', '* 5 * * *', 'Core::delete_cache', NULL, 'Once day force to flush all the cache.', 1),
                                     ('Optimize DB', '* 4 1 * *', 'Core::optimize_db', NULL, 'once a month we optimize the DB', 1);")->execute();
+        }catch (exception $e) {}
+        
+        //delete old sitemap config
+        try
+        {
+            DB::query(Database::DELETE,"DELETE FROM ".self::$db_prefix."config WHERE (config_key='expires' OR config_key='on_post') AND  group_name='sitemap'")->execute();
         }catch (exception $e) {}
         
         $configs = array( 
