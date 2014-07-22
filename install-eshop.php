@@ -539,19 +539,24 @@ function __($msgid)
                     //download file
                     $file_content = core::curl_get_contents($versions[$last_version]['download']);
                     file_put_contents('oe.zip', $file_content);
-                    $fname = 'open-eshop-'.$last_version;
-
+                    
                     $zip = new ZipArchive;
                     // open zip file, extract to dir
                     if ($zip_open = $zip->open('oe.zip')) 
                     {
+                        if ( !($folder_update = $zip->getNameIndex(0)) )
+                        {
+                            hosting_view();
+                            exit;
+                        }
+
                         $zip->extractTo(DOCROOT);
                         $zip->close();  
                         
-                        core::copy($fname, DOCROOT);
+                        core::copy($folder_update, DOCROOT);
                         
-                        // delete own file
-                        core::delete($fname);
+                        // delete downloaded zip file
+                        core::delete($folder_update);
                         @unlink('oe.zip');
                         @unlink($_SERVER['SCRIPT_FILENAME']);
                         
