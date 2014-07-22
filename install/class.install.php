@@ -421,11 +421,12 @@ class install{
             }
         }
 
+        //clean prefix
+        $TABLE_PREFIX = core::slug(core::request('TABLE_PREFIX'));
+
         //save DB config/database.php
         if ($install === TRUE)
         {
-            //clean prefix
-            $TABLE_PREFIX = core::slug(core::request('TABLE_PREFIX'));
             $_POST['TABLE_PREFIX'] = $TABLE_PREFIX;
             $_GET['TABLE_PREFIX']  = $TABLE_PREFIX;
             $search  = array('[DB_HOST]', '[DB_USER]','[DB_PASS]','[DB_NAME]','[TABLE_PREFIX]','[DB_CHARSET]');
@@ -495,10 +496,9 @@ class install{
         //not succeded :( delete all the tables with that prefix
         elseif($link!=FALSE)
         {
-            $table_list = mysqli_query($link,"SHOW TABLES LIKE '".$TABLE_PREFIX."%'");
-            if($table_list)
+            if ($table_list = mysqli_query($link, "SHOW TABLES LIKE '".$TABLE_PREFIX."%'")) 
             {
-                while ($row = mysqli_fetch_row($table_list)) 
+                while ($row = mysqli_fetch_assoc($table_list)) 
                     mysqli_query($link,"DROP TABLE ".$row[0]);
             }   
         }
