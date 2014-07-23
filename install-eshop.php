@@ -74,19 +74,11 @@ class install{
         /**
          * mod rewrite check
          */
-        if(function_exists('apache_get_modules'))
-        {
-            $mod_msg        = 'Install requires Apache mod_rewrite module to be installed';
-            $mod_mandatory  = TRUE;
-            $mod_result     = in_array('mod_rewrite',apache_get_modules());
-        }
-        //in case they dont use apache a nicer message
-        else 
-        {
-            $mod_msg        = 'Can not check if mod_rewrite installed, probably everything is fine. Try to proceed with the installation anyway ;)';
-            $mod_mandatory  = FALSE;
-            $mod_result     = FALSE;
-        }
+        $mod_result = ((function_exists('apache_get_modules') AND in_array('mod_rewrite',apache_get_modules()))
+            OR (getenv('HTTP_MOD_REWRITE')=='On')
+            OR (strpos(@shell_exec('/usr/local/apache/bin/apachectl -l'), 'mod_rewrite') !== FALSE)
+            OR (isset($_SERVER['IIS_UrlRewriteModule'])));
+        $mod_msg = ($mod_result)?NULL:'Can not check if mod_rewrite is installed, probably everything is fine. Try to proceed with the installation anyway ;)';
                 
                 
         /**
@@ -106,7 +98,7 @@ class install{
                                     'result'    => version_compare(PHP_VERSION, '5.3', '>=')
                                     ),
                 'mod_rewrite'=>array('message'  => $mod_msg,
-                                    'mandatory' => $mod_mandatory,
+                                    'mandatory' => FALSE,
                                     'result'    => $mod_result
                                     ),
                 'Short Tag'   =>array('message'   => '<a href="http://www.php.net/manual/en/ini.core.php#ini.short-open-tag">short_open_tag</a> must be enabled in your php.ini.',
