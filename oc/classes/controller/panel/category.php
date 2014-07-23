@@ -162,7 +162,7 @@ class Controller_Panel_Category extends Auth_Crud {
             }
         }
         else
-             Alert::set(Alert::SUCCESS, __('Category not deleted'));
+             Alert::set(Alert::ERROR, __('Category not deleted'));
 
         
         HTTP::redirect(Route::url('oc-panel',array('controller'  => 'category','action'=>'index')));  
