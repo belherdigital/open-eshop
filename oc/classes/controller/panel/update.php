@@ -129,6 +129,22 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
         {
             DB::query(Database::DELETE,"DELETE FROM ".self::$db_prefix."config WHERE (config_key='expires' OR config_key='on_post') AND  group_name='sitemap'")->execute();
         }catch (exception $e) {}
+
+        //categories description to HTML
+        try
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."categories` CHANGE  `description`  `description` TEXT NULL DEFAULT NULL;")->execute();
+        }catch (exception $e) {}
+        
+        $categories = new Model_Category();
+        $categories = $categories->find_all();
+        foreach ($categories as $category) 
+        {
+            $category->description = Text::bb2html($category->description,TRUE);
+            try {
+                $category->save();
+            } catch (Exception $e) {}
+        }
         
         $configs = array( 
                          array('config_key'     =>'banned_words_replacement',

@@ -3,7 +3,7 @@
 <?if ($category!==NULL):?>
     <?if (strlen($category->description>0)):?>
     <div class="well advise clearfix" id="advise">
-        <p><?=Text::bb2html($category->description,TRUE)?></p> 
+        <p><?=$category->description?></p> 
     </div><!--end of advise-->
     <?endif?>
 <?endif?>
