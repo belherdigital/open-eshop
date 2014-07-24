@@ -145,6 +145,28 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
                 $category->save();
             } catch (Exception $e) {}
         }
+
+        //content description to HTML
+        $contents = new Model_Content();
+        $contents = $contents->find_all();
+        foreach ($contents as $content) 
+        {
+            $content->description = Text::bb2html($content->description,TRUE);
+            try {
+                $content->save();
+            } catch (Exception $e) {}
+        }
+
+        //blog description to HTML
+        $posts =  new Model_Post();
+		$posts = $posts->where('id_forum','IS',NULL)->find_all();
+        foreach ($posts as $post) 
+        {
+            $post->description = Text::bb2html($post->description,TRUE);
+            try {
+                $post->save();
+            } catch (Exception $e) {}
+        }
         
         $configs = array( 
                          array('config_key'     =>'banned_words_replacement',

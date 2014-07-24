@@ -109,6 +109,8 @@ class Auth_Controller extends Controller
                                                             'css/bootstrap-tagsinput.css'=>'screen',
                                                             'css/loadingbar.css'=>'screen', 
                                                             'css/icon-picker.min.css'=>'screen', 
+                                                            'css/font-awesome.min.css'=>'screen', 
+                                                            'css/summernote.css'=>'screen', 
                                                             'css/admin-styles.css?v='.Core::VERSION => 'screen');
                    
                 }
@@ -122,6 +124,8 @@ class Auth_Controller extends Controller
                                                     'css/bootstrap-tagsinput.css'=>'screen',
                                                     'css/loadingbar.css'=>'screen', 
 													'css/icon-picker.min.css'=>'screen', 
+													'css/font-awesome.min.css'=>'screen', 
+													'css/summernote.css'=>'screen', 
                                                     'css/admin-styles.css?v='.Core::VERSION => 'screen',
                                                     );
                 }
@@ -133,6 +137,7 @@ class Auth_Controller extends Controller
     												      'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
                                                           'js/oc-panel/theme.init.js?v='.Core::VERSION,
                                                           'js/jquery.sceditor.min.js?v=144',
+                                                          'js/summernote.min.js',
                                                           'js/jquery.validate.min.js',
                                                           'js/jquery.cookie.min.js',
 														  'js/iconPicker.min.js',
