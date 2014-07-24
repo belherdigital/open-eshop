@@ -26,10 +26,11 @@ $system = $application.'/kohana/system';
 $komodules = $application.'/kohana/modules';
 
 /**
- * The directory where common Open Classifieds files are
- *
+ * The directory where common Open Classifieds files are 
+ * @see https://github.com/open-classifieds/common
+ * @see https://github.com/open-classifieds/openclassifieds2/blob/master/CONTRIBUTING.md
  */
-$common = $modules.'/common';
+$common = $application.'/common';
 
 /**
  * The default extension of resource files. If you change this, all resources

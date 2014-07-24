@@ -30,7 +30,7 @@ git submodule init
 git submodule update
 ```
 
-This will clone the open-eshop project + submodule at oc/modules/common https://github.com/open-classifieds/common
+This will clone the open-eshop project + submodule at oc/common https://github.com/open-classifieds/common
 
 
 GIT files to ignore changes, DO NOT COMMIT THIS FILES:
