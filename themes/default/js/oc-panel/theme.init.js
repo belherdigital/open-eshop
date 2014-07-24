@@ -23,6 +23,12 @@ function init_panel()
             enablePasteFiltering: "true"});
     }
     
+	// paste plain text in sceditor
+	$(".sceditor-container iframe").contents().find("body").bind('paste', function(e) {
+		e.preventDefault();
+		var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+		$(".sceditor-container iframe")[0].contentWindow.document.execCommand('insertText', false, text);
+	});	
 
     $('.tips').popover();
 
