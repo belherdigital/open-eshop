@@ -2,16 +2,15 @@ function init_panel()
 {
     if ($("textarea[name=description]").data('editor')=='html')
     {
-        $("#formorm_description, textarea[name=description], textarea[name=email_purchase_notes], .cf_textarea_fields").addClass('col-md-6').sceditor({
-            plugins: "xhtml",
+        $("#formorm_description, textarea[name=description], textarea[name=email_purchase_notes], .cf_textarea_fields").summernote({
             height: "450",
-            toolbarExclude: "emoticon,cut,copy,paste,pastetext",
-            resizeEnabled: "true",
-            emoticonsEnabled: "false",
-            emoticonsCompat: "false",
-            enablePasteFiltering: "true"
         });
     }
+	else if ($( "#crud-post" ).length || $( "#crud-category" ).length) {
+		$("#formorm_description").summernote({
+            height: "350",
+        });
+	}
     else
     {
         $('#formorm_description, textarea[name=description], textarea[name=email_purchase_notes], .cf_textarea_fields').addClass('col-md-6').sceditorBBCodePlugin({
