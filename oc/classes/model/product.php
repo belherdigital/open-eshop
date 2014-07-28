@@ -244,11 +244,11 @@ class Model_Product extends ORM {
         {  
             if ( Upload::not_empty($image) && ! Upload::type($image, explode(',',core::config('image.allowed_formats'))))
             {
-                return Alert::set(Alert::ALERT, $image['name'].' '.__('Is not valid format, please use one of this formats '.core::config('image.allowed_formats')));
+                return Alert::set(Alert::ALERT, $image['name'].': '.sprintf(__('This uploaded image is not of a valid format. Please use one of these formats: %s'),core::config('image.allowed_formats')));
             } 
             if(!Upload::size($image, core::config('image.max_image_size').'M'))
             {
-                return Alert::set(Alert::ALERT, $image['name'].' '.__('Is not of valid size. Size is limited on '.core::config('image.max_image_size').'MB per image'));
+                return Alert::set(Alert::ALERT, $image['name'].': '.sprintf(__("This uploaded image exceeds the allowable limit. Uploaded images cannot be larger than %s MB per image"), core::config('image.max_image_size')));
             }
         }
           
@@ -415,11 +415,11 @@ class Model_Product extends ORM {
         {  
             if ( Upload::not_empty($file) && ! Upload::type($file, explode(',',core::config('product.formats'))))
             {
-                return Alert::set(Alert::ALERT, $file['name'].' '.__('Is not valid format, please use one of this formats '.core::config('product.formats')));
+                return Alert::set(Alert::ALERT, $file['name'].': '.sprintf(__('This uploaded file is not of a valid format. Please use one of these formats: %s'),core::config('product.formats')));
             } 
             if(!Upload::size($file, core::config('product.max_size').'M'))
             {
-                return Alert::set(Alert::ALERT, $file['name'].' '.__('Is not of valid size. Size is limited on '.core::config('product.max_size').'MB per image'));
+                return Alert::set(Alert::ALERT, $file['name'].': '.sprintf(__("This uploaded file exceeds the allowable limit. Uploaded files cannot be larger than %s MB per product"), core::config('product.max_size')));
             }
         }
 
