@@ -448,4 +448,17 @@ class Model_Category extends ORM {
         return (is_numeric($id_parent))? $id_parent:1;
     }
 
+    /**
+     * reurns the url of the category icon
+     * @return string url
+     */
+    public function get_icon()
+    {
+
+        if(is_file(DOCROOT."images/categories/".$this->seoname.".png"))
+            return URL::base().'images/categories/'.$this->seoname.'.png';
+        else
+            return FALSE;
+    }
+
 } // END Model_Category

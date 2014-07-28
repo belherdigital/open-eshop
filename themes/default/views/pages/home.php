@@ -24,6 +24,8 @@
                             <a href="<?=Route::url('product', array('category'=>$product->category->seoname,'seotitle'=>$product->seotitle))?>">
                           <?if($product->get_first_image()!== NULL):?>
                                 <img src="<?=URL::base()?><?=$product->get_first_image()?>" >
+                            <?elseif(( $icon_src = $product->category->get_icon() )!==FALSE ):?>
+                                <img src="<?=$icon_src?>" >
                             <?else:?>
                                 <img src="http://www.placehold.it/200x200&text=<?=$product->category->name?>"> 
                             <?endif?>
@@ -71,9 +73,9 @@
 
         <ul class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <li class="cathead">
-                <?if (file_exists(DOCROOT.'images/categories/'.$c['seoname'].'.png')):?>
+                <? $icon_src = new Model_Category($c['id_category']); $icon_src = $icon_src->get_icon(); if(( $icon_src )!==FALSE ):?>
                 <a title="<?=$c['name']?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>">
-                <img src="<?=URL::base().'images/categories/'.$c['seoname'].'.png'?>" >
+                <img src="<?=$icon_src?>" >
                 </a>
                 <?endif?>
                 <a title="<?=$c['name']?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>"><?=mb_strtoupper($c['name']);?> <span class="badge badge-success pull-right"><?=$c['count']?></span></a>
