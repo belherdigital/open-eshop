@@ -136,7 +136,7 @@
 
             <?if (count($skins)>0):?>
             <li class="dropdown">
-              <a title="<?=__('Choose stlye')?>" href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <a title="<?=__('Choose style')?>" href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <?=($skin!=NULL)?$skin:__('Choose style')?> (<?=(count($skins))?>)<b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
