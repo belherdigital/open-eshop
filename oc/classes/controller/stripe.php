@@ -73,8 +73,8 @@ class Controller_Stripe extends Controller{
                 catch(Stripe_CardError $e) 
                 {
                     // The card has been declined
-                    Kohana::$log->add(Log::ERROR, 'Stripe The card has been declined');
-                    Alert::set(Alert::ERROR, 'Stripe The card has been declined');
+                    Kohana::$log->add(Log::ERROR, 'Stripe: The card has been declined');
+                    Alert::set(Alert::ERROR, __('Stripe: The card has been declined'));
                     $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
                 }
                 
@@ -89,7 +89,7 @@ class Controller_Stripe extends Controller{
 		else
 		{
 			Alert::set(Alert::INFO, __('Product could not be loaded'));
-            $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+            		$this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
 		}
 	}
 

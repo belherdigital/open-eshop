@@ -44,6 +44,11 @@ $(function(){
         }  
     });
 
+    $('#button-showhide-translated').click(function(event) {
+        $('#icon-showhide-translated').toggleClass("glyphicon-eye-open").toggleClass("glyphicon-eye-close");
+        $('.success').toggleClass('hidden');
+    });
+
 });
 
 

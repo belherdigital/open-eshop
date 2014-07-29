@@ -75,6 +75,7 @@ class Controller_Panel_Category extends Auth_Crud {
         $this->template->title = __('Update').' '.__($this->_orm_model).' '.$this->request->param('id');
     
         $form = new FormOrm($this->_orm_model,$this->request->param('id'));
+		$category = new Model_Category($this->request->param('id'));
         
         if ($this->request->post())
         {
@@ -100,7 +101,7 @@ class Controller_Panel_Category extends Auth_Crud {
             }
         }
     
-        return $this->render('oc-panel/pages/categories/update', array('form' => $form));
+        return $this->render('oc-panel/pages/categories/update', array('form' => $form, 'category' => $category));
     }
 
     /**
@@ -268,5 +269,65 @@ class Controller_Panel_Category extends Auth_Crud {
         //Alert::set(Alert::INFO, __('Success'));
         //HTTP::redirect(Route::url('oc-panel',array('controller'  => 'location','action'=>'index'))); 
     }
+
+	public function action_icon()
+	{
+		//get icon
+		$icon = $_FILES['category_icon']; //file post
+		
+		$category = new Model_Category($this->request->param('id'));
+        
+        if ( 
+            ! Upload::valid($icon) OR
+            ! Upload::not_empty($icon) OR
+            ! Upload::type($icon, explode(',',core::config('image.allowed_formats'))) OR
+            ! Upload::size($icon, core::config('image.max_image_size').'M'))
+        {
+        	if ( Upload::not_empty($icon) && ! Upload::type($icon, explode(',',core::config('image.allowed_formats'))))
+            {
+                Alert::set(Alert::ALERT, $icon['name'].' '.sprintf(__('Is not valid format, please use one of this formats "%s"'),core::config('image.allowed_formats')));
+				$this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
+            } 
+            if( ! Upload::size($icon, core::config('image.max_image_size').'M'))
+            {
+                Alert::set(Alert::ALERT, $icon['name'].' '.sprintf(__('Is not of valid size. Size is limited to %s MB per image'),core::config('general.max_image_size')));
+				$this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
+            }
+            Alert::set(Alert::ALERT, $icon['name'].' '.__('Image is not valid. Please try again.'));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'category','action'=>'update')));
+        }
+        else
+        {
+            if($icon != NULL) // sanity check 
+            {   
+                // saving/uploading zip file to dir.
+                $root = DOCROOT.'images/categories/'; //root folder
+            	$icon_name = $category->seoname.'.png';
+            	$width = core::config('image.width'); // @TODO dynamic !?
+            	$height = core::config('image.height');// @TODO dynamic !?
+            	$image_quality = core::config('image.quality');
+                
+                // if folder does not exist, try to make it
+               	if ( ! file_exists($root) AND ! @mkdir($root, 0775, true)) { // mkdir not successful ?
+                        Alert::set(Alert::ERROR, __('Image folder is missing and cannot be created with mkdir. Please correct to be able to upload images.'));
+                        return; // exit function
+                };
+
+                // save file to root folder, file, name, dir
+                if($file = Upload::save($icon, $icon_name, $root))
+                {
+	                // resize uploaded image 
+	                Image::factory($file)
+                        ->resize($width, $height, Image::AUTO)
+                        ->save($root.$icon_name,$image_quality);
+
+                }
+                
+                Alert::set(Alert::SUCCESS, $icon['name'].' '.__('Icon is uploaded.'));
+				$this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
+            }
+            
+        }
+	}   
 
 }
