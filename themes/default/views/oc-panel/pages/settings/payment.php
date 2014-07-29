@@ -1,9 +1,8 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
-	
 		<?=Form::errors()?>
 		<div class="page-header">
-			<h1><?=__('Payments Configuration')?></h1>
+		<h1><?=__('Payments Configuration')?></h1>
             <p class=""><?=__('List of payment configuration values. Replace input fields with new desired values.')?></p>
             <?if (Theme::get('premium')!=1):?>
                 <p class="well"><span class="label label-info"><?=__('Heads Up!')?></span> 
@@ -15,12 +14,11 @@
 
 		<div class="well">
 		<?= FORM::open(Route::url('oc-panel',array('controller'=>'settings', 'action'=>'payment')), array('class'=>'form-horizontal', 'enctype'=>'multipart/form-data'))?>
-			<fieldset>
-				<?foreach ($config as $c):?>
-					<?$forms[$c->config_key] = array('key'=>$c->config_key, 'value'=>$c->config_value)?>
-				<?endforeach?>
+		<fieldset>
+		<?foreach ($config as $c):?>
+			<?$forms[$c->config_key] = array('key'=>$c->config_key, 'value'=>$c->config_value)?>
+		<?endforeach?>
 
-                
                  <div class="form-group">
                 <?= FORM::label($forms['thanks_page']['key'], __('Thanks page'), array('class'=>'col-md-3 control-label', 'for'=>$forms['thanks_page']['key']))?>
                 <div class="col-md-5">
@@ -91,9 +89,9 @@
                 <h2>Authorize.net</h2>
                 <div class="form-group">
                     <label class="col-md-5 col-md-offset-3">
-                        <p>To get paid via Credit card you need an Atuthorize.net account. It's free to register.  You will need also a SSL certificate, buy one <a href="https://www.ssl.com/code/49" target="_blank">here</a>.</p>
+                        <p><?=sprintf(__('To get paid via Credit card you need a %s account'),'Authorize.net')?>. <?=__("It's free to register")?>. <?=__('You will need also a SSL certificate')?>, <a href="https://www.ssl.com/code/49" target="_blank"><?=__('buy your SSL certificate here')?></a>.</p>
                         <a class="btn btn-success" target="_blank" href="http://reseller.authorize.net/application/?id=5561123">
-                            <i class="glyphicon glyphicon-pencil"></i> Register for free at Authorize</a>
+                            <i class="glyphicon glyphicon-pencil"></i> <?=sprintf(__('Register for free at %s'),'Authorize.net')?></a>
                     </label>
                 </div>
                 <div class="form-group">
@@ -152,9 +150,9 @@
 
                 <div class="form-group">
                     <label class="col-md-5 col-md-offset-3">
-                        <p>To get paid via Credit card you need a Paymill account. It's free to register. They charge 2'95% of any sale.</p>
+                        <p><?=sprintf(__('To get paid via Credit card you need a %s account'),'Paymill')?>. <?=__("It's free to register")?>. <?=sprintf(__('They charge %s of any sale'),'2.95%')?>.</p>
                         <a class="btn btn-success" target="_blank" href="https://app.paymill.com/en-en/auth/register?referrer=openclassifieds">
-                            <i class="glyphicon glyphicon-pencil"></i> Register for free at Paymill</a>
+                            <i class="glyphicon glyphicon-pencil"></i> <?=sprintf(__('Register for free at %s'),'Paymill')?></a>
                     </label>
                 </div>
                 <div class="form-group">
@@ -194,9 +192,9 @@
                 <h2>Stripe</h2>
                 <div class="form-group">
                     <label class="col-md-5 col-md-offset-3">
-                        <p>To get paid via Credit card you can also use a Stripe account. It's free to register. They charge 2'95% of any sale.</p>
+                        <p><?=sprintf(__('To get paid via Credit card you need a %s account'),'Stripe')?>. <?=__("It's free to register")?>. <?=sprintf(__('They charge %s of any sale'),'2.95%')?>.</p>
                         <a class="btn btn-success" target="_blank" href="https://stripe.com">
-                            <i class="glyphicon glyphicon-pencil"></i> Register for free at Stripe</a>
+                            <i class="glyphicon glyphicon-pencil"></i> <?=sprintf(__('Register for free at %s'),'Stripe')?></a>
                     </label>
                 </div>
                 <div class="form-group">
@@ -256,9 +254,9 @@
                 <h2>Bitpay</h2>
                 <div class="form-group">
                     <label class="col-md-5 col-md-offset-3">
-                        <p>Accept bitcoins using Bitpay</p>
+                        <p<?=__('Accept bitcoins using Bitpay')?></p>
                         <a class="btn btn-success" target="_blank" href="https://bitpay.com">
-                            <i class="glyphicon glyphicon-pencil"></i> Register for free at Bitpay</a>
+                            <i class="glyphicon glyphicon-pencil"></i> <?=sprintf(__('Register for free at %s'),'Bitpay')?></a>
                     </label>
                 </div>
                 <div class="form-group">
@@ -278,9 +276,8 @@
                         </div>
                 </div>
 
-               
-				<div class="form-actions">
-					<?= FORM::button('submit', 'Update', array('type'=>'submit', 'class'=>'btn btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'settings', 'action'=>'payment'))))?>
-				</div>
-			</fieldset>	
+		<div class="form-actions">
+		<?= FORM::button('submit', __('Save'), array('type'=>'submit', 'class'=>'btn btn-primary', 'action'=>Route::url('oc-panel',array('controller'=>'settings', 'action'=>'payment'))))?>
+		</div>
+	</fieldset>	
 	</div><!--end col-md-10-->
