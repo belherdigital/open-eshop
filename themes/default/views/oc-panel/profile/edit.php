@@ -30,7 +30,12 @@
                 <?= FORM::input('signature', $user->signature, array('class'=>'form-control', 'id'=>'signature', 'type'=>'signature', 'maxlength'=>'245'  ,'placeholder'=>__('Email Signature')))?>
             </div>
         </div>
-
+        <div class="form-group">
+                <?= FORM::label('description', __('Description'), array('class'=>'col-md-2 control-label', 'for'=>'description'))?>
+                <div class="col-sm-5">
+                    <?= FORM::input('description', $user->description, array('class'=>'form-control', 'id'=>'description', 'type'=>'description' ,'placeholder'=>__('Description')))?>
+                </div>
+            </div>
          <div class="col-md-offset-4">
             <div class="checkbox">
                 <label>

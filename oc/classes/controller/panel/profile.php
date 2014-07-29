@@ -149,7 +149,8 @@ class Controller_Panel_Profile extends Auth_Controller {
             $user->paypal_email = core::post('paypal_email');
             $user->signature = core::post('signature');
             $user->subscriber = core::post('subscriber',0);
-            $user->seoname = $user->gen_seo_title(core::post('name'));
+            $user->description = core::post('description');
+            //$user->seoname = $user->gen_seo_title(core::post('name'));
             $user->last_modified = Date::unix2mysql();
 
             try {
