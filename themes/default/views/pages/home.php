@@ -26,6 +26,8 @@
                                 <img src="<?=URL::base()?><?=$product->get_first_image()?>" >
                             <?elseif(( $icon_src = $product->category->get_icon() )!==FALSE ):?>
                                 <img src="<?=$icon_src?>" >
+                            <?elseif(!empty($product->category->icon)):?>
+                                <div class="icon-placeholder"><i class="<?=$product->category->icon?>"></i></div>
                             <?else:?>
                                 <img src="http://www.placehold.it/200x200&text=<?=$product->category->name?>"> 
                             <?endif?>
