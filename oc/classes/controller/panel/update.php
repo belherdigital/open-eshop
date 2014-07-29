@@ -168,6 +168,12 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
             } catch (Exception $e) {}
         }
         
+		//categories icon
+        try
+        {    
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."categories` ADD  `icon` VARCHAR( 145 ) NULL DEFAULT NULL")->execute();
+        }catch (exception $e) {}
+
         $configs = array( 
                          array('config_key'     =>'banned_words_replacement',
                                'group_name'     =>'general', 
@@ -198,6 +204,7 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
 
         // returns TRUE if some config is saved 
         $return_conf = Model_Config::config_array($configs); 
+		        
     }
 
     /**

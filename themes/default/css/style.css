@@ -318,6 +318,10 @@ div.sceditor-group{padding: 1px 15px 5px 5px!important;}
 .fixed_header{position: relative!important; top:0px!important;}
 .container{width: 970px!important;}
 .navbar-collapse.bs-navbar-collapse.collapse{padding-left: 0;padding-right: 0px;}
+
+/*icon placeholder*/
+.thumbnail .icon-placeholder {background-color:#CCCCCC;color:#969696;padding:42% 44%;}
+
 /*================= Media Queries ==========================*/
 
 
