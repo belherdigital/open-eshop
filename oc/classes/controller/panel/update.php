@@ -167,6 +167,12 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
                 $post->save();
             } catch (Exception $e) {}
         }
+
+        //User description About
+        try
+        {    
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."users`  ADD  `description` TEXT NULL DEFAUlT NULL AFTER  `password` ")->execute();
+        }catch (exception $e) {}
         
         $configs = array( 
                          array('config_key'     =>'banned_words_replacement',

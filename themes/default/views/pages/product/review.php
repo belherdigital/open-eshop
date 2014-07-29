@@ -112,10 +112,3 @@
     <h3><?=__('We do not have any reviews for this product')?></h3>
 </div>
 <?endif?>
-
-
-
-            
-        
-        
-            

@@ -39,6 +39,7 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')
   `email` varchar(145) NOT NULL,
   `paypal_email` varchar(145) DEFAULT NULL,
   `password` varchar(64) NOT NULL,
+  `description` text NULL DEFAULT NULL,
   `status` int(1) NOT NULL DEFAULT '0',
   `id_role` int(10) unsigned DEFAULT '1',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
