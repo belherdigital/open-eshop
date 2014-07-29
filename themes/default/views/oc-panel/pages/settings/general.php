@@ -339,7 +339,7 @@
 				'data-trigger'=>"hover",
 				'data-placement'=>"right",
 				'data-toggle'=>"popover",
-				'data-original-title'=>__("Watermark possition"), 
+				'data-original-title'=>__("Watermark position"), 
 				))?> 
 			</div>
 		</div>
