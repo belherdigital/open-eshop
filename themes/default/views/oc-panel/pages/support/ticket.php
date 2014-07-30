@@ -119,33 +119,40 @@
     <div class="clearfix"></div><hr>
     <?endforeach?>
 
-    <?if($ticket->status!=Model_Ticket::STATUS_CLOSED):?>
+    <?if($ticket->status!=Model_Ticket::STATUS_CLOSED OR Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN):?>
 
-    <form class="well form-horizontal"  method="post" action="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>">         
+        <?if($ticket->status==Model_Ticket::STATUS_CLOSED):?>
+            <div class="alert alert-warning" role="alert">
+            <?=__('This ticket is closed, by replying you will reopen the ticket.')?>
+            </div>
+        <?endif?>
 
-      <?php if ($errors): ?>
-        <p class="message"><?=__('Some errors were encountered, please check the details you entered.')?></p>
-        <ul class="errors">
-        <?php foreach ($errors as $message): ?>
-            <li><?php echo $message ?></li>
-        <?php endforeach ?>
-        </ul>
-        <?php endif ?>       
+        <form class="well form-horizontal"  method="post" action="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>">         
+
+          <?php if ($errors): ?>
+            <p class="message"><?=__('Some errors were encountered, please check the details you entered.')?></p>
+            <ul class="errors">
+            <?php foreach ($errors as $message): ?>
+                <li><?php echo $message ?></li>
+            <?php endforeach ?>
+            </ul>
+            <?php endif ?>       
 
 
-      <div class="form-group">
-        <label class="col-md-2"><?=__("Reply")?>:</label>
-        <div class="col-md-9 col-sm-9 col-xs-12">
-        <textarea name="description" rows="10" class="form-control" required><?=core::post('description',__('Description'))?></textarea>
-        </div>
-      </div>
+          <div class="form-group">
+            <label class="col-md-2"><?=__("Reply")?>:</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+            <textarea name="description" rows="10" class="form-control" required><?=core::post('description',__('Description'))?></textarea>
+            </div>
+          </div>
 
-      <?=Form::token('reply_ticket')?>
-      <div class="form-actions">
-        <a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'index'))?>" class="btn btn-default"><?=__('Cancel')?></a>
-        <button type="submit" class="btn btn-primary"><?=__('Reply')?></button>
-      </div>
-    </form>  
+          <?=Form::token('reply_ticket')?>
+          <div class="form-actions">
+            <a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'index'))?>" class="btn btn-default"><?=__('Cancel')?></a>
+            <button type="submit" class="btn btn-primary"><?=__('Reply')?></button>
+          </div>
+        </form>  
+
     <?endif?>  
 
     <br><br>
