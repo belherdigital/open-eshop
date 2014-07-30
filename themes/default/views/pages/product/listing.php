@@ -28,8 +28,6 @@
                     <a title="<?= $product->title;?>" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                     <?if($product->get_first_image() !== NULL):?>
                         <img width="300px" height="200px" src="<?=URL::base()?><?=$product->get_first_image()?>" class="" >
-                    <?elseif(!empty($product->category->icon)):?>
-                        <div class="icon-placeholder"><i class="<?=$product->category->icon?>"></i> </div>
                     <?elseif(( $icon_src = $product->category->get_icon() )!==FALSE ):?>
                         <img width="300px" height="200px"  src="<?=$icon_src?>" >
                     <?else:?>
