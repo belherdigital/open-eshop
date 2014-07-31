@@ -81,8 +81,10 @@ class Model_License extends ORM {
     public static function verify($license_num,$domain)
     {
         //removing the www. so we accept both for same domain
-        $domain = preg_replace('#^www\.(.+\.)#i', '$1', $domain);
-        
+        //$domain = preg_replace('#^www\.(.+\.)#i', '$1', $domain);
+        //since 1.6 licenses are for an entire domain
+        $domain = URL::get_domain($domain);
+
         $license = self::get_license($license_num);
 
         if ($license->loaded())

@@ -12,7 +12,15 @@ class Controller_Api extends Controller {
     {
         $this->auto_render = FALSE;
         $license = $this->request->param('id');
-        $domain  = Core::request('domain');
+
+        //getting domain from referrer
+        if ( ($domain = $this->request->referrer())!==NULL) 
+        {
+            $domain = parse_url($domain, PHP_URL_HOST);
+        }
+        else//TODO remove in few versions, we should use only referrer
+            $domain  = Core::request('domain');
+
         if ($license!=NULL AND $domain!=NULL)
             $result = Model_License::verify($license,$domain); 
         else
