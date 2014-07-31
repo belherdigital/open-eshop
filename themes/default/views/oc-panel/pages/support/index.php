@@ -20,10 +20,16 @@
             <?=$v?>
         </a>
         <?endforeach?>
+
+        <?if(Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN AND core::get('status')==Model_Ticket::STATUS_HOLD):?>
+        <a href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'massclose'))?>" class="btn btn-warning" onclick="return confirm('<?=__('Close holded tickets without answer in 1 month?')?>');">
+            <?=__('Close Old Tickets')?>
+        </a>    
+        <?endif?>
     </div>
 
     <a class="btn btn-info pull-right" href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'new'))?>">
-        <?=__('New')?></a>
+        <i class="glyphicon glyphicon-envelope"></i> <?=__('New Ticket')?></a>
 </div>
 
 <div class="table-responsive">

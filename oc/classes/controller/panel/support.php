@@ -368,7 +368,7 @@ class Controller_Panel_Support extends Auth_Controller {
 
 
 
-    //ticket conversation display
+    //ticket conversation closed
     public function action_close()
     {
         $user = Auth::instance()->get_user();
@@ -403,6 +403,36 @@ class Controller_Panel_Support extends Auth_Controller {
         
     }
 
+    /**
+     * closes massivley tickets that are older than 1 month and are in status hold
+     * @return void 
+     */
+    public function action_massclose()
+    {
+        $user = Auth::instance()->get_user();
+
+        //admin can
+        if ($user->id_role==Model_Role::ROLE_ADMIN)
+        {
+            $query = DB::update('tickets')
+                        ->set(array('status' => Model_Ticket::STATUS_CLOSED))
+                        ->where('read_date', '<=', Date::unix2mysql(strtotime('-1 month')))
+                        ->where('status','=',Model_Ticket::STATUS_HOLD);
+            //d(Debug::vars((string) $query));
+
+            try{
+                $query->execute();
+            }catch (exception $e) {
+                Alert::set(Alert::SUCCESS, __('Error closing tickets.'));
+            }
+
+            Alert::set(Alert::SUCCESS, __('Tickets closed.'));
+            
+        }
+
+        $this->redirect(Route::url('oc-panel',array('controller'=>'support','action'=>'index')));
+        
+    }
             
 
 
