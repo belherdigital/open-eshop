@@ -211,6 +211,15 @@ Route::set('product-review', '<category>/reviews/<seotitle>.html')
 ));
 
 /**
+ * javascript localization
+ */
+Route::set('jslocalization', 'jslocalization/<action>')
+->defaults(array(
+        'controller' => 'jslocalization',    
+        'action'     => 'validate',
+));
+
+/**
  * Item / product view (public)
  */
 Route::set('product', '<category>/<seotitle>.html')

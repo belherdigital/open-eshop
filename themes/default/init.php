@@ -44,8 +44,10 @@ Theme::load();
                                         'http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
                                         'http://cdn.jsdelivr.net/prettyphoto/3.1.6/js/jquery.prettyPhoto.js',
                                         'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
+                                        Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
                                         'js/bootstrap-slider.js',
                                         'js/jquery.validate.min.js',
+                                        Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'validate')),
                                         'js/theme.init.js?v='.Core::VERSION,
                                         );
 
