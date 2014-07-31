@@ -84,7 +84,11 @@ $(function(){
 
 //chosen fix in authorize modal
   $('#authorize_modal').on('shown.bs.modal', function () {
-      $('select', this).chosen('destroy').chosen();
+      $('select', this).chosen('destroy').chosen({
+		  	no_results_text: getChosenLocalization("no_results_text"),
+		  	placeholder_text_multiple: getChosenLocalization("placeholder_text_multiple"),
+		  	placeholder_text_single: getChosenLocalization("placeholder_text_single")
+		  });
   });
 
 //validate authorize form
