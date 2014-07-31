@@ -2,7 +2,7 @@
 
 
 <div class="page-header">
-    <h1><?=__('Edit Product')?></h1>
+    <h1><?=__('Edit Product')?> <?=$product->title?></h1>
     <p>
         <?=__('Sell your product')?>:<br>
         <?=__('Link')?>

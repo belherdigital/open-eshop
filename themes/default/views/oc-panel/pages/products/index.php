@@ -4,12 +4,12 @@
 	<?if(Request::current()->controller() == 'content'):?>
 	<a target='_blank' href='http://open-classifieds.com/2013/08/27/automatic-emails-sent-to-users/'><?=__('Automatic emails sent to users')?></a>
 	<?endif?>
-	<?if ($controller->allowed_crud_action('create')):?>
+	
 	<a class="btn btn-primary pull-right" href="<?=Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'create')) ?>">
 		<i class="glyphicon glyphicon-pencil"></i>
 		<?=__('New')?>
 	</a>				
-	<?endif?>
+
 </div>
 <div class="table-responsive">
 <table class="table table-hover">

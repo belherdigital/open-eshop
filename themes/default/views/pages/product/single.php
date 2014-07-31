@@ -41,6 +41,28 @@
 
 <div class="col-md-6">
 
+    <div class="page-header">
+        <h3><?=$product->title?>
+        <?if ($product->rate!==NULL):?>
+        
+            <div class="rating">
+                <a class="" href="<?=Route::url('product-review', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" >
+                    <?for ($i=0; $i < round($product->rate,1); $i++):?>
+                        <span class="glyphicon glyphicon-star"></span>
+                    <?endfor?>
+                </a>
+            </div>
+       <?endif?>
+       <?if (Auth::instance()->logged_in()):?>
+       <?if(Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN):?>
+            <a title="<?=__('Edit')?>" class="btn btn-primary btn-xs" href="<?=Route::url('oc-panel', array('controller'=> 'product', 'action'=>'update','id'=>$product->id_product))?>">
+                <i class="glyphicon glyphicon-edit"></i>
+            </a>
+       <?endif?>
+       <?endif?>
+       </h3>
+    </div>
+
 	<?if ($product->has_offer()):?>
 	    <span class="offer">
 	    	<h4><span class="label label-success">
