@@ -106,7 +106,6 @@ class Auth_Controller extends Controller
                     Theme::$styles                    = array('http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css' => 'screen',
                                                             'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
                                                             'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css'=>'screen',
-                                                            'css/bootstrap-tagsinput.css'=>'screen',
                                                             'css/loadingbar.css'=>'screen', 
                                                             'css/icon-picker.min.css'=>'screen', 
                                                             'css/font-awesome.min.css'=>'screen', 
@@ -121,7 +120,6 @@ class Auth_Controller extends Controller
                                                     'http://netdna.bootstrapcdn.com/bootswatch/3.2.0/'.Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
                                                     'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen', 
                                                     'http://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
-                                                    'css/bootstrap-tagsinput.css'=>'screen',
                                                     'css/loadingbar.css'=>'screen', 
 													'css/icon-picker.min.css'=>'screen', 
 													'css/font-awesome.min.css'=>'screen', 
@@ -144,7 +142,6 @@ class Auth_Controller extends Controller
                                                          'js/jquery.cookie.min.js',
 														  'js/iconPicker.min.js',
                                                           'js/oc-panel/sidebar.js?v='.Core::VERSION,
-                                                          'js/bootstrap-tagsinput.min.js',
                                                           'js/form.js?v='.Core::VERSION,
                                                           );
             }
