@@ -77,7 +77,11 @@
                     field.closest('.form-group').css('display','block');
                     field.prop('disabled', false);
                     $(".cf_select_fields").chosen('destroy'); // refresh chosen
-                    $(".cf_select_fields").chosen(); // refresh chosen
+                    $(".cf_select_fields").chosen({
+							no_results_text: getChosenLocalization("no_results_text"),
+							placeholder_text_multiple: getChosenLocalization("placeholder_text_multiple"),
+							placeholder_text_single: getChosenLocalization("placeholder_text_single")
+						}); // refresh chosen
                 }
                 if(dataCategories !== undefined)  
                 {   
@@ -90,7 +94,11 @@
                                 field.closest('.form-group').css('display','block');
                                 field.prop('disabled', false);
                                 $(".cf_select_fields").chosen('destroy'); // refresh chosen
-                                $(".cf_select_fields").chosen(); // refresh chosen
+                                $(".cf_select_fields").chosen({
+										no_results_text: getChosenLocalization("no_results_text"),
+										placeholder_text_multiple: getChosenLocalization("placeholder_text_multiple"),
+										placeholder_text_single: getChosenLocalization("placeholder_text_single")
+									}); // refresh chosen
                                 
                             }
                         });

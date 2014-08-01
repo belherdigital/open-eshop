@@ -31,7 +31,11 @@ function init_panel()
 
     $('.tips').popover();
 
-    $("select").chosen();
+    $("select").chosen({
+        no_results_text: getChosenLocalization("no_results_text"),
+        placeholder_text_multiple: getChosenLocalization("placeholder_text_multiple"),
+        placeholder_text_single: getChosenLocalization("placeholder_text_single")
+    });
     
     $('.radio > input:checked').parentsUntil('div .accordion').addClass('in');
     
@@ -62,8 +66,11 @@ function init_panel()
     $('select').each(function(){
         if(!$(this).hasClass('form-control')){
             $(this).addClass('form-control');
-            $(this).chosen('destroy').chosen();
-        }
+            $(this).chosen('destroy').chosen({
+					no_results_text: getChosenLocalization("no_results_text"),
+					placeholder_text_multiple: getChosenLocalization("placeholder_text_multiple"),
+					placeholder_text_single: getChosenLocalization("placeholder_text_single")});
+				}
     });
 
     $('.btn-licenses').click(function(){
