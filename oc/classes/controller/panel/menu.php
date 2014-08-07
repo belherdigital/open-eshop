@@ -25,7 +25,7 @@ class Controller_Panel_Menu extends Auth_Crud {
         $order_categories = Model_Category::get_multidimensional();
 
         // d($categories);
-        $this->template->content = View::factory('oc-panel/pages/menu',array('menu' => Menu::get(), 
+        $this->template->content = View::factory('oc-panel/pages/menu/index',array('menu' => Menu::get(), 
                                                                              'categories'=>$categories,
                                                                              'order_categories'=>$order_categories));
     }
@@ -78,4 +78,37 @@ class Controller_Panel_Menu extends Auth_Crud {
 
         HTTP::redirect(Route::url('oc-panel',array('controller'  => 'menu','action'=>'index')));  
     }
+
+    public function action_update()
+    {
+        $name   = $this->request->param('id');
+        $menu_data  = Menu::get_item($name);
+
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Edit Menu').' '.$menu_data['title']));
+        $this->template->title = __('Edit Menu');
+
+        $this->template->styles              = array('css/sortable.css' => 'screen');
+        $this->template->scripts['footer'][] = 'js/jquery-sortable-min.js';
+        $this->template->scripts['footer'][] = 'js/oc-panel/menu.js';
+
+        //find all, for populating form select fields 
+        $categories         = Model_Category::get_as_array();  
+        $order_categories   = Model_Category::get_multidimensional();
+
+        if ($_POST)
+        {
+			if (Menu::update($name, Core::post('title'),Core::post('url'),Core::post('target'),Core::post('icon')))
+				Alert::set(Alert::SUCCESS, __('Menu updated'));
+			else
+				Alert::set(Alert::ERROR, __('Menu not updated'));
+
+	        HTTP::redirect(Route::url('oc-panel',array('controller'  => 'menu','action'=>'index')));  
+        }
+
+        // d($categories);
+        $this->template->content = View::factory('oc-panel/pages/menu/update',array('menu_data'=>$menu_data,'name'=>$name, 
+                                                                             'categories'=>$categories,
+                                                                             'order_categories'=>$order_categories));
+    }
+
 }
