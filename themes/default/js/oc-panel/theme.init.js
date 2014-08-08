@@ -87,6 +87,10 @@ function init_panel()
 	
 	// Load google api
 	$.getScript("http://www.google.com/jsapi");
+	
+	// Call open_eshop.init function only if exist
+	if (typeof open_eshop.init !== 'undefined' && $.isFunction(open_eshop.init)) {open_eshop.init(open_eshop);}
+
 }
 
 $(function (){
