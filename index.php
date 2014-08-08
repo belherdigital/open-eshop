@@ -1,5 +1,15 @@
 <?php
 /**
+ * Debug variable used in Bootstrap, this will setup the Kohana::$environment =  Kohana::DEVELOPMENT;
+ * Seted to TRUE:
+ *  - disables the cache,  
+ *  - enable the profiler in the bottom of the page 
+ *  - Enable logs for anything (false=only ERRORs)
+ *  - Displays the full error stack instead of friendly page
+ */
+define('OC_DEBUG', FALSE);
+
+/**
  * Where the application for Open Classifieds is installed.
  */
 $application = '/oc';
