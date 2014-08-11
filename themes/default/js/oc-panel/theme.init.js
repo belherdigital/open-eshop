@@ -36,6 +36,11 @@ function init_panel()
         placeholder_text_multiple: getChosenLocalization("placeholder_text_multiple"),
         placeholder_text_single: getChosenLocalization("placeholder_text_single")
     });
+    $('select').each(function(){
+        if($(this).hasClass('disable-chosen')){
+            $(this).chosen('destroy');      
+        } 
+    });
     
     $('.radio > input:checked').parentsUntil('div .accordion').addClass('in');
     
