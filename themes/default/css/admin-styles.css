@@ -156,7 +156,7 @@ ul.plholder li.placeholder:before {
 .dropdown-menu li a{color:#000!important; border-bottom:none!important; padding-bottom:3px!important;}
 
 /*Sidebar*/
-.panel-title a {color:#000;text-decoration: none;}
+.panel-title a {color:#000;text-decoration: none;white-space: nowrap;}
 td li a{padding: 0!important;}
 .panel-group .panel{border-radius: 0px;}
 
@@ -232,7 +232,8 @@ li.sbp:hover{border-right: none;}
 .submenu.active{display: block;}
 .submenu li.active a{text-decoration: underline; font-weight:bold;list-style-type: amharic;}
 .submenu li a{border-right: 0px !important;}
-.mini-col{max-width: 45px;}
+#accordion{max-width:100%;-webkit-transition: all 0.4s ease;-moz-transition: all 0.4s ease;-o-transition: all 0.4s ease;-ms-transition: all 0.4s ease;transition: all 0.4s ease;}
+#accordion.mini-col{max-width: 45px;}
 .aside-table{position: absolute;
 left: 45px;
 margin-top: -40px;
