@@ -6,7 +6,7 @@
             <p class=""><?=__('List of payment configuration values. Replace input fields with new desired values.')?></p>
             <?if (Theme::get('premium')!=1):?>
                 <p class="well"><span class="label label-info"><?=__('Heads Up!')?></span> 
-                    <?=__('Stripe, Paymill and Bitpay are only available with premium themes!').'<br/>'.__('Upgrade your Open eShop site to activate this feature.')?>
+                    Authorize, Stripe, Paymill and Bitpay <?=__('only available with premium themes!').'<br/>'.__('Upgrade your Open eShop site to activate this feature.')?>
                     <a class="btn btn-success pull-right" href="<?=Route::url('oc-panel',array('controller'=>'theme'))?>"><?=__('Browse Themes')?></a>
                 </p>
             <?endif?>
@@ -89,9 +89,12 @@
                 <h2>Authorize.net</h2>
                 <div class="form-group">
                     <label class="col-md-5 col-md-offset-3">
-                        <p><?=sprintf(__('To get paid via Credit card you need a %s account'),'Authorize.net')?>. <?=__("It's free to register")?>. <?=__('You will need also a SSL certificate')?>, <a href="https://www.ssl.com/code/49" target="_blank"><?=__('buy your SSL certificate here')?></a>.</p>
+                        <p><?=sprintf(__('To get paid via Credit card you need a %s account'),'Authorize.net')?>. <?=__('You will need also a SSL certificate')?>, <a href="https://www.ssl.com/code/49" target="_blank"><?=__('buy your SSL certificate here')?></a>.</p>
+                        <?=__('Register')?>
+                        <a class="btn btn-success" target="_blank" href="http://reseller.authorize.net/application/signupnow/?id=AUAffiliate&rid=26776">
+                            </i> US/Canada</a>
                         <a class="btn btn-success" target="_blank" href="http://reseller.authorize.net/application/?id=5561123">
-                            <i class="glyphicon glyphicon-pencil"></i> <?=sprintf(__('Register for free at %s'),'Authorize.net')?></a>
+                            UK/Europe</a>
                     </label>
                 </div>
                 <div class="form-group">

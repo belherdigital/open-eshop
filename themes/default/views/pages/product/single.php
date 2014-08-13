@@ -104,7 +104,6 @@
 	    <a class="btn btn-success pay-btn full-w" 
 	        href="<?=Route::url('product-paypal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
 	        <?=__('Pay with Paypal')?></a>
-        <?=Controller_Authorize::form($product)?>
 	    <?=$product->alternative_pay_button()?>
 	<?else:?>
 	    <?if (!Auth::instance()->logged_in()):?>
