@@ -1,0 +1,6 @@
+.showPanel .aside {
+    left: 0px;
+}
+.aside {
+    min-width: 200px;
+}
