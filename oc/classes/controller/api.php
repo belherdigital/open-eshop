@@ -56,13 +56,17 @@ class Controller_Api extends Controller {
         $this->response->body(json_encode(FALSE));
     }
 
+    /**
+     * API that return the products.
+     * Allows api/products/<category_optional>?order1=rate&sort=asc&order2=version&sort=desc
+     * @return [type] [description]
+     */
     public function action_products()
     {
         $this->auto_render = FALSE;
-        $seo_category = $this->request->param('id');
-
+        
         $sort_allowed   = array('asc','desc');
-        $order_allowed  = array('id_category','created','updated','price','title');
+        $order_allowed  = array('id_category','created','updated','price','title','rate');
 
         $order1 = Core::get('order1');
         //default value
@@ -86,7 +90,7 @@ class Controller_Api extends Controller {
        
         $items = array();
 
-        //last products, you can modify this value at: general.feed_elements
+        //products filtered
         $products = new Model_Product();
         $products = $products 
                 ->where('status','=',Model_Product::STATUS_ACTIVE)
@@ -94,6 +98,7 @@ class Controller_Api extends Controller {
                 ->order_by($order2,$sort2);
 
         //filter by category 
+        $seo_category = $this->request->param('id');
         if ($seo_category!==NULL)
         {
             $category = new Model_Category();
@@ -107,8 +112,10 @@ class Controller_Api extends Controller {
         $i = 0;
         foreach($products as $p)
         {
-            $url= Route::url('product',  array('seotitle'=>$p->seotitle,'category'=>$p->category->seoname));
-            $urlmin= Route::url('product-minimal',  array('seotitle'=>$p->seotitle,'category'=>$p->category->seoname));
+            $url      = Route::url('product',  array('seotitle'=>$p->seotitle,'category'=>$p->category->seoname));
+            $urlmin   = Route::url('product-minimal',  array('seotitle'=>$p->seotitle,'category'=>$p->category->seoname));
+
+            $in_offer = (Date::mysql2unix($p->offer_valid)>time())? TRUE : FALSE;
 
             $items[] = array(
                                 'id_product'    => $p->id_product,
@@ -122,10 +129,13 @@ class Controller_Api extends Controller {
                                 'url_screenshot'=> URL::base().$p->get_first_image(),
                                 'type'          => $p->category->seoname,
                                 'price'         => $p->price,
-                                'price_offer'   => $p->price_offer,
-                                'offer_valid'   => $p->offer_valid,
-                                'status'        => $p->status,
+                                'currency'      => $p->currency,
+                                'price_offer'   => ($in_offer===TRUE)?$p->price_offer:NULL,
+                                'offer_valid'   => ($in_offer===TRUE)?$p->offer_valid:NULL,
+                                'rate'          => $p->rate,
                                 'created'       => $p->created,
+                                'updated'       => $p->updated,
+                                'version'       => $p->version,
                                 'description'   => Text::removebbcode(preg_replace('/&(?!\w+;)/', '&amp;',$p->description)),
                           );
             $i++;
