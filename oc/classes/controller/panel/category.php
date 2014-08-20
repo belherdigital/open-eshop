@@ -279,6 +279,24 @@ class Controller_Panel_Category extends Auth_Crud {
 		
 		$category = new Model_Category($this->request->param('id'));
         
+        if(core::post('icon_delete'))
+        {            
+            $root = DOCROOT.'images/categories/'; //root folder
+            
+            if (!is_dir($root)) 
+            {
+                return FALSE;
+            }
+            else
+            {	
+                //delete icon
+                unlink($root.$category->seoname.'.png');
+                
+                Alert::set(Alert::SUCCESS, __('Icon deleted.'));
+                $this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
+            }
+        }// end of icon delete
+
         if ( 
             ! Upload::valid($icon) OR
             ! Upload::not_empty($icon) OR
