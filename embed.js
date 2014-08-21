@@ -142,7 +142,7 @@ open_eshop.init = function (os_ns) {
             ifrm.setAttribute("src", tar.getAttribute('href')+'?ext=1');
             ifrm.style.width = os_ns.width + "px";
             ifrm.style.height = os_ns.height + "px";
-            ifrm.setAttribute("scrolling", 'no');
+            ifrm.setAttribute("scrolling", 'yes');
             ifrm.style.backgroundColor = "transparent";
             ifrm.style.border = 0;
             os_ns.ifrm[i] = ifrmc;

@@ -378,8 +378,8 @@ class Controller_Panel_Profile extends Auth_Controller {
                 $user = new Model_User($id_user);
         }
 
-        $this->template->styles = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
-        $this->template->scripts['footer'] = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
+        $this->template->styles = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
+        $this->template->scripts['footer'] = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
                                                     'js/oc-panel/stats/dashboard.js');
 
         $this->template->bind('content', $content);

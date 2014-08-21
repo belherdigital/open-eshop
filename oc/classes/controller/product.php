@@ -253,7 +253,7 @@ class Controller_Product extends Controller{
     {
         if(Theme::get('infinite_scroll'))
         {
-            $this->template->scripts['footer'][] = 'http://cdn.jsdelivr.net/jquery.infinitescroll/2.0b2/jquery.infinitescroll.js';
+            $this->template->scripts['footer'][] = 'https://cdn.jsdelivr.net/jquery.infinitescroll/2.0b2/jquery.infinitescroll.js';
             $this->template->scripts['footer'][] = 'js/listing.js';
         }
         $this->template->scripts['footer'][] = 'js/sort.js';
@@ -400,8 +400,8 @@ class Controller_Product extends Controller{
         $this->template->title              = __('Advanced Search');
         $this->template->meta_description   = __('Advanced Search');
 
-        $this->template->styles = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
-        $this->template->scripts['footer'] = array('http://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js');
+        $this->template->styles = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
+        $this->template->scripts['footer'] = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js');
 
         //breadcrumbs
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Home'))->set_url(Route::url('default')));
