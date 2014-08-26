@@ -82,7 +82,6 @@
                                         <?endif?>
                                         <tr><td class="br"><?=Theme::admin_link(__('Widgets'), 'widget','index','oc-panel','glyphicon glyphicon-move')?></td></tr>
                                         <tr><td class="br"><?=Theme::admin_link(__('Menu'), 'menu','index','oc-panel','glyphicon glyphicon-list')?></td></tr>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Social Auth'), 'social','index','oc-panel','glyphicon glyphicon-thumbs-up')?></td></tr>
                                     </table>
                                 </div>
                             </div>
@@ -98,17 +97,18 @@
                             <div id="collapseSettings" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <table class="table">
-                                        <tr><td class="br"><?=Theme::admin_link(__('General'), 'settings','general')?></td></tr>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Payment'), 'settings','payment')?></td></tr>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Email'), 'settings','email')?></td></tr>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Product'), 'settings','product')?></td></tr>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Affiliates'), 'settings','affiliates')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('General'), 'settings','general','oc-panel','glyphicon  glyphicon-dashboard')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Payment'), 'settings','payment','oc-panel','glyphicon  glyphicon-credit-card')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Email'), 'settings','email','oc-panel','glyphicon  glyphicon-envelope')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Product'), 'settings','product','oc-panel','glyphicon  glyphicon-edit')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Affiliates'), 'settings','affiliates','oc-panel','glyphicon  glyphicon-usd')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Social Auth'), 'social','index','oc-panel','glyphicon glyphicon-thumbs-up')?></td></tr>
                                     </table>
                                 </div>
                             </div>
                         </div>
                         <?endif?>
-                        <?if ($user->has_access_to_any('user,role,access')):?>
+                        <?if ($user->has_access_to_any('user,role')):?>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -119,14 +119,14 @@
                             <div id="collapseUser" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <table class="table no-hide">
-                                        <tr><td class="br"><?=Theme::admin_link(__('Users'),'user')?></td></tr>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Roles'),'role')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Users'),'user','index','oc-panel','glyphicon  glyphicon-user')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Roles'),'role','index','oc-panel','glyphicon  glyphicon-retweet')?></td></tr>
                                     </table>
                                 </div>
                             </div>
                         </div>
                         <?endif?>
-                        <?if ($user->has_access_to_any('user,role,access')):?>
+                        <?if ($user->has_access_to_any('tools')):?>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -137,13 +137,13 @@
                             <div id="collapseTools" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <table class="table">
-                                        <tr><td class="br"><?=Theme::admin_link(__('Updates'), 'update','index')?></td></tr>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Crontab'), 'crontab','index')?></td></tr>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Sitemap'), 'tools','sitemap')?></td></tr>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Optimize'), 'tools','optimize')?></td></tr>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Cache'), 'tools','cache')?></td></tr>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Logs'), 'tools','logs')?></td></tr>
-                                        <tr><td class="br"><?=Theme::admin_link(__('PHP Info'), 'tools','phpinfo')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Updates'), 'update','index','oc-panel','glyphicon  glyphicon-refresh')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Crontab'), 'crontab','index','oc-panel','glyphicon  glyphicon-calendar')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Sitemap'), 'tools','sitemap','oc-panel','glyphicon  glyphicon-list-alt')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Optimize'), 'tools','optimize','oc-panel','glyphicon  glyphicon-compressed')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Cache'), 'tools','cache','oc-panel','glyphicon  glyphicon-cog')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Logs'), 'tools','logs','oc-panel','glyphicon  glyphicon-list-alt')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('PHP Info'), 'tools','phpinfo','oc-panel','glyphicon  glyphicon-info-sign')?></td></tr>
                                     </table>
                                 </div>
                             </div>
@@ -158,7 +158,7 @@
                                     </span> <span class="title-txt"><?=__('Profile Options')?></span></a>
                                 </h4>
                             </div>
-                            <div id="collapseFive" class="panel-collapse collapse">
+                            <div id="collapseFive" class="panel-collapse collapse <?=(Auth::instance()->get_user()->id_role == Model_Role::ROLE_USER ? "in" : NULL)?>">
                                 <div class="panel-body">
                                     <table class="table">
                                         <tr><td class="br"><?=Theme::admin_link(__('Purchases'), 'profile','orders','oc-panel','glyphicon glyphicon-shopping-cart')?></td></tr>
