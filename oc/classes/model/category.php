@@ -254,7 +254,7 @@ class Model_Category extends ORM {
 
         //get all the categories ORM so we can use the functions, do not use root category
         $categories = new self();
-        $categories = $categories->where('id_category','!=',1)->cached()->find_all();
+        $categories = $categories->where('id_category','!=',1)->order_by('order','asc')->cached()->find_all();
 
 
         //getting the count of products into the parents
