@@ -54,6 +54,21 @@
         .btn-header-group{padding-top: 5px;}
         body{background-color: grey}
         .switcher-bar{height:50px !important;}
+        
+        .multi-column-dropdown {
+            -webkit-column-count:3;
+            -moz-column-count:3;
+            -ms-column-count:3;
+            -o-column-count:3;
+            column-count:3;
+            columns:3;
+            width:505px;
+        }
+        
+        .multi-column-dropdown li {
+            display: inline-block;
+            width:160px
+        }
 
         .desktop-view{
             padding-top:50px;
@@ -134,12 +149,12 @@
             </li>
             <?endif?>
 
-            <?if (count($skins)>0):?>
+            <?if (($total_skins = count($skins)) > 0):?>
             <li class="dropdown">
               <a title="<?=__('Choose style')?>" href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <?=($skin!=NULL)?$skin:__('Choose style')?> (<?=(count($skins))?>)<b class="caret"></b>
               </a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu <?=($total_skins > 10) ? 'multi-column-dropdown' : NULL?>">
                 <?foreach ($skins as $s):?>
                     <?if ($s!=$skin):?>
                     <li><a title="<?=$s?>" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>?skin=<?=$s?>"><?=$s?></a></li>

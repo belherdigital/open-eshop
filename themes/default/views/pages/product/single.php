@@ -80,13 +80,13 @@
 	<?endif?>
 
 	<?if (!empty($product->url_demo)):?>
-	    <?if (count($skins)>0):?>
+		<?if (($total_skins = count($skins)) > 0):?>
             <div class="btn-group pull-right">
               	<a class="btn btn-warning btn-xs" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"><?=__('Demo')?></a>
 			    <button class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown">
 			        <span class="caret"></span>
 			    </button>
-              	<ul class="dropdown-menu" id="menu_type">
+              	<ul class="dropdown-menu <?=($total_skins > 10) ? 'multi-column-dropdown' : NULL?>" id="menu_type">
 	                <?foreach ($skins as $s):?>
 	                    <li><a title="<?=$s?>" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>?skin=<?=$s?>"><?=$s?></a></li>
 	                <?endforeach?>
