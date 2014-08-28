@@ -48,6 +48,7 @@ body { padding-top:0; }
 .star-required{color:red;}
 .edit-image{margin-bottom: 20px;}
 .index-delete{margin-top: 10px;}
+.index-delete-inline{margin-left: 5px; margin-top:0;}
 .js .collapsed{display: block !important;}
 .navbar-toggle{margin-left: 20px;}
 li.sbp .caret{float: right;margin-top: 7px;}
