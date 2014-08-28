@@ -271,16 +271,18 @@ class Controller_Product extends Controller{
             //adding the category parent
             if ($category->id_category_parent!=1 AND $category->parent->loaded())
                 $category_parent = $category->parent;
-
-            //category image
-            if(file_exists(DOCROOT.'images/categories/'.$category->seoname.'.png'))
-                Controller::$image = URL::base().'images/categories/'.$category->seoname.'.png';
         }
         
 
         //base title
         if ($category!==NULL)
+        {
+            //category image
+            if(( $icon_src = $category->get_icon() )!==FALSE )
+                Controller::$image = $icon_src;
+
             $this->template->title = $category->name;
+        }
         else
             $this->template->title = __('all');
 
