@@ -322,6 +322,10 @@ div.sceditor-group{padding: 1px 15px 5px 5px!important;}
 /*icon placeholder*/
 .thumbnail .icon-placeholder {background-color:#CCCCCC;color:#969696;padding:42% 44%;}
 
+/*multi column dropdown*/
+.multi-column-dropdown {width:505px;-webkit-column-count:3;-moz-column-count:3;-ms-column-count:3;-o-column-count:3;column-count:3;columns:3;}
+.multi-column-dropdown li {display: inline-block;width:160px}
+
 /*================= Media Queries ==========================*/
 
 
