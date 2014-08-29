@@ -21,7 +21,7 @@
                     <?if ($i%4==0 AND $i!=0):?></ul></div><div class="item"><ul class="thumbnails"><?endif?>
                     <li class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                         <div class="thumbnail">
-                            <a href="<?=Route::url('product', array('category'=>$product->category->seoname,'seotitle'=>$product->seotitle))?>">
+                            <a href="<?=Route::url('product', array('category'=>$product->category->seoname,'seotitle'=>$product->seotitle))?>" class="min-h">
                           <?if($product->get_first_image()!== NULL):?>
                                 <img src="<?=URL::base()?><?=$product->get_first_image()?>" >
                             <?elseif(( $icon_src = $product->category->get_icon() )!==FALSE ):?>

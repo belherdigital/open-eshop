@@ -314,18 +314,15 @@ class Controller_Panel_Category extends Auth_Crud {
 				$this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
             }
             Alert::set(Alert::ALERT, $icon['name'].' '.__('Image is not valid. Please try again.'));
-            $this->redirect(Route::url('oc-panel',array('controller'=>'category','action'=>'update')));
+            $this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
         }
         else
         {
             if($icon != NULL) // sanity check 
             {   
-                // saving/uploading zip file to dir.
+                // saving/uploading img file to dir.
                 $root = DOCROOT.'images/categories/'; //root folder
-            	$icon_name = $category->seoname.'.png';
-            	$width = core::config('image.width'); // @TODO dynamic !?
-            	$height = core::config('image.height');// @TODO dynamic !?
-            	$image_quality = core::config('image.quality');
+                $icon_name = $category->seoname.'.png';
                 
                 // if folder does not exist, try to make it
                	if ( ! file_exists($root) AND ! @mkdir($root, 0775, true)) { // mkdir not successful ?
@@ -334,14 +331,7 @@ class Controller_Panel_Category extends Auth_Crud {
                 };
 
                 // save file to root folder, file, name, dir
-                if($file = Upload::save($icon, $icon_name, $root))
-                {
-	                // resize uploaded image 
-	                Image::factory($file)
-                        ->resize($width, $height, Image::AUTO)
-                        ->save($root.$icon_name,$image_quality);
-
-                }
+                Upload::save($icon, $icon_name, $root);
                 
                 Alert::set(Alert::SUCCESS, $icon['name'].' '.__('Icon is uploaded.'));
 				$this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
