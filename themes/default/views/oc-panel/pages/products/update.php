@@ -231,7 +231,7 @@
 						<?$img_name = str_replace(".jpg", "", substr(strrchr($value['thumb'], "/"), 1 ));?>
 						<div class="col-md-3">
 							<a class="thumbnail">
-								<img src="<?=URL::base()?><?= $value['thumb']?>" class="img-rounded" alt="">
+								<img src="<?=URL::base().$value['thumb']?>" class="img-rounded" alt="">
 							</a>
 							
 							<button class="btn btn-danger index-delete pull-right"
@@ -239,7 +239,7 @@
 							   type="submit" 
 							   name="img_delete"
 							   value="<?=$img_name?>" 
-							   rel"tooltip" 
+							   rel="tooltip"
 							   title="<?=__('Delete image')?>">
 								<?=__('Delete')?>
 							</button>
@@ -255,7 +255,7 @@
 					<?if (core::config('product.num_images') > count($images)):?> <!-- permition to add more images-->
 						<div class="fileinput fileinput-new" data-provides="fileinput">
 						  	<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-						    	<img src="http://www.placehold.it/200x150&text=Image" alt="<?=__('Image')?>">
+						    	<img src="http://www.placehold.it/200x150&text=<?=urlencode(__('Image'))?>" width="200" height="150" alt="<?=__('Image')?>">
 						  	</div>
 						  	<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
 						  	<div>
@@ -277,7 +277,7 @@
 					<?if ($product->has_file()==TRUE):?>
 						<div class="pull-left">
 						<a class="thumbnail">
-							<img src="http://www.placehold.it/100x100&text=<?=mb_strtoupper(strrchr($product->file_name, '.'))?>" alt="<?=mb_strtoupper(strrchr($product->file_name, '.'))?>">
+							<img src="http://www.placehold.it/100x100&text=<?=urlencode(mb_strtoupper(strrchr($product->file_name, '.')))?>" width="100" height="100" alt="<?=mb_strtoupper(strrchr($product->file_name, '.'))?>">
 						</a>
 						</div>	
 							<h4>
@@ -293,7 +293,7 @@
 								   	type="submit" 
 								   	name="product_delete"
 								   	value="<?=$product->id_product?>" 
-								   	rel"tooltip" 
+								   	rel="tooltip"
 								   	title="<?=__('Delete product')?>">
 							<?=__('Delete')?>
 							</button>

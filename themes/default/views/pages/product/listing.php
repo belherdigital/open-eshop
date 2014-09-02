@@ -25,13 +25,13 @@
         foreach($products as $product ):?>    
             <div class="item <?=(core::cookie('list/grid')==1)?'list-group-item':'grid-group-item'?> col-xs-4 col-lg-4">
                 <div class="thumbnail">
-                    <a title="<?= $product->title;?>" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
+                    <a title="<?=HTML::chars($product->title)?>" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                     <?if($product->get_first_image() !== NULL):?>
-                        <img width="300px" height="200px" src="<?=URL::base()?><?=$product->get_first_image()?>" class="" >
+                        <img width="300" height="200" src="<?=URL::base().$product->get_first_image()?>" alt="<?=HTML::chars($product->title)?>" class="">
                     <?elseif(( $icon_src = $product->category->get_icon() )!==FALSE ):?>
-                        <img width="300px" height="200px"  src="<?=$icon_src?>" >
+                        <img width="300" height="200" src="<?=$icon_src?>" alt="<?=HTML::chars($product->title)?>">
                     <?else:?>
-                        <img src="http://www.placehold.it/200x200&text=<?=$product->category->name?>">  
+                        <img src="http://www.placehold.it/300x200&text=<?=urlencode($product->category->name)?>" width="300" height="200" alt="<?=HTML::chars($product->category->name)?>">
                     <?endif?>
                     </a>
                     <div class="caption">

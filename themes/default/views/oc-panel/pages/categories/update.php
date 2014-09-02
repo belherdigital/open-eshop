@@ -13,7 +13,7 @@
       <div class="row">
           <div class="col-md-3">
               <a class="thumbnail">
-                  <img src="<?=$icon_src?>" class="img-rounded" alt="<?=__('Category icon')?>" height='200px'>
+                  <img src="<?=$icon_src?>" class="img-rounded" alt="<?=__('Category icon')?>" height="200" style="height:200px;">
               </a>
           </div>
       </div>

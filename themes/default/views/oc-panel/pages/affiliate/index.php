@@ -60,7 +60,7 @@
                 <td><?=$c->product->title?></td>
                 <td><?=i18n::format_currency($c->amount, $c->currency)?> (<?=round($c->percentage,1)?>%)</td>
                 <td><?=Model_Affiliate::$statuses[$c->status]?></td>
-                <td width="80px">
+				<td width="80" style="width:80px;">
                     <?if ($controller->allowed_crud_action('update')):?>
                     <a title="<?=__('Edit')?>" class="btn btn-primary" href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'update','id'=>$c->pk()))?>">
                         <i class="glyphicon glyphicon-edit"></i>

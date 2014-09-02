@@ -80,7 +80,7 @@
         <h1><?=__('Profile picture')?></h1>
     </div>
     
-    <img src="<?=$user->get_profile_image()?>" class="img-rounded ticket_image" alt="<?=__('Profile Picture')?>" width="120px" height="120px">
+    <img src="<?=$user->get_profile_image()?>" class="img-rounded ticket_image" alt="<?=__('Profile Picture')?>" width="120" height="120">
     <div class="clearfix"></div><br>
     <form class="well form-inline" enctype="multipart/form-data" method="post" action="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'image'))?>">         
         <?=Form::errors()?>  

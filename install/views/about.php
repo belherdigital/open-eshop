@@ -21,7 +21,7 @@
         <div class="panel-body">
             <ul>
                 <?foreach (core::rss('http://feeds.feedburner.com/RssBlogOpenEshop')  as $item):?>
-                    <li><a target="_blank" href="<?=$item->link?>" title="<?=$item->title?>"><?=$item->title?></a></li>
+                    <li><a target="_blank" href="<?=$item->link?>" title="<?=HTML::chars($item->title)?>"><?=$item->title?></a></li>
                     <div class="divider"></div>
                 <?endforeach?>
             </ul>

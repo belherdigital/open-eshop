@@ -42,7 +42,7 @@
                     <td><a target="_blank" href="http://www.ipgetinfo.com/?mode=ip&lang=en&ip=<?=long2ip($element->ip_address)?>"><?=long2ip($element->ip_address)?></a></td>
                     <td><?=$element->created?></td>
 					<?if ($controller->allowed_crud_action('delete') OR $controller->allowed_crud_action('update')):?>
-					<td width="80px">
+					<td width="80" style="width:80px;">
 						<?if ($controller->allowed_crud_action('update')):?>
 						<a title="<?=__('Edit')?>" class="btn btn-primary" href="<?=Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'update','id'=>$element->pk()))?>">
 							<i class="glyphicon glyphicon-edit"></i>

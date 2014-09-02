@@ -51,10 +51,10 @@
     <div class="container">
     <div class="row">
         <div class="col-lg-8">
-            <a class="brand" href="<?=Route::url('default')?>">
+            <a class="brand" href="<?=Route::url('default')?>" title="<?=HTML::chars(core::config('general.site_name'))?>">
 
                 <?if (Theme::get('logo_url')!=''):?>
-                    <img src="<?=Theme::get('logo_url')?>" title="<?=core::config('general.site_name')?>" alt="<?=core::config('general.site_name')?>" >
+                    <img src="<?=Theme::get('logo_url')?>" alt="<?=HTML::chars(core::config('general.site_name'))?>" >
                 <?else:?>
                     <h1><?=core::config('general.site_name')?></h1>
                 <?endif?>
@@ -95,25 +95,25 @@
         <?foreach($cats as $c ):?>
             <?if($c['id_category_parent'] == 1 && $c['has_siblings'] == FALSE):?>
                 <li  class="<?=($c['id_category'] == $cat_id)?'active':''?>"> 
-                    <a  title="<?=$c['seoname']?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>">
+                    <a title="<?=HTML::chars($c['name'])?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>">
                         <?=$c['name']?> </a>
                 </li>
             <?elseif($c['id_category_parent'] == 1 && $c['id_category'] != 1):?>
                 <li class="dropdown <?=($c['id_category'] == $cat_parent OR $c['id_category'] == $cat_id)?'active':''?>">
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle" title="<?=$c['seoname']?>" >
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle" title="<?=HTML::chars($c['name'])?>" >
                         <?=$c['name']?><b class="caret"></b></a>
 
                     <ul class="dropdown-menu">                          
                     <?foreach($cats as $chi):?>
                     <?if($chi['id_category_parent'] == $c['id_category']):?>
                         <li class="<?=($chi['id_category'] == $cat_id)?'active':''?>" >
-                            <a title="<?=$chi['name']?>" href="<?=Route::url('list', array('category'=>$chi['seoname']))?>">
+                            <a title="<?=HTML::chars($chi['name'])?>" href="<?=Route::url('list', array('category'=>$chi['seoname']))?>">
                             <?=$chi['name']?> <span class="badge pull-right"><?=$chi['count']?></span></a>
                         </li>
                     <?endif?>
                     <?endforeach?>
                     <li class="divider"></li>
-                    <li><a   title="<?=$c['seoname']?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>">
+                    <li><a title="<?=HTML::chars($c['name'])?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>">
                         <?=$c['name']?> <span class="badge badge-success pull-right"><?=$c['count']?></span></a></li>
                     </ul>
                     

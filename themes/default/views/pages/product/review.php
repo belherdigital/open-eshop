@@ -62,7 +62,7 @@
                 </button>
                 <ul class="dropdown-menu" id="menu_type">
                     <?foreach ($skins as $s):?>
-                        <li><a title="<?=$s?>" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>?skin=<?=$s?>"><?=$s?></a></li>
+                        <li><a title="<?=HTML::chars($s)?>" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>?skin=<?=$s?>"><?=$s?></a></li>
                     <?endforeach?>
                 </ul>
             </div>
@@ -80,7 +80,7 @@
     
     <article class="search-result row">
         <div class="col-xs-12 col-sm-12 col-md-3">
-            <a title="<?=$review->user->name?>" class="thumbnail"><img src="<?=$review->user->get_profile_image()?>" alt="<?=__('Profile image')?>" height="140px"></a>
+            <a title="<?=HTML::chars($review->user->name)?>" class="thumbnail"><img src="<?=$review->user->get_profile_image()?>" alt="<?=__('Profile image')?>" height="140"></a>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-2">
             <ul class="meta-search">
