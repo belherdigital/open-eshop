@@ -25,11 +25,11 @@
             		'placeholder' => "TRUE or FALSE", 
             		'class' => 'onoffswitch-checkbox', 
             		'id' => $forms['maintenance']['key'], 
-            		'data-content'=> '',
+                'data-content'=> __("Enables the site to maintenance"),
             		'data-trigger'=>"hover",
             		'data-placement'=>"right",
             		'data-toggle'=>"popover",
-            		'data-original-title'=>'',                     
+                'data-original-title'=>__("Maintenance Mode"),
             		))?>
             		<?= FORM::label($forms['maintenance']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['maintenance']['key']))?>
             	</div>
@@ -302,11 +302,11 @@
             		'placeholder' => "TRUE or FALSE", 
             		'class' => 'onoffswitch-checkbox', 
             		'id' => $forms_img['watermark']['key'], 
-            		'data-content'=> '',
+            		'data-content'=> __("Adds a watermark to images"),
             		'data-trigger'=>"hover",
             		'data-placement'=>"right",
             		'data-toggle'=>"popover",
-            		'data-original-title'=>'',                     
+                'data-original-title'=>__("Watermark"),
             		))?>
             		<?= FORM::label($forms_img['watermark']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms_img['watermark']['key']))?>
             	</div>
@@ -383,11 +383,11 @@
             		'placeholder' => "TRUE or FALSE", 
             		'class' => 'onoffswitch-checkbox', 
             		'id' => $forms['blog']['key'], 
-            		'data-content'=> '',
+                'data-content'=> __("Once set to TRUE, enables blog posts"),
             		'data-trigger'=>"hover",
             		'data-placement'=>"right",
             		'data-toggle'=>"popover",
-            		'data-original-title'=>'',                     
+                'data-original-title'=>__("Activates Blog posting"),
             		))?>
             		<?= FORM::label($forms['blog']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['blog']['key']))?>
             	</div>
@@ -417,11 +417,11 @@
             		'placeholder' => "TRUE or FALSE", 
             		'class' => 'onoffswitch-checkbox', 
             		'id' => $forms['faq']['key'], 
-            		'data-content'=> '',
+                'data-content'=> __("Once set to TRUE, enables FAQ"),
             		'data-trigger'=>"hover",
             		'data-placement'=>"right",
             		'data-toggle'=>"popover",
-            		'data-original-title'=>'',                     
+                'data-original-title'=>__("Activates FAQ"),
             		))?>
             		<?= FORM::label($forms['faq']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['faq']['key']))?>
             	</div>
@@ -451,11 +451,11 @@
             		'placeholder' => "TRUE or FALSE", 
             		'class' => 'onoffswitch-checkbox', 
             		'id' => $forms['forums']['key'], 
-            		'data-content'=> '',
+                'data-content'=> __("Once set to TRUE, enables forums posts"),
             		'data-trigger'=>"hover",
             		'data-placement'=>"right",
             		'data-toggle'=>"popover",
-            		'data-original-title'=>'',                     
+                'data-original-title'=>__("Activates Forums"),
             		))?>
             		<?= FORM::label($forms['forums']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['forums']['key']))?>
             	</div>
@@ -471,11 +471,11 @@
             		'placeholder' => "TRUE or FALSE", 
             		'class' => 'onoffswitch-checkbox', 
             		'id' => $forms['minify']['key'], 
-            		'data-content'=> '',
+                'data-content'=> __("Once set to TRUE, enables minify CSS and JS to speed up your site"),
             		'data-trigger'=>"hover",
             		'data-placement'=>"right",
             		'data-toggle'=>"popover",
-            		'data-original-title'=>'',                     
+                'data-original-title'=>__("Activates Minify CSS/JS"),
             		))?>
             		<?= FORM::label($forms['minify']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['minify']['key']))?>
             	</div>
