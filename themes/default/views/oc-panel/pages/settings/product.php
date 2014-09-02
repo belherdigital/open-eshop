@@ -159,11 +159,11 @@
                 		'placeholder' => "TRUE or FALSE", 
                 		'class' => 'onoffswitch-checkbox', 
                 		'id' => $forms['reviews']['key'], 
-                		'data-content'=> '',
+                		'data-content'=> __("Enables users to review purchased products"),
                 		'data-trigger'=>"hover",
                 		'data-placement'=>"right",
                 		'data-toggle'=>"popover",
-                		'data-original-title'=>'',                     
+                		'data-original-title'=>__("Product Reviews"),                   
                 		))?>
                 		<?= FORM::label($forms['reviews']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['reviews']['key']))?>
                 	</div>
@@ -206,11 +206,11 @@
                 		'placeholder' => "TRUE or FALSE", 
                 		'class' => 'onoffswitch-checkbox', 
                 		'id' => $forms['demo_resize']['key'], 
-                		'data-content'=> '',
+                		'data-content'=> __("Enables buttons to resize the demo"),
                 		'data-trigger'=>"hover",
                 		'data-placement'=>"right",
                 		'data-toggle'=>"popover",
-                		'data-original-title'=>'',                     
+                		'data-original-title'=>__("Demo resize"),                    
                 		))?>
                 		<?= FORM::label($forms['demo_resize']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['demo_resize']['key']))?>
                 	</div>
@@ -225,11 +225,11 @@
                 		'placeholder' => "TRUE or FALSE", 
                 		'class' => 'onoffswitch-checkbox', 
                 		'id' => $forms['number_of_orders']['key'], 
-                		'data-content'=> '',
+                		'data-content'=> __("Enables users to review purchased products"),
                 		'data-trigger'=>"hover",
                 		'data-placement'=>"right",
                 		'data-toggle'=>"popover",
-                		'data-original-title'=>'',                     
+                		'data-original-title'=>__("Number of sales"),                     
                 		))?>
                 		<?= FORM::label($forms['number_of_orders']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['number_of_orders']['key']))?>
                 	</div>
@@ -244,11 +244,11 @@
                 		'placeholder' => "TRUE or FALSE", 
                 		'class' => 'onoffswitch-checkbox', 
                 		'id' => $forms['qr_code']['key'], 
-                		'data-content'=> '',
+                		'data-content'=> __("Show QR code in Product"),
                 		'data-trigger'=>"hover",
                 		'data-placement'=>"right",
                 		'data-toggle'=>"popover",
-                		'data-original-title'=>'',                     
+                		'data-original-title'=>__("Show QR code"),                    
                 		))?>
                 		<?= FORM::label($forms['qr_code']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['qr_code']['key']))?>
                 	</div>

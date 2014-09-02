@@ -33,7 +33,7 @@
 							'data-trigger'=>"hover",
 							'data-placement'=>"right",
 							'data-toggle'=>"popover",
-							'data-original-title'=>'',                     
+                        'data-original-title'=>__('Activates affiliate system'), 
                             ))?>
                             <?= FORM::label($forms['active']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['active']['key']))?>
                         </div>

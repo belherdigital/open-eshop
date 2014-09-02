@@ -99,17 +99,17 @@ else
             <div class="navbar-inner">
                 <div class="container">
                     <button class="navbar-toggle pull-left" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
+                        <span class="sr-only"><?=__("Toggle navigation")?></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
                     <div class="navbar-collapse bs-navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#home" data-toggle="tab">Install</a></li>
-                            <li><a href="http://market.open-eshop.com/faq/" target="_blank">FAQ</a></li>
-                            <li><a href="#requirements" data-toggle="tab">Requirements</a></li>
-                            <li><a href="#about" data-toggle="tab">About</a></li>
+                            <li class="active"><a href="#home" data-toggle="tab"><?=__("Install")?></a></li>
+                            <li><a href="http://market.open-eshop.com/faq/" target="_blank"><?=__("FAQ")?></a></li>
+                            <li><a href="#requirements" data-toggle="tab"><?=__("Requirements")?></a></li>
+                            <li><a href="#about" data-toggle="tab"><?=__("About")?></a></li>
                         </ul>
 
                         <div class="btn-group pull-right">
@@ -123,7 +123,7 @@ else
         </div>
 
          <a class="logo" target="_blank" href="http://open-eshop.com">
-            <img src="http://open-eshop.com/wp-content/themes/eshop/img/logo-open-eshop.png" alt="Open eShop <?=__("Installation")?>">
+            <img src="http://open-eshop.com/wp-content/themes/eshop/img/logo-open-eshop.png" width="286" height="87" alt="Open eShop <?=__("Installation")?>">
         </a>    
         <div class="tab-content">
             <div class="tab-pane fade in active" id="home">
