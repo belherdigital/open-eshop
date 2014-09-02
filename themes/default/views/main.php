@@ -48,7 +48,7 @@
 	<?=Theme::scripts($scripts)?>
 
     <link rel="shortcut icon" href="<?=core::config('general.base_url').'images/favicon.ico'?>">
-    <?if ( core::config('general.analytics')!='' AND Kohana::$environment === Kohana::PRODUCTION ): ?>
+    <?if ( Kohana::$environment === Kohana::PRODUCTION AND core::config('general.analytics')!=='' ): ?>
     <script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', '<?=Core::config('general.analytics')?>']);

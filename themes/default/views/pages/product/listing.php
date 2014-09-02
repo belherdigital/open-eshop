@@ -27,11 +27,11 @@
                 <div class="thumbnail">
                     <a title="<?= $product->title;?>" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                     <?if($product->get_first_image() !== NULL):?>
-                        <img width="300px" height="200px" src="<?=URL::base()?><?=$product->get_first_image()?>" class="" >
+                        <img width="300" height="200" src="<?=URL::base()?><?=$product->get_first_image()?>" class="" >
                     <?elseif(( $icon_src = $product->category->get_icon() )!==FALSE ):?>
-                        <img width="300px" height="200px"  src="<?=$icon_src?>" >
+                        <img width="300" height="200" src="<?=$icon_src?>" alt="">
                     <?else:?>
-                        <img src="http://www.placehold.it/200x200&text=<?=$product->category->name?>">  
+                        <img src="http://www.placehold.it/200x200&text=<?=$product->category->name?>" width="200" height="200" alt="">  
                     <?endif?>
                     </a>
                     <div class="caption">

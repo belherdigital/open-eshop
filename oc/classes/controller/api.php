@@ -18,7 +18,7 @@ class Controller_Api extends Controller {
         {
             $domain = parse_url($domain, PHP_URL_HOST);
         }
-        else//TODO remove in few versions, we should use only referrer
+        else //TODO remove in few versions, we should use only referrer
             $domain  = Core::request('domain');
 
         if ($license!=NULL AND $domain!=NULL)

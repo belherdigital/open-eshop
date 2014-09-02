@@ -75,7 +75,7 @@ class Auth_Controller extends Controller
 
             // Load the template
             $this->template = ($template===NULL)?'oc-panel/main':$template;
-            //if its and ajx request I want only the content
+            //if its an Ajax request I want only the content
             if(Core::get('rel')=='ajax')
                 $this->template = 'oc-panel/content';
             $this->template = View::factory($this->template);
@@ -88,8 +88,7 @@ class Auth_Controller extends Controller
             $this->template->header           = '';
             $this->template->content          = '';
             $this->template->footer           = '';
-            $this->template->styles           = array();
-            $this->template->scripts          = array();
+			$this->template->styles = $this->template->scripts = array();
             $this->template->user             = Auth::instance()->get_user();
 
             //non ajax request
@@ -104,13 +103,13 @@ class Auth_Controller extends Controller
                 if (Theme::get('admin_theme')=='bootstrap')
                 {
                     Theme::$styles                    = array('https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css' => 'screen',
-                                                            'https://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
+                                                            'https://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen', // @FIXME @TOFIX summernote vs sceditor ?
                                                             'https://cdn.jsdelivr.net/chosen/1.0.0/chosen.css'=>'screen',
                                                             'https://cdn.jsdelivr.net/bootstrap.tagsinput/0.3.9/bootstrap-tagsinput.css'=>'screen',
                                                             'css/loadingbar.css'=>'screen', 
                                                             'css/icon-picker.min.css'=>'screen', 
                                                             'css/font-awesome.min.css'=>'screen', 
-                                                            'css/summernote.css'=>'screen', 
+                                                            'css/summernote.css'=>'screen', // @FIXME @TOFIX summernote vs sceditor ?
                                                             'css/admin-styles.css?v='.Core::VERSION => 'screen');
                    
                 }
@@ -138,7 +137,7 @@ class Auth_Controller extends Controller
     												      Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
 														  'http://'.((Kohana::$environment!== Kohana::DEVELOPMENT)? 'market.'.Core::DOMAIN.'':'eshop.lo').'/embed.js',
                                                           'js/oc-panel/theme.init.js?v='.Core::VERSION,
-                                                          'js/jquery.sceditor.min.js?v=144',
+                                                          'js/jquery.sceditor.min.js?v=144', // @FIXME @TOFIX summernote vs sceditor 1.4.4 vs 1.4.3 above ?
                                                           'js/summernote.min.js',
                                                           'js/jquery.validate.min.js',
                                                           Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'validate')),
@@ -164,7 +163,7 @@ class Auth_Controller extends Controller
         if (Core::get('rel')=='ajax')
         {
             // Add defaults to template variables.
-            $this->template->styles  = $this->template->styles;
+            //$this->template->styles  = $this->template->styles;
             $this->template->scripts = array_reverse($this->template->scripts);
             $this->response->body($this->template->render());
         }
