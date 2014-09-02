@@ -409,6 +409,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('general', 'ocacu', '0'),
 ('general', 'banned_words_replacement', 'xxx'),
 ('general', 'banned_words', ''),
+('general', 'disallowbots', 0),
 ('image', 'allowed_formats', 'jpeg,jpg,png,'),
 ('image', 'max_image_size', '5'),
 ('image', 'height', ''),

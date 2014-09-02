@@ -199,6 +199,9 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
                          array('config_key'     =>'elastic_password',
                                'group_name'     =>'email', 
                                'config_value'   =>''),
+                         array('config_key'     =>'disallowbots',
+                               'group_name'     =>'general', 
+                               'config_value'   => 0),
 
                         );
 
