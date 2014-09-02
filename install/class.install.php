@@ -205,7 +205,7 @@ class install{
                                     'mandatory' => TRUE,
                                     'result'    => (function_exists('gd_info'))
                                     ),
-                'MySQL'     =>array('message'   => 'Install requires the <a href="http://php.net/mysqli">MySQL</a> extension to support MySQL databases.',
+                'MySQL'     =>array('message'   => 'Install requires the <a href="http://php.net/mysqli">MySQLi</a> extension to support MySQL databases.',
                                     'mandatory' => TRUE,
                                     'result'    => (function_exists('mysqli_connect'))
                                     ),
@@ -488,10 +488,10 @@ class install{
         //not succeded :( delete all the tables with that prefix
         elseif($link!=FALSE)
         {
-            if ($table_list = mysqli_query($link, "SHOW TABLES LIKE '".$TABLE_PREFIX."%'")) 
-            {
+            $table_list = @mysqli_query($link, "SHOW TABLES LIKE '".$TABLE_PREFIX."%'");
+            if ($table_list !== FALSE) {
                 while ($row = mysqli_fetch_assoc($table_list)) 
-                    mysqli_query($link,"DROP TABLE ".$row[0]);
+                    @mysqli_query($link,"DROP TABLE ".$row[0]);
             }   
         }
         
@@ -512,18 +512,9 @@ class core{
     public static function generate_password ($length = 16)
     {
         // define possible characters
-        $possible = '23456789+@%$*abcdefghjkmnpqrstuvwxyz';
-        $possible_length = strlen($possible)-1;
+        $possible = str_shuffle('23456789abcdefghjkmnpqrstuvwxyz');
 
-        // add random characters to $password until $length is reached
-        $password = '';
-        for ($i=0; $i <$length ; $i++) 
-        { 
-            // pick a random character from the possible ones
-            $password .= substr($possible, mt_rand(0, $possible_length), 1);
-        }
-
-        return $password;
+        return substr($possible, 0, abs($length));
     }
 
     /**
@@ -532,7 +523,7 @@ class core{
      *
      * Adapted from
      * @link http://www.thefutureoftheweb.com/blog/use-accept-language-header
-     * @param string $lang default language to retunr in case of any
+     * @param string $lang default language to return in case of any
      * @return NULL|string  favorite user's language
      *
      */

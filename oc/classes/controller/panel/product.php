@@ -38,8 +38,8 @@ class Controller_Panel_Product extends Auth_Crud {
     {
         //template header
         $this->template->title  = __('New Product');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title));
 
-        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('New Product')));
         $this->template->styles              = array('css/sortable.css' => 'screen',
         											 'https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen',
                                                      'https://cdn.jsdelivr.net/jquery.fileupload/9.5.2/css/jquery.fileupload.css'=>'screen',
@@ -97,7 +97,7 @@ class Controller_Panel_Product extends Auth_Crud {
             if($file = $product['file_name'])
                 $obj_product->file_name = $file;
         	
-            // save product or trow exeption
+            // save product or throw exception
         	try 
         	{
         		$obj_product->save();
@@ -295,7 +295,7 @@ class Controller_Panel_Product extends Auth_Crud {
                             }
 
 
-                            if ( !Email::content($users, '', NULL, NULL, 'product-update', 
+                            if ( ! Email::content($users, '', NULL, NULL, 'product-update', 
                                                         array('[TITLE]'         => $obj_product->title,
                                                               '[URL.PRODUCT]'   => Route::url('product', array('seotitle'=>$obj_product->seotitle,'category'=>$obj_product->category->seoname)),
                                                               '[DOWNLOAD]'      => $download,

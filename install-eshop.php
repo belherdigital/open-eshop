@@ -515,7 +515,7 @@ function __($msgid)
         </div>
 
          <a class="logo" target="_blank" href="http://open-eshop.com">
-            <img src="http://open-eshop.com/wp-content/themes/eshop/img/logo-open-eshop.png" alt="Open eShop <?=__("Installation")?>">
+            <img src="http://open-eshop.com/wp-content/themes/eshop/img/logo-open-eshop.png" width="286" height="87" alt="Open eShop <?=__("Installation")?>">
         </a>    
         <div class="tab-content">
 

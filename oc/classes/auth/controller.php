@@ -75,7 +75,7 @@ class Auth_Controller extends Controller
 
             // Load the template
             $this->template = ($template===NULL)?'oc-panel/main':$template;
-            //if its and ajx request I want only the content
+            //if its an Ajax request I want only the content
             if(Core::get('rel')=='ajax')
                 $this->template = 'oc-panel/content';
             $this->template = View::factory($this->template);
@@ -88,8 +88,7 @@ class Auth_Controller extends Controller
             $this->template->header           = '';
             $this->template->content          = '';
             $this->template->footer           = '';
-            $this->template->styles           = array();
-            $this->template->scripts          = array();
+			$this->template->styles = $this->template->scripts = array();
             $this->template->user             = Auth::instance()->get_user();
 
             //non ajax request
@@ -164,7 +163,7 @@ class Auth_Controller extends Controller
         if (Core::get('rel')=='ajax')
         {
             // Add defaults to template variables.
-            $this->template->styles  = $this->template->styles;
+            //$this->template->styles  = $this->template->styles;
             $this->template->scripts = array_reverse($this->template->scripts);
             $this->response->body($this->template->render());
         }
