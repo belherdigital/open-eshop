@@ -21,7 +21,7 @@
 	                <a href="<?=Route::url('product',array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"> 
 		                <span class="wgt-rating-title"><?=$product->title?></span>
 		                <?if($images = $product->get_images()):?>
-		                	<img src="<?=URL::base()?><?=$images[1]['image']?>" class="thumbnail" alt="Image" />
+		                	<img src="<?=URL::base().$images[1]['image']?>" class="thumbnail" alt="Image" />
 		                <?endif?>
 						
 	                </a>

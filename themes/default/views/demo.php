@@ -156,8 +156,8 @@
               </a>
               <ul class="dropdown-menu <?=($total_skins > 10) ? 'multi-column-dropdown' : NULL?>">
                 <?foreach ($skins as $s):?>
-                    <?if ($s!=$skin):?>
-                    <li><a title="<?=$s?>" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>?skin=<?=$s?>"><?=$s?></a></li>
+                    <?if ($s != $skin):?>
+                    <li><a title="<?=HTML::chars($s)?>" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>?skin=<?=$s?>"><?=$s?></a></li>
                     <?endif?>
                 <?endforeach?>
               </ul>

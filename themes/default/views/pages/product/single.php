@@ -10,8 +10,8 @@
 	                <?if($images = $product->get_images()):?>
                         <?if( isset($value['thumb']) AND isset($value['image']) ):?>
 	                        <div class="item <?=($i == 0)?'active':''?>">
-		                        <a rel="prettyPhoto[gallery]" href="<?=URL::base()?><?= $value['image']?>">             
-		                            <img class="main-image" src="<?=URL::base()?><?= $value['image']?>" >
+		                        <a rel="prettyPhoto[gallery]" href="<?=URL::base().$value['image']?>">
+		                            <img class="main-image" src="<?=URL::base().$value['image']?>" >
 		                        </a>
 	                        </div>               
                         <?endif?>   
@@ -26,7 +26,7 @@
 			        <li class="<?=($j == 0)?'active':'item'?>" data-slide-to="<?=$j?>" data-target="#article-photo-carousel">
 			            <?if($images = $product->get_images()):?>        
 			                <?if( isset($value['thumb']) AND isset($value['image']) ):?>
-			                    <img src="<?=URL::base()?><?= $value['thumb']?>" >
+			                    <img src="<?=URL::base().$value['thumb']?>" >
 			                <?endif?>   
 			            <?endif?>
 			        </li>
@@ -35,7 +35,7 @@
 		  	</ol>
 		</div>
 	<?else:?>
-		<img src="http://www.placehold.it/300x300&text=No Image">
+		<img src="http://www.placehold.it/300x300&text=<?=urlencode(__('No Image'))?>" width="300" height="300" alt="<?=__('No Image')?>">
 	<?endif?>
 </div>
 
@@ -88,7 +88,7 @@
 			    </button>
               	<ul class="dropdown-menu <?=($total_skins > 10) ? 'multi-column-dropdown' : NULL?>" id="menu_type">
 	                <?foreach ($skins as $s):?>
-	                    <li><a title="<?=$s?>" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>?skin=<?=$s?>"><?=$s?></a></li>
+	                    <li><a title="<?=HTML::chars($s)?>" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>?skin=<?=$s?>"><?=$s?></a></li>
 	                <?endforeach?>
               	</ul>
             </div>

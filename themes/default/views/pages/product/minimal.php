@@ -14,7 +14,7 @@
 
     <?if($product->get_first_image() !== NULL):?>
     <div class="thumbnail ">
-        <img src="<?=URL::base()?><?=$product->get_first_image('thumb')?>" class="" >
+        <img src="<?=URL::base().$product->get_first_image('thumb')?>" class="" >
     </div>
     <?endif?>
 

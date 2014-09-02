@@ -5,7 +5,7 @@
         src="https://button.paymill.com/v1/"
         id="button"
         data-label="<?=__('Pay with Card')?>"
-        data-title="<?=$product->title?>"
+        data-title="<?=HTML::chars($product->title)?>"
         data-description="<?=Text::limit_chars(Text::removebbcode($product->description),30,NULL, TRUE)?>"
         data-amount="<?=Paymill::money_format($product->final_price())?>"
         data-currency="<?=$product->currency?>"

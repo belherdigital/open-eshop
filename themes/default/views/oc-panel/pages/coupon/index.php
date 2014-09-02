@@ -35,7 +35,7 @@
 						<td><?=HTML::chars($element->$field)?></td>
 					<?endforeach?>
 					<?if ($controller->allowed_crud_action('delete') OR $controller->allowed_crud_action('update')):?>
-					<td width="80px">
+					<td width="80" style="width:80px;">
 						<?if ($controller->allowed_crud_action('update')):?>
 						<a title="<?=__('Edit')?>" class="btn btn-primary" href="<?=Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'update','id'=>$element->pk()))?>">
 							<i class="glyphicon glyphicon-edit"></i>

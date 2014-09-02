@@ -38,7 +38,7 @@
                         <?=$review->order->amount.' '.$review->order->currency?></a></td>
 	                <td><?=$review->rate?></td>
 	                <td><?=$review->created?></td>
-					<td width="80px">
+					<td width="80" style="width:80px;">
 						<?if ($controller->allowed_crud_action('update')):?>
 						<a title="<?=__('Edit')?>" class="btn btn-primary" href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'update','id'=>$review->pk()))?>">
 							<i class="glyphicon glyphicon-edit"></i>
