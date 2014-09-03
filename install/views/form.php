@@ -149,7 +149,7 @@
                     <div class="col-sm-12">
                     <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="DB_CREATE" data-toggle="tooltip" title="<?=HTML::chars(__("Will try to create the DB if doesn't exists. Root permissions required."))?>" />
+                        <input type="checkbox" name="DB_CREATE" data-toggle="tooltip" title="<?=__("Will try to create the DB if doesn't exists. Root permissions required.")?>" />
                                 <?=__("Create DB.")?>
                                 <br>
                                 
