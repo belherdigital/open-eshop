@@ -146,8 +146,8 @@ class Controller_Panel_Category extends Auth_Crud {
                 $order++;
             }
 
-            //recalculating the deep of all the categories, we dont use tihs on eshop
-            //$this->action_deep();
+            //recalculating the deep of all the categories is not used by eshop
+            //$this->action_deep();// @deprecated @unused
             Core::delete_cache();
             $this->template->content = __('Saved');
         }
@@ -285,16 +285,18 @@ class Controller_Panel_Category extends Auth_Crud {
         {            
             $root = DOCROOT.'images/categories/'; //root folder
             
-            if (!is_dir($root)) 
+            if ( ! is_dir($root)) 
             {
                 return FALSE;
             }
             else
-            {	
+            {
                 //delete icon
-                unlink($root.$category->seoname.'.png');
-                
-                Alert::set(Alert::SUCCESS, __('Icon deleted.'));
+                if (@unlink($root.$category->seoname.'.png') === FALSE)
+                    Alert::set(Alert::ERROR, $icon['name'].' '.__('Icon file could not been deleted.'));
+                else
+                    Alert::set(Alert::SUCCESS, __('Icon deleted.'));
+
                 $this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
             }
         }// end of icon delete
@@ -327,15 +329,17 @@ class Controller_Panel_Category extends Auth_Crud {
                 $icon_name = $category->seoname.'.png';
                 
                 // if folder does not exist, try to make it
-               	if ( ! file_exists($root) AND ! @mkdir($root, 0775, true)) { // mkdir not successful ?
+               	if ( ! is_dir($root) AND ! @mkdir($root, 0775, true)) { // mkdir not successful ?
                         Alert::set(Alert::ERROR, __('Image folder is missing and cannot be created with mkdir. Please correct to be able to upload images.'));
-                        return; // exit function
+                        return FALSE; // exit function
                 };
 
                 // save file to root folder, file, name, dir
-                Upload::save($icon, $icon_name, $root);
+                if (Upload::save($icon, $icon_name, $root) === FALSE)
+					Alert::set(Alert::ERROR, $icon['name'].' '.__('Icon file could not been saved.'));
+				else
+					Alert::set(Alert::SUCCESS, $icon['name'].' '.__('Icon has been successfully uploaded.'));
                 
-                Alert::set(Alert::SUCCESS, $icon['name'].' '.__('Icon is uploaded.'));
 				$this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
             }
             
