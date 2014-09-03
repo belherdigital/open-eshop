@@ -164,7 +164,7 @@ class Auth_Controller extends Controller
         if (Core::get('rel')=='ajax')
         {
             // Add defaults to template variables.
-            $this->template->styles  = $this->template->styles;
+            //$this->template->styles  = $this->template->styles;
             $this->template->scripts = array_reverse($this->template->scripts);
             $this->response->body($this->template->render());
         }
