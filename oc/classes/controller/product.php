@@ -251,9 +251,12 @@ class Controller_Product extends Controller{
 
     public function action_listing()
     {
+        // use CDN or local files
+        $use_cdn = Core::use_cdn_for_css_js();
+
         if(Theme::get('infinite_scroll'))
         {
-            $this->template->scripts['footer'][] = 'https://cdn.jsdelivr.net/jquery.infinitescroll/2.0b2/jquery.infinitescroll.js';
+            $this->template->scripts['footer'][] = $use_cdn?'//cdn.jsdelivr.net/jquery.infinitescroll/2.0/jquery.infinitescroll.min.js':'js/jquery.infinitescroll.2.0.min.js';
             $this->template->scripts['footer'][] = 'js/listing.js';
         }
         $this->template->scripts['footer'][] = 'js/sort.js';
@@ -262,8 +265,7 @@ class Controller_Product extends Controller{
         /**
          * we get the model of category from controller to filter and generate urls titles etc...
          */
-        $category = NULL;
-        $category_parent = NULL;
+        $category = $category_parent = NULL;
      
         if (Model_Category::current()->loaded())
         {
@@ -402,8 +404,15 @@ class Controller_Product extends Controller{
         $this->template->title              = __('Advanced Search');
         $this->template->meta_description   = __('Advanced Search');
 
-        $this->template->styles = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
-        $this->template->scripts['footer'] = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js');
+        // use CDN or local files
+        $use_cdn = Core::use_cdn_for_css_js();
+
+        $this->template->styles = array(
+            $use_cdn?'//cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css':'css/datepicker.0.1.css' => 'screen'
+        );
+        $this->template->scripts['footer'] = array(
+            $use_cdn?'//cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js':'js/bootstrap-datepicker.0.1.js'
+        );
 
         //breadcrumbs
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Home'))->set_url(Route::url('default')));

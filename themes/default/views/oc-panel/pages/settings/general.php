@@ -477,7 +477,23 @@
             </div>
         </div>
 
-        <div class="form-group">
+            <div class="form-group">
+                <?= FORM::label($forms['use_cdn']['key'], __("Use CDN for CSS/JS"), array('class'=>'col-md-3 control-label', 'for'=>$forms['use_cdn']['key']))?>
+                <div class="col-sm-5">
+                    <?= FORM::select($forms['use_cdn']['key'], array(FALSE=>'FALSE',TRUE=>'TRUE'), $forms['use_cdn']['value'], array(
+                        'placeholder' => "TRUE or FALSE",
+                        'class' => 'tips form-control',
+                        'id' => $forms['use_cdn']['key'],
+                        'data-content'=> __("Once set to TRUE, enables the use of CDN to load CSS and JS to speed up your site"),
+                        'data-trigger'=>"hover",
+                        'data-placement'=>"right",
+                        'data-toggle'=>"popover",
+                        'data-original-title'=>__("Activates the use of CDN for CSS/JS"),
+                    ))?>
+                </div>
+            </div>
+
+            <div class="form-group">
             <?= FORM::label($forms['minify']['key'], __("Minify CSS/JS"), array('class'=>'col-md-3 control-label', 'for'=>$forms['minify']['key']))?>
             <div class="col-sm-5">
             	<div class="onoffswitch">

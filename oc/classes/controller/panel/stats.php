@@ -14,13 +14,20 @@ class Controller_Panel_Stats extends Auth_Controller {
     public function action_index()
     {
 
-        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Stats'))->set_url(Route::url('oc-panel',array('controller'  => 'stats'))));
         $this->template->title = __('Stats');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats'))));
 
-        $this->template->styles = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
-        $this->template->scripts['footer'] = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
-                                                    'https://cdn.jsdelivr.net/sorttable/2/sorttable.min.js',
-                                                    'js/oc-panel/stats/dashboard.js');
+        // use CDN or local files
+        $use_cdn = Core::use_cdn_for_css_js();
+
+        $this->template->styles = array(
+            $use_cdn?'//cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css':'css/datepicker.0.1.css' => 'screen'
+        );
+        $this->template->scripts['footer'] = array(
+            $use_cdn?'//cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js':'js/bootstrap-datepicker.0.1.js',
+            $use_cdn?'//cdn.jsdelivr.net/sorttable/2/sorttable.min.js':'js/sorttable.2.min.js',
+            'js/oc-panel/stats/dashboard.js'
+        );
         
         $this->template->bind('content', $content);        
         $content = View::factory('oc-panel/pages/stats/dashboard');

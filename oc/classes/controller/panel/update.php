@@ -202,6 +202,9 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
                          array('config_key'     =>'disallowbots',
                                'group_name'     =>'general', 
                                'config_value'   => 0),
+                         array('config_key'     =>'use_cdn',
+                               'group_name'     =>'general', 
+                               'config_value'   => '1'),
 
                         );
 
