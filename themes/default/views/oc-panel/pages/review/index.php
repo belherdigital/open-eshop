@@ -27,6 +27,7 @@
 		</thead>
 		<tbody>
 			<?foreach($reviews as $review):?>
+                <?if ($review->user->loaded() AND $review->product->loaded()):?>
 				<tr id="tr<?=$review->pk()?>">
 	                <td><?=$review->pk()?></td>
 	                <td><a href="<?=Route::url('oc-panel', array('controller'=> 'user', 'action'=>'update','id'=>$review->user->pk())) ?>">
@@ -46,6 +47,7 @@
 						<?endif?>
 					</td>
 				</tr>
+                <?endif?>
 			<?endforeach?>
 		</tbody>
 	</table>
