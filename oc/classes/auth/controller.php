@@ -108,7 +108,7 @@ class Auth_Controller extends Controller
                 if (Theme::get('admin_theme')=='bootstrap')
                 {
                     Theme::$styles = array(
-                        $use_cdn?'//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css':'@TODO' => 'screen',
+                        $use_cdn?'//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css':'css/bootstrap.3.2.0.min.css' => 'screen',
                         $use_cdn?'//cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css':'css/sceditor.1.4.3.themes.default.min.css' => 'screen',
                         $use_cdn?'//cdn.jsdelivr.net/chosen/1.1.0/chosen.jquery.min.js':'css/chosen.1.1.0.jquery.min.css' => 'screen',
                         $use_cdn?'//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css':'css/bootstrap-tagsinput.0.4.2.css'=>'screen',
