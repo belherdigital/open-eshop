@@ -44,8 +44,9 @@
     <div class="page-header">
         <h3><?=$product->title?>
         <?if ($product->rate!==NULL):?>
-        
-            <div class="rating">
+            <div class="rating" itemprop="rating" itemscope itemtype="http://data-vocabulary.org/Rating">
+                <meta itemprop="value" content="<?=$product->rate?>" >
+                <meta itemprop="best"  content="<?=Model_Review::RATE_MAX?>" />
                 <a class="" href="<?=Route::url('product-review', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" >
                     <?for ($i=0; $i < round($product->rate,1); $i++):?>
                         <span class="glyphicon glyphicon-star"></span>
