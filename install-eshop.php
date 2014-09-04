@@ -176,7 +176,7 @@ class install{
     {
         self::$msg = '';
         $compatible = TRUE;
-        foreach (install::requirements() as $name => $values)
+        foreach (install::requirements() as $values)
         {
             if ($values['mandatory'] == TRUE AND $values['result'] == FALSE)
                 $compatible = FALSE;

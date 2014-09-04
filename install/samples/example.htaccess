@@ -17,7 +17,7 @@
 # Because X-UA-Compatible isn't sent to non-IE (to save header bytes),
 # We need to inform proxies that content changes based on UA
   Header append Vary User-Agent
-# Cache control is set only if mod_headers is enabled, so that's unncessary to declare
+# Cache control is set only if mod_headers is enabled, so that's unnecessary to declare
 </IfModule>
 
 # ----------------------------------------------------------------------
@@ -170,8 +170,9 @@ RewriteRule ^rss/$ rss.xml [R=301,L]
 # RewriteRule ^rss/?category=(.+)$ rss/$1.xml [R=301,L]
 # End redirects
 
-# Allow any files or directories that exist to be displayed directly
+# Allow any files that exist to be displayed directly
 RewriteCond %{REQUEST_FILENAME} !-f
+## Allow any directories that exist to be displayed directly
 #RewriteCond %{REQUEST_FILENAME} !-d
 
 # Rewrite all other URLs to index.php/URL
