@@ -36,9 +36,11 @@ class Auth_Controller extends Controller
 			if (!Auth::instance()->logged_in( $request->controller(), $request->action(), $request->directory()))
 			{
 				Alert::set(Alert::ERROR, __('You do not have permissions to access '.$request->controller().' '.$request->action()));
-				$url = Route::get('oc-panel')->uri(array(
+				$url = Route::get('oc-panel')->uri(
+                    array(
 													 'controller' => 'auth', 
-													 'action'     => 'login'));
+                     'action'     => 'login')
+                    );
 				$this->redirect($url);
 			}
 
@@ -100,54 +102,57 @@ class Auth_Controller extends Controller
 
 
 
-                //other color
+                // use CDN or local files
+                $use_cdn = Core::use_cdn_for_css_js();
+                //default theme
                 if (Theme::get('admin_theme')=='bootstrap')
                 {
-                    Theme::$styles                    = array('https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css' => 'screen',
-                                                            'https://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
-                                                            'https://cdn.jsdelivr.net/chosen/1.0.0/chosen.css'=>'screen',
-                                                            'https://cdn.jsdelivr.net/bootstrap.tagsinput/0.3.9/bootstrap-tagsinput.css'=>'screen',
-                                                            'css/loadingbar.css'=>'screen', 
-                                                            'css/icon-picker.min.css'=>'screen', 
-                                                            'css/font-awesome.min.css'=>'screen', 
-                                                            'css/summernote.css'=>'screen', 
-                                                            'css/admin-styles.css?v='.Core::VERSION => 'screen');
-                   
+                    Theme::$styles = array(
+                        $use_cdn?'//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css':'@TODO' => 'screen',
+                        $use_cdn?'//cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css':'css/sceditor.1.4.3.themes.default.min.css' => 'screen',
+                        $use_cdn?'//cdn.jsdelivr.net/chosen/1.1.0/chosen.jquery.min.js':'css/chosen.1.1.0.jquery.min.css' => 'screen',
+                        $use_cdn?'//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css':'css/bootstrap-tagsinput.0.4.2.css'=>'screen',
+                        'css/loadingbar.css'=>'screen', 
+                        'css/icon-picker.min.css'=>'screen', 
+                        'css/font-awesome.min.css'=>'screen', 
+                        'css/summernote.css'=>'screen', 
+                        'css/admin-styles.css?v='.Core::VERSION => 'screen',
+                    );
                 }
-                //default theme
                 else
+                //other colors from Bootswatch http://www.bootstrapcdn.com/#bootswatch_tab
                 {
-                     Theme::$styles               = array(  'https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css' => 'screen',                                
-                                                    'https://netdna.bootstrapcdn.com/bootswatch/3.2.0/'.Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
-                                                    'https://cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen', 
-                                                    'https://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
-                                                    'https://cdn.jsdelivr.net/bootstrap.tagsinput/0.3.9/bootstrap-tagsinput.css'=>'screen',
-                                                    'css/loadingbar.css'=>'screen', 
-													'css/icon-picker.min.css'=>'screen', 
-													'css/font-awesome.min.css'=>'screen', 
-													'css/summernote.css'=>'screen', 
-                                                    'css/admin-styles.css?v='.Core::VERSION => 'screen',
-                                                    );
+                     Theme::$styles = array(
+                         $use_cdn? '//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css':'css/bootstrap.3.2.0.min.css' => 'screen',
+                         ($use_cdn?'//netdna.bootstrapcdn.com/bootswatch/3.2.0/':'css/bootswatch/3.2.0/').Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
+                         $use_cdn?'//cdn.jsdelivr.net/chosen/1.1.0/chosen.jquery.min.js':'css/chosen.1.1.0.jquery.min.css' => 'screen',
+                         $use_cdn?'//cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css':'css/sceditor.1.4.3.themes.default.min.css' => 'screen',
+                         $use_cdn?'//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css':'css/bootstrap-tagsinput.0.4.2.css'=>'screen',
+                        'css/loadingbar.css'=>'screen', 
+                        'css/icon-picker.min.css'=>'screen', 
+                        'css/font-awesome.min.css'=>'screen', 
+                        'css/summernote.css'=>'screen', 
+                        'css/admin-styles.css?v='.Core::VERSION => 'screen',
+                     );
                 }
             
-
-
-                Theme::$scripts['footer']		  = array('https://code.jquery.com/jquery-1.10.2.min.js',	
-    													  'https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js', 
-    												      'https://cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
-    												      Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
-														  'http://'.((Kohana::$environment!== Kohana::DEVELOPMENT)? 'market.'.Core::DOMAIN.'':'eshop.lo').'/embed.js',
-                                                          'js/oc-panel/theme.init.js?v='.Core::VERSION,
-                                                          'js/jquery.sceditor.min.js?v=144',
-                                                          'js/summernote.min.js',
-                                                          'js/jquery.validate.min.js',
-                                                          Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'validate')),
-                                                         'js/jquery.cookie.min.js',
-														  'js/iconPicker.min.js',
-                                                          'js/oc-panel/sidebar.js?v='.Core::VERSION,
-                                                          'https://cdn.jsdelivr.net/bootstrap.tagsinput/0.3.9/bootstrap-tagsinput.min.js',
-                                                          'js/form.js?v='.Core::VERSION,
-                                                          );
+                Theme::$scripts['footer'] = array(
+                    $use_cdn?'//code.jquery.com/jquery-1.10.2.min.js':'@TODO',
+                    $use_cdn?'//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js':'@TODO',
+                    $use_cdn?'//cdn.jsdelivr.net/chosen/1.1.0/chosen.jquery.min.js':'css/chosen.1.1.0.jquery.min.js' => 'screen',
+                    Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
+                    'http://'.((Kohana::$environment!== Kohana::DEVELOPMENT)? 'market.'.Core::DOMAIN.'':'eshop.lo').'/embed.js',
+                    'js/oc-panel/theme.init.js?v='.Core::VERSION,
+                    'js/jquery.sceditor.min.js?v=144',
+                    'js/summernote.min.js',
+                    'js/jquery.validate.min.js',
+                    Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'validate')),
+                    'js/jquery.cookie.min.js',
+                    'js/iconPicker.min.js',
+                    'js/oc-panel/sidebar.js?v='.Core::VERSION,
+                    $use_cdn?'http://cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js':'js/bootstrap-tagsinput.0.4.2.min.js',
+                    'js/form.js?v='.Core::VERSION,
+                );
             }
 		}
 		
@@ -164,7 +169,7 @@ class Auth_Controller extends Controller
         if (Core::get('rel')=='ajax')
         {
             // Add defaults to template variables.
-            $this->template->styles  = $this->template->styles;
+            //$this->template->styles  = $this->template->styles;
             $this->template->scripts = array_reverse($this->template->scripts);
             $this->response->body($this->template->render());
         }

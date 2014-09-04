@@ -479,7 +479,7 @@ function __($msgid)
 
     </style>
         
-    <link href="//netdna.bootstrapcdn.com/bootswatch/3.2.0/yeti/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.2.0/yeti/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/chosen/1.1.0/chosen.min.css">
 
 </head>
@@ -649,7 +649,7 @@ function __($msgid)
         </footer>
     </div> 
     
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//cdn.jsdelivr.net/jquery.bootstrapvalidation/1.3.7/jqBootstrapValidation.min.js"></script>
     <script src="//cdn.jsdelivr.net/chosen/1.1.0/chosen.jquery.min.js"></script>

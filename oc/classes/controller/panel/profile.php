@@ -378,9 +378,16 @@ class Controller_Panel_Profile extends Auth_Controller {
                 $user = new Model_User($id_user);
         }
 
-        $this->template->styles = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
-        $this->template->scripts['footer'] = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
-                                                    'js/oc-panel/stats/dashboard.js');
+        // use CDN or local files
+        $use_cdn = Core::use_cdn_for_css_js();
+
+        $this->template->styles = array(
+            $use_cdn?'//cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css':'css/datepicker.0.1.css' => 'screen'
+        );
+        $this->template->scripts['footer'] = array(
+            $use_cdn?'//cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js':'js/bootstrap-datepicker.0.1.js',
+            'js/oc-panel/stats/dashboard.js'
+        );
 
         $this->template->bind('content', $content);
         $this->template->content = View::factory('oc-panel/profile/affiliate');

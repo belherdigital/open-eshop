@@ -196,7 +196,7 @@
 
     <iframe class="desktop-view" id="product-iframe" frameborder="0" noresize="noresize" src="<?=$product->url_demo?><?=(count($skins)>0)?'&skin='.$skin:''?>" ></iframe>
 
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         /* Modified from

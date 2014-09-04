@@ -24,34 +24,34 @@ Theme::$options = Theme::get_options();
 //we load earlier the theme since we need some info
 Theme::load(); 
 
+// use CDN or local files
+$use_cdn = Core::use_cdn_for_css_js();
 
-//local files
-    $theme_css = array(
-                        'http://netdna.bootstrapcdn.com/bootswatch/3.2.0/yeti/bootstrap.min.css' => 'screen',
-                        'http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' => 'screen',
-                        'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen',
-                        'http://cdn.jsdelivr.net/prettyphoto/3.1.6/css/prettyPhoto.css' => 'screen',
-                        'css/style.css?v='.Core::VERSION => 'screen',
-                        'css/yeti-style.css' => 'screen',
-                        'css/slider.css' => 'screen',
-                        );
-    if(Theme::get('rtl'))
-      $theme_css = array_merge($theme_css, array('css/bootstrap-rtl.min.css' => 'screen'));
+$theme_css = array(
+    $use_cdn?'//netdna.bootstrapcdn.com/bootswatch/3.2.0/yeti/bootstrap.min.css':'css/yeti-bootstrap.3.2.0.min.css' => 'screen',
+    $use_cdn?'//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css':'css/font-awesome.4.1.0.min.css' => 'screen',
+    $use_cdn?'//cdn.jsdelivr.net/chosen/1.1.0/chosen.min.css':'css/chosen.1.1.0.min.css' => 'screen',
+    $use_cdn?'//cdn.jsdelivr.net/prettyphoto/3.1.5/css/prettyPhoto.css':'css/prettyPhoto.3.1.5.css' => 'screen',
+    'css/style.css?v='.Core::VERSION => 'screen',
+    'css/yeti-style.css' => 'screen', // custom style
+    'css/slider.css' => 'screen',
+);
+if(Theme::get('rtl'))
+    $theme_css = array_merge($theme_css, array('css/bootstrap-rtl.min.css' => 'screen'));
 
-    Theme::$styles = $theme_css;
+Theme::$styles = $theme_css;
 
-    Theme::$scripts['footer']   = array('http://code.jquery.com/jquery-1.10.2.min.js',
-                                        'http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
-                                        'http://cdn.jsdelivr.net/prettyphoto/3.1.6/js/jquery.prettyPhoto.js',
-                                        'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
-                                        Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
-                                        'js/bootstrap-slider.js',
-                                        'js/jquery.validate.min.js',
-                                        Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'validate')),
-                                        'js/theme.init.js?v='.Core::VERSION,
-                                        );
-
-
+Theme::$scripts['footer'] = array(
+    $use_cdn?'//code.jquery.com/jquery-1.10.2.min.js':'js/jquery-1.10.2.min.js',
+    $use_cdn?'//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js':'js/bootstrap.3.2.0.min.js',
+    $use_cdn?'//cdn.jsdelivr.net/prettyphoto/3.1.5/js/jquery.prettyPhoto.js':'js/jquery.prettyPhoto.3.1.5.js',
+    $use_cdn?'//cdn.jsdelivr.net/chosen/1.1.0/chosen.jquery.min.js':'css/chosen.1.1.0.jquery.min.js' => 'screen',
+    Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
+    'js/bootstrap-slider.js',
+    $use_cdn?'//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js':'js/jquery.validate.1.13.0.min.js', // @TODO Localization Files at http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_##.js where ## is the loc code
+    Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'validate')),
+    'js/theme.init.js?v='.Core::VERSION,
+);
 
 
 /**

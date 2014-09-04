@@ -38,22 +38,26 @@ class Controller_Panel_Product extends Auth_Crud {
     {
         //template header
         $this->template->title  = __('New Product');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title));
 
-        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('New Product')));
-        $this->template->styles              = array('css/sortable.css' => 'screen',
-        											 'https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen',
-                                                     'https://cdn.jsdelivr.net/jquery.fileupload/9.5.2/css/jquery.fileupload.css'=>'screen',
-                                                     'css/jasny-bootstrap.min.css'=>'screen',
-                                                     );
-        $this->template->scripts['footer'] = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
-                                                    'js/jasny-bootstrap.min.js',
-        											 'js/oc-panel/products.js',
-        											 'js/jquery-sortable-min.js',
-                                                     'https://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/vendor/jquery.ui.widget.js',
-                                                     'https://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.iframe-transport.js',
-                                                     'https://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.fileupload.js',
-                                                     );											 
-        											 
+        // use CDN or local files
+        $use_cdn = Core::use_cdn_for_css_js();
+
+        $this->template->styles = array(
+            'css/sortable.css' => 'screen',
+            $use_cdn?'//cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css':'css/datepicker.0.1.css' => 'screen',
+            $use_cdn?'//cdn.jsdelivr.net/jquery.fileupload/9.5.2/css/jquery.fileupload.css':'css/jquery.fileupload.1.3.0.css'=>'screen',
+            'css/jasny-bootstrap.min.css'=>'screen',
+        );
+        $this->template->scripts['footer'] = array(
+            $use_cdn?'//cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js':'js/bootstrap-datepicker.0.1.js',
+            'js/jasny-bootstrap.min.js',
+            'js/oc-panel/products.js',
+            'js/jquery-sortable-min.js',
+            $use_cdn?'//cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/vendor/jquery.ui.widget.js':'js/jquery.ui.widget.1.10.3.js',
+            $use_cdn?'//cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.iframe-transport.js':'js/jquery.iframe-transport.1.8.2.js',
+            $use_cdn?'//cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.fileupload.js':'js/jquery.fileupload.5.40.0.js',
+        );
 
         $cats   = Model_Category::get_as_array();
         $order  = Model_Category::get_multidimensional();
@@ -128,23 +132,29 @@ class Controller_Panel_Product extends Auth_Crud {
     {
         //template header
         $this->template->title  = __('Edit Product');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title));
 
-        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Edit Product')));
-        $this->template->styles              = array('css/sortable.css' => 'screen',
-                                                     'https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen',
-                                                     'https://cdn.jsdelivr.net/jquery.fileupload/9.5.2/css/jquery.fileupload.css'=>'screen',
-                                                     'css/jasny-bootstrap.min.css'=>'screen');
-        $this->template->scripts['footer'] = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
-                                                    'js/jasny-bootstrap.min.js',
-                                                     'js/oc-panel/products.js',
-                                                     'js/jquery-sortable-min.js',
-                                                     'https://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/vendor/jquery.ui.widget.js',
-                                                     'https://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.iframe-transport.js',
-                                                     'https://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.fileupload.js',
-                                                     );
+        // use CDN or local files
+        $use_cdn = Core::use_cdn_for_css_js();
+
+        $this->template->styles = array(
+            'css/sortable.css' => 'screen',
+            $use_cdn?'//cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css':'css/datepicker.0.1.css' => 'screen',
+            $use_cdn?'//cdn.jsdelivr.net/jquery.fileupload/9.5.2/css/jquery.fileupload.css':'css/jquery.fileupload.1.3.0.css'=>'screen',
+            'css/jasny-bootstrap.min.css'=>'screen'
+        );
+
+        $this->template->scripts['footer'] = array(
+            $use_cdn?'//cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js':'js/bootstrap-datepicker.0.1.js',
+            'js/jasny-bootstrap.min.js',
+            'js/oc-panel/products.js',
+            'js/jquery-sortable-min.js',
+            $use_cdn?'//cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/vendor/jquery.ui.widget.js':'js/jquery.ui.widget.1.10.3.js',
+            $use_cdn?'//cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.iframe-transport.js':'js/jquery.iframe-transport.1.8.2.js',
+            $use_cdn?'//cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.fileupload.js':'js/jquery.fileupload.5.40.0.js',
+        );
                                                      
                                                      
-
         $cats   = Model_Category::get_as_array();
         $order  = Model_Category::get_multidimensional();
 
