@@ -141,7 +141,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=__('More themes')?> <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <?foreach ($products as $p):?>
-                    <?if (!empty($p->url_demo) AND $p->id_product!=$product->id_product):?>
+                    <?if ($p->id_product!=$product->id_product):?>
                     <li><a title="<?=__('Demo')?> - <?=$p->title?>" href="<?=Route::url('product-demo', array('seotitle'=>$p->seotitle,'category'=>$p->category->seoname))?>"><?=$p->title?></a></li>
                     <?endif?>
                 <?endforeach?>
