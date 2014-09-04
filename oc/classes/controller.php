@@ -138,12 +138,9 @@ class Controller extends Kohana_Controller
         {
             $user = Auth::instance()->get_user();
 
-            if ($user!==FALSE)
-            {           
-                if ($user->id_role==Model_Role::ROLE_ADMIN)
-                    Alert::set(Alert::INFO, __('You are in maintenance mode, only you can see the website'));
-                else
-                    $this->redirect(Route::url('maintenance'));
+            if (isset($user->id_role) AND $user->id_role===Model_Role::ROLE_ADMIN)
+            {
+                Alert::set(Alert::INFO, __('You are in maintenance mode, only you can see the website'));
             }
             else
                 $this->redirect(Route::url('maintenance'));
