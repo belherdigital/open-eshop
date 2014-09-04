@@ -664,7 +664,7 @@ class Model_Product extends ORM {
      */
     public function count_hit()
     {
-        if(!Model_Visit::is_bot() AND $this->loaded())
+        if(!Model_Visit::is_bot() AND $this->loaded() AND core::config('product.count_visits')==1)
         {
             //adding a visit only if not the owner
             if(!Auth::instance()->logged_in())

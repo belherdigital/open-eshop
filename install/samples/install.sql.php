@@ -433,6 +433,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('product', 'download_times', 3),
 ('product', 'number_of_orders', 0),
 ('product', 'qr_code', 0),
+('product', 'count_visits', 1),
 ('email', 'notify_email', '".core::request('ADMIN_EMAIL')."'),
 ('email', 'new_sale_notify', 0),
 ('email', 'smtp_active', 0),

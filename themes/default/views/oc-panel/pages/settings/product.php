@@ -16,10 +16,20 @@
 			<?$forms[$c->config_key] = array('key'=>$c->config_key, 'value'=>$c->config_value)?>
 			<?endforeach?>
 
+            <?
+                $products_in_home = array(0=>__('Latest'),
+                                            1=>__('Featured'),
+                                            2=>__('Popular last month'),
+                                            3=>__('Best rated'),
+                                            4=>__('None'));
+                if(core::config('product.count_visits')==0)
+                    unset($products_in_home[2]);
+            ?>
             <div class="form-group">
                 <?= FORM::label($forms['products_in_home']['key'], __('Products in home'), array('class'=>'col-md-3 control-label', 'for'=>$forms['products_in_home']['key']))?>
                 <div class="col-md-5">
-                    <?= FORM::select($forms['products_in_home']['key'], array(0=>__('Latest'),1=>__('Featured'),2=>__('Popular last month'),3=>__('Best rated'),4=>__('None')), $forms['products_in_home']['value'], array(
+                    <?= FORM::select($forms['products_in_home']['key'], $products_in_home
+                    , $forms['products_in_home']['value'], array(
                     'placeholder' => $forms['products_in_home']['value'], 
                     'class' => 'tips form-control', 
                     'id' => $forms['products_in_home']['key'],
@@ -150,6 +160,27 @@
                     ))?> 
                 </div>
             </div>
+
+            <div class="form-group">
+                <?= FORM::label($forms['count_visits']['key'], __('Count visits product'), array('class'=>'control-label col-sm-3', 'for'=>$forms['count_visits']['key']))?>
+                <div class="col-sm-4">
+                    <div class="onoffswitch">
+                        <?= FORM::hidden($forms['count_visits']['key'], 0);?>
+                        <?= FORM::checkbox($forms['count_visits']['key'], 1, (bool) $forms['count_visits']['value'], array(
+                        'placeholder' => "", 
+                        'class' => 'onoffswitch-checkbox', 
+                        'id' => $forms['count_visits']['key'], 
+                        'data-original-title'=> __("Count visits"),
+                        'data-trigger'=>"hover",
+                        'data-placement'=>"right",
+                        'data-toggle'=>"popover",
+                        'data-content'=>__("You can choose if you wish to display amount of visits at each product."),
+                        ))?>
+                        <?= FORM::label($forms['count_visits']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['count_visits']['key']))?>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group">
                 <?= FORM::label($forms['reviews']['key'], __("Product Reviews"), array('class'=>'col-md-3 control-label', 'for'=>$forms['reviews']['key']))?>
                 <div class="col-md-5">

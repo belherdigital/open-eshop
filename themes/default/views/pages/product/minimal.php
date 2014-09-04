@@ -55,7 +55,10 @@
         </div>
         <div class="tab-pane" id="details">
             <ul class="mini-info">
-                <p><?=__('Hits')?> : <?=$hits?></p>
+                
+                <?if(core::config('product.count_visits')==1):?>
+                    <p><?=__('Hits')?> : <?=$hits?></p>
+                <?endif?>
 
                 <?if ($product->has_file()==TRUE):?>
                     <p><?=__('Product format')?> : <?=mb_strtoupper(strrchr($product->file_name, '.'))?> <?=__('file')?> </p>

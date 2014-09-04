@@ -212,9 +212,14 @@ class Controller_Product extends Controller{
 
         if ($product->loaded())
         {
-            //count how many visits has
-            $hits = new Model_Visit();
-            $hits = $hits->where('id_product','=', $product->id_product)->count_all();
+            if(core::config('product.count_visits')==1)
+            {
+                //count how many visits has
+                $hits = new Model_Visit();
+                $hits = $hits->where('id_product','=', $product->id_product)->count_all();
+            }
+            else
+                $hits = 0;
            
             $this->template->title            = $product->title. ' - '.__('Demo').' - '.$product->category->name;
             $this->template->meta_description = __('Demo').', '.__('preview').','.$product->description;

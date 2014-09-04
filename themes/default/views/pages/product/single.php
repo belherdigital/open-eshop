@@ -141,7 +141,10 @@
 			<?if(core::config('product.number_of_orders')):?>
 				<p><span class="glyphicon glyphicon-shopping-cart"></span> <?=$number_orders?></p>
 			<?endif?>
-			<p><?=__('Hits')?> : <?=$hits?></p>
+
+            <?if(core::config('product.count_visits')==1):?>
+			     <p><?=__('Hits')?> : <?=$hits?></p>
+            <?endif?>
 
 		    <?if ($product->has_file()==TRUE):?>
 			    <p><?=__('Product format')?> : <?=mb_strtoupper(strrchr($product->file_name, '.'))?> <?=__('file')?> </p>
