@@ -127,7 +127,7 @@
             <span class="icon-bar"></span>
           </button> 
           <a class="navbar-brand" href="<?=Route::url('default')?>">
-            <img src="<?=Theme::public_path('img/favicon.ico')?>" alt="<?=HTML::chars(core::config('general.site_name'))?>"> 
+            <img src="<?=core::config('general.base_url').'images/favicon.ico'?>" alt="<?=HTML::chars(core::config('general.site_name'))?>"> 
           </a>
           <a class="navbar-brand" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
             <?=$product->title?>
