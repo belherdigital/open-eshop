@@ -4,7 +4,7 @@
     <div class="well well-sm">
         <div class="row">
             <div class="col-xs-4 col-md-4 section-box" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
-                <img itemprop="photo" alt="<?=$product->title?>" src="<?=URL::base()?><?=$product->get_first_image()?>" >
+                <img itemprop="photo" alt="<?=HTML::chars($product->title)?>" src="<?=URL::base()?><?=$product->get_first_image()?>" >
             </div>
             <div class="col-xs-8 col-md-8 section-box" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
                 <h1 ><?=$product->title.' '.__("Reviews")?></h1>
