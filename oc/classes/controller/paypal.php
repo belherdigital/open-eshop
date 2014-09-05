@@ -49,9 +49,7 @@ class Controller_Paypal extends Controller{
                     if (!Auth::instance()->logged_in())
                     {
                         //create user if doesnt exists
-                         //send email to user with password
                         $user = Model_User::create_email(Core::post('payer_email'),Core::post('first_name').' '.Core::post('last_name'));
-
                     }
                     else//he was loged so we use his user
                         $user = Auth::instance()->get_user();

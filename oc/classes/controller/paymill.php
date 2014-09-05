@@ -35,6 +35,15 @@ class Controller_Paymill extends Controller{
 
         if ($product->loaded())
         {
+            //user needs to be loged
+            if (Auth::instance()->logged_in())
+                $user = Auth::instance()->get_user();
+            else
+            {
+                Alert::set(Alert::INFO, __('Please login before purchasing'));
+                $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+            }
+
             //Functions from https://github.com/paymill/paybutton-examples
             $privateApiKey  = Core::config('payment.paymill_private');
 
@@ -75,7 +84,7 @@ class Controller_Paymill extends Controller{
                     //if (Auth::instance()->logged_in())
                     
                     //create order
-                    $order = Model_Order::sale(NULL,Auth::instance()->get_user(),$product,Core::post('paymillToken'),'paymill');
+                    $order = Model_Order::sale(NULL,$user,$product,Core::post('paymillToken'),'paymill');
                     //redirect him to the thanks page
                     $this->redirect(Route::url('product-goal', array('seotitle'=>$product->seotitle,
                                                                               'category'=>$product->category->seoname,

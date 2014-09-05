@@ -101,18 +101,22 @@ class Model_Order extends ORM {
      * @param  string        $currency_paid    
      * @return void                
      */
-    public static function sale($id_order = NULL, Model_User $user, Model_Product $product, 
+    public static function sale($id_order = NULL, $user, Model_Product $product, 
                                 $token, $method = 'paypal', $pay_date = NULL,$amount_paid = NULL, $currency_paid = NULL)
     {
         $order = new Model_Order();
 
-        //retrieve info for the item in DB
-        $order = $order->where('id_order', '=', $id_order)
-                       ->where('status', '=', Model_Order::STATUS_PAID)
+        //we got an id_order so lets load it
+        if (is_numeric($id_order))
+        {
+            //retrieve info for the item in DB
+            $order = $order->where('id_order', '=', $id_order)
+                       ->where('status', '=', Model_Order::STATUS_CREATED)
                        ->limit(1)->find();
+        }
 
         //order didnt exists probably cuz is paypal and we generate the order only once paid
-        if (!$order->loaded())
+        if ($order->loaded() === FALSE)
         {
             $order->id_product  = $product->id_product;
             $order->id_user     = $user->id_user;
@@ -138,6 +142,7 @@ class Model_Order extends ORM {
 
         try {
             $order->save();
+
             //if saved delete coupon from session and -- number of coupons.
             Model_Coupon::sale(Model_Coupon::current());
 
@@ -159,7 +164,11 @@ class Model_Order extends ORM {
             //download link
             $download = '';
             if ($product->has_file()==TRUE)
-                $download = '\n\n==== '.__('Download').' ====\n'.$user->ql('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order));
+            {
+                $dwnl_link = $user->ql('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order));
+                $download = '\n\n==== '.__('Download').' ====\n<a href="'.$dwnl_link.'">'.$dwnl_link.'</a>';
+            }
+                
             
             //theres an expire? 0 = unlimited
             $expire = '';
@@ -253,7 +262,8 @@ class Model_Order extends ORM {
                 //how its called the downloaded file
                 $file_name = $this->id_order.'-'.$this->product->seotitle.'-'.$this->product->version.strrchr($file, '.');
 
-                Request::$current->response()->send_file($file,$file_name);
+                //Request::$current->response()->send_file($file,$file_name);
+                Response::factory()->send_file($file,$file_name);
             }
         }
 

@@ -125,7 +125,7 @@ class Model_License extends ORM {
      * @param  Model_Product $product 
      * @return string                 
      */
-    public static function generate(Model_User $user, Model_Order $order, Model_Product $product)
+    public static function generate($user, Model_Order $order, Model_Product $product)
     {
         $license = date('Ymd').'-'.$order->id_order.'-';
 

@@ -43,8 +43,17 @@ class Controller_Authorize extends Controller{
             ->where('status','=',Model_Product::STATUS_ACTIVE)
             ->limit(1)->find();
 
-        if ($product->loaded() AND Auth::instance()->logged_in())
+        if ($product->loaded())
         {
+            //user needs to be loged
+            if (Auth::instance()->logged_in())
+                $user = Auth::instance()->get_user();
+            else
+            {
+                Alert::set(Alert::INFO, __('Please login before purchasing'));
+                $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+            }
+
             // include class vendor
             require Kohana::find_file('vendor/authorize/', 'autoload');
 
@@ -59,7 +68,7 @@ class Controller_Authorize extends Controller{
             if ($response->approved) 
             {
                 //create order
-                $order = Model_Order::sale(NULL,Auth::instance()->get_user(),$product,$response->transaction_id,'authorize');
+                $order = Model_Order::sale(NULL,$user,$product,$response->transaction_id,'authorize');
                 
                 //redirect him to the thanks page
                 $this->redirect(Route::url('product-goal', array('seotitle'=>$product->seotitle,

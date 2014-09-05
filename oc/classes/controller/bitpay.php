@@ -14,7 +14,7 @@ class Controller_Bitpay extends Controller{
 	
 
     /**
-     * generates the request to pay at nitpay
+     * generates the request to pay at bitpay
      */
     public function action_pay()
     { 

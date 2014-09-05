@@ -41,34 +41,25 @@ class Controller_Stripe extends Controller{
                 // Get the credit card details submitted by the form
                 $token = Core::post('stripeToken');
 
-                // email
                 $email = Core::post('stripeEmail');
 
+                if (!Auth::instance()->logged_in())
+                {
+                    //create user if doesnt exists and send email to user with password
+                    $user = Model_User::create_email($email,core::post('stripeBillingName'));
+                }
+                else//he was loged so we use his user
+                    $user = Auth::instance()->get_user();
+
                 // Create the charge on Stripe's servers - this will charge the user's card
-                try 
+                /*try 
                 {
                     $charge = Stripe_Charge::create(array(
                                                         "amount"    => StripeKO::money_format($product->final_price()), // amount in cents, again
                                                         "currency"  => $product->currency,
                                                         "card"      => $token,
                                                         "description" => $product->title)
-                                                    );
-
-                    if (!Auth::instance()->logged_in())
-                    {
-                        //create user if doesnt exists and send email to user with password
-                        $user = Model_User::create_email($email,core::post('stripeBillingName',$email));
-                    }
-                    else//he was loged so we use his user
-                        $user = Auth::instance()->get_user();
-
-                    //create order
-                    $order = Model_Order::sale(NULL,$user,$product,Core::post('stripeToken'),'stripe');
-                    
-                    //redirect him to the thanks page
-                    $this->redirect(Route::url('product-goal', array('seotitle'=>$product->seotitle,
-                                                                              'category'=>$product->category->seoname,
-                                                                              'order'   =>$order->id_order)));
+                                                    );                    
                 }
                 catch(Stripe_CardError $e) 
                 {
@@ -76,7 +67,15 @@ class Controller_Stripe extends Controller{
                     Kohana::$log->add(Log::ERROR, 'Stripe: The card has been declined');
                     Alert::set(Alert::ERROR, __('Stripe: The card has been declined'));
                     $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
-                }
+                }*/
+                
+                //create order
+                $order = Model_Order::sale(NULL,$user,$product,Core::post('stripeToken'),'stripe');
+
+                //redirect him to the thanks page
+                $this->redirect(Route::url('product-goal', array('seotitle'=>$product->seotitle,
+                                                                  'category'=>$product->category->seoname,
+                                                                  'order'   =>$order->id_order)));
                 
             }
             else
