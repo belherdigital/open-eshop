@@ -9,7 +9,6 @@
             <div class="col-xs-8 col-md-8 section-box" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
                 <h1 ><?=$product->title.' '.__("Reviews")?></h1>
                 <meta itemprop="itemreviewed" content="<?=$product->title?>" >
-                <meta itemprop="photo" content="<?=$product->get_first_image()?>" >
                 <hr />
                 <div class="row rating-desc">
                     <div class="col-md-8">
