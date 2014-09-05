@@ -283,7 +283,7 @@ div.sceditor-group{padding: 1px 15px 5px 5px!important;}
     padding-left: 15px;
 }
 	.edit_ad_form{margin-left: 0px;}
-	.respon-left-panel{position: absolute;}
+	.respon-left-panel{position: fixed;}
 	.mobile-head-menu{display: block;}
 	.mobile-head-menu-item{
 	    float: left;
