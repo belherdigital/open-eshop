@@ -26,19 +26,19 @@
     <meta property="og:site_name" content="<?=core::config('general.site_name')?>"/>
 
     <?if (core::config('general.blog')==1):?>
-    <link rel="alternate" type="application/atom+xml" title="RSS Blog <?=Core::config('general.site_name')?>" href="<?=Route::url('rss-blog')?>" />
+    <link rel="alternate" type="application/atom+xml" title="RSS Blog <?=HTML::chars(Core::config('general.site_name'))?>" href="<?=Route::url('rss-blog')?>" />
     <?endif?>
 
     <?if (core::config('general.forums')==1):?>
-    <link rel="alternate" type="application/atom+xml" title="RSS Forum <?=Core::config('general.site_name')?>" href="<?=Route::url('rss-forum')?>" />
+    <link rel="alternate" type="application/atom+xml" title="RSS Forum <?=HTML::chars(Core::config('general.site_name'))?>" href="<?=Route::url('rss-forum')?>" />
       <?if (Model_Forum::current()->loaded()):?>
-      <link rel="alternate" type="application/atom+xml" title="RSS Forum <?=Core::config('general.site_name')?> - <?=Model_Forum::current()->name?>" href="<?=Route::url('rss-forum', array('forum'=>Model_Forum::current()->seoname))?>" />
+      <link rel="alternate" type="application/atom+xml" title="RSS Forum <?=HTML::chars(Core::config('general.site_name'))?> - <?=Model_Forum::current()->name?>" href="<?=Route::url('rss-forum', array('forum'=>Model_Forum::current()->seoname))?>" />
       <?endif?>
     <?endif?>
-    <link rel="alternate" type="application/atom+xml" title="RSS <?=Core::config('general.site_name')?>" href="<?=Route::url('rss')?>" />
+    <link rel="alternate" type="application/atom+xml" title="RSS <?=HTML::chars(Core::config('general.site_name'))?>" href="<?=Route::url('rss')?>" />
     
     <?if (Model_Category::current()->loaded()):?>
-    <link rel="alternate" type="application/atom+xml"  title="RSS <?=Core::config('general.site_name')?> - <?=Model_Category::current()->name?>"  href="<?=Route::url('rss',array('category'=>Model_Category::current()->seoname))?>" />
+    <link rel="alternate" type="application/atom+xml"  title="RSS <?=HTML::chars(Core::config('general.site_name'))?> - <?=Model_Category::current()->name?>"  href="<?=Route::url('rss',array('category'=>Model_Category::current()->seoname))?>" />
     <?endif?>     
         
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->

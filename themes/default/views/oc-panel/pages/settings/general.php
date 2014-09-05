@@ -19,36 +19,41 @@
         <div class="form-group">
             <?= FORM::label($forms['maintenance']['key'], "<a target='_blank' href='http://open-classifieds.com/2013/10/11/activate-access-terms-alert/'>".__("Maintenance Mode")."</a>", array('class'=>'col-md-3 control-label', 'for'=>$forms['maintenance']['key']))?>
             <div class="col-md-5">
-            	<div class="onoffswitch">
-            		<?= FORM::hidden($forms['maintenance']['key'], 0);?>
-            		<?= FORM::checkbox($forms['maintenance']['key'], 1, (bool) $forms['maintenance']['value'], array(
-            		'placeholder' => "TRUE or FALSE", 
-            		'class' => 'onoffswitch-checkbox', 
-            		'id' => $forms['maintenance']['key'], 
-                'data-content'=> __("Enables the site to maintenance"),
-            		'data-trigger'=>"hover",
-            		'data-placement'=>"right",
-            		'data-toggle'=>"popover",
-                'data-original-title'=>__("Maintenance Mode"),
-            		))?>
-            		<?= FORM::label($forms['maintenance']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['maintenance']['key']))?>
-            	</div>
+	            	<div class="onoffswitch">
+	            		<?= FORM::hidden($forms['maintenance']['key'], 0);?>
+	            		<?= FORM::checkbox($forms['maintenance']['key'], 1, (bool) $forms['maintenance']['value'], array(
+	            		'placeholder' => "TRUE or FALSE", 
+	            		'class' => 'onoffswitch-checkbox', 
+	            		'id' => $forms['maintenance']['key'], 
+	                'data-content'=> __("Enables the site to maintenance"),
+	            		'data-trigger'=>"hover",
+	            		'data-placement'=>"right",
+	            		'data-toggle'=>"popover",
+	                'data-original-title'=>__("Maintenance Mode"),
+	            		))?>
+	            		<?= FORM::label($forms['maintenance']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['maintenance']['key']))?>
+	            	</div>
             </div>
+		</div>
 
 		<div class="form-group">
-			<?= FORM::label($forms['disallowbots']['key'], "<a target='_blank' href='http://open-classifieds.com/2013/10/11/activate-access-terms-alert/'>".__("Disallows (blocks) Bots and Crawlers on this website")."</a>", array('class'=>'col-md-3 control-label', 'for'=>$forms['disallowbots']['key']))?>
-			<div class="col-md-5">
-				<?= FORM::select($forms['disallowbots']['key'], array(FALSE=>'FALSE',TRUE=>'TRUE'), $forms['disallowbots']['value'], array(
-					'placeholder' => "TRUE or FALSE",
-					'class' => 'tips form-control',
-					'id' => $forms['disallowbots']['key'],
-					'data-content'=> __("Disallows Bots and Crawlers on the website"),
-					'data-trigger'=>"hover",
-					'data-placement'=>"right",
-					'data-toggle'=>"popover",
-					'data-original-title'=>__("Disallows (blocks) Bots and Crawlers"),
-				))?>
-			</div>
+	        	<?= FORM::label($forms['disallowbots']['key'], __("Disallows (blocks) Bots and Crawlers on this website"), array('class'=>'control-label col-sm-3', 'for'=>$forms['disallowbots']['key']))?>
+	        	<div class="col-sm-4">
+	        		<div class="onoffswitch">
+	        			<?= Form::checkbox($forms['disallowbots']['key'], 1, (bool) $forms['disallowbots']['value'], array(
+	        			'placeholder' => __("TRUE or FALSE"), 
+	        			'class' => 'onoffswitch-checkbox', 
+	        			'id' => $forms['disallowbots']['key'], 
+	        			'data-content'=> __("Disallows Bots and Crawlers on the website"),
+	        			'data-trigger'=>"hover",
+	        			'data-placement'=>"right",
+	        			'data-toggle'=>"popover",
+	        			'data-original-title'=>__("Disallows (blocks) Bots and Crawlers"),
+	        			))?>
+	        			<?= FORM::label($forms['disallowbots']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['maintenance']['key']))?>
+	        			<?= FORM::hidden($forms['disallowbots']['key'], 0);?>
+	        		</div>
+	        	</div>
         </div>
 		
 		<div class="form-group">
