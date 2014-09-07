@@ -289,9 +289,18 @@ class Controller_Product extends Controller{
                 Controller::$image = $icon_src;
 
             $this->template->title = $category->name;
+            
+            if ($category->description != '') 
+                $this->template->meta_description = $category->description;	            
+            else 
+                $this->template->meta_description = $category->name.' '.__('sold in').' '.Core::config('general.site_name');
+
         }
         else
+        {
             $this->template->title = __('all');
+            $this->template->meta_description = __('List of all products in').' '.Core::config('general.site_name');
+        }
 
         
         if ($category_parent!==NULL)
@@ -407,7 +416,7 @@ class Controller_Product extends Controller{
     {
         //template header
         $this->template->title              = __('Advanced Search');
-        $this->template->meta_description   = __('Advanced Search');
+        $this->template->meta_description   = __('Search in').' '.Core::config('general.site_name');
 
         $this->template->styles = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
         $this->template->scripts['footer'] = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js');

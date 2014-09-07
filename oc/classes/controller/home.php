@@ -12,7 +12,7 @@ class Controller_Home extends Controller {
             if ($page->loaded())
             {
                 $this->template->title            = $page->title;
-                $this->template->meta_description = $page->description;
+                $this->template->meta_description = Core::config('general.site_name').' '.__('official homepage for the online store');
 
                 $this->template->bind('content', $content);
                 $this->template->content = View::factory('page',array('page'=>$page));
@@ -23,7 +23,7 @@ class Controller_Home extends Controller {
     	    //template header
     	    $this->template->title            = '';
     	    // $this->template->meta_keywords    = 'keywords';
-    	    $this->template->meta_description = Core::config('general.site_description');
+    	    $this->template->meta_description = Core::config('general.site_name').' '.__('official homepage for the online store');
     	    
     	    
             $products = new Model_Product();

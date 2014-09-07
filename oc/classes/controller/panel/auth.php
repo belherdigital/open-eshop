@@ -35,7 +35,8 @@ class Controller_Panel_Auth extends Controller {
 	    }
 	    	    
 	    //Login page
-	    $this->template->title            = __('Login');	    
+	    $this->template->title = __('Login');	    
+		$this->template->meta_description = __('Login to').' '.Core::config('general.site_name');    
 	    $this->template->content = View::factory('pages/auth/login');
 	}
 	
@@ -64,6 +65,7 @@ class Controller_Panel_Auth extends Controller {
 	{
         //template header
         $this->template->title            = __('Remember password');
+        $this->template->meta_description = __('Here you can reset your password if you forgot it');  
 		$this->template->content = View::factory('pages/auth/forgot');
 		
 		//if user loged in redirect home
@@ -181,6 +183,7 @@ class Controller_Panel_Auth extends Controller {
     
         //template header
         $this->template->title            = __('Register new user');
+		$this->template->meta_description = __('Create a new profile at').' '.Core::config('general.site_name');    
             
     }
     

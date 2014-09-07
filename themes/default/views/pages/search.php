@@ -1,6 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
 <div class="well clearfix">
+    <h1><?=__('Advanced Search')?></h1>
     <?= FORM::open(Route::url('search'), array('class'=>'form-search', 'method'=>'GET', 'action'=>''))?>
         <div class="">
             <div class="col-md-3 pl-0">

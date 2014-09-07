@@ -1,5 +1,12 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
-     
+<div class="page-header">
+    <?if ($category!==NULL):?>
+        <h1><?=$category->name?></h1>
+    <?else:?>
+        <h1><?=__('Listing')?></h1>
+    <?endif?>
+</div>
+
 <?if ($category!==NULL):?>
     <?if (strlen($category->description>0)):?>
     <div class="well advise clearfix" id="advise">
@@ -31,7 +38,7 @@
                     <?elseif(( $icon_src = $product->category->get_icon() )!==FALSE ):?>
                         <img width="300" height="200" src="<?=$icon_src?>" alt="<?=HTML::chars($product->title)?>">
                     <?else:?>
-                        <img src="http://www.placehold.it/300x200&text=<?=urlencode($product->category->name)?>" width="300" height="200" alt="<?=HTML::chars($product->category->name)?>">
+                        <img src="http://www.placehold.it/300x200&text=<?=urlencode($product->category->name)?>" width="300" height="200" alt="<?=HTML::chars($product->title)?>">
                     <?endif?>
                     </a>
                     <div class="caption">
