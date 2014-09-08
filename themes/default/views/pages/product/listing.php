@@ -8,7 +8,7 @@
 </div>
 
 <?if ($category!==NULL):?>
-    <?if (strlen($category->description>0)):?>
+    <?if (strlen($category->description)>0):?>
     <div class="well advise clearfix" id="advise">
         <p><?=$category->description?></p> 
     </div><!--end of advise-->
