@@ -38,10 +38,12 @@ class Controller_Paypal extends Controller{
 		if($product->loaded())
 		{
 
-			if (	Core::post('mc_gross')          == number_format($product->final_price(), 2, '.', '')
-				&&  Core::post('mc_currency')       == $product->currency
-				&& (Core::post('receiver_email')    == core::config('payment.paypal_account') 
-					|| Core::post('business')       == core::config('payment.paypal_account')))
+			if (	Core::post('payment_status')    == 'Completed' 
+                AND Core::post('mc_gross')          == number_format($product->final_price(), 2, '.', '')
+				AND Core::post('mc_currency')       == $product->currency
+				AND ( Core::post('receiver_email')  == core::config('payment.paypal_account') 
+					   || Core::post('business')    == core::config('payment.paypal_account') )
+                )
 			{//same price , currency and email no cheating ;)
                 if (paypal::validate_ipn()) 
 				{
