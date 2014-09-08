@@ -77,7 +77,7 @@
             <li class="cathead">
                 <? $icon_src = new Model_Category($c['id_category']); $icon_src = $icon_src->get_icon(); if(( $icon_src )!==FALSE ):?>
                 <a title="<?=HTML::chars($c['name'])?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>">
-                <img src="<?=$icon_src?>" >
+                <img src="<?=$icon_src?>" alt="<?=HTML::chars($c['name'])?>">
                 </a>
                 <?endif?>
                 <a title="<?=HTML::chars($c['name'])?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>"><?=mb_strtoupper($c['name']);?> <span class="badge badge-success pull-right"><?=$c['count']?></span></a>

@@ -275,7 +275,7 @@ div.sceditor-group{padding: 1px 15px 5px 5px!important;}
 @media screen and (max-width: 979px) {
 	.navbar .nav{float: left!important;}
 	.btn-sidebar-menu{display: block; margin-left: 10px;}
-	div.bs-docs-nav{margin-top: 57px;min-height: 935px;overflow: hidden;}
+	div.bs-docs-nav{margin-top: 57px;min-height: 935px;overflow: auto;}
 }
 /*col-sm*/
 @media screen and (max-width: 769px) { 

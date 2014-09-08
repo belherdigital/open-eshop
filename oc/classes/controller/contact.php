@@ -7,7 +7,7 @@ class Controller_Contact extends Controller {
 
 		//template header
 		$this->template->title           	= __('Contact Us');
-		$this->template->meta_description	= __('Contact Us');
+		$this->template->meta_description	= __('Contact').' '.Core::config('general.site_name');
 
 		Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Home'))->set_url(Route::url('default')));
 		Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Contact Us')));
