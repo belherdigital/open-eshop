@@ -2,19 +2,15 @@
 <div class="page-header">
     <?if ($category!==NULL):?>
         <h1><?=$category->name?></h1>
+        <?if (strlen($category->description)>0):?>
+            <div class="well advise clearfix" id="advise">
+                <p><?=$category->description?></p>
+            </div><!--end of advise-->
+        <?endif?>
     <?else:?>
         <h1><?=__('Listing')?></h1>
     <?endif?>
 </div>
-
-<?if ($category!==NULL):?>
-    <?if (strlen($category->description>0)):?>
-    <div class="well advise clearfix" id="advise">
-        <p><?=$category->description?></p> 
-    </div><!--end of advise-->
-    <?endif?>
-<?endif?>
-
 
 <div class="btn-group pull-right">
     <a href="#" id="list" class="btn btn-default btn-sm <?=(core::cookie('list/grid')==1)?'active':''?>">
