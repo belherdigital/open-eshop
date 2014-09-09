@@ -13,17 +13,17 @@
 
 	<title><?=$title?></title>
     <meta name="keywords" content="<?=$meta_keywords?>" >
-    <meta name="description" content="<?=$meta_description?>" >
-    <meta name="copyright" content="<?=$meta_copyright?>" >
+    <meta name="description" content="<?=HTML::chars($meta_description)?>" >
+    <meta name="copyright" content="<?=HTML::chars($meta_copyright)?>" >
 	<meta name="author" content="open-eshop.com">
 
     <?if (Controller::$image!==NULL):?>
     <meta property="og:image"   content="<?=core::config('general.base_url').Controller::$image?>"/>
     <?endif?>
-    <meta property="og:title"   content="<?=$title?>"/>
-    <meta property="og:description"   content="<?=$meta_description?>"/>
+    <meta property="og:title"   content="<?=HTML::chars($title)?>"/>
+    <meta property="og:description"   content="<?=HTML::chars($meta_description)?>"/>
     <meta property="og:url"     content="<?=URL::current()?>"/>
-    <meta property="og:site_name" content="<?=core::config('general.site_name')?>"/>
+    <meta property="og:site_name" content="<?=HTML::chars(core::config('general.site_name'))?>"/>
 
     <?if (core::config('general.blog')==1):?>
     <link rel="alternate" type="application/atom+xml" title="RSS Blog <?=HTML::chars(Core::config('general.site_name'))?>" href="<?=Route::url('rss-blog')?>" />
@@ -32,13 +32,13 @@
     <?if (core::config('general.forums')==1):?>
     <link rel="alternate" type="application/atom+xml" title="RSS Forum <?=HTML::chars(Core::config('general.site_name'))?>" href="<?=Route::url('rss-forum')?>" />
       <?if (Model_Forum::current()->loaded()):?>
-      <link rel="alternate" type="application/atom+xml" title="RSS Forum <?=HTML::chars(Core::config('general.site_name'))?> - <?=Model_Forum::current()->name?>" href="<?=Route::url('rss-forum', array('forum'=>Model_Forum::current()->seoname))?>" />
+      <link rel="alternate" type="application/atom+xml" title="RSS Forum <?=HTML::chars(Core::config('general.site_name').' - '.Model_Forum::current()->name)?>" href="<?=Route::url('rss-forum', array('forum'=>Model_Forum::current()->seoname))?>" />
       <?endif?>
     <?endif?>
     <link rel="alternate" type="application/atom+xml" title="RSS <?=HTML::chars(Core::config('general.site_name'))?>" href="<?=Route::url('rss')?>" />
     
     <?if (Model_Category::current()->loaded()):?>
-    <link rel="alternate" type="application/atom+xml"  title="RSS <?=HTML::chars(Core::config('general.site_name'))?> - <?=Model_Category::current()->name?>"  href="<?=Route::url('rss',array('category'=>Model_Category::current()->seoname))?>" />
+    <link rel="alternate" type="application/atom+xml"  title="RSS <?=HTML::chars(Core::config('general.site_name').' - '.Model_Category::current()->name)?>"  href="<?=Route::url('rss',array('category'=>Model_Category::current()->seoname))?>" />
     <?endif?>     
         
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
