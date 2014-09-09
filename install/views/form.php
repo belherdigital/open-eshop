@@ -2,7 +2,7 @@
 
 <div class="page-header">
     <a class="btn btn-default pull-right" id="advanced-options" ><?=__("Advanced options")?></a>
-    <h1><?=__("Welcome to")?> Open eShop <?=__("installation")?></h1>
+    <h1><?=sprintf(__("Welcome to %s installation"), 'Open eShop v.'.install::VERSION)?></h1>
     <p>
         <?=__("Welcome to the super easy and fast installation")?>. 
             <a href="http://open-eshop.com/market/" target="_blank">
