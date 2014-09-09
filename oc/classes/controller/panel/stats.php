@@ -17,9 +17,9 @@ class Controller_Panel_Stats extends Auth_Controller {
         $this->template->title = __('Stats');
         Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats'))));
 
-        $this->template->styles = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
-        $this->template->scripts['footer'] = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
-                                                    'https://cdn.jsdelivr.net/sorttable/2/sorttable.min.js',
+        $this->template->styles = array('//cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
+        $this->template->scripts['footer'] = array('//cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
+                                                    '//cdn.jsdelivr.net/sorttable/2/sorttable.min.js',
                                                     'js/oc-panel/stats/dashboard.js');
         
         $this->template->bind('content', $content);        

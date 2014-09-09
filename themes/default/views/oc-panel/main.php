@@ -18,7 +18,7 @@
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-      <?=HTML::script('http://html5shim.googlecode.com/svn/trunk/html5.js')?>
+      <?=HTML::script('https://html5shim.googlecode.com/svn/trunk/html5.js')?>
     <![endif]-->
     
     <?=Theme::styles($styles,'default')?>	
