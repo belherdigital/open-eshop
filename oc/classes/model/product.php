@@ -97,23 +97,30 @@ class Model_Product extends ORM {
      */
     public function final_price()
     {
-   
-        // only calculate price if coupon is NULL or for that poroduct
-        if ($this->valid_coupon())
+        // no current valid coupon: check for valid curent offer
+        if ( ! $this->valid_coupon())
         {
-            $calc_price = 0;
-            //calculating price
-            if (Model_Coupon::current()->discount_amount>0)
-                $calc_price = round($this->price - Model_Coupon::current()->discount_amount,2);
-            elseif (Model_Coupon::current()->discount_percentage>0)
-                $calc_price = round($this->price - ( ($this->price*Model_Coupon::current()->discount_percentage)/100),2);
-
-            //in case calculated price is negative
-            return ($calc_price>0)? $calc_price : 0;
+            // in case not any coupon returns the offer price if any valid one
+            if ($this->has_offer() AND Date::mysql2unix($this->offer_valid)>time() )
+                return $this->price_offer;
+            else
+                return $this->price; // no current valid offer, normal product price
         }
-        
-        //in case not any coupon check the offer price
-        return ($this->has_offer() AND Date::mysql2unix($this->offer_valid)>time() )? $this->price_offer : $this->price;
+        //calculating price by applying either a discount amount or a discount percentage
+        $discounted_price = abs(Model_Coupon::current()->discount_amount);
+        if ($discounted_price > 0)
+            $discounted_price = round($this->price - $discounted_price, 2);
+        else
+        {
+            $discounted_price = abs(Model_Coupon::current()->discount_percentage);
+            if ($discounted_price > 0)
+                $discounted_price = round($this->price - ($this->price * $discounted_price / 100.0), 2);
+            else
+                // both discount_amount and discount_percentage are 0
+                $discounted_price = 0;
+        }
+        //in case calculated price is negative
+        return max($discounted_price, 0);
     }
 
     /**
