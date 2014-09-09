@@ -51,7 +51,6 @@
 	        			'data-original-title'=>__("Disallows (blocks) Bots and Crawlers"),
 	        			))?>
 	        			<?= FORM::label($forms['disallowbots']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['maintenance']['key']))?>
-	        			<?= FORM::hidden($forms['disallowbots']['key'], 0);?>
 	        		</div>
 	        	</div>
         </div>
