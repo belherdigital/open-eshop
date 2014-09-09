@@ -21,6 +21,7 @@
                     <?=Theme::admin_link(__('Support'), 'support','index','oc-panel','glyphicon glyphicon-comment')?>
                 	<?=Theme::admin_link(__('Stats'),'stats','index','oc-panel','glyphicon glyphicon-align-left')?>
                     <?=Theme::admin_link(__('Widgets'),'widget','index','oc-panel','glyphicon glyphicon-move')?>
+                    <? if(Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN):?>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="glyphicon glyphicon-cog"></i> <?=__('Cache')?> <b class="caret"></b>
@@ -31,7 +32,6 @@
                             <?=Theme::admin_link(__('Delete expired'),'tools','cache?force=2','oc-panel','glyphicon glyphicon-remove-circle')?>
                         </ul>
                     </li>
-                    <? if(Auth::instance()->get_user()->id_role===Model_Role::ROLE_ADMIN):?>
             	    <li  class="dropdown "><a href="#" class="dropdown-toggle"
             		      data-toggle="dropdown"><i class="glyphicon glyphicon-plus"></i> <?=__('New')?> <b class="caret"></b></a>
                     	<ul class="dropdown-menu">
@@ -43,7 +43,6 @@
                     		
                     	</ul>
             	   </li> 
-                   
                    <?endif?>
 
                 </ul>
