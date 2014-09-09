@@ -10,23 +10,23 @@
 
     <title><?=$title?></title>
     <meta name="keywords" content="<?=$meta_keywords?>" >
-    <meta name="description" content="<?=$meta_description?>" >
-    <meta name="copyright" content="<?=$meta_copyright?>" >
+    <meta name="description" content="<?=HTML::chars($meta_description)?>" >
+    <meta name="copyright" content="<?=HTML::chars($meta_copyright)?>" >
     <meta name="author" content="open-eshop.com">
     <?if (Controller::$image!==NULL):?>
-    <meta property="og:image"   content="<?=core::config('general.base_url').Controller::$image?>"/>
+    <meta property="og:image"   content="<?=core::config('general.base_url').Controller::$image?>" />
     <?endif?>
-    <meta property="og:title"   content="<?=$title?>"/>
-    <meta property="og:description"   content="<?=$meta_description?>"/>
-    <meta property="og:url"     content="<?=URL::current()?>"/>
-    <meta property="og:site_name" content="<?=core::config('general.site_name')?>"/>
+    <meta property="og:title"   content="<?=HTML::chars($title)?>" />
+    <meta property="og:description"   content="<?=HTML::chars($meta_description)?>" />
+    <meta property="og:url"     content="<?=URL::current()?>" />
+    <meta property="og:site_name" content="<?=HTML::chars(core::config('general.site_name'))?>" />
     
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link rel="alternate" type="application/atom+xml" title="RSS <?=HTML::chars(Core::config('general.site_name'))?>" href="<?=Route::url('rss')?>" />
 
     <?if (Model_Category::current()->loaded()):?>
-    <link rel="alternate" type="application/atom+xml"  title="RSS <?=HTML::chars(Core::config('general.site_name'))?> - <?=Model_Category::current()->name?>"  href="<?=Route::url('rss',array('category'=>Model_Category::current()->seoname))?>" />
+    <link rel="alternate" type="application/atom+xml"  title="RSS <?=HTML::chars(Core::config('general.site_name').' - '.Model_Category::current()->name)?>"  href="<?=Route::url('rss',array('category'=>Model_Category::current()->seoname))?>" />
     <?endif?>     
     
     <!-- Bootstrap core CSS -->
@@ -127,7 +127,7 @@
             <span class="icon-bar"></span>
           </button> 
           <a class="navbar-brand" href="<?=Route::url('default')?>">
-            <img src="<?=core::config('general.base_url').'images/favicon.ico'?>" alt="<?=HTML::chars(core::config('general.site_name'))?>"> 
+            <img src="<?=core::config('general.base_url').'images/favicon.ico'?>" alt="<?=HTML::chars(core::config('general.site_name'))?>" /> 
           </a>
           <a class="navbar-brand" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
             <?=$product->title?>
