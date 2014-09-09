@@ -27,7 +27,7 @@
 
 <div class="clearfix"></div><br><hr>
 
-<ul class="nav nav-pills invisible" id="statsTabs">
+<ul class="nav nav-pills" id="statsTabs">
     
     <li class="active"><a href="#sales" data-toggle="tab"><?=__('Sales')?></a></li>
     <li><a href="#visits" data-toggle="tab"><?=__('Visits')?></a></li>
