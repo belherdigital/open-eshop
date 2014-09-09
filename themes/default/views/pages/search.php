@@ -5,7 +5,7 @@
     <?= FORM::open(Route::url('search'), array('class'=>'form-search', 'method'=>'GET', 'action'=>''))?>
         <div class="">
             <div class="col-md-3 pl-0">
-                <input type="text" id="search" name="search" class="form-control" value="<?=core::get('search')?>" placeholder="<?=__('Name')?>">  
+                <input type="text" id="search" name="search" class="form-control" value="<?=HTML::chars(core::get('search'))?>" placeholder="<?=__('Name')?>">  
             </div>
         </div>
         <div class="">
@@ -16,7 +16,7 @@
                 <option value="<?=$cats[$key]['seoname']?>" <?=(core::get('category')==$cats[$key]['seoname']?'selected':'')?> >
                     <?=$cats[$key]['name']?></option>
                     <?if (count($item)>0):?>
-                    <optgroup label="<?=$cats[$key]['name']?>">    
+                    <optgroup label="<?=HTML::chars($cats[$key]['name'])?>">    
                         <? if (is_array($item)) array_walk($item, 'lili', $cats);?>
                     <?endif?>
                 <?}array_walk($order_categories, 'lili',$categories);?>
@@ -25,12 +25,12 @@
         </div>
         <div class="">
             <div class="col-md-2 pl-0">
-                <input type="text" id="price-min" name="price-min" class="form-control" value="<?=core::get('price-min')?>" placeholder="<?=__('Price from')?>">
+                <input type="text" id="price-min" name="price-min" class="form-control" value="<?=HTML::chars(core::get('price-min'))?>" placeholder="<?=__('Price from')?>">
             </div>
         </div>   
         <div class="">
             <div class="col-md-2 pl-0">
-                <input type="text" id="price-max" name="price-max" class="form-control" value="<?=core::get('price-max')?>" placeholder="<?=__('to')?>">
+                <input type="text" id="price-max" name="price-max" class="form-control" value="<?=HTML::chars(core::get('price-max'))?>" placeholder="<?=__('to')?>">
             </div>
         </div>
         <div class="adv-btn">
