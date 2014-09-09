@@ -25,33 +25,28 @@ Theme::$options = Theme::get_options();
 Theme::load(); 
 
 
-//local files
-    $theme_css = array(
-                        'http://netdna.bootstrapcdn.com/bootswatch/3.2.0/yeti/bootstrap.min.css' => 'screen',
-                        'http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' => 'screen',
-                        'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen',
-                        'http://cdn.jsdelivr.net/prettyphoto/3.1.6/css/prettyPhoto.css' => 'screen',
-                        'css/style.css?v='.Core::VERSION => 'screen',
-                        'css/yeti-style.css' => 'screen',
-                        'css/slider.css' => 'screen',
-                        );
-    if(Theme::get('rtl'))
-      $theme_css = array_merge($theme_css, array('css/bootstrap-rtl.min.css' => 'screen'));
+//external resources
+Theme::$styles = array(
+    Core::get_external_resource('bootswatch','yeti')['css'] => 'screen',
+    Core::get_external_resource('chosen')['css'] => 'screen',
+    Core::get_external_resource('prettyphoto')['css'] => 'screen',
+    'css/style.css?v='.Core::VERSION => 'screen',
+    'css/yeti-style.css' => 'screen',
+    'css/slider.css' => 'screen',
+);
+if(Theme::get('rtl'))
+    Theme::$styles = array_merge(Theme::$styles, array(Core::get_external_resource('bootstrap.rtl')['css'] => 'screen'));
 
-    Theme::$styles = $theme_css;
-
-    Theme::$scripts['footer']   = array('http://code.jquery.com/jquery-1.10.2.min.js',
-                                        'http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
-                                        'http://cdn.jsdelivr.net/prettyphoto/3.1.6/js/jquery.prettyPhoto.js',
-                                        'http://cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
-                                        Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
-                                        'js/bootstrap-slider.js',
-                                        'js/jquery.validate.min.js',
-                                        Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'validate')),
-                                        'js/theme.init.js?v='.Core::VERSION,
-                                        );
-
-
+Theme::$scripts['footer'] = array(
+    Core::get_external_resource('jquery')['js'],
+    Core::get_external_resource('bootstrap')['js'],
+    Core::get_external_resource('prettyphoto')['js'],
+    Core::get_external_resource('chosen')['js'],
+    'js/bootstrap-slider.js',
+    Core::get_external_resource('jquery.validate')['js'],
+    Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'validate')),
+    'js/theme.init.js?v='.Core::VERSION,
+);
 
 
 /**
