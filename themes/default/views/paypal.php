@@ -7,9 +7,9 @@
     <?=__('Please wait while we transfer you to Paypal');?><br /><br />
     <form name="form1" id="form1" action="<?=$paypal_url;?>" method="post">
         <input type="hidden" name="cmd" value="_xclick">
-        <input type="hidden" name="cbt" value="Return To <?=$site_name?>">
+        <input type="hidden" name="cbt" value="<?=HTML::chars(sprintf(__('Return to %s'),$site_name))?>">
         <input type="hidden" name="business" value="<?=$paypal_account?>">
-        <input type="hidden" name="item_name" value="<?=$item_name?>">
+        <input type="hidden" name="item_name" value="<?=HTML::chars($item_name)?>">
         <input type="hidden" name="item_number" value="<?=$product_id?>">
         <input type="hidden" name="amount" value="<?=$amount?>">
         <input type="hidden" name="quantity" value="1">
@@ -25,7 +25,7 @@
         <input type="hidden" name="currency_code" value="<?=$paypal_currency?>">
         <input type="hidden" name="rm" value="2">
         <input type="hidden" name="bn" value="OpenClassifieds_SP">
-        <input type="submit" value="<?=__('Click here if you are not redirected');?>">
+        <input type="submit" value="<?=HTML::chars(__('Click here if you are not redirected');?>">
     </form>
 </div>
 <script type="text/javascript">form1.submit();</script>
