@@ -418,8 +418,12 @@ class Controller_Product extends Controller{
         $this->template->title              = __('Advanced Search');
         $this->template->meta_description   = __('Search in').' '.Core::config('general.site_name');
 
-        $this->template->styles = array('//cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
-        $this->template->scripts['footer'] = array('//cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js');
+        $this->template->styles = array(
+            Core::get_external_resource('bootstrap.datepicker')['css'],
+        );
+        $this->template->scripts['footer'] = array(
+            Core::get_external_resource('bootstrap.datepicker')['js'],
+        );
 
         //breadcrumbs
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Home'))->set_url(Route::url('default')));
