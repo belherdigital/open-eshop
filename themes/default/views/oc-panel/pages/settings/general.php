@@ -380,7 +380,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<?= FORM::label($forms['alert_terms']['key'], "<a target='_blank' href='http://open-classifieds.com/2013/10/11/activate-access-terms-alert/'>".__('Accept Terms Alert')."</a>", array('class'=>'col-md-3 control-label', 'for'=>$forms['alert_terms']['key']))?>
+			<?= FORM::label($forms['alert_terms']['key'], '<a target="_blank" href="http://open-classifieds.com/2013/10/14/activate-access-terms-alert/">'.__('Accept Terms Alert')."</a>", array('class'=>'col-md-3 control-label', 'for'=>$forms['alert_terms']['key']))?>
 			<div class="col-md-5">
 				<?= FORM::select($forms['alert_terms']['key'], $pages, $forms['alert_terms']['value'], array( 
 				'class' => 'tips form-control', 
