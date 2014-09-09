@@ -11,11 +11,11 @@
     </div>
 <?endif?>
 
-<?if ( core::config('general.analytics')!='' AND Kohana::$environment === Kohana::PRODUCTION AND is_numeric($price_paid)): ?>
+<?if ( Kohana::$environment === Kohana::PRODUCTION AND core::config('general.analytics')!='' AND is_numeric($price_paid)): ?>
     <script type="text/javascript">
         _gaq.push(['_addTrans',
         '<?=session_id()?>',           // order ID - required
-        '<?=$product->title?>',  // affiliation or store name
+        '<?=HTML::chars($product->title)?>',  // affiliation or store name
         '<?=round($price_paid,2)?>',          // total - required
         '0',           // tax
         '',       // city
@@ -24,7 +24,7 @@
         _gaq.push(['_addItem',
         '<?=session_id()?>',           // order ID - required
         '<?=$product->seotitle?>',           // SKU/code - required
-        '<?=$product->title?>',        // product name
+        '<?=HTML::chars($product->title)?>',        // product name
         '<?=round($price_paid,2)?>',          // unit price - required
         '1'               // quantity - required
         ]);
