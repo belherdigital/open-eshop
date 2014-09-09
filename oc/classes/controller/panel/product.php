@@ -41,17 +41,17 @@ class Controller_Panel_Product extends Auth_Crud {
 
         Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title));
         $this->template->styles              = array('css/sortable.css' => 'screen',
-        											 'https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen',
-                                                     'https://cdn.jsdelivr.net/jquery.fileupload/9.5.2/css/jquery.fileupload.css'=>'screen',
+        											 '//cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen',
+                                                     '//cdn.jsdelivr.net/jquery.fileupload/9.5.2/css/jquery.fileupload.css'=>'screen',
                                                      'css/jasny-bootstrap.min.css'=>'screen',
                                                      );
-        $this->template->scripts['footer'] = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
+        $this->template->scripts['footer'] = array('//cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
                                                     'js/jasny-bootstrap.min.js',
         											 'js/oc-panel/products.js',
         											 'js/jquery-sortable-min.js',
-                                                     'https://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/vendor/jquery.ui.widget.js',
-                                                     'https://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.iframe-transport.js',
-                                                     'https://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.fileupload.js',
+                                                     '//cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/vendor/jquery.ui.widget.js',
+                                                     '//cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.iframe-transport.js',
+                                                     '//cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.fileupload.js',
                                                      );											 
         											 
 
@@ -131,16 +131,16 @@ class Controller_Panel_Product extends Auth_Crud {
 
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Edit Product')));
         $this->template->styles              = array('css/sortable.css' => 'screen',
-                                                     'https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen',
-                                                     'https://cdn.jsdelivr.net/jquery.fileupload/9.5.2/css/jquery.fileupload.css'=>'screen',
+                                                     '//cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen',
+                                                     '//cdn.jsdelivr.net/jquery.fileupload/9.5.2/css/jquery.fileupload.css'=>'screen',
                                                      'css/jasny-bootstrap.min.css'=>'screen');
-        $this->template->scripts['footer'] = array('https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
+        $this->template->scripts['footer'] = array('//cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
                                                     'js/jasny-bootstrap.min.js',
                                                      'js/oc-panel/products.js',
                                                      'js/jquery-sortable-min.js',
-                                                     'https://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/vendor/jquery.ui.widget.js',
-                                                     'https://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.iframe-transport.js',
-                                                     'https://cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.fileupload.js',
+                                                     '//cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/vendor/jquery.ui.widget.js',
+                                                     '//cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.iframe-transport.js',
+                                                     '//cdn.jsdelivr.net/jquery.fileupload/9.5.2/js/jquery.fileupload.js',
                                                      );
                                                      
                                                      
