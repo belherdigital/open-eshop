@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: OfficeGate Language Pack\n"
+"Project-Id-Version: Open from OpenClassifieds.com  \n"
 "POT-Creation-Date: 2013-11-08 11:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -2026,19 +2026,15 @@ msgstr ""
 msgid "We really appreciate it"
 msgstr ""
 
-#: install/index.php:165
-msgid "Welcome to"
+#: install/views/form.php:5
+msgid "Welcome to %s installation"
 msgstr ""
 
-#: install/index.php:165
-msgid "installation"
-msgstr ""
-
-#: install/index.php:167
+#: install/views/form.php:7
 msgid "Welcome to the super easy and fast installation"
 msgstr ""
 
-#: install/index.php:169
+#: install/views/form.php:9
 msgid "If you need any help please check our professional services"
 msgstr ""
 
