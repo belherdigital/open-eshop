@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Open from OpenClassifieds.com  \n"
+"Project-Id-Version: Open eShop from OpenClassifieds.com  \n"
 "POT-Creation-Date: 2013-11-08 11:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -264,7 +264,11 @@ msgstr ""
 msgid "Repeat password"
 msgstr ""
 
-#: themes/default/views/oc-panel/profile/edit.php:50
+#: oc/common/views/pages/auth/register-form.php:31
+msgid "Type your password twice"
+msgstr ""
+
+#: themes/default/views/oc-panel/profile/edit.php:70
 msgid "Type your password twice to change"
 msgstr ""
 
