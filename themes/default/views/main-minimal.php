@@ -7,6 +7,9 @@
 <head>
 	<meta charset="<?=Kohana::$charset?>">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<?if (core::config('general.disallowbots')=='1'):?>
+		<meta name="robots" content="noindex,nofollow,noodp,noydir" /><meta name="googlebot" content="noindex,noarchive,nofollow,noodp" /><meta name="slurp" content="noindex,nofollow,noodp" /><meta name="bingbot" content="noindex,nofollow,noodp,noydir" /><meta name="msnbot" content="noindex,nofollow,noodp,noydir" />
+	<?endif?>
 
 	<title><?=$title?></title>
     <meta name="keywords" content="<?=$meta_keywords?>" >
