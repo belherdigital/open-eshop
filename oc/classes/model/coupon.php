@@ -31,6 +31,37 @@ class Model_Coupon extends ORM {
     );
 
     /**
+     * Rule definitions for validation
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return array(
+                    'valid_date'             => array(  array('not_empty'),array('date') ),
+                    'number_coupons'         => array(  array('not_empty'),
+                                                        array('numeric'),
+                                                        array('range',array(':value',0,10000000000)),
+                                                    ),
+                    'discount_amount'        => array(  array('numeric'),
+                                                        array('range',array(':value',0,10000000000)),
+                                                    ),
+                    'discount_percentage'    => array(  array('numeric'),
+                                                        array('range',array(':value',0,100)),
+                                                    ),
+                    'notes'                   => array(
+                                                        array('max_length', array(':value', 245)),
+                                                    ),
+                    'name'                   => array(
+                                                        array('not_empty'),
+                                                        array('max_length', array(':value', 145)),
+                                                        array('min_length', array(':value', 3)),
+                                                        array(array($this, 'unique'), array('name', ':value')),
+                                                    ),
+                );
+    }
+
+    /**
      * global Model Coupon instance get from controller so we can access from anywhere like Model_Coupon::current()
      * @var Model_Coupon
      */

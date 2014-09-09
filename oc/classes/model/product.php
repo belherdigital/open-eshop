@@ -101,6 +101,7 @@ class Model_Product extends ORM {
         // only calculate price if coupon is NULL or for that poroduct
         if ($this->valid_coupon())
         {
+            $calc_price = 0;
             //calculating price
             if (Model_Coupon::current()->discount_amount>0)
                 $calc_price = round($this->price - Model_Coupon::current()->discount_amount,2);
