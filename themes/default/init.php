@@ -30,7 +30,7 @@ Theme::load();
                         '//netdna.bootstrapcdn.com/bootswatch/3.2.0/yeti/bootstrap.min.css' => 'screen',
                         '//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' => 'screen',
                         '//cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen',
-                        '//cdn.jsdelivr.net/prettyphoto/3.1.6/css/prettyPhoto.css' => 'screen',
+                        '//cdn.jsdelivr.net/prettyphoto/3.1.5/css/prettyPhoto.css' => 'screen',
                         'css/style.css?v='.Core::VERSION => 'screen',
                         'css/yeti-style.css' => 'screen',
                         'css/slider.css' => 'screen',
@@ -42,7 +42,7 @@ Theme::load();
 
     Theme::$scripts['footer']   = array('//code.jquery.com/jquery-1.10.2.min.js',
                                         '//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
-                                        '//cdn.jsdelivr.net/prettyphoto/3.1.6/js/jquery.prettyPhoto.js',
+                                        '//cdn.jsdelivr.net/prettyphoto/3.1.5/js/jquery.prettyPhoto.js',
                                         '//cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
                                         Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
                                         'js/bootstrap-slider.js',
