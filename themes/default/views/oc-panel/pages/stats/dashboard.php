@@ -26,9 +26,9 @@
     <button type="submit" class="btn btn-primary"><?=__('Filter')?></button>
 </form>
 
-<div class="clearfix"></div><br><hr>
+<br>
 
-<ul class="nav nav-pills" id="statsTabs">
+<ul class="nav nav-tabs" id="statsTabs">
     
     <li class="active"><a href="#sales" data-toggle="tab"><?=__('Sales')?></a></li>
     <li><a href="#visits" data-toggle="tab"><?=__('Visits')?></a></li>
@@ -41,8 +41,8 @@
 
 <div class="tab-content" >
     <!-- SALES TAB -->
-    <div class="tab-pane active" id="sales">
-        <div class="clearfix"></div><br>
+    <div class="tab-pane fade in active" id="sales">
+        <br>
         <table class="table table-bordered table-condensed">
             <thead>
                 <tr>
@@ -76,8 +76,8 @@
                                     'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>          
     </div>
     <!-- VISITS TAB -->
-    <div class="tab-pane active" id="visits">
-        <div class="clearfix"></div><br>
+    <div class="tab-pane fade" id="visits">
+        <br>
         <table class="table table-bordered table-condensed">
             <thead>
                 <tr>
@@ -110,7 +110,7 @@
                                         'width'=>'100%'))?> 
     </div>
     <!-- DOWNLOADS TAB -->
-    <div class="tab-pane active" id="downloads">
+    <div class="tab-pane fade" id="downloads">
         <div class="clearfix"></div><br>
         <table class="table table-bordered table-condensed">
             <thead>
@@ -144,8 +144,8 @@
                             'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>
     </div>
     <!-- tickets TAB -->
-    <div class="tab-pane active" id="tickets">
-        <div class="clearfix"></div><br>
+    <div class="tab-pane fade" id="tickets">
+        <br>
         <table class="table table-bordered table-condensed">
             <thead>
                 <tr>
@@ -184,8 +184,8 @@
                             ))?>
     </div>
     <!-- Licenses TAB -->
-    <div class="tab-pane active" id="licenses">
-        <div class="clearfix"></div><br>
+    <div class="tab-pane fade" id="licenses">
+        <br>
         <table class="table table-bordered table-condensed">
             <thead>
                 <tr>
@@ -219,46 +219,49 @@
                             'width'=>'100%',
                             'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>
     </div>
-    <div class="tab-pane active" id="products">
-        <div class="col-md-9">
-            <h3><?=__('Totals products')?></h3>
-            <table class="table table-bordered table-condensed sortable">
-                <thead>
-                    <tr>
-                        <th><?=__('Product')?></th>
-                        <th>$$$</th>
-                        <th><?=__('Orders')?></th>
-                        <th><?=__('Views')?></th>
-                        <th><?=__('Downloads')?></th>
-                        <th><?=__('Licenses')?></th>
-                        <th><?=__('Open tickets')?></th>
-                        <th><?=__('Closed tickets')?></th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <?foreach ($products as $p):?>
-                    
-                    <tr>
-                        <td><a href="<?=Route::url('oc-panel', array('id'=>$p->seotitle,'controller'=>'stats','action'=>'index')) ?>">
-                            <?=$p->title?></a></td>
-                        <td><?=(isset($orders_product[$p->id_product]))?round($orders_product[$p->id_product]['total'],2):0?></td>
-                        <td><?=(isset($orders_product[$p->id_product]))?$orders_product[$p->id_product]['count']:0?></td>
-                        <td><?=(isset($visits_product[$p->id_product]))?$visits_product[$p->id_product]['count']:0?></td>
-                        <td><?=(isset($downloads_product[$p->id_product]))?$downloads_product[$p->id_product]['count']:0?></td>
-                        <td><?=(isset($licenses_product[$p->id_product]))?$licenses_product[$p->id_product]['count']:0?></td>
-                        <td><?=(isset($tickets_open_product[$p->id_product]))?$tickets_open_product[$p->id_product]['count']:0?></td>
-                        <td><?=(isset($tickets_closed_product[$p->id_product]))?$tickets_closed_product[$p->id_product]['count']:0?></td>
-                    </tr>
-                    <?endforeach?>
-                </tbody>
-            </table>
-
-        </div> 
-        <div class="col-md-9">
-            <?=Chart::pie($products_total,array(
-                                        'height'=>600,
-                                        'width'=>'100%'))?> 
+    <div class="tab-pane fade" id="products">
+        <div class="row">
+            <div class="col-md-9">
+                <h3><?=__('Totals products')?></h3>
+                <table class="table table-bordered table-condensed table-striped sortable">
+                    <thead>
+                        <tr>
+                            <th><?=__('Product')?></th>
+                            <th>$$$</th>
+                            <th><?=__('Orders')?></th>
+                            <th><?=__('Views')?></th>
+                            <th><?=__('Downloads')?></th>
+                            <th><?=__('Licenses')?></th>
+                            <th><?=__('Open tickets')?></th>
+                            <th><?=__('Closed tickets')?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <?foreach ($products as $p):?>
+                        
+                        <tr>
+                            <td><a href="<?=Route::url('oc-panel', array('id'=>$p->seotitle,'controller'=>'stats','action'=>'index')) ?>">
+                                <?=$p->title?></a></td>
+                            <td><?=(isset($orders_product[$p->id_product]))?round($orders_product[$p->id_product]['total'],2):0?></td>
+                            <td><?=(isset($orders_product[$p->id_product]))?$orders_product[$p->id_product]['count']:0?></td>
+                            <td><?=(isset($visits_product[$p->id_product]))?$visits_product[$p->id_product]['count']:0?></td>
+                            <td><?=(isset($downloads_product[$p->id_product]))?$downloads_product[$p->id_product]['count']:0?></td>
+                            <td><?=(isset($licenses_product[$p->id_product]))?$licenses_product[$p->id_product]['count']:0?></td>
+                            <td><?=(isset($tickets_open_product[$p->id_product]))?$tickets_open_product[$p->id_product]['count']:0?></td>
+                            <td><?=(isset($tickets_closed_product[$p->id_product]))?$tickets_closed_product[$p->id_product]['count']:0?></td>
+                        </tr>
+                        <?endforeach?>
+                    </tbody>
+                </table>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <?=Chart::pie($products_total,array(
+                                            'height'=>600,
+                                            'width'=>'100%'))?> 
+            </div>
         </div>
     </div>
 </div>

@@ -272,6 +272,18 @@ div.sceditor-group{padding: 1px 15px 5px 5px!important;}
 .note-image-dialog input.note-image-input {display:none;}
 /*col-md*/
 
+/* bootstrap hack to fix content width inside hidden tabs */
+.tab-content > .tab-pane,
+.pill-content > .pill-pane {
+	display: block;
+	height: 0;
+	overflow-y: hidden;
+}
+.tab-content > .active,
+.pill-content > .active {
+	height: auto;
+}
+
 @media screen and (max-width: 979px) {
 	.navbar .nav{float: left!important;}
 	.btn-sidebar-menu{display: block; margin-left: 10px;}
