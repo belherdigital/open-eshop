@@ -43,24 +43,25 @@
 		                    <div class="accordion-heading"> 
 
 		                        <?if (count($item)>0):?>
-		                            <label class="radio">
-		                            	<a class="btn btn-primary btn-xs" data-toggle="collapse" type="button"  
-		                               	 	data-target="#acc_<?=$cats['categories'][$key]['seoname']?>">                    
-		                                	<i class=" glyphicon glyphicon-plus"></i> <?=$cats['categories'][$key]['name']?>
-		                            	</a>
-		                            <input <?=($cats['categories'][$key]['seoname']==$cats['cat_selected'])?'checked':''?> type="radio" id="radio_<?=$cats['categories'][$key]['seoname']?>" name="id_category" value="<?=$cats['categories'][$key]['id']?>" required > 
-		                                                    
-		                            </label>
-		                            
+                                    <div class="radio">
+                                        <label>
+                                            <input <?=($cats['categories'][$key]['seoname']==$cats['cat_selected'])?'checked':''?> type="radio" id="radio_<?=$cats['categories'][$key]['seoname']?>" name="id_category" value="<?=$cats['categories'][$key]['id']?>" required> 
+                                            <a class="btn btn-primary btn-xs" data-toggle="collapse" type="button"  
+                                                data-target="#acc_<?=$cats['categories'][$key]['seoname']?>">                    
+                                                <i class=" glyphicon glyphicon-plus"></i> <?=$cats['categories'][$key]['name']?>
+                                            </a>
+                                        </label>
+                                    </div>
 		                        <?else:?>
-		                            <label class="radio">
-		                            <input <?=($cats['categories'][$key]['seoname']==$cats['cat_selected'])?'checked':''?> type="radio" id="radio_<?=$cats['categories'][$key]['seoname']?>" name="id_category" value="<?=$cats['categories'][$key]['id']?>" required > 
-		                            
-		                           		<a class="btn btn-xs btn-primary" data-toggle="collapse" type="button"  
-		                               	 	data-target="#acc_<?=$cats['categories'][$key]['seoname']?>">                    
-		                                	<?=$cats['categories'][$key]['name']?>
-		                            	</a>
-		                            </label>
+                                    <div class="radio">
+                                        <label>
+                                            <input <?=($cats['categories'][$key]['seoname']==$cats['cat_selected'])?'checked':''?> type="radio" id="radio_<?=$cats['categories'][$key]['seoname']?>" name="id_category" value="<?=$cats['categories'][$key]['id']?>" required> 
+                                            <a class="btn btn-xs btn-primary" data-toggle="collapse" type="button"  
+                                                data-target="#acc_<?=$cats['categories'][$key]['seoname']?>">                    
+                                                <?=$cats['categories'][$key]['name']?>
+                                            </a>
+                                        </label>
+                                    </div>
 		                        <?endif?>
 		                    </div>
 
