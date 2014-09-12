@@ -24,25 +24,25 @@
 		                        <div class="accordion-heading"> 
 
 		                            <?if (count($item)>0):?>
-		                                <label class="radio">
-		                                	<a class="btn btn-primary btn-xs" data-toggle="collapse" type="button"  
-		                                   	 	data-target="#acc_<?=$cats[$key]['seoname']?>">                    
-		                                    	<i class=" glyphicon glyphicon-plus"></i> <?=$cats[$key]['name']?>
-		                                	</a>
-		                                <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" name="id_category" value="<?=$cats[$key]['id']?>"  REQUIRED> 
-		                                                                
-		                                </label>
-		                                
+                                        <div class="radio">
+                                            <label>
+                                                <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" name="id_category" value="<?=$cats[$key]['id']?>" required>
+                                                <a class="btn btn-primary btn-xs" data-toggle="collapse" type="button"  
+                                                    data-target="#acc_<?=$cats[$key]['seoname']?>">                    
+                                                    <i class=" glyphicon glyphicon-plus"></i> <?=$cats[$key]['name']?>
+                                                </a>
+                                            </label>
+                                        </div>
 		                            <?else:?>
-		                                <label class="radio">
-		                                <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" name="id_category" value="<?=$cats[$key]['id']?>"  REQUIRED> 
-		                                
-		                               		<a class="btn btn-xs btn-primary" data-toggle="collapse" type="button"  
-		                                   	 	data-target="#acc_<?=$cats[$key]['seoname']?>">                    
-		                                    	<?=$cats[$key]['name']?>
-		                                	</a>
-		                                
-		                                </label>
+                                        <div class="radio">
+                                            <label>
+                                                <input <?=($cats[$key]['seoname']==Core::get('category'))?'checked':''?> type="radio" id="radio_<?=$cats[$key]['seoname']?>" name="id_category" value="<?=$cats[$key]['id']?>" required>
+                                                <a class="btn btn-xs btn-primary" data-toggle="collapse" type="button"  
+                                                    data-target="#acc_<?=$cats[$key]['seoname']?>">                    
+                                                    <?=$cats[$key]['name']?>
+                                                </a>
+                                            </label>
+                                        </div>
 		                            <?endif?>
 		                        </div>
 
