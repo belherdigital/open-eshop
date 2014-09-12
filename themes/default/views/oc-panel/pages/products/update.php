@@ -140,8 +140,11 @@
 
 				<div class="form-group">
 					<?= FORM::label('offer_valid', __('Offer Valid'), array('class'=>'col-md-12', 'for'=>'offer_valid'))?>
-					<div class="col-md-8">	
-						<input  type="text" size="16" id="offer_valid" name="offer_valid"  value="<?=($product->offer_valid!=NULL)?Date::format($product->offer_valid,'Y-m-d'):''?>" class="form-control" data-date="" data-date-format="yyyy-mm-dd">
+					<div class="col-md-8">
+    					   <div class="input-group">
+                            <input  type="text" size="16" id="offer_valid" name="offer_valid"  value="<?=($product->offer_valid!=NULL)?Date::format($product->offer_valid,'Y-m-d'):''?>" class="form-control" data-date="" data-date-format="yyyy-mm-dd">
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+    					   </div>
 		            </div>
 		        </div>
 			</div>
@@ -203,8 +206,11 @@
 
 				<div class="form-group">
 		            <?= FORM::label('featured', __('Feature product'), array('class'=>'col-md-12', 'for'=>'featured'))?>
-		            <div class="col-md-8">  
-		                <input  type="text" size="16" id="featured" name="featured"  value="<?=($product->featured!=NULL)?Date::format($product->featured,'Y-m-d'):''?>" class="form-control" data-date="" data-date-format="yyyy-mm-dd">
+		            <div class="col-md-8">
+                        <div class="input-group">
+                            <input  type="text" size="16" id="featured" name="featured" value="<?=($product->featured!=NULL)?Date::format($product->featured,'Y-m-d'):''?>" class="form-control" data-date="" data-date-format="yyyy-mm-dd">
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                        </div>
 		            </div>
 		        </div>
 
