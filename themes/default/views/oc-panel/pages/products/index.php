@@ -1,9 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 <div class="page-header">
 	<h1><?=ucfirst(__($name))?></h1>
-	<?if(Request::current()->controller() == 'content'):?>
-	<a target='_blank' href='http://open-classifieds.com/2013/08/27/automatic-emails-sent-to-users/'><?=__('Automatic emails sent to users')?></a>
-	<?endif?>
 	
 	<a class="btn btn-primary pull-right" href="<?=Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'create')) ?>">
 		<i class="glyphicon glyphicon-pencil"></i>
