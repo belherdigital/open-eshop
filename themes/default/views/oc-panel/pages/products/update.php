@@ -258,7 +258,6 @@
 				<?endif?>
 				<div class="clearfix"></div>	
 				<!-- ./end images -->
-				<div class="form-group">
 					<?if (core::config('product.num_images') > count($images)):?> <!-- permition to add more images-->
 						<div class="fileinput fileinput-new" data-provides="fileinput">
 						  	<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
@@ -274,7 +273,6 @@
 						  	</div>
 						</div>
 					<?endif?>
-				</div>
 				<hr>
 				<div class="panel-title">
 			    	<h2><small><?=__('Digital file')?></small></h2> 
@@ -291,6 +289,7 @@
 							    <span class="label label-info"> 
 							        <?=round(filesize(DOCROOT.'data/'.$product->file_name)/pow(1024, 2),2)?>MB
 							    </span>
+                                &nbsp;
 							    <span class="label label-info">
 							        <?=__('Uploaded').' '.Date::unix2mysql(filemtime(DOCROOT.'data/'.$product->file_name))?> 
 							    </span>
