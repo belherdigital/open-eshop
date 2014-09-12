@@ -122,10 +122,13 @@
 							<input  type="text" size="16" id="offer_valid" name="offer_valid"  value="" class="form-control " data-date="" data-date-format="yyyy-mm-dd">
 		                </div>
 		            </div>
-		            <hr>
-		            <div class="panel-title">
-				    	<h4><small><?=__('Support Details')?></small></h4> 
-				  	</div>
+                </div>
+            </div>
+            <div class="panel panel-primary product-panel">
+                <div class="panel-heading">
+                    <span class="fa fa-life-ring"></span> <?=__('Support Details')?>
+                </div>
+                <div class="panel-body">
 				  	<div class="form-group">
 						<?= FORM::label('licenses', __('Licenses'), array('class'=>'col-md-12 ', 'for'=>'licenses'))?>
 						<div class="col-md-12">
