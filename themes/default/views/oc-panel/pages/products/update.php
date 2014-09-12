@@ -231,33 +231,31 @@
 				<h3 class="panel-title"><span class="glyphicon glyphicon-file"></span> <?=__('Upload files')?></h3>
 			</div>
   			<div class="panel-body">
-	  			<div class="form-group">
-					<?$images = $product->get_images()?>
-					<?if($images):?>
-					
-						<?php foreach ($images as $path => $value):?>
-						<?if(isset($value['thumb'])): // only formated images (not originals)?>
-						<?$img_name = str_replace(".jpg", "", substr(strrchr($value['thumb'], "/"), 1 ));?>
-						<div class="col-md-3">
-							<a class="thumbnail">
-								<img src="<?=URL::base().$value['thumb']?>" class="img-rounded" alt="">
-							</a>
-							
-							<button class="btn btn-danger index-delete pull-right"
-							   onclick="return confirm('<?=__('Delete?')?>');" 
-							   type="submit" 
-							   name="img_delete"
-							   value="<?=$img_name?>" 
-							   rel="tooltip"
-							   title="<?=__('Delete image')?>">
-								<?=__('Delete')?>
-							</button>
-						</div>
-						<?endif?>
-						<?endforeach?>
-					
-					<?endif?>
-				</div>
+      			<?$images = $product->get_images()?>
+      			<?if($images):?>
+        	  			<div class="form-group">
+        					<?php foreach ($images as $path => $value):?>
+        						<?if(isset($value['thumb'])): // only formated images (not originals)?>
+            						<?$img_name = str_replace(".jpg", "", substr(strrchr($value['thumb'], "/"), 1 ));?>
+            						<div class="col-md-3">
+            							<a class="thumbnail">
+            								<img src="<?=URL::base().$value['thumb']?>" class="img-rounded" alt="">
+            							</a>
+            							
+            							<button class="btn btn-danger index-delete pull-right"
+            							   onclick="return confirm('<?=__('Delete?')?>');" 
+            							   type="submit" 
+            							   name="img_delete"
+            							   value="<?=$img_name?>" 
+            							   rel="tooltip"
+            							   title="<?=__('Delete image')?>">
+            								<?=__('Delete')?>
+            							</button>
+            						</div>
+        						<?endif?>
+        					<?endforeach?>
+        				</div>
+				<?endif?>
 				<div class="clearfix"></div>	
 				<!-- ./end images -->
 				<div class="form-group">
