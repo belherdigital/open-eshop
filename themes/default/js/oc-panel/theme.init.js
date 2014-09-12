@@ -132,6 +132,7 @@ $(function(){
                                         if ( history.replaceState ) history.pushState( {}, document.title, pageurl );
                                         $('.br').removeClass('active');
                                         button.closest('.br').addClass('active');
+                                        button.css('cursor','');
                                         $("#content").html(data);
                                         init_panel();});
 
