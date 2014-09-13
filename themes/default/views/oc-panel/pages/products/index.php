@@ -1,9 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 <div class="page-header">
 	<h1><?=ucfirst(__($name))?></h1>
-	<?if(Request::current()->controller() == 'content'):?>
-	<a target='_blank' href='http://open-classifieds.com/2013/08/27/automatic-emails-sent-to-users/'><?=__('Automatic emails sent to users')?></a>
-	<?endif?>
 	
 	<a class="btn btn-primary pull-right" href="<?=Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'create')) ?>">
 		<i class="glyphicon glyphicon-pencil"></i>
@@ -40,9 +37,9 @@
                     </a>
                 </td>
 				<?if ($controller->allowed_crud_action('delete') OR $controller->allowed_crud_action('update')):?>
-				<td width="80" style="width:80px;">
+				<td style="width: 1px; white-space:nowrap;">
 					<?if ($controller->allowed_crud_action('update')):?>
-					<a title="<?=__('Edit')?>" class="btn btn-primary" href="<?=Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'update','id'=>$element->pk()))?>">
+					<a class="btn btn-primary" href="<?=Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'update','id'=>$element->pk()))?>" title="<?=__('Edit')?>" data-toggle="tooltip" data-placement="left">
 						<i class="glyphicon glyphicon-edit"></i>
 					</a>
 					<?endif?>
@@ -52,7 +49,7 @@
 						<i class="glyphicon glyphicon-trash"></i>
 					</a>
 					<?endif?>
-                    <a class="btn btn-default" href="<?=Route::url('oc-panel', array('id'=>$element->seotitle,'controller'=>'stats','action'=>'index')) ?>">
+                    <a class="btn btn-default" href="<?=Route::url('oc-panel', array('id'=>$element->seotitle,'controller'=>'stats','action'=>'index')) ?>" title="<?=__('Stats').' '.HTML::chars($element->title)?>" data-toggle="tooltip" data-placement="left">
                         <i class="glyphicon glyphicon-align-left"></i>
                     </a>
 				</td>

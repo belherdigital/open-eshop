@@ -140,15 +140,20 @@
 
 				<div class="form-group">
 					<?= FORM::label('offer_valid', __('Offer Valid'), array('class'=>'col-md-12', 'for'=>'offer_valid'))?>
-					<div class="col-md-8">	
-						<input  type="text" size="16" id="offer_valid" name="offer_valid"  value="<?=($product->offer_valid!=NULL)?Date::format($product->offer_valid,'Y-m-d'):''?>" class="form-control" data-date="" data-date-format="yyyy-mm-dd">
+					<div class="col-md-8">
+    					   <div class="input-group">
+                            <input  type="text" size="16" id="offer_valid" name="offer_valid"  value="<?=($product->offer_valid!=NULL)?Date::format($product->offer_valid,'Y-m-d'):''?>" class="form-control" data-date="" data-date-format="yyyy-mm-dd">
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+    					   </div>
 		            </div>
 		        </div>
-
-				<hr>
-	            <div class="panel-title">
-			    	<h4><small><?=__('Support Details')?></small></h4> 
-			  	</div>
+			</div>
+		</div>
+        <div class="panel panel-primary product-panel">
+            <div class="panel-heading">
+                <span class="fa fa-life-ring"></span> <?=__('Support Details')?>
+            </div>
+            <div class="panel-body">
 		        <div class="form-group">
 					<?= FORM::label('support_days', __('Support Days'), array('class'=>'col-md-12', 'for'=>'support_days'))?>
 					<div class="col-md-12">
@@ -201,8 +206,11 @@
 
 				<div class="form-group">
 		            <?= FORM::label('featured', __('Feature product'), array('class'=>'col-md-12', 'for'=>'featured'))?>
-		            <div class="col-md-8">  
-		                <input  type="text" size="16" id="featured" name="featured"  value="<?=($product->featured!=NULL)?Date::format($product->featured,'Y-m-d'):''?>" class="form-control" data-date="" data-date-format="yyyy-mm-dd">
+		            <div class="col-md-8">
+                        <div class="input-group">
+                            <input  type="text" size="16" id="featured" name="featured" value="<?=($product->featured!=NULL)?Date::format($product->featured,'Y-m-d'):''?>" class="form-control" data-date="" data-date-format="yyyy-mm-dd">
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                        </div>
 		            </div>
 		        </div>
 
@@ -223,36 +231,33 @@
 				<h3 class="panel-title"><span class="glyphicon glyphicon-file"></span> <?=__('Upload files')?></h3>
 			</div>
   			<div class="panel-body">
-	  			<div class="form-group">
-					<?$images = $product->get_images()?>
-					<?if($images):?>
-					
-						<?php foreach ($images as $path => $value):?>
-						<?if(isset($value['thumb'])): // only formated images (not originals)?>
-						<?$img_name = str_replace(".jpg", "", substr(strrchr($value['thumb'], "/"), 1 ));?>
-						<div class="col-md-3">
-							<a class="thumbnail">
-								<img src="<?=URL::base().$value['thumb']?>" class="img-rounded" alt="">
-							</a>
-							
-							<button class="btn btn-danger index-delete pull-right"
-							   onclick="return confirm('<?=__('Delete?')?>');" 
-							   type="submit" 
-							   name="img_delete"
-							   value="<?=$img_name?>" 
-							   rel="tooltip"
-							   title="<?=__('Delete image')?>">
-								<?=__('Delete')?>
-							</button>
-						</div>
-						<?endif?>
-						<?endforeach?>
-					
-					<?endif?>
-				</div>
+      			<?$images = $product->get_images()?>
+      			<?if($images):?>
+        	  			<div class="form-group">
+        					<?php foreach ($images as $path => $value):?>
+        						<?if(isset($value['thumb'])): // only formated images (not originals)?>
+            						<?$img_name = str_replace(".jpg", "", substr(strrchr($value['thumb'], "/"), 1 ));?>
+            						<div class="col-md-3">
+            							<a class="thumbnail">
+            								<img src="<?=URL::base().$value['thumb']?>" class="img-rounded" alt="">
+            							</a>
+            							
+            							<button class="btn btn-danger index-delete pull-right"
+            							   onclick="return confirm('<?=__('Delete?')?>');" 
+            							   type="submit" 
+            							   name="img_delete"
+            							   value="<?=$img_name?>" 
+            							   rel="tooltip"
+            							   title="<?=__('Delete image')?>">
+            								<?=__('Delete')?>
+            							</button>
+            						</div>
+        						<?endif?>
+        					<?endforeach?>
+        				</div>
+				<?endif?>
 				<div class="clearfix"></div>	
 				<!-- ./end images -->
-				<div class="form-group">
 					<?if (core::config('product.num_images') > count($images)):?> <!-- permition to add more images-->
 						<div class="fileinput fileinput-new" data-provides="fileinput">
 						  	<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
@@ -268,7 +273,6 @@
 						  	</div>
 						</div>
 					<?endif?>
-				</div>
 				<hr>
 				<div class="panel-title">
 			    	<h2><small><?=__('Digital file')?></small></h2> 
@@ -285,6 +289,7 @@
 							    <span class="label label-info"> 
 							        <?=round(filesize(DOCROOT.'data/'.$product->file_name)/pow(1024, 2),2)?>MB
 							    </span>
+                                &nbsp;
 							    <span class="label label-info">
 							        <?=__('Uploaded').' '.Date::unix2mysql(filemtime(DOCROOT.'data/'.$product->file_name))?> 
 							    </span>
