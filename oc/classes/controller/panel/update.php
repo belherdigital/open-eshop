@@ -140,7 +140,7 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
         $categories = $categories->find_all();
         foreach ($categories as $category) 
         {
-            $category->description = Text::bb2html($category->description,TRUE);
+            $category->description = Text::bb2html($category->description,TRUE,FALSE);
             try {
                 $category->save();
             } catch (Exception $e) {}
@@ -151,7 +151,7 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
         $contents = $contents->find_all();
         foreach ($contents as $content) 
         {
-            $content->description = Text::bb2html($content->description,TRUE);
+            $content->description = Text::bb2html($content->description,TRUE,FALSE);
             try {
                 $content->save();
             } catch (Exception $e) {}
@@ -162,7 +162,7 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
 		$posts = $posts->where('id_forum','IS',NULL)->find_all();
         foreach ($posts as $post) 
         {
-            $post->description = Text::bb2html($post->description,TRUE);
+            $post->description = Text::bb2html($post->description,TRUE,FALSE);
             try {
                 $post->save();
             } catch (Exception $e) {}
