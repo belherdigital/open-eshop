@@ -126,7 +126,7 @@
                             'data-original-title'=>'',
                             ))?>
 
-                            <?= FORM::label($forms['smtp_auth']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['smtp_auth']['key']))?>
+                            <?= FORM::label($forms['smtp_active']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['smtp_active']['key']))?>
 						</div>
 					</div>
 				</div>
