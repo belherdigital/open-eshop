@@ -330,7 +330,7 @@ class Controller_Panel_Category extends Auth_Crud {
                 $icon_name = $category->seoname.'.png';
                 
                 // if folder does not exist, try to make it
-               	if ( ! is_dir($root) AND ! @mkdir($root, 0775, true)) { // mkdir not successful ?
+               	if ( ! is_dir($root) AND ! @mkdir($root, 0775, TRUE)) { // mkdir not successful ?
                         Alert::set(Alert::ERROR, __('Image folder is missing and cannot be created with mkdir. Please correct to be able to upload images.'));
                         return FALSE; // exit function
                 };
