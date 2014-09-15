@@ -64,7 +64,8 @@ class Model_Review extends ORM {
         $form->fields['id_product']['display_as']   = 'select';
         $form->fields['id_product']['caption']      = 'title';  
         $form->fields['id_user']['display_as']      = 'text';
-        $form->fields['id_order']['display_as']      = 'text';
+        $form->fields['id_order']['display_as']     = 'text';
+        $form->fields['description']['display_as']   = 'textarea';
     }
 
     /**
