@@ -2,6 +2,9 @@
 <div class="page-header">
     <?if ($category!==NULL):?>
         <h1><?=$category->name?></h1>
+        <?if(( $icon_src = $category->get_icon() )!==FALSE ):?>
+            <img src="<?=$icon_src?>" class="img-responsive" alt="<?=HTML::chars($category->name)?>">
+        <?endif?>
         <?if (strlen($category->description)>0):?>
             <div class="well advise clearfix" id="advise">
                 <p><?=$category->description?></p>
@@ -13,13 +16,25 @@
 </div>
 
 <div class="btn-group pull-right">
-    <a href="#" id="list" class="btn btn-default btn-sm <?=(core::cookie('list/grid')==1)?'active':''?>">
-        <span class="glyphicon glyphicon-th-list"></span><?=__('List')?>
-    </a> 
-    <a href="#" id="grid" class="btn btn-default btn-sm <?=(core::cookie('list/grid')==0)?'active':''?>">
-        <span class="glyphicon glyphicon-th"></span><?=__('Grid')?>
-    </a>
-</div>
+        <a href="#" id="list" class="btn btn-default btn-sm <?=(core::cookie('list/grid')==1)?'active':''?>">
+            <span class="glyphicon glyphicon-th-list"></span><?=__('List')?>
+        </a> 
+        <a href="#" id="grid" class="btn btn-default btn-sm <?=(core::cookie('list/grid')==0)?'active':''?>">
+            <span class="glyphicon glyphicon-th"></span><?=__('Grid')?>
+        </a>
+        <button type="button" id="sort" data-sort="<?=core::request('sort')?>" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-list-alt"></span><?=__('Sort')?> <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" id="sort-list">
+            <li><a href="?sort=title-asc"><?=__('Name (A-Z)')?></a></li>
+            <li><a href="?sort=title-desc"><?=__('Name (Z-A)')?></a></li>
+            <li><a href="?sort=price-asc"><?=__('Price (Low)')?></a></li>
+            <li><a href="?sort=price-desc"><?=__('Price (High)')?></a></li>
+            <li><a href="?sort=featured"><?=__('Featured')?></a></li>
+            <li><a href="?sort=published-desc"><?=__('Newest')?></a></li>
+            <li><a href="?sort=published-asc"><?=__('Oldest')?></a></li>
+        </ul>
+    </div>
 <div class="clearfix"></div><br>
 <?if(count($products)):?>
 
