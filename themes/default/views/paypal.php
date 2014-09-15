@@ -25,7 +25,7 @@
         <input type="hidden" name="currency_code" value="<?=$paypal_currency?>">
         <input type="hidden" name="rm" value="2">
         <input type="hidden" name="bn" value="OpenClassifieds_SP">
-        <input type="submit" value="<?=HTML::chars(__('Click here if you are not redirected');?>">
+        <input type="submit" value="<?=HTML::chars(__('Click here if you are not redirected'));?>">
     </form>
 </div>
 <script type="text/javascript">form1.submit();</script>
