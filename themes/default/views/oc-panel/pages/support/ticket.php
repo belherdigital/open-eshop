@@ -5,6 +5,8 @@
         <h1><?=$ticket->title?></h1>
         <p><?=$ticket->user->name?> <?=Date::fuzzy_span(Date::mysql2unix($ticket->created))?> - <?=$ticket->product->title?></p>
 
+        <a class="btn btn-default pull-right" id="collapse-all-tickets"><?=__('Collapse')?> <i class="glyphicon glyphicon-chevron-down"></i></a>
+
         <?if($ticket->status!=Model_Ticket::STATUS_CLOSED):?>
         <a class="btn btn-warning pull-right" href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'close','id'=>$ticket->id_ticket))?>">
         <?=__('Close Ticket')?></a>
@@ -51,7 +53,7 @@
             <?endforeach?>
             <?endif?>
         <?endif?> 
-         <a class="btn btn-default pull-right" id="collapse-all-tickets"><?=__('Collapse')?> <i class="glyphicon glyphicon-chevron-down"></i></a>
+
          <div class="clearfix"></div>
     </div>
 
