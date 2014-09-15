@@ -1,6 +1,5 @@
 oc/cache/*
 oc/logs/*
-images/*
 themes/*
 data/*
 !themes/default/
