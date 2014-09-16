@@ -492,6 +492,8 @@ class Model_Product extends ORM {
                 }
             }
         }
+        
+        ksort($image_path);
 
         return $image_path;
     }
@@ -503,13 +505,10 @@ class Model_Product extends ORM {
      */
     public function get_first_image($type = 'thumb')
     {
-      
         $images = $this->get_images();
-        sort($images);
+
         if(count($images) >= 1)
-        {
             $first_image = reset($images);
-        }
 
         return (isset($first_image[$type])) ? $first_image[$type] : NULL ;
     }
