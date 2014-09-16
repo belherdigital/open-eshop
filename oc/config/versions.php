@@ -3,9 +3,9 @@
    '1.6' => 
   array (
     'codename' => 'La Gomera',
-    'released' => '2014-05-26',
-    'blog' => 'http://open-eshop.com/2014/',
-    'changelog' => '',
+    'released' => '2014-09-16',
+    'blog' => 'http://open-eshop.com/2014/09/16/open-eshop-1-6/',
+    'changelog' => 'https://github.com/open-classifieds/open-eshop/compare/1.5...1.6',
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=9&page=1&state=closed',
     'download' => 'http://j.mp/oe_16',
   ),
