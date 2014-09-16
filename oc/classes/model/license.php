@@ -96,7 +96,7 @@ class Model_License extends ORM {
                 if ($license->valid_date!=NULL AND $license->valid_date!='' AND Date::mysql2unix($license->valid_date)<time() )
                     return FALSE;
                 //check domain for the license. if matched
-                if ($license->domain != $domain)
+                if (URL::get_domain($license->domain) != $domain)
                     return FALSE;
             }
             //if license not active we activate it
