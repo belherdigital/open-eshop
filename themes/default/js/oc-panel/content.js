@@ -51,15 +51,13 @@ $(function  () {
 })
 
 $(function(){
-    $('.index-delete').click(function(event) {
-          event.preventDefault();
-          $this = $(this);
-          if (confirm($this.data('text')))
-          {
-              $.ajax({ url: $this.attr('href'),
+    $('.index-delete').confirmation({
+        onConfirm: function(event, element) {
+            event.preventDefault();
+            $.ajax({ url: $(element).attr('href'),
                 }).done(function ( data ) {
-                    $('#'+$this.data('id')).hide("slow");
-                });
-          }
+                    $('#'+$(element).data('id')).hide("slow");
+            });
+        }
     });
 });
