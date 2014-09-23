@@ -504,13 +504,15 @@
         <div class="form-group">
 			<?= FORM::label($forms['sort_by']['key'], __('Sort by in listing'), array('class'=>'control-label col-sm-3', 'for'=>$forms['sort_by']['key']))?>
 			<div class="col-sm-4">
-				<?= FORM::select($forms['sort_by']['key'], array('title-asc'=>"Name (A-Z)",
-																	 'title-desc'=>"Name (Z-A)",
-																	 'price-asc'=>"Price (Low)",
-																	 'price-desc'=>"Price (High)",
-																	 'featured'=>"Featured",
-																	 'published-asc'=>"Newest",
-																	 'published-desc'=>"Oldest"), 
+				<?= FORM::select($forms['sort_by']['key'], array(
+					'title-asc'=>__("Name (A-Z)"),
+					'title-desc'=>__("Name (Z-A)"),
+					'price-asc'=>__("Price (Low)"),
+					'price-desc'=>__("Price (High)"),
+					'featured'=>__("Featured"),
+					'published-asc'=>__("Newest"),
+					'published-desc'=>__("Oldest"),
+				),
 				$forms['sort_by']['value'], array(
 				'placeholder' => $forms['sort_by']['value'], 
 				'class' => 'tips form-control input-sm ', 
