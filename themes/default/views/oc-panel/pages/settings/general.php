@@ -332,21 +332,25 @@
             </div>
         </div>
         
-        <div class="form-group">
+        <?php $ui_error_file_not_found = ! is_readable(DOCROOT.$forms_img['watermark_path']['value']); ?>
+        <div class="form-group<?php if ($ui_error_file_not_found) echo ' has-error';?>">
 			<?= FORM::label($forms_img['watermark_path']['key'], __('Watermark path'), array('class'=>'col-md-3 control-label', 'for'=>$forms_img['watermark_path']['key']))?>
 			<div class="col-md-5">
 				<?= FORM::input($forms_img['watermark_path']['key'], $forms_img['watermark_path']['value'], array(
 				'placeholder' => "images/watermark.png", 
 				'class' => 'tips form-control', 
 				'id' => $forms_img['watermark_path']['key'],
-				'data-content'=> __(""),
+				'data-content'=> __("Watermark path"),
 				'data-trigger'=>"hover",
 				'data-placement'=>"right",
 				'data-toggle'=>"popover",
 				'data-original-title'=>__("Watermark path"), 
 				))?> 
 			</div>
-		</div>
+			<?if($ui_error_file_not_found):?>
+			<span class="help-block"><?=sprintf(__('Watermark file %s not found'),DOCROOT.$forms_img['watermark_path']['value'])?></span>
+			<?endif?>
+	</div>
 		<div class="form-group">
 			<?= FORM::label($forms_img['watermark_position']['key'], __('Watermark position'), array('class'=>'col-md-3 control-label', 'for'=>$forms_img['watermark_position']['key']))?>
 			<div class="col-md-5">
