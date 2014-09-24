@@ -52,7 +52,7 @@ class Controller_Stripe extends Controller{
                     $user = Auth::instance()->get_user();
 
                 // Create the charge on Stripe's servers - this will charge the user's card
-                /*try 
+                try 
                 {
                     $charge = Stripe_Charge::create(array(
                                                         "amount"    => StripeKO::money_format($product->final_price()), // amount in cents, again
@@ -67,7 +67,7 @@ class Controller_Stripe extends Controller{
                     Kohana::$log->add(Log::ERROR, 'Stripe: The card has been declined');
                     Alert::set(Alert::ERROR, __('Stripe: The card has been declined'));
                     $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
-                }*/
+                }
                 
                 //create order
                 $order = Model_Order::sale(NULL,$user,$product,Core::post('stripeToken'),'stripe');

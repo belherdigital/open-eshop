@@ -37,18 +37,18 @@
 		</div>
 
 		<div class="form-group">
-	        	<?= FORM::label($forms['disallowbots']['key'], __("Disallows (blocks) Bots and Crawlers on this website"), array('class'=>'control-label col-sm-3', 'for'=>$forms['disallowbots']['key']))?>
+	        	<?= FORM::label($forms['disallowbots']['key'], __("Disallows Robots on this website"), array('class'=>'control-label col-sm-3', 'for'=>$forms['disallowbots']['key']))?>
 	        	<div class="col-sm-4">
 	        		<div class="onoffswitch">
 	        			<?= Form::checkbox($forms['disallowbots']['key'], 1, (bool) $forms['disallowbots']['value'], array(
 	        			'placeholder' => __("TRUE or FALSE"), 
 	        			'class' => 'onoffswitch-checkbox', 
 	        			'id' => $forms['disallowbots']['key'], 
-	        			'data-content'=> __("Disallows Bots and Crawlers on the website"),
+	        			'data-content'=> __("Disallows (blocks) Bots and Crawlers on the website"),
 	        			'data-trigger'=>"hover",
 	        			'data-placement'=>"right",
 	        			'data-toggle'=>"popover",
-	        			'data-original-title'=>__("Disallows (blocks) Bots and Crawlers"),
+	        			'data-original-title'=>__("Disallows (blocks) Bots and Crawlers on the website"),
 	        			))?>
 	        			<?= FORM::label($forms['disallowbots']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['maintenance']['key']))?>
 	        		</div>
@@ -504,13 +504,15 @@
         <div class="form-group">
 			<?= FORM::label($forms['sort_by']['key'], __('Sort by in listing'), array('class'=>'control-label col-sm-3', 'for'=>$forms['sort_by']['key']))?>
 			<div class="col-sm-4">
-				<?= FORM::select($forms['sort_by']['key'], array('title-asc'=>"Name (A-Z)",
-																	 'title-desc'=>"Name (Z-A)",
-																	 'price-asc'=>"Price (Low)",
-																	 'price-desc'=>"Price (High)",
-																	 'featured'=>"Featured",
-																	 'published-asc'=>"Newest",
-																	 'published-desc'=>"Oldest"), 
+				<?= FORM::select($forms['sort_by']['key'], array(
+					'title-asc'=>__("Name (A-Z)"),
+					'title-desc'=>__("Name (Z-A)"),
+					'price-asc'=>__("Price (Low)"),
+					'price-desc'=>__("Price (High)"),
+					'featured'=>__("Featured"),
+					'published-asc'=>__("Newest"),
+					'published-desc'=>__("Oldest"),
+				),
 				$forms['sort_by']['value'], array(
 				'placeholder' => $forms['sort_by']['value'], 
 				'class' => 'tips form-control input-sm ', 

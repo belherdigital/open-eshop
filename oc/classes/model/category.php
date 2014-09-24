@@ -237,7 +237,7 @@ class Model_Category extends ORM {
      */
     public static function get_category_count()
     {
-        $db_prefix = core::config('database.default.table_prefix');
+        $db_prefix = Database::instance('default')->table_prefix();
 
         //get the categories that have products id_category->num products
         $count_products = DB::select('c.id_category' , array(DB::expr('COUNT("p.id_product")'),'count'))

@@ -1,6 +1,15 @@
 <?php defined('SYSPATH') or die('No direct script access.');
                 return array (
-   '1.6' => 
+   '1.6.1' => 
+  array (
+    'codename' => 'La Gomera 2',
+    'released' => '2014-09-22',
+    'blog' => 'http://open-eshop.com/2014/09/16/open-eshop-1-6-1/',
+    'changelog' => 'https://github.com/open-classifieds/open-eshop/compare/1.6...1.6.1',
+    'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=9&page=1&state=closed',
+    'download' => 'http://j.mp/oe_161',
+  ),
+   '1.6.0' => 
   array (
     'codename' => 'La Gomera',
     'released' => '2014-09-16',
@@ -9,7 +18,7 @@
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=9&page=1&state=closed',
     'download' => 'http://j.mp/oe_16',
   ),
-  '1.5' => 
+  '1.5.0' => 
   array (
     'codename' => 'El Hierro',
     'released' => '2014-05-26',
@@ -19,7 +28,7 @@
     'download' => 'http://j.mp/oe_15',
   ),
 
-  '1.4' => 
+  '1.4.0' => 
   array (
     'codename' => 'Fuerteventura',
     'released' => '2014-04-28',
@@ -29,7 +38,7 @@
     'download' => 'http://j.mp/oe_14',
   ),
 
-  '1.3' => 
+  '1.3.0' => 
   array (
     'codename' => 'Ngorongoro',
     'released' => '2014-03-21',
@@ -39,7 +48,7 @@
     'download' => 'http://j.mp/oe_13',
   ),
 
-  '1.2' => 
+  '1.2.0' => 
   array (
     'codename' => 'Nungwi',
     'released' => '2014-02-06',
@@ -49,7 +58,7 @@
     'download' => 'http://j.mp/oe_12',
   ),
 
-  '1.1' => 
+  '1.1.0' => 
   array (
     'codename' => 'Serengeti',
     'released' => '2013-11-14',
@@ -58,7 +67,7 @@
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=3&page=1&state=closed',
     'download' => 'http://j.mp/oe_11',
   ),
-  '1.0' => 
+  '1.0.0' => 
   array (
     'codename' => 'Zanzibar',
     'released' => '2013-11-08',
