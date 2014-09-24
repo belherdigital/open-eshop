@@ -233,13 +233,14 @@
   			<div class="panel-body">
       			<?$images = $product->get_images()?>
       			<?if($images):?>
+        	  			<?$images_base = (core::config('image.aws_s3_active')) ? ((Request::$initial->secure()) ? 'https://' : 'http://').core::config('image.aws_s3_bucket').'.'.'s3.amazonaws.com/' : URL::base()?>
         	  			<div class="form-group">
         					<?php foreach ($images as $path => $value):?>
         						<?if(isset($value['thumb'])): // only formated images (not originals)?>
             						<?$img_name = str_replace(".jpg", "", substr(strrchr($value['thumb'], "/"), 1 ));?>
             						<div class="col-md-3">
             							<a class="thumbnail">
-            								<img src="<?=URL::base().$value['thumb']?>" class="img-rounded" alt="">
+            								<img src="<?=$images_base.$value['thumb']?>" class="img-rounded" alt="">
             							</a>
             							
             							<button class="btn btn-danger index-delete pull-right"
