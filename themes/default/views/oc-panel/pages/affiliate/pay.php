@@ -38,7 +38,15 @@
                     <a target="_blank"href="https://www.paypal.com/cgi-bin/webscr?business=<?=$u->paypal_email?>&cmd=_xclick&currency_code=USD&amount=<?=round($users_to_pay[$u->id_user]['total'],2)?>&item_name=Commissions_<?=date('Y-m-d')?>">Paypal</a>
                 </td>
                 <td width="80" style="width:80px;">
-                    <a title="<?=__('Mark as Paid')?>" onclick="return confirm('<?=__('Mark as Paid')?>?');" class="btn btn-primary" href="<?=Route::url('oc-panel', array('controller'=>'affiliate', 'action'=>'pay','id'=>$u->id_user))?>">
+                    <a
+                        href="<?=Route::url('oc-panel', array('controller'=>'affiliate', 'action'=>'pay','id'=>$u->id_user))?>" 
+                        class="btn btn-primary" 
+                        title="<?=__('Mark as Paid')?>" 
+                        data-toggle="confirmation" 
+                        data-placement="left" 
+                        data-href="<?=Route::url('oc-panel', array('controller'=>'affiliate', 'action'=>'pay','id'=>$u->id_user))?>" 
+                        data-btnOkLabel="<?=__('Yes, definitely!')?>" 
+                        data-btnCancelLabel="<?=__('No way!')?>">
                         <i class="glyphicon glyphicon-usd"></i>
                     </a>
                 </td>

@@ -99,6 +99,8 @@ function init_panel()
 	// Display tooltip
 	$('[data-toggle="tooltip"]').tooltip();
 
+    // Modal confirmation
+	$('[data-toggle="confirmation"]').confirmation();
 }
 
 $(function (){

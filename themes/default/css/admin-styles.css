@@ -284,6 +284,8 @@ div.sceditor-group{padding: 1px 15px 5px 5px!important;}
 	height: auto;
 }
 
+.popover-title {color:#333;}
+
 @media screen and (max-width: 979px) {
 	.navbar .nav{float: left!important;}
 	.btn-sidebar-menu{display: block; margin-left: 10px;}
@@ -313,4 +315,6 @@ div.sceditor-group{padding: 1px 15px 5px 5px!important;}
 @media screen and (max-width: 480px) {
 	.main{ }
 	.admin-table-user{display: none;}
+	.popover-title {font-size: 11px; max-width:220px;}
+	.popover-content .btn-sm {font-size: 11px;}
 }

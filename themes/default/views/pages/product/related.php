@@ -6,8 +6,9 @@
     <?foreach($products as $p ):?>
     <li class="media">
         <?if($p->get_first_image() !== NULL):?>
+        <?$images_base = (core::config('image.aws_s3_active')) ? ((Request::$initial->secure()) ? 'https://' : 'http://').core::config('image.aws_s3_bucket').'.'.'s3.amazonaws.com/' : URL::base()?>
         <a class="pull-left" title="<?=HTML::chars($p->title)?>" href="<?=Route::url('product', array('controller'=>'product','category'=>$p->category->seoname,'seotitle'=>$p->seotitle))?>">
-            <img class="media-object" width="64" height="64" src="<?=URL::base().$p->get_first_image()?>" alt="<?=HTML::chars($p->title)?>">
+            <img class="media-object" width="64" height="64" src="<?=$images_base.$p->get_first_image()?>" alt="<?=HTML::chars($p->title)?>">
         </a>
         <?endif?>
         <div class="media-body">

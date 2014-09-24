@@ -281,6 +281,12 @@ class Controller_Panel_Category extends Auth_Crud {
 		$icon = $_FILES['category_icon']; //file post
 		
 		$category = new Model_Category($this->request->param('id'));
+		
+		if(core::config('image.aws_s3_active'))
+		{
+		    require_once Kohana::find_file('vendor', 'amazon-s3-php-class/S3','php');
+		    $s3 = new S3(core::config('image.aws_access_key'), core::config('image.aws_secret_key'));
+		}
         
         if(core::post('icon_delete'))
         {            
@@ -297,7 +303,11 @@ class Controller_Panel_Category extends Auth_Crud {
                     Alert::set(Alert::ERROR, $icon['name'].' '.__('Icon file could not been deleted.'));
                 else
                     Alert::set(Alert::SUCCESS, __('Icon deleted.'));
-
+                
+                // delete icon from Amazon S3
+                if(core::config('image.aws_s3_active'))
+                    $s3->deleteObject(core::config('image.aws_s3_bucket'), 'images/categories/'.$category->seoname.'.png');
+                
                 $this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
             }
         }// end of icon delete
@@ -337,7 +347,13 @@ class Controller_Panel_Category extends Auth_Crud {
 
                 // save file to root folder, file, name, dir
                 if (Upload::save($icon, $icon_name, $root) === FALSE)
+				{	
+    				    // put icon to Amazon S3
+    				    if(core::config('image.aws_s3_active'))
+    				        $s3->putObject($s3->inputFile($file), core::config('image.aws_s3_bucket'), 'images/categories/'.$icon_name, S3::ACL_PUBLIC_READ);
+    				        
 					Alert::set(Alert::ERROR, $icon['name'].' '.__('Icon file could not been saved.'));
+				}
 				else
 					Alert::set(Alert::SUCCESS, $icon['name'].' '.__('Icon has been successfully uploaded.'));
                 

@@ -78,7 +78,7 @@
       <div class="form-group">
         <label class="col-md-2"><?=__('Message')?>:</label>
         <div class="col-md-9">
-        <textarea  name="description"  id="formorm_description" class="col-md-10 col-sm-10 col-xs-12 form-control" rows="15" ></textarea>
+        <textarea  name="description"  id="formorm_description" class="col-md-10 col-sm-10 col-xs-12 form-control" data-editor="html" rows="15" ></textarea>
         </div>
       </div>
           

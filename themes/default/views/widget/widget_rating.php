@@ -21,7 +21,8 @@
 	                <a href="<?=Route::url('product',array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"> 
 		                <span class="wgt-rating-title"><?=$product->title?></span>
 		                <?if($images = $product->get_images()):?>
-		                	<img src="<?=URL::base().$images[1]['image']?>" class="thumbnail" alt="Image" />
+                        <?$images_base = (core::config('image.aws_s3_active')) ? ((Request::$initial->secure()) ? 'https://' : 'http://').core::config('image.aws_s3_bucket').'.'.'s3.amazonaws.com/' : URL::base()?>
+		                	<img src="<?=$images_base.$images[1]['image']?>" class="thumbnail" alt="Image" />
 		                <?endif?>
 						
 	                </a>
