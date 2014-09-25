@@ -8,7 +8,7 @@
 			    <?$i=0;
 	            foreach ($images as $path => $value):?>
 	                <?if($images = $product->get_images()):?>
-                        <?$images_base = (core::config('image.aws_s3_active')) ? ((Request::$initial->secure()) ? 'https://' : 'http://').core::config('image.aws_s3_bucket').'.'.'s3.amazonaws.com/' : URL::base()?>
+                        <?$images_base = (core::config('image.aws_s3_active')) ? ((Request::$initial->secure()) ? 'https://' : 'http://').core::config('image.aws_s3_bucket').((core::config('image.aws_s3_domain')) ? NULL : '.s3.amazonaws.com') : URL::base()?>
                         <?if( isset($value['thumb']) AND isset($value['image']) ):?>
 	                        <div class="item <?=($i == 0)?'active':''?>">
 		                        <a rel="prettyPhoto[gallery]" href="<?=$images_base.$value['image']?>">
@@ -26,7 +26,7 @@
 		        foreach ($images as $path => $value):?>
 			        <li class="<?=($j == 0)?'active':'item'?>" data-slide-to="<?=$j?>" data-target="#article-photo-carousel">
 			            <?if($images = $product->get_images()):?>        
-                        <?$images_base = (core::config('image.aws_s3_active')) ? ((Request::$initial->secure()) ? 'https://' : 'http://').core::config('image.aws_s3_bucket').'.'.'s3.amazonaws.com/' : URL::base()?>
+                        <?$images_base = (core::config('image.aws_s3_active')) ? ((Request::$initial->secure()) ? 'https://' : 'http://').core::config('image.aws_s3_bucket').((core::config('image.aws_s3_domain')) ? NULL : '.s3.amazonaws.com') : URL::base()?>
 			                <?if( isset($value['thumb']) AND isset($value['image']) ):?>
 			                    <img src="<?=$images_base.$value['thumb']?>" alt="<?=HTML::chars($product->title)?> <?=$j?>">
 			                <?endif?>   

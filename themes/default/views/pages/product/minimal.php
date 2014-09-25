@@ -13,8 +13,7 @@
     <?endif?>
 
     <?if($product->get_first_image() !== NULL):?>
-    <?$images_base = (core::config('image.aws_s3_active')) ? ((Request::$initial->secure()) ? 'https://' : 'http://').core::config('image.aws_s3_bucket').'.'.'s3.amazonaws.com/' : URL::base()?>
-    <div class="thumbnail ">
+    <?$images_base = (core::config('image.aws_s3_active')) ? ((Request::$initial->secure()) ? 'https://' : 'http://').core::config('image.aws_s3_bucket').((core::config('image.aws_s3_domain')) ? NULL : '.s3.amazonaws.com') : URL::base()?>
         <img src="<?=$images_base.$product->get_first_image('thumb')?>" class="" >
     </div>
     <?endif?>

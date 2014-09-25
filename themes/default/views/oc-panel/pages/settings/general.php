@@ -571,7 +571,7 @@
                     'placeholder' => __("TRUE or FALSE"), 
                     'class' => 'onoffswitch-checkbox', 
                     'id' => $forms_img['aws_s3_active']['key'], 
-                    'data-content'=> '',
+                    'data-content'=> __('Amazon S3 active'),
                     'data-trigger'=>"hover",
                     'data-placement'=>"right",
                     'data-toggle'=>"popover",
@@ -589,7 +589,7 @@
                 'placeholder' => '', 
                 'class' => 'tips form-control', 
                 'id' => $forms_img['aws_access_key']['key'], 
-                'data-content'=> '',
+                'data-content'=> __('AWS Access Key'),
                 'data-trigger'=>"hover",
                 'data-placement'=>"right",
                 'data-toggle'=>"popover",
@@ -605,7 +605,7 @@
                 'placeholder' => "", 
                 'class' => 'tips form-control', 
                 'id' => $forms_img['aws_secret_key']['key'], 
-                'data-content'=> '',
+                'data-content'=> __('AWS Secret Key'),
                 'data-trigger'=>"hover",
                 'data-placement'=>"right",
                 'data-toggle'=>"popover",
@@ -621,12 +621,32 @@
                 'placeholder' => "", 
                 'class' => 'tips form-control', 
                 'id' => $forms_img['aws_s3_bucket']['key'], 
-                'data-content'=> '',
+                'data-content'=> __('Amazon S3 Bucket Name'),
                 'data-trigger'=>"hover",
                 'data-placement'=>"right",
                 'data-toggle'=>"popover",
                 'data-original-title'=>'',          
                 ))?> 
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?= FORM::label($forms_img['aws_s3_domain']['key'], __('Use Bucket Name as Domain Name'), array('class'=>'control-label col-sm-3', 'for'=>$forms_img['aws_s3_domain']['key']))?>
+            <div class="col-sm-4">
+                <div class="onoffswitch">
+                    <?= FORM::hidden($forms_img['aws_s3_domain']['key'], 0);?>
+                    <?= Form::checkbox($forms_img['aws_s3_domain']['key'], 1, (bool) $forms_img['aws_s3_domain']['value'], array(
+                    'placeholder' => __("TRUE or FALSE"), 
+                    'class' => 'onoffswitch-checkbox', 
+                    'id' => $forms_img['aws_s3_domain']['key'], 
+                    'data-content'=> __('Use Bucket Name as Domain Name'),
+                    'data-trigger'=>"hover",
+                    'data-placement'=>"right",
+                    'data-toggle'=>"popover",
+                    'data-original-title'=>'',
+                    ))?>
+                    <?= FORM::label($forms_img['aws_s3_domain']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms_img['aws_s3_domain']['key']))?>
+                </div>
             </div>
         </div>
 
