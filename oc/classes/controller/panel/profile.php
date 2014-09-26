@@ -356,7 +356,13 @@ class Controller_Panel_Profile extends Auth_Controller {
                     $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
                 }
                 else
+                {
                     $errors = $validation->errors('ad');
+                    foreach ($errors as $f => $err) 
+                    {
+                        Alert::set(Alert::ALERT, $err);
+                    }
+                }
                
             }     
             
