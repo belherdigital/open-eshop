@@ -7,8 +7,7 @@ class Controller_Panel_Auth extends Controller {
      * Check if we need to login the user or display the form, same form for normal user and admin
      */
 	public function action_login()
-	{	    
-		
+	{		
 	    //if user loged in redirect home
 	    if (Auth::instance()->logged_in())
 	    {
@@ -16,22 +15,100 @@ class Controller_Panel_Auth extends Controller {
 	    }
 	    //posting data so try to login
 	    elseif ($this->request->post() AND CSRF::valid('login'))
-	    {	        
-            Auth::instance()->login(core::post('email'), 
-            						core::post('password'),
-            						(bool) core::post('remember'));
-            
-            //redirect index
-            if (Auth::instance()->logged_in())
-            {
-            	//is an admin so redirect to the admin home
-            	Auth::instance()->login_redirect();
+	    {
+            $blocked_login = FALSE;
+
+            // Load the user
+            $user = new Model_User;
+            $user   ->where('email', '=', core::post('email'))
+                    ->where('status', 'in', array(Model_User::STATUS_ACTIVE,Model_User::STATUS_SPAM))
+                    ->limit(1)
+                    ->find();
+
+            // Check if we must block this login attempt.
+            if ($user->loaded() AND $user->failed_attempts > 2) {
+                // failed 2 or 3 attempts, wait 1 minute until next attempt
+                if ($user->failed_attempts < 5 AND $user->last_failed > Date::unix2mysql(strtotime('-1 minute')))
+                {
+                    $blocked_login = TRUE;
+                    Alert::set(Alert::ERROR, __('Login has been temporarily disabled due to too many unsuccessful login attempts. Please try again in a minute.'));
+                }
+                // failed more than 4 attempts, wait 24 hours until next attempt
+                elseif ($user->failed_attempts > 4 AND $user->last_failed > Date::unix2mysql(strtotime('-24 hours')))
+                {
+                    $blocked_login = TRUE;
+                    Alert::set(Alert::ERROR, __('Login has been temporarily disabled due to too many unsuccessful login attempts. Please try again in 24 hours.'));                    
+                }
             }
-            else 
+
+            //not blocked so try to login
+            if (! $blocked_login)
             {
-                Form::set_errors(array(__('Wrong email or password')));
+                Auth::instance()->login(core::post('email'), 
+                                        core::post('password'),
+                                        (bool) core::post('remember'));
+
+                //redirect index
+                if (Auth::instance()->logged_in())
+                {
+                    if ($user->loaded())
+                    {
+                        $user->failed_attempts = 0;
+
+                        try 
+                        {
+                            // Save the user
+                            $user->update();
+                        }
+                        catch (ORM_Validation_Exception $e)
+                        {
+                            Form::set_errors($e->errors(''));
+                        }
+                        catch(Exception $e)
+                        {
+                            throw HTTP_Exception::factory(500,$e->getMessage());
+                        }
+                    }                    
+
+                    //is an admin so redirect to the admin home
+                    Auth::instance()->login_redirect();
+                }
+                else 
+                {
+                    Form::set_errors(array( __('Wrong email or password').'. '
+                                            .'<a href="'.Route::url('oc-panel',array(   'directory'=>'user',
+                                                                                        'controller'=>'auth',
+                                                                                        'action'=>'forgot'))
+                                            .'">'.__('Have you forgotten your password?').'</a>'));
+                    if ($user->loaded())
+                    {
+                        // this is fifth failed attempt, invalidate token?
+                        if ($user->failed_attempts == 4) {
+                            $user->token            = NULL;                            
+                            $user->user_agent       = NULL;                            
+                            $user->token_created    = NULL;                            
+                            $user->token_expires    = NULL;                            
+                        }
+
+                        $user->failed_attempts = new Database_Expression('failed_attempts + 1');
+                        $user->last_failed = Date::unix2mysql(time());
+
+                        try 
+                        {
+                            // Save the user
+                            $user->update();
+                        }
+                        catch (ORM_Validation_Exception $e)
+                        {
+                            Form::set_errors($e->errors(''));
+                        }
+                        catch(Exception $e)
+                        {
+                            throw HTTP_Exception::factory(500,$e->getMessage());
+                        }
+                    }
+                }
             }
-	        
 	    }
 	    	    
 	    //Login page
