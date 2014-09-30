@@ -33,7 +33,7 @@ class Controller_Panel_Category extends Auth_Crud {
         $order = Model_Category::get_multidimensional();
 
 
-        $this->template->content = View::factory('oc-panel/pages/categories',array('cats' => $cats,'order'=>$order));
+        $this->template->content = View::factory('oc-panel/pages/categories/index',array('cats' => $cats,'order'=>$order));
     }
 
     /**
