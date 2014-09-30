@@ -26,6 +26,22 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
             DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."users` ADD `failed_attempts` int(10) unsigned DEFAULT 0")->execute();
         }catch (exception $e) {}
         
+        //categories/users has_image/last_modified
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."categories` ADD `last_modified` DATETIME NULL DEFAULT NULL ;")->execute();
+        }catch (exception $e) {}
+        
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."categories` ADD `has_image` TINYINT( 1 ) NOT NULL DEFAULT '0' ;")->execute();
+        }catch (exception $e) {}
+            
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."users` ADD `has_image` TINYINT( 1 ) NOT NULL DEFAULT '0' ;")->execute();
+        }catch (exception $e) {}
+            
         $configs = array(
                         array( 'config_key'     =>'aws_s3_active',
                                'group_name'     =>'image',

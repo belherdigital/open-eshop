@@ -84,6 +84,8 @@ class Model_Category extends ORM {
 			        'parent_deep'		=> array(),
 			        'seoname'			=> array(array('not_empty'), array('max_length', array(':value', 145)), ),
 			        'description'		=> array(),
+			        'last_modified'		=> array(),
+			        'has_images'			=> array(array('numeric')),
 			         );
 	}
 
@@ -404,7 +406,7 @@ class Model_Category extends ORM {
 
 	public function exclude_fields()
 	{
-		return array('created');
+		return array('created','has_image','last_modified');
 	}
 
     /**

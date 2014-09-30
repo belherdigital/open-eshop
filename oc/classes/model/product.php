@@ -291,25 +291,8 @@ class Model_Product extends ORM {
             if(!is_numeric($height_thumb))
                 $height_thumb   = NULL;    
             
-            // how many files are saved 
-            if ($this->has_images > 0)
-            {
-                $counter = $this->has_images;
-                
-                    if(file_exists($directory.$seotitle.'_'.$counter.'.jpg')) // in case we update image, we have to find available number to replace
-                    {
-                        for($i=1; $i<=core::config('advertisement.num_images'); $i++)
-                        {
-                            $counter = $i;
-                            if(!file_exists($directory.$seotitle.'_'.$counter.'.jpg'))
-                            {
-                                break;
-                            }
-                        }
-                    }
-            }
-            else
-                $counter = 1;
+            // how many files are saved
+            $counter = ($this->has_images > 0) ? $this->has_images+1 : 1;
             
             if ($file = Upload::save($image, NULL, $directory))
             {
@@ -319,39 +302,21 @@ class Model_Product extends ORM {
                 //if original image is bigger that our constants we resize
                 $image_size_orig    = getimagesize($file);
                 
-                
-                    if($image_size_orig[0] > $width || $image_size_orig[1] > $height)
-                    {
+                if($image_size_orig[0] > $width || $image_size_orig[1] > $height)
+                    Image::factory($file)
+                        ->resize($width, $height, Image::AUTO)
+                        ->save($directory.$filename_original,$image_quality);    
                         
-                        Image::factory($file)
-                            ->resize($width, $height, Image::AUTO)
-                            ->save($directory.$filename_original,$image_quality);    
-                        
-                        // put image to Amazon S3
-                        if(core::config('image.aws_s3_active'))
-                            $s3->putObject($s3->inputFile($directory.$filename_original), core::config('image.aws_s3_bucket'), $path.$filename_original, S3::ACL_PUBLIC_READ);
-                    }
-                    //we just save the image changing the quality and different name
-                    else
-                    {
-                        Image::factory($file)
-                            ->save($directory.$filename_original,$image_quality); 
-                            
-                        // put image to Amazon S3
-                        if(core::config('image.aws_s3_active'))
-                            $s3->putObject($s3->inputFile($directory.$filename_original), core::config('image.aws_s3_bucket'), $path.$filename_original, S3::ACL_PUBLIC_READ);
-                    }
+                //we just save the image changing the quality and different name
+                else
+                    Image::factory($file)
+                        ->save($directory.$filename_original,$image_quality); 
                 
-
                 //creating the thumb and resizing using the the biggest side INVERSE
                 Image::factory($directory.$filename_original)
                     ->resize($width_thumb, $height_thumb, Image::INVERSE)
                     ->save($directory.$filename_thumb,$image_quality);
                     
-                // put thumb to Amazon S3
-                if(core::config('image.aws_s3_active'))
-                    $s3->putObject($s3->inputFile($directory.$filename_thumb), core::config('image.aws_s3_bucket'), $path.$filename_thumb, S3::ACL_PUBLIC_READ);
-
                 //check if the height or width of the thumb is bigger than default then crop
                 if ($height_thumb!==NULL)
                 {
@@ -360,16 +325,19 @@ class Model_Product extends ORM {
                     Image::factory($directory.$filename_thumb)
                                 ->crop($width_thumb, $height_thumb)
                                 ->save($directory.$filename_thumb); 
-                                
-                    // put thumb to Amazon S3
-                    if(core::config('image.aws_s3_active'))
-                    {
-                        $s3->deleteObject(core::config('image.aws_s3_bucket'), $path.$filename_thumb);
-                        $s3->putObject($s3->inputFile($directory.$filename_thumb), core::config('image.aws_s3_bucket'), $path.$filename_thumb, S3::ACL_PUBLIC_READ);
-                    }
                 }
+                
+                if(core::config('image.aws_s3_active'))
+                {
+                    // put image to Amazon S3
+                    $s3->putObject($s3->inputFile($directory.$filename_original), core::config('image.aws_s3_bucket'), $path.$filename_original, S3::ACL_PUBLIC_READ);
+                    // put thumb to Amazon S3
+                    $s3->putObject($s3->inputFile($directory.$filename_thumb), core::config('image.aws_s3_bucket'), $path.$filename_thumb, S3::ACL_PUBLIC_READ);
+                }
+                
                 // Delete the temporary file
-                unlink($file);
+                @unlink($file);
+                return TRUE;
             }
         }   
         
