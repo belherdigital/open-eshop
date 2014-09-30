@@ -455,59 +455,32 @@ class Model_Product extends ORM {
     public function get_images()
     {
         $image_path = array();
-       
+        
         if($this->loaded() AND $this->has_images > 0)
-        {  
-            $route = $this->gen_img_path($this->id_product, $this->created);
-            $folder = DOCROOT.$route;
-            
-            if(core::config('image.aws_s3_active'))
+        {              
+            if (core::config('image.aws_s3_active'))
             {
-                require_once Kohana::find_file('vendor', 'amazon-s3-php-class/S3','php');
-                $s3 = new S3(core::config('image.aws_access_key'), core::config('image.aws_secret_key'));
-                
-                foreach ($s3->getBucket(core::config('image.aws_s3_bucket'), '/'.$route) as $file) 
-                {   
-                    $key = explode('_', $file['name']);
-                    $key = end($key);
-                    $key = explode('.', $key);
-                    $key = (isset($key[0])) ? $key[0] : NULL ;
-                
-                    if(is_numeric($key))
-                    {
-                        $type = (strpos($file['name'], '/'.$route.'thumb_') === 0) ? 'thumb' : 'image' ;
-                        $image_path[$key][$type] = ltrim($file['name'], '/');
-                    }
-                }
+                $protocol = Request::$initial->secure() ? 'https://' : 'http://';
+                $base = $protocol.core::config('image.aws_s3_domain');
             }
             else
+                $base = URL::base();
+            
+            $route      = $this->gen_img_path($this->id_product, $this->created);
+            $folder     = DOCROOT.$route;
+            $seotitle   = $this->seotitle;
+            $version    = $this->updated ? '?v='.Date::mysql2unix($this->updated) : NULL;
+            
+            for ($i=1; $i <= $this->has_images; $i++) 
             {
-                if(is_dir($folder))
-                { 
-                    foreach (new DirectoryIterator($folder) as $file) 
-                    {   
-    
-                        if(!$file->isDot())
-                        {   
-    
-                            $key = explode('_', $file->getFilename());
-                            $key = end($key);
-                            $key = explode('.', $key);
-                            $key = (isset($key[0])) ? $key[0] : NULL ;
-    
-                            if(is_numeric($key))
-                            {
-                                $type = (strpos($file->getFilename(), 'thumb_') === 0) ? 'thumb' : 'image' ;
-                                $image_path[$key][$type] = $route.$file->getFilename();
-                            }
-                        }
-                    }
-                }
+                $filename_thumb = 'thumb_'.$seotitle.'_'.$i.'.jpg';
+                $filename_original = $seotitle.'_'.$i.'.jpg';
+                $image_path[$i]['image'] = $route.$filename_original.$version;
+                $image_path[$i]['thumb'] = $route.$filename_thumb.$version;
+                $image_path[$i]['base'] = $base;
             }
         }
         
-        ksort($image_path);
-
         return $image_path;
     }
 

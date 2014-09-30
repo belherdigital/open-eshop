@@ -629,24 +629,26 @@
                 ))?> 
             </div>
         </div>
-
+        
+        <?  if (($aws_s3_domain = strpos($forms_img['aws_s3_domain']['value'], 's3.amazonaws.com')) !== FALSE) 
+                $forms_img['aws_s3_domain']['value'] = ($aws_s3_domain > 0) ? 'bn-s3' : 's3-bn';
+        ?>
         <div class="form-group">
-            <?= FORM::label($forms_img['aws_s3_domain']['key'], __('Use Bucket Name as Domain Name'), array('class'=>'control-label col-sm-3', 'for'=>$forms_img['aws_s3_domain']['key']))?>
+            <?= FORM::label($forms_img['aws_s3_domain']['key'], __('S3 Domain Name'), array('class'=>'control-label col-sm-3', 'for'=>$forms_img['aws_s3_domain']['key']))?>
             <div class="col-sm-4">
-                <div class="onoffswitch">
-                    <?= FORM::hidden($forms_img['aws_s3_domain']['key'], 0);?>
-                    <?= Form::checkbox($forms_img['aws_s3_domain']['key'], 1, (bool) $forms_img['aws_s3_domain']['value'], array(
-                    'placeholder' => __("TRUE or FALSE"), 
-                    'class' => 'onoffswitch-checkbox', 
-                    'id' => $forms_img['aws_s3_domain']['key'], 
-                    'data-content'=> __('Use Bucket Name as Domain Name'),
-                    'data-trigger'=>"hover",
-                    'data-placement'=>"right",
-                    'data-toggle'=>"popover",
-                    'data-original-title'=>'',
-                    ))?>
-                    <?= FORM::label($forms_img['aws_s3_domain']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms_img['aws_s3_domain']['key']))?>
-                </div>
+                <?= FORM::select($forms_img['aws_s3_domain']['key'], array( 'bn'    =>"bucket_name",
+                                                                        'bn-s3' =>"bucket_name.s3.amazonaws.com",
+                                                                        's3-bn' =>"s3.amazonaws.com/bucket_name"), 
+                $forms_img['aws_s3_domain']['value'], array(
+                'placeholder' => $forms_img['aws_s3_domain']['value'], 
+                'class' => 'tips form-control input-sm ', 
+                'id' => $forms_img['aws_s3_domain']['key'],
+                'data-content'=> __("Amazon S3 Domain Name"),
+                'data-trigger'=>"hover",
+                'data-placement'=>"right",
+                'data-toggle'=>"popover",
+                'data-original-title'=>__("S3 Domain Name"), 
+                ))?> 
             </div>
         </div>
 

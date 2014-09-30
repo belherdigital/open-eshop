@@ -57,7 +57,7 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
                                'config_value'   =>''),
                         array( 'config_key'     =>'aws_s3_domain',
                                'group_name'     =>'image',
-                               'config_value'   => 0),
+                               'config_value'   =>''),
                         );
         
         Model_Config::config_array($configs);

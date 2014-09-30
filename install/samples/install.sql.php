@@ -429,7 +429,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('image', 'aws_access_key', ''),
 ('image', 'aws_secret_key', ''),
 ('image', 'aws_s3_bucket', ''),
-('image', 'aws_s3_domain', 0),
+('image', 'aws_s3_domain', ''),
 ('product', 'formats', 'txt,doc,docx,pdf,tif,tiff,gif,psd,raw,wav,aif,mp3,rm,ram,wma,ogg,avi,wmv,mov,mp4,mkv,jpeg,jpg,png,zip,7z,7zip,rar,rar5,gzip,'),
 ('product', 'max_size', '5'),
 ('product', 'num_images', '5'),
