@@ -33,7 +33,7 @@ class Controller_Panel_Category extends Auth_Crud {
         $order = Model_Category::get_multidimensional();
 
 
-        $this->template->content = View::factory('oc-panel/pages/categories',array('cats' => $cats,'order'=>$order));
+        $this->template->content = View::factory('oc-panel/pages/categories/index',array('cats' => $cats,'order'=>$order));
     }
 
     /**
@@ -298,15 +298,20 @@ class Controller_Panel_Category extends Auth_Crud {
             }
             else
             {
+                // delete icon from Amazon S3
+                if(core::config('image.aws_s3_active'))
+                    $s3->deleteObject(core::config('image.aws_s3_bucket'), 'images/categories/'.$category->seoname.'.png');
+                    
                 //delete icon
                 if (@unlink($root.$category->seoname.'.png') === FALSE)
                     Alert::set(Alert::ERROR, $icon['name'].' '.__('Icon file could not been deleted.'));
                 else
                     Alert::set(Alert::SUCCESS, __('Icon deleted.'));
-                
-                // delete icon from Amazon S3
-                if(core::config('image.aws_s3_active'))
-                    $s3->deleteObject(core::config('image.aws_s3_bucket'), 'images/categories/'.$category->seoname.'.png');
+                    
+                // update category info
+                $category->has_image = 0;
+                $category->last_modified = Date::unix2mysql();
+                $category->save();
                 
                 $this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
             }
@@ -346,17 +351,22 @@ class Controller_Panel_Category extends Auth_Crud {
                 };
 
                 // save file to root folder, file, name, dir
-                if (Upload::save($icon, $icon_name, $root) === FALSE)
-				{	
-    				    // put icon to Amazon S3
-    				    if(core::config('image.aws_s3_active'))
-    				        $s3->putObject($s3->inputFile($file), core::config('image.aws_s3_bucket'), 'images/categories/'.$icon_name, S3::ACL_PUBLIC_READ);
-    				        
-					Alert::set(Alert::ERROR, $icon['name'].' '.__('Icon file could not been saved.'));
-				}
-				else
-					Alert::set(Alert::SUCCESS, $icon['name'].' '.__('Icon has been successfully uploaded.'));
-                
+                if ($file = Upload::save($icon, $icon_name, $root) === FALSE)
+                    Alert::set(Alert::ERROR, $icon['name'].' '.__('Icon file could not been saved.'));
+                else
+                {
+                    // put icon to Amazon S3
+                    if(core::config('image.aws_s3_active'))
+                        $s3->putObject($s3->inputFile($root.$icon_name), core::config('image.aws_s3_bucket'), 'images/categories/'.$icon_name, S3::ACL_PUBLIC_READ);
+                    
+                    // update category info
+                    $category->has_image = 1;
+                    $category->last_modified = Date::unix2mysql();
+                    $category->save();
+
+                    Alert::set(Alert::SUCCESS, $icon['name'].' '.__('Icon has been successfully uploaded.'));
+                }
+
 				$this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
             }
             

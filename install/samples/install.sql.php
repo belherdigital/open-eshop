@@ -55,6 +55,9 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')
   `hybridauth_provider_uid` varchar(245) NULL DEFAULT NULL,
   `signature` varchar(245) NULL DEFAULT NULL,
   `subscriber` tinyint(1) NOT NULL DEFAULT '1',
+  `has_image` tinyint(1) NOT NULL DEFAULT '0',
+  `failed_attempts` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `last_failed` datetime DEFAULT NULL,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `".core::request('TABLE_PREFIX')."users_UK_email` (`email`),
   UNIQUE KEY `".core::request('TABLE_PREFIX')."users_UK_token` (`token`),
@@ -72,6 +75,8 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')
   `parent_deep` int(2) unsigned NOT NULL DEFAULT '0',
   `seoname` varchar(145) NOT NULL,
   `description` text NULL,
+  `last_modified` DATETIME  NULL,
+  `has_image` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_category`) USING BTREE,
   UNIQUE KEY `".core::request('TABLE_PREFIX')."categories_UK_seo_name` (`seoname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=".core::request('DB_CHARSET').";");
@@ -424,6 +429,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('image', 'aws_access_key', ''),
 ('image', 'aws_secret_key', ''),
 ('image', 'aws_s3_bucket', ''),
+('image', 'aws_s3_domain', ''),
 ('product', 'formats', 'txt,doc,docx,pdf,tif,tiff,gif,psd,raw,wav,aif,mp3,rm,ram,wma,ogg,avi,wmv,mov,mp4,mkv,jpeg,jpg,png,zip,7z,7zip,rar,rar5,gzip,'),
 ('product', 'max_size', '5'),
 ('product', 'num_images', '5'),

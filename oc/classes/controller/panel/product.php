@@ -111,11 +111,26 @@ class Controller_Panel_Product extends Auth_Crud {
         	// save images
         	if(isset($_FILES))
         	{
-        		foreach ($_FILES as $file_name => $file) 
-        		{  
+            $obj_product->has_images = 0;
+            
+            foreach ($_FILES as $file_name => $file) 
+            {  
                     if($file_name != 'file_name')
-        			    echo $file = $obj_product->save_image($file);
-        		}
+                        $file = $obj_product->save_image($file);
+                        
+                    if ($file)
+                        $obj_product->has_images++;
+            }
+            
+            //since theres images save the ad again...
+            try 
+            {
+                $obj_product->save();
+            } 
+            catch (Exception $e) 
+            {
+                throw HTTP_Exception::factory(500,$e->getMessage());
+            }
         	}
 
         	$this->redirect(Route::url('oc-panel', array('controller'=>'product','action'=>'index')));  	
@@ -174,31 +189,70 @@ class Controller_Panel_Product extends Auth_Crud {
                             Alert::set(Alert::INFO, __('Product is not uploaded.'));
                     }
                 }
-
+                
                 // deleting single image by path 
                 $deleted_image = core::post('img_delete');
-                if($deleted_image)
+                if(is_numeric($deleted_image))
                 {
                     $img_path = $obj_product->gen_img_path($obj_product->id_product, $obj_product->created);
+                    $img_seoname = $obj_product->seotitle;
 
-                    if (!is_dir($img_path)) 
+                    // delete image from Amazon S3
+                    if (core::config('image.aws_s3_active'))
                     {
-                        return FALSE;
+                        require_once Kohana::find_file('vendor', 'amazon-s3-php-class/S3','php');
+                        $s3 = new S3(core::config('image.aws_access_key'), core::config('image.aws_secret_key'));
+                        
+                        //delete original image
+                        $s3->deleteObject(core::config('image.aws_s3_bucket'), $img_path.$img_seoname.'_'.$deleted_image.'.jpg');
+                        //delete formated image
+                        $s3->deleteObject(core::config('image.aws_s3_bucket'), $img_path.'thumb_'.$img_seoname.'_'.$deleted_image.'.jpg');
+                        
+                        //re-ordering image file names
+                        for($i = $deleted_image; $i < $obj_product->has_images; $i++)
+                        {
+                            //rename original image
+                            $s3->copyObject(core::config('image.aws_s3_bucket'), $img_path.$img_seoname.'_'.($i+1).'.jpg', core::config('image.aws_s3_bucket'), $img_path.$img_seoname.'_'.$i.'.jpg', S3::ACL_PUBLIC_READ);
+                            $s3->deleteObject(core::config('image.aws_s3_bucket'), $img_path.$img_seoname.'_'.($i+1).'.jpg');
+                            //rename formated image
+                            $s3->copyObject(core::config('image.aws_s3_bucket'), $img_path.'thumb_'.$img_seoname.'_'.($i+1).'.jpg', core::config('image.aws_s3_bucket'), $img_path.'thumb_'.$img_seoname.'_'.$i.'.jpg', S3::ACL_PUBLIC_READ);
+                            $s3->deleteObject(core::config('image.aws_s3_bucket'), $img_path.'thumb_'.$img_seoname.'_'.($i+1).'.jpg');
+                        }
                     }
+                    
+                    if (!is_dir($img_path)) 
+                        return FALSE;
                     else
                     {   
                     
-                        //delete formated image
-                        unlink($img_path.$deleted_image.'.jpg');
-
                         //delete original image
-                        $orig_img = str_replace('thumb_', '', $deleted_image);
-                        unlink($img_path.$orig_img.".jpg");
-
-                        $this->redirect(Route::url('oc-panel', array('controller'  =>'product',
-                                                                              'action'      =>'update',
-                                                                              'id'          =>$obj_product->id_product)));
+                        @unlink($img_path.$img_seoname.'_'.$deleted_image.'.jpg');
+                        //delete formated image
+                        @unlink($img_path.'thumb_'.$img_seoname.'_'.$deleted_image.'.jpg');
+                        
+                        //re-ordering image file names
+                        for($i = $deleted_image; $i < $obj_product->has_images; $i++)
+                        {
+                            rename($img_path.$img_seoname.'_'.($i+1).'.jpg', $img_path.$img_seoname.'_'.$i.'.jpg');
+                            rename($img_path.'thumb_'.$img_seoname.'_'.($i+1).'.jpg', $img_path.'thumb_'.$img_seoname.'_'.$i.'.jpg');
+                        }
+                        
                     }
+                    
+                    $obj_product->has_images = ($obj_product->has_images > 0) ? $obj_product->has_images-1 : 0;
+                    $obj_product->updated = Date::unix2mysql();
+                    try 
+                    {
+                        $obj_product->save();
+                    } 
+                    catch (Exception $e) 
+                    {
+                        throw HTTP_Exception::factory(500,$e->getMessage());
+                    }
+                    
+                    $this->redirect(Route::url('oc-panel', array(   'controller'  =>'product',
+                                                                    'action'      =>'update',
+                                                                    'id'          =>$obj_product->id_product)));
                 }// end of img delete
 
                 //delete product file
@@ -323,7 +377,20 @@ class Controller_Panel_Product extends Auth_Crud {
                     foreach ($_FILES as $file_name => $file) 
                     {  
                         if($file_name != 'file_name')
-                            echo $file = $obj_product->save_image($file);
+                            $file = $obj_product->save_image($file);
+                            
+                        if ($file)
+                            $obj_product->has_images++;
+                    }
+                    
+                    //since theres images save the ad again...
+                    try 
+                    {
+                        $obj_product->save();
+                    } 
+                    catch (Exception $e) 
+                    {
+                        throw HTTP_Exception::factory(500,$e->getMessage());
                     }
                 }
             }

@@ -233,21 +233,19 @@
   			<div class="panel-body">
       			<?$images = $product->get_images()?>
       			<?if($images):?>
-        	  			<?$images_base = (core::config('image.aws_s3_active')) ? ((Request::$initial->secure()) ? 'https://' : 'http://').core::config('image.aws_s3_bucket').'.'.'s3.amazonaws.com/' : URL::base()?>
         	  			<div class="form-group">
-        					<?php foreach ($images as $path => $value):?>
+        					<?php foreach ($images as $key => $value):?>
         						<?if(isset($value['thumb'])): // only formated images (not originals)?>
-            						<?$img_name = str_replace(".jpg", "", substr(strrchr($value['thumb'], "/"), 1 ));?>
             						<div class="col-md-3">
             							<a class="thumbnail">
-            								<img src="<?=$images_base.$value['thumb']?>" class="img-rounded" alt="">
+            								<img src="<?=$value['base'].$value['thumb']?>" class="img-rounded" alt="">
             							</a>
             							
             							<button class="btn btn-danger index-delete pull-right"
             							   onclick="return confirm('<?=__('Delete?')?>');" 
             							   type="submit" 
             							   name="img_delete"
-            							   value="<?=$img_name?>" 
+            							   value="<?=$key?>" 
             							   rel="tooltip"
             							   title="<?=__('Delete image')?>">
             								<?=__('Delete')?>

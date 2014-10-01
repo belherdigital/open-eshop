@@ -179,7 +179,26 @@ class Controller_Panel_Settings extends Auth_Controller {
                           $allowed_formats .= $value.",";
                       }
                       $config_res = $allowed_formats;
-                    } 
+                    }
+                    
+                    if($ci->config_key == 'aws_s3_domain')
+                    {
+                        switch ($config_res)
+                        {
+                            case 'bn-s3':
+                                $s3_domain = $this->request->post('aws_s3_bucket').'.s3.amazonaws.com';
+                                break;
+                                
+                            case 'bn':
+                                $s3_domain = $this->request->post('aws_s3_bucket');
+                                break;
+                                
+                            default:
+                                $s3_domain = 's3.amazonaws.com/'.$this->request->post('aws_s3_bucket');
+                                break;
+                        }
+                        $config_res = $s3_domain.'/';
+                    }
                     
                     $ci->config_value = $config_res;
                     try {

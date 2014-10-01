@@ -571,7 +571,7 @@
                     'placeholder' => __("TRUE or FALSE"), 
                     'class' => 'onoffswitch-checkbox', 
                     'id' => $forms_img['aws_s3_active']['key'], 
-                    'data-content'=> '',
+                    'data-content'=> __('Amazon S3 active'),
                     'data-trigger'=>"hover",
                     'data-placement'=>"right",
                     'data-toggle'=>"popover",
@@ -589,7 +589,7 @@
                 'placeholder' => '', 
                 'class' => 'tips form-control', 
                 'id' => $forms_img['aws_access_key']['key'], 
-                'data-content'=> '',
+                'data-content'=> __('AWS Access Key'),
                 'data-trigger'=>"hover",
                 'data-placement'=>"right",
                 'data-toggle'=>"popover",
@@ -605,7 +605,7 @@
                 'placeholder' => "", 
                 'class' => 'tips form-control', 
                 'id' => $forms_img['aws_secret_key']['key'], 
-                'data-content'=> '',
+                'data-content'=> __('AWS Secret Key'),
                 'data-trigger'=>"hover",
                 'data-placement'=>"right",
                 'data-toggle'=>"popover",
@@ -621,11 +621,33 @@
                 'placeholder' => "", 
                 'class' => 'tips form-control', 
                 'id' => $forms_img['aws_s3_bucket']['key'], 
-                'data-content'=> '',
+                'data-content'=> __('Amazon S3 Bucket Name'),
                 'data-trigger'=>"hover",
                 'data-placement'=>"right",
                 'data-toggle'=>"popover",
                 'data-original-title'=>'',          
+                ))?> 
+            </div>
+        </div>
+        
+        <?  if (($aws_s3_domain = strpos($forms_img['aws_s3_domain']['value'], 's3.amazonaws.com')) !== FALSE) 
+                $forms_img['aws_s3_domain']['value'] = ($aws_s3_domain > 0) ? 'bn-s3' : 's3-bn';
+        ?>
+        <div class="form-group">
+            <?= FORM::label($forms_img['aws_s3_domain']['key'], __('S3 Domain Name'), array('class'=>'control-label col-sm-3', 'for'=>$forms_img['aws_s3_domain']['key']))?>
+            <div class="col-sm-4">
+                <?= FORM::select($forms_img['aws_s3_domain']['key'], array( 'bn'    =>"bucket_name",
+                                                                        'bn-s3' =>"bucket_name.s3.amazonaws.com",
+                                                                        's3-bn' =>"s3.amazonaws.com/bucket_name"), 
+                $forms_img['aws_s3_domain']['value'], array(
+                'placeholder' => $forms_img['aws_s3_domain']['value'], 
+                'class' => 'tips form-control input-sm ', 
+                'id' => $forms_img['aws_s3_domain']['key'],
+                'data-content'=> __("Amazon S3 Domain Name"),
+                'data-trigger'=>"hover",
+                'data-placement'=>"right",
+                'data-toggle'=>"popover",
+                'data-original-title'=>__("S3 Domain Name"), 
                 ))?> 
             </div>
         </div>

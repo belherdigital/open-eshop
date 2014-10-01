@@ -23,7 +23,7 @@
                         <div class="thumbnail">
                             <a href="<?=Route::url('product', array('category'=>$product->category->seoname,'seotitle'=>$product->seotitle))?>" class="min-h">
                           <?if($product->get_first_image()!== NULL):?>
-                                <?$images_base = (core::config('image.aws_s3_active')) ? ((Request::$initial->secure()) ? 'https://' : 'http://').core::config('image.aws_s3_bucket').'.'.'s3.amazonaws.com/' : URL::base()?>
+                                <?$images_base = (core::config('image.aws_s3_active')) ? ((Request::$initial->secure()) ? 'https://' : 'http://').core::config('image.aws_s3_domain') : URL::base()?>
                                 <img src="<?=$images_base.$product->get_first_image()?>" alt="<?=HTML::chars($product->title)?>">
                             <?elseif(( $icon_src = $product->category->get_icon() )!==FALSE ):?>
                                 <img src="<?=$icon_src?>" alt="<?=HTML::chars($product->title)?>">
