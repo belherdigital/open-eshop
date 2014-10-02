@@ -80,7 +80,7 @@ else
     .navbar-brand{padding: 4px 50px 0px 0px!important;}
     .we-install{padding: 5px!important;margin-top: 7px;}
     .adv{display: none;}
-    .logo img {margin-top: 10px;}
+    .logo img {margin-top: 30px;}
     .page-header{margin: 25px 0 21px!important;}
     .mb-10{margin-bottom: 10px!important;}
     #myTab{margin-top: 14px;}
