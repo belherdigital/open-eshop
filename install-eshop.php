@@ -452,7 +452,7 @@ function __($msgid)
     <meta name="author" content="Open Classifieds">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <link rel="shortcut icon" href="http://open-eshop.com/wp-content/themes/eshop/img/favicon.ico" />
+    <link rel="shortcut icon" href="http://open-eshop.com/wp-content/uploads/2014/10/favicon.ico" />
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
@@ -472,7 +472,7 @@ function __($msgid)
     .navbar-brand{padding: 4px 50px 0px 0px!important;}
     .we-install{padding: 5px!important;margin-top: 7px;}
     .adv{display: none;}
-    .logo img {margin-top: 10px;}
+    .logo img {margin-top: 30px;}
     .page-header{margin: 25px 0 21px!important;}
     .mb-10{margin-bottom: 10px!important;}
     #myTab{margin-top: 14px;}
@@ -515,7 +515,7 @@ function __($msgid)
         </div>
 
          <a class="logo" target="_blank" href="http://open-eshop.com">
-            <img src="http://open-eshop.com/wp-content/themes/eshop/img/logo-open-eshop.png" alt="Open eShop <?=__("Installation")?>">
+            <img src="http://open-eshop.com/wp-content/themes/strappress-eshop/img/logo.png" width="249" height="45" alt="Open eShop <?=__("Installation")?>">
         </a>    
         <div class="tab-content">
 
