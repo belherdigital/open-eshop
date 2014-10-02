@@ -60,7 +60,7 @@ else
     <meta name="author" content="Open eShop">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <link rel="shortcut icon" href="http://open-eshop.com/wp-content/themes/eshop/img/favicon.ico" />
+    <link rel="shortcut icon" href="http://open-eshop.com/wp-content/uploads/2014/10/favicon.ico" />
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
@@ -123,7 +123,7 @@ else
         </div>
 
          <a class="logo" target="_blank" href="http://open-eshop.com">
-            <img src="http://open-eshop.com/wp-content/themes/eshop/img/logo-open-eshop.png" width="286" height="87" alt="Open eShop <?=__("Installation")?>">
+            <img src="http://open-eshop.com/wp-content/themes/strappress-eshop/img/logo.png" width="249" height="45" alt="Open eShop <?=__("Installation")?>">
         </a>    
         <div class="tab-content">
             <div class="tab-pane fade in active" id="home">
