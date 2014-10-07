@@ -481,27 +481,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <?= FORM::label($forms['minify']['key'], __("Minify CSS/JS"), array('class'=>'col-md-3 control-label', 'for'=>$forms['minify']['key']))?>
-            <div class="col-sm-5">
-            	<div class="onoffswitch">
-            		<?= FORM::hidden($forms['minify']['key'], 0);?>
-            		<?= FORM::checkbox($forms['minify']['key'], 1, (bool) $forms['minify']['value'], array(
-            		'placeholder' => "TRUE or FALSE", 
-            		'class' => 'onoffswitch-checkbox', 
-            		'id' => $forms['minify']['key'], 
-                'data-content'=> __("Once set to TRUE, enables minify CSS and JS to speed up your site"),
-            		'data-trigger'=>"hover",
-            		'data-placement'=>"right",
-            		'data-toggle'=>"popover",
-                'data-original-title'=>__("Activates Minify CSS/JS"),
-            		))?>
-            		<?= FORM::label($forms['minify']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['minify']['key']))?>
-            	</div>
-            </div>
-        </div>
-
-        <div class="form-group">
+		<div class="form-group">
 			<?= FORM::label($forms['sort_by']['key'], __('Sort by in listing'), array('class'=>'control-label col-sm-3', 'for'=>$forms['sort_by']['key']))?>
 			<div class="col-sm-4">
 				<?= FORM::select($forms['sort_by']['key'], array(
