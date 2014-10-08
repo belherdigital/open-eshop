@@ -481,27 +481,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <?= FORM::label($forms['minify']['key'], __("Minify CSS/JS"), array('class'=>'col-md-3 control-label', 'for'=>$forms['minify']['key']))?>
-            <div class="col-sm-5">
-            	<div class="onoffswitch">
-            		<?= FORM::hidden($forms['minify']['key'], 0);?>
-            		<?= FORM::checkbox($forms['minify']['key'], 1, (bool) $forms['minify']['value'], array(
-            		'placeholder' => "TRUE or FALSE", 
-            		'class' => 'onoffswitch-checkbox', 
-            		'id' => $forms['minify']['key'], 
-                'data-content'=> __("Once set to TRUE, enables minify CSS and JS to speed up your site"),
-            		'data-trigger'=>"hover",
-            		'data-placement'=>"right",
-            		'data-toggle'=>"popover",
-                'data-original-title'=>__("Activates Minify CSS/JS"),
-            		))?>
-            		<?= FORM::label($forms['minify']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['minify']['key']))?>
-            	</div>
-            </div>
-        </div>
-
-        <div class="form-group">
+		<div class="form-group">
 			<?= FORM::label($forms['sort_by']['key'], __('Sort by in listing'), array('class'=>'control-label col-sm-3', 'for'=>$forms['sort_by']['key']))?>
 			<div class="col-sm-4">
 				<?= FORM::select($forms['sort_by']['key'], array(
@@ -559,7 +539,41 @@
                 ))?> 
             </div>
         </div>
-        
+
+        <div class="form-group">
+            <?= FORM::label($forms['html_head']['key'], __('HTML in HEAD element'), array('class'=>'col-md-3 control-label', 'for'=>$forms['html_head']['key']))?>
+            <div class="col-md-5">
+                <?= FORM::textarea($forms['html_head']['key'], $forms['html_head']['value'], array(
+                'placeholder' => '',
+                'rows' => 3, 'cols' => 50, 
+                'class' => 'tips form-control input-sm', 
+                'id' => $forms['html_head']['key'],
+                'data-content'=> __('To include your custom HTML code (validation metadata, reference to JS/CSS files, etc.) in the HEAD element of the rendered page.'),
+                'data-trigger'=>"hover",
+                'data-placement'=>"bottom",
+                'data-toggle'=>"popover",
+                'data-original-title'=>__('HTML in HEAD element'), 
+                ))?> 
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?= FORM::label($forms['html_footer']['key'], __('HTML in footer'), array('class'=>'col-md-3 control-label', 'for'=>$forms['html_footer']['key']))?>
+            <div class="col-md-5">
+                <?= FORM::textarea($forms['html_footer']['key'], $forms['html_footer']['value'], array(
+                'placeholder' => '',
+                'rows' => 3, 'cols' => 50, 
+                'class' => 'tips form-control input-sm', 
+                'id' => $forms['html_footer']['key'],
+                'data-content'=> __('To include your custom HTML code (reference to JS or CSS files, etc.) in the footer of the rendered page.'),
+                'data-trigger'=>"hover",
+                'data-placement'=>"bottom",
+                'data-toggle'=>"popover",
+                'data-original-title'=>__('HTML in footer'), 
+                ))?> 
+            </div>
+        </div>
+
         <h2><?=__("Amazon S3 Configuration")?></h2>
         
         <div class="form-group">

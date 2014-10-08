@@ -143,7 +143,7 @@ class Controller_Panel_Settings extends Auth_Controller {
         }
         
         //not updatable fields
-        $do_nothing = array('menu','locale','allow_query_language','charset');
+        $do_nothing = array('menu','locale','allow_query_language','charset','minify');
 
         // save only changed values
         if($this->request->post())
@@ -154,7 +154,11 @@ class Controller_Panel_Settings extends Auth_Controller {
                 $config_res = $this->request->post($c->config_key);
                 if($config_res != $c->config_value AND !in_array($c->config_key, $do_nothing))
                 {
-                    $c->config_value = $config_res;
+                    if ($c->config_key == 'html_head' OR $c->config_key == 'html_footer')
+                        $c->config_value = Kohana::$_POST_ORIG[$c->config_key];
+                    else
+                        $c->config_value = $config_res;
+
                     try {
                         $c->save();
                     } catch (Exception $e) {
