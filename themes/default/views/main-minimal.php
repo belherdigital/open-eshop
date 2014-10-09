@@ -31,7 +31,7 @@
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 7]><link rel="stylesheet" href="https://blueimp.github.com/cdn/css/bootstrap-ie6.min.css"><![endif]-->
     <!--[if lt IE 9]>
-      <?=HTML::script('https://html5shim.googlecode.com/svn/trunk/html5.js')?>
+      <script type="text/javascript" src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     
     <?=Theme::styles($styles)?>	

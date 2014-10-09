@@ -35,7 +35,7 @@
 		  	</ol>
 		</div>
 	<?else:?>
-		<img src="http://www.placehold.it/300x300&text=<?=urlencode(__('No Image'))?>" width="300" height="300" alt="<?=HTML::chars($product->title)?> <?=__('No Image')?>">
+		<img src="//www.placehold.it/300x300&text=<?=urlencode(__('No Image'))?>" width="300" height="300" alt="<?=HTML::chars($product->title)?> <?=__('No Image')?>">
 	<?endif?>
 </div>
 

@@ -30,7 +30,7 @@
                             <?elseif( ! empty($product->category->icon)):?>
                                 <div class="icon-placeholder"><i class="<?=$product->category->icon?>"></i></div>
                             <?else:?>
-                                <img src="http://www.placehold.it/200x200&text=<?=urlencode($product->category->name)?>" width="200" height="200" alt="<?=HTML::chars($product->category->name)?>">
+                                <img src="//www.placehold.it/200x200&text=<?=urlencode($product->category->name)?>" width="200" height="200" alt="<?=HTML::chars($product->category->name)?>">
                             <?endif?>
                             </a>
                           <div class="caption">
