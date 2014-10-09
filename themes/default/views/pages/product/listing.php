@@ -51,7 +51,7 @@
                     <?elseif(( $icon_src = $product->category->get_icon() )!==FALSE ):?>
                         <img width="300" height="200" src="<?=$icon_src?>" alt="<?=HTML::chars($product->title)?>">
                     <?else:?>
-                        <img src="http://www.placehold.it/300x200&text=<?=urlencode($product->category->name)?>" width="300" height="200" alt="<?=HTML::chars($product->title)?>">
+                        <img src="//www.placehold.it/300x200&text=<?=urlencode($product->category->name)?>" width="300" height="200" alt="<?=HTML::chars($product->title)?>">
                     <?endif?>
                     </a>
                     <div class="caption">
