@@ -194,7 +194,7 @@ class Model_Order extends ORM {
                             '[USER.EMAIL]'      => $user->email,
                             '[PRODUCT.TITLE]'   => $product->title,
                             '[PRODUCT.PRICE]'   => $order->amount.' '.$order->currency,
-                            '[PRODUCT.NOTES]'   => $product->email_purchase_notes,
+                            '[PRODUCT.NOTES]'   => Text::bb2html($product->email_purchase_notes,TRUE,FALSE,FALSE),
                             '[DOWNLOAD]'        => $download,
                             '[EXPIRE]'          => $expire,
                             '[LICENSE]'         => $license,
