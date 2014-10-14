@@ -193,7 +193,7 @@ class Model_Order extends ORM {
                             '[USER.NAME]'       => $user->name,
                             '[USER.EMAIL]'      => $user->email,
                             '[PRODUCT.TITLE]'   => $product->title,
-                            '[PRODUCT.PRICE]'   => $order->amount.' '.$order->currency,
+                            '[PRODUCT.PRICE]'   => i18n::format_currency($order->amount,$order->currency),
                             '[PRODUCT.NOTES]'   => Text::bb2html($product->email_purchase_notes,TRUE,FALSE,FALSE),
                             '[DOWNLOAD]'        => $download,
                             '[EXPIRE]'          => $expire,
