@@ -107,6 +107,7 @@ class Auth_Controller extends Controller
                                                             '//cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
                                                             '//cdn.jsdelivr.net/chosen/1.0.0/chosen.css'=>'screen',
                                                             '//cdn.jsdelivr.net/bootstrap.tagsinput/0.3.9/bootstrap-tagsinput.css'=>'screen',
+                                                            '//cdn.jsdelivr.net/sweetalert/0.1.2/sweet-alert.min.css'=>'screen',
                                                             'css/loadingbar.css'=>'screen', 
                                                             'css/icon-picker.min.css'=>'screen', 
                                                             'css/font-awesome.min.css'=>'screen', 
@@ -122,6 +123,7 @@ class Auth_Controller extends Controller
                                                     '//cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen', 
                                                     '//cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
                                                     '//cdn.jsdelivr.net/bootstrap.tagsinput/0.3.9/bootstrap-tagsinput.css'=>'screen',
+                                                    '//cdn.jsdelivr.net/sweetalert/0.1.2/sweet-alert.min.css'=>'screen',
                                                     'css/loadingbar.css'=>'screen', 
 													'css/icon-picker.min.css'=>'screen', 
 													'css/font-awesome.min.css'=>'screen', 
@@ -137,7 +139,6 @@ class Auth_Controller extends Controller
     												      '//cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
     												      Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
 														  'http://'.((Kohana::$environment!== Kohana::DEVELOPMENT)? 'market.'.Core::DOMAIN.'':'eshop.lo').'/embed.js',
-                                                          'js/bootstrap-confirmation.min.js',
                                                           'js/oc-panel/theme.init.js?v='.Core::VERSION,
                                                           'js/jquery.sceditor.min.js?v=144',
                                                           'js/summernote.min.js',
@@ -147,6 +148,7 @@ class Auth_Controller extends Controller
 														  'js/iconPicker.min.js',
                                                           'js/oc-panel/sidebar.js?v='.Core::VERSION,
                                                           '//cdn.jsdelivr.net/bootstrap.tagsinput/0.3.9/bootstrap-tagsinput.min.js',
+                                                          '//cdn.jsdelivr.net/sweetalert/0.1.2/sweet-alert.min.js',
                                                           'js/form.js?v='.Core::VERSION,
                                                           );
             }

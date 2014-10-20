@@ -27,8 +27,6 @@
             class="btn btn-warning" 
             title="<?=__('Close holded tickets without answer in 1 month?')?>" 
             data-toggle="confirmation" 
-            data-placement="left" 
-            data-href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'massclose'))?>" 
             data-btnOkLabel="<?=__('Yes, definitely!')?>" 
             data-btnCancelLabel="<?=__('No way!')?>">
             <?=__('Close Old Tickets')?>
