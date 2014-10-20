@@ -34,10 +34,9 @@
         <a 
             href="<?=Route::url('oc-panel', array('controller'=> 'category', 'action'=>'delete','id'=>$key))?>" 
             class="btn btn-xs btn-danger pull-right index-delete index-delete-inline" 
-            title="<?=__('Are you sure you want to delete? We will move the siblings categories and ads to the parent of this category.')?>" 
+            title="<?=__('Are you sure you want to delete?')?>" 
             data-id="li_<?=$key?>" 
-            data-placement="left" 
-            data-href="<?=Route::url('oc-panel', array('controller'=> 'category', 'action'=>'delete','id'=>$key))?>" 
+            data-text="<?=__('We will move the siblings categories and ads to the parent of this category.')?>" 
             data-btnOkLabel="<?=__('Yes, definitely!')?>" 
             data-btnCancelLabel="<?=__('No way!')?>">
             <i class="glyphicon glyphicon-trash"></i>

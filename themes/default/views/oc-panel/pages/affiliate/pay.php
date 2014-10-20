@@ -43,8 +43,6 @@
                         class="btn btn-primary" 
                         title="<?=__('Mark as Paid')?>" 
                         data-toggle="confirmation" 
-                        data-placement="left" 
-                        data-href="<?=Route::url('oc-panel', array('controller'=>'affiliate', 'action'=>'pay','id'=>$u->id_user))?>" 
                         data-btnOkLabel="<?=__('Yes, definitely!')?>" 
                         data-btnCancelLabel="<?=__('No way!')?>">
                         <i class="glyphicon glyphicon-usd"></i>
