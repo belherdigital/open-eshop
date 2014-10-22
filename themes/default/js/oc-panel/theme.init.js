@@ -78,13 +78,8 @@ function init_panel()
 				}
     });
 
-    $('.btn-licenses').click(function(){
-
-        id_order = '#'+$(this).attr('data-licenses');
-        if($(id_order).hasClass('hide'))
-            $(id_order).removeClass('hide');
-        else
-            $(id_order).addClass('hide');
+    $('.btn-licenses').click(function(e){
+		$('#'+$(this).data('licenses')).toggle();
     });
 
 	// Menu icon picker

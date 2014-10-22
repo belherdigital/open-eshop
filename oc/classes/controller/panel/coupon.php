@@ -21,7 +21,7 @@ class Controller_Panel_Coupon extends Auth_Crud {
     public function action_index($view = NULL)
     {
         $this->template->title = __('Coupons');
-        $this->template->scripts['footer'][] = 'js/oc-panel/crud/index.js';
+        $this->template->scripts['footer'][] = 'js/oc-panel/crud/coupon.js';
         
         $elements = new Model_Coupon();
         
@@ -48,6 +48,76 @@ class Controller_Panel_Coupon extends Auth_Crud {
 
         
         $this->render('oc-panel/pages/coupon/index', array('elements' => $elements,'pagination'=>$pagination));
-    }  
+    }
+
+    /**
+     * CRUD controller: CREATE
+     */
+    public function action_create()
+    {
+
+        $this->template->title = __('New').' '.__($this->_orm_model);
+        
+        $this->template->styles             = array('//cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
+        $this->template->scripts['footer']  = array(
+                                                    '//cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
+                                                    'js/oc-panel/coupon.js'
+                                                );
+
+        $form = new FormOrm($this->_orm_model);
+
+        if ($this->request->post())
+        {
+            if ( $success = $form->submit() )
+            {
+                $form->save_object();
+                Alert::set(Alert::SUCCESS, __('Item created').'. '.__('Please to see the changes delete the cache')
+                    .'<br><a class="btn btn-primary btn-mini ajax-load" href="'.Route::url('oc-panel',array('controller'=>'tools','action'=>'cache')).'?force=1">'
+                    .__('Delete All').'</a>');
+
+                $this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller())));
+            }
+            else 
+            {
+                Alert::set(Alert::ERROR, __('Check form for errors'));
+            }
+        }
+
+        return $this->render('oc-panel/crud/create', array('form' => $form));
+    }
+    
+    /**
+     * CRUD controller: UPDATE
+     */
+    public function action_update()
+    {
+        $this->template->title = __('Update').' '.__($this->_orm_model).' '.$this->request->param('id');
+
+        $this->template->styles             = array('//cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
+        $this->template->scripts['footer']  = array(
+                                                    '//cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
+                                                    'js/oc-panel/coupon.js'
+                                                );
+
+        $form = new FormOrm($this->_orm_model,$this->request->param('id'));
+
+        if ($this->request->post())
+        {
+            if ( $success = $form->submit() )
+            {
+                $form->save_object();
+                Alert::set(Alert::SUCCESS, __('Item updated').'. '.__('Please to see the changes delete the cache')
+                    .'<br><a class="btn btn-primary btn-mini ajax-load" href="'.Route::url('oc-panel',array('controller'=>'tools','action'=>'cache')).'?force=1">'
+                    .__('Delete All').'</a>');
+                $this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller())));
+            }
+            else
+            {
+                Alert::set(Alert::ERROR, __('Check form for errors'));
+            }
+        }
+
+        return $this->render('oc-panel/crud/update', array('form' => $form));
+    }
 
 }
