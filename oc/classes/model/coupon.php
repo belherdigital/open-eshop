@@ -83,6 +83,11 @@ class Model_Coupon extends ORM {
 
         $form->fields['id_product']['display_as']   = 'select';
         $form->fields['id_product']['caption']      = 'title';  
+
+        $form->fields['valid_date']['attributes']['placeholder']        = 'yyyy-mm-dd';
+        $form->fields['valid_date']['attributes']['data-toggle']        = 'datepicker';
+        $form->fields['valid_date']['attributes']['data-date']          = '';
+        $form->fields['valid_date']['attributes']['data-date-format']   = 'yyyy-mm-dd';
     }
 
     /**
