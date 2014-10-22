@@ -39,13 +39,13 @@
                     <i class="glyphicon glyphicon-download"></i> <?=__('Download')?> <?=$order->product->version?></a>
                     <?endif?>
                     <?if ($order->licenses->count_all()>0):?>
-                        <a class="btn btn-mini btn-info btn-licenses" data-licenses="id_<?=$order->id_order;?>">
+                        <button type="button" class="btn btn-mini btn-info btn-licenses" data-licenses="id_<?=$order->id_order;?>">
                             <span class="glyphicon glyphicon-list-alt "></span>
-                        </a>
+                        </button>
                     <?endif?>
                 </td>
                 <?if ($order->licenses->count_all()>0):?>
-                <tr class="hide" id="id_<?=$order->id_order;?>">
+                <tr id="id_<?=$order->id_order;?>" style="display:none;">
                     <td colspan="6">
                         <table class="table table-striped custab">
                             <th><?=__('License')?></th>
