@@ -373,6 +373,8 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('appearance', 'theme', 'default'),
 ('appearance', 'theme_mobile', ''),
 ('appearance', 'allow_query_theme', 0),
+('appearance', 'custom_css', 0),
+('appearance', 'custom_css_version', 0),
 ('i18n', 'charset', 'utf-8'),
 ('i18n', 'timezone', '".core::request('TIMEZONE')."'),
 ('i18n', 'locale', '".core::request('LANGUAGE')."'),

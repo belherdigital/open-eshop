@@ -80,6 +80,7 @@
                                         <?if (Theme::has_options()):?>
                                             <tr><td class="br"><?=Theme::admin_link(__('Theme Options'), 'theme','options','oc-panel','glyphicon  glyphicon-wrench')?></td></tr>
                                         <?endif?>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Custom CSS'), 'theme','css','oc-panel','glyphicon glyphicon-sound-stereo')?></td></tr>
                                         <tr><td class="br"><?=Theme::admin_link(__('Widgets'), 'widget','index','oc-panel','glyphicon glyphicon-move')?></td></tr>
                                         <tr><td class="br"><?=Theme::admin_link(__('Menu'), 'menu','index','oc-panel','glyphicon glyphicon-list')?></td></tr>
                                     </table>
