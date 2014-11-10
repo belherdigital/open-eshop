@@ -96,6 +96,10 @@ class Controller extends Kohana_Controller
     	parent::after();
     	if ($this->auto_render === TRUE)
     	{
+            // Add custom CSS if enabld and front controller
+            if (is_subclass_of($this,'Auth_Controller')===FALSE AND ($custom_css = Theme::get_custom_css())!==FALSE )
+                Theme::$styles = array_merge(Theme::$styles,array($custom_css => 'screen',));
+            
     		// Add defaults to template variables.
             $this->template->styles  = array_merge_recursive(Theme::$styles, $this->template->styles);
             $this->template->scripts = array_reverse(array_merge_recursive(Theme::$scripts,$this->template->scripts));
