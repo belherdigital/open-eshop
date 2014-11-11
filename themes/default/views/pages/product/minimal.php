@@ -13,8 +13,7 @@
     <?endif?>
 
     <?if($product->get_first_image() !== NULL):?>
-    <?$images_base = (core::config('image.aws_s3_active')) ? ((Core::is_HTTPS()) ? 'https://' : 'http://').core::config('image.aws_s3_domain') : URL::base()?>
-        <img src="<?=$images_base.$product->get_first_image('thumb')?>" class="" >
+        <img src="<?=Core::S3_domain().$product->get_first_image('thumb')?>" class="" >
     </div>
     <?endif?>
 
