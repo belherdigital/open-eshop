@@ -120,7 +120,7 @@ class Controller_Panel_Newsletter extends Auth_Controller {
             //sending!
             if (count($users)>0)
             {
-                if ( !Email::send($users,'',Core::post('subject'),Core::post('description'),Core::post('from'), Core::post('from_email') ) )
+                if ( !Email::send($users,'',Core::post('subject'),Kohana::$_POST_ORIG['description'],Core::post('from'), Core::post('from_email') ) )
                     Alert::set(Alert::ERROR,__('Error on mail delivery, not sent'));
                 else 
                     Alert::set(Alert::SUCCESS,__('Email sent'));
