@@ -41,7 +41,7 @@ Theme::load();
     Theme::$styles = $theme_css;
 
     Theme::$scripts['footer']   = array('//code.jquery.com/jquery-1.10.2.min.js',
-                                        '//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
+                                        '//netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js',
                                         '//cdn.jsdelivr.net/prettyphoto/3.1.5/js/jquery.prettyPhoto.js',
                                         '//cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
                                         Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
