@@ -153,7 +153,7 @@ ul.plholder li.placeholder:before {
 .header-container{padding: 0px 20px 0px 0px;}
 .navbar-nav li a:hover{border-bottom: 3px solid #46b8da; padding-bottom:12px;}
 .nav.navbar-nav > li a , .navbar-brand{color: #fff;}
-.navbar-brand{color: #fff!important;}
+.navbar-brand{color: #fff!important;float: left!important;}
 .dropdown-menu li a{color:#000!important; border-bottom:none!important; padding-bottom:3px!important;}
 
 /*Sidebar*/
