@@ -27,8 +27,8 @@ Theme::load();
 
 //local files
     $theme_css = array(
-                        '//netdna.bootstrapcdn.com/bootswatch/3.2.0/yeti/bootstrap.min.css' => 'screen',
-                        '//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' => 'screen',
+                        '//netdna.bootstrapcdn.com/bootswatch/3.3.0/yeti/bootstrap.min.css' => 'screen',
+                        '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' => 'screen',
                         '//cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen',
                         '//cdn.jsdelivr.net/prettyphoto/3.1.5/css/prettyPhoto.css' => 'screen',
                         'css/style.css?v='.Core::VERSION => 'screen',
@@ -41,7 +41,7 @@ Theme::load();
     Theme::$styles = $theme_css;
 
     Theme::$scripts['footer']   = array('//code.jquery.com/jquery-1.10.2.min.js',
-                                        '//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
+                                        '//netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js',
                                         '//cdn.jsdelivr.net/prettyphoto/3.1.5/js/jquery.prettyPhoto.js',
                                         '//cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
                                         Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
