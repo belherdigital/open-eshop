@@ -151,6 +151,31 @@
                         </div>
                         <?endif?>
                     <?endif?>
+                    <? if($user->id_role==Model_Role::ROLE_TRANSLATOR):?>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-folder-open">
+                                    </span> <span class="title-txt"><?=__('Content')?></span></a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <?if (core::config('general.blog')==1):?>
+                                            <tr><td class="br"><?=Theme::admin_link(__('Blog'), 'blog','index','oc-panel','glyphicon glyphicon-pencil')?></td></tr>
+                                        <?endif?>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Page'), 'content','page','oc-panel','glyphicon glyphicon-file')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Email'), 'content','email','oc-panel','glyphicon glyphicon-envelope')?></td></tr>
+                                        <?if (core::config('general.faq')==1):?>
+                                            <tr><td class="br"><?=Theme::admin_link(__('FAQ'), 'content','help','oc-panel',' glyphicon glyphicon-question-sign')?></td></tr>
+                                        <?endif?>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Translations'), 'translations','index','oc-panel','glyphicon glyphicon-globe')?></td></tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    <?endif?>
                         <? if($user->has_access_to_any('profile')):?>
                         <div class="panel panel-default">
                             <div class="panel-heading">
