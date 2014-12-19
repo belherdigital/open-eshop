@@ -92,18 +92,28 @@ class Auth_Controller extends Controller
             $this->template->scripts          = array();
             $this->template->user             = Auth::instance()->get_user();
 
+
             //non ajax request
             if (Core::get('rel')!='ajax')
             {
-                $this->template->header           = View::factory('oc-panel/header');
-                $this->template->footer           = View::factory('oc-panel/footer');
 
+                if(core::get('print')==1)
+                {
+                    $this->template->header  = '';
+                    $this->template->footer  = '';
+                }
+                else
+                {
+                    $this->template->header           = View::factory('oc-panel/header');
+                    $this->template->footer           = View::factory('oc-panel/footer');
+                }
 
 
                 //other color
                 if (Theme::get('admin_theme')=='bootstrap')
                 {
                     Theme::$styles                    = array('//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css' => 'screen',
+                                                            '//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css?v=print' => 'print',
                                                             '//cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
                                                             '//cdn.jsdelivr.net/chosen/1.0.0/chosen.css'=>'screen',
                                                             '//cdn.jsdelivr.net/bootstrap.tagsinput/0.3.9/bootstrap-tagsinput.css'=>'screen',
@@ -118,7 +128,8 @@ class Auth_Controller extends Controller
                 //default theme
                 else
                 {
-                     Theme::$styles               = array(  '//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css' => 'screen',                                
+                     Theme::$styles               = array(  '//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css' => 'screen',   
+                                                    '//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css?v=print' => 'print',                             
                                                     '//netdna.bootstrapcdn.com/bootswatch/3.3.0/'.Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
                                                     '//cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen', 
                                                     '//cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',

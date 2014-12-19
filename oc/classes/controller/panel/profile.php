@@ -204,6 +204,37 @@ class Controller_Panel_Profile extends Auth_Controller {
         $this->template->content = View::factory('oc-panel/profile/orders',array('licenses'=>$licenses,'orders'=>$orders));
    }
 
+   public function action_order()
+   {    
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('My Purchases'))->set_url(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders'))));
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Print')));
+        $this->template->title   = __('Print Order');
+
+        $user = Auth::instance()->get_user();
+        $id_order = $this->request->param('id');
+        $order = new Model_Order;
+        $order = $order->where('id_user', '=', $user->id_user)
+                        ->where('id_order', '=', $id_order)
+                        ->find();
+
+        if( ! $order->loaded() )
+        {
+            Alert::set(ALERT::WARNING, __('Order could not be loaded'));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
+        }
+
+
+        $this->template->bind('content', $content);
+        $this->template->content = View::factory('oc-panel/profile/order');
+
+        $content->order = $order;
+
+        if(core::get('print') == 1)
+        {
+            $this->template->scripts['footer'] = array('js/oc-panel/order.js');
+        }
+        
+   }
 
    /**
     * returns file attached to the order, if theres file...

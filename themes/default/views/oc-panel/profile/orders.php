@@ -43,6 +43,9 @@
                             <span class="glyphicon glyphicon-list-alt "></span>
                         </button>
                     <?endif?>
+                    <a title="<?=__('print order')?>" href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'order','id'=>$order->id_order))?>" 
+                    class="btn btn-mini btn-success">
+                    <i class="glyphicon glyphicon-print"></i> <?=$order->product->version?></a>
                 </td>
                 <?if ($order->licenses->count_all()>0):?>
                 <tr id="id_<?=$order->id_order;?>" style="display:none;">

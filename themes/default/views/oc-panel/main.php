@@ -30,11 +30,11 @@
   <body>
 	<?=$header?>
 	    
-		<?=View::factory('oc-panel/sidebar',array('user'=>$user))?>
+		<?=(core::get('print')==1)?'':View::factory('oc-panel/sidebar',array('user'=>$user))?>
     <div class="bs-docs-nav">
     <div class="alert alert-warning off-line" style="display:none;"><strong><?=__('Warning')?>!</strong> <?=__('We detected you are currently off-line, please connect to gain full experience.')?></div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main pull-left" id="content">
-				<?=Breadcrumbs::render('oc-panel/breadcrumbs')?>      
+				<?=(core::get('print')==1)?'':Breadcrumbs::render('oc-panel/breadcrumbs')?>      
 				<?=Alert::show()?>
                 <?if (!isset($_COOKIE['donation_alert'])  AND Theme::get('premium')!=1 AND $user->id_role==Model_Role::ROLE_ADMIN):?>
                    <div class="alert alert-warning fade in">
