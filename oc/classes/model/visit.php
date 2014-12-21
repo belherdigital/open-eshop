@@ -70,6 +70,10 @@ class Model_Visit extends ORM {
             "Baiduspider", "Feedfetcher-Google", "TechnoratiSnoop", "Rankivabot","Mediapartners-Google", "Sogou web spider", "WebAlta Crawler","TweetmemeBot","Butterfly","Twitturls","Me.dium","Twiceler"
         );
 
+        //no user agent is bot almost sure...
+        if (!isset($_SERVER['HTTP_USER_AGENT']))
+            return TRUE;
+
         //If the spider text is found in the current user agent, then return true
         foreach($spiders as $spider) 
             if ( stripos($_SERVER['HTTP_USER_AGENT'], $spider) !== FALSE ) return TRUE;
