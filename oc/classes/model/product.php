@@ -349,8 +349,14 @@ class Model_Product extends ORM {
      * @param  [int] $id   [unique id, and folder name]
      * @return [string]             [directory path]
      */
-    public function image_path($id, $created)
+    public function image_path($id = NULL, $created = NULL)
     { 
+        if ($this->loaded() AND ($id === NULL OR $created === NULL))
+        {
+            $id = $this->id_product;
+            $created = $this->created;
+        }
+        
         if ($created !== NULL)
         {
             $obj_date = date_parse($created); // convert date to array 

@@ -479,9 +479,9 @@ VALUES (1, 'Home category', 0 , 0, 0, 'all', 'root category');");
 
 //crontabs
 mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."crontab` (`name`, `period`, `callback`, `params`, `description`, `active`) VALUES
-('Sitemap', '* 3 * * *', 'Sitemap::generate', NULL, 'Regenerates the sitemap everyday at 3am',1),
-('Clean Cache', '* 5 * * *', 'Core::delete_cache', NULL, 'Once day force to flush all the cache.', 1),
-('Optimize DB', '* 4 1 * *', 'Core::optimize_db', NULL, 'once a month we optimize the DB', 1);");
+('Sitemap', '0 3 * * *', 'Sitemap::generate', NULL, 'Regenerates the sitemap everyday at 3am',1),
+('Clean Cache', '0 5 * * *', 'Core::delete_cache', NULL, 'Once day force to flush all the cache.', 1),
+('Optimize DB', '0 4 1 * *', 'Core::optimize_db', NULL, 'once a month we optimize the DB', 1);");
  
 
 

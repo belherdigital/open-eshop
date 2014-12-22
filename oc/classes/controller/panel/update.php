@@ -73,6 +73,93 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
                         );
         
         Model_Config::config_array($configs);
+
+        //upgrade has_image field to use it as images count
+        $products = new Model_Product();
+        $products = $products->where('has_images','=',0)->find_all();
+        
+        if(count($products))
+        {
+            foreach ($products as $product) 
+            {
+                $product->has_images = 0;//begin with 0 images
+                $route = $product->image_path();
+                $folder = DOCROOT.$route;
+                $image_keys = array();
+                
+                if(is_dir($folder))
+                {
+                    //retrive ad pictures
+                    foreach (new DirectoryIterator($folder) as $file) 
+                    {   
+                        if(!$file->isDot())
+                        {   
+                            $key = explode('_', $file->getFilename());
+                            $key = end($key);
+                            $key = explode('.', $key);
+                            $key = (isset($key[0])) ? $key[0] : NULL ;
+                            if(is_numeric($key))
+                            {
+                                if (strpos($file->getFilename(), 'thumb_') === 0)
+                                {
+                                    $image_keys[] = $key;
+                                }
+                            }
+                        }
+                    }
+                    
+                    //count images and reordering file names
+                    
+                    if (count($image_keys))
+                    {
+                        asort($image_keys);
+                        
+                        foreach ($image_keys as $image_key)
+                        {
+                            $product->has_images++;
+                            
+                            @rename($folder.$product->seotitle.'_'.$image_key.'.jpg', $folder.$product->seotitle.'_'.$product->has_images.'.jpg');
+                            @rename($folder.'thumb_'.$product->seotitle.'_'.$image_key.'.jpg', $folder.'thumb_'.$product->seotitle.'_'.$product->has_images.'.jpg');
+                        }
+                    }
+                }
+                
+                //update has_images count
+                try 
+                {
+                    $product->save();
+                } 
+                catch (Exception $e) 
+                {
+                    throw HTTP_Exception::factory(500,$e->getMessage());
+                }
+            }
+        }
+
+        //TODO
+        //update has images
+        //upgrade categories has_image
+        $images_path = DOCROOT.'images/categories';
+        if(is_dir($images_path))
+        {
+            //retrive cat pictures
+            foreach (new DirectoryIterator($images_path) as $file) 
+            {   
+                if($file->isFile())
+                {   
+                    $cat_name =  str_replace('.png','', $file->getFilename());
+                    $cat = new Model_Category();
+                    $cat->where('seoname','=',$cat_name)->find();
+                    if ($cat->loaded())
+                    {
+                        $cat->has_image = 1;
+                        $cat->save();
+                    }
+                }
+            }
+        }
+
+        //update crontabs
     }
 
     /**
