@@ -97,7 +97,7 @@ class Controller_Panel_Stats extends Auth_Controller {
          //Today 
         $query = DB::select(DB::expr('COUNT(id_visit) count'))
                         ->from('visits')
-                        ->where(DB::expr('DATE( created )'),'=',DB::expr('CURDATE()'));
+                        ->where(DB::expr('DATE( created )'),'=',date('Y-m-d'));
         if ($content->product!==NULL)
                 $query = $query->where('id_product','=',$content->product->id_product);
         $query = $query->group_by(DB::expr('DATE( created )'))
@@ -110,8 +110,8 @@ class Controller_Panel_Stats extends Auth_Controller {
          //Current month 
         $query = DB::select(DB::expr('COUNT(id_visit) count'))
                         ->from('visits')
-                        ->where(DB::expr('MONTH( created )'),'=',DB::expr('MONTH(CURDATE())'))
-                        ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
+                        ->where(DB::expr('MONTH( created )'),'=',date('m'))
+                        ->where(DB::expr('YEAR( created )'),'=',date('Y'));
         if ($content->product!==NULL)
                 $query = $query->where('id_product','=',$content->product->id_product);
         $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
@@ -139,7 +139,7 @@ class Controller_Panel_Stats extends Auth_Controller {
         //Current month 
         $query = DB::select(DB::expr('COUNT(id_visit) count'))
                         ->from('visits')
-                        ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
+                        ->where(DB::expr('YEAR( created )'),'=',date('Y'));
         if ($content->product!==NULL)
                 $query = $query->where('id_product','=',$content->product->id_product);
         $query = $query->group_by(DB::expr('YEAR(`created`)'))
@@ -217,7 +217,7 @@ class Controller_Panel_Stats extends Auth_Controller {
         $query = DB::select(DB::expr('COUNT(id_order) count'))
                         ->select(DB::expr('SUM(amount) total'))
                         ->from('orders')
-                        ->where(DB::expr('DATE( pay_date )'),'=',DB::expr('CURDATE()'))
+                        ->where(DB::expr('DATE( pay_date )'),'=',date('Y-m-d'))
                         ->where('status','=',Model_Order::STATUS_PAID);
         if ($content->product!==NULL)
                 $query = $query->where('id_product','=',$content->product->id_product);
@@ -252,8 +252,8 @@ class Controller_Panel_Stats extends Auth_Controller {
         $query = DB::select(DB::expr('COUNT(id_order) count'))
                         ->select(DB::expr('SUM(amount) total'))
                         ->from('orders')
-                        ->where(DB::expr('MONTH( pay_date )'),'=',DB::expr('MONTH(CURDATE())'))
-                        ->where(DB::expr('YEAR( pay_date )'),'=',DB::expr('YEAR(CURDATE())'))
+                        ->where(DB::expr('MONTH( pay_date )'),'=',date('m'))
+                        ->where(DB::expr('YEAR( pay_date )'),'=',date('Y'))
                         ->where('status','=',Model_Order::STATUS_PAID);
         if ($content->product!==NULL)
                 $query = $query->where('id_product','=',$content->product->id_product);
@@ -272,7 +272,7 @@ class Controller_Panel_Stats extends Auth_Controller {
         $query = DB::select(DB::expr('COUNT(id_order) count'))
                         ->select(DB::expr('SUM(amount) total'))
                         ->from('orders')
-                        ->where(DB::expr('YEAR( pay_date )'),'=',DB::expr('YEAR(CURDATE())'))
+                        ->where(DB::expr('YEAR( pay_date )'),'=',date('Y-m-d'))
                         ->where('status','=',Model_Order::STATUS_PAID);
         if ($content->product!==NULL)
                 $query = $query->where('id_product','=',$content->product->id_product);
@@ -430,7 +430,7 @@ class Controller_Panel_Stats extends Auth_Controller {
         //Today 
         $query = DB::select(DB::expr('COUNT(id_download) count'))
                         ->from('downloads')
-                        ->where(DB::expr('DATE( created )'),'=',DB::expr('CURDATE()'));
+                        ->where(DB::expr('DATE( created )'),'=',date('Y-m-d'));
         
         $query = $query
                         ->group_by(DB::expr('DATE( created )'))
@@ -456,8 +456,8 @@ class Controller_Panel_Stats extends Auth_Controller {
         //current month
         $query = DB::select(DB::expr('COUNT(id_download) count'))
                         ->from('downloads')
-                        ->where(DB::expr('MONTH( created )'),'=',DB::expr('MONTH(CURDATE())'))
-                        ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
+                        ->where(DB::expr('MONTH( created )'),'=',date('m'))
+                        ->where(DB::expr('YEAR( created )'),'=',date('Y'));
         
         $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
                         ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
@@ -472,7 +472,7 @@ class Controller_Panel_Stats extends Auth_Controller {
         //current year
         $query = DB::select(DB::expr('COUNT(id_download) count'))
                         ->from('downloads')
-                        ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
+                        ->where(DB::expr('YEAR( created )'),'=',date('Y'));
         
         $query = $query->group_by(DB::expr('YEAR(`created`)'))
                         ->order_by(DB::expr('YEAR(`created`)'),'asc')
@@ -544,7 +544,7 @@ class Controller_Panel_Stats extends Auth_Controller {
         //Today 
         $query = DB::select(DB::expr('COUNT(id_license) count'))
                         ->from('licenses')
-                        ->where(DB::expr('DATE( created )'),'=',DB::expr('CURDATE()'));
+                        ->where(DB::expr('DATE( created )'),'=',date('Y-m-d'));
         if ($content->product!==NULL)
                 $query = $query->where('id_product','=',$content->product->id_product);
         $query = $query
@@ -572,8 +572,8 @@ class Controller_Panel_Stats extends Auth_Controller {
         //current month
         $query = DB::select(DB::expr('COUNT(id_license) count'))
                         ->from('licenses')
-                        ->where(DB::expr('MONTH( created )'),'=',DB::expr('MONTH(CURDATE())'))
-                        ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
+                        ->where(DB::expr('MONTH( created )'),'=',date('m'))
+                        ->where(DB::expr('YEAR( created )'),'=',date('Y'));
         if ($content->product!==NULL)
                 $query = $query->where('id_product','=',$content->product->id_product);
         $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
@@ -588,7 +588,7 @@ class Controller_Panel_Stats extends Auth_Controller {
         //current year
         $query = DB::select(DB::expr('COUNT(id_license) count'))
                         ->from('licenses')
-                        ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
+                        ->where(DB::expr('YEAR( created )'),'=',date('Y'));
         if ($content->product!==NULL)
                 $query = $query->where('id_product','=',$content->product->id_product);
         $query = $query->group_by(DB::expr('YEAR(`created`)'))
@@ -651,7 +651,7 @@ class Controller_Panel_Stats extends Auth_Controller {
         //Today 
         $query = DB::select(DB::expr('COUNT(id_ticket) count'))
                         ->from('tickets')
-                        ->where(DB::expr('DATE( created )'),'=',DB::expr('CURDATE()'));
+                        ->where(DB::expr('DATE( created )'),'=',date('Y-m-d'));
         
         $query = $query
                         ->group_by(DB::expr('DATE( created )'))
@@ -677,8 +677,8 @@ class Controller_Panel_Stats extends Auth_Controller {
         //current month
         $query = DB::select(DB::expr('COUNT(id_ticket) count'))
                         ->from('tickets')
-                        ->where(DB::expr('MONTH( created )'),'=',DB::expr('MONTH(CURDATE())'))
-                        ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
+                        ->where(DB::expr('MONTH( created )'),'=',date('m'))
+                        ->where(DB::expr('YEAR( created )'),'=',date('Y'));
         
         $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
                         ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
@@ -693,7 +693,7 @@ class Controller_Panel_Stats extends Auth_Controller {
         //current year
         $query = DB::select(DB::expr('COUNT(id_ticket) count'))
                         ->from('tickets')
-                        ->where(DB::expr('YEAR( created )'),'=',DB::expr('YEAR(CURDATE())'));
+                        ->where(DB::expr('YEAR( created )'),'=',date('Y'));
         
         $query = $query->group_by(DB::expr('YEAR(`created`)'))
                         ->order_by(DB::expr('YEAR(`created`)'),'asc')
