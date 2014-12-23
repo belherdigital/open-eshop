@@ -283,4 +283,61 @@ class Controller_Panel_Auth extends Controller {
 		$this->redirect($url);
 	}
 
+
+    public function action_unsubscribe()
+    {    
+        $email_encoded = $this->request->param('id');
+
+        $user = new Model_User();
+
+        //mail encoded
+        if ($email_encoded!==NULL)
+        {
+            //decode emails
+            $email_encoded = Base64::fix_from_url($email_encoded);
+            $encrypt = new Encrypt(Core::config('auth.hash_key'), MCRYPT_MODE_NOFB, MCRYPT_RIJNDAEL_128);
+            $email   = $encrypt->decode($email_encoded);
+
+            if (Valid::email($email,TRUE))
+            {
+                //check we have this email in the DB
+                $user = new Model_User();
+                $user = $user->where('email', '=', $email)
+                            ->limit(1)
+                            ->find();            
+            }
+            else
+                Alert::set(Alert::INFO, __('Not valid email.'));
+        }
+        //in case no parameter but user is loged in
+        elseif (Auth::instance()->logged_in())
+        {
+            $user = Auth::instance()->get_user();
+        }
+
+        //lets unsubscribe the user
+        if ($user->loaded())
+        {
+            $user->subscriber = 0;
+            $user->last_modified = Date::unix2mysql();
+
+            try {
+                $user->save();
+                Alert::set(Alert::SUCCESS, __('You have successfuly unsubscribed'));                
+            } catch (Exception $e) {
+                //throw 500
+                throw HTTP_Exception::factory(500,$e->getMessage());
+            }   
+        }
+        else
+            Alert::set(Alert::INFO, __('Not valid user email.'));
+
+
+        //smart redirect
+        if (Auth::instance()->logged_in())
+            $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'edit')));
+        else
+            $this->redirect(Route::url('default'));
+    }
+
 }
