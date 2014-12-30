@@ -192,14 +192,6 @@ Route::set('product-demo', '<category>/demo/<seotitle>.html')
         'action'     => 'demo',
 ));
 
-/**
- * Item paypal form
- */
-Route::set('product-paypal', '<category>/paypal/<seotitle>.html')
-->defaults(array(
-        'controller' => 'paypal',    
-        'action'     => 'pay',
-));
 
 /**
  * product reviews

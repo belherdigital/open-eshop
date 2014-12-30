@@ -48,9 +48,9 @@ class Controller_Panel_Profile extends Auth_Controller {
 						$user->save();
 					}
 					catch (ORM_Validation_Exception $e)
-					{
-						throw HTTP_Exception::factory(500,$e->getMessage());
-					}
+                    {
+                        Form::set_errors($e->errors(''));
+                    }
 					catch (Exception $e)
 					{
 						throw HTTP_Exception::factory(500,$e->getMessage());
@@ -161,8 +161,14 @@ class Controller_Panel_Profile extends Auth_Controller {
 
             try {
                 $user->save();
-                Alert::set(Alert::SUCCESS, __('You have successfuly changed your data'));                
-            } catch (Exception $e) {
+                Alert::set(Alert::SUCCESS, __('You have successfuly changed your data'));  
+
+            }
+            catch (ORM_Validation_Exception $e)
+            {
+                Form::set_errors($e->errors(''));
+            }
+            catch (Exception $e) {
                 //throw 500
                 throw HTTP_Exception::factory(500,$e->getMessage());
             }   
@@ -171,6 +177,62 @@ class Controller_Panel_Profile extends Auth_Controller {
         }
     }
 
+    public function action_billing()
+    {
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Billing Information')));
+        
+        $this->template->title   = __('Billing Information');
+
+        $user = Auth::instance()->get_user();
+
+        $this->template->bind('content', $content);
+        $this->template->content = View::factory('oc-panel/profile/edit',array('user'=>$user));
+        $this->template->content->msg ='';
+
+        if ($this->request->post())
+        {
+            $user = Auth::instance()->get_user();
+            
+            $user->country       = core::post('country');
+            $user->city          = core::post('city');
+            $user->postal_code   = core::post('postal_code');
+            $user->address       = core::post('address');
+            $user->last_modified = Date::unix2mysql();
+            $user->VAT_number    = core::post('VAT_number');
+
+            //theres VAT sent
+            if (core::post('VAT_number')!=NULL)
+            {
+                //if VAT submited and country is from EU verify it, not valid do not store it and display on page
+                if (!euvat::verify_vies(core::post('VAT_number'),$user->country))
+                {
+                    Alert::set(Alert::ERROR, __('Invalid EU Vat Number, please verify number and country match'));
+                    $this->redirect(Route::url('oc-panel', array('controller'=>'profile','action'=>'billing')).'?order_id='.core::request('order_id').'');
+                }
+            }
+
+            //save user data
+            try
+            {
+                $user->save();
+                Alert::set(Alert::SUCCESS, __('Billing information changed'));
+            }
+            catch (ORM_Validation_Exception $e)
+            {
+                Form::set_errors($e->errors(''));
+            }
+            catch (Exception $e)
+            {
+                throw HTTP_Exception::factory(500,$e->getMessage());
+            } 
+
+            //in case there was an order rediret him to checkout
+            if (is_numeric(core::request('order_id')))
+                $this->redirect(Route::url('default', array('controller'=>'product','action'=>'checkout','id'=>core::request('order_id'))));
+            
+        }
+      
+    }
    /**
     * redirects to public profile, we use it so we can cache the view and redirect them
     * @return redirect 
@@ -228,6 +290,8 @@ class Controller_Panel_Profile extends Auth_Controller {
         $this->template->content = View::factory('oc-panel/profile/order');
 
         $content->order = $order;
+        $content->product = $order->product;
+        $content->user = $user;
 
         if(core::get('print') == 1)
         {
@@ -260,57 +324,6 @@ class Controller_Panel_Profile extends Auth_Controller {
         Alert::set(Alert::ERROR, $err_msg);
         $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
     
-    }
-
-
-    /**
-     * action to download a free digital good, creates an order if needed and redirect to the payment
-     * @return [type] [description]
-     */
-    public function action_free()
-    {
-        $this->auto_render = FALSE;
-
-        $seotitle = $this->request->param('id');
-
-        $product = new Model_product();
-        $product->where('seotitle','=',$seotitle)
-            ->where('status','=',Model_Product::STATUS_ACTIVE)
-            ->limit(1)->find();
-
-        if ($product->loaded())
-        {
-            $user = Auth::instance()->get_user();
-
-            if ($product->final_price()>0)
-            {
-                Alert::set(Alert::ERROR, __('Not a free product.'));
-                $this->redirect(Route::url('product',array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
-            }
-            else
-            {
-
-                //check if he has any other order with this product
-                $order = new Model_Order();
-                $order  ->where('id_user'   , '=', $user->id_user)
-                        ->where('id_product', '=', $product->id_product)
-                        ->where('status'    , '=', Model_Order::STATUS_PAID)
-                        ->limit(1)->find();
-
-                //not any we create the order
-                if (!$order->loaded())
-                    $order = Model_Order::sale(NULL,$user,$product,NULL,'free');
-
-                //if theres download redirect him to the file
-                if ($product->has_file()==TRUE)
-                    $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order)));
-                else
-                    $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
-
-            }
-        }
-
-
     }
 
 

@@ -110,6 +110,7 @@ $modules = array(
     'mysqli'        => COMMONPATH.'modules/mysqli',     // mysqli driver
     'widgets'       => COMMONPATH.'modules/widgets',    // loads default widgets
     'cron'          => COMMONPATH.'modules/cron',    // cron module
+    'geoip3'        => MODPATH.'geoip3',    // maxmind geoip
 );
 
 //modules for development environment, not included in distribution KO with OC, so you need to place them in your environment

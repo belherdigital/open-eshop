@@ -26,6 +26,63 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
             DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."users` ADD `failed_attempts` int(10) unsigned DEFAULT 0")->execute();
         }catch (exception $e) {}
         
+        //EU VAT
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."users`  ADD `VAT_number` VARCHAR(65) NULL DEFAULT NULL")->execute();
+        }catch (exception $e) {}
+
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."users`   ADD `country` VARCHAR(3) NULL DEFAULT NULL")->execute();
+        }catch (exception $e) {}
+
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."users` ADD `city` VARCHAR(65) NULL DEFAULT NULL")->execute();
+        }catch (exception $e) {}
+
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."users`  ADD `postal_code` VARCHAR(20) NULL DEFAULT NULL")->execute();
+        }catch (exception $e) {}
+
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."users` ADD `address` VARCHAR(150) NULL DEFAULT NULL")->execute();
+        }catch (exception $e) {}
+
+        //eu vat orders
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."orders`  ADD `VAT` decimal(14,3) NOT NULL DEFAULT '0.000'")->execute();
+        }catch (exception $e) {}
+
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."orders`  ADD `VAT_number` VARCHAR(65) NULL DEFAULT NULL")->execute();
+        }catch (exception $e) {}
+
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."orders`   ADD `country` VARCHAR(3) NULL DEFAULT NULL")->execute();
+        }catch (exception $e) {}
+
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."orders` ADD `city` VARCHAR(65) NULL DEFAULT NULL")->execute();
+        }catch (exception $e) {}
+
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."orders`  ADD `postal_code` VARCHAR(20) NULL DEFAULT NULL")->execute();
+        }catch (exception $e) {}
+
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."orders` ADD `address` VARCHAR(150) NULL DEFAULT NULL")->execute();
+        }catch (exception $e) {}
+
         //categories/users has_image/last_modified
         try 
         {
@@ -70,6 +127,18 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
                         array( 'config_key'     =>'custom_css_version',
                                'group_name'     =>'appearance',
                                'config_value'   => 0),
+                        array( 'config_key'     =>'eu_vat',
+                               'group_name'     =>'general',
+                               'config_value'   => 0),
+                        array( 'config_key'     =>'vat_number',
+                               'group_name'     =>'general',
+                               'config_value'   =>''),
+                        array( 'config_key'     =>'company_name',
+                               'group_name'     =>'general',
+                               'config_value'   =>''),
+                        array( 'config_key'     =>'vat_excluded_countries',
+                               'group_name'     =>'general',
+                               'config_value'   =>''),
                         );
         
         Model_Config::config_array($configs);

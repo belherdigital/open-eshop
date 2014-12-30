@@ -88,69 +88,117 @@ class Model_Order extends ORM {
     {
         return array('created','parent_deep','order');
     }
-    
+
     /**
-     * creates new orders for a product SOLD and generates the licenses
-     * @param  integer        $id_order only used if order already exists
-     * @param  Model_User    $user     
-     * @param  Model_Product $product  
-     * @param  string        $token    
-     * @param  string        $method   
-     * @param  date          $pay_date Y-m-d H:i:s
-     * @param  integer       $amount_paid
-     * @param  string        $currency_paid    
-     * @return void                
+     * [new_order description]
+     * @param  Model_User    $user    [description]
+     * @param  Model_Product $product [description]
+     * @param  boolean       check_match_product, if set to false will update the order with the product if different
+     * @return [type]                 [description]
      */
-    public static function sale($id_order = NULL, $user, Model_Product $product, 
-                                $token, $method = 'paypal', $pay_date = NULL,$amount_paid = NULL, $currency_paid = NULL)
+    public static function new_order(Model_User $user, Model_Product $product, $match_product = TRUE)
     {
+        
         $order = new Model_Order();
 
-        //we got an id_order so lets load it
-        if (is_numeric($id_order))
+        if ($user->loaded() AND $product->loaded())
         {
-            //retrieve info for the item in DB
-            $order = $order->where('id_order', '=', $id_order)
-                       ->where('status', '=', Model_Order::STATUS_CREATED)
-                       ->limit(1)->find();
-        }
+            //get if theres an unpaid order for this user we wwill use it..
+            $order  ->where('id_user',  '=', $user->id_user)
+                    ->where('status',   '=', Model_Order::STATUS_CREATED);
 
-        //order didnt exists probably cuz is paypal and we generate the order only once paid
-        if ($order->loaded() === FALSE)
-        {
-            $order->id_product  = $product->id_product;
-            $order->id_user     = $user->id_user;
-            $order->paymethod   = $method;
-            $order->currency    = ($currency_paid==NULL)?$product->currency:$currency_paid;
-            //add coupon ID and discount
-            if (Model_Coupon::current()->loaded())
-                $order->id_coupon = Model_Coupon::current()->id_coupon;
-            $order->amount      = ($amount_paid==NULL)?$product->final_price():$amount_paid;
+            //also check that matches the product for the order
+            if ($match_product === TRUE)
+            {
+                $order->where('id_product', '=', $product->id_product)
+                        ->where('amount',   '=', $product->final_price())
+                        ->where('currency', '=', $product->currency);
+            }
+
+            $order->limit(1)->find();
+
+
+            //order didnt exist so lets create it.
+            if ($order->loaded()===FALSE)
+            {
+                //create order      
+                $order = new Model_Order();
+                $order->id_user       = $user->id_user;
+            }
+
+            // no matter what happens if product is different save! this will also save the order if its new ;) 
+            if ( $order->id_product!=$product->id_product )
+            {
+                $order->ip_address    = ip2long(Request::$client_ip);
+                $order->id_product    = $product->id_product;
+                $order->currency      = $product->currency;
+                
+                //add coupon ID and discount
+                if (Model_Coupon::current()->loaded())
+                    $order->id_coupon = Model_Coupon::current()->id_coupon;
+
+                $order->amount        = $product->final_price();
+                $order->VAT           = $product->vat_percentage();
+                $order->VAT_number    = $user->VAT_number;
+                $order->country       = $user->country;
+                $order->city          = $user->city;
+                $order->postal_code   = $user->postal_code;
+                $order->address       = $user->address;
+
+                try {
+                    $order->save();
+                } 
+                catch (Exception $e){
+                    throw HTTP_Exception::factory(500,$e->getMessage());
+                }
+            } 
+
             
-            //paypal will put here his ip adress thats why we do not add it
-            if ($method!=='paypal')
-                $order->ip_address  = ip2long(Request::$client_ip);
         }
-
-        $order->txn_id      = $token;
-        $order->pay_date    = ($pay_date==NULL)?Date::unix2mysql():$pay_date;
-        if ($product->support_days>0)
-            $order->support_date = Date::unix2mysql(Date::mysql2unix($order->pay_date)+($product->support_days*24*60*60)); 
-            //Date::unix2mysql(strtotime('+'.$product->support_days.' day'));
         
-        $order->status      = Model_Order::STATUS_PAID;
+        return $order;
+    }
 
-        try {
-            $order->save();
+    /**
+     * confirm payment for order
+     *
+     * @param string    $id_order [unique indentifier of order]
+     * @param string    $txn_id id of the transaction depending on provider
+     */
+    public function confirm_payment($paymethod = 'paypal', $txn_id = NULL, $pay_date = NULL , $amount = NULL, $currency = NULL )
+    { 
+        
+        // update orders
+        if($this->loaded())
+        {
+            $product = $this->product;
+            $user    = $this->user;
+
+            $this->status    = self::STATUS_PAID;
+            $this->pay_date  = ($pay_date===NULL)?Date::unix2mysql():$pay_date;
+            $this->paymethod = $paymethod;
+            $this->txn_id    = $txn_id;
+
+            if ($amount!==NULL)
+                $this->amount = $amount;
+
+            if ($currency!==NULL)
+                $this->currency = $currency;
+
+            try {
+                $this->save();
+            } catch (Exception $e) {
+                throw HTTP_Exception::factory(500,$e->getMessage());  
+            }
 
             //if saved delete coupon from session and -- number of coupons.
-            Model_Coupon::sale(Model_Coupon::current());
+            Model_Coupon::sale($this->coupon);
 
             //add affiliate commision
-            Model_Affiliate::sale($order,$product);
+            Model_Affiliate::sale($this,$product);
             
             //generate licenses
-            $licenses = Model_License::generate($user,$order,$product);
+            $licenses = Model_License::generate($user,$this,$product);
 
             $license = '';
             //loop all the licenses to an string
@@ -165,7 +213,7 @@ class Model_Order extends ORM {
             $download = '';
             if ($product->has_file()==TRUE)
             {
-                $dwnl_link = $user->ql('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order));
+                $dwnl_link = $user->ql('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$this->id_order));
                 $download = '\n\n==== '.__('Download').' ====\n<a href="'.$dwnl_link.'">'.$dwnl_link.'</a>';
             }
                 
@@ -188,12 +236,12 @@ class Model_Order extends ORM {
             
             //param for sale email
             $params = array(
-                            '[DATE]'            => $order->pay_date,
-                            '[ORDER.ID]'        => $order->id_order,
+                            '[DATE]'            => $this->pay_date,
+                            '[ORDER.ID]'        => $this->id_order,
                             '[USER.NAME]'       => $user->name,
                             '[USER.EMAIL]'      => $user->email,
                             '[PRODUCT.TITLE]'   => $product->title,
-                            '[PRODUCT.PRICE]'   => i18n::format_currency($order->amount,$order->currency),
+                            '[PRODUCT.PRICE]'   => i18n::format_currency($this->amount,$this->currency),
                             '[PRODUCT.NOTES]'   => Text::bb2html($product->email_purchase_notes,TRUE,FALSE,FALSE),
                             '[DOWNLOAD]'        => $download,
                             '[EXPIRE]'          => $expire,
@@ -209,15 +257,11 @@ class Model_Order extends ORM {
                 Email::send(core::config('email.notify_email'), '', 'New Sale! '.$product->title, 'New Sale! '.$product->title, core::config('email.notify_email'), '');
             }
 
-            return $order;
-        } 
-        catch (Exception $e) 
-        {
-            Kohana::$log->add(Log::ERROR, 'Order failed on creation, but paid. '.Core::post('payer_email'));
+
+            return TRUE;
         }
 
         return FALSE;
-
     }
 
     /**
@@ -288,6 +332,83 @@ class Model_Order extends ORM {
         //$form->fields['id_user']['display_as']   = 'select';
         //$form->fields['id_user']['caption']      = 'email';   
 
+    }
+
+
+    /**
+     * verifies pricing in an existing order
+     * @return void
+     */
+    public function check_pricing()
+    {
+        //original coupon so we dont lose it while we do operations
+        $orig_coupon = $this->id_coupon;
+
+        //remove the coupon forced by get/post
+        if(core::request('coupon_delete') != NULL)
+            $this->id_coupon = NULL;
+        //maybe changed the coupon? from the form
+        elseif ($this->product->valid_coupon() AND $this->id_coupon != Model_Coupon::current()->id_coupon )              
+            $this->id_coupon = Model_Coupon::current()->id_coupon;
+        //not valid coupon anymore, this can happen if they add a coupon now but they pay days later.
+        elseif($this->coupon->loaded() AND (
+                                            Date::mysql2unix($this->coupon->valid_date) < time()  OR
+                                            $this->coupon->status == 0 OR
+                                            $this->coupon->number_coupons == 0 
+                                            ))
+        {
+            Alert::set(Alert::INFO, __('Coupon not valid, expired or already used.'));
+            $this->coupon->clear();
+            $this->id_coupon = NULL;
+        }
+        
+        $user = $this->user;
+
+        //recalculate price since it change the coupon or user info
+        if ($orig_coupon != $this->id_coupon OR
+            $this->country!=$user->country OR
+            $this->city!=$user->city OR
+            $this->VAT_number!=$user->VAT_number OR
+            $this->postal_code!=$user->postal_code OR
+            $this->address!=$user->address)
+        {
+            
+            //set variables just in case...
+            $this->amount        = $this->product->final_price();
+            $this->VAT           = $this->product->vat_percentage();
+            $this->VAT_number    = $user->VAT_number;
+            $this->country       = $user->country;
+            $this->city          = $user->city;
+            $this->postal_code   = $user->postal_code;
+            $this->address       = $user->address;
+
+            try {
+                $this->save();
+            } 
+            catch (Exception $e){
+                throw HTTP_Exception::factory(500,$e->getMessage());
+            }
+        }
+
+    }
+
+
+    /**
+     * renders a modal with alternative paymethod instructions
+     * @return string 
+     */
+    public function alternative_pay_button()
+    {
+        if($this->loaded())
+        {
+            if (core::config('payment.alternative')!='' )
+            {
+                $content = Model_Content::get_by_title(core::config('payment.alternative'));
+                return View::factory('pages/alternative_payment',array('content'=>$content))->render();
+            }
+        }
+    
+        return FALSE;
     }
 
 }

@@ -23,20 +23,16 @@
                         <div class="thumbnail">
                             <a href="<?=Route::url('product', array('category'=>$product->category->seoname,'seotitle'=>$product->seotitle))?>" class="min-h">
                           <?if($product->get_first_image()!== NULL):?>
-                                <img src="<?=Core::S3_domain().$product->get_first_image()?>" alt="<?=HTML::chars($product->title)?>">
+                                <img src="<?=Core::S3_domain().$product->get_first_image()?>" alt="<?=$product->title?>" >
                             <?elseif(( $icon_src = $product->category->get_icon() )!==FALSE ):?>
-                                <img src="<?=$icon_src?>" alt="<?=HTML::chars($product->title)?>">
-                            <?elseif( ! empty($product->category->icon)):?>
-                                <div class="icon-placeholder"><i class="<?=$product->category->icon?>"></i></div>
+                                <img src="<?=$icon_src?>" alt="<?=$product->title?>">
                             <?else:?>
-                                <img src="//www.placehold.it/200x200&text=<?=urlencode($product->category->name)?>" width="200" height="200" alt="<?=HTML::chars($product->category->name)?>">
+                                <img src="//www.placehold.it/200x200&text=<?=$product->category->name?>" alt="<?=$product->title?>"> 
                             <?endif?>
                             </a>
                           <div class="caption">
-                            <h5><a href="<?=Route::url('product', array('category'=>$product->category->seoname,'seotitle'=>$product->seotitle))?>">
-                                <?=Text::limit_chars(Text::removebbcode($product->title),30, NULL, TRUE)?></a>
-                            </h5>
-                            <p><?=Text::limit_chars(Text::removebbcode($product->description), 30, NULL, TRUE)?></p>
+                            <h5><a href="<?=Route::url('product', array('category'=>$product->category->seoname,'seotitle'=>$product->seotitle))?>"><?=substr(Text::removebbcode($product->title), 0, 30)?></a></h5>
+                            <p><?=substr(Text::removebbcode($product->description), 0, 30)?></p>
                             <a class="btn btn-success" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                                 <?if ($product->final_price()>0):?>
                                     <?=$product->formated_price()?>
@@ -76,16 +72,16 @@
         <ul class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <li class="cathead">
                 <? $icon_src = new Model_Category($c['id_category']); $icon_src = $icon_src->get_icon(); if(( $icon_src )!==FALSE ):?>
-                <a title="<?=HTML::chars($c['name'])?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>">
-                <img src="<?=$icon_src?>" alt="<?=HTML::chars($c['name'])?>">
+                <a title="<?=$c['name']?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>">
+                <img src="<?=$icon_src?>" alt="<?=$c['name']?>">
                 </a>
                 <?endif?>
-                <a title="<?=HTML::chars($c['name'])?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>"><?=mb_strtoupper($c['name']);?> <span class="badge badge-success pull-right"><?=$c['count']?></span></a>
+                <a title="<?=$c['name']?>" href="<?=Route::url('list', array('category'=>$c['seoname']))?>"><?=mb_strtoupper($c['name']);?> <span class="badge badge-success pull-right"><?=$c['count']?></span></a>
             </li>
             
             <?foreach($categs as $chi):?>
                 <?if($chi['id_category_parent'] == $c['id_category']):?>
-                <li><a title="<?=HTML::chars($chi['name'])?>" href="<?=Route::url('list', array('category'=>$chi['seoname']))?>">
+                <li><a title="<?=$chi['name']?>" href="<?=Route::url('list', array('category'=>$chi['seoname']))?>">
                     <?=$chi['name'];?> <span class="badge pull-right"><?=$chi['count']?></span></a>
                 </li>
                 <?endif?>

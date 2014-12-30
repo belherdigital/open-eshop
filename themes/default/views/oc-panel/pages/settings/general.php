@@ -98,6 +98,74 @@
         </div>
 
         <div class="form-group">
+            <?= FORM::label($forms['company_name']['key'], __('Company Name'), array('class'=>'col-md-3 control-label', 'for'=>$forms['company_name']['key']))?>
+            <div class="col-md-5">
+                <?= FORM::input($forms['company_name']['key'], $forms['company_name']['value'], array(
+                'placeholder' => 'Company LTD', 
+                'class' => 'tips form-control', 
+                'id' => $forms['vat_number']['key'],
+                'data-content'=> __("Company Name"),
+                'data-trigger'=>"hover",
+                'data-placement'=>"right",
+                'data-toggle'=>"popover",
+                'data-original-title'=>__("Company name"), 
+                ))?> 
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?= FORM::label($forms['vat_number']['key'], __('VAT Number'), array('class'=>'col-md-3 control-label', 'for'=>$forms['vat_number']['key']))?>
+            <div class="col-md-5">
+                <?= FORM::input($forms['vat_number']['key'], $forms['vat_number']['value'], array(
+                'placeholder' => 'VAT-XXXXX-XXX', 
+                'class' => 'tips form-control', 
+                'id' => $forms['vat_number']['key'],
+                'data-content'=> __("Your VAT Number"),
+                'data-trigger'=>"hover",
+                'data-placement'=>"right",
+                'data-toggle'=>"popover",
+                'data-original-title'=>__("VAT Number"), 
+                ))?> 
+            </div>
+        </div>
+
+        <div class="form-group">
+                <?= FORM::label($forms['eu_vat']['key'], __("EU VAT"), array('class'=>'control-label col-sm-3', 'for'=>$forms['eu_vat']['key']))?>
+                <div class="col-sm-4">
+                    <div class="onoffswitch">
+                        <?= Form::checkbox($forms['eu_vat']['key'], 1, (bool) $forms['eu_vat']['value'], array(
+                        'placeholder' => __("TRUE or FALSE"), 
+                        'class' => 'onoffswitch-checkbox', 
+                        'id' => $forms['eu_vat']['key'], 
+                        'data-content'=> __("Will calculate VAT based on EU country."),
+                        'data-trigger'=>"hover",
+                        'data-placement'=>"right",
+                        'data-toggle'=>"popover",
+                        'data-original-title'=>__("Will calculate VAT based on EU country."),
+                        ))?>
+                        <?= FORM::label($forms['eu_vat']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['maintenance']['key']))?>
+                    </div>
+                </div>
+        </div>
+
+        <div class="form-group">
+            <?= FORM::label($forms['vat_excluded_countries']['key'], __('VAT Excluded Countries'), array('class'=>'control-label col-sm-3', 'for'=>$forms['vat_excluded_countries']['key']))?>
+            <div class="col-sm-4">
+                <?= FORM::input($forms['vat_excluded_countries']['key'], $forms['vat_excluded_countries']['value'], array(
+                'placeholder' => __('For banned VAT push enter.'), 
+                'class' => 'tips form-control', 
+                'id' => $forms['vat_excluded_countries']['key'], 
+                'data-original-title'=> __("VAT Excluded Countries"),
+                'data-trigger'=>"hover",
+                'data-placement'=>"right",
+                'data-toggle'=>"popover",
+                'data-role'=>'tagsinput',
+                'data-content'=>__("Enter country codes to disable VAT charging"),
+                ))?> 
+            </div>
+        </div>
+
+        <div class="form-group">
             <?= FORM::label($forms['site_description']['key'], __('Site description'), array('class'=>'col-md-3 control-label', 'for'=>$forms['site_description']['key']))?>
             <div class="col-md-5">
                 <?= FORM::input($forms['site_description']['key'], $forms['site_description']['value'], array(

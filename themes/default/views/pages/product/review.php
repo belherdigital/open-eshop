@@ -26,36 +26,22 @@
     </div>
     
     <div class="button-space-review pull-left">
-        <?if ($product->final_price()>0):?>
-            <?if (Theme::get('premium')==1):?>
-                <?=StripeKO::button($product)?>
-                <div class="clearfix"></div>
-                <?=Paymill::button($product)?>
-                <?=Bitpay::button($product)?>
-                <?=Controller_Authorize::form($product)?>
-            <?endif?>
-
-            <a class="btn btn-success full-w" 
-                href="<?=Route::url('product-paypal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
-                <?=__('Pay with Paypal')?></a>
-            
-            <?=$product->alternative_pay_button()?>
-
-        <?else:?>
-            <?if (!Auth::instance()->logged_in()):?>
-            <a class="btn btn-info btn-large" data-toggle="modal" data-dismiss="modal" 
+         <?if (!Auth::instance()->logged_in()):?>
+            <a class="btn btn-success btn-large full-w" data-toggle="modal" data-dismiss="modal" 
                 href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'register'))?>#register-modal">
-            <?else:?>
-            <a class="btn btn-info review-pay-btn"
-                href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'free','id'=>$product->seotitle))?>">
-            <?endif?>
-                <?if($product->has_file()==TRUE):?>
+        <?else:?>
+            <a class="btn btn-success btn-large full-w"
+                href="<?=Route::url('default',array('controller'=>'product','action'=>'buy','id'=>$product->id_product))?>">
+        <?endif?>
+                <span class="fa fa-shopping-cart"></span>
+                <?if ($product->final_price()>0):?>
+                    <?=__('Buy now')?>
+                <?elseif($product->has_file()==TRUE):?>
                     <?=__('Free Download')?>
                 <?else:?>
                     <?=__('Get it for Free')?>
                 <?endif?>
-            </a>
-        <?endif?>
+            </a>    
     </div>
 
     <?if (!empty($product->url_demo)):?>

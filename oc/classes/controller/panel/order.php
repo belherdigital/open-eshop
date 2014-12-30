@@ -81,7 +81,9 @@ class Controller_Panel_Order extends Auth_Crud {
             if($product->loaded())
             {
                 $user = Model_User::create_email(core::post('email'),core::post('name'));
-                $order = Model_Order::sale(NULL,$user,$product,NULL,core::post('paymethod'),core::post('pay_date'),core::post('amount'),core::post('currency'));
+
+                $order = Model_Order::new_order($user, $product);
+                $order->confirm_payment(core::post('paymethod'), NULL,core::post('pay_date'),core::post('amount'),core::post('currency'));
 
                 //adding the notes
                 $order->notes = core::post('notes');
@@ -177,7 +179,10 @@ class Controller_Panel_Order extends Auth_Crud {
                         $product->where('seotitle','=',$product_seotitle)->limit(1)->find();
                         
                         if ($product->loaded())
-                            Model_Order::sale(NULL,$user,$product,NULL,'import',$pay_date,$amount,$currency);                                                
+                        {
+                            $order = Model_Order::new_order($user, $product);
+                            $order->confirm_payment('import', NULL,$pay_date,$amount,$currency);
+                        }
                     }
                     
                     $i++;

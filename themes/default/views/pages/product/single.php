@@ -64,6 +64,25 @@
    </h1>
     </div>
 
+    <?if (!empty($product->url_demo)):?>
+        <?if (($total_skins = count($skins)) > 0):?>
+            <div class="btn-group pull-right">
+                <a class="btn btn-warning btn-xs" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"><?=__('Demo')?></a>
+                <button class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu <?=($total_skins > 10) ? 'multi-column-dropdown' : NULL?>" id="menu_type">
+                    <?foreach ($skins as $s):?>
+                        <li><a title="<?=HTML::chars($s)?>" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>?skin=<?=$s?>"><?=$s?></a></li>
+                    <?endforeach?>
+                </ul>
+            </div>
+        <?else:?>
+            <a class="btn btn-warning btn-xs pull-right" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" >
+            <i class="glyphicon glyphicon-eye-open"></i> <?=__('Demo')?></a>
+        <?endif?>
+    <?endif?>
+
 	<?if ($product->has_offer()):?>
 	    <span class="offer">
 	    	<h4><span class="label label-success">
@@ -80,49 +99,26 @@
 	    <?endif?>
 	<?endif?>
 
-	<?if (!empty($product->url_demo)):?>
-		<?if (($total_skins = count($skins)) > 0):?>
-            <div class="btn-group pull-right">
-              	<a class="btn btn-warning btn-xs" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"><?=__('Demo')?></a>
-			    <button class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown">
-			        <span class="caret"></span>
-			    </button>
-              	<ul class="dropdown-menu <?=($total_skins > 10) ? 'multi-column-dropdown' : NULL?>" id="menu_type">
-	                <?foreach ($skins as $s):?>
-	                    <li><a title="<?=HTML::chars($s)?>" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>?skin=<?=$s?>"><?=$s?></a></li>
-	                <?endforeach?>
-              	</ul>
-            </div>
-        <?else:?>
-        	<a class="btn btn-warning btn-xs pull-right" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" >
-	        <i class="glyphicon glyphicon-eye-open"></i> <?=__('Demo')?></a>
-        <?endif?>
-	<?endif?>
+	
 
 	<div class="button-space-review">
-	<?if ($product->final_price()>0):?>
-		<div class="clearfix"></div><br>
-	    <a class="btn btn-success pay-btn full-w" 
-	        href="<?=Route::url('product-paypal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
-	        <?=__('Pay with Paypal')?></a>
-	    <?=$product->alternative_pay_button()?>
-	<?else:?>
-	    <?if (!Auth::instance()->logged_in()):?>
-	    <a class="btn btn-info btn-large" data-toggle="modal" data-dismiss="modal" 
-	        href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'register'))?>#register-modal">
-	    <?else:?>
-	    <div class="clearfix"></div><br>
-	    <a class="btn btn-info btn-large full-w"
-	        href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'free','id'=>$product->seotitle))?>">
-	    <?endif?>
-	        <?if($product->has_file()==TRUE):?>
-	            <?=__('Free Download')?>
-	        <?else:?>
-	            <?=__('Get it for Free')?>
-	        <?endif?>
-	    </a>
-	<?endif?>
-		<div class="clearfix"></div><br>
+        <div class="clearfix"></div><br>
+    <?if (!Auth::instance()->logged_in()):?>
+        <a class="btn btn-success btn-large full-w" data-toggle="modal" data-dismiss="modal" 
+            href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'register'))?>#register-modal">
+    <?else:?>
+        <a class="btn btn-success btn-large full-w"
+            href="<?=Route::url('default',array('controller'=>'product','action'=>'buy','id'=>$product->id_product))?>">
+    <?endif?>
+            <span class="fa fa-shopping-cart"></span>
+            <?if ($product->final_price()>0):?>
+                <?=__('Buy now')?>
+            <?elseif($product->has_file()==TRUE):?>
+                <?=__('Free Download')?>
+            <?else:?>
+                <?=__('Get it for Free')?>
+            <?endif?>
+        </a>	
 	</div>
 
 </div>

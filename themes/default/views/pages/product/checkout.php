@@ -3,12 +3,12 @@
     <div class="container">
         <h2 class="title text-center"><i class="fa fa-shopping-cart"></i> <?=__('Checkout')?></h2>
         <div class="row">
-            <div class="col-md-10 col-sm-10 col-xs-12 col-md-offset-1 col-sm-offset-1 col-xs-offset-0">
+            <div class="col-md-8 col-sm-8 col-xs-8">
                 <div class="panel">
                     <div class="row">
                         <div class="col-xs-6">
                             <address>
-                                <strong><?=Core::config('general.site_name')?></strong>
+                                <strong><?=core::config('general.site_name')?></strong>
                                 <br>
                                 <?=Kohana::$base_url?>
                                 <?if (core::config('general.company_name')!=''):?>
@@ -20,7 +20,7 @@
                                 <em><?=core::config('general.vat_number')?></em>
                                 <?endif?>
                                 <br>
-                                <em><?=__('Date')?>: <?= Date::format($order->pay_date, core::config('general.date_format'))?></em>
+                                <em><?=__('Date')?>: <?= Date::format($order->created, core::config('general.date_format'))?></em>
                                 <br>
                                 <em><?=__('Order')?> #: <?=$order->id_order?></em>
                             </address>
@@ -39,6 +39,9 @@
                                 <br>
                                 <em><?=$order->address?>, <?=$order->postal_code?></em>
                             </address>
+                            <a class="btn btn-warning btn-xs pull-right"  href="<?=Route::url('oc-panel', array('controller'=> 'profile','action'=>'edit'))?>?order_id=<?=$order->id_order?>#billing" >
+                                <i class="fa fa-credit-card"></i> <?=__('Update details')?>
+                            </a>
                         </div>
                     </div><!--//row-->
                     <div class="row">
@@ -60,24 +63,25 @@
                                             <?=$product->title?> 
                                         </td>
                                         <td class="col-md-2">
-                                        
                                         </td>
                                         <td class="col-md-2 text-center">
-                                            <? $product_price = (100*$order->amount)/(100+$order->VAT);?>
-                                            <?=i18n::format_currency( $product_price, $order->currency)?>
+                                            <?=i18n::format_currency($order->product->price, $order->currency)?>
                                         </td>
                                     </tr>
                                     <?if ($order->coupon->loaded()):?>
+                                        <?$discount = ($order->coupon->discount_amount==0)?($order->product->price * $order->coupon->discount_percentage/100):$order->coupon->discount_amount;?>
                                         <tr>
                                             <td class="col-md-1" style="text-align: center">
                                                 <?=$order->id_coupon?>
                                             </td>
                                             <td class="col-md-7">
-                                                <?=__('Coupon applied')?> '<?=$order->coupon->name?>'
+                                                <?=__('Coupon')?> '<?=$order->coupon->name?>'
+                                                <?=__('valid until')?> <?=Date::format($order->coupon->valid_date)?>.
                                             </td>
                                             <td class="col-md-2">
                                             </td>
                                             <td class="col-md-2 text-center text-danger">
+                                                -<?=i18n::format_currency($discount, $order->currency)?>
                                             </td>
                                         </tr>  
                                     <?endif?>      
@@ -87,7 +91,11 @@
                                         <td class="text-right"><h4><strong><?=__('Sub Total')?>: </strong></h4></td>
                                         <td class="text-center">
                                             <h4>
-                                                <?=i18n::format_currency($product_price, $order->currency)?>
+                                            <?if (!$order->coupon->loaded()):?>
+                                                <?=i18n::format_currency($order->product->price, $order->currency)?>
+                                            <?else:?>
+                                                <?=i18n::format_currency($order->product->price-$discount, $order->currency)?>
+                                            <?endif?>
                                             </h4>
                                         </td>
                                     </tr> 
@@ -102,8 +110,12 @@
                                                 <?=(euvat::is_eu_country($order->country) AND strlen($order->VAT_number)>2) ?'VIES':''?>
                                             </small>
                                         </td>
-                                        <td class="text-center">
-                                            <h4><?=i18n::format_currency($order->amount-$product_price, $order->currency)?></h4>
+                                        <td class="text-center"><h4>
+                                            <?if (!$order->coupon->loaded()):?>
+                                                <?=i18n::format_currency($order->VAT*$order->product->price/100, $order->currency)?>
+                                            <?else:?>
+                                                <?=i18n::format_currency($order->VAT*($order->product->price-$discount)/100, $order->currency)?>
+                                            <?endif?></h4>
                                         </td>
                                     </tr>            
                                     <?endif?>       
@@ -116,16 +128,59 @@
                                 </tbody>
                             </table>
                         </div><!--//col-*-->
-                       
+                        <div class="col-xs-4">
+                            <form class="form-inline"  method="post" action="<?=URL::current()?>">         
+                                <?if ($order->coupon->loaded()):?>
+                                    <?=Form::hidden('coupon_delete',$order->coupon->name)?>
+                                    <button type="submit" class="btn btn-xs btn-danger">
+                                        <span class="glyphicon glyphicon-minus"></span>
+                                        <?=__('Delete coupon')?> '<?=$order->coupon->name?>'
+                                    </button>
+                                <?else:?>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="coupon" value="<?=Core::request('coupon')?>" placeholder="<?=__('Coupon Name')?>">          
+                                    </div>
+                                        <button type="submit" class="btn btn-primary"><?=__('Add')?></button>
+                                <?endif?>       
+                            </form>
+                            <br>
+                            <br>
+                        </div><!--//col-*-->
+                        <div class="col-xs-8 text-right">
+
+                            <a class="btn btn-success btn-lg paypal-pay" href="<?=Route::url('oc-panel', array('controller'=> 'paypal','action'=>'pay' , 'id' => $order->id_order))?>">
+                                <?=__('Pay with Paypal')?> <i class="fa fa-long-arrow-right"></i>
+                            </a>
+                            <br><br>
+
+                            <?//=StripeKO::button($product)?>
+                            <?//=Paymill::button($product)?>
+                            <?//=Bitpay::button($product)?>
+                            <?//=Controller_Authorize::form($product)?>
+                            <?//=$product->alternative_pay_button()?>
+                            
+                            <?if (Core::config('stripe.checkout')==TRUE):?>
+                                <form action="<?=Route::url('oc-panel',array('controller'=>'stripe','action'=>'pay','id'=>$order->id_order))?>" method="post" class="form-inline">
+                                  <script
+                                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                    data-key="<?=Core::config('stripe.public_key')?>"
+                                    data-label="<?=__('Pay with Card')?>"
+                                    data-name="<?=$product->title?>"
+                                    data-description="<?=$product->title?>"
+                                    data-email="<?=Auth::instance()->get_user()->email?>"
+                                    data-amount="<?=StripeKO::money_format($order->amount)?>"
+                                    data-currency="<?=$order->currency?>"
+                                    <?=(Core::config('stripe.address')==TRUE)?'data-address = "TRUE"':''?>
+                                    >
+                                  </script>
+                                </form>
+                            <?endif?>
+                            <br>
+                            <?=$order->alternative_pay_button()?>
+                        </div><!--//col-*-->
                     </div><!--//row-->
                 </div><!--//panel-->
             </div><!--//col-*-->
         </div><!--//row-->
-        <?if( ! core::get('print')):?>
-        <div class="pull-right">
-            <a target="_blank" class="btn btn-xs btn-success" title="<?=__('Print this')?>" href="<?=Route::url('oc-panel', array('controller'=>'profile', 'action'=>'order','id'=>$order->id_order)).URL::query(array('print'=>1))?>"><i class="glyphicon glyphicon-print"></i><?=__('Print this')?></a>
-        </div>
-    <?endif;?>
     </div><!--//container-->        
 </section><!--//user-panel-->
-

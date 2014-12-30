@@ -91,36 +91,72 @@ class Model_Product extends ORM {
         return FALSE;
     }
     
+
     /**
      * returns the price of the product checking if there's an offer or coupon
+     * @param boolean $calculate_VAT
      * @return float 
      */
-    public function final_price()
+    public function final_price($calculate_VAT = TRUE)
     {
+        $final_price = $this->price; // no current valid offer, normal product price
+
         // no current valid coupon: check for valid curent offer
-        if ( ! $this->valid_coupon())
+        if ($this->valid_coupon()===FALSE AND $this->has_offer() AND Date::mysql2unix($this->offer_valid)>time() )
         {
             // in case not any coupon returns the offer price if any valid one
-            if ($this->has_offer() AND Date::mysql2unix($this->offer_valid)>time() )
-                return $this->price_offer;
-            else
-                return $this->price; // no current valid offer, normal product price
+            $final_price = $this->price_offer;
         }
-        //calculating price by applying either a discount amount or a discount percentage
-        $discounted_price = abs(Model_Coupon::current()->discount_amount);
-        if ($discounted_price > 0)
-            $discounted_price = round($this->price - $discounted_price, 2);
-        else
+        //theres a coupon
+        elseif($this->valid_coupon()===TRUE)
         {
-            $discounted_price = abs(Model_Coupon::current()->discount_percentage);
+            //calculating price by applying either a discount amount or a discount percentage
+            $discounted_price = abs(Model_Coupon::current()->discount_amount);
             if ($discounted_price > 0)
-                $discounted_price = round($this->price - ($this->price * $discounted_price / 100.0), 2);
+                $discounted_price = round($this->price - $discounted_price, 2);
             else
-                // both discount_amount and discount_percentage are 0
-                $discounted_price = 0;
+            {
+                $discounted_price = abs(Model_Coupon::current()->discount_percentage);
+                if ($discounted_price > 0)
+                    $discounted_price = round($this->price - ($this->price * $discounted_price / 100.0), 2);
+                else
+                    // both discount_amount and discount_percentage are 0
+                    $discounted_price = 0;
+            }
+            //in case calculated price is negative
+            $final_price = max($discounted_price, 0);
         }
-        //in case calculated price is negative
-        return max($discounted_price, 0);
+        
+        //do we need to charge vat?
+        if ($this->vat_percentage()>0 AND $calculate_VAT === TRUE)
+        {
+            $final_price = $final_price + ($this->vat_percentage()*$final_price/100);
+        }
+
+        //return the price
+        return $final_price;
+    }
+
+    /**
+     * returns how much VAT the user needs to pay
+     * @return integer 
+     */
+    public function vat_percentage()
+    {
+        //logged in lets check vat number
+        if (Auth::instance()->logged_in()===TRUE)
+        {
+            $user = Auth::instance()->get_user();
+
+            //its a country from the eu country? and without validated VAT vies
+            if(euvat::is_eu_country($user->country) AND strlen($user->VAT_number)<2)
+            {
+                return euvat::vat_by_country($user->country);
+            }
+        }
+
+        //not eu country or VIES or not loged in
+        return 0;
     }
 
     /**
@@ -621,25 +657,6 @@ class Model_Product extends ORM {
     
         return FALSE;
     }
-
-    /**
-     * renders a modal with alternative paymethod instructions
-     * @return string 
-     */
-    public function alternative_pay_button()
-    {
-        if($this->loaded())
-        {
-            if (core::config('payment.alternative')!='' )
-            {
-                $content = Model_Content::get_by_title(core::config('payment.alternative'));
-                return View::factory('pages/alternative_payment',array('content'=>$content))->render();
-            }
-        }
-    
-        return FALSE;
-    }
-
 
     /**
      * saves the rates recalculating it

@@ -503,4 +503,90 @@ class Controller_Product extends Controller{
 
     
     }
+
+
+    //buy product redirects to checkout
+    public function action_buy()
+    {
+        if (!Auth::instance()->logged_in())
+            $this->redirect(Route::get('oc-panel')->uri());
+
+        $user = Auth::instance()->get_user();
+
+        $id_product = $this->request->param('id');
+        
+        if (is_numeric($id_product))
+        {
+            $product = new Model_Product($id_product);
+
+            if ($product->loaded() AND $product->status == Model_Product::STATUS_ACTIVE)
+            {
+                //generates a new order if none was existent
+                $order = Model_Order::new_order($user, $product);
+
+                //its paid plan?
+                if ($product->final_price()>0)
+                {
+                    // redirect to checkout payment
+                    $this->redirect(Route::url('default', array('controller' =>'product','action'=>'checkout' ,'id' => $order->id_order)));
+                }
+                else
+                {                        
+                    //mark as paid
+                    $order->confirm_payment();
+                    //if theres download redirect him to the file 
+                    if ($product->has_file()==TRUE)
+                        $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$order->id_order)));
+                    else
+                        $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
+                }
+            }
+        }
+        
+        //default redirect
+        $this->redirect(Route::get('oc-panel')->uri());
+    }
+
+
+    /**
+     * pay!
+     */
+    public function action_checkout()
+    {
+        if (!Auth::instance()->logged_in())
+            $this->redirect(Route::get('oc-panel')->uri());
+
+        $user = Auth::instance()->get_user();
+
+        //resend confirmation email
+        if (is_numeric($id_order = $this->request->param('id')))
+        {
+            $order = new Model_Order($id_order);
+            
+            if ($order->loaded() AND $order->id_user == $user->id_user AND $order->status == Model_Order::STATUS_CREATED)
+            {                
+                //verify the coupon and check order against user information, if its different update order info and maybe price!
+                $order->check_pricing();
+                
+                $this->template->title   = __('Checkout');
+                Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title));
+                    
+                $this->template->content = View::factory('pages/product/checkout',array('order'   => $order,
+                                                                                        'user'    => $user,
+                                                                                        'product' => $order->product));
+            }
+            else
+            {
+                Alert::set(Alert::WARNING, __('Order not found or already paid'));
+                $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
+            }
+        }
+        else
+        {
+            Alert::set(Alert::ERROR, __('Order not found'));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'profile','action'=>'orders')));
+        }
+        
+
+    }
 }

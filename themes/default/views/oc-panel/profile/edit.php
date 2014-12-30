@@ -32,7 +32,7 @@
         </div>
         <div class="form-group">
                 <?= FORM::label('description', __('Description'), array('class'=>'col-md-2 control-label', 'for'=>'description'))?>
-                <div class="col-sm-5">
+                <div class="col-md-5">
                     <?= FORM::input('description', $user->description, array('class'=>'form-control', 'id'=>'description', 'type'=>'description' ,'placeholder'=>__('Description')))?>
                 </div>
             </div>
@@ -46,6 +46,58 @@
 
         <button type="submit" class="btn btn-primary"><?=__('Update')?></button>    		
     <?= FORM::close()?>
+
+    <div class="clearfix" id="billing"></div>
+    <div class="page-header">
+        <h1><?=__('Billing Information')?></h1>
+    </div>
+    <form class="well form-horizontal"  method="post" action="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'billing'))?>">   
+        <?=Form::errors()?>  
+        <div class="form-group">
+            <?= FORM::label('VAT_number', __('VAT Number'), array('class'=>'col-md-2 control-label', 'for'=>'VAT_number'))?>
+            <div class="col-md-5">
+                <?= FORM::input('VAT_number', $user->VAT_number, array('class'=>'form-control', 'id'=>'VAT_number', 'type'=>'VAT_number', 'maxlength'=>'65'  ,'placeholder'=>__('VAT Number')))?>
+            </div>
+        </div>
+
+         <div class="form-group">
+            <?= FORM::label('country', __('Country'), array('class'=>'col-md-2 control-label', 'for'=>'email'))?>
+            <div class="col-md-5">
+                <select name="country" id="country" class="form-control">
+                    <option></option>
+                    <?foreach (euvat::$countries as $country_code => $country_name):?>
+                        <option value="<?=$country_code?>" <?=( $user->country==$country_code)?'selected':''?>><?=$country_name?></option>
+                    <?endforeach?>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?= FORM::label('city', __('City'), array('class'=>'col-md-2 control-label', 'for'=>'city'))?>
+            <div class="col-md-5">
+                <?= FORM::input('city', $user->city, array('class'=>'form-control', 'id'=>'city', 'type'=>'city', 'maxlength'=>'65'  ,'placeholder'=>__('City')))?>
+            </div>
+        </div>
+        <div class="form-group">
+            <?= FORM::label('postal_code', __('Postal Code'), array('class'=>'col-md-2 control-label', 'for'=>'postal_code'))?>
+            <div class="col-md-5">
+                <?= FORM::input('postal_code', $user->postal_code, array('class'=>'form-control', 'id'=>'postal_code', 'type'=>'postal_code', 'maxlength'=>'20'  ,'placeholder'=>__('Postal Code')))?>
+            </div>
+        </div>
+        <div class="form-group">
+            <?= FORM::label('address', __('Address'), array('class'=>'col-md-2 control-label', 'for'=>'address'))?>
+            <div class="col-md-5">
+                <?= FORM::input('address', $user->address, array('class'=>'form-control', 'id'=>'address', 'type'=>'address', 'maxlength'=>'150'  ,'placeholder'=>__('Address')))?>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-5">
+                <button type="submit" class="btn btn-primary"><?=__('Update')?></button>
+            </div>
+        </div>
+        <input type="hidden" name="order_id" value="<?=core::request('order_id')?>">
+    </form>
+                
 
 	<div class="clearfix"></div>
 	<div class="page-header">

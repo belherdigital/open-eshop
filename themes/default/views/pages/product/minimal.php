@@ -13,37 +13,36 @@
     <?endif?>
 
     <?if($product->get_first_image() !== NULL):?>
+    <div class="thumbnail ">
         <img src="<?=Core::S3_domain().$product->get_first_image('thumb')?>" class="" >
     </div>
     <?endif?>
 
-    <div class="button-space">
-    <?if ($product->final_price()>0):?>
-        <a class="btn btn-success pay-btn full-w" target="_top"
-            href="<?=Route::url('product-paypal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
-            <?=__('Pay with Paypal')?></a>
-        <?=$product->alternative_pay_button()?>
-    <?else:?>
-        <?if (!Auth::instance()->logged_in()):?>
-        <a class="btn btn-info pay-btn mb-20"  
+        <div class="button-space">
+        
+    <?if (!Auth::instance()->logged_in()):?>
+        <a class="btn btn-success btn-large full-w" data-toggle="modal" data-dismiss="modal" 
             href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'register'))?>#register-modal">
-        <?else:?>
-        <a class="btn btn-info pay-btn full-w"
-            href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'free','id'=>$product->seotitle))?>">
-        <?endif?>
-            <?if($product->has_file()==TRUE):?>
+    <?else:?>
+        <a target="_blank" class="btn btn-success btn-large full-w"
+            href="<?=Route::url('default',array('controller'=>'product','action'=>'buy','id'=>$product->id_product))?>">
+    <?endif?>
+            <span class="fa fa-shopping-cart"></span>
+            <?if ($product->final_price()>0):?>
+                <?=__('Buy now')?>
+            <?elseif($product->has_file()==TRUE):?>
                 <?=__('Free Download')?>
             <?else:?>
                 <?=__('Get it for Free')?>
             <?endif?>
-        </a>
-    <?endif?>
+        </a>    
+
     </div>
-    <div class="clearfix"></div><br>
+    
 <!--     <span class="label label-info pull-right">
         <i class="icon-eye-open icon-white"></i> <?=$hits?>
     </span> -->
-<div class="clearfix"></div>
+
     <ul id="mini-tabs" class="nav nav-tabs">
         <li class="active"><a href="#desc" data-toggle="tab"><?=__('Description')?></a></li>
         <li><a href="#details" data-toggle="tab"><?=__('Details')?></a></li>
@@ -54,26 +53,24 @@
         </div>
         <div class="tab-pane" id="details">
             <ul class="mini-info">
-                
-                <?if(core::config('product.count_visits')==1):?>
-                    <p><?=__('Hits')?> : <?=$hits?></p>
+                <?if (!empty($product->file_name)):?>
+                    <li>
+                        <?=mb_strtoupper(strrchr($product->file_name, '.'))?> <?=__('file')?> 
+                        <?=round(filesize(DOCROOT.'data/'.$product->file_name)/pow(1024, 2),2)?>MB
+                    </li>
                 <?endif?>
-
-                <?if ($product->has_file()==TRUE):?>
-                    <p><?=__('Product format')?> : <?=mb_strtoupper(strrchr($product->file_name, '.'))?> <?=__('file')?> </p>
-                    <p><?=__('Product size')?> : <?=round(filesize(DOCROOT.'data/'.$product->file_name)/pow(1024, 2),2)?>MB</p>
-                <?endif?>
-
                 <?if ($product->support_days>0):?>
-                    <p><?=__('Professional support')?> : <?=$product->support_days?> <?=__('days')?></p>
+                    <li>
+                        <?=$product->support_days?> <?=__('days professional support')?>
+                    </li>
                 <?endif?>
-
                 <?if ($product->licenses>0):?>
-                <p><?=__('Licenses')?> : <?=$product->licenses?>  
-                    <?if ($product->license_days>0):?>
-                        <?=__('valid')?> <?=$product->license_days?> <?=__('days')?>
-                    <?endif?>
-                </p>
+                    <li>
+                    <?=$product->licenses?> <?=__('licenses')?> 
+                        <?if ($product->license_days>0):?>
+                            <?=$product->license_days?> <?=__('days valid')?>
+                        <?endif?>
+                    </li>
                 <?endif?>
             </ul>
             <div class="mt-20">
