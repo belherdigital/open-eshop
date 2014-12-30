@@ -19,31 +19,23 @@ class Controller_Paymill extends Controller{
 	}
 	
 
-	/**
-	 * [action_form] generates the form to pay at paypal
-	 */
-	public function action_pay()
-	{ 
-		$this->auto_render = FALSE;
+    /**
+     * [action_form] generates the form to pay at paypal
+     */
+    public function action_pay()
+    { 
+        $this->auto_render = FALSE;
 
-        $seotitle = $this->request->param('id');
+        $id_order = $this->request->param('id');
 
-        $product = new Model_product();
-        $product->where('seotitle','=',$seotitle)
-            ->where('status','=',Model_Product::STATUS_ACTIVE)
-            ->limit(1)->find();
+        //retrieve info for the item in DB
+        $order = new Model_Order();
+        $order = $order->where('id_order', '=', $id_order)
+                       ->where('status', '=', Model_Order::STATUS_CREATED)
+                       ->limit(1)->find();
 
-        if ($product->loaded())
+        if ($order->loaded())
         {
-            //user needs to be loged
-            if (Auth::instance()->logged_in())
-                $user = Auth::instance()->get_user();
-            else
-            {
-                Alert::set(Alert::INFO, __('Please login before purchasing'));
-                $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
-            }
-
             //Functions from https://github.com/paymill/paybutton-examples
             $privateApiKey  = Core::config('payment.paymill_private');
 
@@ -69,26 +61,23 @@ class Controller_Paymill extends Controller{
                 $transaction = Paymill::request(
                     'transactions/',
                     array(
-                         'amount'      => Paymill::money_format($product->final_price()),
-                         'currency'    => $product->currency,
+                         'amount'      => Paymill::money_format($order->amount),
+                         'currency'    => $order->currency,
                          'client'      => $client[ 'id' ],
                          'payment'     => $payment[ 'id' ],
-                         'description' => $product->title,
+                         'description' => $order->product->title,
                     ),
                     $privateApiKey
                 );
 
                 if ( isset( $transaction[ 'status' ] ) && ( $transaction[ 'status' ] == 'closed' ) ) 
                 {
-                    //echo '<strong>Transaction successful! ask for email address.</strong>';
-                    //if (Auth::instance()->logged_in())
+                    //mark as paid
+                    $order->confirm_payment('paymill',Core::post('paymillToken'));
                     
-                    //create order
-                    $order = Model_Order::sale(NULL,$user,$product,Core::post('paymillToken'),'paymill');
-                    //redirect him to the thanks page
-                    $this->redirect(Route::url('product-goal', array('seotitle'=>$product->seotitle,
-                                                                              'category'=>$product->category->seoname,
-                                                                              'order'   =>$order->id_order)));
+                    //redirect him to his ads
+                    Alert::set(Alert::SUCCESS, __('Thanks for your payment!'));
+                    $this->redirect(Route::url('default', array('controller'=>'product','action'=>'goal','id'=>$order->id_order)));
                 } 
                 else 
                 {
@@ -99,22 +88,23 @@ class Controller_Paymill extends Controller{
                     Kohana::$log->add(Log::ERROR, 'Paymill '.$msg);
 
                     Alert::set(Alert::ERROR, $msg);
-                    $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+                    $this->redirect(Route::url('default', array('controller'=>'product','action'=>'checkout','id'=>$order->id_order)));
 
                 }
             }
             else
             {
                 Alert::set(Alert::INFO, __('Please fill your card details.'));
-                $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+                $this->redirect(Route::url('default', array('controller'=>'product','action'=>'checkout','id'=>$order->id_order)));
             }
-			
-		}
-		else
-		{
-			Alert::set(Alert::INFO, __('Product could not be loaded'));
-            $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
-		}
-	}
+            
+        }
+        else
+        {
+            Alert::set(Alert::INFO, __('Order could not be loaded'));
+            $this->redirect(Route::url('default', array('controller'=>'product','action'=>'checkout','id'=>$order->id_order)));
+        }
+    }
+
 
 }

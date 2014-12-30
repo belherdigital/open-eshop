@@ -88,14 +88,15 @@ class Controller_Product extends Controller{
      */
     public function action_goal()
     {
+        $order = new Model_Order();
+        $order->where('id_order','=',$this->request->param('id'))
+                    ->where('status','=',Model_Order::STATUS_PAID)
+                    ->limit(1)->find();
 
-        $product = new Model_product();
-        $product->where('seotitle','=',$this->request->param('seotitle'))
-            ->where('status','=',Model_Product::STATUS_ACTIVE)
-            ->limit(1)->find();
-
-        if ($product->loaded())
+        if ($order->loaded())
         {
+            $product = $order->product;
+
             Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Home'))->set_url(Route::url('default')));
             Breadcrumbs::add(Breadcrumb::factory()->set_title($product->category->name)->set_url(Route::url('list',array('category'=>$product->category->seoname))));
             Breadcrumbs::add(Breadcrumb::factory()->set_title($product->title)->set_url(Route::url('product',array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))));
@@ -109,45 +110,14 @@ class Controller_Product extends Controller{
             {
                 $thanks_message = Model_Content::get_by_title(core::config('payment.thanks_page'));
             }
-
-            $order = NULL;
-            $price_paid = 0;
-
-            //in case we have the order on the URL
-            if ($this->request->param('order'))
-            {
-                $order = new Model_Order($this->request->param('order'));
-              
-                if (!$order->loaded())
-                    $order = NULL;
-                else
-                    $price_paid = $order->amount;
-            }
-            //we dont have the order in the URL
-            elseif (Auth::instance()->logged_in())
-            {
-                $user = Auth::instance()->get_user();
-                $order = new Model_Order();
-                $order->where('id_user','=',$user->id_user)
-                    ->where('id_product','=',$product->id_product)
-                    ->where('status','=',Model_Order::STATUS_PAID)
-                    ->order_by('created','desc')->limit(1)->find();
-                if (!$order->loaded())
-                    $order = NULL;
-                else
-                    $price_paid = $order->amount;
-            }
-            //from paypal @ paypal form seted
-            else
-                $price_paid = Session::instance()->get_once('goal_'.$product->id_product,$product->final_price());
-
+            
             $this->template->bind('content', $content);
-            $this->template->content = View::factory('pages/product/goal',array('product'=>$product,'thanks_message'=>$thanks_message,'order'=>$order,'price_paid'=>$price_paid));
+            $this->template->content = View::factory('pages/product/goal',array('product'=>$product,'thanks_message'=>$thanks_message,'order'=>$order,'price_paid'=>$order->amount));
 
         }
         else
         {
-            Alert::set(Alert::INFO, __('Product not found.'));
+            Alert::set(Alert::INFO, __('Order not found.'));
             $this->redirect(Route::url('default'));
         }
     }

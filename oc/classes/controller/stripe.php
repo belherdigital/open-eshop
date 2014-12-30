@@ -12,21 +12,23 @@
 
 class Controller_Stripe extends Controller{
 	
-	/**
-	 * [action_form] generates the form to pay at paypal
-	 */
-	public function action_pay()
-	{ 
-		$this->auto_render = FALSE;
 
-        $seotitle = $this->request->param('id');
+        /**
+     * [action_form] generates the form to pay at paypal
+     */
+    public function action_pay()
+    { 
+        $this->auto_render = FALSE;
 
-        $product = new Model_product();
-        $product->where('seotitle','=',$seotitle)
-            ->where('status','=',Model_Product::STATUS_ACTIVE)
-            ->limit(1)->find();
+        $id_order = $this->request->param('id');
 
-        if ($product->loaded())
+        //retrieve info for the item in DB
+        $order = new Model_Order();
+        $order = $order->where('id_order', '=', $id_order)
+                       ->where('status', '=', Model_Order::STATUS_CREATED)
+                       ->limit(1)->find();
+
+        if ($order->loaded())
         {
 
             if ( isset( $_POST[ 'stripeToken' ] ) ) 
@@ -41,57 +43,50 @@ class Controller_Stripe extends Controller{
                 // Get the credit card details submitted by the form
                 $token = Core::post('stripeToken');
 
+                // email
                 $email = Core::post('stripeEmail');
-
-                if (!Auth::instance()->logged_in())
-                {
-                    //create user if doesnt exists and send email to user with password
-                    $user = Model_User::create_email($email,core::post('stripeBillingName'));
-                }
-                else//he was loged so we use his user
-                    $user = Auth::instance()->get_user();
 
                 // Create the charge on Stripe's servers - this will charge the user's card
                 try 
                 {
                     $charge = Stripe_Charge::create(array(
-                                                        "amount"    => StripeKO::money_format($product->final_price()), // amount in cents, again
-                                                        "currency"  => $product->currency,
+                                                        "amount"    => StripeKO::money_format($order->amount), // amount in cents, again
+                                                        "currency"  => $order->currency,
                                                         "card"      => $token,
-                                                        "description" => $product->title)
-                                                    );                    
+                                                        "description" => $order->product->title)
+                                                    );
+
+                    //mark as paid
+                    $order->confirm_payment('stripe',Core::post('stripeToken'));
                 }
                 catch(Stripe_CardError $e) 
                 {
                     // The card has been declined
-                    Kohana::$log->add(Log::ERROR, 'Stripe: The card has been declined');
-                    Alert::set(Alert::ERROR, __('Stripe: The card has been declined'));
-                    $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+                    Kohana::$log->add(Log::ERROR, 'Stripe The card has been declined');
+                    Alert::set(Alert::ERROR, 'Stripe The card has been declined');
+                    $this->redirect(Route::url('default', array('controller'=>'product','action'=>'checkout','id'=>$order->id_order)));
                 }
-                
-                //create order
-                $order = Model_Order::sale(NULL,$user,$product,Core::post('stripeToken'),'stripe');
 
-                //redirect him to the thanks page
-                $this->redirect(Route::url('product-goal', array('seotitle'=>$product->seotitle,
-                                                                  'category'=>$product->category->seoname,
-                                                                  'order'   =>$order->id_order)));
+                //redirect him to the goal
+                Alert::set(Alert::SUCCESS, __('Thanks for your payment!'));
+                $this->redirect(Route::url('default', array('controller'=>'product','action'=>'goal','id'=>$order->id_order)));
+                
+                    
                 
             }
             else
             {
                 Alert::set(Alert::INFO, __('Please fill your card details.'));
-                $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+                $this->redirect(Route::url('default', array('controller'=>'product','action'=>'checkout','id'=>$order->id_order)));
             }
-			
-		}
-		else
-		{
-			Alert::set(Alert::INFO, __('Product could not be loaded'));
-            		$this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
-		}
-	}
-
+            
+        }
+        else
+        {
+            Alert::set(Alert::INFO, __('Order could not be loaded'));
+            $this->redirect(Route::url('default', array('controller'=>'product','action'=>'checkout','id'=>$order->id_order)));
+        }
+    }
 
     /**
      * [action_form] generates the js for stripe not in use see controller product-action single

@@ -10,7 +10,7 @@
         <input type="hidden" name="cbt" value="<?=HTML::chars(sprintf(__('Return to %s'),$site_name))?>">
         <input type="hidden" name="business" value="<?=$paypal_account?>">
         <input type="hidden" name="item_name" value="<?=HTML::chars($item_name)?>">
-        <input type="hidden" name="item_number" value="<?=$product_id?>">
+        <input type="hidden" name="item_number" value="<?=$order_id?>">
         <input type="hidden" name="amount" value="<?=$amount?>">
         <input type="hidden" name="quantity" value="1">
         <input type="hidden" name="undefined_quantity" value="0">
@@ -21,7 +21,7 @@
         <input type="hidden" name="return" value="<?=$return_url?>">
         <input type="hidden" name="notify_url" value="<?=Route::url('default',array('controller'=>'paypal','action'=>'ipn'))?>">
         <input type="hidden" name="no_note" value="1">
-        <input type="hidden" name="custom" value="<?=$coupon?>">
+        <input type="hidden" name="custom" value="">
         <input type="hidden" name="currency_code" value="<?=$paypal_currency?>">
         <input type="hidden" name="rm" value="2">
         <input type="hidden" name="bn" value="OpenClassifieds_SP">

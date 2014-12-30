@@ -1,6 +1,18 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
-
-<a class="btn btn-info pay-btn full-w" data-toggle="modal" data-dismiss="modal" 
-    href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'register'))?>#register-modal">
-    <?=__('Pay with Credit Card')?>
-</a>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<form action="<?=Route::url('default',array('controller'=>'paymill','action'=>'pay','id'=>$order->id_order))?>" method="post">
+    <script
+        src="https://button.paymill.com/v1/"
+        id="button"
+        data-label="<?=__('Pay with Card')?>"
+        data-title="<?=HTML::chars($order->product->title)?>"
+        data-description="<?=Text::limit_chars(Text::removebbcode($order->product->description),30,NULL, TRUE)?>"
+        data-amount="<?=Paymill::money_format($order->amount)?>"
+        data-currency="<?=$order->currency?>"
+        data-submit-button="<?=__('Pay')?> <?=i18n::format_currency($order->amount, $order->currency)?>"
+        data-elv="false"
+        data-lang="en-GB"
+        data-public-key="<?=Core::config('payment.paymill_public')?>"
+        >
+    </script>
+</form>

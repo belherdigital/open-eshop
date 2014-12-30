@@ -174,16 +174,6 @@ Route::set('product-minimal', '<category>/embed/<seotitle>.html')
 ));
 
 /**
- * Item / product goal page, were we insert the google anayltics goal + content selected in the settings.
- */
-Route::set('product-goal', '<category>/thanks/<order>/<seotitle>.html')
-->defaults(array(
-        'controller' => 'product',    
-        'action'     => 'goal',
-        'order'      => 'goal',
-));
-
-/**
  * Item / product view preview/demo
  */
 Route::set('product-demo', '<category>/demo/<seotitle>.html')

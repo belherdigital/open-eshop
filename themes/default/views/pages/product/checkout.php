@@ -148,34 +148,16 @@
                         </div><!--//col-*-->
                         <div class="col-xs-8 text-right">
 
-                            <a class="btn btn-success btn-lg paypal-pay" href="<?=Route::url('oc-panel', array('controller'=> 'paypal','action'=>'pay' , 'id' => $order->id_order))?>">
+                            <a class="btn btn-success btn-lg paypal-pay" href="<?=Route::url('default', array('controller'=> 'paypal','action'=>'pay' , 'id' => $order->id_order))?>">
                                 <?=__('Pay with Paypal')?> <i class="fa fa-long-arrow-right"></i>
                             </a>
                             <br><br>
 
-                            <?//=StripeKO::button($product)?>
-                            <?//=Paymill::button($product)?>
+                            <?=StripeKO::button($order)?>
+                            <?=Paymill::button($order)?>
                             <?//=Bitpay::button($product)?>
                             <?//=Controller_Authorize::form($product)?>
-                            <?//=$product->alternative_pay_button()?>
                             
-                            <?if (Core::config('stripe.checkout')==TRUE):?>
-                                <form action="<?=Route::url('oc-panel',array('controller'=>'stripe','action'=>'pay','id'=>$order->id_order))?>" method="post" class="form-inline">
-                                  <script
-                                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                    data-key="<?=Core::config('stripe.public_key')?>"
-                                    data-label="<?=__('Pay with Card')?>"
-                                    data-name="<?=$product->title?>"
-                                    data-description="<?=$product->title?>"
-                                    data-email="<?=Auth::instance()->get_user()->email?>"
-                                    data-amount="<?=StripeKO::money_format($order->amount)?>"
-                                    data-currency="<?=$order->currency?>"
-                                    <?=(Core::config('stripe.address')==TRUE)?'data-address = "TRUE"':''?>
-                                    >
-                                  </script>
-                                </form>
-                            <?endif?>
-                            <br>
                             <?=$order->alternative_pay_button()?>
                         </div><!--//col-*-->
                     </div><!--//row-->
