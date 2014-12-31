@@ -13,8 +13,16 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
     /**
      * This function will upgrade configs
      */
-    public function action_17()
+    public function action_170()
     {
+        //deleted classes moved to common
+        File::delete(DOCROOT.'oc/classes/bitpay.php');
+        File::delete(DOCROOT.'oc/classes/paymill.php');
+        File::delete(DOCROOT.'oc/classes/stripeko.php');
+        File::delete(DOCROOT.'themes/default/views/pages/authorize/button.php');
+        File::delete(DOCROOT.'themes/default/views/pages/bitpay/button_loged.php');
+        File::delete(DOCROOT.'themes/default/views/pages/paymill/button_loged.php');
+        
         //control login attempts
         try 
         {
