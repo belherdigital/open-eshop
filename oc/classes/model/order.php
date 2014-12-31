@@ -138,7 +138,7 @@ class Model_Order extends ORM {
                     $order->id_coupon = Model_Coupon::current()->id_coupon;
 
                 $order->amount        = $product->final_price();
-                $order->VAT           = $product->vat_percentage();
+                $order->VAT           = euvat::vat_percentage();
                 $order->VAT_number    = $user->VAT_number;
                 $order->country       = $user->country;
                 $order->city          = $user->city;
@@ -375,7 +375,7 @@ class Model_Order extends ORM {
             
             //set variables just in case...
             $this->amount        = $this->product->final_price();
-            $this->VAT           = $this->product->vat_percentage();
+            $this->VAT           = euvat::vat_percentage();
             $this->VAT_number    = $user->VAT_number;
             $this->country       = $user->country;
             $this->city          = $user->city;

@@ -14,17 +14,17 @@ class Controller_Authorize extends Controller{
     
     /**
      * generates HTML form
-     * @param  Model_Product $product 
+     * @param  Model_Product $order 
      * @return string                 
      */
-    public static function form(Model_Product $product)
+    public static function form(Model_Order $order)
     {
-        if ( Core::config('payment.authorize_login')!='' AND Core::config('payment.authorize_key')!='' )
+        if ( Core::config('payment.authorize_login')!='' AND 
+            Core::config('payment.authorize_key')!='' AND
+            Auth::instance()->logged_in() AND $order->loaded())
         {
-            if (Auth::instance()->logged_in() AND $product->loaded())
-                return View::factory('pages/authorize/form',array('product'=>$product));
-            elseif ($product->loaded())
-                return View::factory('pages/authorize/button');
+            return View::factory('pages/authorize/form',array('order'=>$order));
+           
         }
         return '';
     }
@@ -36,24 +36,16 @@ class Controller_Authorize extends Controller{
     { 
         $this->auto_render = FALSE;
 
-        $seotitle = $this->request->param('id');
+        $id_order = $this->request->param('id');
 
-        $product = new Model_product();
-        $product->where('seotitle','=',$seotitle)
-            ->where('status','=',Model_Product::STATUS_ACTIVE)
-            ->limit(1)->find();
+        //retrieve info for the item in DB
+        $order = new Model_Order();
+        $order = $order->where('id_order', '=', $id_order)
+                       ->where('status', '=', Model_Order::STATUS_CREATED)
+                       ->limit(1)->find();
 
-        if ($product->loaded())
+        if ($order->loaded())
         {
-            //user needs to be loged
-            if (Auth::instance()->logged_in())
-                $user = Auth::instance()->get_user();
-            else
-            {
-                Alert::set(Alert::INFO, __('Please login before purchasing'));
-                $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
-            }
-
             // include class vendor
             require Kohana::find_file('vendor/authorize/', 'autoload');
 
@@ -61,34 +53,31 @@ class Controller_Authorize extends Controller{
             define('AUTHORIZENET_TRANSACTION_KEY', Core::config('payment.authorize_key'));
             define('AUTHORIZENET_SANDBOX', Core::config('payment.authorize_sandbox'));
             $sale           = new AuthorizeNetAIM;
-            $sale->amount   = $product->final_price();
+            $sale->amount   = $order->amount;
             $sale->card_num = Core::post('card-number');
             $sale->exp_date = Core::post('expiry-month').'/'.Core::post('expiry-year');
             $response = $sale->authorizeAndCapture();
             if ($response->approved) 
             {
-                //create order
-                $order = Model_Order::sale(NULL,$user,$product,$response->transaction_id,'authorize');
-                
-                //redirect him to the thanks page
-                $this->redirect(Route::url('product-goal', array('seotitle'=>$product->seotitle,
-                                                                          'category'=>$product->category->seoname,
-                                                                          'order'   =>$order->id_order)));
-                
+                $order->confirm_payment('authorize',$response->transaction_id);
+                //redirect him to his ads
+                Alert::set(Alert::SUCCESS, __('Thanks for your payment!').' '.$response->transaction_id);
+                $this->redirect(Route::url('default', array('controller'=>'product','action'=>'goal','id'=>$order->id_order)));
             }
             else
             {
                 Alert::set(Alert::INFO, $response->error_message);
-                $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+                $this->redirect(Route::url('default', array('controller'=>'product','action'=>'checkout','id'=>$order->id_order)));
             }  
             
         }
         else
         {
-            Alert::set(Alert::INFO, __('Product could not be loaded'));
-            $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+            Alert::set(Alert::INFO, __('Order could not be loaded'));
+            $this->redirect(Route::url('default', array('controller'=>'product','action'=>'checkout','id'=>$order->id_order)));
         }
     }
+
 
 
 }

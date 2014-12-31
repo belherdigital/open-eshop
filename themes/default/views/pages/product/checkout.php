@@ -84,40 +84,41 @@
                                                 -<?=i18n::format_currency($discount, $order->currency)?>
                                             </td>
                                         </tr>  
-                                    <?endif?>      
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-right"><h4><strong><?=__('Sub Total')?>: </strong></h4></td>
-                                        <td class="text-center">
-                                            <h4>
-                                            <?if (!$order->coupon->loaded()):?>
-                                                <?=i18n::format_currency($order->product->price, $order->currency)?>
-                                            <?else:?>
-                                                <?=i18n::format_currency($order->product->price-$discount, $order->currency)?>
-                                            <?endif?>
-                                            </h4>
-                                        </td>
-                                    </tr> 
-                                    <?if (is_numeric($order->VAT)):?>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-right">
-                                            <h4><?=__('VAT')?> <?=round($order->VAT,1)?>%</h4>
-                                            <small>
-                                                <?=euvat::country_name($order->country)?>
-                                                <?=(euvat::is_eu_country($order->country) AND strlen($order->VAT_number)>2) ?'VIES':''?>
-                                            </small>
-                                        </td>
-                                        <td class="text-center"><h4>
-                                            <?if (!$order->coupon->loaded()):?>
-                                                <?=i18n::format_currency($order->VAT*$order->product->price/100, $order->currency)?>
-                                            <?else:?>
-                                                <?=i18n::format_currency($order->VAT*($order->product->price-$discount)/100, $order->currency)?>
-                                            <?endif?></h4>
-                                        </td>
-                                    </tr>            
+                                    <?endif?>     
+
+                                    <?if ($order->VAT > 0):?> 
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-right"><h4><strong><?=__('Sub Total')?>: </strong></h4></td>
+                                            <td class="text-center">
+                                                <h4>
+                                                <?if (!$order->coupon->loaded()):?>
+                                                    <?=i18n::format_currency($order->product->price, $order->currency)?>
+                                                <?else:?>
+                                                    <?=i18n::format_currency($order->product->price-$discount, $order->currency)?>
+                                                <?endif?>
+                                                </h4>
+                                            </td>
+                                        </tr> 
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-right">
+                                                <h4><?=__('VAT')?> <?=round($order->VAT,1)?>%</h4>
+                                                <small>
+                                                    <?=euvat::country_name($order->country)?>
+                                                    <?=(euvat::is_eu_country($order->country) AND strlen($order->VAT_number)>2) ?'VIES':''?>
+                                                </small>
+                                            </td>
+                                            <td class="text-center"><h4>
+                                                <?if (!$order->coupon->loaded()):?>
+                                                    <?=i18n::format_currency($order->VAT*$order->product->price/100, $order->currency)?>
+                                                <?else:?>
+                                                    <?=i18n::format_currency($order->VAT*($order->product->price-$discount)/100, $order->currency)?>
+                                                <?endif?></h4>
+                                            </td>
+                                        </tr>            
                                     <?endif?>       
                                     <tr>
                                         <td></td>
@@ -155,8 +156,8 @@
 
                             <?=StripeKO::button($order)?>
                             <?=Paymill::button($order)?>
-                            <?//=Bitpay::button($product)?>
-                            <?//=Controller_Authorize::form($product)?>
+                            <?=Bitpay::button($order)?>
+                            <?=Controller_Authorize::form($order)?>
                             
                             <?=$order->alternative_pay_button()?>
                         </div><!--//col-*-->

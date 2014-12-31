@@ -70,9 +70,7 @@ class Controller_Stripe extends Controller{
                 //redirect him to the goal
                 Alert::set(Alert::SUCCESS, __('Thanks for your payment!'));
                 $this->redirect(Route::url('default', array('controller'=>'product','action'=>'goal','id'=>$order->id_order)));
-                
-                    
-                
+                                
             }
             else
             {

@@ -80,7 +80,9 @@
                                             <td class="col-md-2 text-center text-danger">
                                             </td>
                                         </tr>  
-                                    <?endif?>      
+                                    <?endif?>   
+
+                                    <?if ($order->VAT > 0):?>   
                                     <tr>
                                         <td></td>
                                         <td></td>
@@ -91,7 +93,6 @@
                                             </h4>
                                         </td>
                                     </tr> 
-                                    <?if (is_numeric($order->VAT)):?>
                                     <tr>
                                         <td></td>
                                         <td></td>

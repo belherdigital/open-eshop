@@ -128,44 +128,24 @@ class Model_Product extends ORM {
         }
         
         //do we need to charge vat?
-        if ($this->vat_percentage()>0 AND $calculate_VAT === TRUE)
+        if ( ($vat = euvat::vat_percentage()) > 0 AND $calculate_VAT === TRUE)
         {
-            $final_price = $final_price + ($this->vat_percentage()*$final_price/100);
+            $final_price = $final_price + ($vat*$final_price/100);
         }
 
         //return the price
         return $final_price;
     }
 
-    /**
-     * returns how much VAT the user needs to pay
-     * @return integer 
-     */
-    public function vat_percentage()
-    {
-        //logged in lets check vat number
-        if (Auth::instance()->logged_in()===TRUE)
-        {
-            $user = Auth::instance()->get_user();
 
-            //its a country from the eu country? and without validated VAT vies
-            if(euvat::is_eu_country($user->country) AND strlen($user->VAT_number)<2)
-            {
-                return euvat::vat_by_country($user->country);
-            }
-        }
-
-        //not eu country or VIES or not loged in
-        return 0;
-    }
 
     /**
-     * returns the price of the product formated using the product currency
+     * returns the price of the product formated using the product currency, without VAT added
      * @return float 
      */
     public function formated_price()
     {
-        return i18n::format_currency($this->final_price(), $this->currency);
+        return i18n::format_currency($this->final_price(FALSE), $this->currency);
     }
 
     /**

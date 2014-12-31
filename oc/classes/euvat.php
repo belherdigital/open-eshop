@@ -11,6 +11,8 @@
 
 class euvat {
 
+    public static $date_start = '2015-01-01';
+    
     /**
      * gets the country code from the user
      * @param  string $ip_address 
@@ -35,6 +37,8 @@ class euvat {
 
         return $country_code;
     }
+
+
 
     /**
      * get country name from a country code, in case not set get by ip
@@ -111,6 +115,37 @@ class euvat {
             return $eu_rate[$country_code]['standard_rate'];
         else 
             return 0;
+    }
+
+    /**
+     * returns how much VAT the user needs to pay
+     * @return integer 
+     */
+    public static function vat_percentage()
+    {
+        //in time frame? and activated?
+        if (core::config('general.eu_vat')==TRUE  AND time()>=strtotime(self::$date_start))
+        {
+            //logged lets check vat number
+            if (Auth::instance()->logged_in()===TRUE) 
+            {
+                $user = Auth::instance()->get_user();
+
+                //its a country from the eu country? and without validated VAT vies
+                if(self::is_eu_country($user->country) AND strlen($user->VAT_number) < 2)
+                {
+                    return self::vat_by_country($user->country);
+                }
+            }
+            //not logged get country
+            else
+            {
+                return self::vat_by_country(self::country_code());
+            }
+        }
+
+        //not in time or not activated
+        return 0;
     }
 
     /**

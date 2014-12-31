@@ -20,45 +20,32 @@ class Controller_Bitpay extends Controller{
     { 
         $this->auto_render = FALSE;
 
-        $product_seo = $this->request->param('id');
+        $id_order = $this->request->param('id');
 
-        $product = new Model_product();
+        //retrieve info for the item in DB
+        $order = new Model_Order();
+        $order = $order->where('id_order', '=', $id_order)
+                       ->where('status', '=', Model_Order::STATUS_CREATED)
+                       ->limit(1)->find();
 
-        $product->where('seotitle','=',$product_seo)
-            ->where('status','=',Model_Product::STATUS_ACTIVE)
-            ->limit(1)->find();
-
-
-        if ($product->loaded())
+        if ($order->loaded())
         {
-            //user needs to be loged
-            if (Auth::instance()->logged_in())
-                $user = Auth::instance()->get_user();
-            else
-            {
-                Alert::set(Alert::INFO, __('Please login before purchasing'));
-                $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
-            }
-
-            //we save a once session with how much you pay later used in the goal
-            Session::instance()->set('goal_'.$product->id_product,$product->final_price());
-
 
             //options send to create the invoice
-            $options = array(   'buyerName'     => $user->name,
-                                'buyerEmail'    => $user->email,
-                                'currency'      => $product->currency,
-                                'redirectURL'   => Route::url('product-goal', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))
+            $options = array(   'buyerName'     => $order->user->name,
+                                'buyerEmail'    => $order->user->email,
+                                'currency'      => $order->currency,
+                                'redirectURL'   => Route::url('default', array('controller'=>'product','action'=>'goal','id'=>$order->id_order))
                             );
 
-            $invoice = Bitpay::bpCreateInvoice($product->id_product, $product->final_price(), '', $options);
+            $invoice = Bitpay::bpCreateInvoice($order->id_order, $order->amount, '', $options);
             
             if (!isset($invoice['error']) AND valid::url($invoice['url']))
                 $this->redirect($invoice['url']);
             else
             {
                 Alert::set(Alert::INFO, __('Could not create bitpay invoice'));
-                $this->redirect(Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname)));
+                $this->redirect(Route::url('default', array('controller'=>'product','action'=>'checkout','id'=>$order->id_order)));
             }
             
         }
@@ -80,18 +67,14 @@ class Controller_Bitpay extends Controller{
             Kohana::$log->add(Log::ERROR, $response);
         else
         {
-            if (!Auth::instance()->logged_in())
-                $user = Model_User::create_email($ipn_result['buyerFields']['buyerEmail'],$ipn_result['buyerFields']['buyerName']);
-            else//he was loged so we use his user
-                $user = Auth::instance()->get_user();
+            
+            //retrieve info for the item in DB
+            $order = new Model_Order();
+            $order = $order->where('id_order', '=', $ipn_result['orderId'])
+                           ->where('status', '=', Model_Order::STATUS_CREATED)
+                           ->limit(1)->find();
 
-            $product = new Model_product();
-            $product->where('id_product','=',$ipn_result['orderId'])
-                ->where('status','=',Model_Product::STATUS_ACTIVE)
-                ->limit(1)->find();
-
-
-            if ($product->loaded())
+            if ($order->loaded())
             {
                 switch($ipn_result['status'])
                 {
@@ -100,10 +83,9 @@ class Controller_Bitpay extends Controller{
                     case 'confirmed':
                         Kohana::$log->add(Log::DEBUG,'BitPay bitcoin payment confirmed. Awaiting network confirmation and completed status.');
                     case 'complete':
-
-                        $order = Model_Order::sale(NULL,$user,$product,Core::post('txn_id'),'bitpay');
+                        //mark as paid
+                        $order->confirm_payment('bitpay', (isset($ipn_result['id']))?$ipn_result['id']:'' );
                         $this->response->body('OK');
-
                         break;
                     case 'invalid':
                         Kohana::$log->add(Log::ERROR,  'Bitcoin payment is invalid for this order! The payment was not confirmed by the network within 1 hour.' );
