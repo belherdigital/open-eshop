@@ -86,7 +86,10 @@
                                         </tr>  
                                     <?endif?>     
 
-                                    <?if ($order->VAT > 0):?> 
+                                    <?if ($order->VAT > 0 OR (euvat::is_eu_country($order->country) 
+                                                                AND core::config('general.eu_vat')==TRUE 
+                                                                AND Date::mysql2unix($order->created) >= strtotime(euvat::$date_start))
+                                            ):?>  
                                         <tr>
                                             <td></td>
                                             <td></td>
