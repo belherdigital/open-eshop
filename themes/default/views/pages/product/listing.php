@@ -45,7 +45,6 @@
                 <div class="thumbnail">
                     <a title="<?=HTML::chars($product->title)?>" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                     <?if($product->get_first_image() !== NULL):?>
-    <div class="thumbnail ">
                         <img width="300" height="200" src="<?=Core::S3_domain().$product->get_first_image()?>" alt="<?=HTML::chars($product->title)?>" class="">
                     <?elseif(( $icon_src = $product->category->get_icon() )!==FALSE ):?>
                         <img width="300" height="200" src="<?=$icon_src?>" alt="<?=HTML::chars($product->title)?>">
