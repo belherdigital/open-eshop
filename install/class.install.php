@@ -104,15 +104,10 @@ class install{
          * all the install checks
          */
         return     array(
-
-                'robots.txt'=>array('message'   => 'The <code>'.DOCROOT.'robots.txt</code> file is not writable.',
-                                    'mandatory' => FALSE,
-                                    'result'    => is_writable(DOCROOT.'robots.txt')
-                                    ),
-                'sitemap'   =>array('message'   => 'The <code>'.DOCROOT.'sitemap.xml.gz</code> file is not writable.',
-                                    'mandatory' => FALSE,
-                                    'result'    => is_writable(DOCROOT.'sitemap.xml.gz')
-                                    ),
+                'Write DIR'       =>array('message'   => 'Can\'t write to the current directory. Please fix this by giving the webserver user write access to the directory.',
+                                        'mandatory' => TRUE,
+                                        'result'    => (is_writable(DOCROOT))
+                                        ),
                 'images'    =>array('message'   => 'The <code>'.DOCROOT.'images/</code> directory is not writable.',
                                     'mandatory' => TRUE,
                                     'result'    => is_writable(DOCROOT.'images')
@@ -157,14 +152,6 @@ class install{
                                         'mandatory' => TRUE,
                                         'result'    => ((bool) ini_get('safe_mode'))?FALSE:TRUE
                                         ),
-                'PCRE UTF8' =>array('message'   => '<a href="http://php.net/pcre">PCRE</a> has not been compiled with UTF-8 support.',
-                                    'mandatory' => TRUE,
-                                    'result'    => (bool) (@preg_match('/^.$/u', 'ñ'))
-                                    ),
-                'PCRE Unicode'=>array('message' => '<a href="http://php.net/pcre">PCRE</a> has not been compiled with Unicode property support.',
-                                    'mandatory' => TRUE,
-                                    'result'    => (bool) (@preg_match('/^\pL$/u', 'ñ'))
-                                    ),
                 'SPL'       =>array('message'   => 'PHP <a href="http://www.php.net/spl">SPL</a> is either not loaded or not compiled in.',
                                     'mandatory' => TRUE,
                                     'result'    => (function_exists('spl_autoload_register'))
@@ -212,6 +199,10 @@ class install{
                 'ZipArchive'   =>array('message'   => 'PHP module zip not installed. You will need this to auto update the software.',
                                     'mandatory' => FALSE,
                                     'result'    => class_exists('ZipArchive')
+                                    ),
+                'SoapClient'   =>array('message'   => 'Install requires the <a href="http://php.net/manual/en/class.soapclient.php">SoapClient</a> class.',
+                                    'mandatory' => FALSE,
+                                    'result'    => class_exists('SoapClient')
                                     ),
                 );
     }
