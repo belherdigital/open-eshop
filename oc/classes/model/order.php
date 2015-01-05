@@ -411,4 +411,26 @@ class Model_Order extends ORM {
         return FALSE;
     }
 
+    /**
+     * unpaid orders 2 days ago reminder
+     * @param integer $days, how many days after created
+     * @return void
+     */
+    public static function cron_unpaid($days = 2)
+    {
+        //getting orders not paid from 2 days ago
+        $orders = new Model_Order();
+        $orders = $orders->where('status','=',Model_Order::STATUS_CREATED)
+                            ->where(DB::expr('DATE( created)'),'=', Date::format('-'.$days.' days','Y-m-d'))
+                            ->find_all();
+
+        foreach ($orders as $order) 
+        {
+            $url_checkout = $order->user->ql('default', array('controller'=>'product','action'=>'checkout','id'=>$order->id_order));
+
+            $order->user->email('new-order', array(  '[ORDER.ID]'    => $order->id_order,
+                                                     '[ORDER.DESC]'  => $order->description,
+                                                     '[URL.CHECKOUT]'=> $url_checkout));
+        }
+    }
 }

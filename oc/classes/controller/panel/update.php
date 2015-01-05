@@ -22,6 +22,14 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
         File::delete(DOCROOT.'themes/default/views/pages/authorize/button.php');
         File::delete(DOCROOT.'themes/default/views/pages/bitpay/button_loged.php');
         File::delete(DOCROOT.'themes/default/views/pages/paymill/button_loged.php');
+
+
+        //crontabs
+        try
+        {
+            DB::query(Database::UPDATE,"INSERT INTO `".self::$db_prefix."crontab` (`name`, `period`, `callback`, `params`, `description`, `active`) VALUES
+                                    ('Unpaid Orders', '0 7 * * *', 'Model_Order::cron_unpaid', NULL, 'Notify by email unpaid orders 2 days after was created', 1);")->execute();
+        }catch (exception $e) {}
         
         //control login attempts
         try 
@@ -107,6 +115,7 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
             DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."users` ADD `has_image` TINYINT( 1 ) NOT NULL DEFAULT '0' ;")->execute();
         }catch (exception $e) {}
             
+        //configs
         $configs = array(
                         array( 'config_key'     =>'aws_s3_active',
                                'group_name'     =>'image',
@@ -150,6 +159,18 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
                         );
         
         Model_Config::config_array($configs);
+
+        //new mails
+        $contents = array(array('order'=>0,
+                                'title'=>'Receipt for [ORDER.DESC] #[ORDER.ID]',
+                               'seotitle'=>'new-order',
+                               'description'=>"Hello [USER.NAME],Thanks for buying [ORDER.DESC].\n\nPlease complete the payment here [URL.CHECKOUT]",
+                               'from_email'=>core::config('email.notify_email'),
+                               'type'=>'email',
+                               'status'=>'1'),
+                        );
+
+        Model_Content::content_array($contents);
 
         //upgrade has_image field to use it as images count
         $products = new Model_Product();
