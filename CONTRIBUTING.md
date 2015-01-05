@@ -33,15 +33,6 @@ git submodule update
 This will clone the open-eshop project + submodule at oc/common https://github.com/open-classifieds/common
 
 
-GIT files to ignore changes, DO NOT COMMIT THIS FILES:
-```
-git update-index --assume-unchanged install/install.lock
-git update-index --assume-unchanged oc/cache/.empty
-git update-index --assume-unchanged oc/logs/.empty
-git update-index --assume-unchanged images/.empty
-git update-index --assume-unchanged data/.empty
-```
-
 ## Reporting issues
 
 https://github.com/open-classifieds/open-eshop/issues

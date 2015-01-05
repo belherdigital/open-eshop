@@ -11,3 +11,4 @@ themes/*
 data/*
 !themes/default/
 oc/vendor/hybridauth/logs.txt
+install/install.lock
