@@ -2,8 +2,7 @@ robots.txt
 oc/config/auth.php
 oc/config/database.php
 .htaccess
-sitemap.xml.gz
-sitemap.xml
+
 oc/cache/*
 oc/logs/*
 images/*
