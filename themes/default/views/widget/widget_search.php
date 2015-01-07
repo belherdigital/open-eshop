@@ -29,7 +29,8 @@
                     <?endif?>
                 <?}
                 $cat_order = $widget->cat_order_items; 
-                array_walk($cat_order , 'lili_search', $widget->cat_items);?>
+                if (is_array($cat_order))
+                    array_walk($cat_order , 'lili_search', $widget->cat_items);?>
                 </select> 
             </div>
         </div>
