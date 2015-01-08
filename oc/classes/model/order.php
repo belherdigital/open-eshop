@@ -179,6 +179,9 @@ class Model_Order extends ORM {
             $this->paymethod = $paymethod;
             $this->txn_id    = $txn_id;
 
+            if ($product->support_days>0)
+                $this->support_date = Date::unix2mysql(Date::mysql2unix($this->pay_date)+($product->support_days*24*60*60)); 
+
             if ($amount!==NULL)
                 $this->amount = $amount;
 
