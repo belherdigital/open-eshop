@@ -10,7 +10,7 @@
 
 
 <div class="well">
-	<?= FORM::open(Route::url('oc-panel',array('controller'=>'settings', 'action'=>'product')), array('class'=>'form-horizontal', 'enctype'=>'multipart/form-data'))?>
+	<?= FORM::open(Route::url('oc-panel',array('controller'=>'settings', 'action'=>'product')), array('class'=>'form-horizontal config', 'enctype'=>'multipart/form-data'))?>
 		<fieldset>
 			<?foreach ($config as $c):?>
 			<?$forms[$c->config_key] = array('key'=>$c->config_key, 'value'=>$c->config_value)?>
@@ -54,6 +54,8 @@
                     'data-placement'=>"right",
                     'data-toggle'=>"popover",
                     'data-original-title'=>__("Hours between downloads"),
+                    'data-rule-required'=>'true',
+                    'data-rule-digits' => 'true', 
                     ))?> 
                 </div>
             </div>
@@ -70,6 +72,8 @@
                     'data-placement'=>"right",
                     'data-toggle'=>"popover",
                     'data-original-title'=>__("Times between downloads"),
+                    'data-rule-required'=>'true',
+                    'data-rule-digits' => 'true', 
                     ))?> 
                 </div>
             </div>
@@ -86,6 +90,8 @@
 					'data-placement'=>"right",
 					'data-toggle'=>"popover",
 					'data-original-title'=>__("Number of images displayed"),
+					'data-rule-required'=>'true',
+					'data-rule-digits' => 'true', 
 					))?> 
 				</div>
 			</div>
@@ -102,6 +108,8 @@
                     'data-placement'=>"right",
                     'data-toggle'=>"popover",
                     'data-original-title'=>__("Related products"), 
+                    'data-rule-required'=>'true',
+                    'data-rule-digits' => 'true', 
                     ))?> 
                 </div>
             </div>
@@ -118,6 +126,8 @@
 					'data-placement'=>"right",
 					'data-toggle'=>"popover",
 					'data-original-title'=>__("Size of the product file, limit on upload in MB"),
+					'data-rule-required'=>'true',
+					'data-rule-digits' => 'true', 
 					))?> 
 				</div>
 			</div>
