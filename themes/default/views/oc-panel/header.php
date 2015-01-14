@@ -23,10 +23,10 @@
 
                     <?if (!Auth::instance()->get_user()->has_access_to_any('supportadmin')):?>
                         <?=Theme::admin_link(__('Support'), 'support','index','oc-panel','glyphicon glyphicon-comment')?>
+                    <?else:?>
+                        <?=Theme::admin_link(__('Support Admin'), 'support','index','oc-panel','glyphicon glyphicon-comment','admin')?>
+                        <?=Theme::admin_link(__('Support Assigned'), 'support','index','oc-panel','glyphicon glyphicon-comment','assigned')?>
                     <?endif?>
-
-                    <?=Theme::admin_link(__('Support Admin'), 'support','index','oc-panel','glyphicon glyphicon-comment','admin')?>
-                    <?=Theme::admin_link(__('Support Assigned'), 'support','index','oc-panel','glyphicon glyphicon-comment','assigned')?>
 
                 	<?=Theme::admin_link(__('Stats'),'stats','index','oc-panel','glyphicon glyphicon-align-left')?>
                     <?=Theme::admin_link(__('Widgets'),'widget','index','oc-panel','glyphicon glyphicon-move')?>
