@@ -21,7 +21,7 @@
         </a>
         <?endforeach?>
 
-        <?if(Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN AND core::get('status')==Model_Ticket::STATUS_HOLD):?>
+        <?if(Auth::instance()->get_user()->has_access('supportadmin') AND core::get('status')==Model_Ticket::STATUS_HOLD):?>
         <a
             href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'massclose'))?>" 
             class="btn btn-warning" 

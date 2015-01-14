@@ -12,7 +12,7 @@
         <?=__('Close Ticket')?></a>
         <?endif?> 
 
-        <?if(Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN):?>
+        <?if(Auth::instance()->get_user()->has_access('supportadmin')):?>
 
             <form class="form-inline pull-right" method="post" action="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'ticket','id'=>$ticket->id_ticket))?>"> 
                 <?= FORM::select('agent', $users, $ticket->id_user_support, array( 
@@ -24,7 +24,6 @@
                     ))?> 
                 <button type="submit" class="btn btn-info"><?=__('Assign')?></button>
             </form>
-
 
             <a target="_blank" href="<?=Route::url('oc-panel', array('controller'=> 'order', 'action'=>'update','id'=>$ticket->order->pk())) ?>">
                 <?=round($ticket->order->amount,2)?><?=$ticket->order->currency?> <?=Date::format($ticket->order->pay_date,'d-m-y')?>
@@ -121,7 +120,7 @@
     <div class="clearfix"></div><hr>
     <?endforeach?>
 
-    <?if($ticket->status!=Model_Ticket::STATUS_CLOSED OR Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN):?>
+    <?if($ticket->status!=Model_Ticket::STATUS_CLOSED OR Auth::instance()->get_user()->has_access('supportadmin')):?>
 
         <?if($ticket->status==Model_Ticket::STATUS_CLOSED):?>
             <div class="alert alert-warning" role="alert">
