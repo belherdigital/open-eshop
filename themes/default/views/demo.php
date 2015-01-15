@@ -91,8 +91,11 @@
             -webkit-border-radius: 24px 24px 24px 24px;
             border-left: 16px solid #000000;
             border-right: 16px solid #000000;
-            border-bottom: 60px solid #000000;
-            border-top: 40px solid #000000;
+            border-bottom: 80px solid #000000;
+            border-top: 60px solid #000000;
+        }
+        .qr_align{
+            margin: 30px 0 30px 130px;
         }
     </style>
 
@@ -103,6 +106,11 @@
     </head>
 
   <body>
+
+    <script type="text/javascript">
+        //dont allow be inside an iframe
+        if (window!=window.top) { window.top.location.href = window.location.href; }
+    </script>
 
     <!-- Fixed navbar -->
     <div class="navbar navbar-default navbar-fixed-top switcher-bar" role="navigation">
@@ -165,6 +173,9 @@
                 <a class="btn btn-default btn-sm desktop-btn" title="Desktop full width" href="#">
                     <span class="fa fa-desktop fa-2x"></span> 
                 </a>
+                <a type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#qrCode" title="<?=__('Scan QR and check out the template on your phone or tablet')?>" href="#">
+                    <span class="fa fa-qrcode fa-2x"></span>
+                </a>
                 <?endif?>
                 <a class="btn btn-success btn-sm" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"
                     title="<?if ($product->final_price()>0):?>
@@ -180,6 +191,25 @@
             
         </div><!--/.nav-collapse -->
     </div>
+
+    <?if (core::config('product.demo_resize')==TRUE):?>
+    <!-- Modal for the QR-->
+    <div class="modal fade" id="qrCode" tabindex="-1" role="dialog" aria-labelledby="qrCodeLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="qrCodeLabel"><?=__('Scan QR and check out the template on your phone or tablet')?></h4>
+          </div>
+          <div class="modal-body">
+            <div class="qr_align">
+            <?=core::generate_qr($product->url_demo.'&skin='.$skin, 300)?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?endif?>
 
     <iframe class="desktop-view" id="product-iframe" frameborder="0" noresize="noresize" src="<?=$product->url_demo?><?=(count($skins)>0)?'&skin='.$skin:''?>" ></iframe>
 
@@ -214,14 +244,14 @@
         $( '.tablet-btn' ).on( 'click', function() {
             $productIframe.removeClass();
             $productIframe.addClass('tablet-border');
-            $productIframe.animate({'width'  : '800px','height' : '480px'});
+            $productIframe.animate({'width'  : '1024px','height' : '768px'});
             return false;
         });
 
         $( '.mobile-btn' ).on( 'click', function() {
             $productIframe.removeClass();
             $productIframe.addClass('mobile-border');
-            $productIframe.animate({'width'  : '480px','height' : '800px' });
+            $productIframe.animate({'width'  : '360px','height' : '720px' });
             return false;
         }); 
 
