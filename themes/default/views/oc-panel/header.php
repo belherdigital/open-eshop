@@ -19,7 +19,10 @@
 
             <div class="navbar-collapse collapse" id="mobile-menu-panel">
                 <ul class="nav navbar-nav">
-                    <?=Theme::admin_link(__('Market'), 'market','index','oc-panel','glyphicon glyphicon-gift')?>
+
+                    <?if (Theme::get('premium')!=1):?>
+                        <?=Theme::admin_link(__('Market'), 'market','index','oc-panel','glyphicon glyphicon-gift')?>
+                    <?endif?>
 
                     <?if (!Auth::instance()->get_user()->has_access_to_any('supportadmin')):?>
                         <?=Theme::admin_link(__('Support'), 'support','index','oc-panel','glyphicon glyphicon-comment')?>
