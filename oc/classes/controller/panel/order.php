@@ -27,19 +27,46 @@ class Controller_Panel_Order extends Auth_Crud {
     public function action_index($view = NULL)
     {
         $this->template->title = __('Orders');
-        $this->template->scripts['footer'][] = 'js/oc-panel/crud/index.js';
-        
+
+        $this->template->styles = array('//cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
+        $this->template->scripts['footer'] = array('//cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
+                                                    'js/oc-panel/crud/index.js',
+                                                    'js/oc-panel/stats/dashboard.js');
+
         $orders = new Model_Order();
         $orders = $orders->where('status', '=', Model_Order::STATUS_PAID);
 
-        if (core::get('email')!==NULL)
+        //filter email
+        if (core::request('email')!==NULL)
         {
             $user = new Model_User();
-            $user->where('email','=',core::get('email'))->limit(1)->find();
+            $user->where('email','=',core::request('email'))->limit(1)->find();
             if ($user->loaded())
                 $orders = $orders->where('id_user', '=', $user->id_user);
         }
 
+        //filter date
+        if (!empty(Core::request('from_date')) AND !empty(Core::request('to_date')))
+        {
+            //Getting the dates range
+            $from_date = Core::request('from_date',strtotime('-1 month'));
+            $to_date   = Core::request('to_date',time());
+
+            $orders = $orders->where('pay_date','between',array($from_date,$to_date));
+        }
+
+        //filter coupon
+        if (is_numeric(core::request('id_coupon')))
+        {
+            $orders = $orders->where('id_coupon', '=', core::request('id_coupon'));
+        }
+
+        //filter product
+        if (is_numeric(core::request('id_product')))
+        {
+            $orders = $orders->where('id_product', '=', core::request('id_product'));
+        }
+        
 
         $pagination = Pagination::factory(array(
                     'view'           => 'oc-panel/crud/pagination',
@@ -58,8 +85,12 @@ class Controller_Panel_Order extends Auth_Crud {
 
         $pagination = $pagination->render();
 
+        $products = new Model_Product();
+        $products = $products->find_all();
         
-        $this->render('oc-panel/pages/order/index', array('orders' => $orders,'pagination'=>$pagination));
+        $this->render('oc-panel/pages/order/index', array('orders' => $orders,
+            'pagination'=>$pagination,
+            'products'=>$products));
     }    
 
     /**
