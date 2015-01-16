@@ -92,7 +92,7 @@
                         </a>
                     </td>
 	                <td><?=i18n::format_currency($order->amount, $order->currency)?></td>
-                    <td><?=$order->VAT?></td>
+                    <td><?=round($order->VAT,1)?>%</td>
 	                <td>
                         <a href="<?=Route::url('oc-panel', array('controller'=>'order', 'action'=>'index')).URL::query(array('id_coupon'=>$order->coupon->pk()))?>">
 	                    <?=$order->coupon->name?>
