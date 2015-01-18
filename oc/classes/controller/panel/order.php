@@ -76,10 +76,10 @@ class Controller_Panel_Order extends Auth_Crud {
                     'action'     => $this->request->action(),
         ));
 
-        $pagination->title($this->template->title);
-
+        $items_per_page = core::request('items_per_page',$pagination->items_per_page);
+        
         $orders = $orders->order_by('pay_date','desc')
-        ->limit($pagination->items_per_page)
+        ->limit($items_per_page)
         ->offset($pagination->offset)
         ->find_all();
 

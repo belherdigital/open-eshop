@@ -53,7 +53,7 @@
                   </div>
                 <?endif?>
 				<?=$content?>
-                <?=(Kohana::$environment === Kohana::DEVELOPMENT)? View::factory('profiler'):''?>
+                <?=(Kohana::$environment === Kohana::DEVELOPMENT AND core::get('print')!=1)? View::factory('profiler'):''?>
         </div><!--/span--> 
 
     </div><!--/.fluid-->

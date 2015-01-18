@@ -32,6 +32,12 @@
                             <option value="<?=$p->id_product?>" <?=(core::request('id_product')==$p->id_product)?'SELECTED':''?> ><?=$p->title?></option>
                         <?endforeach?>
                     </select>
+                    <select name="items_per_page" id="items_per_page" class="form-control" >
+                        <option value="10"><?=__('Items per page')?></option>
+                        <?foreach (range(10, 100,10) as $num):?>
+                            <option value="<?=$num?>" <?=(core::request('items_per_page')==$num)?'SELECTED':''?> ><?=$num?></option>
+                        <?endforeach?>
+                    </select>
                     <input type="text" class="form-control search-query" name="email" placeholder="<?=__('email')?>" value="<?=core::request('email')?>">
                     <button type="submit" class="btn btn-primary"><?=__('Filter')?></button>
                     <a class="btn btn-xs btn-warning" href="<?=Route::url('oc-panel', array('controller'=>'order', 'action'=>'index'))?>">
@@ -114,10 +120,9 @@
 		</tbody>
 	</table>
 </div>
-<?=$pagination?>
-
 
 <?if( ! core::get('print')):?>
+    <?=$pagination?>
     <div class="pull-right">
         <a target="_blank" class="btn btn-xs btn-success" title="<?=__('Print this')?>" href="<?=Route::url('oc-panel', array('controller'=>'order', 'action'=>'index')).URL::query(array('print'=>1))?>"><i class="glyphicon glyphicon-print"></i><?=__('Print this')?></a>
     </div>
