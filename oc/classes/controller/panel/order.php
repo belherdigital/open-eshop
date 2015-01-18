@@ -68,16 +68,19 @@ class Controller_Panel_Order extends Auth_Crud {
         }
         
 
+        $items_per_page = core::request('items_per_page',10);
+
         $pagination = Pagination::factory(array(
                     'view'           => 'oc-panel/crud/pagination',
                     'total_items'    => $orders->count_all(),
+                    'items_per_page' => $items_per_page,
         ))->route_params(array(
                     'controller' => $this->request->controller(),
                     'action'     => $this->request->action(),
         ));
 
-        $items_per_page = core::request('items_per_page',$pagination->items_per_page);
-        
+        $pagination->title($this->template->title);
+
         $orders = $orders->order_by('pay_date','desc')
         ->limit($items_per_page)
         ->offset($pagination->offset)
