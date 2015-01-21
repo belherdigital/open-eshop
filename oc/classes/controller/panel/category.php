@@ -182,6 +182,22 @@ class Controller_Panel_Category extends Auth_Crud {
                         ->set(array('id_category' => $category->id_category_parent))
                         ->where('id_category','=',$category->id_category)
                         ->execute();
+                        
+            //delete icon_delete
+            $root = DOCROOT.'images/categories/'; //root folder
+            if (is_dir($root))
+            {
+                @unlink($root.$category->seoname.'.png');
+            
+                // delete icon from Amazon S3
+                if(core::config('image.aws_s3_active'))
+                    $s3->deleteObject(core::config('image.aws_s3_bucket'), 'images/categories/'.$category->seoname.'.png');
+            
+                // update category info
+                $category->has_image = 0;
+                $category->last_modified = Date::unix2mysql();
+                $category->save();            
+            }
 
             try
             {
