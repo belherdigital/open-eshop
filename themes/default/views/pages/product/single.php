@@ -65,7 +65,7 @@
     </div>
 
     <?if (!empty($product->url_demo)):?>
-        <?if (($total_skins = count($skins)) > 0):?>
+        <?if (($total_skins = count($skins)) > 0 AND Theme::get('premium')==1):?>
             <div class="btn-group pull-right">
                 <a class="btn btn-warning btn-xs" href="<?=Route::url('product-demo', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"><?=__('Demo')?></a>
                 <button class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -99,26 +99,9 @@
 	    <?endif?>
 	<?endif?>
 
-	
-
 	<div class="button-space-review">
         <div class="clearfix"></div><br>
-    <?if (!Auth::instance()->logged_in()):?>
-        <a class="btn btn-success btn-large full-w" data-toggle="modal" data-dismiss="modal" 
-            href="<?=Route::url('oc-panel',array('directory'=>'user','controller'=>'auth','action'=>'register'))?>#register-modal">
-    <?else:?>
-        <a class="btn btn-success btn-large full-w"
-            href="<?=Route::url('default',array('controller'=>'product','action'=>'buy','id'=>$product->id_product))?>">
-    <?endif?>
-            <span class="fa fa-shopping-cart"></span>
-            <?if ($product->final_price()>0):?>
-                <?=__('Buy now')?>
-            <?elseif($product->has_file()==TRUE):?>
-                <?=__('Free Download')?>
-            <?else:?>
-                <?=__('Get it for Free')?>
-            <?endif?>
-        </a>	
+        <?=View::factory('pages/product/buy-button',array('product'=>$product))?>
 	</div>
 
 </div>

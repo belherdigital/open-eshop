@@ -7,7 +7,8 @@
             <div class="row">
                 <div class="col-md-1 col-sm-1 col-xs-1 respon-left-panel">
                     <div class="panel-group <?=(core::cookie('sidebar_state') == 'collapsed')? 'mini-col':NULL?>" id="accordion">
-                    <? if($user->id_role==Model_Role::ROLE_ADMIN):?>
+                        
+                        <?if ($user->has_access_to_any('product,category,order,affiliate,coupon,download,review')):?>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -29,14 +30,32 @@
                                         <?if (core::config('product.reviews')==1):?>
                                             <tr><td class="br"><?=Theme::admin_link(__('Reviews'), 'review','index','oc-panel','glyphicon glyphicon-star-empty')?></td></tr>
                                         <?endif?>
-                                        <? if($user->id_role==Model_Role::ROLE_ADMIN):?>
-                                            <tr><td class="br"><?=Theme::admin_link(__('Support Admin'), 'support','index','oc-panel','glyphicon glyphicon-question-sign','admin')?></td></tr>
-                                            <tr><td class="br"><?=Theme::admin_link(__('Support Assigned'), 'support','index','oc-panel','glyphicon glyphicon-question-sign','assigned')?></td></tr>
-                                        <?endif?>
                                     </table>
                                 </div>
                             </div>
                         </div>
+                        <?endif?>
+
+                        <? if($user->has_access_to_any('supportadmin')):?>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseSupport"><span class="glyphicon glyphicon-question-sign">
+                                    </span> <span class="title-txt"><?=__('Support')?></span></a>
+                                </h4>
+                            </div>
+                            <div id="collapseSupport" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <tr><td class="br"><?=Theme::admin_link(__('Admin'), 'support','index','oc-panel','glyphicon glyphicon-question-sign','admin')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Assigned'), 'support','index','oc-panel','glyphicon glyphicon-question-sign','assigned')?></td></tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <?endif?>
+
+                        <?if ($user->has_access_to_any('blog,content,translations,newsletter,forum,topic')):?>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -65,7 +84,9 @@
                                 </div>
                             </div>
                         </div>
-                        
+                        <?endif?>
+
+                        <?if ($user->has_access_to_any('theme,widget,menu')):?>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -87,7 +108,9 @@
                                 </div>
                             </div>
                         </div>
-                        <?if ($user->has_access_to_any('settings,config')):?>
+                        <?endif?>
+
+                        <?if ($user->has_access_to_any('settings,social')):?>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -109,6 +132,7 @@
                             </div>
                         </div>
                         <?endif?>
+
                         <?if ($user->has_access_to_any('user,role')):?>
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -127,7 +151,8 @@
                             </div>
                         </div>
                         <?endif?>
-                        <?if ($user->has_access_to_any('tools')):?>
+
+                        <?if ($user->has_access_to_any('update,crontab,tools')):?>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -150,32 +175,7 @@
                             </div>
                         </div>
                         <?endif?>
-                    <?endif?>
-                    <? if($user->id_role==Model_Role::ROLE_TRANSLATOR):?>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-folder-open">
-                                    </span> <span class="title-txt"><?=__('Content')?></span></a>
-                                </h4>
-                            </div>
-                            <div id="collapseTwo" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <table class="table">
-                                        <?if (core::config('general.blog')==1):?>
-                                            <tr><td class="br"><?=Theme::admin_link(__('Blog'), 'blog','index','oc-panel','glyphicon glyphicon-pencil')?></td></tr>
-                                        <?endif?>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Page'), 'content','page','oc-panel','glyphicon glyphicon-file')?></td></tr>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Email'), 'content','email','oc-panel','glyphicon glyphicon-envelope')?></td></tr>
-                                        <?if (core::config('general.faq')==1):?>
-                                            <tr><td class="br"><?=Theme::admin_link(__('FAQ'), 'content','help','oc-panel',' glyphicon glyphicon-question-sign')?></td></tr>
-                                        <?endif?>
-                                        <tr><td class="br"><?=Theme::admin_link(__('Translations'), 'translations','index','oc-panel','glyphicon glyphicon-globe')?></td></tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    <?endif?>
+
                         <? if($user->has_access_to_any('profile')):?>
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -198,6 +198,7 @@
                             </div>
                         </div>
                         <?endif?>
+                        
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">

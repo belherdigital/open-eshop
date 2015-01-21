@@ -21,7 +21,7 @@ class Controller_Authorize extends Controller{
     {
         if ( Core::config('payment.authorize_login')!='' AND 
             Core::config('payment.authorize_key')!='' AND
-            Auth::instance()->logged_in() AND $order->loaded())
+            Auth::instance()->logged_in() AND $order->loaded() AND Theme::get('premium')==1)
         {
             return View::factory('pages/authorize/form',array('order'=>$order));
            

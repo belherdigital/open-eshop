@@ -129,6 +129,7 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX').
   `seotitle` varchar(145) NOT NULL,
   `skins` varchar(245) NOT NULL,
   `url_demo` varchar(145) NOT NULL,
+  `url_buy` varchar(245),
   `description` text NOT NULL,
   `email_purchase_notes` text NOT NULL,
   `version` varchar(10) NOT NULL,

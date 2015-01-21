@@ -19,11 +19,22 @@
 
             <div class="navbar-collapse collapse" id="mobile-menu-panel">
                 <ul class="nav navbar-nav">
-                    <?=Theme::admin_link(__('Market'), 'market','index','oc-panel','glyphicon glyphicon-gift')?>
-                    <?=Theme::admin_link(__('Support'), 'support','index','oc-panel','glyphicon glyphicon-comment')?>
+
+                    <?if (Theme::get('premium')!=1):?>
+                        <?=Theme::admin_link(__('Market'), 'market','index','oc-panel','glyphicon glyphicon-gift')?>
+                    <?endif?>
+
+                    <?if (!Auth::instance()->get_user()->has_access_to_any('supportadmin')):?>
+                        <?=Theme::admin_link(__('Support'), 'support','index','oc-panel','glyphicon glyphicon-comment')?>
+                    <?else:?>
+                        <?=Theme::admin_link(__('Support Admin'), 'support','index','oc-panel','glyphicon glyphicon-comment','admin')?>
+                        <?=Theme::admin_link(__('Support Assigned'), 'support','index','oc-panel','glyphicon glyphicon-comment','assigned')?>
+                    <?endif?>
+
                 	<?=Theme::admin_link(__('Stats'),'stats','index','oc-panel','glyphicon glyphicon-align-left')?>
                     <?=Theme::admin_link(__('Widgets'),'widget','index','oc-panel','glyphicon glyphicon-move')?>
-                    <? if(Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN):?>
+
+                    <?if (Auth::instance()->get_user()->has_access_to_any('tools')):?>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="glyphicon glyphicon-cog"></i> <?=__('Cache')?> <b class="caret"></b>
@@ -34,15 +45,16 @@
                             <?=Theme::admin_link(__('Delete expired'),'tools','cache?force=2','oc-panel','glyphicon glyphicon-remove-circle')?>
                         </ul>
                     </li>
+                    <?endif?>
+
+                    <? if(Auth::instance()->get_user()->id_role==Model_Role::ROLE_ADMIN):?>
             	    <li  class="dropdown "><a href="#" class="dropdown-toggle"
             		      data-toggle="dropdown"><i class="glyphicon glyphicon-plus"></i> <?=__('New')?> <b class="caret"></b></a>
                     	<ul class="dropdown-menu">
-                            
                             <?=Theme::admin_link(__('Product'),'product','create')?>
                             <?=Theme::admin_link(__('Blog post'),'blog','create')?>
                             <?=Theme::admin_link(__('FAQ'),'content','create?type=help&locale_select='.core::config('i18n.locale'),'oc-panel')?>
                             <?=Theme::admin_link(__('Page'), 'content','create?type=page&locale_select='.core::config('i18n.locale'),'oc-panel')?>
-                    		
                     	</ul>
             	   </li> 
                    <?endif?>

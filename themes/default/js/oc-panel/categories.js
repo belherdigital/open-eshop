@@ -70,9 +70,11 @@ $(function(){
             allowOutsideClick: true,
         },
         function(){
+            $("ol.plholder").sortable('disable');
             $.ajax({ url: href,
                 }).done(function ( data ) {
                     $('#'+id).hide("slow");
+                    window.location.href = window.location.href;
             });
         });
     }); 

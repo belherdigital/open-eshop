@@ -182,6 +182,9 @@ class Controller_Product extends Controller{
 
         if ($product->loaded())
         {
+            if (Theme::get('premium')!=1)
+                $this->redirect($product->url_demo);
+
             if(core::config('product.count_visits')==1)
             {
                 //count how many visits has

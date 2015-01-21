@@ -25,7 +25,7 @@ class Controller_Panel_Support extends Auth_Controller {
             $this->template->title.= ' '.core::get('search') ;
 
             //email seted
-            if ($user->id_role==Model_Role::ROLE_ADMIN AND Valid::email(core::get('search')))
+            if ($user->has_access('supportadmin') AND Valid::email(core::get('search')))
             {
                 $users = new Model_User();
                 $users->where('email','=',core::get('search'))->limit(1)->find();
@@ -55,7 +55,7 @@ class Controller_Panel_Support extends Auth_Controller {
         switch ($this->request->param('id'))
         {
             case 'assigned':
-                if ($user->id_role==Model_Role::ROLE_ADMIN)
+                if ($user->has_access('supportadmin'))
                 {
                     $this->template->title.= ' '. __('Assigned Tickets');
                     $tickets->where('id_user_support','=',$user->id_user);
@@ -65,7 +65,7 @@ class Controller_Panel_Support extends Auth_Controller {
             break;
             
             case 'admin':
-                if ($user->id_role==Model_Role::ROLE_ADMIN) 
+                if ($user->has_access('supportadmin')) 
                     $this->template->title.= ' '. __('All Tickets');
                 else
                     $tickets->where('id_user','=',$user->id_user);
@@ -226,7 +226,7 @@ class Controller_Panel_Support extends Auth_Controller {
         //getting the parent ticket
         $ticket = new Model_Ticket();
 
-        if ($user->id_role!=Model_Role::ROLE_ADMIN)
+        if (!$user->has_access('supportadmin'))
             $ticket->where('id_user','=',$user->id_user);
 
         $ticket->where('id_ticket','=',$ticket_id)
@@ -240,7 +240,7 @@ class Controller_Panel_Support extends Auth_Controller {
         }
 
         //marking it as read if was not assign we assign an agent.
-        if ($ticket->status==Model_Ticket::STATUS_CREATED AND $user->id_role==Model_Role::ROLE_ADMIN AND !is_numeric($ticket->id_user_support))
+        if ($ticket->status==Model_Ticket::STATUS_CREATED AND $user->has_access('supportadmin') AND !is_numeric($ticket->id_user_support))
         {
             //modify status of parent ticket
             $ticket->id_user_support = $user->id_user;
@@ -250,7 +250,7 @@ class Controller_Panel_Support extends Auth_Controller {
         }
 
         //Change the agent assigned to this ticket
-        if (core::post('agent') AND $user->id_role==Model_Role::ROLE_ADMIN)
+        if (core::post('agent') AND $user->has_access('supportadmin'))
         {
             //modify ticket 
             $ticket->id_user_support = core::post('agent');
@@ -293,7 +293,7 @@ class Controller_Panel_Support extends Auth_Controller {
                 $ticket->save();
 
                 //an admin answer so we send email to owner of ticket
-                if ($user->id_role==Model_Role::ROLE_ADMIN)
+                if ($user->has_access('supportadmin'))
                 {
                     $ticket->id_user_support = $user->id_user;
                     $ticket->read_date = Date::unix2mysql();
@@ -349,15 +349,23 @@ class Controller_Panel_Support extends Auth_Controller {
 
         //loading agents/admins 
         $users = NULL;
-        if ($user->id_role==Model_Role::ROLE_ADMIN)
+        if ($user->has_access('supportadmin'))
         {
+            //getting the roles that have access to the supportadmin since are the agents ;)
+            $support_roles = array(Model_Role::ROLE_ADMIN);
+            $access = new Model_Access();
+            $access = $access->where('access','=','supportadmin.*')->find_all();
+            foreach ($access as $a) 
+                $support_roles[] = $a->id_role;
+
+            //getting agents ;)
             $users_db = DB::select('u.id_user')->select('u.name')
                 ->from(array('users', 'u'))
-                ->where('id_role','=',Model_Role::ROLE_ADMIN)
+                ->where('id_role','in',$support_roles)
                 ->as_object()
                 ->execute();
             foreach ($users_db as $key => $value) 
-            $users[$value->id_user] = $value->name;
+                $users[$value->id_user] = $value->name;
         }
         
         $this->template->bind('content', $content);
@@ -378,8 +386,8 @@ class Controller_Panel_Support extends Auth_Controller {
         //getting the parent ticket
         $ticket = new Model_Ticket();
 
-        //admin can
-        if ($user->id_role!=Model_Role::ROLE_ADMIN)
+        //only supportadmin can close any ticket
+        if (!$user->has_access('supportadmin'))
             $ticket->where('id_user','=',$user->id_user);
 
         $ticket->where('id_ticket','=',$ticket_id)
@@ -412,7 +420,7 @@ class Controller_Panel_Support extends Auth_Controller {
         $user = Auth::instance()->get_user();
 
         //admin can
-        if ($user->id_role==Model_Role::ROLE_ADMIN)
+        if ($user->has_access('supportadmin'))
         {
             $query = DB::update('tickets')
                         ->set(array('status' => Model_Ticket::STATUS_CLOSED))

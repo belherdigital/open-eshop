@@ -31,6 +31,12 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
                                     ('Unpaid Orders', '0 7 * * *', 'Model_Order::cron_unpaid', NULL, 'Notify by email unpaid orders 2 days after was created', 1);")->execute();
         }catch (exception $e) {}
         
+        //url buy
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."products` ADD `url_buy` varchar(245) ;")->execute();
+        }catch (exception $e) {}
+
         //control login attempts
         try 
         {

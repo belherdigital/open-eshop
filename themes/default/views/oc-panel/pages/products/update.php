@@ -183,6 +183,13 @@
 			<div class="panel-heading"><span class="glyphicon glyphicon-pencil"></span> <?=__('Additional information')?></div>
   			<div class="panel-body">
 
+                <div class="form-group">
+                    <?= FORM::label('url_buy', __('Url to buy external'), array('class'=>'col-md-12', 'for'=>'url_buy'))?>
+                    <div class="col-md-12">
+                        <?= FORM::input('url_buy', $product->url_buy, array('placeholder' => __('http://open-eshop.com'), 'class' => 'form-control', 'id' => 'url_buy', 'type' => 'url'))?>
+                    </div>
+                </div>
+
 	  			<div class="form-group">
 					<?= FORM::label('url_demo', __('Url demo'), array('class'=>'col-md-12', 'for'=>'url_demo'))?>
 					<div class="col-md-12">
