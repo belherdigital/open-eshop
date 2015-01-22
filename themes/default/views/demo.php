@@ -177,7 +177,12 @@
                     <span class="fa fa-qrcode fa-2x"></span>
                 </a>
                 <?endif?>
-                <a class="btn btn-success btn-sm" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"
+                <a class="btn btn-success btn-sm" 
+                    <?if (Valid::url($product->url_buy)):?>
+                    href="<?=$product->url_buy?>"
+                    <?else:?>
+                    href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>"
+                    <?endif?>
                     title="<?if ($product->final_price()>0):?>
                     <?=__('Buy Now')?> <?=$product->formated_price()?>
                     <?elseif($product->has_file()==TRUE):?><?else:?><?=__('Get it for Free')?><?endif?>">
