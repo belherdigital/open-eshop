@@ -3,8 +3,8 @@
     '1.7.0' => 
   array (
     'codename' => 'Santo Domingo',
-    'released' => '2015-01-07',
-    'blog' => 'http://open-eshop.com/2015/01/07/open-eshop-1-7-0/',
+    'released' => '2015-01-26',
+    'blog' => 'http://open-eshop.com/2015/01/26/open-eshop-1-7-0/',
     'changelog' => 'https://github.com/open-classifieds/open-eshop/compare/1.6.1...1.7.0',
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=10&page=1&state=closed',
     'download' => 'http://j.mp/oe_170',
