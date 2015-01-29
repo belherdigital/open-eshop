@@ -10,6 +10,10 @@
  */
 class Controller_Panel_Update extends Controller_Panel_OC_Update {    
 
+    public function action_171()
+    {
+    }
+
     /**
      * This function will upgrade configs
      */
