@@ -3,8 +3,8 @@
      '1.7.1' => 
   array (
     'codename' => 'Puerto Plata',
-    'released' => '2015-02-xx',
-    'blog' => 'http://open-eshop.com/2015/02//open-eshop-1-7-1/',
+    'released' => '2015-02-02',
+    'blog' => 'http://open-eshop.com/2015/02/02/open-eshop-1-7-1/',
     'changelog' => 'https://github.com/open-classifieds/open-eshop/compare/1.7.0...1.7.1',
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=11&page=1&state=closed',
     'download' => 'http://j.mp/oe_171',
