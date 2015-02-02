@@ -133,7 +133,7 @@
 
             <?if ($products->count() > 1):?>
             <li class="dropdown active">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=__('More themes')?> <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=__('Other products')?> <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <?foreach ($products as $p):?>
                     <?if ($p->id_product!=$product->id_product):?>
