@@ -234,11 +234,25 @@ array('action' => '[0-9]++','message' => '.+'))
     'action'     => 'index'
 ));
 
-/**
- * Default route
- */
+// changes the landing page of website, buy checking config.
+// it reads config that is stored as a JSON
+// if config returns null (doesn't exists), set default controller and action.
+
+$landing = core::config('general.landing_page');
+if($landing != NULL)
+{
+    $landing = json_decode($landing);
+    $controller_home = $landing->controller;
+    $action_home = $landing->action;
+}
+else
+{
+    $controller_home = 'home';
+    $action_home = 'index';
+}
+
 Route::set('default', '(<controller>(/<action>(/<id>)))')
 ->defaults(array(
-		'controller' =>  'home',
-		'action'     => 'index',
+        'controller' =>  $controller_home,
+        'action'     => $action_home,
 ));
