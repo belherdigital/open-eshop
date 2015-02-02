@@ -5,27 +5,12 @@ class Controller_Home extends Controller {
 	public function action_index()
 	{
 
-        if (core::config('general.landing_page')!='')
-        {
-            $page = Model_Content::get_by_title(core::config('general.landing_page'));
-
-            if ($page->loaded())
-            {
-                $this->template->title            = $page->title;
-                $this->template->meta_description = Core::config('general.site_name').' '.__('official homepage for the online store');
-
-                $this->template->bind('content', $content);
-                $this->template->content = View::factory('page',array('page'=>$page));
-            }
-        }
-        else
-        {
-    	    //template header
-    	    $this->template->title            = '';
-    	    // $this->template->meta_keywords    = 'keywords';
-    	    $this->template->meta_description = Core::config('general.site_name').' '.__('official homepage for the online store');
-    	    
-    	    
+        //template header
+        $this->template->title            = '';
+        // $this->template->meta_keywords    = 'keywords';
+        $this->template->meta_description = Core::config('general.site_name').' '.__('official homepage for the online store');
+        
+        
             $products = new Model_Product();
             $products->where('status','=',Model_Product::STATUS_ACTIVE);
 
@@ -67,7 +52,6 @@ class Controller_Home extends Controller {
             $this->template->content = View::factory('pages/home',array('products'=>$products, 
             															'categs'=>$categs,
             															));
-    	}
 	}
 
 	// public function action_parent_cat() 

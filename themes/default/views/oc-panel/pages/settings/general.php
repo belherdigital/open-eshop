@@ -67,16 +67,16 @@
         </div>
 
         <div class="form-group">
-            <?= FORM::label($forms['landing_page']['key'], __('Landing page'), array('class'=>'col-md-3 control-label', 'for'=>$forms['landing_page']['key']))?>
+            <?= FORM::label($forms['landing_page']['key'], __('Landing page'), array('class'=>'control-label col-sm-3', 'for'=>$forms['landing_page']['key']))?>
             <div class="col-md-5">
-                <?= FORM::select($forms['landing_page']['key'], $pages, $forms['landing_page']['value'], array( 
-                'class' => 'tips form-control', 
+                <?= FORM::select($forms['landing_page']['key'], array('{"controller":"home","action":"index"}'=>'HOME','{"controller":"product","action":"listing"}'=>'LISTING'), $forms['landing_page']['value'], array(
+                'class' => 'tips form-control input-sm', 
                 'id' => $forms['landing_page']['key'], 
-                'data-content'=> __("If you choose to use alert terms, you can select page you want to render. And to edit content, select link 'Content' on your admin panel sidebar. Find page named <name_you_specified> click 'Edit'. In section 'Description' add content that suits you."),
+                'data-content'=> __("It changes landing page of website"),
                 'data-trigger'=>"hover",
                 'data-placement'=>"right",
                 'data-toggle'=>"popover",
-                'data-original-title'=>__("Accept Terms Alert"),
+                'data-original-title'=>__("Landing page"),
                 ))?> 
             </div>
         </div>
