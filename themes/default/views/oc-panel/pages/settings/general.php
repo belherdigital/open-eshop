@@ -495,20 +495,34 @@
             </div>
         </div>
         <div class="form-group">
-                <?= FORM::label($forms['blog_disqus']['key'], __('Disqus for blog'), array('class'=>'col-md-3 control-label', 'for'=>$forms['blog_disqus']['key']))?>
+            <div class="input-group">
+                <?= FORM::label($forms['blog_disqus']['key'],__('Disqus for blog'), array('class'=>'col-md-3 control-label', 'for'=>$forms['blog_disqus']['key']))?>
                 <div class="col-md-5">
-                    <?= FORM::input($forms['blog_disqus']['key'], $forms['blog_disqus']['value'], array(
-                    'placeholder' => "", 
-                    'class' => 'tips form-control', 
-                    'id' => $forms['blog_disqus']['key'], 
-                    'data-content'=> __("Disqus for Blog Comments"),
-                    'data-trigger'=>"hover",
-                    'data-placement'=>"right",
-                    'data-toggle'=>"popover",
-                    'data-original-title'=>__("You need to write your disqus ID to enable the service."),
-                    ))?> 
+                    <div class="input-group">
+                        <?= FORM::input($forms['blog_disqus']['key'], $forms['blog_disqus']['value'], array(
+                            'placeholder' =>  __("Disqus for Blog Comments"),
+                            'class' => 'tips form-control',
+                            'id' => $forms['blog_disqus']['key'],
+                            'data-content'=> __("Disqus for Blog Comments"),
+                            'data-trigger'=>"hover",
+                            'data-placement'=>"right",
+                            'data-toggle'=>"popover",
+                            'data-original-title'=>__("You need to write your disqus ID to enable the service."),
+                        ))?>
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><?=__('Disqus Admin')?> <span class="caret"></span></button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                <li><a href="https://disqus.com/dashboard/" title="<?=HTML::chars(__('Access to your Disqus Dashboard'))?>" target="_blank"><span class="glyphicon glyphicon-cog"></span> <?=__('Disqus Dashboard')?></a></li>
+                                <li><a href="https://disqus.com/home/inbox" title="<?=HTML::chars(__('View Replies and Notifications of your Disqus'))?>" target="_blank"><span class="glyphicon glyphicon-info-sign"></span> <?=__('Disqus Notifications')?></a></li>
+                                <li><a href="https://disqus.com/home/user/" title="<?=HTML::chars(__('View your public Disqus profile'))?>" target="_blank"><span class="glyphicon glyphicon-user"></span> <?=__('View Your Disqus Profile')?></a></li>
+                                <li class="divider"></li>
+                                <li><a href="https://disqus.com/admin/create/" title="<?=HTML::chars(__('Register your website to add and use Disqus comment system on your site'))?>" target="_blank"><span class="glyphicon glyphicon-plus-sign"></span> <?=__('Add Disqus to your website')?></a></li>
+                            </ul>
+                        </div><!-- /btn-group -->
+                    </div><!-- /input-group -->
                 </div>
-            </div>
+            </div><!-- /input-group -->
+        </div><!-- /form-group -->
         <div class="form-group">
             <?= FORM::label($forms['faq']['key'], __("Activates FAQ"), array('class'=>'col-md-3 control-label', 'for'=>$forms['faq']['key']))?>
             <div class="col-md-5">
