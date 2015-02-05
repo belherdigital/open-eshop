@@ -58,4 +58,53 @@ class Model_User extends Model_OC_User {
         return $user;
     }
 
+        /**
+     * Deletes a single record while ignoring relationships.
+     *
+     * @chainable
+     * @throws Kohana_Exception
+     * @return ORM
+     */
+    public function delete()
+    {
+        if ( ! $this->_loaded)
+            throw new Kohana_Exception('Cannot delete :model model because it is not loaded.', array(':model' => $this->_object_name));
+
+        //we can not delete if has products!
+        $products = new Model_Product();
+        $products = $products->where('id_user','=',$this->id_user)->count_all();
+        
+        if ($products>0)
+            throw new Kohana_Exception('Cannot delete :model model because it has products.', array(':model' => $this->_object_name));
+
+        //remove image
+        $this->delete_image();
+
+        //delete licenses
+        DB::delete('licenses')->where('id_user', '=',$this->id_user)->execute();
+
+        //delete downloads
+        DB::delete('downloads')->where('id_user', '=',$this->id_user)->execute();
+
+        //delete tickets
+        DB::delete('tickets')->where('id_user', '=',$this->id_user)->execute();
+        
+        //delete affiliates
+        DB::delete('affiliates')->where('id_user', '=',$this->id_user)->execute();
+
+        //delete reviews
+        DB::delete('reviews')->where('id_user', '=',$this->id_user)->execute();
+
+        //delete orders
+        DB::delete('orders')->where('id_user', '=',$this->id_user)->execute();
+
+        //remove visits ads
+        DB::update('visits')->set(array('id_user' => NULL))->where('id_user', '=',$this->id_user)->execute();
+
+        //delete posts
+        DB::delete('posts')->where('id_user', '=',$this->id_user)->execute();
+
+        parent::delete();
+    }
+
 } // END Model_User
