@@ -99,6 +99,15 @@ class Controller extends Kohana_Controller
             // Add custom CSS if enabld and front controller
             if (is_subclass_of($this,'Auth_Controller')===FALSE AND ($custom_css = Theme::get_custom_css())!==FALSE )
                 Theme::$styles = array_merge(Theme::$styles,array($custom_css => 'screen',));
+
+            //cookie consent
+            if (Core::config('general.cookie_consent')==1)
+            {
+                Theme::$styles = array_merge(Theme::$styles,array('css/jquery.cookiebar.css' => 'screen',));
+
+                $this->template->scripts['footer'][] = 'js/jquery.cookiebar.js';
+                $this->template->scripts['footer'][] = Route::url('default',array('controller'=>'jslocalization','action'=>'cookieconsent'));
+            }
             
     		// Add defaults to template variables.
             $this->template->styles  = array_merge_recursive(Theme::$styles, $this->template->styles);

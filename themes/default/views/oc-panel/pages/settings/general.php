@@ -54,6 +54,25 @@
 	        		</div>
 	        	</div>
         </div>
+
+        <div class="form-group">
+            <?= FORM::label($forms['cookie_consent']['key'], __("Cookie consent"), array('class'=>'control-label col-sm-3', 'for'=>$forms['cookie_consent']['key']))?>
+            <div class="col-sm-4">
+                <div class="onoffswitch">
+                    <?= Form::checkbox($forms['cookie_consent']['key'], 1, (bool) $forms['cookie_consent']['value'], array(
+                    'placeholder' => __("TRUE or FALSE"), 
+                    'class' => 'onoffswitch-checkbox', 
+                    'id' => $forms['cookie_consent']['key'], 
+                    'data-content'=> __("Enables an alert to accept cookies"),
+                    'data-trigger'=>"hover",
+                    'data-placement'=>"right",
+                    'data-toggle'=>"popover",
+                    'data-original-title'=>__("Cookie consent"),
+                    ))?>
+                    <?= FORM::label($forms['cookie_consent']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['cookie_consent']['key']))?>
+                </div>
+            </div>
+        </div>
 		
 		<div class="form-group">
 			<label class="control-label col-sm-3"><?=__("Time Zone")?>:</label>                
