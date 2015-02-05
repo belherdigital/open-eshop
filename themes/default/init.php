@@ -3,7 +3,7 @@
   * Theme Name: Kamaleon Free
   * Description: Free theme, HTML5. Default base, link on footer.
   * Tags: HTML5, Advanced Confiuration, prettyPhoto, Slider.
-  * Version: 1.7.1
+  * Version: 1.7.2
   * Author: Chema <chema@open-classifieds.com>
   * License: GPL v3
   */

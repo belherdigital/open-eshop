@@ -343,46 +343,24 @@ class Controller_Panel_Category extends Auth_Crud {
         //HTTP::redirect(Route::url('oc-panel',array('controller'  => 'location','action'=>'index'))); 
     }
 
-	public function action_icon()
-	{
-		//get icon
-		$icon = $_FILES['category_icon']; //file post
-		
-		$category = new Model_Category($this->request->param('id'));
-		
-		if(core::config('image.aws_s3_active'))
-		{
-		    require_once Kohana::find_file('vendor', 'amazon-s3-php-class/S3','php');
-		    $s3 = new S3(core::config('image.aws_access_key'), core::config('image.aws_secret_key'));
-		}
+    public function action_icon()
+    {
+        //get icon
+        $icon = $_FILES['category_icon']; //file post
         
-        if(core::post('icon_delete'))
+        $category = new Model_Category($this->request->param('id'));
+        
+        if (core::config('image.aws_s3_active'))
+        {
+            require_once Kohana::find_file('vendor', 'amazon-s3-php-class/S3','php');
+            $s3 = new S3(core::config('image.aws_access_key'), core::config('image.aws_secret_key'));
+        }
+        
+        if (core::post('icon_delete') AND $category->delete_icon()==TRUE)
         {            
-            $root = DOCROOT.'images/categories/'; //root folder
-            
-            if ( ! is_dir($root)) 
-            {
-                return FALSE;
-            }
-            else
-            {
-                // delete icon from Amazon S3
-                if(core::config('image.aws_s3_active'))
-                    $s3->deleteObject(core::config('image.aws_s3_bucket'), 'images/categories/'.$category->seoname.'.png');
-                    
-                //delete icon
-                if (@unlink($root.$category->seoname.'.png') === FALSE)
-                    Alert::set(Alert::ERROR, $icon['name'].' '.__('Icon file could not been deleted.'));
-                else
-                    Alert::set(Alert::SUCCESS, __('Icon deleted.'));
-                    
-                // update category info
-                $category->has_image = 0;
-                $category->last_modified = Date::unix2mysql();
-                $category->save();
-                
-                $this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
-            }
+            Alert::set(Alert::SUCCESS, __('Icon deleted.'));
+            $this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
+
         }// end of icon delete
 
         if ( 
@@ -391,54 +369,55 @@ class Controller_Panel_Category extends Auth_Crud {
             ! Upload::type($icon, explode(',',core::config('image.allowed_formats'))) OR
             ! Upload::size($icon, core::config('image.max_image_size').'M'))
         {
-        	if ( Upload::not_empty($icon) && ! Upload::type($icon, explode(',',core::config('image.allowed_formats'))))
+            if ( Upload::not_empty($icon) && ! Upload::type($icon, explode(',',core::config('image.allowed_formats'))))
             {
                 Alert::set(Alert::ALERT, $icon['name'].' '.sprintf(__('Is not valid format, please use one of this formats "%s"'),core::config('image.allowed_formats')));
-				$this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
+                $this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
             } 
             if( ! Upload::size($icon, core::config('image.max_image_size').'M'))
             {
                 Alert::set(Alert::ALERT, $icon['name'].' '.sprintf(__('Is not of valid size. Size is limited to %s MB per image'),core::config('general.max_image_size')));
-				$this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
+            $this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
             }
             Alert::set(Alert::ALERT, $icon['name'].' '.__('Image is not valid. Please try again.'));
             $this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
         }
         else
         {
-            if($icon != NULL) // sanity check 
+            if ($icon != NULL) // sanity check 
             {   
                 // saving/uploading img file to dir.
-                $root = DOCROOT.'images/categories/'; //root folder
+                $path = 'images/categories/';
+                $root = DOCROOT.$path; //root folder
                 $icon_name = $category->seoname.'.png';
                 
                 // if folder does not exist, try to make it
-               	if ( ! is_dir($root) AND ! @mkdir($root, 0775, TRUE)) { // mkdir not successful ?
+                if ( ! file_exists($root) AND ! @mkdir($root, 0775, true)) { // mkdir not successful ?
                         Alert::set(Alert::ERROR, __('Image folder is missing and cannot be created with mkdir. Please correct to be able to upload images.'));
-                        return FALSE; // exit function
+                        return; // exit function
                 };
-
+                
                 // save file to root folder, file, name, dir
-                if ($file = Upload::save($icon, $icon_name, $root) === FALSE)
-                    Alert::set(Alert::ERROR, $icon['name'].' '.__('Icon file could not been saved.'));
-                else
+                if ($file = Upload::save($icon, $icon_name, $root))
                 {
                     // put icon to Amazon S3
-                    if(core::config('image.aws_s3_active'))
-                        $s3->putObject($s3->inputFile($root.$icon_name), core::config('image.aws_s3_bucket'), 'images/categories/'.$icon_name, S3::ACL_PUBLIC_READ);
+                    if (core::config('image.aws_s3_active'))
+                        $s3->putObject($s3->inputFile($file), core::config('image.aws_s3_bucket'), $path.$icon_name, S3::ACL_PUBLIC_READ);
                     
                     // update category info
                     $category->has_image = 1;
                     $category->last_modified = Date::unix2mysql();
                     $category->save();
-
-                    Alert::set(Alert::SUCCESS, $icon['name'].' '.__('Icon has been successfully uploaded.'));
+                    
+                    Alert::set(Alert::SUCCESS, $icon['name'].' '.__('Icon is uploaded.'));
                 }
-
-				$this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
+                else
+                    Alert::set(Alert::ERROR, $icon['name'].' '.__('Icon file could not been saved.'));
+                    
+                $this->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller(),'action'=>'update','id'=>$category->id_category)));
             }
             
         }
-	}   
+    }   
 
 }
