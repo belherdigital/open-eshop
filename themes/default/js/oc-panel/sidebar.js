@@ -26,7 +26,7 @@ if($(window).width() > '750'){
   $('#mobile_header_btn, .btn-colapse-sidebar').on('click', function(){
     if(sidebar.hasClass('hide')){
       sidebar.removeClass('hide');
-      main_content.css('margin-left','200px');
+      main_content.css('margin-left','230px');
     }
     else{
       sidebar.addClass('hide');
@@ -47,18 +47,18 @@ function colapse_sidebar(event){
     //set cookie to be avare of current state of sidebar
     $.cookie('sidebar_state', 'collapsed', { expires: 7, path: '/' });
 
-    $('.panel-body table.table').each(function(){
+    $('.panel-sidebar .panel-body table.table').each(function(){
       $('tbody',this).addClass('aside-table');; // hide links in sidebar
     });
 
-    $('.panel-title ').each(function(){
+    $('.panel-sidebar .panel-title ').each(function(){
       $('a span.title-txt', this).removeClass('active').addClass('hide'); // hide links in sidebar
       $('span', this).show(); // remove class with padding
       $('#accordion').addClass('mini-col');
     });
 
-    $('.table').removeClass('active').addClass('colapsed');
-    $('.main').css('padding-left','50px');
+    $('.panel-sidebar .table').removeClass('active').addClass('colapsed');
+    $('.main').css('padding-left','70px');
     $('.no-prem').hide(); // hide adverts
     
     $('.btn-colapse-sidebar span.glyphicon')
@@ -73,18 +73,18 @@ function colapse_sidebar(event){
     //set cookie to be avare of current state of sidebar
     $.cookie('sidebar_state', 'not-collapsed', { expires: 7, path: '/' });
 
-    $('.panel-body table.table').each(function(){
+    $('.panel-sidebar .panel-body table.table').each(function(){
       $('tbody', this).removeClass('aside-table');
     });
 
-    $('.panel-title').each(function(){
+    $('.panel-sidebar .panel-title').each(function(){
       $('a span.title-txt', this).removeClass('hide').addClass('active');
       $('span', this).show(); // remove class with padding
       $('#accordion').removeClass('mini-col');
     });
 
-    $('.table').removeClass('colapsed').addClass('active');
-    $('.main').css('padding-left','205px');
+    $('.panel-sidebar .table').removeClass('colapsed').addClass('active');
+    $('.main').css('padding-left','250px');
     $('.no-prem').show(); // show adverts
     
     $('.btn-colapse-sidebar span.glyphicon')
