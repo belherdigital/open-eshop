@@ -10,6 +10,18 @@
  */
 class Controller_Panel_Update extends Controller_Panel_OC_Update {    
 
+    public function action_172()
+    {
+         //new configs
+        $configs = array(
+                        array( 'config_key'     =>'cookie_consent',
+                               'group_name'     =>'general', 
+                               'config_value'   => 0),
+                        );
+        
+        Model_Config::config_array($configs);
+    }
+
     public function action_171()
     {
     }

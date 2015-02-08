@@ -50,7 +50,7 @@ class install{
      * Software install settings
      * @var string
      */
-    const VERSION   = '1.7.1';
+    const VERSION   = '1.7.2';
 
     /**
      * message to notify

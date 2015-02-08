@@ -78,6 +78,13 @@ class Controller_Panel_Profile extends Auth_Controller {
 		//get image
 		$image = $_FILES['profile_image']; //file post
         
+        if (Core::post('photo_delete') AND Auth::instance()->get_user()->delete_image()==TRUE )
+        {
+            Alert::set(Alert::SUCCESS, __('Photo deleted.'));
+            $this->redirect(Route::url('oc-panel',array('controller'=>'profile', 'action'=>'edit')));
+
+        }// end of photo delete
+
         if ( 
             ! Upload::valid($image) OR
             ! Upload::not_empty($image) OR
@@ -101,10 +108,10 @@ class Controller_Panel_Profile extends Auth_Controller {
         {
             if($image != NULL) // sanity check 
             {   
-            	$user_id = Auth::instance()->get_user()->id_user;
+            	$user = Auth::instance()->get_user();
                 // saving/uploadng zip file to dir.
                 $root = DOCROOT.'images/users/'; //root folder
-            	$image_name = $user_id.'.png';
+            	$image_name = $user->id_user.'.png';
             	$width = core::config('image.width'); // @TODO dynamic !?
             	$height = core::config('image.height');// @TODO dynamic !?
             	$image_quality = core::config('image.quality');
@@ -123,6 +130,11 @@ class Controller_Panel_Profile extends Auth_Controller {
 	                Image::factory($file)
                         ->resize($width, $height, Image::AUTO)
                         ->save($root.$image_name,$image_quality);
+
+                     // update category info
+                    $user->has_image = 1;
+                    $user->last_modified = Date::unix2mysql();
+                    $user->save();
 
                     Alert::set(Alert::SUCCESS, $image['name'].' '.__('Image is uploaded.'));   
                 }

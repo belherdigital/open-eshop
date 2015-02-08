@@ -157,6 +157,17 @@
                     <div class="form-group">
                         <div class="col-md-offset-4 col-md-8">
                             <button type="submit" class="btn btn-primary"><?=__('Update')?></button>
+                            <?if ($user->has_image):?>
+                                <button type="submit"
+                                        class="btn btn-danger index-delete index-delete-inline"
+                                        onclick="return confirm('<?=__('Delete photo?')?>');" 
+                                        type="submit" 
+                                        name="photo_delete"
+                                        value="1" 
+                                        title="<?=__('Delete photo')?>">
+                                        <?=__('Delete photo')?>
+                                </button>
+                            <?endif?>
                         </div>
                     </div>
                 </form>
