@@ -9,7 +9,7 @@
                     <div class="panel-group <?=(core::cookie('sidebar_state') == 'collapsed')? 'mini-col':NULL?>" id="accordion">
                         
                         <?if ($user->has_access_to_any('product,category,order,affiliate,coupon,download,review')):?>
-                        <div class="panel panel-default">
+                        <div class="panel panel-sidebar">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-th">
@@ -37,7 +37,7 @@
                         <?endif?>
 
                         <? if($user->has_access_to_any('supportadmin')):?>
-                        <div class="panel panel-default">
+                        <div class="panel panel-sidebar">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseSupport"><span class="glyphicon glyphicon-question-sign">
@@ -56,7 +56,7 @@
                         <?endif?>
 
                         <?if ($user->has_access_to_any('blog,content,translations,newsletter,forum,topic')):?>
-                        <div class="panel panel-default">
+                        <div class="panel panel-sidebar">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-folder-open">
@@ -87,7 +87,7 @@
                         <?endif?>
 
                         <?if ($user->has_access_to_any('theme,widget,menu')):?>
-                        <div class="panel panel-default">
+                        <div class="panel panel-sidebar">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-picture">
@@ -111,7 +111,7 @@
                         <?endif?>
 
                         <?if ($user->has_access_to_any('settings,social')):?>
-                        <div class="panel panel-default">
+                        <div class="panel panel-sidebar">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseSettings"><span class="glyphicon glyphicon-wrench">
@@ -134,7 +134,7 @@
                         <?endif?>
 
                         <?if ($user->has_access_to_any('user,role')):?>
-                        <div class="panel panel-default">
+                        <div class="panel panel-sidebar">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseUser"><span class="glyphicon glyphicon-user">
@@ -153,7 +153,7 @@
                         <?endif?>
 
                         <?if ($user->has_access_to_any('update,crontab,tools')):?>
-                        <div class="panel panel-default">
+                        <div class="panel panel-sidebar">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseTools"><span class="glyphicon glyphicon-filter">
@@ -177,7 +177,7 @@
                         <?endif?>
 
                         <? if($user->has_access_to_any('profile')):?>
-                        <div class="panel panel-default">
+                        <div class="panel panel-sidebar">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><span class="glyphicon glyphicon-align-justify">
@@ -199,7 +199,7 @@
                         </div>
                         <?endif?>
                         
-                        <div class="panel panel-default">
+                        <div class="panel panel-sidebar collapse-menu">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a  class=" btn-colapse-sidebar"><span class="glyphicon glyphicon-circle-arrow-left"></span>

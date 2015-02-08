@@ -1,5 +1,5 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
-<header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav">
+<header class="navbar navbar-default navbar-fixed-top bs-docs-nav">
     <div class="header-container">
         <div class="navbar-header">        </div> 
 

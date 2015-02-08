@@ -112,7 +112,7 @@ class Auth_Controller extends Controller
                 //other color
                 if (Theme::get('admin_theme')=='bootstrap')
                 {
-                    Theme::$styles                    = array('//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css' => 'screen',
+                    Theme::$styles                    = array('//netdna.bootstrapcdn.com/bootswatch/3.3.2/paper/bootstrap.min.css' => 'screen',
                                                             '//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css?v=print' => 'print',
                                                             '//cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
                                                             '//cdn.jsdelivr.net/chosen/1.0.0/chosen.css'=>'screen',
@@ -130,7 +130,7 @@ class Auth_Controller extends Controller
                 {
                      Theme::$styles               = array(  '//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css' => 'screen',   
                                                     '//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css?v=print' => 'print',                             
-                                                    '//netdna.bootstrapcdn.com/bootswatch/3.3.0/'.Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
+                                                    '//netdna.bootstrapcdn.com/bootswatch/3.3.2/'.Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
                                                     '//cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen', 
                                                     '//cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css' => 'screen',
                                                     '//cdn.jsdelivr.net/bootstrap.tagsinput/0.3.9/bootstrap-tagsinput.css'=>'screen',
