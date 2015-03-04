@@ -4,61 +4,27 @@
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="<?=i18n::html_lang()?>"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="<?=i18n::html_lang()?>"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="<?=i18n::html_lang()?>"> <!--<![endif]-->
+
 <head>
-	<meta charset="<?=Kohana::$charset?>">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <?if (core::config('general.disallowbots')=='1'):?>
-    <meta name="robots" content="noindex,nofollow,noodp,noydir" /><meta name="googlebot" content="noindex,noarchive,nofollow,noodp" /><meta name="slurp" content="noindex,nofollow,noodp" /><meta name="bingbot" content="noindex,nofollow,noodp,noydir" /><meta name="msnbot" content="noindex,nofollow,noodp,noydir" />
-	<?endif?>
-
-	<title><?=$title?></title>
-    <meta name="keywords" content="<?=$meta_keywords?>" >
-    <meta name="description" content="<?=HTML::chars($meta_description)?>" >
-    <meta name="copyright" content="<?=HTML::chars($meta_copyright)?>" >
-	<meta name="author" content="open-eshop.com">
-
-    <?if (Controller::$image!==NULL):?>
-    <meta property="og:image"   content="<?=core::config('general.base_url').Controller::$image?>"/>
-    <?endif?>
-    <meta property="og:title"   content="<?=HTML::chars($title)?>"/>
-    <meta property="og:description"   content="<?=HTML::chars($meta_description)?>"/>
-    <meta property="og:url"     content="<?=URL::current()?>"/>
-    <meta property="og:site_name" content="<?=HTML::chars(core::config('general.site_name'))?>"/>
-
-    <?if (core::config('general.blog')==1):?>
-    <link rel="alternate" type="application/atom+xml" title="RSS Blog <?=HTML::chars(Core::config('general.site_name'))?>" href="<?=Route::url('rss-blog')?>" />
-    <?endif?>
-
-    <?if (core::config('general.forums')==1):?>
-    <link rel="alternate" type="application/atom+xml" title="RSS Forum <?=HTML::chars(Core::config('general.site_name'))?>" href="<?=Route::url('rss-forum')?>" />
-      <?if (Model_Forum::current()->loaded()):?>
-      <link rel="alternate" type="application/atom+xml" title="RSS Forum <?=HTML::chars(Core::config('general.site_name').' - '.Model_Forum::current()->name)?>" href="<?=Route::url('rss-forum', array('forum'=>Model_Forum::current()->seoname))?>" />
-      <?endif?>
-    <?endif?>
-    <link rel="alternate" type="application/atom+xml" title="RSS <?=HTML::chars(Core::config('general.site_name'))?>" href="<?=Route::url('rss')?>" />
-    
-    <?if (Model_Category::current()->loaded()):?>
-    <link rel="alternate" type="application/atom+xml"  title="RSS <?=HTML::chars(Core::config('general.site_name').' - '.Model_Category::current()->name)?>"  href="<?=Route::url('rss',array('category'=>Model_Category::current()->seoname))?>" />
-    <?endif?>     
-        
+<?=View::factory('header_metas',array('title'             => $title,
+                                      'meta_keywords'     => $meta_keywords,
+                                      'meta_description'  => $meta_description,
+                                      'meta_copyright'    => $meta_copyright,))?>
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 7]><link rel="stylesheet" href="https://blueimp.github.com/cdn/css/bootstrap-ie6.min.css"><![endif]-->
+    <!--[if lt IE 7]><link rel="stylesheet" href="//blueimp.github.com/cdn/css/bootstrap-ie6.min.css"><![endif]-->
     <!--[if lt IE 9]>
       <script type="text/javascript" src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
     <![endif]-->
-    
-    <?=Theme::styles($styles)?>	
-	<?=Theme::scripts($scripts)?>
-	<?=core::config('general.html_head')?>
-
-    <link rel="shortcut icon" href="<?=core::config('general.base_url').'images/favicon.ico'?>">
+    <?=Theme::styles($styles)?> 
+    <?=Theme::scripts($scripts)?>
+    <?=core::config('general.html_head')?>
     <?=View::factory('analytics')?>
-    </head>
+</head>
 
     <body data-spy="scroll" data-target=".subnav" data-offset="50" class="<?=((Request::current()->controller()!=='faq') AND Theme::get('fixed_toolbar')==1)?'':'body_fixed'?>">
-    <?if(!isset($_COOKIE['accept_terms']) AND core::config('general.alert_terms') != ''):?>
-        <?=View::factory('alert_terms')?>
-    <?endif?>
+    
+    <?=View::factory('alert_terms')?>
+    
 	<?=$header?>
     
     <div class="container bs-docs-container" id="main">
