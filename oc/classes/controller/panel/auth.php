@@ -212,21 +212,29 @@ class Controller_Panel_Auth extends Controller {
         {
             $this->redirect(Route::get('oc-panel')->uri());
         }
-        //posting data so try to remember password
-        elseif (core::post('email') AND CSRF::valid('register'))
+        elseif ($this->request->post())
         {
-            $email = core::post('email');
-                
-            if (Valid::email($email,TRUE))
+            $validation =   Validation::factory($this->request->post())
+                            ->rule('name', 'not_empty')
+                            ->rule('email', 'not_empty')
+                            ->rule('email', 'email', array(':value', TRUE))
+                            ->rule('password1', 'not_empty')
+                            ->rule('password2', 'not_empty')
+                            ->rule('password1', 'matches', array(':validation', 'password1', 'password2'));
+        
+            if ($validation->check())
             {
-                if (core::post('password1')==core::post('password2'))
+                //posting data so try to remember password
+                if (CSRF::valid('register'))
                 {
+                    $email = core::post('email');
+        
                     //check we have this email in the DB
                     $user = new Model_User();
                     $user = $user->where('email', '=', $email)
                             ->limit(1)
                             ->find();
-            
+        
                     if ($user->loaded())
                     {
                         Form::set_errors(array(__('User already exists')));
@@ -235,27 +243,24 @@ class Controller_Panel_Auth extends Controller {
                     {
                         //creating the user
                         $user = Model_User::create_email($email,core::post('name'),core::post('password1'));
-                        
+        
                         //login the user
                         Auth::instance()->login(core::post('email'), core::post('password1'));
-                        
+        
                         Alert::set(Alert::SUCCESS, __('Welcome!'));
                         //login the user
                         $this->redirect(Core::post('auth_redirect',Route::url('oc-panel')));
-                        
-                    }
         
-                }
-                else
-                {
-                    Form::set_errors(array(__('Passwords do not match')));
+                    }
                 }
             }
             else
             {
-                Form::set_errors(array(__('Invalid Email')));
+                $errors = $validation->errors('auth');
+        
+                foreach ($errors as $error) 
+                    Alert::set(Alert::ALERT, $error);                
             }
-                
         }
     
         //template header

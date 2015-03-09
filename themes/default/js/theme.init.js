@@ -106,6 +106,28 @@ $(function(){
       }
 
   });
+
+//validate auth pages
+$(function(){
+
+    var $params = {rules:{}, messages:{}};
+    $params['rules']['email'] = {required: true, email: true};
+
+    $(".auth").each(function() {
+        $(this).validate($params)
+    });
+
+    var $register_params = {rules:{}, messages:{}};
+    $register_params['rules']['email'] = {required: true, email: true};
+    $register_params['rules']['password1'] = {required: true};
+    $register_params['rules']['password2'] = {required: true};
+
+    $(".register").each(function() {
+        $(this).validate($register_params)
+    });
+
+});
+
 function setCookie(c_name,value,exdays)
 {
 var exdate = new Date();
