@@ -335,7 +335,7 @@ class Controller_Panel_Auth extends Controller {
             }   
         }
         else
-            Alert::set(Alert::INFO, __('Not valid user email.'));
+            Alert::set(Alert::INFO, __('Pleae login to unsubscribe.'));
 
 
         //smart redirect

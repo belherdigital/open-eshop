@@ -22,6 +22,8 @@ class Sitemap {
             $time = filemtime(DOCROOT.'sitemap-index.xml');
         elseif(file_exists(DOCROOT.'sitemap.xml'))
             $time = filemtime(DOCROOT.'sitemap.xml');
+        else
+            $time = strtotime('-1 month');
 
         return $time;
     }
