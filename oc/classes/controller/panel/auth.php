@@ -217,7 +217,7 @@ class Controller_Panel_Auth extends Controller {
             $validation =   Validation::factory($this->request->post())
                             ->rule('name', 'not_empty')
                             ->rule('email', 'not_empty')
-                            ->rule('email', 'email', array(':value', TRUE))
+                            ->rule('email', 'email')
                             ->rule('password1', 'not_empty')
                             ->rule('password2', 'not_empty')
                             ->rule('password1', 'matches', array(':validation', 'password1', 'password2'));
