@@ -13,23 +13,27 @@
 
 <?if ( Kohana::$environment === Kohana::PRODUCTION AND core::config('general.analytics')!='' AND is_numeric($price_paid)): ?>
     <script type="text/javascript">
-        _gaq.push(['_addTrans',
-        '<?=$order->id_order()?>',           // order ID - required
-        '<?=HTML::chars($product->title)?>',  // affiliation or store name
-        '<?=round($price_paid,2)?>',          // total - required
-        '<?=$order->VAT?>',           // tax
-        '<?=$order->city?>',       // city
-        ]);
+        ga('create', '<?=Core::config('general.analytics')?>');
+        ga('require', 'ec');
 
-        _gaq.push(['_addItem',
-        '<?=$order->id_order()?>',           // order ID - required
-        '<?=$product->seotitle?>',           // SKU/code - required
-        '<?=HTML::chars($product->title)?>',        // product name
-        '<?=round($price_paid,2)?>',          // unit price - required
-        '1'               // quantity - required
-        ]);
-        _gaq.push(['_set', 'currencyCode', '<?=$order->currency?>']);
-        _gaq.push(['_trackTrans']);
+        ga('ec:addProduct', {
+          'id': '<?=$order->product->id_product?>',
+          'name': '<?=HTML::chars($order->product->seotitle)?>',
+          'category': '<?=HTML::chars($order->product->category->seoname)?>',
+          'price': '<?=round($order->product->price,2)?>',
+          'quantity': 1
+        });
+
+        // Transaction level information is provided via an actionFieldObject.
+        ga('ec:setAction', 'purchase', {
+          'id': '<?=$order->id_order?>',
+          'affiliation': '<?=(Model_Affiliate::current()->loaded())?Model_Affiliate::current()->id_user:''?>',
+          'revenue': '<?=round($product_price = (100*$order->amount)/(100+$order->VAT),2)?>',
+          'tax': '<?=round($order->amount-$product_price,2)?>',
+          'coupon': '<?=(is_numeric($order->id_coupon)?$order->coupon->name:'')?>'    // User added a coupon at checkout.
+        });
+
+        ga('send', 'pageview');     // Send transaction data with initial pageview.
     </script>
 <?endif?>
 
