@@ -50,7 +50,7 @@ class install{
      * Software install settings
      * @var string
      */
-    const VERSION   = '1.7.2';
+    const VERSION   = '1.8.0';
 
     /**
      * message to notify
@@ -93,9 +93,9 @@ class install{
                                         'mandatory' => TRUE,
                                         'result'    => (is_writable(DOCROOT))
                                         ),
-                'PHP'   =>array('message'   => 'PHP 5.3 or newer required, this version is '. PHP_VERSION,
+                'PHP'   =>array('message'   => 'PHP 5.5 or newer required, this version is '. PHP_VERSION,
                                     'mandatory' => TRUE,
-                                    'result'    => version_compare(PHP_VERSION, '5.3', '>=')
+                                    'result'    => version_compare(PHP_VERSION, '5.5', '>=')
                                     ),
                 'mod_rewrite'=>array('message'  => $mod_msg,
                                     'mandatory' => FALSE,

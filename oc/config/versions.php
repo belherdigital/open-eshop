@@ -1,11 +1,11 @@
 <?php defined('SYSPATH') or die('No direct script access.');
                 return array (
-    '1.7.2' => 
+    '1.8.0' => 
   array (
     'codename' => 'Sosua',
-    'released' => '2015-02-26',
-    'blog' => 'http://open-eshop.com/2015/02/26/open-eshop-1-7-2/',
-    'changelog' => 'https://github.com/open-classifieds/open-eshop/compare/1.7.1...1.7.2',
+    'released' => '2015-03-18',
+    'blog' => 'http://open-eshop.com/2015/03/18/open-eshop-1-7-2/',
+    'changelog' => 'https://github.com/open-classifieds/open-eshop/compare/1.7.1...1.8.0',
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=12&page=1&state=closed',
     'download' => 'http://j.mp/oe_172',
   ),

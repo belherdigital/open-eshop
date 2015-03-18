@@ -1,4 +1,4 @@
-#  Open eShop 1.7.2
+#  Open eShop 1.8.0
 
 
 # Description
