@@ -10,7 +10,7 @@
  */
 class Controller_Panel_Update extends Controller_Panel_OC_Update {    
 
-    public function action_172()
+    public function action_180()
     {
          //new configs
         $configs = array(
