@@ -332,6 +332,7 @@ class Controller_Panel_Stats extends Auth_Controller {
                         ->select('id_product')
                         ->from('visits')
                         ->where('id_product','is not',NULL)
+                        ->where('created','between',array($my_from_date,$my_to_date))
                         ->group_by('id_product')
                         ->order_by('count','desc')
                         ->execute();
@@ -343,6 +344,7 @@ class Controller_Panel_Stats extends Auth_Controller {
                         ->select(DB::expr('SUM(amount) total'))
                         ->from('orders')
                         ->where('status','=',Model_Order::STATUS_PAID)
+                        ->where('pay_date','between',array($my_from_date,$my_to_date))
                         ->group_by('id_product')
                         ->order_by('total','desc')
                         ->execute();
@@ -354,6 +356,7 @@ class Controller_Panel_Stats extends Auth_Controller {
                         ->from(array('orders','o'))
                         ->join(array('downloads','d'))
                         ->using('id_order')
+                        ->where('d.created','between',array($my_from_date,$my_to_date))
                         ->group_by('id_product')
                         ->order_by('count','desc')
                         ->execute();
@@ -364,6 +367,7 @@ class Controller_Panel_Stats extends Auth_Controller {
                         ->select(DB::expr('COUNT(id_license) count'))
                         ->from('licenses')
                         ->where('status','=',Model_License::STATUS_ACTIVE)
+                        ->where('created','between',array($my_from_date,$my_to_date))
                         ->group_by('id_product')
                         ->order_by('count','desc')
                         ->execute();
@@ -375,6 +379,7 @@ class Controller_Panel_Stats extends Auth_Controller {
                         ->from('tickets')
                         ->where('status','=',Model_Ticket::STATUS_CLOSED)
                         ->where('id_ticket_parent','=',NULL)
+                        ->where('created','between',array($my_from_date,$my_to_date))
                         ->group_by('id_product')
                         ->order_by('count','desc')
                         ->execute();
@@ -386,6 +391,7 @@ class Controller_Panel_Stats extends Auth_Controller {
                         ->select(DB::expr('COUNT(id_ticket) count'))
                         ->from('tickets')
                         ->where('id_ticket_parent','=',NULL)
+                        ->where('created','between',array($my_from_date,$my_to_date))
                         ->group_by('id_product')
                         ->order_by('count','desc')
                         ->execute();
