@@ -225,7 +225,7 @@ class Model_Order extends ORM {
             $expire = '';
             $expire_hours = Core::config('product.download_hours');
             $expire_times = Core::config('product.download_times');
-            if ($expire_hours > 0 OR $expire_times > 0)
+            if ( ($expire_hours > 0 OR $expire_times > 0) AND $product->has_file()==TRUE)
             {
                 if ($expire_hours > 0 AND $expire_times > 0)
                     $expire = sprintf(__('Your download expires in %u hours and can be downloaded %u times.'),$expire_hours,$expire_times);
