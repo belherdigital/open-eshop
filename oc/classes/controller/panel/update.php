@@ -10,6 +10,19 @@
  */
 class Controller_Panel_Update extends Controller_Panel_OC_Update {    
 
+
+    public function action_181()
+    {
+         //new configs
+        $configs = array(
+                        array( 'config_key'     =>'fraudlabspro',
+                               'group_name'     =>'payment', 
+                               'config_value'   => ''),
+                        );
+        
+        Model_Config::config_array($configs);
+    }
+
     public function action_180()
     {
          //new configs

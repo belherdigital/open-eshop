@@ -291,7 +291,7 @@
 
                         <div class="form-group">
                             <label class="col-md-8 col-md-offset-4">
-                                <p<?=__('Accept bitcoins using Bitpay')?></p>
+                                <p><?=__('Accept bitcoins using Bitpay')?></p>
                                 <a class="btn btn-success" target="_blank" href="https://bitpay.com">
                                     <i class="glyphicon glyphicon-pencil"></i> <?=sprintf(__('Register for free at %s'),'Bitpay')?></a>
                             </label>
@@ -305,6 +305,38 @@
                                 'class' => 'tips form-control', 
                                 'id' => $forms['bitpay_apikey']['key'],
                                 'data-content'=> __("Bitpay api key"),
+                                'data-trigger'=>"hover",
+                                'data-placement'=>"right",
+                                'data-toggle'=>"popover",
+                                'data-original-title'=>'', 
+                                ))?> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Prevent Fraud</div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-md-8 col-md-offset-4">
+                                <p><?=__('Help prevent card fraud with FraudLabsPro, for Stripe, Pymill and Authorize.')?></p>
+                                <a class="btn btn-success" target="_blank" href="http://www.fraudlabspro.com/?ref=1429">
+                                    <i class="glyphicon glyphicon-pencil"></i> <?=sprintf(__('Register for free at %s'),'FraudLabsPro')?></a>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            
+                            <?= FORM::label($forms['fraudlabspro']['key'], __('FraudLabsPro api key'), array('class'=>'col-md-4 control-label', 'for'=>$forms['fraudlabspro']['key']))?>
+                            <div class="col-md-8">
+                                <?= FORM::input($forms['fraudlabspro']['key'], $forms['fraudlabspro']['value'], array(
+                                'placeholder' => "", 
+                                'class' => 'tips form-control', 
+                                'id' => $forms['fraudlabspro']['key'],
+                                'data-content'=> __("FraudLabsPro api key"),
                                 'data-trigger'=>"hover",
                                 'data-placement'=>"right",
                                 'data-toggle'=>"popover",

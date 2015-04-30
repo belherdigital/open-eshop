@@ -1,3 +1,17 @@
+<?if (core::config('payment.fraudlabspro')!=''): ?>
+<script type="text/javascript">
+document.write(unescape("%3Cscript src='" + ('https:' == document.location.protocol ? 'https://' : 'http://') + "static.fraudlabspro.com/agent.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+ 
+<script type="text/javascript">
+try{
+    var flp = new FraudLabsPro;
+    flp.start({session_id: '<?php echo session_id(); ?>'});
+}
+catch(e){}
+</script>
+<?endif?>
+
 <!-- ******Panel Section****** --> 
 <section class="user-panel user-panel-listing section has-bg-color">
     <div class="container">

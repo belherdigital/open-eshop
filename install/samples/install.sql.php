@@ -404,6 +404,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('payment', 'authorize_sandbox', '0'),
 ('payment', 'authorize_login', ''),
 ('payment', 'authorize_key', ''),
+('payment', 'fraudlabspro', ''),
 ('general', 'number_format', '%n'),
 ('general', 'date_format', 'd-m-y'),
 ('general', 'base_url', '".core::request('SITE_URL')."'),

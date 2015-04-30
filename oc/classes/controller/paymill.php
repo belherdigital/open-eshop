@@ -36,6 +36,13 @@ class Controller_Paymill extends Controller{
 
         if ($order->loaded())
         {
+            //its a fraud...lets let him know
+            if ( $order->is_fraud() === TRUE )
+            {
+                Alert::set(Alert::ERROR, __('We had, issues with your transaction. Please try paying with another paymethod.'));
+                $this->redirect(Route::url('default', array('controller'=>'product','action'=>'checkout','id'=>$order->id_order)));
+            }
+                
             //Functions from https://github.com/paymill/paybutton-examples
             $privateApiKey  = Core::config('payment.paymill_private');
 

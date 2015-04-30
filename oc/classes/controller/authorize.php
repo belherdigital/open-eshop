@@ -46,6 +46,13 @@ class Controller_Authorize extends Controller{
 
         if ($order->loaded())
         {
+            //its a fraud...lets let him know
+            if ( $order->is_fraud() === TRUE )
+            {
+                Alert::set(Alert::ERROR, __('We had, issues with your transaction. Please try paying with another paymethod.'));
+                $this->redirect(Route::url('default', array('controller'=>'product','action'=>'checkout','id'=>$order->id_order)));
+            }
+                
             // include class vendor
             require Kohana::find_file('vendor/authorize/', 'autoload');
 

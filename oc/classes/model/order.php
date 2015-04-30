@@ -436,4 +436,63 @@ class Model_Order extends ORM {
                                                      '[URL.CHECKOUT]'=> $url_checkout));
         }
     }
+
+
+    /**
+     * verify if a transaction is fraudulent
+     * @return boolean                    
+     */
+    public function is_fraud()
+    {
+        //only production and api set
+        if ($this->loaded() AND core::config('payment.fraudlabspro')!='')
+        {
+            //get the country
+            $country_code = euvat::country_code();
+
+            // Include FraudLabs Pro library
+            require Kohana::find_file('vendor/', 'FraudLabsPro.class');
+
+            $fraud = new FraudLabsPro(core::config('payment.fraudlabspro'));
+
+            try {
+                // Check this transaction for possible fraud. FraudLabs Pro support comprehensive validation check,
+                // and for this example, we only perform the IP address, BIN and billing country validation.
+                // For complete validation, please check our developer page at http://www.fraudlabspro.com/developer
+                $fraud_result = $fraud->check(array(
+                    'ipAddress'         => Request::$client_ip,
+                    'billingCountry'    => $country_code,
+                    'quantity'          => 1,
+                    'amount'            => $this->amount,
+                    'currency'          => $this->currency,
+                    'emailAddress'      => $this->user->email,
+                    'paymentMode'       => 'others',
+                    'sessionId'         => session_id(),
+                ));
+
+                $fraud_result_status = $fraud_result->fraudlabspro_status;
+             
+            } 
+            catch (Exception $e) {
+                $fraud_result_status = 'DECLINED';
+            }
+
+            // This transaction is legitimate, let's submit to Stripe
+            if($fraud_result_status == 'APPROVE')
+            {
+                return FALSE;
+            }
+            //not approved!! fraud! save log
+            else
+            {
+                Kohana::$log->add(Log::ERROR, 'Fraud detected id_order:'.$this->id_order);                
+                return TRUE;
+            }
+            
+        }
+        
+        //by default we say is not fraud
+        return FALSE;
+
+    }
 }
