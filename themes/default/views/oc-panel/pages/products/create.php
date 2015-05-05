@@ -69,7 +69,7 @@
                         <div class="form-group">
                         <label for="currency" class="col-md-12"><?=__('Currency')?> <span class="star-required">*</span></label>
                             <div class="col-md-12">
-                                <select name="currency" id="currency" class="form-control" REQUIRED>
+                                <select name="currency" id="currency" class="form-control" required="required">
                                     <option></option>
                                     <?foreach ($currency as $curr):?>
                                         <option value="<?=$curr?>"><?=$curr?></option>

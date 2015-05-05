@@ -62,6 +62,7 @@ $(function () {
         },
     
     });
+    
 $('button.cancel').click(function(){
         alert(123);
     });
@@ -80,4 +81,32 @@ $('button.cancel').click(function(){
     }); 
 });
 
+//validate form
+$(function(){
+    
+    // VALIDATION with chosen fix
+    $.validator.addMethod(
+        "regex",
+        function(value, element, regexp) {
+            var re = new RegExp(regexp);
+            return this.optional(element) || re.test(value);
+        }
+    );
+    
+    var $params = {rules:{}, messages:{}};
+    $params['rules']['price'] = {regex: "^[0-9]{1,18}([,.]{1}[0-9]{1,3})?$"};
+    $params['rules']['price_offer'] = {regex: "^[0-9]{1,18}([,.]{1}[0-9]{1,3})?$"};
+    $params['rules']['licenses'] = {number: true};
+    $params['rules']['offer_valid'] = {date: true};
+    $params['rules']['license_days'] = {number: true};
+    $params['rules']['support_days'] = {number: true};
+    $params['rules']['url_buy'] = {maxlength: 200};
+    $params['rules']['url_demo'] = {maxlength: 200};
+    $params['rules']['version'] = {maxlength: 200};
+    $params['rules']['featured'] = {date: true};
 
+    $(this).validate($params)
+    
+    var settings = $.data($form[0], 'validator').settings;
+
+});
