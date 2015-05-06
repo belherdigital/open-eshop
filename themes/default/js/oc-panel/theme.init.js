@@ -162,12 +162,15 @@ $(function(){
 });
 
 /* the below code is to override back button to get the ajax content without reload*/
-$(window).bind('popstate', function() {
-    $.ajax({url:updateURLParameter(location.pathname,'rel','ajax'),success: function(data){
-        $('#content').html(data);
-    }});
+$(window).bind('load', function() {
+    setTimeout(function() {
+        $(window).bind('popstate', function() {
+            $.ajax({url:updateURLParameter(location.pathname,'rel','ajax'),success: function(data){
+                $('#content').html(data);
+            }});
+        });
+    }, 0);
 });
-
 
 function setCookie(c_name,value,exdays)
 {
