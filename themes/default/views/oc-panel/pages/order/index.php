@@ -29,6 +29,12 @@
                 <?endforeach?>
             </select>
         </div>
+        <select name="status" id="status" class="form-control disable-chosen" >
+            <option><?=__('Status')?></option>
+            <?foreach (Model_Order::$statuses as $value=>$status):?>
+                <option value="<?=$value?>" <?=(core::request('status')==$value)?'SELECTED':''?> ><?=$status?></option>
+            <?endforeach?>
+        </select>
         <div class="form-group">
             <select name="items_per_page" id="items_per_page" class="form-control" >
                 <option value="10"><?=__('Items per page')?></option>
@@ -70,6 +76,7 @@
                         <th><?=__('Amount') ?></th>
                         <th><?=__('VAT') ?></th>
                         <th><?=__('Coupon') ?></th>
+                        <th><?=__('Paymethod') ?></th>
                         <th><?=__('Paid') ?></th>
                         <?if (Core::get('print')!=1):?>
                         <th><?=__('Actions') ?></th>
@@ -103,6 +110,7 @@
                                 <?=$order->coupon->name?>
                                 </a>
                             </td>
+                            <td><?=$order->paymethod?></td>
                             <td><?=$order->pay_date?></td>
                             <?if (Core::get('print')!=1):?>
                             <td width="80" style="width:80px;">
