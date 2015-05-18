@@ -67,6 +67,11 @@ class Controller_Panel_Order extends Auth_Crud {
             $orders = $orders->where('id_product', '=', core::request('id_product'));
         }
         
+        //filter status
+        if (is_numeric(core::request('status')))
+        {
+            $orders = $orders->where('status', '=', core::request('status'));
+        }        
 
         $items_per_page = core::request('items_per_page',10);
 
@@ -81,7 +86,7 @@ class Controller_Panel_Order extends Auth_Crud {
 
         $pagination->title($this->template->title);
 
-        $orders = $orders->order_by('pay_date','desc')
+        $orders = $orders->order_by('id_order','desc')
         ->limit($items_per_page)
         ->offset($pagination->offset)
         ->find_all();
