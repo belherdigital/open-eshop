@@ -12,6 +12,8 @@
         data-submit-button="<?=__('Pay')?> <?=i18n::format_currency($order->amount, $order->currency)?>"
         data-elv="false"
         data-lang="en-GB"
+        data-height="36"
+        data-width="146"
         data-public-key="<?=Core::config('payment.paymill_public')?>"
         >
     </script>

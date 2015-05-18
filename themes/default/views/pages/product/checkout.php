@@ -165,18 +165,34 @@ catch(e){}
                             <br>
                         </div><!--//col-*-->
                         <div class="col-xs-8 text-right">
-
+                            
                             <a class="btn btn-success btn-lg paypal-pay" href="<?=Route::url('default', array('controller'=> 'paypal','action'=>'pay' , 'id' => $order->id_order))?>">
                                 <?=__('Pay with Paypal')?> <i class="fa fa-long-arrow-right"></i>
                             </a>
                             <br><br>
-
-                            <?=StripeKO::button($order)?>
-                            <?=Paymill::button($order)?>
-                            <?=Bitpay::button($order)?>
-                            <?=Controller_Authorize::form($order)?>
                             
-                            <?=$order->alternative_pay_button()?>
+                            <div class="text-right">
+                                <ul class="list-inline">
+                                    <?if(Paymill::button($order) != ''):?>
+                                        <li class="text-right"><?=Paymill::button($order)?></li>
+                                    <?endif?>
+                                </ul>
+                            </div>
+                            <div class="text-right">
+                                <ul class="list-inline">
+                                    <?if(StripeKO::button($order) != ''):?>
+                                        <li class="text-right"><?=StripeKO::button($order)?></li>
+                                    <?endif?>
+                                    <?if(Bitpay::button($order) != ''):?>
+                                        <li class="text-right"><?=Bitpay::button($order)?></li>
+                                    <?endif?>
+                                    <?if($order->alternative_pay_button() != ''):?>
+                                        <li class="text-right"><?=$order->alternative_pay_button()?></li>
+                                    <?endif?>
+                                </ul>
+                            </div>
+                            
+                            <?=Controller_Authorize::form($order)?>                            
                         </div><!--//col-*-->
                     </div><!--//row-->
                 </div><!--//panel-->
