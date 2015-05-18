@@ -330,6 +330,74 @@ div.sceditor-group{padding: 1px 15px 5px 5px!important;}
 
 .single-h1{font-size: 26px;}
 
+/* stripe custom button */
+.stripe-button-el span {
+  background: none !important;
+  height: unset !important;
+  min-height: unset !important;
+  font-weight: 700 !important;
+  padding: 0px !important;
+  border: 0px !important;
+
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -ms-box-shadow: none !important;
+  -o-box-shadow: none !important;
+  box-shadow: none !important;
+
+  font-size: 14px !important;
+  line-height: 20px !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+.stripe-button-el,
+.stripe-button-el:hover,
+.stripe-button-el:focus,
+.stripe-button-el:active.stripe-button-el:visited {
+  display: inline-block !important;
+  padding: 6px 12px !important;
+  margin-bottom: 0 !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  cursor: pointer !important;
+  color: #333 !important;
+
+  -webkit-border-radius: 4px !important;
+  -moz-border-radius: 4px !important;
+  border-radius: 4px !important;
+
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -ms-box-shadow: none !important;
+  -o-box-shadow: none !important;
+  box-shadow: none !important;
+
+  background-image: none !important;
+  background:#497cb1 !important;
+
+  text-shadow: none !important;
+
+  border: 2px solid !important;
+  border-color: #497cb1 !important;
+
+}
+.stripe-button-el:hover,
+.stripe-button-el:focus {
+  background: #426f9f !important;
+  border: 2px solid !important;
+  border-color: #426f9f !important;
+  color: #FFFFFF !important;
+}
+
+.stripe-button-el span:before {
+  font-family: 'FontAwesome';
+  content: '\f09d';
+  padding-right: 10px;
+  text-shadow: none !important;
+  font-size: 14px !important;
+}
 /*================= Media Queries ==========================*/
 
 
