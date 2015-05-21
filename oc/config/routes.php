@@ -234,6 +234,22 @@ array('action' => '[0-9]++','message' => '.+'))
     'action'     => 'index'
 ));
 
+
+/**
+ * API V1 REST route, if action is a numeric its swaped with ID
+ */
+Route::set('api', 'api/<version>/<controller>(/<action>(/<id>))(.<format>)',
+    array(
+        'version' => 'v1',
+        'format'  => '(json|xml|csv|html)',
+    ))
+    ->defaults(array(
+        'directory'  => 'api',
+        'format'     => 'json',
+        'action'     => 'index',
+));
+
+
 // changes the landing page of website, buy checking config.
 // it reads config that is stored as a JSON
 // if config returns null (doesn't exists), set default controller and action.
