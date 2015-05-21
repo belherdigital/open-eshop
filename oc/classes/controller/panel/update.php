@@ -27,6 +27,11 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
         {
             DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."users` ADD `api_token` varchar(40) DEFAULT NULL")->execute();
         }catch (exception $e) {}
+
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."users` ADD CONSTRAINT `oc2_users_UK_api_token` UNIQUE (`api_token`)")->execute();
+        }catch (exception $e) {}    
         
     }
 
