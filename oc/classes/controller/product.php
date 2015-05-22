@@ -88,9 +88,15 @@ class Controller_Product extends Controller{
      */
     public function action_goal()
     {
+         if (!Auth::instance()->logged_in())
+            $this->redirect(Route::get('oc-panel')->uri());
+
+        $user = Auth::instance()->get_user();
+        
         $order = new Model_Order();
         $order->where('id_order','=',$this->request->param('id'))
-                    ->where('status','=',Model_Order::STATUS_PAID)
+                    //->where('status','=',Model_Order::STATUS_PAID)
+                    ->where('id_user','=',$user->id_user)
                     ->limit(1)->find();
 
         if ($order->loaded())
