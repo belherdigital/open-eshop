@@ -1,5 +1,15 @@
 <?php defined('SYSPATH') or die('No direct script access.');
                 return array (
+    '1.9.0' => 
+  array (
+    'codename' => 'Cabarete',
+    'released' => '2015-05-22',
+    'blog' => 'http://open-eshop.com/2015/05/22/open-eshop-1-9-0/',
+    'changelog' => 'https://github.com/open-classifieds/open-eshop/compare/1.8.0...1.9.0',
+    'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=13&page=1&state=closed',
+    'download' => 'http://j.mp/oe_190',
+  ),
+  
     '1.8.0' => 
   array (
     'codename' => 'Sosua',

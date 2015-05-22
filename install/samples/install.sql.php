@@ -51,6 +51,7 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')
   `token` varchar(40) DEFAULT NULL,
   `token_created` datetime DEFAULT NULL,
   `token_expires` datetime DEFAULT NULL,
+  `api_token` varchar(40) DEFAULT NULL,
   `hybridauth_provider_name` varchar(40) NULL DEFAULT NULL,
   `hybridauth_provider_uid` varchar(245) NULL DEFAULT NULL,
   `signature` varchar(245) NULL DEFAULT NULL,
@@ -66,6 +67,7 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `".core::request('TABLE_PREFIX')."users_UK_email` (`email`),
   UNIQUE KEY `".core::request('TABLE_PREFIX')."users_UK_token` (`token`),
+  UNIQUE KEY `".core::request('TABLE_PREFIX')."users_UK_api_token` (`api_token`),
   UNIQUE KEY `".core::request('TABLE_PREFIX')."users_UK_seoname` (`seoname`),
   UNIQUE KEY `".core::request('TABLE_PREFIX')."users_UK_provider_AND_uid` (`hybridauth_provider_name`,`hybridauth_provider_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=".core::request('DB_CHARSET').";");
@@ -405,6 +407,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('payment', 'authorize_login', ''),
 ('payment', 'authorize_key', ''),
 ('payment', 'fraudlabspro', ''),
+('general', 'api_key', '".core::generate_password(32)."'),
 ('general', 'number_format', '%n'),
 ('general', 'date_format', 'd-m-y'),
 ('general', 'base_url', '".core::request('SITE_URL')."'),
