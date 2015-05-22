@@ -95,7 +95,7 @@ function init_panel()
 	$('[data-toggle="tooltip"]').tooltip();
 
     // Modal confirmation
-    $('[data-toggle="confirmation"]').click(function() {
+    $('[data-toggle="confirmation"]').click(function(event) {
         var href = $(this).attr('href');
         var title = $(this).attr('title');
         var text = $(this).data('text');

@@ -1,5 +1,5 @@
 $(function(){
-    $(".confirm-button").click(function() {
+    $(".confirm-button").click(function(event) {
         var href = $(this).attr('href');
         var redirect = $(this).attr('redirect');
         var title = $(this).attr('title');
