@@ -153,6 +153,7 @@ class Auth_Controller extends Controller
                                                           'js/oc-panel/theme.init.js?v='.Core::VERSION,
                                                           'js/jquery.sceditor.min.js?v=144',
                                                           'js/summernote.min.js',
+                                                          'js/summernote-ext-video.js',
                                                           'js/jquery.validate.min.js',
                                                           Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'validate')),
                                                          'js/jquery.cookie.min.js',
