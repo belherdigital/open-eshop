@@ -300,8 +300,7 @@ div.sceditor-group{padding: 1px 15px 5px 5px!important;}
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {right: 0;}
 
 /*hide summernote upload image file*/
-.note-image-dialog h5:first-child {font-size:20px;display:none;}
-.note-image-dialog input.note-image-input {display:none;}
+.note-image-dialog .note-group-select-from-files {display:none;}
 
 .popover-title {color:#333;}
 
