@@ -320,12 +320,14 @@ class Model_Product extends ORM {
                 
                 if($image_size_orig[0] > $width || $image_size_orig[1] > $height)
                     Image::factory($file)
+                        ->orientate()
                         ->resize($width, $height, Image::AUTO)
                         ->save($directory.$filename_original,$image_quality);    
                         
                 //we just save the image changing the quality and different name
                 else
                     Image::factory($file)
+                        ->orientate()
                         ->save($directory.$filename_original,$image_quality); 
                 
                 //creating the thumb and resizing using the the biggest side INVERSE
