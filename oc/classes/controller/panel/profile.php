@@ -128,6 +128,7 @@ class Controller_Panel_Profile extends Auth_Controller {
                 {
 	                // resize uploaded image 
 	                Image::factory($file)
+                        ->orientate()
                         ->resize($width, $height, Image::AUTO)
                         ->save($root.$image_name,$image_quality);
 
