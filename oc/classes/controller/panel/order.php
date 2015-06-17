@@ -73,6 +73,12 @@ class Controller_Panel_Order extends Auth_Crud {
             $orders = $orders->where('status', '=', core::request('status'));
         }        
 
+        //order by paid if we are filtering paid....
+        if (core::request('status')==Model_Order::STATUS_PAID)
+            $orders->order_by('pay_date','desc');  
+        else
+            $orders->order_by('id_order','desc');   
+
         $items_per_page = core::request('items_per_page',10);
 
         $pagination = Pagination::factory(array(
@@ -86,8 +92,7 @@ class Controller_Panel_Order extends Auth_Crud {
 
         $pagination->title($this->template->title);
 
-        $orders = $orders->order_by('id_order','desc')
-        ->limit($items_per_page)
+        $orders = $orders->limit($items_per_page)
         ->offset($pagination->offset)
         ->find_all();
 
