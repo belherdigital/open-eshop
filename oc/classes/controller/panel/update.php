@@ -10,6 +10,26 @@
  */
 class Controller_Panel_Update extends Controller_Panel_OC_Update {    
 
+    public function action_200()
+    {
+        //new configs
+        $configs = array(
+                        array( 'config_key'     =>'twocheckout_sid',
+                               'group_name'     =>'payment', 
+                               'config_value'   => ''),
+                        array( 'config_key'     =>'twocheckout_secretword',
+                               'group_name'     =>'payment', 
+                               'config_value'   => ''),
+                        array( 'config_key'     =>'twocheckout_sandbox',
+                               'group_name'     =>'payment', 
+                               'config_value'   => 0),
+                        );
+        
+        Model_Config::config_array($configs);
+        
+        
+    }
+
     public function action_190()
     {
         //new configs

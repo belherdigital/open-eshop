@@ -173,26 +173,30 @@ catch(e){}
                             
                             <div class="text-right">
                                 <ul class="list-inline">
-                                    <?if(Paymill::button($order) != ''):?>
-                                        <li class="text-right"><?=Paymill::button($order)?></li>
+                                    <?if(($pm = Paymill::button($order)) != ''):?>
+                                        <li class="text-right"><?=$pm?></li>
                                     <?endif?>
                                 </ul>
                             </div>
                             <div class="text-right">
                                 <ul class="list-inline">
-                                    <?if(StripeKO::button($order) != ''):?>
-                                        <li class="text-right"><?=StripeKO::button($order)?></li>
+                                    <?if(($sk = StripeKO::button($order)) != ''):?>
+                                        <li class="text-right"><?=$sk?></li>
                                     <?endif?>
-                                    <?if(Bitpay::button($order) != ''):?>
-                                        <li class="text-right"><?=Bitpay::button($order)?></li>
+                                    <?if(($bp = Bitpay::button($order)) != ''):?>
+                                        <li class="text-right"><?=$bp?></li>
                                     <?endif?>
-                                    <?if($order->alternative_pay_button() != ''):?>
-                                        <li class="text-right"><?=$order->alternative_pay_button()?></li>
+                                    <?if(($two = twocheckout::form($order)) != ''):?>
+                                        <li class="text-right"><?=$two?></li>
+                                    <?endif?>
+                                    <?if( ($alt = $order->alternative_pay_button()) != ''):?>
+                                        <li class="text-right"><?=$alt?></li>
                                     <?endif?>
                                 </ul>
                             </div>
                             
-                            <?=Controller_Authorize::form($order)?>                            
+                            <?=Controller_Authorize::form($order)?>
+
                         </div><!--//col-*-->
                     </div><!--//row-->
                 </div><!--//panel-->
