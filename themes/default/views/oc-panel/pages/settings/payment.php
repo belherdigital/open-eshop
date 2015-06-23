@@ -99,6 +99,77 @@
                     </div>
                 </div>
             </div>
+
+                     <div class="panel panel-default">
+            <div class="panel-heading">2checkout</div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        <label class="col-md-8 col-md-offset-4">
+                            <p><?=sprintf(__('To get paid via Credit card you need a %s account'),'2checkout')?>.</p>
+                            <a class="btn btn-success" target="_blank" href="https://www.2checkout.com/referral?r=6008d8b2c2">
+                                <i class="glyphicon glyphicon-pencil"></i> Register for free at 2checkout</a>
+                    
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <?= FORM::label($forms['twocheckout_sandbox']['key'], __('Sandbox'), array('class'=>'control-label col-sm-4', 'for'=>$forms['twocheckout_sandbox']['key']))?>
+                        <div class="col-sm-8">
+                            <div class="onoffswitch">
+                                <?= Form::checkbox($forms['twocheckout_sandbox']['key'], 1, (bool) $forms['twocheckout_sandbox']['value'], array(
+                                'placeholder' => __("TRUE or FALSE"), 
+                                'class' => 'onoffswitch-checkbox', 
+                                'id' => $forms['twocheckout_sandbox']['key'],
+                                'data-content'=> '',
+                                'data-trigger'=>"hover",
+                                'data-placement'=>"right",
+                                'data-toggle'=>"popover",
+                                'data-original-title'=>'', 
+                                ))?>
+                                <?= FORM::label($forms['twocheckout_sandbox']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['authorize_sandbox']['key']))?>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <?= FORM::label($forms['twocheckout_sid']['key'], __('Account Number'), array('class'=>'col-md-4 control-label', 'for'=>$forms['twocheckout_sid']['key']))?>
+                        <div class="col-md-8">
+                            <?= FORM::input($forms['twocheckout_sid']['key'], $forms['twocheckout_sid']['value'], array(
+                            'placeholder' => "", 
+                            'class' => 'tips form-control', 
+                            'id' => $forms['twocheckout_sid']['key'],
+                            'data-content'=> __('Account Number'),
+                            'data-trigger'=>"hover",
+                            'data-placement'=>"right",
+                            'data-toggle'=>"popover",
+                            'data-original-title'=>'', 
+                            ))?> 
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <?= FORM::label($forms['twocheckout_secretword']['key'], __('Secret Word'), array('class'=>'col-md-4 control-label', 'for'=>$forms['twocheckout_secretword']['key']))?>
+                        <div class="col-md-8">
+                            <?= FORM::input($forms['twocheckout_secretword']['key'], $forms['twocheckout_secretword']['value'], array(
+                            'placeholder' => "", 
+                            'class' => 'tips form-control', 
+                            'id' => $forms['twocheckout_secretword']['key'],
+                            'data-content'=> __('Secret Word'),
+                            'data-trigger'=>"hover",
+                            'data-placement'=>"right",
+                            'data-toggle'=>"popover",
+                            'data-original-title'=>'', 
+                            ))?> 
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        
             <div class="panel panel-default">
                 <div class="panel-heading">Authorize.net</div>
                 <div class="panel-body">

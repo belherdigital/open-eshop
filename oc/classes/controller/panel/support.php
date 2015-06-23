@@ -328,7 +328,8 @@ class Controller_Panel_Support extends Auth_Controller {
                                                 );
                    
                 }
-                
+                //set empty since they already replied
+                Request::current()->post('description','');
                 Alert::set(Alert::SUCCESS, __('Reply created.'));
             }
             else

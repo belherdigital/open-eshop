@@ -244,11 +244,11 @@ Route::set('api', 'api/<version>/<controller>(/<action>(/<id>))(.<format>)',
         'format'  => '(json|xml|csv|html)',
     ))
     ->defaults(array(
+        'version'    => 'v1',
         'directory'  => 'api',
         'format'     => 'json',
         'action'     => 'index',
 ));
-
 
 // changes the landing page of website, buy checking config.
 // it reads config that is stored as a JSON

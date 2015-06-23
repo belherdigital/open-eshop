@@ -30,9 +30,9 @@
             </select>
         </div>
         <select name="status" id="status" class="form-control disable-chosen" >
-            <option><?=__('Status')?></option>
+            <option value="none" <?=(core::request('status')==NULL OR core::request('status')=='none')?'SELECTED':''?>><?=__('Status')?></option>
             <?foreach (Model_Order::$statuses as $value=>$status):?>
-                <option value="<?=$value?>" <?=(core::request('status')==$value)?'SELECTED':''?> ><?=$status?></option>
+                <option value="<?=$value?>" <?=(core::request('status')==$value AND core::request('status')!=NULL AND core::request('status')!='none')?'SELECTED':''?> ><?=$status?></option>
             <?endforeach?>
         </select>
         <div class="form-group">
