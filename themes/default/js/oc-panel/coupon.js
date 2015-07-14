@@ -28,4 +28,20 @@ $(function(){
     if($('[data-toggle="datepicker"]').length !== 0){
         $('[data-toggle="datepicker"]').datepicker();
     }
+    
+    $('.btn-fixed').click(function(event) {
+        event.preventDefault();
+        $(this).addClass('active');
+        $('.btn-percentage').removeClass('active');
+        $('input[name="discount_percentage"]').closest('.form-group ').addClass('hidden');
+        $('input[name="discount_amount"]').closest('.form-group ').removeClass('hidden');
+    });
+    
+    $('.btn-percentage').click(function(event) {
+        event.preventDefault();
+        $(this).addClass('active');
+        $(".btn-fixed").removeClass('active');
+        $('input[name="discount_amount"]').closest('.form-group ').addClass('hidden');
+        $('input[name="discount_percentage"]').closest('.form-group ').removeClass('hidden');
+    });
 });
