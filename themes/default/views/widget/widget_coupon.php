@@ -1,4 +1,4 @@
-<?if(Model_Coupon::available):?>
+<?if(Model_Coupon::available()):?>
 <h3><?=$widget->text_title?></h3>
 
 <form class=""  method="post" action="<?=URL::current()?>">         

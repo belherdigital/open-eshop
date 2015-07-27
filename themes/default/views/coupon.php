@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
-<?if(Model_Coupon::available):?>
+<?if(Model_Coupon::available()):?>
 <form class="well form-inline"  method="post" action="<?=URL::current()?>">         
     <?if (Model_Coupon::current()->loaded()):?>
         <?=Form::hidden('coupon_delete',Model_Coupon::current()->name)?>
