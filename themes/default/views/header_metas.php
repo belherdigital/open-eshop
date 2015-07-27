@@ -12,6 +12,7 @@
 <?else:?>
 <meta name="author" content="open-eshop.com">
 <?endif?>
+<meta name="application-name" content="<?=core::config('general.site_name')?>" data-baseurl="<?=core::config('general.base_url')?>">
 
 <?if (Controller::$image!==NULL):?>
 <meta property="og:image"   content="<?=core::config('general.base_url').Controller::$image?>"/>
