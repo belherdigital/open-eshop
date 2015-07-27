@@ -1,5 +1,15 @@
 <?php defined('SYSPATH') or die('No direct script access.');
                 return array (
+    '2.0.0' => 
+  array (
+    'codename' => 'Cabarete',
+    'released' => '2015-08-01',
+    'blog' => 'http://open-eshop.com/2015/08/01/open-eshop-2-0-0/',
+    'changelog' => 'https://github.com/open-classifieds/open-eshop/compare/1.9.0...2.0.0',
+    'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=14&page=1&state=closed',
+    'download' => 'http://j.mp/oe_200',
+  ),
+
     '1.9.0' => 
   array (
     'codename' => 'Cabarete',

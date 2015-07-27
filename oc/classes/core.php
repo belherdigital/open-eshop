@@ -16,7 +16,7 @@ class Core extends OC_Core{
      * OC version
      * @var string
      */
-    const VERSION = '1.9.0';
+    const VERSION = '2.0.0';
 
 
     /**
