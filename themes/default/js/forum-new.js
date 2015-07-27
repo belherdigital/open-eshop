@@ -5,11 +5,12 @@ $(function(){
             resizeEnabled: "true",
             emoticonsEnabled: "false",
             emoticonsCompat: "false",
+            style: $('meta[name="application-name"]').data('baseurl') + "themes/default/css/jquery.sceditor.default.min.css",
             enablePasteFiltering: "true"});
 
     //sceditorBBCodePlugin for validation, updates iframe on submit 
     $("button[name=submit]").click(function(){
-        $("textarea[name=description]").data("sceditor").updateTextareaValue();
+        $("textarea[name=description]").data("sceditor").updateOriginal();
     });
 
 	// paste plain text in sceditor
