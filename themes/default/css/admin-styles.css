@@ -282,10 +282,7 @@ border:0;}
 .ml-20{margin-left: 20px;}
 .edit_ad_form{margin-left: 150px;}
 .ml-10{margin-left: 10px!important;}
-/*bbcode style fix*/
-div.sceditor-group{padding: 1px 15px 5px 5px!important;}
-.sceditor-button{padding: 0px 0px 0px 2px!important; width: 20px!important;}
-.sceditor-button, .sceditor-button div{margin-top: 3px!important;}
+
 /*On/Off FlipSwitch*/
 .onoffswitch {position: relative; width: 80px;-webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;}
 .onoffswitch-checkbox {display: none;}

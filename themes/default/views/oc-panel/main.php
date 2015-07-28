@@ -14,6 +14,7 @@
     <meta name="description" content="<?=$meta_description?>" >
     <meta name="copyright" content="<?=$meta_copyright?>" >
 	<meta name="author" content="open-eshop.com">
+	<meta name="application-name" content="<?=core::config('general.site_name')?>" data-baseurl="<?=core::config('general.base_url')?>">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->

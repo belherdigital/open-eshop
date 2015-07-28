@@ -1,6 +1,6 @@
 //sceditorBBCodePlugin for validation, updates iframe on submit 
     $("button[name=submit]").click(function(){
-        $("textarea[name=description]").data("sceditor").updateTextareaValue();
+        $("textarea[name=description]").data("sceditor").updateOriginal();
     });
     // VALIDATION with chosen fix
 $.validator.addMethod(
