@@ -3,8 +3,8 @@
     '2.0.0' => 
   array (
     'codename' => 'Las Galeras',
-    'released' => '2015-07-27',
-    'blog' => 'http://open-eshop.com/2015/07/27/open-eshop-2-0-0/',
+    'released' => '2015-07-28',
+    'blog' => 'http://open-eshop.com/2015/07/28/open-eshop-2-0-0/',
     'changelog' => 'https://github.com/open-classifieds/open-eshop/compare/1.9.0...2.0.0',
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=14&page=1&state=closed',
     'download' => 'http://j.mp/oe_200',
