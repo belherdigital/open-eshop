@@ -394,7 +394,7 @@
 
                         <div class="form-group">
                             <label class="col-md-8 col-md-offset-4">
-                                <p><?=__('Help prevent card fraud with FraudLabsPro, for Stripe, Pymill and Authorize.')?></p>
+                                <p><?=__('Help prevent card fraud with FraudLabsPro, for Stripe, 2co, Paymill and Authorize.')?></p>
                                 <a class="btn btn-success" target="_blank" href="http://www.fraudlabspro.com/?ref=1429">
                                     <i class="glyphicon glyphicon-pencil"></i> <?=sprintf(__('Register for free at %s'),'FraudLabsPro')?></a>
                             </label>
