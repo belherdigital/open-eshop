@@ -29,6 +29,13 @@ class Controller_twocheckout extends Controller{
 
         if ($order->loaded())
         {
+            //its a fraud...lets let him know
+            if ( $order->is_fraud() === TRUE )
+            {
+                Alert::set(Alert::ERROR, __('We had, issues with your transaction. Please try paying with another paymethod.'));
+                $this->redirect(Route::url('default', array('controller'=>'product','action'=>'checkout','id'=>$order->id_order)));
+            }
+
             if ( ($order_id = twocheckout::validate_passback($order))!==FALSE ) 
             {
                 //mark as paid

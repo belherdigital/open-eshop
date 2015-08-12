@@ -1,10 +1,20 @@
 <?php defined('SYSPATH') or die('No direct script access.');
                 return array (
+  '2.0.1' => 
+  array (
+    'codename' => 'Las Galeras 1',
+    'released' => '2015-08-03',
+    'blog' => 'http://open-eshop.com/2015/08/03/open-eshop-2-0-1/',
+    'changelog' => 'https://github.com/open-classifieds/open-eshop/compare/2.0.0...2.0.1',
+    'issues' => 'https://github.com/open-classifieds/open-eshop/issues?q=milestone%3A2.0.1+is%3Aclosed',
+    'download' => 'http://j.mp/oe_201',
+  ),
+
     '2.0.0' => 
   array (
     'codename' => 'Las Galeras',
-    'released' => '2015-07-27',
-    'blog' => 'http://open-eshop.com/2015/07/27/open-eshop-2-0-0/',
+    'released' => '2015-07-28',
+    'blog' => 'http://open-eshop.com/2015/07/28/open-eshop-2-0-0/',
     'changelog' => 'https://github.com/open-classifieds/open-eshop/compare/1.9.0...2.0.0',
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?milestone=14&page=1&state=closed',
     'download' => 'http://j.mp/oe_200',
