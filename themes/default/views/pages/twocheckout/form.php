@@ -6,7 +6,7 @@
 <input type="hidden" name="li_0_type" value="product" />
 <input type="hidden" name="li_0_tangible" value="N" />
 <input type="hidden" name="li_0_name" value="<?=$order->id_product?>" />
-<input type="hidden" name="li_0_price" value="<?=twocheckout::money_format($order->amount)?>" />
+<input type="hidden" name="li_0_price" value="<?=round($order->amount,2)?>" />
 <input type="hidden" name="li_0_quantity" value="1" />
 <input type="hidden" name="currency_code" value="<?=$order->currency?>" />
 <input type="hidden" name="email" value="<?=$order->user->email?>" />
