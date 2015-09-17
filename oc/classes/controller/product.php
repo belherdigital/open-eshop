@@ -322,7 +322,7 @@ class Controller_Product extends Controller{
             ))->route_params(array(
                     'controller'        => $this->request->controller(),
                     'action'            => $this->request->action(),
-                    'category'          => ($category!==NULL)?$category->seoname:NULL,
+                    'category'          => ($category!==NULL)?$category->seoname:URL::title(__('all')),
             ));
            
             Breadcrumbs::add(Breadcrumb::factory()->set_title(__("Page ").$pagination->current_page));

@@ -113,12 +113,13 @@
                             <td><?=$order->paymethod?></td>
                             <td><?=$order->pay_date?></td>
                             <?if (Core::get('print')!=1):?>
-                            <td width="80" style="width:80px;">
+                            <td>
                                 <?if ($controller->allowed_crud_action('update')):?>
-                                <a title="<?=__('Edit')?>" class="btn btn-primary" href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'update','id'=>$order->pk()))?>">
+                                <a title="<?=__('Edit')?>" class="btn btn-warning" href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'update','id'=>$order->pk()))?>">
                                     <i class="glyphicon glyphicon-edit"></i>
                                 </a>
                                 <?endif?>
+                                <a class="btn btn-primary" title="<?=__('Details')?>" href="<?=Route::url('oc-panel', array('controller'=>'profile', 'action'=>'order','id'=>$order->id_order))?>"><i class="glyphicon glyphicon-search"></i></a>
                             </td>
                             <?endif?>
         

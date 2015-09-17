@@ -287,10 +287,15 @@ class Controller_Panel_Profile extends Auth_Controller {
 
         $user = Auth::instance()->get_user();
         $id_order = $this->request->param('id');
+        
         $order = new Model_Order;
-        $order = $order->where('id_user', '=', $user->id_user)
-                        ->where('id_order', '=', $id_order)
-                        ->find();
+        $order->where('id_order', '=', $id_order);
+
+        //if admin we do not verify the user
+        if ($user->id_role!=Model_Role::ROLE_ADMIN)
+            $order->where('id_user','=',$user->id_user);
+
+        $order->find();
 
         if( ! $order->loaded() )
         {
