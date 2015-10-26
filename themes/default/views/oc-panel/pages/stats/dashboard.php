@@ -70,15 +70,21 @@
                     </tbody>
                 </table>
         
-                <?=Chart::column($stats_orders,array('title'=>__('Sales statistics per day'),
-                                            'height'=>400,
-                                            'width'=>'100%',
-                                            'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>       
-                <?=Chart::column($stats_orders_by_month,array('title'=>__('Sales statistics per month'),
-                                            'height'=>400,
-                                            'width'=>'100%',
-                                            'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>          
-            </div>
+                <h6 class="text-center"><?=__('Sales statistics per day')?></h6>
+                <div>
+                    <?=Chart::line($stats_orders, array('height'  => 300,
+                                                        'width'   => 400,
+                                                        'options' => array('responsive' => true, 'maintainAspectRatio' => false, 'scaleShowVerticalLines' => false, 'multiTooltipTemplate' => '<%= datasetLabel %> - <%= value %>')))?>
+                </div>
+
+                <h6 class="text-center"><?=__('Sales statistics per month')?></h6>
+                <div>
+                    <?=Chart::line($stats_orders_by_month, array('height'  => 300,
+                                                                 'width'   => 400,
+                                                                 'options' => array('responsive' => true, 'maintainAspectRatio' => false, 'scaleShowVerticalLines' => false, 'multiTooltipTemplate' => '<%= datasetLabel %> - <%= value %>')))?>
+                </div>
+
+           </div>
             <!-- VISITS TAB -->
             <div class="tab-pane fade" id="visits">
                 <br>
@@ -104,14 +110,21 @@
                         </tr>
                     </tbody>
                 </table>
-                    <?=Chart::column($stats_daily,array('title'=>__('Visits per day'),
-                                                'height'=>400,
-                                                'width'=>'100%',
-                                                ))?> 
-        
-                    <?=Chart::column($stats_by_month,array('title'=>__('Visits per month'),
-                                                'height'=>400,
-                                                'width'=>'100%'))?> 
+
+                    <h6 class="text-center"><?=__('Visits per day')?></h6>
+                    <div>
+                        <?=Chart::line($stats_daily, array('height'  => 300,
+                                                           'width'   => 400,
+                                                           'options' => array('responsive' => true, 'maintainAspectRatio' => false, 'scaleShowVerticalLines' => false, 'multiTooltipTemplate' => '<%= datasetLabel %> - <%= value %>')))?>
+                    </div>
+
+                    <h6 class="text-center"><?=__('Visits per month')?></h6>
+                    <div>
+                        <?=Chart::line($stats_by_month, array('height'  => 300,
+                                                              'width'   => 400,
+                                                              'options' => array('responsive' => true, 'maintainAspectRatio' => false, 'scaleShowVerticalLines' => false, 'multiTooltipTemplate' => '<%= datasetLabel %> - <%= value %>')))?>
+                    </div>
+
             </div>
             <!-- DOWNLOADS TAB -->
             <div class="tab-pane fade" id="downloads">
@@ -138,14 +151,21 @@
                         </tr>
                     </tbody>
                 </table>
-                <?=Chart::column($stats_downloads,array('title'=>__('Downloads statistics per day'),
-                                    'height'=>400,
-                                    'width'=>'100%',
-                                    'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>       
-                <?=Chart::column($stats_downloads_by_month,array('title'=>__('Downloads statistics per month'),
-                                    'height'=>400,
-                                    'width'=>'100%',
-                                    'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>
+
+                <h6 class="text-center"><?=__('Downloads statistics per day')?></h6>
+                <div>
+                    <?=Chart::line($stats_downloads, array('height'  => 300,
+                                                           'width'   => 400,
+                                                           'options' => array('responsive' => true, 'maintainAspectRatio' => false, 'scaleShowVerticalLines' => false, 'multiTooltipTemplate' => '<%= datasetLabel %> - <%= value %>')))?>
+                </div>
+
+                <h6 class="text-center"><?=__('Downloads statistics per month')?></h6>
+                <div>
+                    <?=Chart::line($stats_downloads_by_month, array('height'  => 300,
+                                                                    'width'   => 400,
+                                                                    'options' => array('responsive' => true, 'maintainAspectRatio' => false, 'scaleShowVerticalLines' => false, 'multiTooltipTemplate' => '<%= datasetLabel %> - <%= value %>')))?>
+                </div>
+
             </div>
             <!-- tickets TAB -->
             <div class="tab-pane fade" id="tickets">
@@ -178,14 +198,21 @@
                         </tr>
                     </tbody>
                 </table>
-                <?=Chart::column($stats_tickets,array('title'=>__('tickets statistics per day'),
-                                    'height'=>400,
-                                    'width'=>'100%',
-                                    ))?>       
-                <?=Chart::column($stats_tickets_by_month,array('title'=>__('tickets statistics per month'),
-                                    'height'=>400,
-                                    'width'=>'100%',
-                                    ))?>
+
+                <h6 class="text-center"><?=__('tickets statistics per day')?></h6>
+                <div>
+                    <?=Chart::line($stats_tickets, array('height'  => 300,
+                                                         'width'   => 400,
+                                                         'options' => array('responsive' => true, 'maintainAspectRatio' => false, 'scaleShowVerticalLines' => false, 'multiTooltipTemplate' => '<%= datasetLabel %> - <%= value %>')))?>
+                </div>
+
+                <h6 class="text-center"><?=__('tickets statistics per month')?></h6>
+                <div>
+                    <?=Chart::line($stats_tickets_by_month, array('height'  => 300,
+                                                                  'width'   => 400,
+                                                                  'options' => array('responsive' => true, 'maintainAspectRatio' => false, 'scaleShowVerticalLines' => false, 'multiTooltipTemplate' => '<%= datasetLabel %> - <%= value %>')))?>
+                </div>
+
             </div>
             <!-- Licenses TAB -->
             <div class="tab-pane fade" id="licenses">
@@ -214,14 +241,21 @@
                         </tr>
                     </tbody>
                 </table>
-                <?=Chart::column($stats_licenses,array('title'=>__('Licenses statistics per day'),
-                                    'height'=>400,
-                                    'width'=>'100%',
-                                    'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>       
-                <?=Chart::column($stats_licenses_by_month,array('title'=>__('Licenses statistics per month'),
-                                    'height'=>400,
-                                    'width'=>'100%',
-                                    'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>
+
+                <h6 class="text-center"><?=__('Licenses statistics per day')?></h6>
+                <div>
+                    <?=Chart::line($stats_licenses, array('height'  => 300,
+                                                          'width'   => 400,
+                                                          'options' => array('responsive' => true, 'maintainAspectRatio' => false, 'scaleShowVerticalLines' => false, 'multiTooltipTemplate' => '<%= datasetLabel %> - <%= value %>')))?>
+                </div>
+
+                <h6 class="text-center"><?=__('Licenses statistics per month')?></h6>
+                <div>
+                    <?=Chart::line($stats_licenses, array('height'  => 300,
+                                                          'width'   => 400,
+                                                          'options' => array('responsive' => true, 'maintainAspectRatio' => false, 'scaleShowVerticalLines' => false, 'multiTooltipTemplate' => '<%= datasetLabel %> - <%= value %>')))?>
+                </div>
+
             </div>
             <div class="tab-pane fade" id="products">
                 <div class="row">
@@ -259,12 +293,12 @@
                             </tbody>
                         </table>
                     </div> 
-                </div>
-                <div class="row">
                     <div class="col-md-9">
-                        <?=Chart::pie($products_total,array(
-                                                    'height'=>600,
-                                                    'width'=>'100%'))?> 
+                        <div>
+                            <?=Chart::doughnut($products_total,array('height'  => 400,
+                                                                     'width'   => 300,
+                                                                     'options' => array('responsive' => true, 'maintainAspectRatio' => false, 'tooltipTemplate' => '<%=label%>: <%= Math.round(circumference / 6.283 * 100) %>%')))?>
+                        </div>
                     </div>
                 </div>
             </div>

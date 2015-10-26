@@ -19,8 +19,10 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $this->template->styles = array('//cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
         $this->template->scripts['footer'] = array('//cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
-                                                    '//cdn.jsdelivr.net/sorttable/2/sorttable.min.js',
-                                                    'js/oc-panel/stats/dashboard.js');
+                                                   '//cdn.jsdelivr.net/sorttable/2/sorttable.min.js',
+                                                   'js/Chart.min.js',
+                                                   'js/chart.js-php.js',
+                                                   'js/oc-panel/stats/dashboard.js');
         
         $this->template->bind('content', $content);        
         $content = View::factory('oc-panel/pages/stats/dashboard');
@@ -404,7 +406,7 @@ class Controller_Panel_Stats extends Auth_Controller {
         //for the graphic
         $products_total = array();
         foreach ($content->products as $p) 
-            $products_total[] = array('name'=>$p->title,'$'=>(isset($content->orders_product[$p->id_product]))?round($content->orders_product[$p->id_product]['total'],2):0);
+            $products_total[] = array('label'=>$p->title,'value'=>(isset($content->orders_product[$p->id_product]))?round($content->orders_product[$p->id_product]['total'],2):0);
         
         $content->products_total = $products_total;
 
