@@ -70,10 +70,12 @@
 
 <br>
 
-<?=Chart::column($stats_daily,array('title'=>__('Commissions per day'),
-                                    'height'=>200,
-                                    'width'=>'100%',
-                                    'series'=>'{0:{targetAxisIndex:1, visibleInLegend: true}}'))?>
+<h6 class="text-center"><?=__('Commissions')?></h6>
+<div>
+    <?=Chart::line($stats_downloads, array('height'  => 200,
+                                           'width'   => 400,
+                                           'options' => array('responsive' => true, 'maintainAspectRatio' => false, 'scaleShowVerticalLines' => false, 'multiTooltipTemplate' => '<%= datasetLabel %> - <%= value %>')))?>
+</div>
 
 <h2><?=__('Commissions')?></h2>
 <div class="table-responsive">
