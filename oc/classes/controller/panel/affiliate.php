@@ -26,7 +26,7 @@ class Controller_Panel_Affiliate extends Auth_Crud {
     {
         $this->template->title = __('Affiliates Commissions');
         $this->template->scripts['footer'][] = 'js/oc-panel/crud/index.js';
-        $this->template->scripts['footer'][] = 'js/Chart.min.js',
+        $this->template->scripts['footer'][] = 'js/chart.min.js',
         $this->template->scripts['footer'][] = 'js/chart.js-php.js',
         
         $commissions = new Model_Affiliate();
