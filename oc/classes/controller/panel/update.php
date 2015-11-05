@@ -10,6 +10,63 @@
  */
 class Controller_Panel_Update extends Controller_Panel_OC_Update {    
 
+    public function action_210()
+    {
+        //new configs
+        $configs = array();
+        
+        Model_Config::config_array($configs);
+        
+        //new mails
+        $contents = array();
+        
+        Model_Content::content_array($contents);
+
+        //add new order fields
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."orders` ADD `amount_net`  DECIMAL(14,3) NOT NULL DEFAULT '0' AFTER `amount`;")->execute();
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."orders` ADD `gateway_fee` DECIMAL(14,3) NOT NULL DEFAULT '0' AFTER `amount_net`;")->execute();
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."orders` ADD `VAT_amount`  DECIMAL(14,3) NOT NULL DEFAULT '0' AFTER `VAT`;")->execute();
+        }catch (exception $e) {}
+
+        //recalculate all the orders
+        $orders = new Model_Order();
+        $orders = $orders->where('status','=', Model_Order::STATUS_PAID)->where('amount_net','=',0)->find_all();
+
+        foreach ($orders as $order) 
+        {
+            if ($order->paymethod=='stripe')
+                $order->gateway_fee = StripeKO::calculate_fee($order->amount);
+            elseif ($order->paymethod=='2checkout')
+                $order->gateway_fee = Twocheckout::calculate_fee($order->amount);
+            elseif ($order->paymethod=='paymill')
+                $order->gateway_fee = Paymill::calculate_fee($order->amount);
+            elseif ($order->paymethod=='authorize')
+                $order->gateway_fee = Controller_Authorize::calculate_fee($order->amount);
+            elseif ($order->paymethod=='paypal')//we dont have the history of the transactions so we clculate an aproximation using 4%
+                $order->gateway_fee =  (4 * $order->amount / 100);
+            else
+                $order->gateway_fee = 0;
+           
+            //get VAT paid
+            if ($order->VAT > 0)
+                $order->VAT_amount = $order->amount - (100*$order->amount)/(100+$order->VAT);
+            else
+                $order->VAT_amount = 0;
+
+            //calculate net amount
+            $order->amount_net = $order->amount - $order->gateway_fee - $order->VAT_amount;
+
+            try {
+                $order->save();
+            } catch (Exception $e) {
+                throw HTTP_Exception::factory(500,$e->getMessage());  
+            }
+
+        }
+    }
+
     public function action_200()
     {
         //new configs

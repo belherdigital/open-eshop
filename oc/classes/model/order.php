@@ -165,7 +165,7 @@ class Model_Order extends ORM {
      * @param string    $id_order [unique indentifier of order]
      * @param string    $txn_id id of the transaction depending on provider
      */
-    public function confirm_payment($paymethod = 'paypal', $txn_id = NULL, $pay_date = NULL , $amount = NULL, $currency = NULL )
+    public function confirm_payment($paymethod = 'paypal', $txn_id = NULL, $pay_date = NULL , $amount = NULL, $currency = NULL , $fee = NULL)
     { 
         
         // update orders
@@ -187,6 +187,18 @@ class Model_Order extends ORM {
 
             if ($currency!==NULL)
                 $this->currency = $currency;
+
+            //get gateway fee
+            $this->gateway_fee = ($fee!==NULL)?$fee:0;
+           
+            //get VAT paid
+            if ($this->VAT > 0)
+                $this->VAT_amount = $this->amount - (100*$this->amount)/(100+$this->VAT);
+            else
+                $this->VAT_amount = 0;
+
+            //calculate net amount
+            $this->amount_net = $this->amount - $this->gateway_fee - $this->VAT_amount;
 
             try {
                 $this->save();

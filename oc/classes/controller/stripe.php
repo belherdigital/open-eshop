@@ -64,7 +64,7 @@ class Controller_Stripe extends Controller{
                                                     );
 
                     //mark as paid
-                    $order->confirm_payment('stripe',Core::post('stripeToken'));
+                    $order->confirm_payment('stripe',Core::post('stripeToken'), NULL, NULL, NULL,StripeKO::calculate_fee($order->amount) );
                 }
                 catch(Stripe_CardError $e) 
                 {
