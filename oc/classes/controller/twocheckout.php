@@ -39,7 +39,7 @@ class Controller_twocheckout extends Controller{
             if ( ($order_id = twocheckout::validate_passback($order))!==FALSE ) 
             {
                 //mark as paid
-                $order->confirm_payment('2checkout',$order_id);
+                $order->confirm_payment('2checkout',$order_id, NULL, NULL, NULL,Twocheckout::calculate_fee($order->amount) );
                 
                 //redirect him to his ads
                 Alert::set(Alert::SUCCESS, __('Thanks for your payment!'));

@@ -30,6 +30,19 @@ class Controller_Authorize extends Controller{
     }
 
     /**
+     *   Seems to have an exact price http://www.authorize.net/solutions/merchantsolutions/pricing/
+     */
+    public static function calculate_fee($amount)
+    {   
+        //variables
+        $fee            = 2.9;
+        $fee_trans      = 0.3;//USD
+
+        //initial exchange fee + stripe fee
+        return ($fee * $amount / 100) + $fee_trans;
+    }
+
+    /**
      * [action_form] generates the form to pay at paypal
      */
     public function action_pay()
@@ -66,7 +79,7 @@ class Controller_Authorize extends Controller{
             $response = $sale->authorizeAndCapture();
             if ($response->approved) 
             {
-                $order->confirm_payment('authorize',$response->transaction_id);
+                $order->confirm_payment('authorize',$response->transaction_id, NULL, NULL, NULL,Controller_Authorize::calculate_fee($order->amount) );
                 //redirect him to his ads
                 Alert::set(Alert::SUCCESS, __('Thanks for your payment!').' '.$response->transaction_id);
                 $this->redirect(Route::url('default', array('controller'=>'product','action'=>'goal','id'=>$order->id_order)));
