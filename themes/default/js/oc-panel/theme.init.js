@@ -16,7 +16,12 @@ function init_panel()
                         ['insert', ['link', 'picture', 'video', 'hr']],
                         ['view', ['fullscreen', 'codeview']],
                         ['help', ['help']],
-            ]
+            ],
+            onPaste: function (e) {
+                var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+                e.preventDefault();
+                document.execCommand('insertText', false, text);
+            }
         });
     }
 	else if ($( "#crud-post" ).length || $( "#crud-category" ).length) {
@@ -34,7 +39,12 @@ function init_panel()
                         ['insert', ['link', 'picture', 'video', 'hr']],
                         ['view', ['fullscreen', 'codeview']],
                         ['help', ['help']],
-            ]
+            ],
+            onPaste: function (e) {
+                var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+                e.preventDefault();
+                document.execCommand('insertText', false, text);
+            }
         });
 	}
     else
