@@ -21,6 +21,9 @@ function init_panel()
                 var text = (e.originalEvent || e).clipboardData.getData('text/plain');
                 e.preventDefault();
                 document.execCommand('insertText', false, text);
+            },
+            onImageUpload: function(files, editor, welEditable) {
+                sendFile(files[0], editor, welEditable);
             }
         });
     }
@@ -44,6 +47,9 @@ function init_panel()
                 var text = (e.originalEvent || e).clipboardData.getData('text/plain');
                 e.preventDefault();
                 document.execCommand('insertText', false, text);
+            },
+            onImageUpload: function(files, editor, welEditable) {
+                sendFile(files[0], editor, welEditable);
             }
         });
 	}
@@ -238,4 +244,37 @@ function updateURLParameter(url, param, paramVal){
 
     var rows_txt = temp + "" + param + "=" + paramVal;
     return baseURL + "?" + newAdditionalURL + rows_txt;
+}
+
+function sendFile(file, editor, welEditable) {
+    data = new FormData();
+    data.append("image", file);
+    $('body').css({'cursor' : 'wait'});
+    $.ajax({
+        url: $('meta[name="application-name"]').data('baseurl') + 'oc-panel/cmsimages/create',
+        datatype: "json",
+        type: "POST",
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            response = jQuery.parseJSON(response);
+            if (response.link) {
+                if ($("textarea[name=description]").data('editor')=='html') {
+                    $("#formorm_description, textarea[name=description], textarea[name=email_purchase_notes], .cf_textarea_fields").summernote('editor.insertImage', response.link);
+                }
+                else if ($( "#crud-post" ).length || $( "#crud-category" ).length || $( "#crud-location" ).length) {
+                    $("#formorm_description").summernote('editor.insertImage', response.link);
+                }
+            }
+            else {
+                alert(response.msg);
+            }
+            $('body').css({'cursor' : 'default'});
+        },
+        error: function(response) {
+            $('body').css({'cursor' : 'default'});
+        },
+    });
 }
