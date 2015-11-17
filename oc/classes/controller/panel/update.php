@@ -41,6 +41,12 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
             DB::query(Database::UPDATE,"ALTER TABLE `".self::$db_prefix."content` CHANGE `description` `description` LONGTEXT;")->execute();
         }catch (exception $e) {}
 
+        //bigger configs
+        try
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE `".self::$db_prefix."config` CHANGE `config_value` `config_value` LONGTEXT;")->execute();
+        }catch (exception $e) {}
+
         //recalculate all the orders
         $orders = new Model_Order();
         $orders = $orders->where('status','=', Model_Order::STATUS_PAID)->where('amount_net','=',0)->find_all();
