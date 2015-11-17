@@ -30,6 +30,17 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
             DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."orders` ADD `VAT_amount`  DECIMAL(14,3) NOT NULL DEFAULT '0' AFTER `VAT`;")->execute();
         }catch (exception $e) {}
 
+        //make posts bigger description
+        try
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE `".self::$db_prefix."posts` CHANGE `description` `description` LONGTEXT;")->execute();
+        }catch (exception $e) {}
+
+        try
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE `".self::$db_prefix."content` CHANGE `description` `description` LONGTEXT;")->execute();
+        }catch (exception $e) {}
+
         //recalculate all the orders
         $orders = new Model_Order();
         $orders = $orders->where('status','=', Model_Order::STATUS_PAID)->where('amount_net','=',0)->find_all();
