@@ -80,7 +80,8 @@
                                             <tr><td class="br"><?=Theme::admin_link(__('Forums'),'forum','index','oc-panel','glyphicon glyphicon-tags')?></td></tr>
                                             <tr><td class="br"><?=Theme::admin_link(__('Topics'), 'topic','index','oc-panel','glyphicon glyphicon-pencil')?></td></tr>
                                         <?endif?>
-                                    </table>
+                                         <tr><td class="br"><?=Theme::admin_link(__('CMS Images'), 'cmsimages','index','oc-panel','glyphicon glyphicon-camera')?></td></tr>
+                                   </table>
                                 </div>
                             </div>
                         </div>

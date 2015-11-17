@@ -296,9 +296,6 @@ border:0;}
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {margin-left: 0;}
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {right: 0;}
 
-/*hide summernote upload image file*/
-.note-image-dialog .note-group-select-from-files {display:none;}
-
 .popover-title {color:#333;}
 
 .page-header {
