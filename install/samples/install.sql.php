@@ -405,6 +405,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('payment', 'stripe_private', ''),
 ('payment', 'stripe_public', ''),
 ('payment', 'stripe_address', '0'),
+('payment', 'stripe_alipay', '0'),
 ('payment', 'alternative', ''),
 ('payment', 'bitpay_apikey', ''),
 ('payment', 'authorize_sandbox', '0'),

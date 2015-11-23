@@ -351,6 +351,25 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                        <?= FORM::label($forms['stripe_alipay']['key'], __('Accept Alipay payments'), array('class'=>'col-md-4 control-label', 'for'=>$forms['stripe_alipay']['key']))?>
+                        <div class="col-md-8">
+                            <div class="onoffswitch">
+                                <?= Form::checkbox($forms['stripe_alipay']['key'], 1, (bool) $forms['stripe_alipay']['value'], array(
+                                'placeholder' => __("TRUE or FALSE"), 
+                                'class' => 'onoffswitch-checkbox', 
+                                'id' => $forms['stripe_alipay']['key'], 
+                                'data-content'=> '',
+                                'data-trigger'=>"hover",
+                                'data-placement'=>"right",
+                                'data-toggle'=>"popover",
+                                'data-original-title'=>'',                     
+                                ))?>
+                                <?= FORM::label($forms['stripe_alipay']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['stripe_alipay']['key']))?>
+                            </div>
+                        </div>
+                    </div>
                         
                     </div>
                 </div>

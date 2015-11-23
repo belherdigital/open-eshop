@@ -12,16 +12,7 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
 
     public function action_210()
     {
-        //new configs
-        $configs = array();
         
-        Model_Config::config_array($configs);
-        
-        //new mails
-        $contents = array();
-        
-        Model_Content::content_array($contents);
-
         //add new order fields
         try 
         {
@@ -82,6 +73,15 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
             }
 
         }
+
+        //new configs
+        $configs = array(
+                        array( 'config_key'     => 'stripe_alipay',
+                               'group_name'     => 'payment', 
+                               'config_value'   => '0'),
+                        );
+        
+        Model_Config::config_array($configs);        
     }
 
     public function action_200()
