@@ -17,11 +17,39 @@ ini_set('display_errors', 1);
 define('DOCROOT', realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);
 
 //we check first short tags if not we can not even load the installer
+
+//Try to set ini itself
+ini_set('short_open_tag','On');
+//If not the say
 if (! ((bool) ini_get('short_open_tag')) )
     die('<strong><u>OE Installation requirement</u></strong>: Before you proceed with your OE installation: Keep in mind OE uses the short tag "short cut" syntax.<br><br> Thus the <a href="http://php.net/manual/ini.core.php#ini.short-open-tag" target="_blank">short_open_tag</a> directive must be enabled in your php.ini.<br><br><u>Easy Solution</u>:<ol><li>Open php.ini file and look for line short_open_tag = Off</li><li>Replace it with short_open_tag = On</li><li>Restart then your PHP server</li><li>Refresh this page to resume your OE installation</li><li>Enjoy OE ;)</li></ol>');
 
-if (file_exists(DOCROOT.'oc/config/database.php')) 
-    die('Seems Open eShop it is already insalled');
+if (file_exists(DOCROOT.'oc/config/database.php')) {
+    //Language
+    
+    //Try to delete the install folder automatically [Security][Safer]
+    //Register the function
+    function deleteDir($dirPath) {
+    if (! is_dir($dirPath)) {
+        throw new InvalidArgumentException("$dirPath must be a directory");
+    }
+    if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+        $dirPath .= '/';
+    }
+    $files = glob($dirPath . '*', GLOB_MARK);
+    foreach ($files as $file) {
+        if (is_dir($file)) {
+            self::deleteDir($file);
+        } else {
+            unlink($file);
+        }
+    }
+    rmdir($dirPath);
+}
+//Hide it from user
+deleteDir("install");
+die('Seems Open eShop is already installed.');
+}
 
 //read from oc/versions.json on CDN
 $versions       = install::versions();
