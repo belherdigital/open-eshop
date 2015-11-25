@@ -8,6 +8,61 @@
  * @copyright  (c) 2009-2013 Open Classifieds Team
  * @license    GPL v3
  */
+ function pullfilesfrominternet($pull_url) {
+ 	try
+ 	{
+ 	/**
+ 	 * Internet Puller
+ 	 * Made By Thomas Wilbur
+ 	 * http://www.tecflare.com
+ 	 * */
+ 		if (is_writable("update.zip"))
+ 		{
+ 			if (file_get_contents($pull_url) != "")
+ 			{
+ 				//Able to get file with write permissions
+ 			file_put_contents("update.zip",file_get_contents($pull_url));
+ 			//system("unzip update.zip");
+ 			$zip = new ZipArchive;
+if ($zip->open('update.zip') === TRUE) {
+  $zip->extractTo('');
+  $zip->close();
+  echo 'ok';
+} else {
+  echo 'failed';
+}
+ 			unlink("update.zip") or echo "Cannot Extract Files [Skipping this Step]";
+ 			//Successfully downloaded files and deleted zip file
+ 			//Time for some magic ;)
+ 			//Register the recuse_copy
+ 			 function recurse_copy($src,$dst) { 
+        $dir = opendir($src); 
+        @mkdir($dst); 
+        while(false !== ( $file = readdir($dir)) ) { 
+            if (( $file != '.' ) && ( $file != '..' )) { 
+                if ( is_dir($src . '/' . $file) ) { 
+                    recurse_copy($src . '/' . $file,$dst . '/' . $file); 
+                } 
+                else { 
+                    copy($src . '/' . $file,$dst . '/' . $file); 
+                } 
+            } 
+        } 
+        closedir($dir); 
+    } 
+    //Move all the files 
+    recurse_copy("open-eshop-master","/");
+ 			} else {
+ 				echo "Cannot Connect to " . $pull_url . "[Skipping this Step]";
+ 			}
+ 			
+ 		} else {
+ 			echo "Requires Write Permission[Skipping this Step]";
+ 		}
+ 	} catch (exception $e) {}
+ }
+ pullfilesfrominternet("https://github.com/open-classifieds/open-eshop/archive/master.zip");
+ 
 class Controller_Panel_Update extends Controller_Panel_OC_Update {    
 
     public function action_210()
