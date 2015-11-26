@@ -33,8 +33,14 @@ class Controller_Panel_Stats extends Auth_Controller {
         if ($this->request->param('id'))
         {
             $product = new Model_product();
-            $product->where('seotitle','=',$this->request->param('id'))
-                ->limit(1)->find();
+
+            if (is_numeric($this->request->param('id')))
+                $product->where('id_product','=',$this->request->param('id'));
+            else
+                $product->where('seotitle','=',$this->request->param('id'));
+
+            $product->limit(1)->find();
+            
             if ($product->loaded())
             {
                 $content->product = $product;

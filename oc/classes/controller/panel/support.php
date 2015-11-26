@@ -47,6 +47,11 @@ class Controller_Panel_Support extends Auth_Controller {
                         ->where_close();
             }
         }
+        //filter by id_user
+        elseif (is_numeric(core::request('filter__id_user')) AND $user->has_access('supportadmin')) 
+        {
+            $tickets->where('id_user','=',core::request('filter__id_user'));
+        }
         //theres no search so lets limit the filter only to the parent ticket
         else
             $tickets->where('id_ticket_parent', 'IS', NULL);
