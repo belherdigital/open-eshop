@@ -370,3 +370,136 @@ border:0;}
 	.navbar-default {background-color: #000;}
 }
 
+
+/* Stats Styles */
+.statcard {
+    border-radius: 4px;
+    color: #4f565c;
+    border: 1px solid #dfe3eb;
+    box-shadow: 0 1px 1px #ededed;
+    margin-bottom: 20px;
+    background-color: #FFFFFF;
+    border-top-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 1px 1px #dae1e3;
+    overflow: hidden;
+}
+
+.statcard .text-highlighted {
+    color: #2196f3;
+}
+
+.statcard .p-a {
+    padding: 20px !important;
+}
+
+.statcard .statcard-desc {
+    color: #a9aebd;
+    font-size: 85%;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: inherit;
+    font-weight: normal;
+}
+
+.statcard .statcard-number {
+    margin-bottom: 0;
+    margin-top: 0;
+    color: #2196f3;
+}
+
+.statcard .delta-indicator {
+    display: inline-block;
+    font-size: 12px;
+    padding: 4px;
+    color: inherit;
+    vertical-align: middle;
+    border-radius: 3px;
+    margin-top: -2px;
+}
+
+.statcard .ago {
+    display: inline-block;
+    font-size: 10px;
+    padding: 0px;
+    color: #999;
+    vertical-align: middle;
+    margin-top: -2px;
+    text-transform: uppercase;
+    width: 100%
+}
+
+.statcard .delta-positive,
+.statcard .delta-negative {
+    color: inherit;
+    font-weight: normal;
+}
+
+.statcard .delta-positive::after {
+    border-color: -moz-use-text-color transparent;
+    border-style: none solid solid;
+    border-width: 0 4px 4px;
+    content: "";
+    display: inline-block;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    width: 0;
+}
+
+.statcard .delta-negative::after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px dashed;
+    content: "";
+    display: inline-block;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    width: 0;
+}
+
+.statcard .delta-positive {
+    background: #3fb83f;
+    color: rgba(255, 255, 255, 0.90);
+}
+
+.statcard .delta-negative {
+    background: #cc4c4c;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.statcard .statcard-hr {
+    border-top-color: rgba(255, 255, 255, 0.2);
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-bottom: 0 !important;
+}
+
+.statcard canvas {
+    margin-bottom: -10px;
+}
+
+.display-block {
+    display: block;
+}
+
+.statcard .display-block {
+    color: #444;
+}
+
+.statcard .display-block .p-a {
+    min-height: 167px;
+}
+
+
+.statcard .display-block:hover {
+    text-decoration: none;
+}
+
+.statcard .progress {
+    margin-bottom: 0;
+}
+
+.statcard .progress-bar {
+    background-color: #3FB83F;
+}

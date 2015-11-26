@@ -27,19 +27,6 @@ class Controller_Panel_Product extends Auth_CrudAjax {
     public $crud_actions = array('create','update');
 
 
-    function __construct(Request $request, Response $response)
-    {
-        parent::__construct($request, $response);
-        $this->_buttons_actions = array( 
-                                        array( 'url'   => Route::url('oc-panel', array('controller'=>'stats', 'action'=>'index','id'=>'')).'/' ,
-                                                'title' => __('Stats'),
-                                                'class' => 'btn btn-xs btn-succcess',
-                                                'icon'  => 'glyphicon glyphicon-align-left'
-                                                ),
-                                        );
-    }
-
-
 	/**
      * overwrites the default crud index
      * @param  string $view nothing since we don't use it

@@ -475,7 +475,7 @@ function __($msgid)
 
     </style>
         
-    <link href="//netdna.bootstrapcdn.com/bootswatch/3.3.0/yeti/bootstrap.min.css" rel="stylesheet">
+    <link href="//cdn.jsdelivr.net/bootswatch/3.3.6/yeti/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/chosen/1.1.0/chosen.min.css">
 
 </head>
