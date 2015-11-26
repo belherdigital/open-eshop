@@ -27,8 +27,8 @@ Theme::load();
 
 //local files
     $theme_css = array(
-                        '//netdna.bootstrapcdn.com/bootswatch/3.3.6/yeti/bootstrap.min.css' => 'screen',
-                        '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' => 'screen',
+                        '//cdn.jsdelivr.net/bootswatch/3.3.6/yeti/bootstrap.min.css' => 'screen',
+                        '//cdn.jsdelivr.net/fontawesome/4.5.0/css/font-awesome.min.css' => 'screen',
                         '//cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen',
                         '//cdn.jsdelivr.net/prettyphoto/3.1.5/css/prettyPhoto.css' => 'screen',
                         'css/style.css?v='.Core::VERSION => 'screen',
