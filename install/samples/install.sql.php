@@ -105,7 +105,7 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX').
 mysqli_query($link,"CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."config` ( 
   `group_name` VARCHAR(128)  NOT NULL, 
   `config_key` VARCHAR(128)  NOT NULL, 
-  `config_value` TEXT,
+  `config_value` LONGTEXT,
    PRIMARY KEY (`config_key`),
    UNIQUE KEY `".core::request('TABLE_PREFIX')."config_IK_group_name_AND_config_key` (`group_name`,`config_key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET')." ;");
@@ -117,7 +117,7 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX').
   `order` int(2) unsigned NOT NULL DEFAULT '0',
   `title` varchar(145) NOT NULL,
   `seotitle` varchar(145) NOT NULL,
-  `description` TEXT NULL,
+  `description` LONGTEXT NULL,
   `from_email` varchar(145) NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `type` enum('page','email','help') NOT NULL,
@@ -266,7 +266,7 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')
   `id_forum` int(10) unsigned NULL DEFAULT NULL,
   `title` varchar(245) NOT NULL,
   `seotitle` varchar(245) NOT NULL,
-  `description` text NOT NULL,
+  `description` longtext NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ip_address` bigint DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
@@ -405,6 +405,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('payment', 'stripe_private', ''),
 ('payment', 'stripe_public', ''),
 ('payment', 'stripe_address', '0'),
+('payment', 'stripe_alipay', '0'),
 ('payment', 'alternative', ''),
 ('payment', 'bitpay_apikey', ''),
 ('payment', 'authorize_sandbox', '0'),

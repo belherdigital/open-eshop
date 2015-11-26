@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Panel_Menu extends Auth_Crud {
+class Controller_Panel_Menu extends Auth_Controller {
 	
 
 

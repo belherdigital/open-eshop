@@ -12,22 +12,30 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
 
     public function action_210()
     {
-        //new configs
-        $configs = array();
         
-        Model_Config::config_array($configs);
-        
-        //new mails
-        $contents = array();
-        
-        Model_Content::content_array($contents);
-
         //add new order fields
         try 
         {
             DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."orders` ADD `amount_net`  DECIMAL(14,3) NOT NULL DEFAULT '0' AFTER `amount`;")->execute();
             DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."orders` ADD `gateway_fee` DECIMAL(14,3) NOT NULL DEFAULT '0' AFTER `amount_net`;")->execute();
             DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."orders` ADD `VAT_amount`  DECIMAL(14,3) NOT NULL DEFAULT '0' AFTER `VAT`;")->execute();
+        }catch (exception $e) {}
+
+        //make posts bigger description
+        try
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE `".self::$db_prefix."posts` CHANGE `description` `description` LONGTEXT;")->execute();
+        }catch (exception $e) {}
+
+        try
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE `".self::$db_prefix."content` CHANGE `description` `description` LONGTEXT;")->execute();
+        }catch (exception $e) {}
+
+        //bigger configs
+        try
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE `".self::$db_prefix."config` CHANGE `config_value` `config_value` LONGTEXT;")->execute();
         }catch (exception $e) {}
 
         //recalculate all the orders
@@ -65,6 +73,15 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
             }
 
         }
+
+        //new configs
+        $configs = array(
+                        array( 'config_key'     => 'stripe_alipay',
+                               'group_name'     => 'payment', 
+                               'config_value'   => '0'),
+                        );
+        
+        Model_Config::config_array($configs);        
     }
 
     public function action_200()

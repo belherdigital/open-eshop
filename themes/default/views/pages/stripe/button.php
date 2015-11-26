@@ -11,11 +11,9 @@
     <?endif?>
     data-amount="<?=StripeKO::money_format($order->amount)?>"
     data-currency="<?=$order->currency?>"
+    data-locale="auto"
     <?=(Core::config('payment.stripe_address')==TRUE)?'data-address = "TRUE"':''?>
+    <?=(Core::config('payment.stripe_alipay')==TRUE)?'data-alipay="true"':''?>
     >
   </script>
 </form>
-<?/*
-<button id="stripe_button" class="btn btn-success pay-btn"><?=__('Pay with Card')?></button>
-<form id="stripe_form" action="<?=Route::url('default',array('controller'=>'stripe','action'=>'pay','id'=>$product->seotitle))?>" method="post">
-</form>*/?>
