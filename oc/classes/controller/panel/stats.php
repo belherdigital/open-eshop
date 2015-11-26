@@ -10,44 +10,134 @@
  */
 class Controller_Panel_Stats extends Auth_Controller {
 
+    public function before($template = NULL)
+    {   
+        parent::before();
 
-    public function action_index()
-    {
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Stats'))->set_url(Route::url('oc-panel',array('controller'  => 'stats'))));
 
-        $this->template->title = __('Stats');
-        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats'))));
-
-        $this->template->styles = array('//cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css' => 'screen');
-        $this->template->scripts['footer'] = array('//cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js',
-                                                   '//cdn.jsdelivr.net/sorttable/2/sorttable.min.js',
+        $this->template->styles = array('css/datepicker.css' => 'screen');
+        $this->template->scripts['footer'] = array('js/bootstrap-datepicker.js',
                                                    'js/chart.min.js',
                                                    'js/chart.js-php.js',
                                                    'js/oc-panel/stats/dashboard.js');
-        
+    }
+
+    public function action_index()
+    {
+        $this->template->title = __('Stats');
+
         $this->template->bind('content', $content);        
         $content = View::factory('oc-panel/pages/stats/dashboard');
         $content->title = $this->template->title;
 
-        //stats by product
-        $content->product = NULL;
-        if ($this->request->param('id'))
-        {
-            $product = new Model_product();
-            $product->where('seotitle','=',$this->request->param('id'))
-                ->limit(1)->find();
-            if ($product->loaded())
-            {
-                $content->product = $product;
-                $this->template->title.=' '.$product->title;
-                $content->title.=' '.$product->title;
-                Breadcrumbs::add(Breadcrumb::factory()->set_title($product->title));
-            }
-        }
-        
+        // Getting the dates and range
+        $from_date = Core::post('from_date', Core::get('from_date', strtotime('-1 month')));
+        $to_date   = Core::post('to_date', Core::get('to_date', time()));
 
-        //Getting the dates and range
-        $from_date = Core::post('from_date',strtotime('-1 month'));
-        $to_date   = Core::post('to_date',time());
+        // We assure is a proper time stamp if not we transform it
+        if (is_string($from_date) === TRUE) 
+            $from_date = strtotime($from_date);
+        if (is_string($to_date) === TRUE) 
+            $to_date   = strtotime($to_date);
+
+        $from_datetime = new DateTime();
+        $to_datetime   = new DateTime();
+
+        // Dates displayed
+        $content->from_date              = date('Y-m-d', $from_date);
+        $content->to_date                = date('Y-m-d', $to_date);
+        $content->days_ago               = $from_datetime->setTimestamp($from_date)->diff($to_datetime->setTimestamp($to_date))->format("%a");
+
+        // Gross Revenue
+        $content->gross_revenue            = $this->gross_revenue_by_date($from_date, $to_date);
+        $content->gross_revenue_total      = $this->gross_revenue_total($from_date, $to_date);
+        $content->gross_revenue_total_past = $this->gross_revenue_total($from_date, $to_date, TRUE);
+
+        // Net Revenue
+        $content->net_revenue            = $this->net_revenue_by_date($from_date, $to_date);
+        $content->net_revenue_total      = $this->net_revenue_total($from_date, $to_date);
+        $content->net_revenue_total_past = $this->net_revenue_total($from_date, $to_date, TRUE);
+
+        // Fees
+        $content->fees            = $this->fees_by_date($from_date, $to_date);
+        $content->fees_total      = $this->fees_total($from_date, $to_date);
+        $content->fees_total_past = $this->fees_total($from_date, $to_date, TRUE);
+
+        // Paid Orders
+        $content->paid_orders            = $this->paid_orders_by_date($from_date, $to_date);
+        $content->paid_orders_total      = $this->paid_orders_total($from_date, $to_date);
+        $content->paid_orders_total_past = $this->paid_orders_total($from_date, $to_date, TRUE);
+
+        // Unpaid Orders
+        $content->unpaid_orders            = $this->unpaid_orders_by_date($from_date, $to_date);
+        $content->unpaid_orders_total      = $this->unpaid_orders_total($from_date, $to_date);
+        $content->unpaid_orders_total_past = $this->unpaid_orders_total($from_date, $to_date, TRUE);
+
+        // Visits
+        $content->visits            = $this->visits_by_date($from_date, $to_date);
+        $content->visits_total      = $this->visits_total($from_date, $to_date);
+        $content->visits_total_past = $this->visits_total($from_date, $to_date, TRUE);
+
+        // Downloads
+        $content->downloads            = $this->downloads_by_date($from_date, $to_date);
+        $content->downloads_total      = $this->downloads_total($from_date, $to_date);
+        $content->downloads_total_past = $this->downloads_total($from_date, $to_date, TRUE);
+
+        // Licenses
+        $content->licenses            = $this->licenses_by_date($from_date, $to_date);
+        $content->licenses_total      = $this->licenses_total($from_date, $to_date);
+        $content->licenses_total_past = $this->licenses_total($from_date, $to_date, TRUE);
+
+        // Tickets Opened
+        $content->tickets_opened            = $this->tickets_opened_by_date($from_date, $to_date);
+        $content->tickets_opened_total      = $this->tickets_opened_total($from_date, $to_date);
+        $content->tickets_opened_total_past = $this->tickets_opened_total($from_date, $to_date, TRUE);
+
+        // Tickets Answered
+        $content->tickets_answered            = $this->tickets_answered_by_date($from_date, $to_date);
+        $content->tickets_answered_total      = $this->tickets_answered_total($from_date, $to_date);
+        $content->tickets_answered_total_past = $this->tickets_answered_total($from_date, $to_date, TRUE);
+
+        // Tickets Closed
+        $content->tickets_closed            = $this->tickets_closed_by_date($from_date, $to_date);
+        $content->tickets_closed_total      = $this->tickets_closed_total($from_date, $to_date);
+        $content->tickets_closed_total_past = $this->tickets_closed_total($from_date, $to_date, TRUE);
+
+        $content->chart_config           = array('height'  => 94,
+                                                 'width'   => 378,
+                                                 'options' => array('animation'           => false,
+                                                                    'responsive'          => true,
+                                                                    'bezierCurve'         => true,
+                                                                    'bezierCurveTension'  => '.25',
+                                                                    'showScale'           => false,
+                                                                    'pointDotRadius'      => 0,
+                                                                    'pointDotStrokeWidth' => 0,
+                                                                    'pointDot'            => false,
+                                                                    'showTooltips'        => false));
+        $content->chart_colors           = array(array('fill'        => 'rgba(33,150,243,.1)',
+                                                       'stroke'      => 'rgba(33,150,243,.8)',
+                                                       'point'       => 'rgba(33,150,243,.8)',
+                                                       'pointStroke' => 'rgba(33,150,243,.8)'));
+
+    }
+
+    /**
+     * Gross Revenue Stats
+     * 
+     */
+    public function action_gross_revenue()
+    {
+        $this->template->title = __('Gross Revenue');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'gross_revenue'))));
+
+        $this->template->bind('content', $content);        
+        $content = View::factory('oc-panel/pages/stats/details');
+        $content->title = $this->template->title;
+
+        // Getting the dates and range
+        $from_date = Core::post('from_date', Core::get('from_date', strtotime('-1 month')));
+        $to_date   = Core::post('to_date', Core::get('to_date', time()));
 
         //we assure is a proper time stamp if not we transform it
         if (is_string($from_date) === TRUE) 
@@ -55,768 +145,1526 @@ class Controller_Panel_Stats extends Auth_Controller {
         if (is_string($to_date) === TRUE) 
             $to_date   = strtotime($to_date);
 
-        //mysql formated dates
-        $my_from_date = Date::unix2mysql($from_date);
-        $my_to_date   = Date::unix2mysql($to_date);
+        $from_datetime = new DateTime();
+        $to_datetime   = new DateTime();
 
-        //dates range we are filtering
-        $dates     = Date::range($from_date, $to_date,'+1 day','Y-m-d',array('date'=>0,'count'=> 0),'date');
-
-        //dates range we are filtering, 1 year back from the to date.
-        $dates_year     = Date::range(strtotime('-1 year',$from_date),$to_date,'+1 month','Y-m',array('date'=>0,'count'=> 0),'date');
-
-        //dates displayed in the form
-        $content->from_date = date('Y-m-d',$from_date);
-        $content->to_date   = date('Y-m-d',$to_date) ;
-
-
-        /////////////////////VISITS STATS////////////////////////////////
-
-        //visits created last XX days
-        $query = DB::select(DB::expr('DATE(created) date'))
-                        ->select(DB::expr('COUNT(id_visit) count'))
-                        ->from('visits')
-                        ->where('created','between',array($my_from_date,$my_to_date));
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query->group_by(DB::expr('DATE( created )'))
-                        ->order_by('date','asc')
-                        ->execute();
-
-        $visits = $query->as_array('date');
-
-
-        $stats_daily = array();
-        foreach ($dates as $date) 
-        {
-            $count_views = (isset($visits[$date['date']]['count']))?$visits[$date['date']]['count']:0;            
-            $stats_daily[] = array('date'=>$date['date'],'views'=> $count_views);
-        } 
-
-        $content->stats_daily =  $stats_daily;
-
-
-         //Today 
-        $query = DB::select(DB::expr('COUNT(id_visit) count'))
-                        ->from('visits')
-                        ->where(DB::expr('DATE( created )'),'=',date('Y-m-d'));
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query->group_by(DB::expr('DATE( created )'))
-                        ->order_by('created','asc')
-                        ->execute();
-
-        $ads = $query->as_array();
-        $content->visits_today     = (isset($ads[0]['count']))?$ads[0]['count']:0;
-
-         //Current month 
-        $query = DB::select(DB::expr('COUNT(id_visit) count'))
-                        ->from('visits')
-                        ->where(DB::expr('MONTH( created )'),'=',date('m'))
-                        ->where(DB::expr('YEAR( created )'),'=',date('Y'));
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
-                        ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
-                        ->order_by('created','asc')
-                        ->execute();
-
-        $ads = $query->as_array();
-        $content->visits_month     = (isset($ads[0]['count']))?$ads[0]['count']:0;
-
-        //Yesterday
-        $query = DB::select(DB::expr('COUNT(id_visit) count'))
-                        ->from('visits')
-                        ->where(DB::expr('DATE( created )'),'=',date('Y-m-d',strtotime('-1 day')));
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query->group_by(DB::expr('DATE( created )'))
-                        ->order_by('created','asc')
-                        ->execute();
-
-        $ads = $query->as_array();
-        $content->visits_yesterday= (isset($ads[0]['count']))?$ads[0]['count']:0;
-
-
-        //Current month 
-        $query = DB::select(DB::expr('COUNT(id_visit) count'))
-                        ->from('visits')
-                        ->where(DB::expr('YEAR( created )'),'=',date('Y'));
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query->group_by(DB::expr('YEAR(`created`)'))
-                        ->order_by(DB::expr('YEAR(`created`)'),'asc')
-                        ->order_by('created','asc')
-                        ->execute();
-
-        $ads = $query->as_array();
-        $content->visits_year     = (isset($ads[0]['count']))?$ads[0]['count']:0;
-
-
-        //total visits
-        $query = DB::select(DB::expr('COUNT(id_visit) count'))
-                        ->from('visits');
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query->execute();
-
-        $visits = $query->as_array();
-        $content->visits_total = (isset($visits[0]['count']))?$visits[0]['count']:0;
-
-
-
-        //visits by month 1 year from to_date
-        $query = DB::select(DB::expr('DATE_FORMAT(`created`, "%Y-%m") date'))
-                        ->select(DB::expr('COUNT(id_visit) count'))
-                        ->from('visits');
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-
-        $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
-                        ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
-                        ->execute();
-        $visits = $query->as_array('date');
-        $stats_by_month = array();
-
-        foreach ($dates_year as $date) 
-        {
-            $count_views = (isset($visits[$date['date']]['count']))?$visits[$date['date']]['count']:0;            
-            $stats_by_month[] = array('date'=>$date['date'],'views'=> $count_views);
-        } 
-
-        $content->stats_by_month =  $stats_by_month;
-
-        /////////////////////ORDERS STATS////////////////////////////////
-
-        //orders created last XX days
-        $query = DB::select(DB::expr('DATE(pay_date) date'))
-                        ->select(DB::expr('COUNT(id_order) count'))
-                        ->select(DB::expr('SUM(amount) total'))
-                        ->from('orders')
-                        ->where('pay_date','between',array($my_from_date,$my_to_date))
-                        ->where('status','=',Model_Order::STATUS_PAID);
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query
-                        ->group_by(DB::expr('DATE( pay_date )'))
-                        ->order_by('date','asc')
-                        ->execute();
-
-        $orders = $query->as_array('date');
-
-        $stats_orders = array();
-        foreach ($dates as $date) 
-        {
-            $count_orders = (isset($orders[$date['date']]['count']))?$orders[$date['date']]['count']:0;
-            $count_sum = (isset($orders[$date['date']]['total']))?$orders[$date['date']]['total']:0;
-            
-            $stats_orders[] = array('date'=>$date['date'],'#orders'=> $count_orders,'$'=>$count_sum);
-        } 
-        $content->stats_orders =  $stats_orders;
-
-
-         //Today 
-        $query = DB::select(DB::expr('COUNT(id_order) count'))
-                        ->select(DB::expr('SUM(amount) total'))
-                        ->from('orders')
-                        ->where(DB::expr('DATE( pay_date )'),'=',date('Y-m-d'))
-                        ->where('status','=',Model_Order::STATUS_PAID);
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query
-                        ->group_by(DB::expr('DATE( pay_date )'))
-                        ->order_by('pay_date','asc')
-                        ->execute();
-
-        $ads = $query->as_array();
-        $content->orders_today = (isset($ads[0]['count']))?$ads[0]['count']:0;
-        $content->amount_today = (isset($ads[0]['total']))?$ads[0]['total']:0;
-
-        //Yesterday
-        $query = DB::select(DB::expr('COUNT(id_order) count'))
-                        ->select(DB::expr('SUM(amount) total'))
-                        ->from('orders')
-                        ->where(DB::expr('DATE( pay_date )'),'=',date('Y-m-d',strtotime('-1 day')))
-                        ->where('status','=',Model_Order::STATUS_PAID);
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query
-                        ->group_by(DB::expr('DATE( pay_date )'))
-                        ->order_by('pay_date','asc')
-                        ->execute();
-
-        $ads = $query->as_array();
-        $content->orders_yesterday     = (isset($ads[0]['count']))?$ads[0]['count']:0;
-        $content->amount_yesterday     = (isset($ads[0]['total']))?$ads[0]['total']:0;
-
-
-        //current month
-        $query = DB::select(DB::expr('COUNT(id_order) count'))
-                        ->select(DB::expr('SUM(amount) total'))
-                        ->from('orders')
-                        ->where(DB::expr('MONTH( pay_date )'),'=',date('m'))
-                        ->where(DB::expr('YEAR( pay_date )'),'=',date('Y'))
-                        ->where('status','=',Model_Order::STATUS_PAID);
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query->group_by(DB::expr('YEAR(`pay_date`),MONTH(`pay_date`)'))
-                        ->order_by(DB::expr('YEAR(`pay_date`),MONTH(`pay_date`)'),'asc')
-                        ->order_by('pay_date','asc')
-                        ->execute();
-
-
-        $orders = $query->as_array();
-        $content->orders_month = (isset($orders[0]['count']))?$orders[0]['count']:0;
-        $content->amount_month = (isset($orders[0]['total']))?$orders[0]['total']:0;
-
-
-        //current year
-        $query = DB::select(DB::expr('COUNT(id_order) count'))
-                        ->select(DB::expr('SUM(amount) total'))
-                        ->from('orders')
-                        ->where(DB::expr('YEAR( pay_date )'),'=',date('Y-m-d'))
-                        ->where('status','=',Model_Order::STATUS_PAID);
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query->group_by(DB::expr('YEAR(`pay_date`)'))
-                        ->order_by(DB::expr('YEAR(`pay_date`)'),'asc')
-                        ->order_by('pay_date','asc')
-                        ->execute();
-
-
-        $orders = $query->as_array();
-        $content->orders_year = (isset($orders[0]['count']))?$orders[0]['count']:0;
-        $content->amount_year= (isset($orders[0]['total']))?$orders[0]['total']:0;
-
-        //total orders
-        $query = DB::select(DB::expr('COUNT(id_order) count'))
-                        ->select(DB::expr('SUM(amount) total'))
-                        ->from('orders')
-                        ->where('status','=',Model_Order::STATUS_PAID);
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query
-                        ->execute();
-
-        $orders = $query->as_array();
-        $content->orders_total = (isset($orders[0]['count']))?$orders[0]['count']:0;
-        $content->amount_total = (isset($orders[0]['total']))?$orders[0]['total']:0;
-
-
-
-        //orders per month
-        $query = DB::select(DB::expr('DATE_FORMAT(`pay_date`, "%Y-%m") date'))
-                        ->select(DB::expr('COUNT(id_order) count'))
-                        ->select(DB::expr('SUM(amount) total'))
-                        ->from('orders')
-                        ->where('status','=',Model_Order::STATUS_PAID);
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query->group_by(DB::expr('YEAR(`pay_date`),MONTH(`pay_date`)'))
-                        ->order_by(DB::expr('YEAR(`pay_date`),MONTH(`pay_date`)'),'asc')
-                        ->execute();
-
-        $orders = $query->as_array('date');
-
-        $stats_orders_by_month = array();
-        foreach ($dates_year as $date) 
-        {
-            $count_orders = (isset($orders[$date['date']]['count']))?$orders[$date['date']]['count']:0;
-            $count_sum = (isset($orders[$date['date']]['total']))?$orders[$date['date']]['total']:0;
-            
-            $stats_orders_by_month[] = array('date'=>$date['date'],'#orders'=> $count_orders,'$'=>$count_sum);
-        } 
-        $content->stats_orders_by_month =  $stats_orders_by_month;
-
-        //////////////////////////GROUP BY PRODUCT TOTAL///////////////////
-        //visits
-        $query = DB::select(DB::expr('COUNT(id_visit) count'))
-                        ->select('id_product')
-                        ->from('visits')
-                        ->where('id_product','is not',NULL)
-                        ->where('created','between',array($my_from_date,$my_to_date))
-                        ->group_by('id_product')
-                        ->order_by('count','desc')
-                        ->execute();
-        $content->visits_product = $query->as_array('id_product');
-
-        //orders
-        $query = DB::select('id_product')
-                        ->select(DB::expr('COUNT(id_order) count'))
-                        ->select(DB::expr('SUM(amount) total'))
-                        ->from('orders')
-                        ->where('status','=',Model_Order::STATUS_PAID)
-                        ->where('pay_date','between',array($my_from_date,$my_to_date))
-                        ->group_by('id_product')
-                        ->order_by('total','desc')
-                        ->execute();
-        $content->orders_product = $query->as_array('id_product');
-
-        //downloads
-        $query = DB::select('id_product')
-                        ->select(DB::expr('COUNT(id_product) count'))                      
-                        ->from(array('orders','o'))
-                        ->join(array('downloads','d'))
-                        ->using('id_order')
-                        ->where('d.created','between',array($my_from_date,$my_to_date))
-                        ->group_by('id_product')
-                        ->order_by('count','desc')
-                        ->execute();
-        $content->downloads_product = $query->as_array('id_product');
-
-        //licenses
-        $query = DB::select('id_product')
-                        ->select(DB::expr('COUNT(id_license) count'))
-                        ->from('licenses')
-                        ->where('status','=',Model_License::STATUS_ACTIVE)
-                        ->where('created','between',array($my_from_date,$my_to_date))
-                        ->group_by('id_product')
-                        ->order_by('count','desc')
-                        ->execute();
-        $content->licenses_product = $query->as_array('id_product');
-
-        //tickets closed
-        $query = DB::select('id_product')
-                        ->select(DB::expr('COUNT(id_ticket) count'))
-                        ->from('tickets')
-                        ->where('status','=',Model_Ticket::STATUS_CLOSED)
-                        ->where('id_ticket_parent','=',NULL)
-                        ->where('created','between',array($my_from_date,$my_to_date))
-                        ->group_by('id_product')
-                        ->order_by('count','desc')
-                        ->execute();
-
-        $content->tickets_closed_product = $query->as_array('id_product');
-
-        //tickets open
-        $query = DB::select('id_product')
-                        ->select(DB::expr('COUNT(id_ticket) count'))
-                        ->from('tickets')
-                        ->where('id_ticket_parent','=',NULL)
-                        ->where('created','between',array($my_from_date,$my_to_date))
-                        ->group_by('id_product')
-                        ->order_by('count','desc')
-                        ->execute();
-
-        $content->tickets_open_product = $query->as_array('id_product');
-
+        //all  products
         $products = new Model_Product();
-        $content->products = $products->find_all();
+        $products = $products->cached()->find_all();
 
-        //for the graphic
-        $products_total = array();
-        foreach ($content->products as $p) 
-            $products_total[] = array('label'=>$p->title,'value'=>(isset($content->orders_product[$p->id_product]))?round($content->orders_product[$p->id_product]['total'],2):0);
-        
-        $content->products_total = $products_total;
+        // Dates displayed
+        $content->from_date                    = date('Y-m-d', $from_date);
+        $content->to_date                      = date('Y-m-d', $to_date);
+        $content->days_ago                     = $from_datetime->setTimestamp($from_date)->diff($to_datetime->setTimestamp($to_date))->format("%a");
 
-        //////////////////////////DOWNLOADS STATS///////////////////
+        if (Core::get('compare_products') == 1)
+        {
+            foreach ($products as $product)
+            {
+                $products_data[] = $this->gross_revenue_by_date($from_date, $to_date, $product);
+            }
 
-        //downloads created last XX days
+            $content->current_by_date = $this->merge_products_array($products_data);
+        }
+        else {
+            $content->current_by_date = $this->gross_revenue_by_date($from_date, $to_date);
+        }
+
+        $content->current_total                = $this->gross_revenue_total($from_date, $to_date);
+        $content->past_total                   = $this->gross_revenue_total($from_date, $to_date, TRUE);
+
+        $content->month_ago_total              = $this->gross_revenue_total(strtotime('-1 months'), time());
+        $content->past_month_ago_total         = $this->gross_revenue_total(strtotime('-1 months'), time(), TRUE);
+
+        $content->three_months_ago_total       = $this->gross_revenue_total(strtotime('-3 months'), time());
+        $content->past_three_months_ago_total  = $this->gross_revenue_total(strtotime('-3 months'), time(), TRUE);
+
+        $content->six_months_ago_total         = $this->gross_revenue_total(strtotime('-6 months'), time());
+        $content->past_six_months_ago_total    = $this->gross_revenue_total(strtotime('-6 months'), time(), TRUE);
+
+        $content->twelve_months_ago_total      = $this->gross_revenue_total(strtotime('-12 months'), time());
+        $content->twelve_six_months_ago_total  = $this->gross_revenue_total(strtotime('-12 months'), time(), TRUE);
+
+        foreach ($products as $product)
+        {
+            $products_data[$product->id_product]['total'] = $this->gross_revenue_total($from_date, $to_date, FALSE, $product->id_product);
+            $products_data[$product->id_product]['customers'] = $this->paid_orders_by_product($product->id_product, $from_date, $to_date);
+        }
+
+        $content->products      = $products;
+        $content->products_data = $products_data;
+    }
+
+    /**
+     * Net Revenue Stats
+     * 
+     */
+    public function action_net_revenue()
+    {
+        $this->template->title = __('Net Revenue');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'net_revenue'))));
+
+        $this->template->bind('content', $content);        
+        $content = View::factory('oc-panel/pages/stats/details');
+        $content->title = $this->template->title;
+
+        // Getting the dates and range
+        $from_date = Core::post('from_date', Core::get('from_date', strtotime('-1 month')));
+        $to_date   = Core::post('to_date', Core::get('to_date', time()));
+
+        //we assure is a proper time stamp if not we transform it
+        if (is_string($from_date) === TRUE) 
+            $from_date = strtotime($from_date);
+        if (is_string($to_date) === TRUE) 
+            $to_date   = strtotime($to_date);
+
+        $from_datetime = new DateTime();
+        $to_datetime   = new DateTime();
+
+        //all  products
+        $products = new Model_Product();
+        $products = $products->cached()->find_all();
+
+        // Dates displayed
+        $content->from_date                    = date('Y-m-d', $from_date);
+        $content->to_date                      = date('Y-m-d', $to_date);
+        $content->days_ago                     = $from_datetime->setTimestamp($from_date)->diff($to_datetime->setTimestamp($to_date))->format("%a");
+
+        if (Core::get('compare_products') == 1)
+        {
+            foreach ($products as $product)
+            {
+                $products_data[] = $this->net_revenue_by_date($from_date, $to_date, $product);
+            }
+
+            $content->current_by_date = $this->merge_products_array($products_data);
+        }
+        else {
+            $content->current_by_date = $this->net_revenue_by_date($from_date, $to_date);
+        }
+
+        $content->current_total                = $this->net_revenue_total($from_date, $to_date);
+        $content->past_total                   = $this->net_revenue_total($from_date, $to_date, TRUE);
+
+        $content->month_ago_total              = $this->net_revenue_total(strtotime('-1 months'), time());
+        $content->past_month_ago_total         = $this->net_revenue_total(strtotime('-1 months'), time(), TRUE);
+
+        $content->three_months_ago_total       = $this->net_revenue_total(strtotime('-3 months'), time());
+        $content->past_three_months_ago_total  = $this->net_revenue_total(strtotime('-3 months'), time(), TRUE);
+
+        $content->six_months_ago_total         = $this->net_revenue_total(strtotime('-6 months'), time());
+        $content->past_six_months_ago_total    = $this->net_revenue_total(strtotime('-6 months'), time(), TRUE);
+
+        $content->twelve_months_ago_total      = $this->net_revenue_total(strtotime('-12 months'), time());
+        $content->twelve_six_months_ago_total  = $this->net_revenue_total(strtotime('-12 months'), time(), TRUE);
+
+        foreach ($products as $product)
+        {
+            $products_data[$product->id_product]['total'] = $this->net_revenue_total($from_date, $to_date, FALSE, $product->id_product);
+            $products_data[$product->id_product]['customers'] = $this->paid_orders_by_product($product->id_product, $from_date, $to_date);
+        }
+
+        $content->products      = $products;
+        $content->products_data = $products_data;
+    }
+
+    /**
+     * Fees Stats
+     * 
+     */
+    public function action_fees()
+    {
+        $this->template->title = __('Fees');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'fees'))));
+
+        $this->template->bind('content', $content);        
+        $content = View::factory('oc-panel/pages/stats/details');
+        $content->title = $this->template->title;
+
+        // Getting the dates and range
+        $from_date = Core::post('from_date', Core::get('from_date', strtotime('-1 month')));
+        $to_date   = Core::post('to_date', Core::get('to_date', time()));
+
+        //we assure is a proper time stamp if not we transform it
+        if (is_string($from_date) === TRUE) 
+            $from_date = strtotime($from_date);
+        if (is_string($to_date) === TRUE) 
+            $to_date   = strtotime($to_date);
+
+        $from_datetime = new DateTime();
+        $to_datetime   = new DateTime();
+
+        //all  products
+        $products = new Model_Product();
+        $products = $products->cached()->find_all();
+
+        // Dates displayed
+        $content->from_date                    = date('Y-m-d', $from_date);
+        $content->to_date                      = date('Y-m-d', $to_date);
+        $content->days_ago                     = $from_datetime->setTimestamp($from_date)->diff($to_datetime->setTimestamp($to_date))->format("%a");
+
+        if (Core::get('compare_products') == 1)
+        {
+            foreach ($products as $product)
+            {
+                $products_data[] = $this->fees_by_date($from_date, $to_date, $product);
+            }
+
+            $content->current_by_date = $this->merge_products_array($products_data);
+        }
+        else {
+            $content->current_by_date = $this->fees_by_date($from_date, $to_date);
+        }
+
+        $content->current_total                = $this->fees_total($from_date, $to_date);
+        $content->past_total                   = $this->fees_total($from_date, $to_date, TRUE);
+
+        $content->month_ago_total              = $this->fees_total(strtotime('-1 months'), time());
+        $content->past_month_ago_total         = $this->fees_total(strtotime('-1 months'), time(), TRUE);
+
+        $content->three_months_ago_total       = $this->fees_total(strtotime('-3 months'), time());
+        $content->past_three_months_ago_total  = $this->fees_total(strtotime('-3 months'), time(), TRUE);
+
+        $content->six_months_ago_total         = $this->fees_total(strtotime('-6 months'), time());
+        $content->past_six_months_ago_total    = $this->fees_total(strtotime('-6 months'), time(), TRUE);
+
+        $content->twelve_months_ago_total      = $this->fees_total(strtotime('-12 months'), time());
+        $content->twelve_six_months_ago_total  = $this->fees_total(strtotime('-12 months'), time(), TRUE);
+
+        foreach ($products as $product)
+        {
+            $products_data[$product->id_product]['total'] = $this->fees_total($from_date, $to_date, FALSE, $product->id_product);
+            $products_data[$product->id_product]['customers'] = $this->paid_orders_by_product($product->id_product, $from_date, $to_date);
+        }
+
+        $content->products      = $products;
+        $content->products_data = $products_data;
+    }
+
+    /**
+     * Paid Orders Stats
+     * 
+     */
+    public function action_paid_orders()
+    {
+        $this->template->title = __('Paid Orders');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'paid_orders'))));
+
+        $this->template->bind('content', $content);        
+        $content = View::factory('oc-panel/pages/stats/details');
+        $content->title = $this->template->title;
+
+        // Getting the dates and range
+        $from_date = Core::post('from_date', Core::get('from_date', strtotime('-1 month')));
+        $to_date   = Core::post('to_date', Core::get('to_date', time()));
+
+        //we assure is a proper time stamp if not we transform it
+        if (is_string($from_date) === TRUE) 
+            $from_date = strtotime($from_date);
+        if (is_string($to_date) === TRUE) 
+            $to_date   = strtotime($to_date);
+
+        $from_datetime = new DateTime();
+        $to_datetime   = new DateTime();
+
+        //all  products
+        $products = new Model_Product();
+        $products = $products->cached()->find_all();
+
+        // Dates displayed
+        $content->from_date                    = date('Y-m-d', $from_date);
+        $content->to_date                      = date('Y-m-d', $to_date);
+        $content->days_ago                     = $from_datetime->setTimestamp($from_date)->diff($to_datetime->setTimestamp($to_date))->format("%a");
+
+        if (Core::get('compare_products') == 1)
+        {
+            foreach ($products as $product)
+            {
+                $products_data[] = $this->paid_orders_by_date($from_date, $to_date, $product);
+            }
+
+            $content->current_by_date = $this->merge_products_array($products_data);
+        }
+        else {
+            $content->current_by_date = $this->paid_orders_by_date($from_date, $to_date);
+        }
+
+        $content->current_total                = $this->paid_orders_total($from_date, $to_date);
+        $content->past_total                   = $this->paid_orders_total($from_date, $to_date, TRUE);
+
+        $content->month_ago_total              = $this->paid_orders_total(strtotime('-1 months'), time());
+        $content->past_month_ago_total         = $this->paid_orders_total(strtotime('-1 months'), time(), TRUE);
+
+        $content->three_months_ago_total       = $this->paid_orders_total(strtotime('-3 months'), time());
+        $content->past_three_months_ago_total  = $this->paid_orders_total(strtotime('-3 months'), time(), TRUE);
+
+        $content->six_months_ago_total         = $this->paid_orders_total(strtotime('-6 months'), time());
+        $content->past_six_months_ago_total    = $this->paid_orders_total(strtotime('-6 months'), time(), TRUE);
+
+        $content->twelve_months_ago_total      = $this->paid_orders_total(strtotime('-12 months'), time());
+        $content->twelve_six_months_ago_total  = $this->paid_orders_total(strtotime('-12 months'), time(), TRUE);
+
+        foreach ($products as $product)
+        {
+            $products_data[$product->id_product]['total'] = $this->paid_orders_total($from_date, $to_date, FALSE, $product->id_product);
+            $products_data[$product->id_product]['customers'] = $this->paid_orders_by_product($product->id_product, $from_date, $to_date);
+        }
+
+        $content->products      = $products;
+        $content->products_data = $products_data;
+    }
+
+    /**
+     * Unpaid Orders Stats
+     * 
+     */
+    public function action_unpaid_orders()
+    {
+        $this->template->title = __('Unpaid Orders');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'unpaid_orders'))));
+
+        $this->template->bind('content', $content);        
+        $content = View::factory('oc-panel/pages/stats/details');
+        $content->title = $this->template->title;
+
+        // Getting the dates and range
+        $from_date = Core::post('from_date', Core::get('from_date', strtotime('-1 month')));
+        $to_date   = Core::post('to_date', Core::get('to_date', time()));
+
+        //we assure is a proper time stamp if not we transform it
+        if (is_string($from_date) === TRUE) 
+            $from_date = strtotime($from_date);
+        if (is_string($to_date) === TRUE) 
+            $to_date   = strtotime($to_date);
+
+        $from_datetime = new DateTime();
+        $to_datetime   = new DateTime();
+
+        //all  products
+        $products = new Model_Product();
+        $products = $products->cached()->find_all();
+
+        // Dates displayed
+        $content->from_date                    = date('Y-m-d', $from_date);
+        $content->to_date                      = date('Y-m-d', $to_date);
+        $content->days_ago                     = $from_datetime->setTimestamp($from_date)->diff($to_datetime->setTimestamp($to_date))->format("%a");
+
+        if (Core::get('compare_products') == 1)
+        {
+            foreach ($products as $product)
+            {
+                $products_data[] = $this->unpaid_orders_by_date($from_date, $to_date, $product);
+            }
+
+            $content->current_by_date = $this->merge_products_array($products_data);
+        }
+        else {
+            $content->current_by_date = $this->unpaid_orders_by_date($from_date, $to_date);
+        }
+
+        $content->current_total                = $this->unpaid_orders_total($from_date, $to_date);
+        $content->past_total                   = $this->unpaid_orders_total($from_date, $to_date, TRUE);
+
+        $content->month_ago_total              = $this->unpaid_orders_total(strtotime('-1 months'), time());
+        $content->past_month_ago_total         = $this->unpaid_orders_total(strtotime('-1 months'), time(), TRUE);
+
+        $content->three_months_ago_total       = $this->unpaid_orders_total(strtotime('-3 months'), time());
+        $content->past_three_months_ago_total  = $this->unpaid_orders_total(strtotime('-3 months'), time(), TRUE);
+
+        $content->six_months_ago_total         = $this->unpaid_orders_total(strtotime('-6 months'), time());
+        $content->past_six_months_ago_total    = $this->unpaid_orders_total(strtotime('-6 months'), time(), TRUE);
+
+        $content->twelve_months_ago_total      = $this->unpaid_orders_total(strtotime('-12 months'), time());
+        $content->twelve_six_months_ago_total  = $this->unpaid_orders_total(strtotime('-12 months'), time(), TRUE);
+
+        foreach ($products as $product)
+        {
+            $products_data[$product->id_product]['total'] = $this->unpaid_orders_total($from_date, $to_date, FALSE, $product->id_product);
+            $products_data[$product->id_product]['customers'] = $this->paid_orders_by_product($product->id_product, $from_date, $to_date);
+        }
+
+        $content->products      = $products;
+        $content->products_data = $products_data;
+    }
+
+    /**
+     * Visits
+     * 
+     */
+    public function action_visits()
+    {
+        $this->template->title = __('Visits');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'visits'))));
+
+        $this->template->bind('content', $content);        
+        $content = View::factory('oc-panel/pages/stats/details');
+        $content->title = $this->template->title;
+
+        // Getting the dates and range
+        $from_date = Core::post('from_date', Core::get('from_date', strtotime('-1 month')));
+        $to_date   = Core::post('to_date', Core::get('to_date', time()));
+
+        //we assure is a proper time stamp if not we transform it
+        if (is_string($from_date) === TRUE) 
+            $from_date = strtotime($from_date);
+        if (is_string($to_date) === TRUE) 
+            $to_date   = strtotime($to_date);
+
+        $from_datetime = new DateTime();
+        $to_datetime   = new DateTime();
+
+        //all  products
+        $products = new Model_Product();
+        $products = $products->cached()->find_all();
+
+        // Dates displayed
+        $content->from_date                    = date('Y-m-d', $from_date);
+        $content->to_date                      = date('Y-m-d', $to_date);
+        $content->days_ago                     = $from_datetime->setTimestamp($from_date)->diff($to_datetime->setTimestamp($to_date))->format("%a");
+
+        if (Core::get('compare_products') == 1)
+        {
+            foreach ($products as $product)
+            {
+                $products_data[] = $this->visits_by_date($from_date, $to_date, $product);
+            }
+
+            $content->current_by_date = $this->merge_products_array($products_data);
+        }
+        else {
+            $content->current_by_date = $this->visits_by_date($from_date, $to_date);
+        }
+
+        $content->current_total                = $this->visits_total($from_date, $to_date);
+        $content->past_total                   = $this->visits_total($from_date, $to_date, TRUE);
+
+        $content->month_ago_total              = $this->visits_total(strtotime('-1 months'), time());
+        $content->past_month_ago_total         = $this->visits_total(strtotime('-1 months'), time(), TRUE);
+
+        $content->three_months_ago_total       = $this->visits_total(strtotime('-3 months'), time());
+        $content->past_three_months_ago_total  = $this->visits_total(strtotime('-3 months'), time(), TRUE);
+
+        $content->six_months_ago_total         = $this->visits_total(strtotime('-6 months'), time());
+        $content->past_six_months_ago_total    = $this->visits_total(strtotime('-6 months'), time(), TRUE);
+
+        $content->twelve_months_ago_total      = $this->visits_total(strtotime('-12 months'), time());
+        $content->twelve_six_months_ago_total  = $this->visits_total(strtotime('-12 months'), time(), TRUE);
+
+        foreach ($products as $product)
+        {
+            $products_data[$product->id_product]['total'] = $this->visits_total($from_date, $to_date, FALSE, $product->id_product);
+            $products_data[$product->id_product]['customers'] = $this->paid_orders_by_product($product->id_product, $from_date, $to_date);
+        }
+
+        $content->products      = $products;
+        $content->products_data = $products_data;
+    }
+
+    /**
+     * Visits
+     * 
+     */
+    public function action_licenses()
+    {
+        $this->template->title = __('Licenses');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'licenses'))));
+
+        $this->template->bind('content', $content);        
+        $content = View::factory('oc-panel/pages/stats/details');
+        $content->title = $this->template->title;
+
+        // Getting the dates and range
+        $from_date = Core::post('from_date', Core::get('from_date', strtotime('-1 month')));
+        $to_date   = Core::post('to_date', Core::get('to_date', time()));
+
+        //we assure is a proper time stamp if not we transform it
+        if (is_string($from_date) === TRUE) 
+            $from_date = strtotime($from_date);
+        if (is_string($to_date) === TRUE) 
+            $to_date   = strtotime($to_date);
+
+        $from_datetime = new DateTime();
+        $to_datetime   = new DateTime();
+
+        //all  products
+        $products = new Model_Product();
+        $products = $products->cached()->find_all();
+
+        // Dates displayed
+        $content->from_date                    = date('Y-m-d', $from_date);
+        $content->to_date                      = date('Y-m-d', $to_date);
+        $content->days_ago                     = $from_datetime->setTimestamp($from_date)->diff($to_datetime->setTimestamp($to_date))->format("%a");
+
+        if (Core::get('compare_products') == 1)
+        {
+            foreach ($products as $product)
+            {
+                $products_data[] = $this->licenses_by_date($from_date, $to_date, $product);
+            }
+
+            $content->current_by_date = $this->merge_products_array($products_data);
+        }
+        else {
+            $content->current_by_date = $this->licenses_by_date($from_date, $to_date);
+        }
+
+        $content->current_total                = $this->licenses_total($from_date, $to_date);
+        $content->past_total                   = $this->licenses_total($from_date, $to_date, TRUE);
+
+        $content->month_ago_total              = $this->licenses_total(strtotime('-1 months'), time());
+        $content->past_month_ago_total         = $this->licenses_total(strtotime('-1 months'), time(), TRUE);
+
+        $content->three_months_ago_total       = $this->licenses_total(strtotime('-3 months'), time());
+        $content->past_three_months_ago_total  = $this->licenses_total(strtotime('-3 months'), time(), TRUE);
+
+        $content->six_months_ago_total         = $this->licenses_total(strtotime('-6 months'), time());
+        $content->past_six_months_ago_total    = $this->licenses_total(strtotime('-6 months'), time(), TRUE);
+
+        $content->twelve_months_ago_total      = $this->licenses_total(strtotime('-12 months'), time());
+        $content->twelve_six_months_ago_total  = $this->licenses_total(strtotime('-12 months'), time(), TRUE);
+
+        foreach ($products as $product)
+        {
+            $products_data[$product->id_product]['total'] = $this->licenses_total($from_date, $to_date, FALSE, $product->id_product);
+            $products_data[$product->id_product]['customers'] = $this->paid_orders_by_product($product->id_product, $from_date, $to_date);
+        }
+
+        $content->products      = $products;
+        $content->products_data = $products_data;
+    }
+
+    /**
+     * Downloads
+     * 
+     */
+    public function action_downloads()
+    {
+        $this->template->title = __('Downloads');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'downloads'))));
+
+        $this->template->bind('content', $content);        
+        $content = View::factory('oc-panel/pages/stats/details');
+        $content->title = $this->template->title;
+
+        // Getting the dates and range
+        $from_date = Core::post('from_date', Core::get('from_date', strtotime('-1 month')));
+        $to_date   = Core::post('to_date', Core::get('to_date', time()));
+
+        //we assure is a proper time stamp if not we transform it
+        if (is_string($from_date) === TRUE) 
+            $from_date = strtotime($from_date);
+        if (is_string($to_date) === TRUE) 
+            $to_date   = strtotime($to_date);
+
+        $from_datetime = new DateTime();
+        $to_datetime   = new DateTime();
+
+        //all  products
+        $products = new Model_Product();
+        $products = $products->cached()->find_all();
+
+        // Dates displayed
+        $content->from_date                    = date('Y-m-d', $from_date);
+        $content->to_date                      = date('Y-m-d', $to_date);
+        $content->days_ago                     = $from_datetime->setTimestamp($from_date)->diff($to_datetime->setTimestamp($to_date))->format("%a");
+
+        $content->current_by_date = $this->downloads_by_date($from_date, $to_date);
+
+        $content->current_total                = $this->downloads_total($from_date, $to_date);
+        $content->past_total                   = $this->downloads_total($from_date, $to_date, TRUE);
+
+        $content->month_ago_total              = $this->downloads_total(strtotime('-1 months'), time());
+        $content->past_month_ago_total         = $this->downloads_total(strtotime('-1 months'), time(), TRUE);
+
+        $content->three_months_ago_total       = $this->downloads_total(strtotime('-3 months'), time());
+        $content->past_three_months_ago_total  = $this->downloads_total(strtotime('-3 months'), time(), TRUE);
+
+        $content->six_months_ago_total         = $this->downloads_total(strtotime('-6 months'), time());
+        $content->past_six_months_ago_total    = $this->downloads_total(strtotime('-6 months'), time(), TRUE);
+
+        $content->twelve_months_ago_total      = $this->downloads_total(strtotime('-12 months'), time());
+        $content->twelve_six_months_ago_total  = $this->downloads_total(strtotime('-12 months'), time(), TRUE);
+
+    }
+
+    /**
+     * Tickets Opened
+     * 
+     */
+    public function action_tickets_opened()
+    {
+        $this->template->title = __('Tickets Opened');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'tickets_opened'))));
+
+        $this->template->bind('content', $content);        
+        $content = View::factory('oc-panel/pages/stats/details');
+        $content->title = $this->template->title;
+
+        // Getting the dates and range
+        $from_date = Core::post('from_date', Core::get('from_date', strtotime('-1 month')));
+        $to_date   = Core::post('to_date', Core::get('to_date', time()));
+
+        //we assure is a proper time stamp if not we transform it
+        if (is_string($from_date) === TRUE) 
+            $from_date = strtotime($from_date);
+        if (is_string($to_date) === TRUE) 
+            $to_date   = strtotime($to_date);
+
+        $from_datetime = new DateTime();
+        $to_datetime   = new DateTime();
+
+        //all  products
+        $products = new Model_Product();
+        $products = $products->cached()->find_all();
+
+        // Dates displayed
+        $content->from_date                    = date('Y-m-d', $from_date);
+        $content->to_date                      = date('Y-m-d', $to_date);
+        $content->days_ago                     = $from_datetime->setTimestamp($from_date)->diff($to_datetime->setTimestamp($to_date))->format("%a");
+
+        $content->current_by_date = $this->tickets_opened_by_date($from_date, $to_date);
+
+        $content->current_total                = $this->tickets_opened_total($from_date, $to_date);
+        $content->past_total                   = $this->tickets_opened_total($from_date, $to_date, TRUE);
+
+        $content->month_ago_total              = $this->tickets_opened_total(strtotime('-1 months'), time());
+        $content->past_month_ago_total         = $this->tickets_opened_total(strtotime('-1 months'), time(), TRUE);
+
+        $content->three_months_ago_total       = $this->tickets_opened_total(strtotime('-3 months'), time());
+        $content->past_three_months_ago_total  = $this->tickets_opened_total(strtotime('-3 months'), time(), TRUE);
+
+        $content->six_months_ago_total         = $this->tickets_opened_total(strtotime('-6 months'), time());
+        $content->past_six_months_ago_total    = $this->tickets_opened_total(strtotime('-6 months'), time(), TRUE);
+
+        $content->twelve_months_ago_total      = $this->tickets_opened_total(strtotime('-12 months'), time());
+        $content->twelve_six_months_ago_total  = $this->tickets_opened_total(strtotime('-12 months'), time(), TRUE);
+
+    }
+
+    /**
+     * Tickets Answered
+     * 
+     */
+    public function action_tickets_answered()
+    {
+        $this->template->title = __('Tickets Answered');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'tickets_answered'))));
+
+        $this->template->bind('content', $content);        
+        $content = View::factory('oc-panel/pages/stats/details');
+        $content->title = $this->template->title;
+
+        // Getting the dates and range
+        $from_date = Core::post('from_date', Core::get('from_date', strtotime('-1 month')));
+        $to_date   = Core::post('to_date', Core::get('to_date', time()));
+
+        //we assure is a proper time stamp if not we transform it
+        if (is_string($from_date) === TRUE) 
+            $from_date = strtotime($from_date);
+        if (is_string($to_date) === TRUE) 
+            $to_date   = strtotime($to_date);
+
+        $from_datetime = new DateTime();
+        $to_datetime   = new DateTime();
+
+        //all  products
+        $products = new Model_Product();
+        $products = $products->cached()->find_all();
+
+        // Dates displayed
+        $content->from_date                    = date('Y-m-d', $from_date);
+        $content->to_date                      = date('Y-m-d', $to_date);
+        $content->days_ago                     = $from_datetime->setTimestamp($from_date)->diff($to_datetime->setTimestamp($to_date))->format("%a");
+
+        $content->current_by_date = $this->tickets_answered_by_date($from_date, $to_date);
+
+        $content->current_total                = $this->tickets_answered_total($from_date, $to_date);
+        $content->past_total                   = $this->tickets_answered_total($from_date, $to_date, TRUE);
+
+        $content->month_ago_total              = $this->tickets_answered_total(strtotime('-1 months'), time());
+        $content->past_month_ago_total         = $this->tickets_answered_total(strtotime('-1 months'), time(), TRUE);
+
+        $content->three_months_ago_total       = $this->tickets_answered_total(strtotime('-3 months'), time());
+        $content->past_three_months_ago_total  = $this->tickets_answered_total(strtotime('-3 months'), time(), TRUE);
+
+        $content->six_months_ago_total         = $this->tickets_answered_total(strtotime('-6 months'), time());
+        $content->past_six_months_ago_total    = $this->tickets_answered_total(strtotime('-6 months'), time(), TRUE);
+
+        $content->twelve_months_ago_total      = $this->tickets_answered_total(strtotime('-12 months'), time());
+        $content->twelve_six_months_ago_total  = $this->tickets_answered_total(strtotime('-12 months'), time(), TRUE);
+
+    }
+
+    /**
+     * Tickets Closed
+     * 
+     */
+    public function action_tickets_closed()
+    {
+        $this->template->title = __('Tickets Closed');
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'tickets_closed'))));
+
+        $this->template->bind('content', $content);        
+        $content = View::factory('oc-panel/pages/stats/details');
+        $content->title = $this->template->title;
+
+        // Getting the dates and range
+        $from_date = Core::post('from_date', Core::get('from_date', strtotime('-1 month')));
+        $to_date   = Core::post('to_date', Core::get('to_date', time()));
+
+        //we assure is a proper time stamp if not we transform it
+        if (is_string($from_date) === TRUE) 
+            $from_date = strtotime($from_date);
+        if (is_string($to_date) === TRUE) 
+            $to_date   = strtotime($to_date);
+
+        $from_datetime = new DateTime();
+        $to_datetime   = new DateTime();
+
+        //all  products
+        $products = new Model_Product();
+        $products = $products->cached()->find_all();
+
+        // Dates displayed
+        $content->from_date                    = date('Y-m-d', $from_date);
+        $content->to_date                      = date('Y-m-d', $to_date);
+        $content->days_ago                     = $from_datetime->setTimestamp($from_date)->diff($to_datetime->setTimestamp($to_date))->format("%a");
+
+        $content->current_by_date = $this->tickets_closed_by_date($from_date, $to_date);
+
+        $content->current_total                = $this->tickets_closed_total($from_date, $to_date);
+        $content->past_total                   = $this->tickets_closed_total($from_date, $to_date, TRUE);
+
+        $content->month_ago_total              = $this->tickets_closed_total(strtotime('-1 months'), time());
+        $content->past_month_ago_total         = $this->tickets_closed_total(strtotime('-1 months'), time(), TRUE);
+
+        $content->three_months_ago_total       = $this->tickets_closed_total(strtotime('-3 months'), time());
+        $content->past_three_months_ago_total  = $this->tickets_closed_total(strtotime('-3 months'), time(), TRUE);
+
+        $content->six_months_ago_total         = $this->tickets_closed_total(strtotime('-6 months'), time());
+        $content->past_six_months_ago_total    = $this->tickets_closed_total(strtotime('-6 months'), time(), TRUE);
+
+        $content->twelve_months_ago_total      = $this->tickets_closed_total(strtotime('-12 months'), time());
+        $content->twelve_six_months_ago_total  = $this->tickets_closed_total(strtotime('-12 months'), time(), TRUE);
+
+    }
+
+    /**
+     * Gross Revenue value between two dates
+     * @param  timestamp  $from_date
+     * @param  timestamp  $to_date
+     * @param  boolean    $past_period Calculate past period (period = $to_date - $from_date)
+     * @param  integer    $id_product
+     * @return integer
+     */
+    private function gross_revenue_total($from_date, $to_date, $past_period = FALSE, $id_product = NULL)
+    {
+        if ($past_period)
+        {
+            $original_from_date = $from_date;
+            $original_to_date   = $to_date;
+            $from_date          = $original_from_date - ($original_to_date - $original_from_date);
+            $to_date            = $original_to_date - ($original_to_date - $original_from_date);
+        }
+
+        $query = DB::select(DB::expr('SUM(amount) total'))
+            ->from('orders')
+            ->where('pay_date', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)))
+            ->where('status', '=', Model_Order::STATUS_PAID);
+
+        if ($id_product !== NULL)
+            $query = $query->where('id_product', '=', $id_product);
+
+        $query = $query->execute();
+
+        $result = $query->as_array();
+
+        return (isset($result[0]['total'])) ? $result[0]['total'] : 0;
+    }
+
+    /**
+     * Returns array with Gross Revenue by date formatted to generate charts
+     * @param  timestamp $from_date
+     * @param  timestamp $to_date
+     * @param  object    $product
+     * @return array
+     */
+    private function gross_revenue_by_date($from_date, $to_date, $product = NULL)
+    {
+        // Dates range we are filtering
+        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+
+        $query = DB::select(DB::expr('DATE(pay_date) date'))
+            ->select(DB::expr('SUM(amount) total'))
+            ->from('orders')
+            ->where('pay_date', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)))
+            ->where('status', '=', Model_Order::STATUS_PAID);
+
+        if ($product !== NULL)
+            $query = $query->where('id_product', '=', $product->id_product);
+
+        $query = $query->group_by(DB::expr('DATE(pay_date)'))
+            ->order_by('date', 'asc')
+            ->execute();
+
+        $result = $query->as_array('date');
+
+        $ret = array();
+
+        foreach ($dates as $k => $date) 
+        {
+            $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
+            
+            $ret[] = array('date' => $date['date'], ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '$' => $count_sum);
+        }
+
+        return $ret;
+
+    }
+
+    /**
+     * Net Revenue value between two dates
+     * @param  timestamp  $from_date
+     * @param  timestamp  $to_date
+     * @param  boolean    $past_period Calculate past period (period = $to_date - $from_date)
+     * @param  integer    $id_product
+     * @return integer
+     */
+    private function net_revenue_total($from_date, $to_date, $past_period = FALSE, $id_product = NULL)
+    {
+        if ($past_period)
+        {
+            $original_from_date = $from_date;
+            $original_to_date   = $to_date;
+            $from_date          = $original_from_date - ($original_to_date - $original_from_date);
+            $to_date            = $original_to_date - ($original_to_date - $original_from_date);
+        }
+
+        $query = DB::select(DB::expr('SUM(amount_net) total'))
+            ->from('orders')
+            ->where('pay_date', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)))
+            ->where('status', '=', Model_Order::STATUS_PAID);
+
+        if ($id_product !== NULL)
+            $query = $query->where('id_product', '=', $id_product);
+
+        $query = $query->execute();
+
+        $result = $query->as_array();
+
+        return (isset($result[0]['total'])) ? $result[0]['total'] : 0;
+    }
+
+    /**
+     * Returns array with Net Revenue by date formatted to generate charts
+     * @param  timestamp $from_date
+     * @param  timestamp $to_date
+     * @param  object    $product
+     * @return array
+     */
+    private function net_revenue_by_date($from_date, $to_date, $product = NULL)
+    {
+        // Dates range we are filtering
+        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+
+        $query = DB::select(DB::expr('DATE(pay_date) date'))
+            ->select(DB::expr('SUM(amount_net) total'))
+            ->from('orders')
+            ->where('pay_date', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)))
+            ->where('status', '=', Model_Order::STATUS_PAID);
+
+        if ($product !== NULL)
+            $query = $query->where('id_product', '=', $product->id_product);
+
+        $query = $query->group_by(DB::expr('DATE(pay_date)'))
+            ->order_by('date', 'asc')
+            ->execute();
+
+        $result = $query->as_array('date');
+
+        $ret = array();
+
+        foreach ($dates as $k => $date) 
+        {
+            $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
+            
+            $ret[] = array('date' => $date['date'], ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '$' => $count_sum);
+        }
+
+        return $ret;
+
+    }
+
+    /**
+     * Fees value between two dates
+     * @param  timestamp  $from_date
+     * @param  timestamp  $to_date
+     * @param  boolean    $past_period Calculate past period (period = $to_date - $from_date)
+     * @param  integer    $id_product
+     * @return integer
+     */
+    private function fees_total($from_date, $to_date, $past_period = FALSE, $id_product = NULL)
+    {
+        if ($past_period)
+        {
+            $original_from_date = $from_date;
+            $original_to_date   = $to_date;
+            $from_date          = $original_from_date - ($original_to_date - $original_from_date);
+            $to_date            = $original_to_date - ($original_to_date - $original_from_date);
+        }
+
+        $query = DB::select(DB::expr('SUM(gateway_fee) total'))
+            ->from('orders')
+            ->where('pay_date', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)))
+            ->where('status', '=', Model_Order::STATUS_PAID);
+
+        if ($id_product !== NULL)
+            $query = $query->where('id_product', '=', $id_product);
+
+        $query = $query->execute();
+
+        $result = $query->as_array();
+
+        return (isset($result[0]['total'])) ? $result[0]['total'] : 0;
+    }
+
+    /**
+     * Returns array with Fees by date formatted to generate charts
+     * @param  timestamp $from_date
+     * @param  timestamp $to_date
+     * @param  object    $product
+     * @return array
+     */
+    private function fees_by_date($from_date, $to_date, $product = NULL)
+    {
+        // Dates range we are filtering
+        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+
+        $query = DB::select(DB::expr('DATE(pay_date) date'))
+            ->select(DB::expr('SUM(gateway_fee) total'))
+            ->from('orders')
+            ->where('pay_date', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)))
+            ->where('status', '=', Model_Order::STATUS_PAID);
+
+        if ($product !== NULL)
+            $query = $query->where('id_product', '=', $product->id_product);
+
+        $query = $query->group_by(DB::expr('DATE(pay_date)'))
+            ->order_by('date', 'asc')
+            ->execute();
+
+        $result = $query->as_array('date');
+
+        $ret = array();
+
+        foreach ($dates as $k => $date) 
+        {
+            $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
+            
+            $ret[] = array('date' => $date['date'], ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '$' => $count_sum);
+        }
+
+        return $ret;
+
+    }
+
+    /**
+     * Paid Orders value between two dates
+     * @param  timestamp  $from_date
+     * @param  timestamp  $to_date
+     * @param  boolean    $past_period Calculate past period (period = $to_date - $from_date)
+     * @param  integer    $id_product
+     * @return integer
+     */
+    private function paid_orders_total($from_date, $to_date, $past_period = FALSE, $id_product = NULL)
+    {
+        if ($past_period)
+        {
+            $original_from_date = $from_date;
+            $original_to_date   = $to_date;
+            $from_date          = $original_from_date - ($original_to_date - $original_from_date);
+            $to_date            = $original_to_date - ($original_to_date - $original_from_date);
+        }
+
+        $query = DB::select(DB::expr('COUNT(id_order) total'))
+            ->from('orders')
+            ->where('pay_date', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)))
+            ->where('status', '=', Model_Order::STATUS_PAID);
+
+        if ($id_product !== NULL)
+            $query = $query->where('id_product', '=', $id_product);
+
+        $query = $query->execute();
+
+        $result = $query->as_array();
+
+        return (isset($result[0]['total'])) ? $result[0]['total'] : 0;
+    }
+
+    /**
+     * Returns array with Paid Orders by date formatted to generate charts
+     * @param  timestamp $from_date
+     * @param  timestamp $to_date
+     * @param  object    $product
+     * @return array
+     */
+    private function paid_orders_by_date($from_date, $to_date, $product = NULL)
+    {
+        // Dates range we are filtering
+        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+
+        $query = DB::select(DB::expr('DATE(pay_date) date'))
+            ->select(DB::expr('COUNT(id_order) total'))
+            ->from('orders')
+            ->where('pay_date', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)))
+            ->where('status', '=', Model_Order::STATUS_PAID);
+
+        if ($product !== NULL)
+            $query = $query->where('id_product', '=', $product->id_product);
+
+        $query = $query->group_by(DB::expr('DATE(pay_date)'))
+            ->order_by('date', 'asc')
+            ->execute();
+
+        $result = $query->as_array('date');
+
+        $ret = array();
+
+        foreach ($dates as $k => $date) 
+        {
+            $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
+            
+            $ret[] = array('date' => $date['date'], ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '#' => $count_sum);
+        }
+
+        return $ret;
+
+    }
+
+    /**
+     * Unpaid Orders value between two dates
+     * @param  timestamp  $from_date
+     * @param  timestamp  $to_date
+     * @param  boolean    $past_period Calculate past period (period = $to_date - $from_date)
+     * @param  integer    $id_product
+     * @return integer
+     */
+    private function unpaid_orders_total($from_date, $to_date, $past_period = FALSE, $id_product = NULL)
+    {
+        if ($past_period)
+        {
+            $original_from_date = $from_date;
+            $original_to_date   = $to_date;
+            $from_date          = $original_from_date - ($original_to_date - $original_from_date);
+            $to_date            = $original_to_date - ($original_to_date - $original_from_date);
+        }
+
+        $query = DB::select(DB::expr('COUNT(id_order) total'))
+            ->from('orders')
+            ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)))
+            ->where('status', '=', Model_Order::STATUS_CREATED);
+
+        if ($id_product !== NULL)
+            $query = $query->where('id_product', '=', $id_product);
+
+        $query = $query->execute();
+
+        $result = $query->as_array();
+
+        return (isset($result[0]['total'])) ? $result[0]['total'] : 0;
+    }
+
+    /**
+     * Returns array with Unpaid Orders by date formatted to generate charts
+     * @param  timestamp $from_date
+     * @param  timestamp $to_date
+     * @param  object    $product
+     * @return array
+     */
+    private function unpaid_orders_by_date($from_date, $to_date, $product = NULL)
+    {
+        // Dates range we are filtering
+        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+
         $query = DB::select(DB::expr('DATE(created) date'))
-                        ->select(DB::expr('COUNT(id_download) count'))
-                        ->from('downloads')
-                        ->where('created','between',array($my_from_date,$my_to_date));
-        
-        $query = $query
-                        ->group_by(DB::expr('DATE( created )'))
-                        ->order_by('date','asc')
-                        ->execute();
+            ->select(DB::expr('COUNT(id_order) total'))
+            ->from('orders')
+            ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)))
+            ->where('status', '=', Model_Order::STATUS_CREATED);
 
-        $downloads = $query->as_array('date');
+        if ($product !== NULL)
+            $query = $query->where('id_product', '=', $product->id_product);
 
-        $stats_downloads = array();
-        foreach ($dates as $date) 
+        $query = $query->group_by(DB::expr('DATE(created)'))
+            ->order_by('date', 'asc')
+            ->execute();
+
+        $result = $query->as_array('date');
+
+        $ret = array();
+
+        foreach ($dates as $k => $date) 
         {
-            $count_downloads = (isset($downloads[$date['date']]['count']))?$downloads[$date['date']]['count']:0;
+            $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
             
-            $stats_downloads[] = array('date'=>$date['date'],'#downloads'=> $count_downloads);
-        } 
-        $content->stats_downloads =  $stats_downloads;
+            $ret[] = array('date' => $date['date'], ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '#' => $count_sum);
+        }
 
+        return $ret;
 
-        //Today 
-        $query = DB::select(DB::expr('COUNT(id_download) count'))
-                        ->from('downloads')
-                        ->where(DB::expr('DATE( created )'),'=',date('Y-m-d'));
-        
-        $query = $query
-                        ->group_by(DB::expr('DATE( created )'))
-                        ->order_by('created','asc')
-                        ->execute();
+    }
 
-        $ads = $query->as_array();
-        $content->downloads_today = (isset($ads[0]['count']))?$ads[0]['count']:0;
-
-        //Yesterday
-        $query = DB::select(DB::expr('COUNT(id_download) count'))
-                        ->from('downloads')
-                        ->where(DB::expr('DATE( created )'),'=',date('Y-m-d',strtotime('-1 day')));
-        
-        $query = $query
-                        ->group_by(DB::expr('DATE( created )'))
-                        ->order_by('created','asc')
-                        ->execute();
-
-        $ads = $query->as_array();
-        $content->downloads_yesterday     = (isset($ads[0]['count']))?$ads[0]['count']:0;
-
-        //current month
-        $query = DB::select(DB::expr('COUNT(id_download) count'))
-                        ->from('downloads')
-                        ->where(DB::expr('MONTH( created )'),'=',date('m'))
-                        ->where(DB::expr('YEAR( created )'),'=',date('Y'));
-        
-        $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
-                        ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
-                        ->order_by('created','asc')
-                        ->execute();
-
-
-        $downloads = $query->as_array();
-        $content->downloads_month = (isset($downloads[0]['count']))?$downloads[0]['count']:0;
-
-
-        //current year
-        $query = DB::select(DB::expr('COUNT(id_download) count'))
-                        ->from('downloads')
-                        ->where(DB::expr('YEAR( created )'),'=',date('Y'));
-        
-        $query = $query->group_by(DB::expr('YEAR(`created`)'))
-                        ->order_by(DB::expr('YEAR(`created`)'),'asc')
-                        ->order_by('created','asc')
-                        ->execute();
-
-
-        $downloads = $query->as_array();
-        $content->downloads_year = (isset($downloads[0]['count']))?$downloads[0]['count']:0;
-
-
-        //total downloads
-        $query = DB::select(DB::expr('COUNT(id_download) count'))
-                        ->from('downloads');
-        
-        $query = $query
-                        ->execute();
-
-        $downloads = $query->as_array();
-        $content->downloads_total = (isset($downloads[0]['count']))?$downloads[0]['count']:0;
-
-        //downloads per month
-        $query = DB::select(DB::expr('DATE_FORMAT(`created`, "%Y-%m") date'))
-                        ->select(DB::expr('COUNT(id_download) count'))
-                        ->from('downloads');
-        
-        $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
-                        ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
-                        ->execute();
-
-        $downloads = $query->as_array('date');
-
-        $stats_downloads_by_month = array();
-        foreach ($dates_year as $date) 
+    /**
+     * Visits value between two dates
+     * @param  timestamp  $from_date
+     * @param  timestamp  $to_date
+     * @param  boolean    $past_period Calculate past period (period = $to_date - $from_date)
+     * @param  integer    $id_product
+     * @return integer
+     */
+    private function visits_total($from_date, $to_date, $past_period = FALSE, $id_product = NULL)
+    {
+        if ($past_period)
         {
-            $count_downloads = (isset($downloads[$date['date']]['count']))?$downloads[$date['date']]['count']:0;
-            
-            $stats_downloads_by_month[] = array('date'=>$date['date'],'#downloads'=> $count_downloads);
-        } 
-        $content->stats_downloads_by_month =  $stats_downloads_by_month;
+            $original_from_date = $from_date;
+            $original_to_date   = $to_date;
+            $from_date          = $original_from_date - ($original_to_date - $original_from_date);
+            $to_date            = $original_to_date - ($original_to_date - $original_from_date);
+        }
 
-        //////////////////////////LICENSES STATS///////////////////
+        $query = DB::select(DB::expr('COUNT(id_visit) count'))
+            ->from('visits')
+            ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
 
-        //licenses created last XX days
+        if ($id_product !== NULL)
+            $query = $query->where('id_product', '=', $id_product);
+
+        $query = $query->execute();
+
+        $result = $query->as_array();
+
+        return (isset($result[0]['total'])) ? $result[0]['total'] : 0;
+    }
+
+    /**
+     * Returns array with Visits by date formatted to generate charts
+     * @param  timestamp $from_date
+     * @param  timestamp $to_date
+     * @param  object    $product
+     * @return array
+     */
+    private function visits_by_date($from_date, $to_date, $product = NULL)
+    {
+        // Dates range we are filtering
+        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+
         $query = DB::select(DB::expr('DATE(created) date'))
-                        ->select(DB::expr('COUNT(id_license) count'))
-                        ->from('licenses')
-                        ->where('created','between',array($my_from_date,$my_to_date));
-        if ($content->product!==NULL)
-            $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query
-                        ->group_by(DB::expr('DATE( created )'))
-                        ->order_by('date','asc')
-                        ->execute();
+            ->select(DB::expr('COUNT(id_visit) count'))
+            ->from('visits')
+            ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
 
-        $licenses = $query->as_array('date');
+        if ($product !== NULL)
+            $query = $query->where('id_product', '=', $product->id_product);
 
-        $stats_licenses = array();
-        foreach ($dates as $date) 
+        $query = $query->group_by(DB::expr('DATE(created)'))
+            ->order_by('date', 'asc')
+            ->execute();
+
+        $result = $query->as_array('date');
+
+        $ret = array();
+
+        foreach ($dates as $k => $date) 
         {
-
-            $count_licenses = (isset($licenses[$date['date']]['count']))?$licenses[$date['date']]['count']:0;
-
-            $stats_licenses[] = array('date'=>$date['date'],'#licenses'=> $count_licenses);
-        } 
-        $content->stats_licenses =  $stats_licenses;
-
-
-        //Today 
-        $query = DB::select(DB::expr('COUNT(id_license) count'))
-                        ->from('licenses')
-                        ->where(DB::expr('DATE( created )'),'=',date('Y-m-d'));
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query
-                        ->group_by(DB::expr('DATE( created )'))
-                        ->order_by('created','asc')
-                        ->execute();
-
-        $ads = $query->as_array();
-        $content->licenses_today = (isset($ads[0]['count']))?$ads[0]['count']:0;
-
-        //Yesterday
-        $query = DB::select(DB::expr('COUNT(id_license) count'))
-                        ->from('licenses')
-                        ->where(DB::expr('DATE( created )'),'=',date('Y-m-d',strtotime('-1 day')));
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query
-                        ->group_by(DB::expr('DATE( created )'))
-                        ->order_by('created','asc')
-                        ->execute();
-
-        $ads = $query->as_array();
-        $content->licenses_yesterday     = (isset($ads[0]['count']))?$ads[0]['count']:0;
-
-        //current month
-        $query = DB::select(DB::expr('COUNT(id_license) count'))
-                        ->from('licenses')
-                        ->where(DB::expr('MONTH( created )'),'=',date('m'))
-                        ->where(DB::expr('YEAR( created )'),'=',date('Y'));
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
-                        ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
-                        ->order_by('created','asc')
-                        ->execute();
-
-
-        $licenses = $query->as_array();
-        $content->licenses_month = (isset($licenses[0]['count']))?$licenses[0]['count']:0;
-
-        //current year
-        $query = DB::select(DB::expr('COUNT(id_license) count'))
-                        ->from('licenses')
-                        ->where(DB::expr('YEAR( created )'),'=',date('Y'));
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query->group_by(DB::expr('YEAR(`created`)'))
-                        ->order_by(DB::expr('YEAR(`created`)'),'asc')
-                        ->order_by('created','asc')
-                        ->execute();
-
-
-        $licenses = $query->as_array();
-        $content->licenses_year = (isset($licenses[0]['count']))?$licenses[0]['count']:0;
-
-        //total licenses
-        $query = DB::select(DB::expr('COUNT(id_license) count'))
-                        ->from('licenses');
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query
-                        ->execute();
-
-        $licenses = $query->as_array();
-        $content->licenses_total = (isset($licenses[0]['count']))?$licenses[0]['count']:0;
-
-        //active licenses
-        $query = DB::select(DB::expr('COUNT(id_license) count'))
-                        ->where(DB::expr('DATE(active_date)'),'<=', DB::expr('DATE(valid_date)'))
-                        ->from('licenses');
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-        $query = $query
-                        ->execute();
-
-        $licenses = $query->as_array();
-        $content->licenses_active = (isset($licenses[0]['count']))?$licenses[0]['count']:0;
-
-        //licenses per month
-        $query = DB::select(DB::expr('DATE_FORMAT(`created`, "%Y-%m") date'))
-                        ->select(DB::expr('COUNT(id_license) count'))
-                        ->select(DB::expr('COUNT(active_date) activated '))
-                        ->from('licenses');
-        if ($content->product!==NULL)
-                $query = $query->where('id_product','=',$content->product->id_product);
-                $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
-                        ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
-                        ->execute();
-
-        $licenses = $query->as_array('date');
-
-        $stats_licenses_by_month = array();
-        foreach ($dates_year as $date) 
-        {
-            $count_licenses = (isset($licenses[$date['date']]['count']))?$licenses[$date['date']]['count']:0;
+            $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
             
-            $activated_licenses = (isset($licenses[$date['date']]['activated']))?$licenses[$date['date']]['activated']:0;
-            $stats_licenses_by_month[] = array('date'=>$date['date'],'#licenses'=> $count_licenses,'#activated'=>$activated_licenses);
-        } 
-        $content->stats_licenses_by_month =  $stats_licenses_by_month;
+            $ret[] = array('date' => $date['date'], ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '#' => $count_sum);
+        }
 
-        //////////////////////////TICKETS STATS///////////////////
+        return $ret;
 
-        //Today 
-        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
-                        ->from('tickets')
-                        ->where(DB::expr('DATE( created )'),'=',date('Y-m-d'));
-        
-        $query = $query
-                        ->group_by(DB::expr('DATE( created )'))
-                        ->order_by('created','asc')
-                        ->execute();
+    }
 
-        $ads = $query->as_array();
-        $content->tickets_today = (isset($ads[0]['count']))?$ads[0]['count']:0;
+    /**
+     * Licenses value between two dates
+     * @param  timestamp  $from_date
+     * @param  timestamp  $to_date
+     * @param  boolean    $past_period Calculate past period (period = $to_date - $from_date)
+     * @param  integer    $id_product
+     * @return integer
+     */
+    private function licenses_total($from_date, $to_date, $past_period = FALSE, $id_product = NULL)
+    {
+        if ($past_period)
+        {
+            $original_from_date = $from_date;
+            $original_to_date   = $to_date;
+            $from_date          = $original_from_date - ($original_to_date - $original_from_date);
+            $to_date            = $original_to_date - ($original_to_date - $original_from_date);
+        }
 
-        //Yesterday
-        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
-                        ->from('tickets')
-                        ->where(DB::expr('DATE( created )'),'=',date('Y-m-d',strtotime('-1 day')));
-        
-        $query = $query
-                        ->group_by(DB::expr('DATE( created )'))
-                        ->order_by('created','asc')
-                        ->execute();
+        $query = DB::select(DB::expr('COUNT(id_license) count'))
+            ->from('licenses')
+            ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
 
-        $ads = $query->as_array();
-        $content->tickets_yesterday     = (isset($ads[0]['count']))?$ads[0]['count']:0;
+        if ($id_product !== NULL)
+            $query = $query->where('id_product', '=', $id_product);
 
-        //current month
-        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
-                        ->from('tickets')
-                        ->where(DB::expr('MONTH( created )'),'=',date('m'))
-                        ->where(DB::expr('YEAR( created )'),'=',date('Y'));
-        
-        $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
-                        ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
-                        ->order_by('created','asc')
-                        ->execute();
-
-
-        $tickets = $query->as_array();
-        $content->tickets_month = (isset($tickets[0]['count']))?$tickets[0]['count']:0;
-
-
-        //current year
-        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
-                        ->from('tickets')
-                        ->where(DB::expr('YEAR( created )'),'=',date('Y'));
-        
-        $query = $query->group_by(DB::expr('YEAR(`created`)'))
-                        ->order_by(DB::expr('YEAR(`created`)'),'asc')
-                        ->order_by('created','asc')
-                        ->execute();
-
-        $tickets = $query->as_array();
-        $content->tickets_year = (isset($tickets[0]['count']))?$tickets[0]['count']:0;
-
-        //read tickets
-        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
-                        ->from('tickets')
-                        ->where('status','=', Model_Ticket::STATUS_READ);
-        
         $query = $query->execute();
 
-        $tickets = $query->as_array();
-        $content->tickets_read = (isset($tickets[0]['count']))?$tickets[0]['count']:0;
+        $result = $query->as_array();
 
-        //hold tickets
-        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
-                        ->from('tickets')
-                        ->where('status','=', Model_Ticket::STATUS_HOLD);
-        
-        $query = $query->execute();
+        return (isset($result[0]['total'])) ? $result[0]['total'] : 0;
+    }
 
-        $tickets = $query->as_array();
-        $content->tickets_hold = (isset($tickets[0]['count']))?$tickets[0]['count']:0;
+    /**
+     * Returns array with Licenses by date formatted to generate charts
+     * @param  timestamp $from_date
+     * @param  timestamp $to_date
+     * @param  object    $product
+     * @return array
+     */
+    private function licenses_by_date($from_date, $to_date, $product = NULL)
+    {
+        // Dates range we are filtering
+        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
 
-        //closed tickets
-        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
-                        ->from('tickets')
-                        ->where('status','=', Model_Ticket::STATUS_CLOSED);
-        
-        $query = $query->execute();
-
-        $tickets = $query->as_array();
-        $content->tickets_closed = (isset($tickets[0]['count']))?$tickets[0]['count']:0;
-
-        //total tickets
-        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
-                        ->from('tickets');
-        
-        $query = $query->execute();
-
-        $tickets = $query->as_array();
-        $content->tickets_total = (isset($tickets[0]['count']))?$tickets[0]['count']:0;
-
-        //tickets created last XX days
-        //open/created
         $query = DB::select(DB::expr('DATE(created) date'))
-                        ->select(DB::expr('COUNT(id_ticket) count'))
-                        ->from('tickets')
-                        ->where('id_ticket_parent','=',NULL)
-                        ->where('created','between',array($my_from_date,$my_to_date));
-        $query = $query
-                        ->group_by(DB::expr('DATE( created )'))
-                        ->order_by('date','asc')
-                        ->execute();
+            ->select(DB::expr('COUNT(id_license) count'))
+            ->from('licenses')
+            ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
 
-        $query_closed = DB::select(DB::expr('DATE(read_date) date'))
-                        ->select(DB::expr('COUNT(id_ticket) count'))
-                        ->from('tickets')
-                        ->where('read_date', '!=', 'NULL')
-                        ->where('status', '=', Model_Ticket::STATUS_CLOSED)
-                        ->where('read_date','between',array($my_from_date,$my_to_date));
-        $query_closed = $query_closed
-                        ->group_by(DB::expr('DATE( read_date )'))
-                        ->order_by('date','asc')
-                        ->execute();
+        if ($product !== NULL)
+            $query = $query->where('id_product', '=', $product->id_product);
 
-        $query_answers = DB::select(DB::expr('DATE(created) date'))
-                        ->select(DB::expr('COUNT(id_ticket) count'))
-                        ->from('tickets')
-                        ->where('id_ticket_parent','!=',NULL)
-                        ->where('created','between',array($my_from_date,$my_to_date));
-        $query_answers = $query_answers
-                        ->group_by(DB::expr('DATE( created )'))
-                        ->order_by('date','asc')
-                        ->execute();
+        $query = $query->group_by(DB::expr('DATE(created)'))
+            ->order_by('date', 'asc')
+            ->execute();
 
-        $answers = $query_answers->as_array('date');
-        $closed = $query_closed->as_array('date');
-        $tickets = $query->as_array('date');
+        $result = $query->as_array('date');
 
-        $stats_tickets = array();
-        foreach ($dates as $date) 
+        $ret = array();
+
+        foreach ($dates as $k => $date) 
         {
-            $count_open = (isset($tickets[$date['date']]['count']))?$tickets[$date['date']]['count']:0;
-            $count_closed = (isset($closed[$date['date']]['count']))?$closed[$date['date']]['count']:0;
-            $count_answers = (isset($answers[$date['date']]['count']))?$answers[$date['date']]['count']:0;
-            $stats_tickets[] = array('date'=>$date['date'],'#open'=> $count_open, '#closed' => $count_closed, '#answers'=>$count_answers);
-        } 
-        $content->stats_tickets =  $stats_tickets;
-
-        //tickets per month
-        $query = DB::select(DB::expr('DATE_FORMAT(`created`, "%Y-%m") date'))
-                        ->select(DB::expr('COUNT(id_ticket) count'))
-                        ->from('tickets');
-        
-        $query = $query->group_by(DB::expr('YEAR(`created`),MONTH(`created`)'))
-                        ->order_by(DB::expr('YEAR(`created`),MONTH(`created`)'),'asc')
-                        ->execute();
-
-        $tickets = $query->as_array('date');
-
-        $stats_tickets_by_month = array();
-        foreach ($dates_year as $date) 
-        {
-            $count_tickets = (isset($tickets[$date['date']]['count']))?$tickets[$date['date']]['count']:0;
+            $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
             
-            $stats_tickets_by_month[] = array('date'=>$date['date'],'#tickets'=> $count_tickets);
-        } 
-        $content->stats_tickets_by_month =  $stats_tickets_by_month;      
+            $ret[] = array('date' => $date['date'], ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '#' => $count_sum);
+        }
+
+        return $ret;
+
+    }
+
+    /**
+     * Downloads value between two dates
+     * @param  timestamp  $from_date
+     * @param  timestamp  $to_date
+     * @param  boolean    $past_period Calculate past period (period = $to_date - $from_date)
+     * @return integer
+     */
+    private function downloads_total($from_date, $to_date, $past_period = FALSE)
+    {
+        if ($past_period)
+        {
+            $original_from_date = $from_date;
+            $original_to_date   = $to_date;
+            $from_date          = $original_from_date - ($original_to_date - $original_from_date);
+            $to_date            = $original_to_date - ($original_to_date - $original_from_date);
+        }
+
+        $query = DB::select(DB::expr('COUNT(id_download) count'))
+            ->from('downloads')
+            ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
+
+        $query = $query->execute();
+
+        $result = $query->as_array();
+
+        return (isset($result[0]['total'])) ? $result[0]['total'] : 0;
+    }
+
+    /**
+     * Returns array with Downloads by date formatted to generate charts
+     * @param  timestamp $from_date
+     * @param  timestamp $to_date
+     * @return array
+     */
+    private function downloads_by_date($from_date, $to_date)
+    {
+        // Dates range we are filtering
+        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+
+        $query = DB::select(DB::expr('DATE(created) date'))
+            ->select(DB::expr('COUNT(id_download) count'))
+            ->from('downloads')
+            ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
+
+        $query = $query->group_by(DB::expr('DATE(created)'))
+            ->order_by('date', 'asc')
+            ->execute();
+
+        $result = $query->as_array('date');
+
+        $ret = array();
+
+        foreach ($dates as $k => $date) 
+        {
+            $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
+            
+            $ret[] = array('date' => $date['date'], '#' => $count_sum);
+        }
+
+        return $ret;
+
+    }
+
+    /**
+     * Tickets Opened value between two dates
+     * @param  timestamp  $from_date
+     * @param  timestamp  $to_date
+     * @param  boolean    $past_period Calculate past period (period = $to_date - $from_date)
+     * @return integer
+     */
+    private function tickets_opened_total($from_date, $to_date, $past_period = FALSE)
+    {
+        if ($past_period)
+        {
+            $original_from_date = $from_date;
+            $original_to_date   = $to_date;
+            $from_date          = $original_from_date - ($original_to_date - $original_from_date);
+            $to_date            = $original_to_date - ($original_to_date - $original_from_date);
+        }
+
+        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
+            ->from('tickets')
+            ->where('id_ticket_parent','=',NULL)
+            ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
+
+        $query = $query->execute();
+
+        $result = $query->as_array();
+
+        return (isset($result[0]['total'])) ? $result[0]['total'] : 0;
+    }
+
+    /**
+     * Returns array with Tickets Opened by date formatted to generate charts
+     * @param  timestamp $from_date
+     * @param  timestamp $to_date
+     * @return array
+     */
+    private function tickets_opened_by_date($from_date, $to_date)
+    {
+        // Dates range we are filtering
+        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+
+        $query = DB::select(DB::expr('DATE(created) date'))
+            ->select(DB::expr('COUNT(id_ticket) count'))
+            ->from('tickets')
+            ->where('id_ticket_parent','=',NULL)
+            ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
+
+        $query = $query->group_by(DB::expr('DATE(created)'))
+            ->order_by('date', 'asc')
+            ->execute();
+
+        $result = $query->as_array('date');
+
+        $ret = array();
+
+        foreach ($dates as $k => $date) 
+        {
+            $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
+            
+            $ret[] = array('date' => $date['date'], '#' => $count_sum);
+        }
+
+        return $ret;
+
+    }
+
+    /**
+     * Tickets Answered value between two dates
+     * @param  timestamp  $from_date
+     * @param  timestamp  $to_date
+     * @param  boolean    $past_period Calculate past period (period = $to_date - $from_date)
+     * @return integer
+     */
+    private function tickets_answered_total($from_date, $to_date, $past_period = FALSE)
+    {
+        if ($past_period)
+        {
+            $original_from_date = $from_date;
+            $original_to_date   = $to_date;
+            $from_date          = $original_from_date - ($original_to_date - $original_from_date);
+            $to_date            = $original_to_date - ($original_to_date - $original_from_date);
+        }
+
+        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
+            ->from('tickets')
+            ->where('id_ticket_parent','!=',NULL)
+            ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
+
+        $query = $query->execute();
+
+        $result = $query->as_array();
+
+        return (isset($result[0]['total'])) ? $result[0]['total'] : 0;
+    }
+
+    /**
+     * Returns array with Tickets Answered by date formatted to generate charts
+     * @param  timestamp $from_date
+     * @param  timestamp $to_date
+     * @return array
+     */
+    private function tickets_answered_by_date($from_date, $to_date)
+    {
+        // Dates range we are filtering
+        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+
+        $query = DB::select(DB::expr('DATE(created) date'))
+            ->select(DB::expr('COUNT(id_ticket) count'))
+            ->from('tickets')
+            ->where('id_ticket_parent','!=',NULL)
+            ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
+
+        $query = $query->group_by(DB::expr('DATE(created)'))
+            ->order_by('date', 'asc')
+            ->execute();
+
+        $result = $query->as_array('date');
+
+        $ret = array();
+
+        foreach ($dates as $k => $date) 
+        {
+            $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
+            
+            $ret[] = array('date' => $date['date'], '#' => $count_sum);
+        }
+
+        return $ret;
+
+    }
+
+    /**
+     * Tickets Closed value between two dates
+     * @param  timestamp  $from_date
+     * @param  timestamp  $to_date
+     * @param  boolean    $past_period Calculate past period (period = $to_date - $from_date)
+     * @return integer
+     */
+    private function tickets_closed_total($from_date, $to_date, $past_period = FALSE)
+    {
+        if ($past_period)
+        {
+            $original_from_date = $from_date;
+            $original_to_date   = $to_date;
+            $from_date          = $original_from_date - ($original_to_date - $original_from_date);
+            $to_date            = $original_to_date - ($original_to_date - $original_from_date);
+        }
+
+        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
+            ->from('tickets')
+            ->where('read_date', '!=', 'NULL')
+            ->where('status', '=', Model_Ticket::STATUS_CLOSED)
+            ->where('read_date', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
+
+        $query = $query->execute();
+
+        $result = $query->as_array();
+
+        return (isset($result[0]['total'])) ? $result[0]['total'] : 0;
+    }
+
+    /**
+     * Returns array with Tickets Closed by date formatted to generate charts
+     * @param  timestamp $from_date
+     * @param  timestamp $to_date
+     * @return array
+     */
+    private function tickets_closed_by_date($from_date, $to_date)
+    {
+        // Dates range we are filtering
+        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+
+        $query = DB::select(DB::expr('DATE(read_date) date'))
+            ->select(DB::expr('COUNT(id_ticket) count'))
+            ->from('tickets')
+            ->where('read_date', '!=', 'NULL')
+            ->where('status', '=', Model_Ticket::STATUS_CLOSED)
+            ->where('read_date', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
+
+        $query = $query->group_by(DB::expr('DATE(read_date)'))
+            ->order_by('date', 'asc')
+            ->execute();
+
+        $result = $query->as_array('date');
+
+        $ret = array();
+
+        foreach ($dates as $k => $date) 
+        {
+            $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
+            
+            $ret[] = array('date' => $date['date'], '#' => $count_sum);
+        }
+
+        return $ret;
+
+    }
+
+    /**
+     * Total paid orders filtered by product
+     * @param  integer    $id_product
+     * @param  timestamp  $from_date
+     * @param  timestamp  $to_date
+     * @param  boolean    $past_period calculate past period (period = $to_date - $from_date)
+     * @return integer
+     */
+    private function paid_orders_by_product($id_product, $from_date, $to_date, $past_period = FALSE)
+    {
+        if ($past_period)
+        {
+            $original_from_date = $from_date;
+            $original_to_date   = $to_date;
+            $from_date          = $original_from_date - ($original_to_date - $original_from_date);
+            $to_date            = $original_to_date - ($original_to_date - $original_from_date);
+        }
+
+        $query = DB::select(DB::expr('count(id_product) total'))
+            ->from('orders')
+            ->where('pay_date', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)))
+            ->where('id_product', '=', $id_product)
+            ->where('status', '=', Model_Order::STATUS_PAID);
         
+        $query = $query->execute();
+
+        $result = $query->as_array();
+
+        return (isset($result[0]['total'])) ? $result[0]['total'] : 0;
+    }
+
+    /**
+     * Merge array of products formatted to generate charts
+     * @param  array $products_data
+     * @return array
+     */
+    private function merge_products_array($products_data)
+    {
+        $total_products_data = count($products_data);
+
+        foreach ($products_data[0] as $i => $product_data)
+        {
+            for ($x = 1; $x < $total_products_data; $x++)
+            {
+                $products_data[0][$i] = array_merge($products_data[0][$i], $products_data[$x][$i]);
+            }
+        }
+
+        return $products_data[0];
     }
 
 }
