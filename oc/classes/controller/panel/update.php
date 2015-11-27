@@ -79,6 +79,18 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
                         array( 'config_key'     => 'stripe_alipay',
                                'group_name'     => 'payment', 
                                'config_value'   => '0'),
+                        array( 'config_key'     => 'captcha',
+                               'group_name'     => 'general',
+                               'config_value'   => ''),
+                        array( 'config_key'     => 'recaptcha_active',
+                               'group_name'     => 'general',
+                               'config_value'   => ''),
+                        array( 'config_key'     => 'recaptcha_secretkey',
+                               'group_name'     => 'general',
+                               'config_value'   => ''),
+                        array( 'config_key'     => 'recaptcha_sitekey',
+                               'group_name'     => 'general',
+                               'config_value'   => ''),
                         );
         
         Model_Config::config_array($configs);        
