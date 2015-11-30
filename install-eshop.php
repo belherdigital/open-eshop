@@ -646,7 +646,7 @@ function __($msgid)
     </div> 
     
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="//cdn.jsdelivr.net/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="//cdn.jsdelivr.net/jquery.bootstrapvalidation/1.3.7/jqBootstrapValidation.min.js"></script>
     <script src="//cdn.jsdelivr.net/chosen/1.1.0/chosen.jquery.min.js"></script>
 

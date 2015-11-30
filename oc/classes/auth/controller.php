@@ -113,7 +113,7 @@ class Auth_Controller extends Controller
                 if (Theme::get('admin_theme')=='bootstrap')
                 {
                     Theme::$styles                    = array('//cdn.jsdelivr.net/bootswatch/3.3.6/paper/bootstrap.min.css' => 'screen',
-                                                            '//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css?v=print' => 'print',
+                                                            '//cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css?v=print' => 'print',
                                                             '//cdn.jsdelivr.net/chosen/1.0.0/chosen.css'=>'screen',
                                                             '//cdn.jsdelivr.net/bootstrap.tagsinput/0.3.9/bootstrap-tagsinput.css'=>'screen',
                                                             '//cdn.jsdelivr.net/sweetalert/0.1.2/sweet-alert.min.css'=>'screen',
@@ -128,8 +128,8 @@ class Auth_Controller extends Controller
                 //default theme
                 else
                 {
-                     Theme::$styles               = array(  '//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' => 'screen',   
-                                                    '//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css?v=print' => 'print',                             
+                     Theme::$styles               = array(  '//cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css' => 'screen',   
+                                                    '//cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css?v=print' => 'print',                             
                                                     '//cdn.jsdelivr.net/bootswatch/3.3.2/'.Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
                                                     '//cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen', 
                                                     '//cdn.jsdelivr.net/bootstrap.tagsinput/0.3.9/bootstrap-tagsinput.css'=>'screen',
@@ -146,7 +146,7 @@ class Auth_Controller extends Controller
 
 
                 Theme::$scripts['footer']		  = array('//code.jquery.com/jquery-1.10.2.min.js',	
-                                                          '//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js', 
+                                                          '//cdn.jsdelivr.net/bootstrap/3.3.6/js/bootstrap.min.js', 
                                                           '//cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
                                                           Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
                                                           'http://'.((Kohana::$environment!== Kohana::DEVELOPMENT)? 'market.'.Core::DOMAIN.'':'eshop.lo').'/embed.js',
