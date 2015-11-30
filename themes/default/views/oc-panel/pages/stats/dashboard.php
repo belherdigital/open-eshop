@@ -40,7 +40,7 @@
 <div class="row">
     <div class="col-sm-6 col-md-3">
         <div class="statcard statcard-success">
-            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'gross_revenue'))?>" class="display-block">
+            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'gross_revenue'))?>?<?=http_build_query(['rel' => ''] + Request::current()->query())?>" class="display-block">
                 <div class="p-a">
                     <span class="statcard-desc"><?=__('Gross Revenue')?></span>
                     <h2 class="statcard-number">
@@ -58,7 +58,7 @@
     </div>
     <div class="col-sm-6 col-md-3">
         <div class="statcard statcard-success">
-            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'net_revenue'))?>" class="display-block">
+            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'net_revenue'))?>?<?=http_build_query(['rel' => ''] + Request::current()->query())?>" class="display-block">
                 <div class="p-a">
                     <span class="statcard-desc"><?=__('Net Revenue')?></span>
                     <h2 class="statcard-number">
@@ -76,7 +76,7 @@
     </div>
     <div class="col-sm-6 col-md-3">
         <div class="statcard statcard-success">
-            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'fees'))?>" class="display-block">
+            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'fees'))?>?<?=http_build_query(['rel' => ''] + Request::current()->query())?>" class="display-block">
                 <div class="p-a">
                     <span class="statcard-desc"><?=__('Fees')?></span>
                     <h2 class="statcard-number">
@@ -94,7 +94,7 @@
     </div>
     <div class="col-sm-6 col-md-3">
         <div class="statcard statcard-success">
-            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'paid_orders'))?>" class="display-block">
+            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'paid_orders'))?>?<?=http_build_query(['rel' => ''] + Request::current()->query())?>" class="display-block">
                 <div class="p-a">
                     <span class="statcard-desc"><?=__('Paid Orders')?></span>
                     <h2 class="statcard-number">
@@ -112,7 +112,7 @@
     </div>
     <div class="col-sm-6 col-md-3">
         <div class="statcard statcard-success">
-            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'unpaid_orders'))?>" class="display-block">
+            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'unpaid_orders'))?>?<?=http_build_query(['rel' => ''] + Request::current()->query())?>" class="display-block">
                 <div class="p-a">
                     <span class="statcard-desc"><?=__('Unpaid Orders')?></span>
                     <h2 class="statcard-number">
@@ -130,7 +130,7 @@
     </div>
     <div class="col-sm-6 col-md-3">
         <div class="statcard statcard-success">
-            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'visits'))?>" class="display-block">
+            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'visits'))?>?<?=http_build_query(['rel' => ''] + Request::current()->query())?>" class="display-block">
                 <div class="p-a">
                     <span class="statcard-desc"><?=__('Visits')?></span>
                     <h2 class="statcard-number">
@@ -148,7 +148,7 @@
     </div>
     <div class="col-sm-6 col-md-3">
         <div class="statcard statcard-success">
-            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'downloads'))?>" class="display-block">
+            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'downloads'))?>?<?=http_build_query(['rel' => ''] + Request::current()->query())?>" class="display-block">
                 <div class="p-a">
                     <span class="statcard-desc"><?=__('Downloads')?></span>
                     <h2 class="statcard-number">
@@ -166,7 +166,7 @@
     </div>
     <div class="col-sm-6 col-md-3">
         <div class="statcard statcard-success">
-            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'licenses'))?>" class="display-block">
+            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'licenses'))?>?<?=http_build_query(['rel' => ''] + Request::current()->query())?>" class="display-block">
                 <div class="p-a">
                     <span class="statcard-desc"><?=__('Licenses')?></span>
                     <h2 class="statcard-number">
@@ -184,7 +184,7 @@
     </div>
     <div class="col-sm-6 col-md-3">
         <div class="statcard statcard-success">
-            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'tickets_opened'))?>" class="display-block">
+            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'tickets_opened'))?>?<?=http_build_query(['rel' => ''] + Request::current()->query())?>" class="display-block">
                 <div class="p-a">
                     <span class="statcard-desc"><?=__('Tickets Opened')?></span>
                     <h2 class="statcard-number">
@@ -202,7 +202,7 @@
     </div>
     <div class="col-sm-6 col-md-3">
         <div class="statcard statcard-success">
-            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'tickets_answered'))?>" class="display-block">
+            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'tickets_answered'))?>?<?=http_build_query(['rel' => ''] + Request::current()->query())?>" class="display-block">
                 <div class="p-a">
                     <span class="statcard-desc"><?=__('Tickets Answered')?></span>
                     <h2 class="statcard-number">
@@ -220,7 +220,7 @@
     </div>
     <div class="col-sm-6 col-md-3">
         <div class="statcard statcard-success">
-            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'tickets_closed'))?>" class="display-block">
+            <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'tickets_closed'))?>?<?=http_build_query(['rel' => ''] + Request::current()->query())?>" class="display-block">
                 <div class="p-a">
                     <span class="statcard-desc"><?=__('Tickets Closed')?></span>
                     <h2 class="statcard-number">

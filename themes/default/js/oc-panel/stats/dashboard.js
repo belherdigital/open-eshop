@@ -17,3 +17,10 @@ if($('#from_date').length !== 0){
 		$('#from_date').datepicker();}
 if($('#to_date').length !== 0){
 		$('#to_date').datepicker();}
+
+$('#from_date').datepicker().on('changeDate', function(e){
+	$('form[name="date"]').submit();
+});
+$('#to_date').datepicker().on('changeDate', function(e){
+	$('form[name="date"]').submit();
+});
