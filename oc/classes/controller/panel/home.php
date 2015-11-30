@@ -14,18 +14,8 @@ class Controller_Panel_Home extends Auth_Controller {
         $this->template->title = __('Welcome');
         Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title));
 
-
-        //try to get the RSS from the cache
         $rss_url = 'http://feeds.feedburner.com/RssBlogOpenEshop';
-        $rss = Core::cache($rss_url,NULL,3*24*60*60);
-
-        //not cached :(
-        if ($rss === NULL)
-        {
-            $rss = Feed::parse($rss_url,10);
-            Core::cache($rss_url,$rss,3*24*60*60);
-        }
-
+        $rss = Feed::parse($rss_url,10);
 
 		$this->template->content = View::factory('oc-panel/home',array('rss' => $rss));
 	}
