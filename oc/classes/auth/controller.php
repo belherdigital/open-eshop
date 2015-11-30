@@ -116,7 +116,7 @@ class Auth_Controller extends Controller
                                                             '//cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css?v=print' => 'print',
                                                             '//cdn.jsdelivr.net/chosen/1.0.0/chosen.css'=>'screen',
                                                             '//cdn.jsdelivr.net/bootstrap.tagsinput/0.3.9/bootstrap-tagsinput.css'=>'screen',
-                                                            '//cdn.jsdelivr.net/sweetalert/0.1.2/sweet-alert.min.css'=>'screen',
+                                                            '//cdn.jsdelivr.net/sweetalert/1.1.3/sweetalert.css'=>'screen',
                                                             'css/jquery.sceditor.default.theme.min.css' => 'screen',
                                                             'css/loadingbar.css'=>'screen', 
                                                             'css/icon-picker.min.css'=>'screen', 
@@ -133,7 +133,7 @@ class Auth_Controller extends Controller
                                                     '//cdn.jsdelivr.net/bootswatch/3.3.6/'.Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
                                                     '//cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen', 
                                                     '//cdn.jsdelivr.net/bootstrap.tagsinput/0.3.9/bootstrap-tagsinput.css'=>'screen',
-                                                    '//cdn.jsdelivr.net/sweetalert/0.1.2/sweet-alert.min.css'=>'screen',
+                                                    '//cdn.jsdelivr.net/sweetalert/1.1.3/sweetalert.css'=>'screen',
                                                     'css/jquery.sceditor.default.theme.min.css' => 'screen',
                                                     'css/loadingbar.css'=>'screen', 
                                                     'css/icon-picker.min.css'=>'screen', 
@@ -160,7 +160,7 @@ class Auth_Controller extends Controller
                                                           'js/iconPicker.min.js',
                                                           'js/oc-panel/sidebar.js?v='.Core::VERSION,
                                                           '//cdn.jsdelivr.net/bootstrap.tagsinput/0.3.9/bootstrap-tagsinput.min.js',
-                                                          '//cdn.jsdelivr.net/sweetalert/0.1.2/sweet-alert.min.js',
+                                                          '//cdn.jsdelivr.net/sweetalert/1.1.3/sweetalert.min.js',
                                                           'js/form.js?v='.Core::VERSION,
                                                           );
             }
