@@ -14,7 +14,7 @@ class Controller_Panel_Stats extends Auth_Controller {
     {   
         parent::before();
 
-        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Stats'))->set_url(Route::url('oc-panel',array('controller'  => 'stats'))));
+        Breadcrumbs::add(Breadcrumb::factory()->set_title(__('Stats'))->set_url(Route::url('oc-panel',array('controller'  => 'stats')).'?'.http_build_query(['rel' => ''] + Request::current()->query())));
 
         $this->template->styles = array('css/datepicker.css' => 'screen');
         $this->template->scripts['footer'] = array('js/bootstrap-datepicker.js',
@@ -129,7 +129,7 @@ class Controller_Panel_Stats extends Auth_Controller {
     public function action_gross_revenue()
     {
         $this->template->title = __('Gross Revenue');
-        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'gross_revenue'))));
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'gross_revenue')).'?'.http_build_query(['rel' => ''] + Request::current()->query())));
 
         $this->template->bind('content', $content);        
         $content = View::factory('oc-panel/pages/stats/details');
@@ -202,7 +202,7 @@ class Controller_Panel_Stats extends Auth_Controller {
     public function action_net_revenue()
     {
         $this->template->title = __('Net Revenue');
-        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'net_revenue'))));
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'net_revenue')).'?'.http_build_query(['rel' => ''] + Request::current()->query())));
 
         $this->template->bind('content', $content);        
         $content = View::factory('oc-panel/pages/stats/details');
@@ -275,7 +275,7 @@ class Controller_Panel_Stats extends Auth_Controller {
     public function action_fees()
     {
         $this->template->title = __('Fees');
-        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'fees'))));
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'fees')).'?'.http_build_query(['rel' => ''] + Request::current()->query())));
 
         $this->template->bind('content', $content);        
         $content = View::factory('oc-panel/pages/stats/details');
@@ -348,7 +348,7 @@ class Controller_Panel_Stats extends Auth_Controller {
     public function action_paid_orders()
     {
         $this->template->title = __('Paid Orders');
-        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'paid_orders'))));
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'paid_orders')).'?'.http_build_query(['rel' => ''] + Request::current()->query())));
 
         $this->template->bind('content', $content);        
         $content = View::factory('oc-panel/pages/stats/details');
@@ -421,7 +421,7 @@ class Controller_Panel_Stats extends Auth_Controller {
     public function action_unpaid_orders()
     {
         $this->template->title = __('Unpaid Orders');
-        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'unpaid_orders'))));
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'unpaid_orders')).'?'.http_build_query(['rel' => ''] + Request::current()->query())));
 
         $this->template->bind('content', $content);        
         $content = View::factory('oc-panel/pages/stats/details');
@@ -494,7 +494,7 @@ class Controller_Panel_Stats extends Auth_Controller {
     public function action_visits()
     {
         $this->template->title = __('Visits');
-        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'visits'))));
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'visits')).'?'.http_build_query(['rel' => ''] + Request::current()->query())));
 
         $this->template->bind('content', $content);        
         $content = View::factory('oc-panel/pages/stats/details');
@@ -567,7 +567,7 @@ class Controller_Panel_Stats extends Auth_Controller {
     public function action_licenses()
     {
         $this->template->title = __('Licenses');
-        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'licenses'))));
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'licenses')).'?'.http_build_query(['rel' => ''] + Request::current()->query())));
 
         $this->template->bind('content', $content);        
         $content = View::factory('oc-panel/pages/stats/details');
@@ -640,7 +640,7 @@ class Controller_Panel_Stats extends Auth_Controller {
     public function action_downloads()
     {
         $this->template->title = __('Downloads');
-        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'downloads'))));
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'downloads')).'?'.http_build_query(['rel' => ''] + Request::current()->query())));
 
         $this->template->bind('content', $content);        
         $content = View::factory('oc-panel/pages/stats/details');
@@ -694,7 +694,7 @@ class Controller_Panel_Stats extends Auth_Controller {
     public function action_tickets_opened()
     {
         $this->template->title = __('Tickets Opened');
-        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'tickets_opened'))));
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'tickets_opened')).'?'.http_build_query(['rel' => ''] + Request::current()->query())));
 
         $this->template->bind('content', $content);        
         $content = View::factory('oc-panel/pages/stats/details');
@@ -748,7 +748,7 @@ class Controller_Panel_Stats extends Auth_Controller {
     public function action_tickets_answered()
     {
         $this->template->title = __('Tickets Answered');
-        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'tickets_answered'))));
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'tickets_answered')).'?'.http_build_query(['rel' => ''] + Request::current()->query())));
 
         $this->template->bind('content', $content);        
         $content = View::factory('oc-panel/pages/stats/details');
@@ -802,7 +802,7 @@ class Controller_Panel_Stats extends Auth_Controller {
     public function action_tickets_closed()
     {
         $this->template->title = __('Tickets Closed');
-        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'tickets_closed'))));
+        Breadcrumbs::add(Breadcrumb::factory()->set_title($this->template->title)->set_url(Route::url('oc-panel',array('controller'  => 'stats', 'action' => 'tickets_closed')).'?'.http_build_query(['rel' => ''] + Request::current()->query())));
 
         $this->template->bind('content', $content);        
         $content = View::factory('oc-panel/pages/stats/details');
@@ -911,11 +911,17 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $ret = array();
 
+        // print maxinum 30 date labels on charts
+        $label_counter = 0;
+        $label_breaker = count($dates) > 30 ? Num::round(count($dates)/30) : 1;
+
         foreach ($dates as $k => $date) 
         {
             $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
             
-            $ret[] = array('date' => $date['date'], ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '$' => $count_sum);
+            $ret[] = array('date' => ($label_counter % $label_breaker == 0) ? $date['date'] : '', ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '$' => $count_sum);
+
+            $label_counter++;
         }
 
         return $ret;
@@ -984,11 +990,17 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $ret = array();
 
+        // print maxinum 30 date labels on charts
+        $label_counter = 0;
+        $label_breaker = count($dates) > 30 ? Num::round(count($dates)/30) : 1;
+
         foreach ($dates as $k => $date) 
         {
             $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
             
-            $ret[] = array('date' => $date['date'], ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '$' => $count_sum);
+            $ret[] = array('date' => ($label_counter % $label_breaker == 0) ? $date['date'] : '', ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '$' => $count_sum);
+        
+            $label_counter++;
         }
 
         return $ret;
@@ -1057,11 +1069,17 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $ret = array();
 
+        // print maxinum 30 date labels on charts
+        $label_counter = 0;
+        $label_breaker = count($dates) > 30 ? Num::round(count($dates)/30) : 1;
+
         foreach ($dates as $k => $date) 
         {
             $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
             
-            $ret[] = array('date' => $date['date'], ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '$' => $count_sum);
+            $ret[] = array('date' => ($label_counter % $label_breaker == 0) ? $date['date'] : '', ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '$' => $count_sum);
+
+            $label_counter++;
         }
 
         return $ret;
@@ -1130,11 +1148,17 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $ret = array();
 
+        // print maxinum 30 date labels on charts
+        $label_counter = 0;
+        $label_breaker = count($dates) > 30 ? Num::round(count($dates)/30) : 1;
+
         foreach ($dates as $k => $date) 
         {
             $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
             
-            $ret[] = array('date' => $date['date'], ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '#' => $count_sum);
+            $ret[] = array('date' => ($label_counter % $label_breaker == 0) ? $date['date'] : '', ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '#' => $count_sum);
+
+            $label_counter++;
         }
 
         return $ret;
@@ -1203,11 +1227,17 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $ret = array();
 
+        // print maxinum 30 date labels on charts
+        $label_counter = 0;
+        $label_breaker = count($dates) > 30 ? Num::round(count($dates)/30) : 1;
+
         foreach ($dates as $k => $date) 
         {
             $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
             
-            $ret[] = array('date' => $date['date'], ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '#' => $count_sum);
+            $ret[] = array('date' => ($label_counter % $label_breaker == 0) ? $date['date'] : '', ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '#' => $count_sum);
+
+            $label_counter++;
         }
 
         return $ret;
@@ -1274,11 +1304,17 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $ret = array();
 
+        // print maxinum 30 date labels on charts
+        $label_counter = 0;
+        $label_breaker = count($dates) > 30 ? Num::round(count($dates)/30) : 1;
+
         foreach ($dates as $k => $date) 
         {
             $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
             
-            $ret[] = array('date' => $date['date'], ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '#' => $count_sum);
+            $ret[] = array('date' => ($label_counter % $label_breaker == 0) ? $date['date'] : '', ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '#' => $count_sum);
+
+            $label_counter++;
         }
 
         return $ret;
@@ -1345,11 +1381,17 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $ret = array();
 
+        // print maxinum 30 date labels on charts
+        $label_counter = 0;
+        $label_breaker = count($dates) > 30 ? Num::round(count($dates)/30) : 1;
+
         foreach ($dates as $k => $date) 
         {
             $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
             
-            $ret[] = array('date' => $date['date'], ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '#' => $count_sum);
+            $ret[] = array('date' => ($label_counter % $label_breaker == 0) ? $date['date'] : '', ($product !== NULL ? '#' . $product->id_product . ' ' . $product->title . ' ' : NULL) . '#' => $count_sum);
+
+            $label_counter++;
         }
 
         return $ret;
@@ -1408,11 +1450,17 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $ret = array();
 
+        // print maxinum 30 date labels on charts
+        $label_counter = 0;
+        $label_breaker = count($dates) > 30 ? Num::round(count($dates)/30) : 1;
+
         foreach ($dates as $k => $date) 
         {
             $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
             
-            $ret[] = array('date' => $date['date'], '#' => $count_sum);
+            $ret[] = array('date' => ($label_counter % $label_breaker == 0) ? $date['date'] : '', '#' => $count_sum);
+
+            $label_counter++;
         }
 
         return $ret;
@@ -1473,11 +1521,17 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $ret = array();
 
+        // print maxinum 30 date labels on charts
+        $label_counter = 0;
+        $label_breaker = count($dates) > 30 ? Num::round(count($dates)/30) : 1;
+
         foreach ($dates as $k => $date) 
         {
             $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
             
-            $ret[] = array('date' => $date['date'], '#' => $count_sum);
+            $ret[] = array('date' => ($label_counter % $label_breaker == 0) ? $date['date'] : '', '#' => $count_sum);
+
+            $label_counter++;
         }
 
         return $ret;
@@ -1538,11 +1592,17 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $ret = array();
 
+        // print maxinum 30 date labels on charts
+        $label_counter = 0;
+        $label_breaker = count($dates) > 30 ? Num::round(count($dates)/30) : 1;
+
         foreach ($dates as $k => $date) 
         {
             $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
             
-            $ret[] = array('date' => $date['date'], '#' => $count_sum);
+            $ret[] = array('date' => ($label_counter % $label_breaker == 0) ? $date['date'] : '', '#' => $count_sum);
+
+            $label_counter++;
         }
 
         return $ret;
@@ -1605,11 +1665,17 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $ret = array();
 
+        // print maxinum 30 date labels on charts
+        $label_counter = 0;
+        $label_breaker = count($dates) > 30 ? Num::round(count($dates)/30) : 1;
+
         foreach ($dates as $k => $date) 
         {
             $count_sum = (isset($result[$date['date']]['total'])) ? $result[$date['date']]['total'] : 0;
             
-            $ret[] = array('date' => $date['date'], '#' => $count_sum);
+            $ret[] = array('date' => ($label_counter % $label_breaker == 0) ? $date['date'] : '', '#' => $count_sum);
+
+            $label_counter++;
         }
 
         return $ret;

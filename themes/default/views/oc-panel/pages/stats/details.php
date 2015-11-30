@@ -5,12 +5,12 @@
             <span class="fa fa-tasks"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="datesMenu">
-            <li><a href="?from_date=<?=date('Y-m-d', strtotime('-30 days'))?>&amp;to_date=<?=date('Y-m-d', strtotime('now'))?>"><?=__('Last 30 days')?></a></li>
-            <li><a href="?from_date=<?=date('Y-m-d', strtotime('-1 month'))?>&amp;to_date=<?=date('Y-m-d', strtotime('now'))?>"><?=__('Last month')?></a></li>
-            <li><a href="?from_date=<?=date('Y-m-d', strtotime('-3 months'))?>&amp;to_date=<?=date('Y-m-d', strtotime('now'))?>"><?=__('Last 3 months')?></a></li>
-            <li><a href="?from_date=<?=date('Y-m-d', strtotime('-6 months'))?>&amp;to_date=<?=date('Y-m-d', strtotime('now'))?>"><?=__('Last 6 months')?></a></li>
-            <li><a href="?from_date=<?=date('Y-m-d', strtotime('-1 year'))?>&amp;to_date=<?=date('Y-m-d', strtotime('now'))?>"><?=__('Last year')?></a></li>
-            <li><a href="?from_date=2014-11-01&amp;to_date=<?=date('Y-m-d', strtotime('now'))?>"><?=__('All time')?></a></li>
+            <li><a href="?<?=http_build_query(['rel' => ''] + ['from_date' => date('Y-m-d', strtotime('-30 days'))] + ['to_date' => date('Y-m-d', strtotime('now'))] + Request::current()->query())?>"><?=__('Last 30 days')?></a></li>
+            <li><a href="?<?=http_build_query(['rel' => ''] + ['from_date' => date('Y-m-d', strtotime('-1 month'))] + ['to_date' => date('Y-m-d', strtotime('now'))] + Request::current()->query())?>"><?=__('Last month')?></a></li>
+            <li><a href="?<?=http_build_query(['rel' => ''] + ['from_date' => date('Y-m-d', strtotime('-3 months'))] + ['to_date' => date('Y-m-d', strtotime('now'))] + Request::current()->query())?>"><?=__('Last 3 months')?></a></li>
+            <li><a href="?<?=http_build_query(['rel' => ''] + ['from_date' => date('Y-m-d', strtotime('-6 months'))] + ['to_date' => date('Y-m-d', strtotime('now'))] + Request::current()->query())?>"><?=__('Last 6 months')?></a></li>
+            <li><a href="?<?=http_build_query(['rel' => ''] + ['from_date' => date('Y-m-d', strtotime('-1 year'))] + ['to_date' => date('Y-m-d', strtotime('now'))] + Request::current()->query())?>"><?=__('Last year')?></a></li>
+            <li><a href="?<?=http_build_query(['rel' => ''] + ['from_date' => '2014-11-01'] + ['to_date' => date('Y-m-d', strtotime('now'))] + Request::current()->query())?>"><?=__('All time')?></a></li>
         </ul>
     </div>
     <form name="date" class="form-inline pull-right" method="post" action="<?=URL::current()?>">
@@ -44,7 +44,7 @@
                 <?if (isset($products)) :?>
                     <span class="pull-right">
                         <a class="btn btn-sm <?=Core::get('compare_products') == 1 ? 'btn-primary' : 'btn-default'?>"
-                            href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>Request::current()->action()))?><?=Core::get('compare_products') == 1 ? NULL : '?compare_products=1'?>"
+                            href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>Request::current()->action()))?>?<?=Core::get('compare_products') == 1 ? http_build_query(['rel' => ''] + ['compare_products' => ''] + Request::current()->query()) : http_build_query(['rel' => ''] + ['compare_products' => 1] + Request::current()->query())?>"
                         >
                             <i class="fa fa-fw fa-clone"></i> <?=__('Compare Plans')?>
                         </a>
