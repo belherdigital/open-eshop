@@ -892,7 +892,7 @@ class Controller_Panel_Stats extends Auth_Controller {
     private function gross_revenue_by_date($from_date, $to_date, $product = NULL)
     {
         // Dates range we are filtering
-        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+        $dates = $this->dates_range($from_date, $to_date);
 
         $query = DB::select(DB::expr('DATE(pay_date) date'))
             ->select(DB::expr('SUM(amount) total'))
@@ -965,7 +965,7 @@ class Controller_Panel_Stats extends Auth_Controller {
     private function net_revenue_by_date($from_date, $to_date, $product = NULL)
     {
         // Dates range we are filtering
-        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+        $dates = $this->dates_range($from_date, $to_date);
 
         $query = DB::select(DB::expr('DATE(pay_date) date'))
             ->select(DB::expr('SUM(amount_net) total'))
@@ -1038,7 +1038,7 @@ class Controller_Panel_Stats extends Auth_Controller {
     private function fees_by_date($from_date, $to_date, $product = NULL)
     {
         // Dates range we are filtering
-        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+        $dates = $this->dates_range($from_date, $to_date);
 
         $query = DB::select(DB::expr('DATE(pay_date) date'))
             ->select(DB::expr('SUM(gateway_fee) total'))
@@ -1111,7 +1111,7 @@ class Controller_Panel_Stats extends Auth_Controller {
     private function paid_orders_by_date($from_date, $to_date, $product = NULL)
     {
         // Dates range we are filtering
-        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+        $dates = $this->dates_range($from_date, $to_date);
 
         $query = DB::select(DB::expr('DATE(pay_date) date'))
             ->select(DB::expr('COUNT(id_order) total'))
@@ -1184,7 +1184,7 @@ class Controller_Panel_Stats extends Auth_Controller {
     private function unpaid_orders_by_date($from_date, $to_date, $product = NULL)
     {
         // Dates range we are filtering
-        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+        $dates = $this->dates_range($from_date, $to_date);
 
         $query = DB::select(DB::expr('DATE(created) date'))
             ->select(DB::expr('COUNT(id_order) total'))
@@ -1232,7 +1232,7 @@ class Controller_Panel_Stats extends Auth_Controller {
             $to_date            = $original_to_date - ($original_to_date - $original_from_date);
         }
 
-        $query = DB::select(DB::expr('COUNT(id_visit) count'))
+        $query = DB::select(DB::expr('COUNT(id_visit) total'))
             ->from('visits')
             ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
 
@@ -1256,10 +1256,10 @@ class Controller_Panel_Stats extends Auth_Controller {
     private function visits_by_date($from_date, $to_date, $product = NULL)
     {
         // Dates range we are filtering
-        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+        $dates = $this->dates_range($from_date, $to_date);
 
         $query = DB::select(DB::expr('DATE(created) date'))
-            ->select(DB::expr('COUNT(id_visit) count'))
+            ->select(DB::expr('COUNT(id_visit) total'))
             ->from('visits')
             ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
 
@@ -1303,7 +1303,7 @@ class Controller_Panel_Stats extends Auth_Controller {
             $to_date            = $original_to_date - ($original_to_date - $original_from_date);
         }
 
-        $query = DB::select(DB::expr('COUNT(id_license) count'))
+        $query = DB::select(DB::expr('COUNT(id_license) total'))
             ->from('licenses')
             ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
 
@@ -1327,10 +1327,10 @@ class Controller_Panel_Stats extends Auth_Controller {
     private function licenses_by_date($from_date, $to_date, $product = NULL)
     {
         // Dates range we are filtering
-        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+        $dates = $this->dates_range($from_date, $to_date);
 
         $query = DB::select(DB::expr('DATE(created) date'))
-            ->select(DB::expr('COUNT(id_license) count'))
+            ->select(DB::expr('COUNT(id_license) total'))
             ->from('licenses')
             ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
 
@@ -1373,7 +1373,7 @@ class Controller_Panel_Stats extends Auth_Controller {
             $to_date            = $original_to_date - ($original_to_date - $original_from_date);
         }
 
-        $query = DB::select(DB::expr('COUNT(id_download) count'))
+        $query = DB::select(DB::expr('COUNT(id_download) total'))
             ->from('downloads')
             ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
 
@@ -1393,10 +1393,10 @@ class Controller_Panel_Stats extends Auth_Controller {
     private function downloads_by_date($from_date, $to_date)
     {
         // Dates range we are filtering
-        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+        $dates = $this->dates_range($from_date, $to_date);
 
         $query = DB::select(DB::expr('DATE(created) date'))
-            ->select(DB::expr('COUNT(id_download) count'))
+            ->select(DB::expr('COUNT(id_download) total'))
             ->from('downloads')
             ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
 
@@ -1436,7 +1436,7 @@ class Controller_Panel_Stats extends Auth_Controller {
             $to_date            = $original_to_date - ($original_to_date - $original_from_date);
         }
 
-        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
+        $query = DB::select(DB::expr('COUNT(id_ticket) total'))
             ->from('tickets')
             ->where('id_ticket_parent','=',NULL)
             ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
@@ -1457,10 +1457,10 @@ class Controller_Panel_Stats extends Auth_Controller {
     private function tickets_opened_by_date($from_date, $to_date)
     {
         // Dates range we are filtering
-        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+        $dates = $this->dates_range($from_date, $to_date);
 
         $query = DB::select(DB::expr('DATE(created) date'))
-            ->select(DB::expr('COUNT(id_ticket) count'))
+            ->select(DB::expr('COUNT(id_ticket) total'))
             ->from('tickets')
             ->where('id_ticket_parent','=',NULL)
             ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
@@ -1501,7 +1501,7 @@ class Controller_Panel_Stats extends Auth_Controller {
             $to_date            = $original_to_date - ($original_to_date - $original_from_date);
         }
 
-        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
+        $query = DB::select(DB::expr('COUNT(id_ticket) total'))
             ->from('tickets')
             ->where('id_ticket_parent','!=',NULL)
             ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
@@ -1522,10 +1522,10 @@ class Controller_Panel_Stats extends Auth_Controller {
     private function tickets_answered_by_date($from_date, $to_date)
     {
         // Dates range we are filtering
-        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+        $dates = $this->dates_range($from_date, $to_date);
 
         $query = DB::select(DB::expr('DATE(created) date'))
-            ->select(DB::expr('COUNT(id_ticket) count'))
+            ->select(DB::expr('COUNT(id_ticket) total'))
             ->from('tickets')
             ->where('id_ticket_parent','!=',NULL)
             ->where('created', 'between', array(Date::unix2mysql($from_date), Date::unix2mysql($to_date)));
@@ -1566,7 +1566,7 @@ class Controller_Panel_Stats extends Auth_Controller {
             $to_date            = $original_to_date - ($original_to_date - $original_from_date);
         }
 
-        $query = DB::select(DB::expr('COUNT(id_ticket) count'))
+        $query = DB::select(DB::expr('COUNT(id_ticket) total'))
             ->from('tickets')
             ->where('read_date', '!=', 'NULL')
             ->where('status', '=', Model_Ticket::STATUS_CLOSED)
@@ -1588,10 +1588,10 @@ class Controller_Panel_Stats extends Auth_Controller {
     private function tickets_closed_by_date($from_date, $to_date)
     {
         // Dates range we are filtering
-        $dates = Date::range($from_date, $to_date, '+1 day','Y-m-d', array('date' => 0, 'count' => 0), 'date');
+        $dates = $this->dates_range($from_date, $to_date);
 
         $query = DB::select(DB::expr('DATE(read_date) date'))
-            ->select(DB::expr('COUNT(id_ticket) count'))
+            ->select(DB::expr('COUNT(id_ticket) total'))
             ->from('tickets')
             ->where('read_date', '!=', 'NULL')
             ->where('status', '=', Model_Ticket::STATUS_CLOSED)
@@ -1665,6 +1665,17 @@ class Controller_Panel_Stats extends Auth_Controller {
         }
 
         return $products_data[0];
+    }
+
+    /**
+     * Dates range that we will be filtering
+     * @param  integer $from_date
+     * @param  integer $to_date
+     * @return array
+     */
+    private function dates_range($from_date, $to_date)
+    {
+        return Date::range($from_date, $to_date, '+1 day', 'Y-m-d', array('date' => 0, 'total' => 0), 'date');
     }
 
 }
