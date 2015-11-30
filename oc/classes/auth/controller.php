@@ -130,7 +130,7 @@ class Auth_Controller extends Controller
                 {
                      Theme::$styles               = array(  '//cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css' => 'screen',   
                                                     '//cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css?v=print' => 'print',                             
-                                                    '//cdn.jsdelivr.net/bootswatch/3.3.2/'.Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
+                                                    '//cdn.jsdelivr.net/bootswatch/3.3.6/'.Theme::get('admin_theme','cerulean').'/bootstrap.min.css' => 'screen',
                                                     '//cdn.jsdelivr.net/chosen/1.0.0/chosen.css' => 'screen', 
                                                     '//cdn.jsdelivr.net/bootstrap.tagsinput/0.3.9/bootstrap-tagsinput.css'=>'screen',
                                                     '//cdn.jsdelivr.net/sweetalert/0.1.2/sweet-alert.min.css'=>'screen',
