@@ -44,15 +44,34 @@ class Controller_Panel_Stats extends Auth_Controller {
         $from_datetime = new DateTime();
         $to_datetime   = new DateTime();
 
+        // Dates
+        $now        = time();
+        $today      = strtotime('today');
+        $yesterday  = strtotime('yesterday');
+        $this_month = strtotime(date('01-m-Y'));
+        $last_month = strtotime(date('01-m-Y').' -1 month');
+        $this_year  = strtotime(date('01-01-Y'));
+        $last_year  = strtotime(date('01-01-Y').' -1 year');
+
         // Dates displayed
         $content->from_date              = date('Y-m-d', $from_date);
         $content->to_date                = date('Y-m-d', $to_date);
         $content->days_ago               = $from_datetime->setTimestamp($from_date)->diff($to_datetime->setTimestamp($to_date))->format("%a");
 
         // Gross Revenue
-        $content->gross_revenue            = $this->gross_revenue_by_date($from_date, $to_date);
-        $content->gross_revenue_total      = $this->gross_revenue_total($from_date, $to_date);
-        $content->gross_revenue_total_past = $this->gross_revenue_total($from_date, $to_date, TRUE);
+        $content->gross_revenue                 = $this->gross_revenue_by_date($from_date, $to_date);
+        $content->gross_revenue_total           = $this->gross_revenue_total($from_date, $to_date);
+        $content->gross_revenue_total_past      = $this->gross_revenue_total($from_date, $to_date, TRUE);
+
+        $content->gross_revenue_today           = $this->gross_revenue_total($today, $now);
+        $content->gross_revenue_today_past      = $this->gross_revenue_total($yesterday, $today);
+        $content->gross_revenue_yesterday       = $this->gross_revenue_total($yesterday, $today);
+        $content->gross_revenue_yesterday_past  = $this->gross_revenue_total($yesterday, $today, TRUE);
+        $content->gross_revenue_month           = $this->gross_revenue_total($this_month, $now);
+        $content->gross_revenue_month_past      = $this->gross_revenue_total($last_month, $this_month);
+        $content->gross_revenue_year            = $this->gross_revenue_total($this_year, $now);
+        $content->gross_revenue_year_past       = $this->gross_revenue_total($last_year, $this_year);
+        $content->gross_revenue_total           = $this->gross_revenue_total(0, time());
 
         // Net Revenue
         $content->net_revenue            = $this->net_revenue_by_date($from_date, $to_date);
@@ -79,20 +98,60 @@ class Controller_Panel_Stats extends Auth_Controller {
         $content->visits_total      = $this->visits_total($from_date, $to_date);
         $content->visits_total_past = $this->visits_total($from_date, $to_date, TRUE);
 
+        $content->visits_today           = $this->visits_total($today, $now);
+        $content->visits_today_past      = $this->visits_total($yesterday, $today);
+        $content->visits_yesterday       = $this->visits_total($yesterday, $today);
+        $content->visits_yesterday_past  = $this->visits_total($yesterday, $today, TRUE);
+        $content->visits_month           = $this->visits_total($this_month, $now);
+        $content->visits_month_past      = $this->visits_total($last_month, $this_month);
+        $content->visits_year            = $this->visits_total($this_year, $now);
+        $content->visits_year_past       = $this->visits_total($last_year, $this_year);
+        $content->visits_total           = $this->visits_total(0, time());
+
         // Downloads
         $content->downloads            = $this->downloads_by_date($from_date, $to_date);
         $content->downloads_total      = $this->downloads_total($from_date, $to_date);
         $content->downloads_total_past = $this->downloads_total($from_date, $to_date, TRUE);
+
+        $content->downloads_today           = $this->downloads_total($today, $now);
+        $content->downloads_today_past      = $this->downloads_total($yesterday, $today);
+        $content->downloads_yesterday       = $this->downloads_total($yesterday, $today);
+        $content->downloads_yesterday_past  = $this->downloads_total($yesterday, $today, TRUE);
+        $content->downloads_month           = $this->downloads_total($this_month, $now);
+        $content->downloads_month_past      = $this->downloads_total($last_month, $this_month);
+        $content->downloads_year            = $this->downloads_total($this_year, $now);
+        $content->downloads_year_past       = $this->downloads_total($last_year, $this_year);
+        $content->downloads_total           = $this->downloads_total(0, time());
 
         // Licenses
         $content->licenses            = $this->licenses_by_date($from_date, $to_date);
         $content->licenses_total      = $this->licenses_total($from_date, $to_date);
         $content->licenses_total_past = $this->licenses_total($from_date, $to_date, TRUE);
 
+        $content->licenses_today           = $this->licenses_total($today, $now);
+        $content->licenses_today_past      = $this->licenses_total($yesterday, $today);
+        $content->licenses_yesterday       = $this->licenses_total($yesterday, $today);
+        $content->licenses_yesterday_past  = $this->licenses_total($yesterday, $today, TRUE);
+        $content->licenses_month           = $this->licenses_total($this_month, $now);
+        $content->licenses_month_past      = $this->licenses_total($last_month, $this_month);
+        $content->licenses_year            = $this->licenses_total($this_year, $now);
+        $content->licenses_year_past       = $this->licenses_total($last_year, $this_year);
+        $content->licenses_total           = $this->licenses_total(0, time());
+
         // Tickets Opened
         $content->tickets_opened            = $this->tickets_opened_by_date($from_date, $to_date);
         $content->tickets_opened_total      = $this->tickets_opened_total($from_date, $to_date);
         $content->tickets_opened_total_past = $this->tickets_opened_total($from_date, $to_date, TRUE);
+
+        $content->tickets_opened_today           = $this->tickets_opened_total($today, $now);
+        $content->tickets_opened_today_past      = $this->tickets_opened_total($yesterday, $today);
+        $content->tickets_opened_yesterday       = $this->tickets_opened_total($yesterday, $today);
+        $content->tickets_opened_yesterday_past  = $this->tickets_opened_total($yesterday, $today, TRUE);
+        $content->tickets_opened_month           = $this->tickets_opened_total($this_month, $now);
+        $content->tickets_opened_month_past      = $this->tickets_opened_total($last_month, $this_month);
+        $content->tickets_opened_year            = $this->tickets_opened_total($this_year, $now);
+        $content->tickets_opened_year_past       = $this->tickets_opened_total($last_year, $this_year);
+        $content->tickets_opened_total           = $this->tickets_opened_total(0, time());
 
         // Tickets Answered
         $content->tickets_answered            = $this->tickets_answered_by_date($from_date, $to_date);
@@ -193,6 +252,8 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $content->products      = $products;
         $content->products_data = $products_data;
+
+        $content->num_format = 'MONEY';
     }
 
     /**
@@ -266,6 +327,8 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $content->products      = $products;
         $content->products_data = $products_data;
+
+        $content->num_format = 'MONEY';
     }
 
     /**
@@ -339,6 +402,8 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $content->products      = $products;
         $content->products_data = $products_data;
+
+        $content->num_format = 'MONEY';
     }
 
     /**
@@ -412,6 +477,8 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $content->products      = $products;
         $content->products_data = $products_data;
+
+        $content->num_format = 'INTEGER';
     }
 
     /**
@@ -485,6 +552,8 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $content->products      = $products;
         $content->products_data = $products_data;
+
+        $content->num_format = 'INTEGER';
     }
 
     /**
@@ -558,6 +627,8 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $content->products      = $products;
         $content->products_data = $products_data;
+
+        $content->num_format = 'INTEGER';
     }
 
     /**
@@ -631,6 +702,8 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $content->products      = $products;
         $content->products_data = $products_data;
+
+        $content->num_format = 'INTEGER';
     }
 
     /**
@@ -684,6 +757,8 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $content->twelve_months_ago_total      = $this->downloads_total(strtotime('-12 months'), time());
         $content->twelve_six_months_ago_total  = $this->downloads_total(strtotime('-12 months'), time(), TRUE);
+
+        $content->num_format = 'INTEGER';
 
     }
 
@@ -739,6 +814,8 @@ class Controller_Panel_Stats extends Auth_Controller {
         $content->twelve_months_ago_total      = $this->tickets_opened_total(strtotime('-12 months'), time());
         $content->twelve_six_months_ago_total  = $this->tickets_opened_total(strtotime('-12 months'), time(), TRUE);
 
+        $content->num_format = 'INTEGER';
+
     }
 
     /**
@@ -793,6 +870,8 @@ class Controller_Panel_Stats extends Auth_Controller {
         $content->twelve_months_ago_total      = $this->tickets_answered_total(strtotime('-12 months'), time());
         $content->twelve_six_months_ago_total  = $this->tickets_answered_total(strtotime('-12 months'), time(), TRUE);
 
+        $content->num_format = 'INTEGER';
+
     }
 
     /**
@@ -846,6 +925,8 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $content->twelve_months_ago_total      = $this->tickets_closed_total(strtotime('-12 months'), time());
         $content->twelve_six_months_ago_total  = $this->tickets_closed_total(strtotime('-12 months'), time(), TRUE);
+
+        $content->num_format = 'INTEGER';
 
     }
 
