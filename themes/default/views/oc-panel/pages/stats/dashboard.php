@@ -126,7 +126,7 @@
                                 <span class="statcard-desc"><?=__('Today')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($visits_today !== NULL) :?>
-                                        <?=i18n::format_currency($visits_today)?>
+                                        <?=Num::format($visits_today, 0)?>
                                         <small class="delta-indicator <?=Num::percent_change($visits_today, $visits_today_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($visits_today, $visits_today_past)?></small>
                                     <?else :?>
                                         --
@@ -139,7 +139,7 @@
                                 <span class="statcard-desc"><?=__('Yesterday')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($visits_yesterday !== NULL) :?>
-                                        <?=i18n::format_currency($visits_yesterday)?>
+                                        <?=Num::format($visits_yesterday, 0)?>
                                         <small class="delta-indicator <?=Num::percent_change($visits_yesterday, $visits_yesterday_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($visits_yesterday, $visits_yesterday_past)?></small>
                                     <?else :?>
                                         --
@@ -152,7 +152,7 @@
                                 <span class="statcard-desc"><?=__('Month')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($visits_month !== NULL) :?>
-                                        <?=i18n::format_currency($visits_month)?>
+                                        <?=Num::format($visits_month, 0)?>
                                         <small class="delta-indicator <?=Num::percent_change($visits_month, $visits_month_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($visits_month, $visits_month_past)?></small>
                                     <?else:?>
                                         --
@@ -165,7 +165,7 @@
                                 <span class="statcard-desc"><?=__('Year')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($visits_year !== NULL) :?>
-                                        <?=i18n::format_currency($visits_year)?>
+                                        <?=Num::format($visits_year, 0)?>
                                         <small class="delta-indicator <?=Num::percent_change($visits_year, $visits_year_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($visits_year, $visits_year_past)?></small>
                                     <?else:?>
                                         --
@@ -178,7 +178,7 @@
                                 <span class="statcard-desc"><?=__('Total')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($visits_total !== NULL) :?>
-                                        <?=i18n::format_currency($visits_total)?>
+                                        <?=Num::format($visits_total, 0)?>
                                     <?else:?>
                                         --
                                     <?endif?>
@@ -196,7 +196,7 @@
                                 <span class="statcard-desc"><?=__('Today')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($downloads_today !== NULL) :?>
-                                        <?=i18n::format_currency($downloads_today)?>
+                                        <?=Num::format($downloads_today, 0)?>
                                         <small class="delta-indicator <?=Num::percent_change($downloads_today, $downloads_today_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($downloads_today, $downloads_today_past)?></small>
                                     <?else :?>
                                         --
@@ -209,7 +209,7 @@
                                 <span class="statcard-desc"><?=__('Yesterday')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($downloads_yesterday !== NULL) :?>
-                                        <?=i18n::format_currency($downloads_yesterday)?>
+                                        <?=Num::format($downloads_yesterday, 0)?>
                                         <small class="delta-indicator <?=Num::percent_change($downloads_yesterday, $downloads_yesterday_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($downloads_yesterday, $downloads_yesterday_past)?></small>
                                     <?else :?>
                                         --
@@ -222,7 +222,7 @@
                                 <span class="statcard-desc"><?=__('Month')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($downloads_month !== NULL) :?>
-                                        <?=i18n::format_currency($downloads_month)?>
+                                        <?=Num::format($downloads_month, 0)?>
                                         <small class="delta-indicator <?=Num::percent_change($downloads_month, $downloads_month_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($downloads_month, $downloads_month_past)?></small>
                                     <?else:?>
                                         --
@@ -235,7 +235,7 @@
                                 <span class="statcard-desc"><?=__('Year')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($downloads_year !== NULL) :?>
-                                        <?=i18n::format_currency($downloads_year)?>
+                                        <?=Num::format($downloads_year, 0)?>
                                         <small class="delta-indicator <?=Num::percent_change($downloads_year, $downloads_year_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($downloads_year, $downloads_year_past)?></small>
                                     <?else:?>
                                         --
@@ -248,7 +248,7 @@
                                 <span class="statcard-desc"><?=__('Total')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($downloads_total !== NULL) :?>
-                                        <?=i18n::format_currency($downloads_total)?>
+                                        <?=Num::format($downloads_total, 0)?>
                                     <?else:?>
                                         --
                                     <?endif?>
@@ -266,7 +266,7 @@
                                 <span class="statcard-desc"><?=__('Today')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($licenses_today !== NULL) :?>
-                                        <?=i18n::format_currency($licenses_today)?>
+                                        <?=Num::format($licenses_today, 0)?>
                                         <small class="delta-indicator <?=Num::percent_change($licenses_today, $licenses_today_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($licenses_today, $licenses_today_past)?></small>
                                     <?else :?>
                                         --
@@ -279,7 +279,7 @@
                                 <span class="statcard-desc"><?=__('Yesterday')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($licenses_yesterday !== NULL) :?>
-                                        <?=i18n::format_currency($licenses_yesterday)?>
+                                        <?=Num::format($licenses_yesterday, 0)?>
                                         <small class="delta-indicator <?=Num::percent_change($licenses_yesterday, $licenses_yesterday_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($licenses_yesterday, $licenses_yesterday_past)?></small>
                                     <?else :?>
                                         --
@@ -292,7 +292,7 @@
                                 <span class="statcard-desc"><?=__('Month')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($licenses_month !== NULL) :?>
-                                        <?=i18n::format_currency($licenses_month)?>
+                                        <?=Num::format($licenses_month, 0)?>
                                         <small class="delta-indicator <?=Num::percent_change($licenses_month, $licenses_month_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($licenses_month, $licenses_month_past)?></small>
                                     <?else:?>
                                         --
@@ -305,7 +305,7 @@
                                 <span class="statcard-desc"><?=__('Year')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($licenses_year !== NULL) :?>
-                                        <?=i18n::format_currency($licenses_year)?>
+                                        <?=Num::format($licenses_year, 0)?>
                                         <small class="delta-indicator <?=Num::percent_change($licenses_year, $licenses_year_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($licenses_year, $licenses_year_past)?></small>
                                     <?else:?>
                                         --
@@ -318,7 +318,7 @@
                                 <span class="statcard-desc"><?=__('Total')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($licenses_total !== NULL) :?>
-                                        <?=i18n::format_currency($licenses_total)?>
+                                        <?=Num::format($licenses_total, 0)?>
                                     <?else:?>
                                         --
                                     <?endif?>
@@ -336,7 +336,7 @@
                                 <span class="statcard-desc"><?=__('Today')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($tickets_opened_today !== NULL) :?>
-                                        <?=i18n::format_currency($tickets_opened_today)?>
+                                        <?=Num::format($tickets_opened_today, 0)?>
                                         <small class="delta-indicator <?=Num::percent_change($tickets_opened_today, $tickets_opened_today_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($tickets_opened_today, $tickets_opened_today_past)?></small>
                                     <?else :?>
                                         --
@@ -349,7 +349,7 @@
                                 <span class="statcard-desc"><?=__('Yesterday')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($tickets_opened_yesterday !== NULL) :?>
-                                        <?=i18n::format_currency($tickets_opened_yesterday)?>
+                                        <?=Num::format($tickets_opened_yesterday, 0)?>
                                         <small class="delta-indicator <?=Num::percent_change($tickets_opened_yesterday, $tickets_opened_yesterday_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($tickets_opened_yesterday, $tickets_opened_yesterday_past)?></small>
                                     <?else :?>
                                         --
@@ -362,7 +362,7 @@
                                 <span class="statcard-desc"><?=__('Month')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($tickets_opened_month !== NULL) :?>
-                                        <?=i18n::format_currency($tickets_opened_month)?>
+                                        <?=Num::format($tickets_opened_month, 0)?>
                                         <small class="delta-indicator <?=Num::percent_change($tickets_opened_month, $tickets_opened_month_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($tickets_opened_month, $tickets_opened_month_past)?></small>
                                     <?else:?>
                                         --
@@ -375,7 +375,7 @@
                                 <span class="statcard-desc"><?=__('Year')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($tickets_opened_year !== NULL) :?>
-                                        <?=i18n::format_currency($tickets_opened_year)?>
+                                        <?=Num::format($tickets_opened_year, 0)?>
                                         <small class="delta-indicator <?=Num::percent_change($tickets_opened_year, $tickets_opened_year_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($tickets_opened_year, $tickets_opened_year_past)?></small>
                                     <?else:?>
                                         --
@@ -388,7 +388,7 @@
                                 <span class="statcard-desc"><?=__('Total')?></span>
                                 <h2 class="statcard-number">
                                     <?if ($tickets_opened_total !== NULL) :?>
-                                        <?=i18n::format_currency($tickets_opened_total)?>
+                                        <?=Num::format($tickets_opened_total, 0)?>
                                     <?else:?>
                                         --
                                     <?endif?>

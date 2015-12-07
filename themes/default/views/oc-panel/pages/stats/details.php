@@ -181,8 +181,10 @@
                             <tr>
                                 <td><?=$product->title?></td>
                                 <td><strong class="text-highlighted"><?=$products_data[$product->id_product]['customers']?></strong></td>
-                                <td><strong class="text-highlighted">
-                                    <?=$num_format == 'MONEY' ? i18n::format_currency($products_data[$product->id_product]['total']) : Num::format($products_data[$product->id_product]['total'], 0)?>
+                                <td>
+                                    <strong class="text-highlighted">
+                                        <?=$num_format == 'MONEY' ? i18n::format_currency($products_data[$product->id_product]['total']) : Num::format($products_data[$product->id_product]['total'], 0)?>
+                                    </strong>
                                 </td>
                                 <td class="col-xs-2">
                                     <div class="progress">
