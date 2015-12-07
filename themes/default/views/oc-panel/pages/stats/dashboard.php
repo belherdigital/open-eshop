@@ -38,6 +38,370 @@
 </div>
 
 <div class="row">
+    <div class="col-md-12">
+        <div>
+        <ul class="nav nav-tabs nav-justified">
+            <li class="active"><a href="#gross_revenue" data-toggle="tab"><strong><?=__('Gross Revenue')?></strong></a></li>
+            <li><a href="#visits" data-toggle="tab"><strong><?=__('Visits')?></strong></a></li>
+            <li><a href="#downloads" data-toggle="tab"><strong><?=__('Downloads')?></strong></a></li>
+            <li><a href="#licenses" data-toggle="tab"><strong><?=__('Licenses')?></strong></a></li>
+            <li><a href="#tickets" data-toggle="tab"><strong><?=__('Tickets')?></strong></a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="gross_revenue">
+                <div class="statcard statcard-success">
+                    <ul class="nav nav-pills nav-justified text-center">
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Today')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($gross_revenue_today !== NULL) :?>
+                                        <?=i18n::format_currency($gross_revenue_today)?>
+                                        <small class="delta-indicator <?=Num::percent_change($gross_revenue_today, $gross_revenue_today_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($gross_revenue_today, $gross_revenue_today_past)?></small>
+                                    <?else :?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Yesterday')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($gross_revenue_yesterday !== NULL) :?>
+                                        <?=i18n::format_currency($gross_revenue_yesterday)?>
+                                        <small class="delta-indicator <?=Num::percent_change($gross_revenue_yesterday, $gross_revenue_yesterday_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($gross_revenue_yesterday, $gross_revenue_yesterday_past)?></small>
+                                    <?else :?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Month')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($gross_revenue_month !== NULL) :?>
+                                        <?=i18n::format_currency($gross_revenue_month)?>
+                                        <small class="delta-indicator <?=Num::percent_change($gross_revenue_month, $gross_revenue_month_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($gross_revenue_month, $gross_revenue_month_past)?></small>
+                                    <?else:?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Year')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($gross_revenue_year !== NULL) :?>
+                                        <?=i18n::format_currency($gross_revenue_year)?>
+                                        <small class="delta-indicator <?=Num::percent_change($gross_revenue_year, $gross_revenue_year_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($gross_revenue_year, $gross_revenue_year_past)?></small>
+                                    <?else:?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Total')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($gross_revenue_total !== NULL) :?>
+                                        <?=i18n::format_currency($gross_revenue_total)?>
+                                    <?else:?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-pane" id="visits">
+                <div class="statcard statcard-success">
+                    <ul class="nav nav-pills nav-justified text-center">
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Today')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($visits_today !== NULL) :?>
+                                        <?=i18n::format_currency($visits_today)?>
+                                        <small class="delta-indicator <?=Num::percent_change($visits_today, $visits_today_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($visits_today, $visits_today_past)?></small>
+                                    <?else :?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Yesterday')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($visits_yesterday !== NULL) :?>
+                                        <?=i18n::format_currency($visits_yesterday)?>
+                                        <small class="delta-indicator <?=Num::percent_change($visits_yesterday, $visits_yesterday_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($visits_yesterday, $visits_yesterday_past)?></small>
+                                    <?else :?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Month')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($visits_month !== NULL) :?>
+                                        <?=i18n::format_currency($visits_month)?>
+                                        <small class="delta-indicator <?=Num::percent_change($visits_month, $visits_month_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($visits_month, $visits_month_past)?></small>
+                                    <?else:?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Year')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($visits_year !== NULL) :?>
+                                        <?=i18n::format_currency($visits_year)?>
+                                        <small class="delta-indicator <?=Num::percent_change($visits_year, $visits_year_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($visits_year, $visits_year_past)?></small>
+                                    <?else:?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Total')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($visits_total !== NULL) :?>
+                                        <?=i18n::format_currency($visits_total)?>
+                                    <?else:?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                    </ul>
+                </div>                
+            </div>
+            <div class="tab-pane" id="downloads">
+                <div class="statcard statcard-success">
+                    <ul class="nav nav-pills nav-justified text-center">
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Today')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($downloads_today !== NULL) :?>
+                                        <?=i18n::format_currency($downloads_today)?>
+                                        <small class="delta-indicator <?=Num::percent_change($downloads_today, $downloads_today_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($downloads_today, $downloads_today_past)?></small>
+                                    <?else :?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Yesterday')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($downloads_yesterday !== NULL) :?>
+                                        <?=i18n::format_currency($downloads_yesterday)?>
+                                        <small class="delta-indicator <?=Num::percent_change($downloads_yesterday, $downloads_yesterday_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($downloads_yesterday, $downloads_yesterday_past)?></small>
+                                    <?else :?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Month')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($downloads_month !== NULL) :?>
+                                        <?=i18n::format_currency($downloads_month)?>
+                                        <small class="delta-indicator <?=Num::percent_change($downloads_month, $downloads_month_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($downloads_month, $downloads_month_past)?></small>
+                                    <?else:?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Year')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($downloads_year !== NULL) :?>
+                                        <?=i18n::format_currency($downloads_year)?>
+                                        <small class="delta-indicator <?=Num::percent_change($downloads_year, $downloads_year_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($downloads_year, $downloads_year_past)?></small>
+                                    <?else:?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Total')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($downloads_total !== NULL) :?>
+                                        <?=i18n::format_currency($downloads_total)?>
+                                    <?else:?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div  class="tab-pane" id="licenses">
+                <div class="statcard statcard-success">
+                    <ul class="nav nav-pills nav-justified text-center">
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Today')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($licenses_today !== NULL) :?>
+                                        <?=i18n::format_currency($licenses_today)?>
+                                        <small class="delta-indicator <?=Num::percent_change($licenses_today, $licenses_today_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($licenses_today, $licenses_today_past)?></small>
+                                    <?else :?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Yesterday')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($licenses_yesterday !== NULL) :?>
+                                        <?=i18n::format_currency($licenses_yesterday)?>
+                                        <small class="delta-indicator <?=Num::percent_change($licenses_yesterday, $licenses_yesterday_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($licenses_yesterday, $licenses_yesterday_past)?></small>
+                                    <?else :?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Month')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($licenses_month !== NULL) :?>
+                                        <?=i18n::format_currency($licenses_month)?>
+                                        <small class="delta-indicator <?=Num::percent_change($licenses_month, $licenses_month_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($licenses_month, $licenses_month_past)?></small>
+                                    <?else:?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Year')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($licenses_year !== NULL) :?>
+                                        <?=i18n::format_currency($licenses_year)?>
+                                        <small class="delta-indicator <?=Num::percent_change($licenses_year, $licenses_year_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($licenses_year, $licenses_year_past)?></small>
+                                    <?else:?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Total')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($licenses_total !== NULL) :?>
+                                        <?=i18n::format_currency($licenses_total)?>
+                                    <?else:?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div  class="tab-pane" id="tickets">
+                <div class="statcard statcard-success">
+                    <ul class="nav nav-pills nav-justified text-center">
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Today')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($tickets_opened_today !== NULL) :?>
+                                        <?=i18n::format_currency($tickets_opened_today)?>
+                                        <small class="delta-indicator <?=Num::percent_change($tickets_opened_today, $tickets_opened_today_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($tickets_opened_today, $tickets_opened_today_past)?></small>
+                                    <?else :?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Yesterday')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($tickets_opened_yesterday !== NULL) :?>
+                                        <?=i18n::format_currency($tickets_opened_yesterday)?>
+                                        <small class="delta-indicator <?=Num::percent_change($tickets_opened_yesterday, $tickets_opened_yesterday_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($tickets_opened_yesterday, $tickets_opened_yesterday_past)?></small>
+                                    <?else :?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Month')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($tickets_opened_month !== NULL) :?>
+                                        <?=i18n::format_currency($tickets_opened_month)?>
+                                        <small class="delta-indicator <?=Num::percent_change($tickets_opened_month, $tickets_opened_month_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($tickets_opened_month, $tickets_opened_month_past)?></small>
+                                    <?else:?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Year')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($tickets_opened_year !== NULL) :?>
+                                        <?=i18n::format_currency($tickets_opened_year)?>
+                                        <small class="delta-indicator <?=Num::percent_change($tickets_opened_year, $tickets_opened_year_past) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($tickets_opened_year, $tickets_opened_year_past)?></small>
+                                    <?else:?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="p-a">
+                                <span class="statcard-desc"><?=__('Total')?></span>
+                                <h2 class="statcard-number">
+                                    <?if ($tickets_opened_total !== NULL) :?>
+                                        <?=i18n::format_currency($tickets_opened_total)?>
+                                    <?else:?>
+                                        --
+                                    <?endif?>
+                                </h2>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
     <div class="col-sm-6 col-md-3">
         <div class="statcard statcard-success">
             <a href="<?=Route::url('oc-panel', array('controller'=> Request::current()->controller(), 'action'=>'gross_revenue'))?>?<?=http_build_query(['rel' => ''] + Request::current()->query())?>" class="display-block">

@@ -59,7 +59,7 @@
                     <span class="statcard-desc"><?=$title?></span>
                     <h2 class="statcard-number">
                         <?if ($current_total !== NULL) :?>
-                            <?=Num::format($current_total, 0)?>
+                            <?=$num_format == 'MONEY' ? i18n::format_currency($current_total) : Num::format($current_total, 0)?>
                         <?else :?>
                             --
                         <?endif?>
@@ -100,7 +100,7 @@
                         <span class="statcard-desc"><?=__('Current')?></span>
                         <h2 class="statcard-number">
                             <?if ($current_total !== NULL) :?>
-                                <?=Num::format($current_total, 0)?>
+                                <?=$num_format == 'MONEY' ? i18n::format_currency($current_total) : Num::format($current_total, 0)?>
                                 <small class="delta-indicator <?=Num::percent_change($current_total, $past_total) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($current_total, $past_total)?></small>
                             <?else :?>
                                 --
@@ -113,7 +113,7 @@
                         <span class="statcard-desc"><?=__('1 Month Ago')?></span>
                         <h2 class="statcard-number">
                             <?if ($month_ago_total !== NULL) :?>
-                                <?=Num::format($month_ago_total, 0)?>
+                                <?=$num_format == 'MONEY' ? i18n::format_currency($month_ago_total) : Num::format($month_ago_total, 0)?>
                                 <small class="delta-indicator <?=Num::percent_change($month_ago_total, $past_month_ago_total) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($month_ago_total, $past_month_ago_total)?></small>
                             <?else:?>
                                 --
@@ -126,7 +126,7 @@
                         <span class="statcard-desc"><?=__('3 Months Ago')?></span>
                         <h2 class="statcard-number">
                             <?if ($three_months_ago_total !== NULL) :?>
-                                <?=Num::format($three_months_ago_total, 0)?>
+                                <?=$num_format == 'MONEY' ? i18n::format_currency($three_months_ago_total) : Num::format($three_months_ago_total, 0)?>
                                 <small class="delta-indicator <?=Num::percent_change($three_months_ago_total, $past_three_months_ago_total) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($three_months_ago_total, $past_three_months_ago_total)?></small>
                             <?else:?>
                                 --
@@ -139,7 +139,7 @@
                         <span class="statcard-desc"><?=__('6 Months Ago')?></span>
                         <h2 class="statcard-number">
                             <?if ($six_months_ago_total !== NULL) :?>
-                                <?=Num::format($six_months_ago_total, 0)?>
+                                <?=$num_format == 'MONEY' ? i18n::format_currency($six_months_ago_total) : Num::format($six_months_ago_total, 0)?>
                                 <small class="delta-indicator <?=Num::percent_change($six_months_ago_total, $past_six_months_ago_total) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($six_months_ago_total, $past_six_months_ago_total)?></small>
                             <?else:?>
                                 --
@@ -151,8 +151,8 @@
                     <div class="p-a">
                         <span class="statcard-desc"><?=__('12 Months Ago')?></span>
                         <h2 class="statcard-number">
-                            <?if ($six_months_ago_total !== NULL) :?>
-                                <?=Num::format($twelve_months_ago_total, 0)?>
+                            <?if ($twelve_months_ago_total !== NULL) :?>
+                                <?=$num_format == 'MONEY' ? i18n::format_currency($twelve_months_ago_total) : Num::format($twelve_months_ago_total, 0)?>
                                 <small class="delta-indicator <?=Num::percent_change($twelve_months_ago_total, $twelve_six_months_ago_total) < 0 ? 'delta-negative' : 'delta-positive'?>"><?=Num::percent_change($twelve_months_ago_total, $twelve_six_months_ago_total)?></small>
                             <?else:?>
                                 --
@@ -181,7 +181,9 @@
                             <tr>
                                 <td><?=$product->title?></td>
                                 <td><strong class="text-highlighted"><?=$products_data[$product->id_product]['customers']?></strong></td>
-                                <td><strong class="text-highlighted"><?=Num::format($products_data[$product->id_product]['total'], 0)?></strong></td>
+                                <td><strong class="text-highlighted">
+                                    <?=$num_format == 'MONEY' ? i18n::format_currency($products_data[$product->id_product]['total']) : Num::format($products_data[$product->id_product]['total'], 0)?>
+                                </td>
                                 <td class="col-xs-2">
                                     <div class="progress">
                                         <div class="progress-bar" style="width: <?=$current_total > 0 ? number_format(($products_data[$product->id_product]['total']/$current_total) * 100, 2) : 0?>%;">
