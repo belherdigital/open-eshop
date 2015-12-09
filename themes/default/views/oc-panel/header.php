@@ -41,8 +41,16 @@
                         </a>
                         <ul class="dropdown-menu">
                             <?=Theme::admin_link(__('Cache'),'tools','cache','oc-panel','glyphicon glyphicon-cog')?>
-                            <?=Theme::admin_link(__('Delete all'),'tools','cache?force=1','oc-panel','glyphicon glyphicon-remove-sign')?>
-                            <?=Theme::admin_link(__('Delete expired'),'tools','cache?force=2','oc-panel','glyphicon glyphicon-remove-circle')?>
+                            <li>
+                                <a class="ajax-load" title="<?=__('Delete all')?>" href="<?=Route::url('oc-panel',array('controller'=>'tools','action'=>'cache')).'?force=1'?>">
+                                    <i class="glyphicon glyphicon-remove-sign"></i> <span class="side-name-link"><?=__('Delete all')?></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="ajax-load" title="<?=__('Delete expired')?>" href="<?=Route::url('oc-panel',array('controller'=>'tools','action'=>'cache')).'?force=2'?>">
+                                    <i class="glyphicon glyphicon-remove-circle"></i> <span class="side-name-link"><?=__('Delete expired')?></span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <?endif?>
