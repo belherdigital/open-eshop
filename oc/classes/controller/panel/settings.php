@@ -250,6 +250,9 @@ class Controller_Panel_Settings extends Auth_Controller {
                             $c->config_value = Kohana::$_POST_ORIG[$c->config_key];
                         else
                             $c->config_value = $config_res;
+
+                        if ($c->config_key == 'maintenance' AND $c->config_value == 0)
+                            Alert::del('maintenance');
     
                         try {
                             $c->save();
