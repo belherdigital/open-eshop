@@ -415,6 +415,8 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('payment', 'twocheckout_secretword', ''),
 ('payment', 'twocheckout_sandbox', 0),
 ('payment', 'fraudlabspro', ''),
+('payment', 'paysbuy', ''),
+('payment', 'paysbuy_sandbox', '0'),
 ('general', 'api_key', '".core::generate_password(32)."'),
 ('general', 'number_format', '%n'),
 ('general', 'date_format', 'd-m-y'),
