@@ -34,7 +34,7 @@
         </a>
         - <a target="_blank" href="<?=Route::url('oc-panel',array('controller'=>'support','action'=>'index','id'=>'admin'))?>?search=<?=$ticket->user->email?>">
             <?=__('Tickets')?></a>
-        - <a target="_blank" href="<?=Route::url('oc-panel',array('controller'=>'order','action'=>'index'))?>?email=<?=$ticket->user->email?>">
+        - <a target="_blank" href="<?=Route::url('oc-panel',array('controller'=>'order','action'=>'index'))?>?filter__id_user=<?=$ticket->user->email?>">
             <?=__('Orders')?></a>
 
 

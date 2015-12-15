@@ -161,6 +161,8 @@ class Auth_Controller extends Controller
                                                           'js/oc-panel/sidebar.js?v='.Core::VERSION,
                                                           '//cdn.jsdelivr.net/bootstrap.tagsinput/0.3.9/bootstrap-tagsinput.min.js',
                                                           '//cdn.jsdelivr.net/sweetalert/1.1.3/sweetalert.min.js',
+                                                          'js/jquery.bootgrid.min.js',
+                                                          'js/query.bootgrid.fa.min.js',
                                                           'js/form.js?v='.Core::VERSION,
                                                           );
             }
