@@ -70,7 +70,7 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')
   UNIQUE KEY `".core::request('TABLE_PREFIX')."users_UK_api_token` (`api_token`),
   UNIQUE KEY `".core::request('TABLE_PREFIX')."users_UK_seoname` (`seoname`),
   UNIQUE KEY `".core::request('TABLE_PREFIX')."users_UK_provider_AND_uid` (`hybridauth_provider_name`,`hybridauth_provider_uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=".core::request('DB_CHARSET').";");
+) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
 
 mysqli_query($link,"CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')."categories` (
@@ -86,7 +86,7 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS  `".core::request('TABLE_PREFIX')
   `has_image` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_category`) USING BTREE,
   UNIQUE KEY `".core::request('TABLE_PREFIX')."categories_UK_seo_name` (`seoname`)
-) ENGINE=InnoDB DEFAULT CHARSET=".core::request('DB_CHARSET').";");
+) ENGINE=MyISAM DEFAULT CHARSET=".core::request('DB_CHARSET').";");
 
 
 mysqli_query($link,"CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX')."visits` (

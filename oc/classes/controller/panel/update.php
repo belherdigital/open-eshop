@@ -12,6 +12,16 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
 
     public function action_220()
     {
+        //remove innodb
+        try
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE `".self::$db_prefix."categories` ENGINE = MyISAM")->execute();
+        }catch (exception $e) {}
+        try
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE `".self::$db_prefix."users` ENGINE = MyISAM")->execute();
+        }catch (exception $e) {}
+
         //new configs
         $configs = array(
                         array( 'config_key'     => 'paysbuy',
