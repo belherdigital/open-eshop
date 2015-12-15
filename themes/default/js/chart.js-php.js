@@ -22,9 +22,6 @@ function loadChartJsPhp() {
         var id = canvas.id;
 
         // Getting ctx from canvas
-        var ctx = canvas.getContext('2d');
-
-        // Getting ctx from canvas
         if (typeof canvas.getContext == 'function')
         {
             var ctx = canvas.getContext('2d');
@@ -43,12 +40,13 @@ function loadChartJsPhp() {
 (function() {
     loadChartJsPhp();
 })();
-
+console.log(ChartJSPHP);
 //  Destroying and creating each chart when  show/hide bootstrp tab
 $('a[data-toggle=tab').on('shown.bs.tab', function (e) {
 
     for (var i in ChartJSPHP) {
-        ChartJSPHP[i].destroy();
+        if (typeof ChartJSPHP[i].destroy == 'function')
+            ChartJSPHP[i].destroy();
     }
     
     loadChartJsPhp();
