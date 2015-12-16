@@ -1,4 +1,4 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+    <?php defined('SYSPATH') or die('No direct script access.');
 
 class Controller_Panel_Order extends Auth_CrudAjax {
 

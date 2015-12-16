@@ -27,6 +27,7 @@
                                         <?endif?>
                                         <tr><td class="br"><?=Theme::admin_link(__('Coupons'), 'coupon','index','oc-panel','glyphicon glyphicon-tag')?></td></tr>
                                         <tr><td class="br"><?=Theme::admin_link(__('Downloads'), 'download','index','oc-panel','glyphicon glyphicon-download-alt')?></td></tr>
+                                        <tr><td class="br"><?=Theme::admin_link(__('Licenses'), 'license','index','oc-panel','glyphicon glyphicon-barcode')?></td></tr>
                                         <?if (core::config('product.reviews')==1):?>
                                             <tr><td class="br"><?=Theme::admin_link(__('Reviews'), 'review','index','oc-panel','glyphicon glyphicon-star-empty')?></td></tr>
                                         <?endif?>
