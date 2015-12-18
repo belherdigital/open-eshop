@@ -75,15 +75,15 @@ class Controller_Panel_Profile extends Auth_Controller {
 
 	public function action_image()
 	{
-		//get image
-		$image = $_FILES['profile_image']; //file post
-        
         if (Core::post('photo_delete') AND Auth::instance()->get_user()->delete_image()==TRUE )
         {
             Alert::set(Alert::SUCCESS, __('Photo deleted.'));
             $this->redirect(Route::url('oc-panel',array('controller'=>'profile', 'action'=>'edit')));
 
         }// end of photo delete
+        
+		//get image
+		$image = $_FILES['profile_image']; //file post
 
         if ( 
             ! Upload::valid($image) OR
