@@ -149,7 +149,7 @@ class Auth_Controller extends Controller
                                                           '//cdn.jsdelivr.net/bootstrap/3.3.6/js/bootstrap.min.js', 
                                                           '//cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
                                                           Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
-                                                          'http://'.((Kohana::$environment!== Kohana::DEVELOPMENT)? 'market.'.Core::DOMAIN.'':'eshop.lo').'/embed.js',
+                                                          ((Kohana::$environment!== Kohana::DEVELOPMENT)? 'market.'.Core::DOMAIN.'':'eshop.lo').'/embed.js',
                                                           'js/oc-panel/theme.init.js?v='.Core::VERSION,
                                                           'js/jquery.sceditor.bbcode.min.js',
                                                           'js/summernote.min.js',

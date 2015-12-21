@@ -1,4 +1,4 @@
-#  Open eShop 2.1.0
+#  Open eShop 2.2.0
 
 
 # Description

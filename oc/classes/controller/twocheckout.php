@@ -19,7 +19,8 @@ class Controller_twocheckout extends Controller{
     { 
         $this->auto_render = FALSE;
 
-        $id_order = $this->request->param('id');
+        //sandobx doesnt do the x_receipt_link_url redirect so in sanbbox instead we put the order id
+        $id_order = (Core::config('payment.twocheckout_sandbox') == 1)? Core::request('x_receipt_link_url') : $this->request->param('id') ;
 
         //retrieve info for the item in DB
         $order = new Model_Order();
