@@ -12,6 +12,7 @@
         <?elseif(core::config('product.products_in_home') == 3):?>
             <h2><?=__('Best rated')?></h2>
         <?endif?>
+        <div class="row">
           <div id="slider-fixed-products" class="carousel slide">
             <div class="carousel-inner">
                 <div class="active item">
@@ -57,6 +58,7 @@
                 <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
           </div>
+        </div>
     </section>
 
 <?endif?>
