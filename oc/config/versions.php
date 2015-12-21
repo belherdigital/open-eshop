@@ -5,7 +5,7 @@
   array (
     'codename' => 'Gant',
     'released' => '2015-12-21',
-    'blog' => 'http://open-eshop.com/2015/12/21/open-eshop-2-1-0/',
+    'blog' => 'http://open-eshop.com/2015/12/21/open-eshop-2-2-0/',
     'changelog' => 'https://github.com/open-classifieds/open-eshop/compare/2.1.0...2.2.0',
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?q=milestone%3A2.2.0+is%3Aclosed',
     'download' => 'http://j.mp/oe_220',
