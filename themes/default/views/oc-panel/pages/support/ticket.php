@@ -145,7 +145,7 @@
                   <div class="form-group">
                     <label class="col-md-2"><?=__("Reply")?>:</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                    <textarea name="description" rows="10" class="form-control" required><?=core::post('description')?></textarea>
+                    <textarea id="description" name="description" rows="10" class="form-control" required><?=core::post('description')?></textarea>
                     </div>
                   </div>
             
