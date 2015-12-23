@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <label class="col-md-2"><?=__("Description")?>:</label>
                         <div class="col-md-9 col-sm-9 col-md-12">
-                        <textarea name="description" rows="20" class="col-md-9 col-sm-9 col-md-12 form-control" required><?=core::post('description',__('Description'))?></textarea>
+                        <textarea id="description" name="description" rows="20" class="col-md-9 col-sm-9 col-md-12 form-control" required><?=core::post('description',__('Description'))?></textarea>
                         </div>
                     </div>
                   
