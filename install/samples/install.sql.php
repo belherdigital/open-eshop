@@ -490,7 +490,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('email', 'smtp_host', ''),
 ('email', 'smtp_port', ''),
 ('email', 'smtp_auth', 0),
-('email', 'smtp_ssl', 0),
+('email', 'smtp_secure', ''),
 ('email', 'smtp_user', ''),
 ('email', 'smtp_pass', ''),
 ('email', 'elastic_active', 0),
