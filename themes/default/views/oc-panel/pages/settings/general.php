@@ -99,6 +99,22 @@
                                 ))?> 
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <?= FORM::label($forms['api_key']['key'], __('API Key'), array('class'=>'control-label col-sm-4', 'for'=>$forms['api_key']['key']))?>
+                            <div class="col-md-8">
+                                <?= FORM::input($forms['api_key']['key'], $forms['api_key']['value'], array(
+                                'placeholder' => "", 
+                                'class' => 'tips form-control input-sm', 
+                                'id' => $forms['api_key']['key'],
+                                'data-content'=> __("Integrate anything using your site API Key."),
+                                'data-trigger'=>"hover",
+                                'data-placement'=>"bottom",
+                                'data-toggle'=>"popover",
+                                'data-original-title'=>__("Installation API Key"), 
+                                ))?> 
+                            </div>
+                    </div>
                         
                         <div class="form-group">
                             <?= FORM::label($forms['site_name']['key'], __('Site name'), array('class'=>'col-md-4 control-label', 'for'=>$forms['site_name']['key']))?>

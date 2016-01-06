@@ -240,11 +240,11 @@ array('action' => '[0-9]++','message' => '.+'))
  */
 Route::set('api', 'api/<version>/<controller>(/<action>(/<id>))(.<format>)',
     array(
-        'version' => 'v1',
+        'version' => 'v2',
         'format'  => '(json|xml|csv|html)',
     ))
     ->defaults(array(
-        'version'    => 'v1',
+        'version'    => 'v2',
         'directory'  => 'api',
         'format'     => 'json',
         'action'     => 'index',

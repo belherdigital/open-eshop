@@ -198,6 +198,7 @@ mysqli_query($link,"CREATE TABLE IF NOT EXISTS `".core::request('TABLE_PREFIX').
   `id_order` int(10) unsigned NOT NULL,
   `license` varchar(40) DEFAULT NULL,
   `domain` varchar(255) DEFAULT NULL,
+  `device_id` varchar(255) DEFAULT NULL,
   `ip_address` bigint DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `active_date` DATETIME  NULL,
