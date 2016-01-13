@@ -116,6 +116,45 @@ class Model_License extends ORM {
         return FALSE;
     }
 
+    /**
+     * verifies a license in a certain device
+     * @param  string $license 
+     * @param  string $device_id name 
+     * @return bool          
+     */
+    public static function verify_device($license_num,$device_id)
+    {
+        $license = self::get_license($license_num);
+
+        if ($license->loaded())
+        {
+            //this means the license was at some point activated
+            if ($license->active_date!=NULL AND $license->active_date!='')
+            {
+                //if license expired return false
+                if ($license->valid_date!=NULL AND $license->valid_date!='' AND Date::mysql2unix($license->valid_date)<time() )
+                    return FALSE;
+                //check device_id for the license. if matched
+                if ($license->device_id != $device_id)
+                    return FALSE;
+            }
+            //if license not active we activate it
+            else
+            {
+                $license->active_date   = Date::unix2mysql();
+                $license->device_id     = $device_id;
+            }
+
+            $license->license_check_date = Date::unix2mysql();
+            $license->ip_address         = ip2long(Request::$client_ip);
+            $license->save();
+            
+            return TRUE;
+        }
+
+        return FALSE;
+    }
+
 
 
     /**

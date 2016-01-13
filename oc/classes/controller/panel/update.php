@@ -10,6 +10,29 @@
  */
 class Controller_Panel_Update extends Controller_Panel_OC_Update {    
 
+    /**
+     * This function will upgrade DB that didn't existed in versions prior to 2.7.0
+     */
+    public function action_230()
+    {
+        //configs for SMTP
+        try
+        {
+            DB::query(Database::UPDATE,"INSERT INTO `".self::$db_prefix."config` (`group_name`, `config_key`, `config_value`) VALUES ('email', 'smtp_secure', (SELECT IF(config_value=0,'','ssl') as config_value FROM `".self::$db_prefix."config`as oconf WHERE `config_key` = 'smtp_ssl' AND `group_name`='email' LIMIT 1) );")->execute();
+        }catch (exception $e) {}
+
+        try
+        {
+            DB::query(Database::UPDATE,"DELETE FROM `".self::$db_prefix."config` WHERE `config_key` = 'smtp_ssl' AND `group_name`='email' LIMIT 1;")->execute();
+        }catch (exception $e) {}
+
+        //add new device_id for license
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."licenses` ADD `device_id` varchar(255) DEFAULT NULL ;")->execute();
+        }catch (exception $e) {}
+    }
+
     public function action_220()
     {
         //remove innodb
