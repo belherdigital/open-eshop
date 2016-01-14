@@ -54,13 +54,12 @@ function init_panel()
         });
 	}
     else
-    {
-        $('#formorm_description, textarea[name=description], textarea[name=email_purchase_notes], .cf_textarea_fields').addClass('col-md-6').sceditorBBCodePlugin({
+    {   
+        $('#formorm_description, textarea[name=description]:not(.disable-bbcode), textarea[name=email_purchase_notes], .cf_textarea_fields').addClass('col-md-6').sceditorBBCodePlugin({
             toolbar: "bold,italic,underline,strike|left,center,right,justify|" +
             "bulletlist,orderedlist|link,unlink,image,youtube|source",
             resizeEnabled: "true",
-            emoticonsEnabled: "false",
-            emoticonsCompat: "false",
+            emoticonsEnabled: false,
             style: $('meta[name="application-name"]').data('baseurl') + "themes/default/css/jquery.sceditor.default.min.css",
             enablePasteFiltering: "true"});
     }
