@@ -3,7 +3,7 @@
 <?=Form::errors()?>
 <div class="page-header">
     <h1><?=__('Payments Configuration')?></h1>
-    <p class=""><?=__('List of payment configuration values. Replace input fields with new desired values.')?></p>
+    <p class=""><?=__('List of payment configuration values. Replace input fields with new desired values.')?> <a  target="_blank" href="http://docs.open-eshop.com/setup-payment-gateways/" target="_blank"><?=__('Read more')?></a></p>
     <?if (Theme::get('premium')!=1):?>
         <p class="well"><span class="label label-info"><?=__('Heads Up!')?></span> 
             <?=sprintf(__('%s are only available with premium themes!'),sprintf('Authorize, Stripe, Paymill %s Bitpay',__('and'))).'<br/>'.__('Upgrade your Open eShop site to activate this feature.')?>
