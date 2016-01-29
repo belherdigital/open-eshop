@@ -41,11 +41,11 @@ class Controller_Stripe extends Controller{
                 }
 
                 // include class vendor
-                require Kohana::find_file('vendor/stripe/lib', 'Stripe');
+                require Kohana::find_file('vendor/stripe', 'init');
 
                 // Set your secret key: remember to change this to your live secret key in production
                 // See your keys here https://manage.stripe.com/account
-                Stripe::setApiKey(Core::config('payment.stripe_private'));
+                \Stripe\Stripe::setApiKey(Core::config('payment.stripe_private'));
 
                 // Get the credit card details submitted by the form
                 $token = Core::post('stripeToken');
@@ -56,7 +56,7 @@ class Controller_Stripe extends Controller{
                 // Create the charge on Stripe's servers - this will charge the user's card
                 try 
                 {
-                    $charge = Stripe_Charge::create(array(
+                    $charge = \Stripe\Charge::create(array(
                                                         "amount"    => StripeKO::money_format($order->amount), // amount in cents, again
                                                         "currency"  => $order->currency,
                                                         "card"      => $token,
