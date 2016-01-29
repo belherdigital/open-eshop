@@ -158,6 +158,17 @@ function init_panel()
             window.open(href,"_self");
         });
     }); 
+
+    //load modal documentation
+    $('a[href*="docs.open-eshop.com"]').click(function( event ) {
+        event.preventDefault();
+        $('#docModal .modal-body').load($(this).attr('href') + ' .post', function() {
+            $('#docModal .modal-body img').each( function() {
+                $(this).addClass('img-responsive');
+            });
+            $('#docModal').modal('show');
+        });
+    });
 }
 
 $(function (){
