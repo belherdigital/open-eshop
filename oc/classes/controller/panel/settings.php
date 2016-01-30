@@ -235,8 +235,7 @@ class Controller_Panel_Settings extends Auth_Controller {
             ->rule('blog', 'range', array(':value', 0, 1))
             ->rule('faq', 'range', array(':value', 0, 1))
             ->rule('forums', 'range', array(':value', 0, 1))
-            ->rule('sort_by', 'not_empty')
-            ->rule('aws_s3_active', 'range', array(':value', 0, 1));
+            ->rule('sort_by', 'not_empty');
             
             if ($validation->check())
             {
