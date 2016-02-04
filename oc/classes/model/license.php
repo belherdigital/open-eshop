@@ -87,10 +87,10 @@ class Model_License extends ORM {
 
         $license = self::get_license($license_num);
 
-        if ($license->loaded())
+        if ($license->loaded() AND !empty($domain))
         {
             //this means the license was at some point activated
-            if ($license->active_date!=NULL AND $license->active_date!='')
+            if ($license->active_date!=NULL AND $license->active_date!='' AND $license->domain!='')
             {
                 //if license expired return false
                 if ($license->valid_date!=NULL AND $license->valid_date!='' AND Date::mysql2unix($license->valid_date)<time() )

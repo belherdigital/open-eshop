@@ -101,6 +101,22 @@ class Controller_Api_Order extends Api_Auth {
                     $order->notes = core::request('notes');
                     $order->save();
 
+                    //in case the device id or domain is provided
+                    if (core::request('device_id')!==NULL OR core::request('domain')!==NULL)
+                    {
+                        $license = $order->licenses->find(1);
+                        if ($license->loaded())
+                        {
+                            if (core::request('device_id')!==NULL)
+                                Model_License::verify_device($license->license,core::request('device_id')); 
+
+                            if (core::request('domain')!==NULL)
+                                Model_License::verify($license->license,core::request('domain')); 
+
+                        }
+                    }
+                    
+
                     $this->rest_output(array('order' => self::get_order_array($order)));
                 } 
                 else
