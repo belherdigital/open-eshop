@@ -17,7 +17,7 @@
                 <div class="panel-body">
                     <div class="form-horizontal">
                         <div class="form-group">
-                            <?= FORM::label($forms['maintenance']['key'], "<a target='_blank' href='http://docs.open-eshop.com/activate-maintenance-mode/'>".__("Maintenance Mode")."</a>", array('class'=>'col-md-4 control-label', 'for'=>$forms['maintenance']['key']))?>
+                            <?= FORM::label($forms['maintenance']['key'], "<a target='_blank' href='https://docs.open-eshop.com/activate-maintenance-mode/'>".__("Maintenance Mode")."</a>", array('class'=>'col-md-4 control-label', 'for'=>$forms['maintenance']['key']))?>
                             <div class="col-md-8">
                                 <div class="onoffswitch">
                                     <?= FORM::hidden($forms['maintenance']['key'], 0);?>
@@ -37,7 +37,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <?= FORM::label($forms['disallowbots']['key'], "<a target='_blank' href='http://docs.open-eshop.com/allow-disallow-bots-crawlers/'>".__("Disallows Robots on this website")."</a>", array('class'=>'control-label col-sm-4', 'for'=>$forms['disallowbots']['key']))?>
+                            <?= FORM::label($forms['disallowbots']['key'], "<a target='_blank' href='https://docs.open-eshop.com/allow-disallow-bots-crawlers/'>".__("Disallows Robots on this website")."</a>", array('class'=>'control-label col-sm-4', 'for'=>$forms['disallowbots']['key']))?>
                             <div class="col-sm-8">
                                 <div class="onoffswitch">
                                     <?= Form::checkbox($forms['disallowbots']['key'], 1, (bool) $forms['disallowbots']['value'], array(
@@ -75,7 +75,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label class="control-label col-sm-4"><?="<a target='_blank' href='http://docs.open-eshop.com/change-timezone/'>".__("Time Zone")."</a>"?>:</label>                
+                            <label class="control-label col-sm-4"><?="<a target='_blank' href='https://docs.open-eshop.com/change-timezone/'>".__("Time Zone")."</a>"?>:</label>                
                             <div class="col-sm-8">
                             <?= FORM::select($i18n['timezone']['key'], Date::get_timezones(), core::request('TIMEZONE',date_default_timezone_get()), array(
                                     'placeholder' => "Madrid [+1:00]", 
@@ -86,7 +86,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <?= FORM::label($forms['landing_page']['key'], "<a target='_blank' href='http://docs.open-eshop.com/landing-page/'>".__('Landing page')."</a>", array('class'=>'control-label col-sm-4', 'for'=>$forms['landing_page']['key']))?>
+                            <?= FORM::label($forms['landing_page']['key'], "<a target='_blank' href='https://docs.open-eshop.com/landing-page/'>".__('Landing page')."</a>", array('class'=>'control-label col-sm-4', 'for'=>$forms['landing_page']['key']))?>
                             <div class="col-md-8">
                                 <?= FORM::select($forms['landing_page']['key'], array('{"controller":"home","action":"index"}'=>'HOME','{"controller":"product","action":"listing"}'=>'LISTING'), $forms['landing_page']['value'], array(
                                 'class' => 'tips form-control input-sm', 
@@ -233,7 +233,7 @@
                         </div>
                         
                         <div class="form-group">		
-                                <?= FORM::label($forms['number_format']['key'], "<a target='_blank' href='http://docs.open-eshop.com/change-currency/'>".__('Money format')."</a>", array('class'=>'col-md-4 control-label','for'=>$forms['number_format']['key']))?>
+                                <?= FORM::label($forms['number_format']['key'], "<a target='_blank' href='https://docs.open-eshop.com/change-currency/'>".__('Money format')."</a>", array('class'=>'col-md-4 control-label','for'=>$forms['number_format']['key']))?>
                             <div class="col-md-8">
                                 <?= FORM::input($forms['number_format']['key'], $forms['number_format']['value'], array(
                                 'placeholder' => "20", 
@@ -524,7 +524,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <?= FORM::label($forms['blog']['key'], '<a target="_blank" href="http://docs.open-eshop.com/create-blog/">'.__("Activates Blog posting")."</a>", array('class'=>'col-md-4 control-label', 'for'=>$forms['blog']['key']))?>
+                            <?= FORM::label($forms['blog']['key'], '<a target="_blank" href="https://docs.open-eshop.com/create-blog/">'.__("Activates Blog posting")."</a>", array('class'=>'col-md-4 control-label', 'for'=>$forms['blog']['key']))?>
                             <div class="col-md-8">
                                 <div class="onoffswitch">
                                     <?= FORM::hidden($forms['blog']['key'], 0);?>
@@ -560,7 +560,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <?= FORM::label($forms['faq']['key'], '<a target="_blank" href="http://docs.open-eshop.com/create-faq-system/">'.__("Activates FAQ")."</a>", array('class'=>'col-md-4 control-label', 'for'=>$forms['faq']['key']))?>
+                            <?= FORM::label($forms['faq']['key'], '<a target="_blank" href="https://docs.open-eshop.com/create-faq-system/">'.__("Activates FAQ")."</a>", array('class'=>'col-md-4 control-label', 'for'=>$forms['faq']['key']))?>
                             <div class="col-md-8">
                                 <div class="onoffswitch">
                                     <?= FORM::hidden($forms['faq']['key'], 0);?>
@@ -596,7 +596,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <?= FORM::label($forms['forums']['key'], '<a target="_blank" href="http://docs.open-eshop.com/add-forum/">'.__("Activates Forums")."</a>", array('class'=>'col-md-4 control-label', 'for'=>$forms['forums']['key']))?>
+                            <?= FORM::label($forms['forums']['key'], '<a target="_blank" href="https://docs.open-eshop.com/add-forum/">'.__("Activates Forums")."</a>", array('class'=>'col-md-4 control-label', 'for'=>$forms['forums']['key']))?>
                             <div class="col-md-8">
                                 <div class="onoffswitch">
                                     <?= FORM::hidden($forms['forums']['key'], 0);?>
