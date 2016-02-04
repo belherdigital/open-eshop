@@ -101,7 +101,7 @@
                         </div>
 
                         <div class="form-group">
-                            <?= FORM::label($forms['api_key']['key'], __('API Key'), array('class'=>'control-label col-sm-4', 'for'=>$forms['api_key']['key']))?>
+                            <?= FORM::label($forms['api_key']['key'], "<a target='_blank' href='https://docs.open-eshop.com/api-documentation/'>".__('API Key')."</a>", array('class'=>'control-label col-sm-4', 'for'=>$forms['api_key']['key']))?>
                             <div class="col-md-8">
                                 <?= FORM::input($forms['api_key']['key'], $forms['api_key']['value'], array(
                                 'placeholder' => "", 
