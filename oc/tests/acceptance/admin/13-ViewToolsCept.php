@@ -17,9 +17,9 @@ $I->see('Updates','h1');
 $I->see('Your installation version is');
 $I->see('Your Hash Key for this installation is');
 $I->seeElement('.btn.btn-primary.pull-right.ajax-load');
+$I->see('Berlin');
+$I->see('2.3.0');
 $I->see('Gant');
-$I->see('2.2.0');
-$I->see('Brusels');
 
 // Crontab
 $I->amOnPage('/oc-panel/crontab/index');
