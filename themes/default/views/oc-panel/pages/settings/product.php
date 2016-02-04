@@ -3,7 +3,7 @@
 <?=Form::errors()?>
 <div class="page-header">
 	<h1><?=__('Product Configuration')?></h1>
-    <p class=""><?=__('List of optional fields. To activate/deactivate select "TRUE/FALSE" in desired field.')?><a target="_blank" href="http://docs.open-eshop.com/product-configuration/" target="_blank"><?=__('Read more')?></a></p>
+    <p class=""><?=__('List of optional fields. To activate/deactivate select "TRUE/FALSE" in desired field.')?><a target="_blank" href="https://docs.open-eshop.com/product-configuration/" target="_blank"><?=__('Read more')?></a></p>
 
 </div>
 

@@ -6,7 +6,7 @@
 <div class="page-header">
     <h1><?=__('Email Configuration')?></h1>
     <p><?=__('List of general configuration values. Replace input fields with new desired values')?></p>
-    <p>How to configure <a target="_blank" href="http://docs.open-eshop.com/elasticemail/">ElasticEmail</a></p>
+    <p>How to configure <a target="_blank" href="https://docs.open-eshop.com/elasticemail/">ElasticEmail</a></p>
 </div>
 
 <div class="row">
