@@ -145,7 +145,7 @@ class Auth_Controller extends Controller
             
 
 
-                Theme::$scripts['footer']		  = array('//code.jquery.com/jquery-1.10.2.min.js',	
+                Theme::$scripts['footer']		  = array('//cdn.jsdelivr.net/jquery/1.11.3/jquery.min.js',	
                                                           '//cdn.jsdelivr.net/bootstrap/3.3.6/js/bootstrap.min.js', 
                                                           '//cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
                                                           Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
