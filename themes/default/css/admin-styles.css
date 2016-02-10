@@ -369,7 +369,23 @@ border:0;}
 	.popover-content .btn-sm {font-size: 11px;}
 	.navbar-default {background-color: #000;}
 }
-
+#docModal .post-content h1 {
+    font-size: 25px;
+    border-bottom: 1px solid #dfdfdf;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+#docModal .post-content h2,
+#docModal .post-content h3,
+#docModal .post-content h4,
+#docModal .post-content h5,
+#docModal .post-content h6 {
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 1;
+  margin: 2em 0 0.5em;
+  color: #666666;
+}
 
 /* Stats Styles */
 .statcard {

@@ -17,7 +17,7 @@
                 <div class="panel-body">
                     <div class="form-horizontal">
                         <div class="form-group">
-                            <?= FORM::label($forms['maintenance']['key'], "<a target='_blank' href='http://open-classifieds.com/2013/10/11/activate-access-terms-alert/'>".__("Maintenance Mode")."</a>", array('class'=>'col-md-4 control-label', 'for'=>$forms['maintenance']['key']))?>
+                            <?= FORM::label($forms['maintenance']['key'], "<a target='_blank' href='https://docs.open-eshop.com/activate-maintenance-mode/'>".__("Maintenance Mode")."</a>", array('class'=>'col-md-4 control-label', 'for'=>$forms['maintenance']['key']))?>
                             <div class="col-md-8">
                                 <div class="onoffswitch">
                                     <?= FORM::hidden($forms['maintenance']['key'], 0);?>
@@ -37,7 +37,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <?= FORM::label($forms['disallowbots']['key'], __("Disallows Robots on this website"), array('class'=>'control-label col-sm-4', 'for'=>$forms['disallowbots']['key']))?>
+                            <?= FORM::label($forms['disallowbots']['key'], "<a target='_blank' href='https://docs.open-eshop.com/allow-disallow-bots-crawlers/'>".__("Disallows Robots on this website")."</a>", array('class'=>'control-label col-sm-4', 'for'=>$forms['disallowbots']['key']))?>
                             <div class="col-sm-8">
                                 <div class="onoffswitch">
                                     <?= Form::checkbox($forms['disallowbots']['key'], 1, (bool) $forms['disallowbots']['value'], array(
@@ -75,7 +75,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label class="control-label col-sm-4"><?=__("Time Zone")?>:</label>                
+                            <label class="control-label col-sm-4"><?="<a target='_blank' href='https://docs.open-eshop.com/change-timezone/'>".__("Time Zone")."</a>"?>:</label>                
                             <div class="col-sm-8">
                             <?= FORM::select($i18n['timezone']['key'], Date::get_timezones(), core::request('TIMEZONE',date_default_timezone_get()), array(
                                     'placeholder' => "Madrid [+1:00]", 
@@ -86,7 +86,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <?= FORM::label($forms['landing_page']['key'], __('Landing page'), array('class'=>'control-label col-sm-4', 'for'=>$forms['landing_page']['key']))?>
+                            <?= FORM::label($forms['landing_page']['key'], "<a target='_blank' href='https://docs.open-eshop.com/landing-page/'>".__('Landing page')."</a>", array('class'=>'control-label col-sm-4', 'for'=>$forms['landing_page']['key']))?>
                             <div class="col-md-8">
                                 <?= FORM::select($forms['landing_page']['key'], array('{"controller":"home","action":"index"}'=>'HOME','{"controller":"product","action":"listing"}'=>'LISTING'), $forms['landing_page']['value'], array(
                                 'class' => 'tips form-control input-sm', 
@@ -101,7 +101,7 @@
                         </div>
 
                         <div class="form-group">
-                            <?= FORM::label($forms['api_key']['key'], __('API Key'), array('class'=>'control-label col-sm-4', 'for'=>$forms['api_key']['key']))?>
+                            <?= FORM::label($forms['api_key']['key'], "<a target='_blank' href='https://docs.open-eshop.com/api-documentation/'>".__('API Key')."</a>", array('class'=>'control-label col-sm-4', 'for'=>$forms['api_key']['key']))?>
                             <div class="col-md-8">
                                 <?= FORM::input($forms['api_key']['key'], $forms['api_key']['value'], array(
                                 'placeholder' => "", 
@@ -233,7 +233,7 @@
                         </div>
                         
                         <div class="form-group">		
-                                <?= FORM::label($forms['number_format']['key'], "<a target='_blank' href='http://open-classifieds.com/2013/08/06/how-to-currency-format/'>".__('Money format')."</a>", array('class'=>'col-md-4 control-label','for'=>$forms['number_format']['key']))?>
+                                <?= FORM::label($forms['number_format']['key'], "<a target='_blank' href='https://docs.open-eshop.com/change-currency/'>".__('Money format')."</a>", array('class'=>'col-md-4 control-label','for'=>$forms['number_format']['key']))?>
                             <div class="col-md-8">
                                 <?= FORM::input($forms['number_format']['key'], $forms['number_format']['value'], array(
                                 'placeholder' => "20", 
@@ -524,7 +524,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <?= FORM::label($forms['blog']['key'], __("Activates Blog posting"), array('class'=>'col-md-4 control-label', 'for'=>$forms['blog']['key']))?>
+                            <?= FORM::label($forms['blog']['key'], '<a target="_blank" href="https://docs.open-eshop.com/create-blog/">'.__("Activates Blog posting")."</a>", array('class'=>'col-md-4 control-label', 'for'=>$forms['blog']['key']))?>
                             <div class="col-md-8">
                                 <div class="onoffswitch">
                                     <?= FORM::hidden($forms['blog']['key'], 0);?>
@@ -560,7 +560,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <?= FORM::label($forms['faq']['key'], __("Activates FAQ"), array('class'=>'col-md-4 control-label', 'for'=>$forms['faq']['key']))?>
+                            <?= FORM::label($forms['faq']['key'], '<a target="_blank" href="https://docs.open-eshop.com/create-faq-system/">'.__("Activates FAQ")."</a>", array('class'=>'col-md-4 control-label', 'for'=>$forms['faq']['key']))?>
                             <div class="col-md-8">
                                 <div class="onoffswitch">
                                     <?= FORM::hidden($forms['faq']['key'], 0);?>
@@ -596,7 +596,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <?= FORM::label($forms['forums']['key'], __("Activates Forums"), array('class'=>'col-md-4 control-label', 'for'=>$forms['forums']['key']))?>
+                            <?= FORM::label($forms['forums']['key'], '<a target="_blank" href="https://docs.open-eshop.com/add-forum/">'.__("Activates Forums")."</a>", array('class'=>'col-md-4 control-label', 'for'=>$forms['forums']['key']))?>
                             <div class="col-md-8">
                                 <div class="onoffswitch">
                                     <?= FORM::hidden($forms['forums']['key'], 0);?>
@@ -703,104 +703,6 @@
                                 'data-placement'=>"bottom",
                                 'data-toggle'=>"popover",
                                 'data-original-title'=>__('HTML in footer'), 
-                                ))?> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading"><?=__("Amazon S3 Configuration")?></div>
-                <div class="panel-body">
-                    <div class="form-horizontal">
-                        
-                        <div class="form-group">
-                            <?= FORM::label($forms_img['aws_s3_active']['key'], __('Amazon S3 active'), array('class'=>'control-label col-sm-4', 'for'=>$forms_img['aws_s3_active']['key']))?>
-                            <div class="col-sm-8">
-                                <div class="onoffswitch">
-                                    <?= FORM::hidden($forms_img['aws_s3_active']['key'], 0);?>
-                                    <?= Form::checkbox($forms_img['aws_s3_active']['key'], 1, (bool) $forms_img['aws_s3_active']['value'], array(
-                                    'placeholder' => __("TRUE or FALSE"), 
-                                    'class' => 'onoffswitch-checkbox', 
-                                    'id' => $forms_img['aws_s3_active']['key'], 
-                                    'data-content'=> __('Amazon S3 active'),
-                                    'data-trigger'=>"hover",
-                                    'data-placement'=>"right",
-                                    'data-toggle'=>"popover",
-                                    'data-original-title'=>'',
-                                    ))?>
-                                    <?= FORM::label($forms_img['aws_s3_active']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms_img['aws_s3_active']['key']))?>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <?= FORM::label($forms_img['aws_access_key']['key'], __('AWS Access Key'), array('class'=>'control-label col-sm-4', 'for'=>$forms_img['aws_access_key']['key']))?>
-                            <div class="col-sm-8">
-                                <?= FORM::input($forms_img['aws_access_key']['key'], $forms_img['aws_access_key']['value'], array(
-                                'placeholder' => '', 
-                                'class' => 'tips form-control', 
-                                'id' => $forms_img['aws_access_key']['key'], 
-                                'data-content'=> __('AWS Access Key'),
-                                'data-trigger'=>"hover",
-                                'data-placement'=>"right",
-                                'data-toggle'=>"popover",
-                                'data-original-title'=>'',              
-                                ))?> 
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <?= FORM::label($forms_img['aws_secret_key']['key'], __('AWS Secret Key'), array('class'=>'control-label col-sm-4', 'for'=>$forms_img['aws_secret_key']['key']))?>
-                            <div class="col-sm-8">
-                                <?= FORM::input($forms_img['aws_secret_key']['key'], $forms_img['aws_secret_key']['value'], array(
-                                'placeholder' => "", 
-                                'class' => 'tips form-control', 
-                                'id' => $forms_img['aws_secret_key']['key'], 
-                                'data-content'=> __('AWS Secret Key'),
-                                'data-trigger'=>"hover",
-                                'data-placement'=>"right",
-                                'data-toggle'=>"popover",
-                                'data-original-title'=>'',          
-                                ))?> 
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <?= FORM::label($forms_img['aws_s3_bucket']['key'], __('Amazon S3 Bucket Name'), array('class'=>'control-label col-sm-4', 'for'=>$forms_img['aws_s3_bucket']['key']))?>
-                            <div class="col-sm-8">
-                                <?= FORM::input($forms_img['aws_s3_bucket']['key'], $forms_img['aws_s3_bucket']['value'], array(
-                                'placeholder' => "", 
-                                'class' => 'tips form-control', 
-                                'id' => $forms_img['aws_s3_bucket']['key'], 
-                                'data-content'=> __('Amazon S3 Bucket Name'),
-                                'data-trigger'=>"hover",
-                                'data-placement'=>"right",
-                                'data-toggle'=>"popover",
-                                'data-original-title'=>'',          
-                                ))?> 
-                            </div>
-                        </div>
-                        
-                        <?  if (($aws_s3_domain = strpos($forms_img['aws_s3_domain']['value'], 's3.amazonaws.com')) !== FALSE) 
-                                $forms_img['aws_s3_domain']['value'] = ($aws_s3_domain > 0) ? 'bn-s3' : 's3-bn';
-                        ?>
-                        
-                        <div class="form-group">
-                            <?= FORM::label($forms_img['aws_s3_domain']['key'], __('S3 Domain Name'), array('class'=>'control-label col-sm-4', 'for'=>$forms_img['aws_s3_domain']['key']))?>
-                            <div class="col-sm-8">
-                                <?= FORM::select($forms_img['aws_s3_domain']['key'], array( 'bn'    =>"bucket_name",
-                                                                                        'bn-s3' =>"bucket_name.s3.amazonaws.com",
-                                                                                        's3-bn' =>"s3.amazonaws.com/bucket_name"), 
-                                $forms_img['aws_s3_domain']['value'], array(
-                                'placeholder' => $forms_img['aws_s3_domain']['value'], 
-                                'class' => 'tips form-control input-sm ', 
-                                'id' => $forms_img['aws_s3_domain']['key'],
-                                'data-content'=> __("Amazon S3 Domain Name"),
-                                'data-trigger'=>"hover",
-                                'data-placement'=>"right",
-                                'data-toggle'=>"popover",
-                                'data-original-title'=>__("S3 Domain Name"), 
                                 ))?> 
                             </div>
                         </div>

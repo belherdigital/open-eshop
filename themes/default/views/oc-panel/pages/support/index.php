@@ -10,6 +10,7 @@
 
 <div class="page-header">
 	<h1><?=$title?></h1>
+    <p><a target="_blank" href="https://docs.open-eshop.com/support/" target="_blank"><?=__('Read more')?></a></p>
     <br>
     <div class="btn-group">
         <a href="?status=-1" class="btn <?=(core::get('status',-1)==-1)?'btn-primary':'btn-default'?>">

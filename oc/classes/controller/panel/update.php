@@ -31,6 +31,18 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
         {
             DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."licenses` ADD `device_id` varchar(255) DEFAULT NULL ;")->execute();
         }catch (exception $e) {}
+
+        //new mails
+        $contents = array(array('order'=>0,
+                                'title'=>'There is a new reply on the forum',
+                               'seotitle'=>'new-forum-answer',
+                               'description'=>"There is a new reply on a forum post where you participated.<br><br><a target=\"_blank\" href=\"[FORUM.LINK]\">Check it here</a><br><br>[FORUM.LINK]<br>",
+                               'from_email'=>core::config('email.notify_email'),
+                               'type'=>'email',
+                               'status'=>'1'),
+                        );
+
+        Model_Content::content_array($contents);
     }
 
     public function action_220()
