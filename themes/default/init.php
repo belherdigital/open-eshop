@@ -40,13 +40,10 @@ Theme::load();
 
     Theme::$styles = $theme_css;
 
-    Theme::$scripts['footer']   = array('//code.jquery.com/jquery-1.10.2.min.js',
-                                        '//cdn.jsdelivr.net/bootstrap/3.3.6/js/bootstrap.min.js',
+    Theme::$scripts['footer'] = array(  '//cdn.jsdelivr.net/g/jquery@1.11.3,bootstrap@3.3.6,chosen@1.0.0,jquery.validation@1.11.1,holder@2.8.1',
                                         '//cdn.jsdelivr.net/prettyphoto/3.1.5/js/jquery.prettyPhoto.js',
-                                        '//cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
-                                        Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
                                         'js/bootstrap-slider.js',
-                                        'js/jquery.validate.min.js',
+                                        Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
                                         Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'validate')),
                                         'js/theme.init.js?v='.Core::VERSION,
                                         );
