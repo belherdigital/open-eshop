@@ -479,7 +479,7 @@ class Model_Order extends ORM {
                     'currency'          => $this->currency,
                     'emailAddress'      => $this->user->email,
                     'paymentMode'       => 'others',
-                    'sessionId'         => session_id(),
+                    'flp_checksum'      => session_id(),
                 ));
 
                 $fraud_result_status = $fraud_result->fraudlabspro_status;
