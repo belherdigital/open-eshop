@@ -13,6 +13,12 @@ class Controller extends Kohana_Controller
 {
     public $template = 'main';
 
+     /**
+     * user if its loged in
+     * @var Model_User
+     */
+    public $user = NULL;
+
     /**
      * @var  boolean  auto render template
      */
@@ -35,6 +41,18 @@ class Controller extends Kohana_Controller
      */
     public static $coupon = NULL;
 
+    /**
+     *
+     * Contruct that checks you are loged in before nothing else happens!
+     */
+    function __construct(Request $request, Response $response)
+    {
+        //setting the user
+        $this->user = Auth::instance()->get_user();
+
+        parent::__construct($request,$response);
+    }
+    
     /**
      * Initialize properties before running the controller methods (actions),
      * so they are available to our action.
