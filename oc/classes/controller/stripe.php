@@ -60,7 +60,8 @@ class Controller_Stripe extends Controller{
                                                         "amount"    => StripeKO::money_format($order->amount), // amount in cents, again
                                                         "currency"  => $order->currency,
                                                         "card"      => $token,
-                                                        "description" => $order->product->title)
+                                                        "description" => $order->product->title,
+                                                        "metadata"    => array("id_order" => $order->id_order))
                                                     );
 
                     //mark as paid
