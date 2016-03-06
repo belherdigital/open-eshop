@@ -67,7 +67,7 @@ class Controller_Stripe extends Controller{
                     //mark as paid
                     $order->confirm_payment('stripe',Core::post('stripeToken'), NULL, NULL, NULL,StripeKO::calculate_fee($order->amount) );
                 }
-                catch(Stripe_CardError $e) 
+                catch(Exception $e) 
                 {
                     // The card has been declined
                     Kohana::$log->add(Log::ERROR, 'Stripe The card has been declined');
