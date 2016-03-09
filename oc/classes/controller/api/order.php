@@ -58,14 +58,23 @@ class Controller_Api_Order extends Api_Auth {
     {
         try
         {
+            $order = new Model_order();
+
             if (is_numeric($id_order = $this->request->param('id')))
             {
                 $order = new Model_order($id_order);
-                if ($order->loaded())
-                    $this->rest_output(array('order' => self::get_order_array($order)));
-                else
-                    $this->_error(__('Order not found'),404);
             }
+            elseif ( Valid::email(core::request('email')) AND is_numeric(core::request('id_product')) )
+            {
+                $order->join('users')
+                        ->using('id_user')
+                        ->where('email','=',core::request('email'))
+                        ->where('id_product','=',core::request('id_product'))
+                        ->find();
+            }
+            
+            if ($order->loaded())
+                $this->rest_output(array('order' => self::get_order_array($order)));
             else
                 $this->_error(__('Order not found'),404);
            

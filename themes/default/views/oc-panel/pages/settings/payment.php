@@ -179,9 +179,9 @@
                             <label class="col-md-8 col-md-offset-4">
                                 <p><?=sprintf(__('To get paid via Credit card you need a %s account'),'Authorize.net')?>. <?=__('You will need also a SSL certificate')?>, <a href="https://www.ssl.com/code/49" target="_blank"><?=__('buy your SSL certificate here')?></a>.</p>
                                 <?=__('Register')?>
-                                <a class="btn btn-success" target="_blank" href="http://reseller.authorize.net/application/signupnow/?id=AUAffiliate&rid=26776">
+                                <a class="btn btn-success" target="_blank" href="http://reseller.authorize.net/application/signupnow/?id=AUAffiliate">
                                     </i> US/Canada</a>
-                                <a class="btn btn-success" target="_blank" href="http://reseller.authorize.net/application/?id=5561123">
+                                <a class="btn btn-success" target="_blank" href="http://reseller.authorize.net/application/">
                                     UK/Europe</a>
                             </label>
                         </div>
