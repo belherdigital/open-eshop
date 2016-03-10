@@ -4,6 +4,7 @@ function init_panel()
     {
         $("#formorm_description, textarea[name=description], textarea[name=email_purchase_notes], .cf_textarea_fields").summernote({
             height: "450",
+            placeholder: ' ',
             toolbar: [
                         ['style', ['style']],
                         ['font', ['bold', 'italic', 'underline', 'clear']],
@@ -17,19 +18,25 @@ function init_panel()
                         ['view', ['fullscreen', 'codeview']],
                         ['help', ['help']],
             ],
-            onPaste: function (e) {
-                var text = (e.originalEvent || e).clipboardData.getData('text/plain');
-                e.preventDefault();
-                document.execCommand('insertText', false, text);
-            },
-            onImageUpload: function(files, editor, welEditable) {
-                sendFile(files[0], editor, welEditable);
+            callbacks: {
+                onInit: function() {
+                    $(".note-placeholder").text($(this).attr('placeholder'));
+                },
+                onPaste: function (e) {
+                    var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+                    e.preventDefault();
+                        document.execCommand('insertText', false, text);
+                },
+                onImageUpload: function(files, editor, welEditable) {
+                    sendFile(files[0], editor, welEditable);
+                }
             }
         });
     }
 	else if ($( "#crud-post" ).length || $( "#crud-category" ).length) {
 		$("#formorm_description").summernote({
             height: "350",
+            placeholder: ' ',
             toolbar: [
                         ['style', ['style']],
                         ['font', ['bold', 'italic', 'underline', 'clear']],
@@ -43,13 +50,18 @@ function init_panel()
                         ['view', ['fullscreen', 'codeview']],
                         ['help', ['help']],
             ],
-            onPaste: function (e) {
-                var text = (e.originalEvent || e).clipboardData.getData('text/plain');
-                e.preventDefault();
-                document.execCommand('insertText', false, text);
-            },
-            onImageUpload: function(files, editor, welEditable) {
-                sendFile(files[0], editor, welEditable);
+            callbacks: {
+                onInit: function() {
+                    $(".note-placeholder").text($(this).attr('placeholder'));
+                },
+                onPaste: function (e) {
+                    var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+                    e.preventDefault();
+                        document.execCommand('insertText', false, text);
+                },
+                onImageUpload: function(files, editor, welEditable) {
+                    sendFile(files[0], editor, welEditable);
+                }
             }
         });
 	}

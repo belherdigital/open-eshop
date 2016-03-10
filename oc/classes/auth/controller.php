@@ -145,7 +145,7 @@ class Auth_Controller extends Controller
             
 
 
-                Theme::$scripts['footer']		  = array('//cdn.jsdelivr.net/jquery/1.11.3/jquery.min.js',	
+                Theme::$scripts['footer']		  = array('//cdn.jsdelivr.net/jquery/1.12.1/jquery.min.js',	
                                                           '//cdn.jsdelivr.net/bootstrap/3.3.6/js/bootstrap.min.js', 
                                                           '//cdn.jsdelivr.net/chosen/1.0.0/chosen.jquery.min.js',
                                                           Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
@@ -153,7 +153,6 @@ class Auth_Controller extends Controller
                                                           'js/oc-panel/theme.init.js?v='.Core::VERSION,
                                                           'js/jquery.sceditor.bbcode.min.js',
                                                           'js/summernote.min.js',
-                                                          'js/summernote-ext-video.js',
                                                           'js/jquery.validate.min.js',
                                                           Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'validate')),
                                                          'js/jquery.cookie.min.js',
