@@ -46,7 +46,7 @@ class Kohana_Exception extends Kohana_Kohana_Exception {
      * @param   Exception  $e
      * @return  Response
      */
-    public static function response(Exception $e)
+    public static function response($e)
     {
 
         if (Kohana::$environment === Kohana::DEVELOPMENT)
