@@ -167,7 +167,7 @@
                 </div>
                 
                 <div class="modal-body">
-                    <?=View::factory('pages/auth/register-form')?>
+                    <?=View::factory('pages/auth/register-form', ['recaptcha_placeholder' => 'recaptcha4'])?>
                 </div>
             </div>
         </div>

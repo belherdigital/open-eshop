@@ -214,52 +214,58 @@ class Controller_Panel_Auth extends Controller {
         }
         elseif ($this->request->post())
         {
-            $validation =   Validation::factory($this->request->post())
-                            ->rule('name', 'not_empty')
-                            ->rule('email', 'not_empty')
-                            ->rule('email', 'email')
-                            ->rule('password1', 'not_empty')
-                            ->rule('password2', 'not_empty')
-                            ->rule('password1', 'matches', array(':validation', 'password1', 'password2'));
-        
-            if ($validation->check())
-            {
-                //posting data so try to remember password
-                if (CSRF::valid('register'))
+            if(captcha::check('register')) {
+                $validation =   Validation::factory($this->request->post())
+                                ->rule('name', 'not_empty')
+                                ->rule('email', 'not_empty')
+                                ->rule('email', 'email')
+                                ->rule('password1', 'not_empty')
+                                ->rule('password2', 'not_empty')
+                                ->rule('password1', 'matches', array(':validation', 'password1', 'password2'));
+            
+                if ($validation->check())
                 {
-                    $email = core::post('email');
-        
-                    //check we have this email in the DB
-                    $user = new Model_User();
-                    $user = $user->where('email', '=', $email)
-                            ->limit(1)
-                            ->find();
-        
-                    if ($user->loaded())
+                    //posting data so try to remember password
+                    if (CSRF::valid('register'))
                     {
-                        Form::set_errors(array(__('User already exists')));
+                        $email = core::post('email');
+            
+                        //check we have this email in the DB
+                        $user = new Model_User();
+                        $user = $user->where('email', '=', $email)
+                                ->limit(1)
+                                ->find();
+            
+                        if ($user->loaded())
+                        {
+                            Form::set_errors(array(__('User already exists')));
+                        }
+                        else
+                        {
+                            //creating the user
+                            $user = Model_User::create_email($email,core::post('name'),core::post('password1'));
+            
+                            //login the user
+                            Auth::instance()->login(core::post('email'), core::post('password1'));
+            
+                            Alert::set(Alert::SUCCESS, __('Welcome!'));
+                            //login the user
+                            $this->redirect(Core::post('auth_redirect',Route::url('oc-panel')));
+            
+                        }
                     }
-                    else
-                    {
-                        //creating the user
-                        $user = Model_User::create_email($email,core::post('name'),core::post('password1'));
-        
-                        //login the user
-                        Auth::instance()->login(core::post('email'), core::post('password1'));
-        
-                        Alert::set(Alert::SUCCESS, __('Welcome!'));
-                        //login the user
-                        $this->redirect(Core::post('auth_redirect',Route::url('oc-panel')));
-        
-                    }
+                }
+                else
+                {
+                    $errors = $validation->errors('auth');
+            
+                    foreach ($errors as $error) 
+                        Alert::set(Alert::ALERT, $error);                
                 }
             }
             else
             {
-                $errors = $validation->errors('auth');
-        
-                foreach ($errors as $error) 
-                    Alert::set(Alert::ALERT, $error);                
+                Alert::set(Alert::ALERT, __('Captcha is not correct'));
             }
         }
     
