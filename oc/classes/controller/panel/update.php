@@ -10,8 +10,30 @@
  */
 class Controller_Panel_Update extends Controller_Panel_OC_Update {    
 
+     /**
+     * This function will upgrade DB that didn't existed in versions prior to 2.3.0
+     */
+    public function action_240()
+    {
+     //google 2 step auth
+        try 
+        {
+            DB::query(Database::UPDATE,"ALTER TABLE  `".self::$db_prefix."users` ADD `google_authenticator` varchar(40) DEFAULT NULL")->execute();
+        }catch (exception $e) {}
+
+
+        //new configs
+        $configs = array(
+                        array( 'config_key'     => 'google_authenticator',
+                               'group_name'     => 'general', 
+                               'config_value'   => '0'),
+                        );
+        
+        Model_Config::config_array($configs);
+    }
+
     /**
-     * This function will upgrade DB that didn't existed in versions prior to 2.7.0
+     * This function will upgrade DB that didn't existed in versions prior to 2.2.0
      */
     public function action_230()
     {

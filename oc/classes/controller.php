@@ -51,6 +51,18 @@ class Controller extends Kohana_Controller
         $this->user = Auth::instance()->get_user();
 
         parent::__construct($request,$response);
+
+        //check 2 step
+        if ( strtolower($this->request->controller())!='auth' AND
+            Auth::instance()->logged_in() AND
+            core::config('general.google_authenticator')==TRUE AND 
+            Auth::instance()->get_user()->google_authenticator!='' AND 
+            Cookie::get('google_authenticator')!=Auth::instance()->get_user()->id_user )
+        {
+            //redirect to 2step page
+            $url = Route::url('oc-panel',array('controller'=>'auth','action'=>'2step')).'?auth_redirect='.URL::current();
+            $this->redirect($url);
+        }
     }
     
     /**
