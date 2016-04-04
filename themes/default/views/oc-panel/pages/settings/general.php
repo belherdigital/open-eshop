@@ -3,7 +3,7 @@
 
  <?=Form::errors()?>
 <div class="page-header">
-	<h1><?=__('General Configuration')?></h1>
+    <h1><?=__('General Configuration')?></h1>
     <p>
         <a class="btn btn-default pull-right" href="<?=Route::url('oc-panel',array('controller'=>'config'))?>"><?=__('All configurations')?></a>
         <?=__('General site settings.')?>
@@ -96,6 +96,41 @@
                                 'data-placement'=>"right",
                                 'data-toggle'=>"popover",
                                 'data-original-title'=>__("Landing page"),
+                                ))?> 
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <?= FORM::label($forms['private_site']['key'], '<a target="_blank" href="">'.__("Private Site")."</a>", array('class'=>'col-md-4 control-label', 'for'=>$forms['private_site']['key']))?>
+                            <div class="col-md-8">
+                                <div class="onoffswitch">
+                                    <?= FORM::hidden($forms['private_site']['key'], 0);?>
+                                    <?= FORM::checkbox($forms['private_site']['key'], 1, (bool) $forms['private_site']['value'], array(
+                                    'placeholder' => "TRUE or FALSE", 
+                                    'class' => 'onoffswitch-checkbox', 
+                                    'id' => $forms['private_site']['key'], 
+                                    'data-content'=> __("Private site option"),
+                                    'data-trigger'=>"hover",
+                                    'data-placement'=>"right",
+                                    'data-toggle'=>"popover",
+                                    'data-original-title'=>__("Private Site"),
+                                    ))?>
+                                    <?= FORM::label($forms['private_site']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['private_site']['key']))?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <?= FORM::label($forms['private_site_page']['key'], "<a target='_blank' href=''>".__('Private Site landing page content')."</a>", array('class'=>'control-label col-sm-4', 'for'=>$forms['private_site_page']['key']))?>
+                            <div class="col-md-8">
+                                <?= FORM::select($forms['private_site_page']['key'], $pages, $forms['private_site_page']['value'], array(
+                                'class' => 'tips form-control input-sm', 
+                                'id' => $forms['private_site_page']['key'], 
+                                'data-content'=> __("Private Site landing page content"),
+                                'data-trigger'=>"hover",
+                                'data-placement'=>"right",
+                                'data-toggle'=>"popover",
+                                'data-original-title'=>__("Private Site landing page conten"),
                                 ))?> 
                             </div>
                         </div>
@@ -232,7 +267,7 @@
                             </div>
                         </div>
                         
-                        <div class="form-group">		
+                        <div class="form-group">        
                                 <?= FORM::label($forms['number_format']['key'], "<a target='_blank' href='https://docs.open-eshop.com/change-currency/'>".__('Money format')."</a>", array('class'=>'col-md-4 control-label','for'=>$forms['number_format']['key']))?>
                             <div class="col-md-8">
                                 <?= FORM::input($forms['number_format']['key'], $forms['number_format']['value'], array(

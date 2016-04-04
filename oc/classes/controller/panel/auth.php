@@ -6,16 +6,21 @@ class Controller_Panel_Auth extends Controller {
      * 
      * Check if we need to login the user or display the form, same form for normal user and admin
      */
-	public function action_login()
-	{		
-	    //if user loged in redirect home
-	    if (Auth::instance()->logged_in())
-	    {
-	    	Auth::instance()->login_redirect();
-	    }
-	    //posting data so try to login
-	    elseif ($this->request->post() AND CSRF::valid('login'))
-	    {
+    public function action_login()
+    {       
+        //if user loged in redirect home
+        if (Auth::instance()->logged_in())
+        {
+            Auth::instance()->login_redirect();
+        }
+        //private site only allows post to login
+        elseif(!$_POST AND core::config('general.private_site')==1)
+        {
+            $this->redirect(Route::url('default'));
+        }
+        //posting data so try to login
+        elseif ($this->request->post() AND CSRF::valid('login'))
+        {
             $blocked_login = FALSE;
 
             // Load the user
@@ -109,14 +114,20 @@ class Controller_Panel_Auth extends Controller {
                     }
                 }
             }
-	    }
-	    	    
-	    //Login page
-	    $this->template->title = __('Login');	    
-		$this->template->meta_description = __('Login to').' '.Core::config('general.site_name');    
-	    $this->template->content = View::factory('pages/auth/login');
-	}
-	
+        }
+        
+        //private site
+        if (!Auth::instance()->logged_in() AND core::config('general.private_site')==1)
+        {
+            $this->redirect(Route::url('default'));
+        }       
+
+        //Login page
+        $this->template->title = __('Login');       
+        $this->template->meta_description = __('Login to').' '.Core::config('general.site_name');    
+        $this->template->content = View::factory('pages/auth/login');
+    }
+    
     /**
      * 
      * Logout user session
@@ -133,39 +144,39 @@ class Controller_Panel_Auth extends Controller {
         $this->redirect($redir);
     
     }
-	
-	/**
-	 * Sends an email with a link to change your password
-	 * 
-	 */
-	public function action_forgot()
-	{
+    
+    /**
+     * Sends an email with a link to change your password
+     * 
+     */
+    public function action_forgot()
+    {
         //template header
         $this->template->title            = __('Remember password');
         $this->template->meta_description = __('Here you can reset your password if you forgot it');  
-		$this->template->content = View::factory('pages/auth/forgot');
-		
-		//if user loged in redirect home
-		if (Auth::instance()->logged_in())
-		{
-			$this->redirect(Route::get('oc-panel')->uri());
-		}
-		//posting data so try to remember password
-		elseif (core::post('email') AND CSRF::valid('forgot'))
-		{
-			$email = core::post('email');
-			
-			if (Valid::email($email,TRUE))
-			{
-				//check we have this email in the DB
-				$user = new Model_User();
-				$user = $user->where('email', '=', $email)
-							->limit(1)
-							->find();
-				
-				if ($user->loaded())
-				{
-					
+        $this->template->content = View::factory('pages/auth/forgot');
+        
+        //if user loged in redirect home
+        if (Auth::instance()->logged_in())
+        {
+            $this->redirect(Route::get('oc-panel')->uri());
+        }
+        //posting data so try to remember password
+        elseif (core::post('email') AND CSRF::valid('forgot'))
+        {
+            $email = core::post('email');
+            
+            if (Valid::email($email,TRUE))
+            {
+                //check we have this email in the DB
+                $user = new Model_User();
+                $user = $user->where('email', '=', $email)
+                            ->limit(1)
+                            ->find();
+                
+                if ($user->loaded())
+                {
+                    
                     //we get the QL, and force the regen of token for security
                     $url_ql = $user->ql('oc-panel',array( 'controller' => 'profile', 
                                                           'action'     => 'changepass'),TRUE);
@@ -181,24 +192,89 @@ class Controller_Panel_Auth extends Controller {
                         $this->redirect(Route::url('oc-panel',array('controller'=>'auth','action'=>'login')));
                     }
 
-				}
-				else
-				{
-					Form::set_errors(array(__('User not in database')));
-				}
-				
-			}
-			else
-			{
-				Form::set_errors(array(__('Invalid Email')));
-			}
-			
-		}
-				
-			
-	}
+                }
+                else
+                {
+                    Form::set_errors(array(__('User not in database')));
+                }
+                
+            }
+            else
+            {
+                Form::set_errors(array(__('Invalid Email')));
+            }
+            
+        }
+                
+            
+    }
 
     /**
+     * Sends request to admin (private site)
+     * 
+     */
+    public function action_request()
+    {
+        //template header
+        $this->template->title            = __('Request Access');
+        $this->template->content = View::factory('pages/auth/request');
+        $this->template->meta_description = __('Send your Name and Email to the administrator of the website');
+        
+        //if user loged in redirect home
+        if (Auth::instance()->logged_in())
+        {
+            $this->redirect(Route::get('oc-panel')->uri());
+        }
+        
+        elseif (core::post('email') AND core::post('name'))
+        {
+            $name = core::post('name');
+            $email = core::post('email');
+            
+            if (Valid::email($email))
+            {
+                //check we have this email in the DB
+                $user = new Model_User();
+                $user = $user->where('email', '=', $email)
+                            ->limit(1)
+                            ->find();
+                
+                if (!$user->loaded())
+                {
+
+                    // email sent to admin
+                    $replace = array('[EMAIL.BODY]'     =>$name.' requests access.',
+                                     '[EMAIL.SUBJECT]'  =>'Access Request',
+                                      '[EMAIL.SENDER]'  =>$name,
+                                      '[EMAIL.FROM]'    =>$email);
+
+                    if (Email::content(core::config('email.notify_email'),
+                                        core::config('general.site_name'),
+                                        $email,
+                                        $name,'contact-admin',
+                                        $replace))
+                        Alert::set(Alert::SUCCESS, __('Your request has been sent'));
+                    else
+                        Alert::set(Alert::ERROR, __('Request not sent'));
+
+                }
+                else
+                {
+                    Form::set_errors(array(__('User already exists')));
+                }
+                
+            }
+            else
+            {
+                Form::set_errors(array(__('Invalid Email')));
+            }
+            
+        }
+                
+            
+    }
+
+        /**
      * Simple register for user
      *
      */
@@ -271,28 +347,28 @@ class Controller_Panel_Auth extends Controller {
     
         //template header
         $this->template->title            = __('Register new user');
-		$this->template->meta_description = __('Create a new profile at').' '.Core::config('general.site_name');    
+        $this->template->meta_description = __('Create a new profile at').' '.Core::config('general.site_name');    
             
     }
     
-	/**
-	 *
-	 * Quick login for users.
-	 * Useful for confirmation emails, remember passwords etc...
-	 */
-	public function action_ql()
-	{
-		$ql = $this->request->param('id');
-		$url = Auth::instance()->ql_login($ql);
-		
-		//not a url go to login!
-		if ($url==FALSE)
-		{
-			$url = Route::url('oc-panel',array('controller' => 'auth', 
-										  		'action'     => 'login'));	
-		}
-		$this->redirect($url);
-	}
+    /**
+     *
+     * Quick login for users.
+     * Useful for confirmation emails, remember passwords etc...
+     */
+    public function action_ql()
+    {
+        $ql = $this->request->param('id');
+        $url = Auth::instance()->ql_login($ql);
+        
+        //not a url go to login!
+        if ($url==FALSE)
+        {
+            $url = Route::url('oc-panel',array('controller' => 'auth', 
+                                                'action'     => 'login'));  
+        }
+        $this->redirect($url);
+    }
 
 
     public function action_unsubscribe()

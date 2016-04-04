@@ -76,6 +76,7 @@ class Controller extends Kohana_Controller
         Theme::checker();
 
         $this->maintenance();
+        $this->private_site();
         
         //get category, deprecated, to keep backwards compatibility with themes
         self::$category = Model_Category::current();
@@ -88,11 +89,11 @@ class Controller extends Kohana_Controller
 
         if($this->auto_render===TRUE)
         {
-        	// Load the template
+            // Load the template
             if ($template!==NULL)
                 $this->template= $template; 
-        	$this->template = View::factory($this->template);
-        	
+            $this->template = View::factory($this->template);
+            
             // Initialize template values
             $this->template->title            = core::config('general.site_name');
             $this->template->meta_keywords    = '';
@@ -123,9 +124,9 @@ class Controller extends Kohana_Controller
      */
     public function after()
     {
-    	parent::after();
-    	if ($this->auto_render === TRUE)
-    	{
+        parent::after();
+        if ($this->auto_render === TRUE)
+        {
             // Add custom CSS if enabld and front controller
             if (is_subclass_of($this,'Auth_Controller')===FALSE AND ($custom_css = Theme::get_custom_css())!==FALSE )
                 Theme::$styles = array_merge(Theme::$styles,array($custom_css => 'screen',));
@@ -139,7 +140,7 @@ class Controller extends Kohana_Controller
                 $this->template->scripts['footer'][] = Route::url('default',array('controller'=>'jslocalization','action'=>'cookieconsent'));
             }
             
-    		// Add defaults to template variables.
+            // Add defaults to template variables.
             $this->template->styles  = array_merge_recursive(Theme::$styles, $this->template->styles);
             $this->template->scripts = array_reverse(array_merge_recursive(Theme::$scripts,$this->template->scripts));
             
@@ -166,7 +167,7 @@ class Controller extends Kohana_Controller
             $this->template->meta_description = seo::text($this->template->meta_description);
             
         }
-        $this->response->body($this->template->render());    	
+        $this->response->body($this->template->render());       
        
     }
 
@@ -189,7 +190,21 @@ class Controller extends Kohana_Controller
                 $this->redirect(Route::url('maintenance'));
         }
     }    
-        
+         
+    /**
+     * in case you set up general.private_site to TRUE
+     * @return void 
+     */
+    public function private_site()
+    {
+        //private_site
+        if (core::config('general.private_site')==1 AND $this->user==FALSE AND (strtolower($this->request->action())!='login') )
+        {
+            $this->auto_render = FALSE;
+            $this->response->status(403);
+            $this->template = View::factory('pages/error/403');
+        }
+    }     
         
     
 }
