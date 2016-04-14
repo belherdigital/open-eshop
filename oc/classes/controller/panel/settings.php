@@ -25,7 +25,7 @@ class Controller_Panel_Settings extends Auth_Controller {
      * captcha, uploading text file  
      * @return [view] Renders view with form inputs
      */
-	public function action_product()
+    public function action_product()
     {
         Breadcrumbs::add(Breadcrumb::factory()->set_title(__('product')));
         $this->template->title = __('product');
@@ -213,6 +213,7 @@ class Controller_Panel_Settings extends Auth_Controller {
             ->rule('maintenance', 'range', array(':value', 0, 1))
             ->rule('disallowbots', 'range', array(':value', 0, 1))
             ->rule('cookie_consent', 'range', array(':value', 0, 1))
+            ->rule('private_site', 'range', array(':value', 0, 1))
             ->rule('site_name', 'not_empty')
             ->rule('eu_vat', 'range', array(':value', 0, 1))
             ->rule('products_per_page', 'not_empty')
@@ -252,7 +253,10 @@ class Controller_Panel_Settings extends Auth_Controller {
 
                         if ($c->config_key == 'maintenance' AND $c->config_value == 0)
                             Alert::del('maintenance');
-    
+
+                        if ($c->config_key == 'private_site' AND $c->config_value == 0)
+                            Alert::del('private_site');
+
                         try {
                             $c->save();
                         } catch (Exception $e) {

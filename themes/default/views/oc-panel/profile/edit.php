@@ -136,6 +136,37 @@
                 </form>
             </div>
         </div>
+        <?if( Core::config('general.google_authenticator')==TRUE):?>
+        <div class="panel panel-default">
+            <div class="panel-heading" id="page-edit-profile">
+                <h3 class="panel-title"><?=__('2 Step Authentication')?></h3>
+                <p>
+                <?=__('2 step authentication provided by Google Authenticator.')?> 
+                <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">Android</a>, 
+                <a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8">iOS</a>
+                </p>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <?if ($user->google_authenticator!=''):?>
+                            <img src="<?=$user->google_authenticator_qr()?>">
+                            <p>
+                            <?=__('Google Authenticator Code')?>: <?=$user->google_authenticator?>
+                            </p>
+                            <a class="btn btn-warning" href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'2step','id'=>'disable'))?>">
+                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> <?=__('Disable')?>
+                            </a>
+                        <?else:?>
+                            <a class="btn btn-primary" href="<?=Route::url('oc-panel',array('controller'=>'profile','action'=>'2step','id'=>'enable'))?>">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <?=__('Enable')?>
+                            </a>
+                        <?endif?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?endif?>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><?=__('Profile picture')?></h3>

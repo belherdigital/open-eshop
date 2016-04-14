@@ -618,4 +618,39 @@ class Controller_Panel_Profile extends Auth_Controller {
 
         
     }
+
+    //2 step auth verification code generation
+    public function action_2step()
+    {
+        $action = $this->request->param('id');
+
+
+        if ($action == 'enable')
+        {
+            //load library
+            require Kohana::find_file('vendor', 'GoogleAuthenticator');
+            $ga = new PHPGangsta_GoogleAuthenticator();
+            $this->user->google_authenticator = $ga->createSecret();
+
+            //set cookie
+            Cookie::set('google_authenticator' , $this->user->id_user, Core::config('auth.lifetime') );
+
+            Alert::set(Alert::SUCCESS, __('2 Step Authentication Enabled'));
+        }
+        elseif($action == 'disable')
+        {
+            $this->user->google_authenticator = '';
+            Cookie::delete('google_authenticator');
+            Alert::set(Alert::INFO, __('2 Step Authentication Disabled'));
+        }
+
+        try {
+            $this->user->save();
+        } catch (Exception $e) {
+            //throw 500
+            throw HTTP_Exception::factory(500,$e->getMessage());
+        }   
+
+        $this->redirect(Route::url('oc-panel', array('controller'=>'profile','action'=>'edit')));
+    }
 }
