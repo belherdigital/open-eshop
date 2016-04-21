@@ -45,9 +45,9 @@ class Controller_Panel_Order extends Auth_CrudAjax {
     {
         parent::__construct($request, $response);
         $this->_buttons_actions = array( array( 'url'   => Route::url('oc-panel', array('controller'=>'profile', 'action'=>'order')).'/' ,
-                                                'title' => 'see order',
-                                                'class' => 'btn btn-xs btn-success',
-                                                'icon'  => 'glyphicon glyphicon-search'
+                                                'title' => __('See order'),
+                                                'class' => '',
+                                                'icon'  => 'fa fa-fw fa-search'
                                                 ));
     }
 
