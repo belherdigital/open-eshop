@@ -9,6 +9,7 @@ return array
             'password'   => '[DB_PASS]',
             'persistent' => FALSE,
             'database'   => '[DB_NAME]',
+            'variables'  => array('sql_mode'=>'')
             ),
         'table_prefix' => '[TABLE_PREFIX]',
         'charset'      => '[DB_CHARSET]',
