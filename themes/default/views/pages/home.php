@@ -23,10 +23,10 @@
                     <li class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                         <div class="thumbnail">
                             <a href="<?=Route::url('product', array('category'=>$product->category->seoname,'seotitle'=>$product->seotitle))?>" class="min-h">
-                          <?if($product->get_first_image()!== NULL):?>
-                                <img src="<?=Core::S3_domain().$product->get_first_image()?>" alt="<?=$product->title?>" >
+                            <?if($product->get_first_image()!== NULL):?>
+                                <?=HTML::picture(Core::S3_domain().$product->get_first_image(), ['w' => 140, 'h' => 140], ['1200px' => ['w' => '140', 'h' => '140'], '992px' => ['w' => '200', 'h' => '200']], ['alt' => HTML::chars($product->title)])?>
                             <?elseif(( $icon_src = $product->category->get_icon() )!==FALSE ):?>
-                                <img src="<?=$icon_src?>" alt="<?=$product->title?>">
+                                <?=HTML::picture($icon_src, ['w' => 140, 'h' => 140], ['1200px' => ['w' => '140', 'h' => '140'], '992px' => ['w' => '200', 'h' => '200']], ['alt' => HTML::chars($product->title)])?>
                             <?else:?>
                                 <img src="//www.placehold.it/200x200&text=<?=$product->category->name?>" alt="<?=$product->title?>"> 
                             <?endif?>

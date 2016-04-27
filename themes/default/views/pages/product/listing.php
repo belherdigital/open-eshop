@@ -45,11 +45,11 @@
                 <div class="thumbnail">
                     <a title="<?=HTML::chars($product->title)?>" href="<?=Route::url('product', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>">
                     <?if($product->get_first_image() !== NULL):?>
-                        <img width="300" height="200" src="<?=Core::S3_domain().$product->get_first_image()?>" alt="<?=HTML::chars($product->title)?>" class="">
+                        <?=HTML::picture(Core::S3_domain().$product->get_first_image('image'), ['w' => 292, 'h' => 292], ['1200px' => ['w' => '210', 'h' => '210'], '992px' => ['w' => '292', 'h' => '292']], ['alt' => HTML::chars($product->title)])?>
                     <?elseif(( $icon_src = $product->category->get_icon() )!==FALSE ):?>
-                        <img width="300" height="200" src="<?=$icon_src?>" alt="<?=HTML::chars($product->title)?>">
+                        <?=HTML::picture($icon_src, ['w' => 292, 'h' => 292], ['1200px' => ['w' => '210', 'h' => '210'], '992px' => ['w' => '292', 'h' => '292']], ['alt' => HTML::chars($product->title)])?>
                     <?else:?>
-                        <img src="//www.placehold.it/300x200&text=<?=urlencode($product->category->name)?>" width="300" height="200" alt="<?=HTML::chars($product->title)?>">
+                        <img src="//www.placehold.it/292x292&text=<?=urlencode($product->category->name)?>" width="300" height="200" alt="<?=HTML::chars($product->title)?>">
                     <?endif?>
                     </a>
                     <div class="caption">
