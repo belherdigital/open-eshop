@@ -110,6 +110,7 @@ $modules = array(
     'widgets'       => COMMONPATH.'modules/widgets',    // loads default widgets
     'cron'          => COMMONPATH.'modules/cron',    // cron module
     'geoip3'        => MODPATH.'geoip3',    // maxmind geoip
+    'imagefly'      => COMMONPATH.'modules/imagefly',//imagefly resize image files on the fly ;)
 );
 
 //modules for development environment, not included in distribution KO with OC, so you need to place them in your environment
