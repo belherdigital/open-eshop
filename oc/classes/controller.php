@@ -203,8 +203,11 @@ class Controller extends Kohana_Controller
             $this->auto_render = FALSE;
             $this->response->status(403);
             $this->template = View::factory('pages/error/403');
+            $this->after();
+            // Return the response
+            die($this->response);
         }
-    }     
+    }  
         
     
 }

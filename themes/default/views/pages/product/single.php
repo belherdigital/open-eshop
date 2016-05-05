@@ -11,7 +11,7 @@
                         <?if( isset($value['thumb']) AND isset($value['image']) ):?>
 	                        <div class="item <?=($i == 0)?'active':''?>">
 		                        <a rel="prettyPhoto[gallery]" href="<?=$value['base'].$value['image']?>">
-		                            <img class="main-image" src="<?=$value['base'].$value['image']?>" alt="<?=HTML::chars($product->title)?> <?=$i?>">
+		                            <?=HTML::picture($value['base'].$value['image'], ['w' => 318, 'h' => 300], ['1200px' => ['w' => '318', 'h' => '300'], '992px' => ['w' => '440', 'h' => '300'], '768' => ['w' => '910', 'h' => '300']], ['alt' => HTML::chars($product->title).$i, 'class' => 'main-image'])?>
 		                        </a>
 	                        </div>               
                         <?endif?>   
@@ -26,7 +26,7 @@
 			        <li class="<?=($j == 0)?'active':'item'?>" data-slide-to="<?=$j?>" data-target="#article-photo-carousel">
 			            <?if($images = $product->get_images()):?>        
 			                <?if( isset($value['thumb']) AND isset($value['image']) ):?>
-			                    <img src="<?=$value['base'].$value['thumb']?>" alt="<?=HTML::chars($product->title)?> <?=$j?>">
+			                    <img src="<?=Core::imagefly($value['base'].$value['thumb'],100,54)?>" alt="<?=HTML::chars($product->title)?> <?=$j?>">
 			                <?endif?>   
 			            <?endif?>
 			        </li>
