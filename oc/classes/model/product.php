@@ -414,8 +414,8 @@ class Model_Product extends ORM {
         
         
 
-        if(!is_dir($directory)){         // check if directory exists 
-                mkdir($directory, 0755, TRUE);
+        if(!is_dir(DOCROOT.$directory)){         // check if directory exists 
+                mkdir(DOCROOT.$directory, 0755, TRUE);
             }
 
         return $directory;
