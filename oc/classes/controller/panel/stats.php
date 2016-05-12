@@ -165,15 +165,11 @@ class Controller_Panel_Stats extends Auth_Controller {
 
         $content->chart_config           = array('height'  => 94,
                                                  'width'   => 378,
-                                                 'options' => array('animation'           => false,
-                                                                    'responsive'          => true,
-                                                                    'bezierCurve'         => true,
-                                                                    'bezierCurveTension'  => '.25',
-                                                                    'showScale'           => false,
-                                                                    'pointDotRadius'      => 0,
-                                                                    'pointDotStrokeWidth' => 0,
-                                                                    'pointDot'            => false,
-                                                                    'showTooltips'        => false));
+                                                 'options' => array('responsive' => true,
+                                                                    'scales' => array('xAxes' => array(array('display' => false)),
+                                                                                      'yAxes' => array(array('display' => false,
+                                                                                                             'ticks'   => array('min' => 0)))),
+                                                                    'legend' => array('display' => false)));
         $content->chart_colors           = array(array('fill'        => 'rgba(33,150,243,.1)',
                                                        'stroke'      => 'rgba(33,150,243,.8)',
                                                        'point'       => 'rgba(33,150,243,.8)',
