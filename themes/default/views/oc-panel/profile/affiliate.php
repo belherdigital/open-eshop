@@ -74,7 +74,7 @@
 <div>
     <?=Chart::line($stats_daily, array('height'  => 200,
                                        'width'   => 400,
-                                       'options' => array('responsive' => true, 'maintainAspectRatio' => false, 'scaleShowVerticalLines' => false, 'multiTooltipTemplate' => '<%= datasetLabel %> - <%= value %>')))?>
+                                       'options' => array('responsive' => true, 'maintainAspectRatio' => false, 'multiTooltipTemplate' => '<%= datasetLabel %> - <%= value %>')))?>
 </div>
 
 <h2><?=__('Commissions')?></h2>

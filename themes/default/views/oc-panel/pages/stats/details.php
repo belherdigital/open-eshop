@@ -76,19 +76,16 @@
             ?>
             <?=Chart::line($current_by_date, array('height'  => 94,
                                                    'width'   => 378,
-                                                   'options' => array('animation'              => false,
-                                                                      'responsive'             => true,
-                                                                      'bezierCurve'            => true,
-                                                                      'bezierCurveTension'     => '.25',
-                                                                      'showScale'              => true,
-                                                                      'pointDotRadius'         => 0,
-                                                                      'pointDotStrokeWidth'    => 0,
-                                                                      'pointDot'               => false,
+                                                   'options' => array('responsive'             => true,
                                                                       'maintainAspectRatio'    => true,
                                                                       'scaleShowVerticalLines' => false,
+                                                                      'scales'                 => array('xAxes' => array(array('gridLines'=> array('display' => false))),
+                                                                                                        'yAxes' => array(array('ticks'=> array('min' => 0)))),
+                                                                      'legend'                 => array('display' => false),
                                                                       'tooltipTemplate'        => '<%= datasetLabel %><%= value %>',
                                                                       'multiTooltipTemplate'   => '<%= datasetLabel %><%= value %>',
-                                                                      'showTooltips'           => true)),
+                                                                      )
+                                                   ),
                                                    $chart_colors)?>
         </div>
     </div>
