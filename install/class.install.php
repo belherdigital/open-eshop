@@ -74,9 +74,25 @@ class install{
         install::gettext_init(self::$locale);
 
         // Try to guess installation URL
-        self::$url = 'http://'.$_SERVER['SERVER_NAME'];
-        if ($_SERVER['SERVER_PORT'] != '80') 
-            self::$url = self::$url.':'.$_SERVER['SERVER_PORT'];
+        // Check whether we are using HTTPS or not 
+        if (isset($_SERVER['HTTPS']))
+        {
+            if ('on' == strtolower($_SERVER['HTTPS']) OR '1' == $_SERVER['HTTPS'])
+            {
+                self::$url = 'https://'.$_SERVER['SERVER_NAME'];
+            }
+        }
+        elseif (isset($_SERVER['SERVER_PORT']) AND ('443' == $_SERVER['SERVER_PORT']))
+        {
+            self::$url = 'https://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'];
+        }
+        else
+        {
+            self::$url = 'http://'.$_SERVER['SERVER_NAME'];
+
+            if ($_SERVER['SERVER_PORT'] != '80') 
+                self::$url = self::$url.':'.$_SERVER['SERVER_PORT'];
+        }
 
         //getting the folder, erasing the index
         self::$folder = str_replace('/index.php','', $_SERVER['SCRIPT_NAME']).'/';
