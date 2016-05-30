@@ -403,6 +403,10 @@ div.sceditor-group{padding: 1px 15px 5px 5px!important;}
   padding: 5px;
 }
 
+/* selectpicker dropdown menu*/
+.bootstrap-select > .dropdown-toggle{width:auto;}
+.bootstrap-select.btn-group .dropdown-menu {min-width:auto;}
+
 /*================= Media Queries ==========================*/
 
 

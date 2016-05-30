@@ -34,6 +34,7 @@ Theme::load();
                         'css/style.css?v='.Core::VERSION => 'screen',
                         'css/yeti-style.css' => 'screen',
                         'css/slider.css' => 'screen',
+                        'css/bootstrap-select.min.css' => 'screen',
                         );
     if(Theme::get('rtl'))
       $theme_css = array_merge($theme_css, array('css/bootstrap-rtl.min.css' => 'screen'));
@@ -43,6 +44,8 @@ Theme::load();
     Theme::$scripts['footer'] = array(  '//cdn.jsdelivr.net/g/jquery@1.12.3,bootstrap@3.3.6,chosen@1.0.0,jquery.validation@1.11.1,holder@2.8.1',
                                         '//cdn.jsdelivr.net/prettyphoto/3.1.5/js/jquery.prettyPhoto.js',
                                         'js/bootstrap-slider.js',
+                                        'js/bootstrap-select.min.js',
+                                        'js/curry.js',
                                         Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'chosen')),
                                         Route::url('jslocalization', array('controller'=>'jslocalization', 'action'=>'validate')),
                                         'js/theme.init.js?v='.Core::VERSION,

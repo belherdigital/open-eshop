@@ -93,7 +93,7 @@
 		<span class="offer-valid"><?=__('Offer valid until')?> <?=(Date::format((Model_Coupon::current()->loaded())?Model_Coupon::current()->valid_date:$product->offer_valid))?></span>
 	<?else:?>
 	    <?if($product->final_price() != 0):?>
-	        <h4><?=__('Price')?> : <?=$product->formated_price()?></span></h4>
+	        <h4><?=__('Price')?> : <span data-locale="<?=$product->currency?>" class="price-curry curry"><?=$product->formated_price()?></span></h4>
 	    <?else:?>
 	        <h4><?=__('Free')?></h4>
 	    <?endif?>
