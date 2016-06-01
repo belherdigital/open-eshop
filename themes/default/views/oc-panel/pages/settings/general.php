@@ -101,7 +101,7 @@
                         </div>
 
                         <div class="form-group">
-                            <?= FORM::label($forms['private_site']['key'], '<a target="_blank" href="">'.__("Private Site")."</a>", array('class'=>'col-md-4 control-label', 'for'=>$forms['private_site']['key']))?>
+                            <?= FORM::label($forms['private_site']['key'], '<a target="_blank" href="https://docs.yclas.com/private-site/">'.__("Private Site")."</a>", array('class'=>'col-md-4 control-label', 'for'=>$forms['private_site']['key']))?>
                             <div class="col-md-8">
                                 <div class="onoffswitch">
                                     <?= FORM::hidden($forms['private_site']['key'], 0);?>
