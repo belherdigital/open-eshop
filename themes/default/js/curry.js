@@ -142,6 +142,7 @@
         } else {
           query = 'select * from yahoo.finance.xchange where pair="'+savedCurrency+getSiteCurrency()+',';
           for (i = 0; i < selected_currencies.length; i++) { 
+          	selected_currencies[i] = selected_currencies[i].trim();
             if (selected_currencies[i] == 'major')
               query += major_currencies;
             else if (selected_currencies[i] == 'european')
