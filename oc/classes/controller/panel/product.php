@@ -59,7 +59,7 @@ class Controller_Panel_Product extends Auth_CrudAjax {
         if(count($cats) <= 1)
         {
             Alert::set(Alert::WARNING, __('Please create a category first!'));
-            $this->redirect(Route::url('oc-panel', array('controller'=>'product','action'=>'index')));
+            $this->redirect(Route::url('oc-panel', array('controller'=>'category','action'=>'create')).'?rel=ajax');
         }
 
         $obj_product = new Model_Product();
