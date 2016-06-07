@@ -112,6 +112,7 @@
         if(selected_currencies == '') {
           savedCurrency = getSavedCurrency();
           query = 'select * from yahoo.finance.xchange where pair="\
+                                          '+savedCurrency+getSiteCurrency()+',\
                                           '+savedCurrency+'USD,\
                                           '+savedCurrency+'EUR,\
                                           '+savedCurrency+'INR,\
