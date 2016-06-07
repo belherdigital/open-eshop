@@ -101,6 +101,7 @@
         var query = '';
         var selected_currencies = ($('.curry-widget').data('currencies')!=undefined)?$('.curry-widget').data('currencies'):'';
         selected_currencies = selected_currencies.split(',');
+        savedCurrency = getSavedCurrency();
 
         var major_currencies = savedCurrency+'USD,'+savedCurrency+'EUR,'+savedCurrency+'GBP,'+savedCurrency+'JPY,'+savedCurrency+'CAD,'+savedCurrency+'CHF,'+savedCurrency+'AUD,'+savedCurrency+'ZAR,';
         var european_currencies = savedCurrency+'ALL,'+savedCurrency+'BGN,'+savedCurrency+'BYR,'+savedCurrency+'CZK,'+savedCurrency+'DKK,'+savedCurrency+'EUR,'+savedCurrency+'GBP,'+savedCurrency+'HRK,'+savedCurrency+'HUF,'+savedCurrency+'ISK,'+savedCurrency+'NOK,'+savedCurrency+'RON,'+savedCurrency+'RUB,'+savedCurrency+'SEK,'+savedCurrency+'UAH,';
@@ -110,7 +111,6 @@
         
         // Request currencies from yahoo finance
         if(selected_currencies == '') {
-          savedCurrency = getSavedCurrency();
           query = 'select * from yahoo.finance.xchange where pair="\
                                           '+savedCurrency+getSiteCurrency()+',\
                                           '+savedCurrency+'USD,\
