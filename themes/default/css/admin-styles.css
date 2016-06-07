@@ -334,6 +334,13 @@ border:0;}
 .mini-col .collapse-menu {
     width: 45px;
 }
+input[type="radio"]{
+    margin-left:5px!important;
+}
+.radio label{
+    padding-left:5px!important;
+    margin-right: 15px;
+}
 /*col-md*/
 @media screen and (max-width: 979px) {
 	.navbar .nav{float: left!important;}
