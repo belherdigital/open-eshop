@@ -156,7 +156,7 @@ $(function(){
     var savedRate, savedCurrency, siteCurrency;
     siteCurrency = getSiteCurrency();
     savedCurrency = getSavedCurrency();
-    if (getSavedCurrency() == undefined) {
+    if (getCookie('site_currency') == undefined) {
         savedRate = 1;
         savedCurrency = siteCurrency;
     }
