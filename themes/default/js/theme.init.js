@@ -129,124 +129,12 @@ $(function(){
 });
 
 function getlocale() {
-    switch($('.curry').data('locale')){
-        case 'en_US':
-            siteCurrency = 'USD';
-            break;
-        case 'en_UK':
-            siteCurrency = 'GBP';
-            break;
-        case 'ar':
-            siteCurrency = 'AED';
-            break;
-        case 'bg_BG':
-            siteCurrency = 'BGN';
-            break;
-        case 'bn_BD':
-            siteCurrency = 'BDT';
-            break;
-        case 'ca_ES':
-            siteCurrency = 'EUR';
-            break;
-        case 'cs_CZ':
-            siteCurrency = 'CZK';
-            break;
-        case 'da_DK':
-            siteCurrency = 'DKK';
-            break;
-        case 'de_DE':
-            siteCurrency = 'EUR';
-            break;
-        case 'el_GR':
-            siteCurrency = 'EUR';
-            break;
-        case 'en_UK':
-            siteCurrency = 'GBP';
-            break;
-        case 'es_ES':
-            siteCurrency = 'EUR';
-            break;
-        case 'fr_FR':
-            siteCurrency = 'EUR';
-            break;
-        case 'hi_IN':
-            siteCurrency = 'INR';
-            break;
-        case 'hr_HR':
-            siteCurrency = 'HRK';
-            break;
-        case 'hu_HU':
-            siteCurrency = 'HUF';
-            break;
-        case 'in_ID':
-            siteCurrency = 'IDR';
-            break;
-        case 'it_IT':
-            siteCurrency = 'EUR';
-            break;
-        case 'ja_JP':
-            siteCurrency = 'JPY';
-            break;
-        case 'ml_IN':
-            siteCurrency = 'INR';
-            break;
-        case 'nl_NL':
-            siteCurrency = 'EUR';
-            break;
-        case 'no_NO':
-            siteCurrency = 'NOK';
-            break;
-        case 'pl_PL':
-            siteCurrency = 'PLN';
-            break;
-        case 'pt_PT':
-            siteCurrency = 'EUR';
-            break;
-        case 'ro_RO':
-            siteCurrency = 'RON';
-            break;
-        case 'ru_RU':
-            siteCurrency = 'RUB';
-            break;
-        case 'sk_SK':
-            siteCurrency = 'EUR';
-            break;
-        case 'sn_ZW':
-            siteCurrency = 'USD';// ZWD not available
-            break;
-        case 'sq_AL':
-            siteCurrency = 'ALL';
-            break;
-        case 'sr_RS':
-            siteCurrency = 'RSD';
-            break;
-        case 'sv_SE':
-            siteCurrency = 'SEK';
-            break;
-        case 'ta_IN':
-            siteCurrency = 'INR';
-            break;
-        case 'tl_PH':
-            siteCurrency = 'PHP';
-            break;
-        case 'tr':
-            siteCurrency = 'TRY';
-            break;
-        case 'ur_PK':
-            siteCurrency = 'PKR';
-            break;
-        case 'vi_VN':
-            siteCurrency = 'VND';
-            break;
-        case 'zh_CN':
-            siteCurrency = 'CNY';
-            break;
-        default:
-            siteCurrency = 'USD';
-            break;
-    }
+
+    siteCurrency = $('.curry').data('locale');
+    siteCurrency = (siteCurrency!=undefined)?siteCurrency:'USD';
     return siteCurrency;
 }
+
 
 function getSiteCurrency() {
     return getlocale();
@@ -308,20 +196,30 @@ $(function(){
      }
 
     $(function(){
-        if ($('.curry').length){
-            $('.my-future-ddm').curry({
-                change: true,
-                target: '.price-curry',
-                base: savedCurrency == undefined ? siteCurrency : savedCurrency,
-                symbols: {}
-            }).change(function(){
-                var selected = $(this).find(':selected'), // get selected currency
-                currency = selected.val(); // get currency name
-          
-                getRate(siteCurrency, currency);
-                setCookie('site_currency', currency, { expires: 7, path: '' });
-            });
-        }
+      if ($('.curry').length){
+        $('.my-future-ddm').curry({
+            change: true,
+            target: '.price-curry',
+            base: savedCurrency == undefined ? siteCurrency : savedCurrency,
+            symbols: {}
+        }).change(function(){
+            var selected = $(this).find(':selected'), // get selected currency
+            currency = selected.val(); // get currency name
+      
+            getRate(siteCurrency, currency);
+            setCookie('site_currency', currency, { expires: 7, path: '' });
+        });
+      } else {
+        $('.my-future-ddm').curry({
+            change: true,
+            target: '.price-curry',
+            base: savedCurrency == undefined ? siteCurrency : savedCurrency,
+            symbols: {}
+        }).change(function(){
+            var selected = $(this).find(':selected'), // get selected currency
+            currency = selected.val(); // get currency name
+        });
+      }
     });
 });
 
