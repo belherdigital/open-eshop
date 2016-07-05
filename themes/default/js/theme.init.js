@@ -130,9 +130,14 @@ $(function(){
 
 function getlocale() {
 
-    siteCurrency = $('.curry').data('locale');
-    siteCurrency = (siteCurrency!=undefined)?siteCurrency:'USD';
-    return siteCurrency;
+    siteCurrency = $('.curry-widget').data('default');
+    if(siteCurrency != undefined && siteCurrency != ''){
+        return siteCurrency;
+    } else {
+      siteCurrency = $('.curry').data('locale');
+      siteCurrency = (siteCurrency!=undefined)?siteCurrency:'USD';
+      return siteCurrency;
+  }
 }
 
 
