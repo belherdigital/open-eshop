@@ -6,7 +6,7 @@
     </div>
 <?endif?>
 <div class="panel-body">
-    <div class="btn-group curry-widget" data-currencies="<?=$widget->currencies;?>">
+    <div class="btn-group curry-widget" data-currencies="<?=$widget->currencies;?>" data-default="<?=($widget->default);?>">
         <div class="my-future-ddm"></div>
     </div>
 </div>
