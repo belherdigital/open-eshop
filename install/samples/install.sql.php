@@ -491,6 +491,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('product', 'qr_code', 0),
 ('product', 'count_visits', 1),
 ('email', 'notify_email', '".core::request('ADMIN_EMAIL')."'),
+('email', 'notify_name', '"."no-reply ".core::request('SITE_NAME')."'),
 ('email', 'new_sale_notify', 0),
 ('email', 'smtp_active', 0),
 ('email', 'smtp_host', ''),
