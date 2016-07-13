@@ -11,7 +11,7 @@
 class Controller_Panel_Update extends Controller_Panel_OC_Update {    
 
     /**
-     * This function will upgrade DB that didn't existed in versions prior to 2.4.0
+     * This function will upgrade DB that didn't existed in versions prior to 2.5.0
      */
     public function action_250()
     {
@@ -20,13 +20,7 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
         {
             DB::query(Database::UPDATE,"UPDATE `".self::$db_prefix."config` SET `config_value`= REPLACE(`config_value`,',\"Yahoo\":{\"enabled\":\"0\",\"keys\":{\"id\":',',\"Yahoo\":{\"enabled\":\"0\",\"keys\":{\"key\":') WHERE `group_name` = 'social' AND `config_key`='config' AND `config_value` LIKE '%,\"Yahoo\":{\"enabled\":\"0\",\"keys\":{\"id\":%'")->execute();
         }catch (exception $e) {}
-    }
 
-     /**
-     * This function will upgrade DB that didn't existed in versions prior to 2.4.0
-     */
-    public function action_241()
-    {
         //new configs
         $configs = array(
                         array( 'config_key'     => 'notify_name',
