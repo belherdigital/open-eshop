@@ -1,6 +1,16 @@
 <?php defined('SYSPATH') or die('No direct script access.');
                 return array (
   
+ '2.4.0' => 
+  array (
+    'codename' => 'Munich',
+    'released' => '2016-06-07',
+    'blog' => 'http://open-eshop.com/2016/06/07/open-eshop-2-4-0/',
+    'changelog' => 'https://github.com/open-classifieds/open-eshop/compare/2.3.0...2.4.0',
+    'issues' => 'https://github.com/open-classifieds/open-eshop/issues?q=milestone%3A2.4.0+is%3Aclosed',
+    'download' => 'http://j.mp/oe_240',
+  ),
+
     '2.3.0' => 
   array (
     'codename' => 'Berlin',

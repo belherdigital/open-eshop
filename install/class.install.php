@@ -23,7 +23,7 @@ class install{
      * Software install settings
      * @var string
      */
-    const VERSION   = '2.3.0';
+    const VERSION   = '2.4.0';
 
     /**
      * default locale/language of the install
@@ -152,9 +152,9 @@ class install{
                                     'mandatory' => TRUE,
                                     'result'    => (is_dir(APPPATH) AND is_file(APPPATH.'bootstrap'.EXT))
                                     ),
-                'PHP'   =>array('message'   => 'PHP 5.5 or newer required, this version is '. PHP_VERSION,
+                'PHP'   =>array('message'   => 'PHP 5.6 or newer required, this version is '. PHP_VERSION,
                                     'mandatory' => TRUE,
-                                    'result'    => version_compare(PHP_VERSION, '5.5', '>=')
+                                    'result'    => version_compare(PHP_VERSION, '5.6', '>=')
                                     ),
                 'mod_rewrite'=>array('message'  => $mod_msg,
                                     'mandatory' => FALSE,

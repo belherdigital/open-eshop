@@ -280,6 +280,20 @@ class Controller_Panel_Auth extends Controller {
      */
     public function action_register()
     {
+        //validates captcha
+        if (Core::post('ajaxValidateCaptcha'))
+        {
+            $this->auto_render = FALSE;
+            $this->template = View::factory('js');
+
+            if (captcha::check('register', TRUE))
+                $this->template->content = 'true';
+            else
+                $this->template->content = 'false';
+            
+            return;
+        }
+        
         $this->template->content = View::factory('pages/auth/register');
         $this->template->content->msg = '';
         
