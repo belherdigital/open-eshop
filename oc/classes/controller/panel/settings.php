@@ -128,6 +128,7 @@ class Controller_Panel_Settings extends Auth_Controller {
         {
             $validation =   Validation::factory($this->request->post())
             ->rule('notify_email', 'email')
+            ->rule('notify_name', 'not_empty')
             ->rule('new_sale_notify', 'range', array(':value', 0, 1))
             ->rule('elastic_active', 'range', array(':value', 0, 1))
             ->rule('smtp_active', 'range', array(':value', 0, 1))

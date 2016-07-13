@@ -36,6 +36,22 @@
                         </div>
                         
                         <div class="form-group">
+                            <?= FORM::label($forms['notify_name']['key'], __('Notify name'), array('class'=>'control-label col-sm-4', 'for'=>$forms['notify_name']['key']))?>
+                            <div class="col-sm-8">
+                                <?= FORM::input($forms['notify_name']['key'], $forms['notify_name']['value'], array(
+                                'placeholder' => "no-reply ".core::config('general.site_name'), 
+                                'class' => 'tips form-control', 
+                                'id' => $forms['notify_name']['key'], 
+                                'data-content'=> __("Name from where we send the emails, also used for software communications."),
+                                'data-trigger'=>"hover",
+                                'data-placement'=>"right",
+                                'data-toggle'=>"popover",
+                                'data-original-title'=>__("Name From"),
+                                ))?> 
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <?= FORM::label($forms['new_sale_notify']['key'], __('Notify me on new sale'), array('class'=>'control-label col-sm-4', 'for'=>$forms['new_sale_notify']['key']))?>
                             <div class="col-sm-8">
                                 <div class="onoffswitch">
