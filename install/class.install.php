@@ -519,7 +519,7 @@ class core{
     public static function generate_password ($length = 16)
     {
         // define possible characters
-        $possible = '23456789+@%$*abcdefghjkmnpqrstuvwxyz';
+        $possible = '23456789@%$*abcdefghjkmnpqrstuvwxyz';
         $possible_length = strlen($possible)-1;
 
         // add random characters to $password until $length is reached
