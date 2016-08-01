@@ -365,7 +365,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."content` (`ord
 (0, 'Congratulations! New affiliate commission [AMOUNT]', 'affiliate-commission', 'Congratulations!,\n\n We just registered a sale from your affiliate link for the amount of [AMOUNT], check them all at your affiliate panel [URL.AFF]. \n\n Thanks for using our affiliate program!', '".core::request('ADMIN_EMAIL')."', 'email', 1),
 (0, 'Password Changed [SITE.NAME]', 'password-changed', 'Hello [USER.NAME],\n\nYour password has been changed.\n\nThese are now your user details:\nEmail: [USER.EMAIL]\nPassword: [USER.PWD]\n\nWe do not have your original password anymore.\n\nRegards!', '".core::request('ADMIN_EMAIL')."', 'email', 1),
 (0, 'Receipt for [ORDER.DESC] #[ORDER.ID]', 'new-order', 'Hello [USER.NAME],Thanks for buying [ORDER.DESC].\n\nPlease complete the payment here [URL.CHECKOUT]', '".core::request('ADMIN_EMAIL')."', 'email', 1),
-(0, 'There is a new reply on the forum', 'new-forum-answer', 'There is a new reply on a forum post where you participated.<br><br><a target=\"_blank\" href=\"[FORUM.LINK]\">Check it here</a><br><br>[FORUM.LINK]<br>', '".core::request('ADMIN_EMAIL').", 'email',  1);");
+(0, 'There is a new reply on the forum', 'new-forum-answer', 'There is a new reply on a forum post where you participated.<br><br><a target=\"_blank\" href=\"[FORUM.LINK]\">Check it here</a><br><br>[FORUM.LINK]<br>', '".core::request('ADMIN_EMAIL')."', 'email',  1);");
 
 
 /**
