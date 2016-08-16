@@ -35,7 +35,8 @@ class Controller_Bitpay extends Controller{
             $options = array(   'buyerName'     => $order->user->name,
                                 'buyerEmail'    => $order->user->email,
                                 'currency'      => $order->currency,
-                                'redirectURL'   => Route::url('default', array('controller'=>'product','action'=>'goal','id'=>$order->id_order))
+                                'redirectURL'   => Route::url('default', array('controller'=>'product','action'=>'goal','id'=>$order->id_order)),
+                                'notificationURL' => Route::url('default',array('controller'=>'bitpay','action'=>'ipn','id'=>$id_order))
                             );
 
             $invoice = Bitpay::bpCreateInvoice($order->id_order, $order->amount, '', $options);
@@ -60,6 +61,8 @@ class Controller_Bitpay extends Controller{
     {
         $this->auto_render = FALSE;
 
+        $id_order = $this->request->param('id');
+        
         //ipn result validated
         $ipn_result = Bitpay::bpVerifyNotification();
 
@@ -70,7 +73,7 @@ class Controller_Bitpay extends Controller{
             
             //retrieve info for the item in DB
             $order = new Model_Order();
-            $order = $order->where('id_order', '=', $ipn_result['orderId'])
+            $order = $order->where('id_order', '=', $id_order)
                            ->where('status', '=', Model_Order::STATUS_CREATED)
                            ->limit(1)->find();
 
