@@ -11,7 +11,6 @@ $I->fillField("//form[contains(@action,'http://eshop.lo/oc-panel/auth/register')
 $I->fillField("//form[contains(@action,'http://eshop.lo/oc-panel/auth/register')]/div/div/input[@name='password2']","1234");
 $I->click(".register button[type=submit]");
 
-
 $I->amOnPage('/oc-panel/');
 $I->see('Welcome');
 $I->see('user');

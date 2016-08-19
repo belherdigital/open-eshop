@@ -11,7 +11,7 @@ $I->click('auth_redirect');
 $I->amOnPage('/oc-panel');
 $I->see('Thanks for using our website.');
 
-// Edit admin name and add description
+// Edit user name and add description
 $I->amOnPage('/oc-panel/profile/edit');
 $I->fillField('#name','user user');
 $I->fillField('#description','user description');

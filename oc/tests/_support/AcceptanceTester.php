@@ -20,7 +20,14 @@ class AcceptanceTester extends \Codeception\Actor
 {
     use _generated\AcceptanceTesterActions;
 
-   /**
-    * Define custom actions here
-    */
+    public function login_admin()
+    {
+    	$I = $this;
+    	$I->amOnPage('/oc-panel/auth/login');
+		$I->fillField('email','admin@eshop.lo');
+		$I->fillField('password','1234');
+		$I->click('auth_redirect');
+		$I->amOnPage('/oc-panel');
+		$I->see('Welcome admin');
+    }
 }
