@@ -2,14 +2,7 @@
 $I = new AcceptanceTester($scenario);
 $I->wantTo('change product configurations');
 
-$I->amOnPage('/oc-panel/auth/login');
-$I->fillField('email','admin@eshop.lo');
-$I->fillField('password','1234');
-
-$I->click('auth_redirect');
-
-$I->amOnPage('/oc-panel');
-$I->see('Welcome admin');
+$I->login_admin();
 
 // Select Featured products in homepage slider
 $I->amOnPage('/oc-panel/settings/product');

@@ -20,14 +20,7 @@ $I->amOnPage('/oc-panel/auth/logout');
 $I->see('Login','a');
 
 // Login as admin to mark order as paid
-$I->amOnPage('/oc-panel/auth/login');
-$I->fillField('email','admin@eshop.lo');
-$I->fillField('password','1234');
-
-$I->click('auth_redirect');
-
-$I->amOnPage('/oc-panel');
-$I->see('Welcome admin');
+$I->login_admin();
 
 $I->amOnPage('/oc-panel/Order/update/1');
 $I->fillField('formorm[pay_date]','2015-11-30');
@@ -66,14 +59,7 @@ $I->amOnPage('/oc-panel/auth/logout');
 $I->see('Login','a');
 
 // Answer the ticket
-$I->amOnPage('/oc-panel/auth/login');
-$I->fillField('email','admin@eshop.lo');
-$I->fillField('password','1234');
-
-$I->click('auth_redirect');
-
-$I->amOnPage('/oc-panel');
-$I->see('Welcome admin');
+$I->login_admin();
 
 $I->amOnPage('/oc-panel/support/index/admin');
 $I->see('Need help');
@@ -116,18 +102,10 @@ $I->amOnPage('/oc-panel/auth/logout');
 $I->see('Login','a');
 
 // Login as admin to see closed ticket
-$I->amOnPage('/oc-panel/auth/login');
-$I->fillField('email','admin@eshop.lo');
-$I->fillField('password','1234');
-
-$I->click('auth_redirect');
-
-$I->amOnPage('/oc-panel');
-$I->see('Welcome admin');
+$I->login_admin();
 
 $I->amOnPage('/oc-panel/support/index/admin');
 $I->see('Closed','span');
-
 
 // Logout
 $I->amOnPage('/oc-panel/auth/logout');

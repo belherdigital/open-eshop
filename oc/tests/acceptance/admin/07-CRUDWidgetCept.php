@@ -2,14 +2,7 @@
 $I = new AcceptanceTester($scenario);
 $I->wantTo('crud a widget');
 
-$I->amOnPage('/oc-panel/auth/login');
-$I->fillField('email','admin@eshop.lo');
-$I->fillField('password','1234');
-
-$I->click('auth_redirect');
-
-$I->amOnPage('/oc-panel');
-$I->see('Welcome admin');
+$I->login_admin();
 
 // CREATE WIDGET
 $I->amOnPage('/oc-panel/widget/index');
@@ -21,7 +14,6 @@ $I->click('Save changes');
 
 $I->seeElement('.alert.alert-success');
 $I->see('Widget created in sidebar');
-
 
 // READ
 // On default theme
