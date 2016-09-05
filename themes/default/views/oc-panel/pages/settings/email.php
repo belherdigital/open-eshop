@@ -79,7 +79,7 @@
                     <div class="form-horizontal">
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-4">
-                                <a class="btn btn-success" href="http://j.mp/elasticemailoc" target="_blank" onclick='setCookie("elastic_alert",1,365)' >Sign Up ElasticEmail $5 Free</a>
+                                <a class="btn btn-success" href="http://j.mp/elasticemailoc" target="_blank" onclick='setCookie("elastic_alert",1,365)' >Sign Up ElasticEmail 150K emails free per month</a>
                             </div>  
                         </div>  
                         <div class="form-group">
