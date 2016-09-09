@@ -19,6 +19,7 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
         try 
         {
             DB::query(Database::UPDATE,"UPDATE `".self::$db_prefix."config` SET `config_value`= REPLACE(`config_value`,',\"Yahoo\":{\"enabled\":\"0\",\"keys\":{\"id\":',',\"Yahoo\":{\"enabled\":\"0\",\"keys\":{\"key\":') WHERE `group_name` = 'social' AND `config_key`='config' AND `config_value` LIKE '%,\"Yahoo\":{\"enabled\":\"0\",\"keys\":{\"id\":%'")->execute();
+            DB::query(Database::UPDATE,"UPDATE ".self::$db_prefix."content SET description='Hello Admin,\n\n [EMAIL.SENDER]: [EMAIL.FROM], have a message for you:\n\n [EMAIL.SUBJECT]\n\n [EMAIL.BODY] \n\n Regards!' WHERE seotitle='contact-admin'")->execute();
         }catch (exception $e) {}
 
         //new configs
