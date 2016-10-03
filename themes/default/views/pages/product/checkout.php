@@ -183,6 +183,9 @@
                                     <?if( ($alt = $order->alternative_pay_button()) != ''):?>
                                         <li class="text-right"><?=$alt?></li>
                                     <?endif?>
+                                    <?if(($mp = MercadoPago::button($order)) != ''):?>
+                                        <li class="text-right"><?=$mp?></li>
+                                    <?endif?>
                                 </ul>
                             </div>
                             

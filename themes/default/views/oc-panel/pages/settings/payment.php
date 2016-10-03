@@ -457,6 +457,63 @@
             </div>
 
             <div class="panel panel-default">
+                <div class="panel-heading">MercadoPago</div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-md-8 col-md-offset-4">
+                                <p>
+                                Get your <strong>CLIENT_ID</strong> and <strong>CLIENT_SECRET</strong> in the following address:
+                                <ul>
+                                <li>Argentina: <a href="https://www.mercadopago.com/mla/herramientas/aplicaciones">https://www.mercadopago.com/mla/herramientas/aplicaciones</a></li>
+                                <li>Brazil: <a href="https://www.mercadopago.com/mlb/ferramentas/aplicacoes">https://www.mercadopago.com/mlb/ferramentas/aplicacoes</a></li>
+                                <li>Mexico: <a href="https://www.mercadopago.com/mlm/herramientas/aplicaciones">https://www.mercadopago.com/mlm/herramientas/aplicaciones</a></li>
+                                <li>Venezuela: <a href="https://www.mercadopago.com/mlv/herramientas/aplicaciones">https://www.mercadopago.com/mlv/herramientas/aplicaciones</a></li>
+                                <li>Colombia: <a href="https://www.mercadopago.com/mco/herramientas/aplicaciones">https://www.mercadopago.com/mco/herramientas/aplicaciones</a></li>
+                                <li>Chile: <a href="https://www.mercadopago.com/mlc/herramientas/aplicaciones">https://www.mercadopago.com/mlc/herramientas/aplicaciones</a></li>
+                                </ul>
+                                </p>
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <?= FORM::label($forms['mercadopago_client_id']['key'], __('Client ID'), array('class'=>'col-md-4 control-label', 'for'=>$forms['mercadopago_client_id']['key']))?>
+                            <div class="col-md-8">
+                                <?= FORM::input($forms['mercadopago_client_id']['key'], $forms['mercadopago_client_id']['value'], array(
+                                'placeholder' => "", 
+                                'class' => 'tips form-control', 
+                                'id' => $forms['mercadopago_client_id']['key'],
+                                'data-content'=> __("Client ID"),
+                                'data-trigger'=>"hover",
+                                'data-placement'=>"right",
+                                'data-toggle'=>"popover",
+                                'data-original-title'=>'', 
+                                ))?> 
+                            </div>
+                        </div>
+        
+                        <div class="form-group">
+                            <?= FORM::label($forms['mercadopago_client_secret']['key'], __('Client Secret'), array('class'=>'col-md-4 control-label', 'for'=>$forms['mercadopago_client_secret']['key']))?>
+                            <div class="col-md-8">
+                                <?= FORM::input($forms['mercadopago_client_secret']['key'], $forms['mercadopago_client_secret']['value'], array(
+                                'placeholder' => "", 
+                                'class' => 'tips form-control', 
+                                'id' => $forms['mercadopago_client_secret']['key'],
+                                'data-content'=> __("Client Secret"),
+                                'data-trigger'=>"hover",
+                                'data-placement'=>"right",
+                                'data-toggle'=>"popover",
+                                'data-original-title'=>'', 
+                                ))?> 
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
                 <div class="panel-heading">Prevent Fraud</div>
                 <div class="panel-body">
                     <div class="form-horizontal">

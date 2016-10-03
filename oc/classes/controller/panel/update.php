@@ -27,6 +27,12 @@ class Controller_Panel_Update extends Controller_Panel_OC_Update {
                         array( 'config_key'     => 'notify_name',
                                'group_name'     => 'email', 
                                'config_value'   => 'no-reply '.core::config('general.site_name')),
+                        array( 'config_key'     => 'mercadopago_client_id',
+                               'group_name'     => 'payment', 
+                               'config_value'   => ''),
+                        array( 'config_key'     => 'mercadopago_client_secret',
+                               'group_name'     => 'payment', 
+                               'config_value'   => ''),
                         );
 
         Model_Config::config_array($configs);

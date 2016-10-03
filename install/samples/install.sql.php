@@ -420,6 +420,8 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('payment', 'fraudlabspro', ''),
 ('payment', 'paysbuy', ''),
 ('payment', 'paysbuy_sandbox', '0'),
+('payment', 'mercadopago_client_id', ''),
+('payment', 'mercadopago_client_secret', ''),
 ('general', 'api_key', '".core::generate_password(32)."'),
 ('general', 'number_format', '%n'),
 ('general', 'date_format', 'd-m-y'),
