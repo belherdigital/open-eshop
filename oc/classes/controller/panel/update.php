@@ -11,6 +11,24 @@
 class Controller_Panel_Update extends Controller_Panel_OC_Update {    
 
     /**
+     * This function will upgrade DB that didn't existed in versions prior to 2.6.0
+     */
+    public function action_260()
+    {
+
+        //new configs
+        $configs = array(
+                        
+                        array( 'config_key'     => 'stripe_3d_secure',
+                               'group_name'     => 'payment', 
+                               'config_value'   => '0'),
+                        );
+        
+        
+        Model_Config::config_array($configs);
+    }
+
+    /**
      * This function will upgrade DB that didn't existed in versions prior to 2.5.0
      */
     public function action_250()

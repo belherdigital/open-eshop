@@ -370,6 +370,26 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                            <?= FORM::label($forms['stripe_3d_secure']['key'], __('Requires 3D security').' - BETA', array('class'=>'col-md-4 control-label', 'for'=>$forms['stripe_3d_secure']['key']))?>
+                            <div class="col-md-8">
+                                <div class="onoffswitch">
+                                    <?= FORM::hidden($forms['stripe_3d_secure']['key'], 0);?>
+                                    <?= FORM::checkbox($forms['stripe_3d_secure']['key'], 1, (bool) $forms['stripe_3d_secure']['value'], array(
+                                    'placeholder' => "TRUE or FALSE", 
+                                    'class' => 'onoffswitch-checkbox', 
+                                    'id' => $forms['stripe_3d_secure']['key'], 
+                                    'data-content'=> '',
+                                    'data-trigger'=>"hover",
+                                    'data-placement'=>"right",
+                                    'data-toggle'=>"popover",
+                                    'data-original-title'=>'',                     
+                                    ))?>
+                                    <?= FORM::label($forms['stripe_3d_secure']['key'], "<span class='onoffswitch-inner'></span><span class='onoffswitch-switch'></span>", array('class'=>'onoffswitch-label', 'for'=>$forms['stripe_3d_secure']['key']))?>
+                                </div>
+                            </div>
+                        </div>
                         
                     </div>
                 </div>
