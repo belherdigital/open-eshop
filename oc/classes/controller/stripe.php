@@ -173,9 +173,6 @@ class Controller_Stripe extends Controller{
                     Alert::set(Alert::ERROR, 'The card has been declined');
                     $this->redirect(Route::url('default', array('controller'=>'product','action'=>'checkout','id'=>$order->id_order)));
                 }
-
-                //mark as paid
-                $order->confirm_payment('stripe', $charge->id);
                 
                 //redirect him to the goal
                 Alert::set(Alert::SUCCESS, __('Thanks for your payment!'));

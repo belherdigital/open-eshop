@@ -169,7 +169,7 @@ class Model_Order extends ORM {
     { 
         
         // update orders
-        if($this->loaded())
+        if($this->loaded() AND $this->status != self::STATUS_PAID)
         {
             $product = $this->product;
             $user    = $this->user;
@@ -219,9 +219,9 @@ class Model_Order extends ORM {
             //loop all the licenses to an string
             if (count($licenses)>0)
             {
-                $license = '\n\n==== '.__('Your Licenses').' ====';
+                $license = '<br><br>==== '.__('Your Licenses').' ====';
                 foreach ($licenses as $l) 
-                    $license.='\n'.$l->license;
+                    $license.='<br>'.$l->license;
             }
 
             //download link
@@ -229,7 +229,7 @@ class Model_Order extends ORM {
             if ($product->has_file()==TRUE)
             {
                 $dwnl_link = $user->ql('oc-panel',array('controller'=>'profile','action'=>'download','id'=>$this->id_order));
-                $download = '\n\n==== '.__('Download').' ====\n<a href="'.$dwnl_link.'">'.$dwnl_link.'</a>';
+                $download = '<br><br>==== '.__('Download').' ====<br><a href="'.$dwnl_link.'">'.$dwnl_link.'</a>';
             }
                 
             
@@ -246,7 +246,7 @@ class Model_Order extends ORM {
                 elseif ( $expire_times > 0)
                     $expire = sprintf(__('Can be downloaded %u times.'),$expire_times);
 
-                $expire = '\n'.$expire;
+                $expire = '<br>'.$expire;
             }
             
             //param for sale email
