@@ -11,7 +11,7 @@ $I->see('Your installation version is');
 $I->see('Your Hash Key for this installation is');
 $I->seeElement('.btn.btn-primary.pull-right.ajax-load');
 $I->see('Berlin');
-$I->see('2.5.0');
+$I->see('2.6.0');
 $I->see('Gant');
 
 // Crontab
