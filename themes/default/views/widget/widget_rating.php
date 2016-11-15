@@ -4,7 +4,7 @@
 <div class="row">
 	<div id="myCarousel" class="vertical-slider carousel vertical slide col-md-12" data-ride="carousel">
         <div class="col-md-6">
-            <span data-slide="next" class="btn-vertical-slider glyphicon-chevron-up "
+            <span data-slide="next" class="btn-vertical-slider glyphicon glyphicon-chevron-up "
                 style="font-size: 30px"></span>  
         </div>
         <br />
