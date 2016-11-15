@@ -29,7 +29,7 @@ class Controller_Panel_Order extends Auth_CrudAjax {
 
     function __construct(Request $request, Response $response)
     {
-        parent::__construct($request, $response);
+        
         $this->_buttons_actions = array( array( 'url'   => Route::url('oc-panel', array('controller'=>'profile', 'action'=>'order')).'/' ,
                                                 'title' => __('See order'),
                                                 'class' => '',
@@ -45,6 +45,8 @@ class Controller_Panel_Order extends Auth_CrudAjax {
                                         'id_product' => array('type'=>'SELECT','table'=>'products','key'=>'id_product','value'=>'title'),
                                         'status'     => Model_Order::$statuses,
                                         );
+        
+        parent::__construct($request, $response);
     }
 
     /**
