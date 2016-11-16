@@ -12,7 +12,7 @@
                 <hr />
                 <div class="row rating-desc">
                     <div class="col-md-8">
-                        <?for ($i=0; $i < round($product->rate,1); $i++):?>
+                        <?for ($i=0; $i < round($product->rate); $i++):?>
                             <span class="glyphicon glyphicon-star"></span>
                         <?endfor?>
                         <span itemprop="average"><?=round($product->rate,1)?>/</span>
