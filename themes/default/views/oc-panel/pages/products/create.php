@@ -272,7 +272,7 @@
                             <div class="">
                                 <div class="checkbox ">
                                     <label>
-                                          <input type="checkbox" name="status" value="" checked="checked">  &nbsp; <?=__('Active')?>?
+                                          <input type="checkbox" name="status" checked="checked">  &nbsp; <?=__('Active')?>?
                                     </label>
                                   </div>
                               </div>
