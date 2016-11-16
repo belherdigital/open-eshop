@@ -48,7 +48,7 @@
                 <meta itemprop="value" content="<?=$product->rate?>" >
                 <meta itemprop="best"  content="<?=Model_Review::RATE_MAX?>" />
                 <a class="" href="<?=Route::url('product-review', array('seotitle'=>$product->seotitle,'category'=>$product->category->seoname))?>" >
-                    <?for ($i=0; $i < round($product->rate,1); $i++):?>
+                    <?for ($i=0; $i < round($product->rate); $i++):?>
                         <span class="glyphicon glyphicon-star"></span>
                     <?endfor?>
                 </a>
