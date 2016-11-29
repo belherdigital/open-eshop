@@ -167,6 +167,11 @@ class Controller extends Kohana_Controller
             $this->template->meta_description = seo::text($this->template->meta_description);
             
         }
+        
+        //no cache for logged users / actions, so we can use varnish or whatever ;)
+        if ($this->user != NULL)
+            $this->response->headers('cache-control', 'no-cache, no-store, max-age=0, must-revalidate');
+
         $this->response->body($this->template->render());       
        
     }
