@@ -162,6 +162,11 @@ class Controller_Panel_Profile extends Auth_Controller {
 
         if($this->request->post())
         {
+            //change elastic email status, he was subscribed but not anymore
+            if ( Core::config('email.elastic_listname')!=''  AND $user->subscriber == 1 AND core::post('subscriber',0) == 0 )
+                ElasticEmail::unsubscribe(Core::config('email.elastic_listname'),$user->email);
+            elseif ( Core::config('email.elastic_listname')!=''  AND $user->subscriber == 0 AND core::post('subscriber',0) == 1 )
+                ElasticEmail::subscribe(Core::config('email.elastic_listname'),$user->email,$user->name);
             
             $user->name = core::post('name');
             $user->email = core::post('email');

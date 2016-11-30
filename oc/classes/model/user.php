@@ -104,6 +104,10 @@ class Model_User extends Model_OC_User {
         //delete posts
         DB::delete('posts')->where('id_user', '=',$this->id_user)->execute();
 
+        //unsusbcribe from elasticemail
+        if ( Core::config('email.elastic_listname')!='' )
+            ElasticEmail::unsubscribe(Core::config('email.elastic_listname'),$this->email);
+        
         parent::delete();
     }
 

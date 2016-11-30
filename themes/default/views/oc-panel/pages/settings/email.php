@@ -131,6 +131,21 @@
                                 ))?> 
                             </div>
                         </div>
+                        <div class="form-group">
+                            <?= FORM::label($forms['elastic_listname']['key'], __('List name'), array('class'=>'control-label col-sm-4', 'for'=>$forms['elastic_listname']['key']))?>
+                            <div class="col-sm-8">
+                                <?= FORM::input($forms['elastic_listname']['key'], $forms['elastic_listname']['value'], array(
+                                'placeholder' => '', 
+                                'class' => 'tips form-control', 
+                                'id' => $forms['elastic_listname']['key'], 
+                                'data-content'=> '',
+                                'data-trigger'=>"hover",
+                                'data-placement'=>"right",
+                                'data-toggle'=>"popover",
+                                'data-original-title'=>'',              
+                                ))?> 
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

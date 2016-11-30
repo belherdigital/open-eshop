@@ -506,6 +506,7 @@ mysqli_query($link,"INSERT INTO `".core::request('TABLE_PREFIX')."config` (`grou
 ('email', 'elastic_active', 0),
 ('email', 'elastic_username', ''),
 ('email', 'elastic_password', ''),
+('email', 'elastic_listname', ''),
 ('affiliate', 'active', '0'),
 ('affiliate', 'cookie', '90'),
 ('affiliate', 'payment_days', '30'),
