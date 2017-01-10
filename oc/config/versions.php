@@ -4,17 +4,17 @@
   array (
     'codename' => 'Frankfurt',
     'released' => '2017-01-10',
-    'blog' => '',
-    'changelog' => 'https://github.com/open-classifieds/open-eshop/compare/2.7.0...2.7.0',
+    'blog' => ' https://open-eshop.com/2017/01/10/open-eshop-2-7-0/',
+    'changelog' => 'https://github.com/open-classifieds/open-eshop/compare/2.6.0...2.7.0',
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?q=milestone%3A2.7.0+is%3Aclosed',
     'download' => 'https://j.mp/oe_270',
   ), 
-    '2.7.0' => 
+    '2.6.0' => 
   array (
     'codename' => 'Dusseldorf',
     'released' => '2016-11-17',
     'blog' => 'http://open-eshop.com/2016/11/17/open-eshop-2-6-0/',
-    'changelog' => 'https://github.com/open-classifieds/open-eshop/compare/2.5.0...2.7.0',
+    'changelog' => 'https://github.com/open-classifieds/open-eshop/compare/2.5.0...2.6.0',
     'issues' => 'https://github.com/open-classifieds/open-eshop/issues?q=milestone%3A2.7.0+is%3Aclosed',
     'download' => 'https://j.mp/oe_260',
   ),  
