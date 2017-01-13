@@ -135,7 +135,7 @@
                             </table>
                         </div><!--//col-*-->
                         <div class="col-xs-4">
-                            <form class="form-inline"  method="post" action="<?=Core::get('current_url')?>">         
+                            <form class="form-inline"  method="post" action="<?=URL::site(Request::detect_uri(), TRUE)?>">         
                                 <?if ($order->coupon->loaded()):?>
                                     <?=Form::hidden('coupon_delete',$order->coupon->name)?>
                                     <button type="submit" class="btn btn-xs btn-danger">
