@@ -1,7 +1,7 @@
 <?if(Model_Coupon::available()):?>
 <h3><?=$widget->text_title?></h3>
 
-<form class=""  method="post" action="<?=Core::get('current_url')?>">         
+<form class=""  method="post" action="<?=URL::site(Request::detect_uri(), TRUE)?>">         
     <?if (Model_Coupon::current()->loaded()):?>
         <?=Form::hidden('coupon_delete',Model_Coupon::current()->name)?>
         <button type="submit" class="btn btn-warning"><?=__('Delete')?> <?=Model_Coupon::current()->name?></button>
