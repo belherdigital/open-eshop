@@ -64,7 +64,7 @@ class URL extends Kohana_URL {
     public static function current()
     {
         //in case is  CLI
-        if (empty($_SERVER['QUERY_STRING']) OR defined('SUPPRESS_REQUEST'))
+        if (!isset($_SERVER['QUERY_STRING']) OR Request::$current == NULL OR defined('SUPPRESS_REQUEST'))
             return URL::base();
 
         try {
