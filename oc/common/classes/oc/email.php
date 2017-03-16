@@ -219,25 +219,6 @@ class OC_Email {
      */
     public static function ElasticEmail($to,$to_name='', $subject, $body_html, $from, $from_name) {
         
-        // Initialize cURL
-        $ch = curl_init();
-        
-        // Set cURL options
-        curl_setopt($ch, CURLOPT_URL, 'https://api.elasticemail.com/mailer/send');
-        curl_setopt($ch, CURLOPT_POST, 1);
-
-        // Parameter data
-        // $data = array( 
-        //     'username'  => Core::config('email.elastic_username'), 
-        //     'api_key'   => Core::config('email.elastic_username'), 
-        //     'from'      => $from, 
-        //     'from_name' => $from_name, 
-        //     'to'        => $to, 
-        //     'is_html'   => "true", 
-        //     'subject'   => $subject, 
-        //     'body'      => $body 
-        // );
-
         //multiple recipients in elasctic sent as BCC internally
         if (is_array($to))
         {
@@ -250,40 +231,29 @@ class OC_Email {
         elseif($to_name!='')
             $to = $to_name . ' <'.$to.'>;';
         
+        $url = 'https://api.elasticemail.com/v2/email/send';
 
-
-        $data = 'username='.urlencode(Core::config('email.elastic_username')).
-                '&api_key='.urlencode(Core::config('email.elastic_username')).
-                '&from='.urlencode($from).
-                '&from_name='.urlencode($from_name).
-                '&to='.urlencode($to).
-                '&subject='.urlencode($subject).
-                '&body_html='.urlencode($body_html);
-        
-        // Set parameter data to POST fields
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-
-        // Header data
-            $header = "Content-Type: application/x-www-form-urlencoded\r\n";
-            $header .= "Content-Length: ".strlen($data)."\r\n\r\n";
-
-        // Set header
-        curl_setopt($ch, CURLOPT_HEADER, $header);
-
-        //timeout
-        curl_setopt($ch,CURLOPT_TIMEOUT, 2);
-        
-        // Set to receive server response
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        
-        // Set cURL to verify SSL
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        
-        // Get result
-        $result = curl_exec($ch);
-        
-        // Close cURL
-        curl_close($ch);
+            $post = array('from' => urlencode($from),
+            'fromName' => urlencode($from_name),
+            'apikey' => urlencode(Core::config('email.elastic_username')),
+            'subject' => urlencode($subject),
+            'to' => urlencode($to),
+            'bodyHtml' => urlencode($body_html),
+            'isTransactional' => false);
+            
+            $ch = curl_init();
+            curl_setopt_array($ch, array(
+                CURLOPT_URL => $url,
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => $post,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_HEADER => false,
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_TIMEOUT => 10
+            ));
+            
+            $result=curl_exec ($ch);
+            curl_close ($ch);
         
         return ($result === false) ? FALSE : TRUE;
 
