@@ -39,40 +39,41 @@ class ElasticEmail {
         elseif($to_name!='')
             $to = $to_name . ' <'.$to.'>;';
         
-        $data = 'username='.urlencode(Core::config('email.elastic_username')).
-                '&api_key='.urlencode(Core::config('email.elastic_username')).
-                '&from='.urlencode($from).
-                '&from_name='.urlencode($from_name).
-                '&to='.urlencode($to).
-                '&subject='.urlencode($subject).
-                '&body_html='.urlencode($body_html);
-        
-        // Set parameter data to POST fields
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+      
+            $url = 'https://api.elasticemail.com/v2/email/send';
 
-        // Header data
-            $header = "Content-Type: application/x-www-form-urlencoded\r\n";
-            $header .= "Content-Length: ".strlen($data)."\r\n\r\n";
+            $post = array('from' => $from,
+            'fromName' => $from_name,
+            'apikey' => Core::config('email.elastic_username'),
+            'subject' => $subject,
+            'to' => $to,
+            'bodyHtml' => $body_html,
+            'isTransactional' => false);
+            
+            $ch = curl_init();
+            curl_setopt_array($ch, array(
+                CURLOPT_URL => $url,
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => $post,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_HEADER => false,
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_TIMEOUT => 10
+            ));
+            
+            $result=curl_exec ($ch);
+            curl_close ($ch);
+        
 
-        // Set header
-        curl_setopt($ch, CURLOPT_HEADER, $header);
+            $result = json_decode($result); //decode the response
+               
+                if ($result->success === false) { //checking response
+                    Log::instance()->add(Log::ERROR, $result); //write error to log if sending failed
+                    return FALSE;
+                }
 
-        //timeout
-        curl_setopt($ch,CURLOPT_TIMEOUT, 2);
-        
-        // Set to receive server response
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        
-        // Set cURL to verify SSL
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        
-        // Get result
-        $result = curl_exec($ch);
-        
-        // Close cURL
-        curl_close($ch);
-        
-        return ($result === false) ? FALSE : TRUE;
+            return TRUE;
+        //return ($result === false) ? FALSE : TRUE;
     }
 
     /**
