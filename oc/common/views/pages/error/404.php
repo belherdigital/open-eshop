@@ -3,7 +3,7 @@
     
 <div class="well">
     <div class="hero-unit">
-        <h2><?=(Request::current()->param('message')!=NULL)?base64::decode_from_url((Request::current()->param('message'))):__('Page Not Found')?></h2>
+        <h2><?=(Request::current()->param('message')!=NULL)?htmlspecialchars(base64::decode_from_url((Request::current()->param('message')))):__('Page Not Found')?></h2>
         <p><?=__('The requested page')?> <?php echo HTML::anchor($requested_page, $requested_page) ?> <?=__('is not found')?>.</p>
      
         <p><?=__('It is either not existing, moved or deleted. Make sure the URL is correct.')?> </p>
